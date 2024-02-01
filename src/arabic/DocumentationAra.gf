@@ -48,17 +48,44 @@ lin
   InflectionA, InflectionA2 = \adj -> {
     t  = "a" ;
     s1 = heading1 "Adjective" ;
-    s2 = adj.s ! APosit Masc Sg Indef Nom ++ "table TODO"
-    {- ---- TODO
-    frameTable (
-           tr (th ""       ++ th "nom" ++ th "gen") ++
-           tr (th "posit"  ++ td (adj.s ! AAdj Posit  Nom) ++ td (adj.s ! AAdj Posit  Gen)) ++
-           tr (th "compar" ++ td (getCompar Nom adj) ++ td (getCompar Gen adj)) ++
-           tr (th "superl" ++ td (getSuperl Nom adj) ++ td (getSuperl Gen adj))
-         ) ++
-         heading1 "Adverb" ++
-         paragraph (adj.s ! AAdv)
-    -}
+    s2 = frameTable (
+           tr (th ""       ++ th "Nominative" ++ th "Genitive" ++ th "Accusative") ++
+           tr (th "Positive Masculine Singular" ++
+	     td (adj.s ! APosit Masc Sg Indef Nom) ++
+	     td (adj.s ! APosit Masc Sg Indef Gen) ++
+	     td (adj.s ! APosit Masc Sg Indef Acc)
+	     ) ++
+           tr (th "Positive Masculine Dual" ++
+	     td (adj.s ! APosit Masc Dl Indef Nom) ++
+	     td (adj.s ! APosit Masc Dl Indef Gen) ++
+	     td (adj.s ! APosit Masc Dl Indef Acc)
+	     ) ++
+           tr (th "Positive Masculine Plural" ++
+	     td (adj.s ! APosit Masc Pl Indef Nom) ++
+	     td (adj.s ! APosit Masc Pl Indef Gen) ++
+	     td (adj.s ! APosit Masc Pl Indef Acc)
+	     ) ++
+           tr (th "Positive Feminine Singular" ++
+	     td (adj.s ! APosit Fem Sg Indef Nom) ++
+	     td (adj.s ! APosit Fem Sg Indef Gen) ++
+	     td (adj.s ! APosit Fem Sg Indef Acc)
+	     ) ++
+           tr (th "Positive Feminine Dual" ++
+	     td (adj.s ! APosit Fem Dl Indef Nom) ++
+	     td (adj.s ! APosit Fem Dl Indef Gen) ++
+	     td (adj.s ! APosit Fem Dl Indef Acc)
+	     ) ++
+           tr (th "Positive Feminine Plural" ++
+	     td (adj.s ! APosit Fem Pl Indef Nom) ++
+	     td (adj.s ! APosit Fem Pl Indef Gen) ++
+	     td (adj.s ! APosit Fem Pl Indef Acc)
+	     ) ++
+           tr (th "Comparative" ++
+	     td (adj.s ! AComp Indef Nom) ++
+	     td (adj.s ! AComp Indef Gen) ++
+	     td (adj.s ! AComp Indef Acc)
+	     )
+         )
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
