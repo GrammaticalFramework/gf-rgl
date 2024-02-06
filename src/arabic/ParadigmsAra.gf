@@ -128,6 +128,13 @@ resource ParadigmsAra = open
       = \s,a -> a ** {s = table {af => s ++ a.s ! af}}
     } ;
 
+  mascA : (kabir : Str) -> A
+    = \kabir -> lin A (mascAdj kabir) ;
+  mascFemA : (kabir, kabira : Str) -> A
+    = \kabir, kabira -> lin A (mascFemAdj kabir kabira) ;
+  mascFemCompA : (kabir, kabira, akbar : Str) -> A
+    = \kabir, kabira, akbar -> lin A (mascFemCompAdj kabir kabira akbar) ;
+
   nisbaA : Str -> Adj ; -- Forms relative adjectives with the suffix ِيّ. Takes either the stem and adds يّ, or the whole word ending in يّ and just adds declension.
 
   idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ طَيِّبٍ 'not good'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
@@ -715,6 +722,15 @@ resource ParadigmsAra = open
         }
     };
 
+  commonA : (pos, comp : Str) -> Adj =
+    \kabIr, akbar ->
+    {
+      s = table {
+        APosit g n d c  => positAdj kabIr ! g ! n ! d ! c ;
+        AComp d c => indeclN akbar ! d ! c
+        }
+    };
+
   irregFemA : (masc : A) -> (fem : A) -> A = \m,f -> m ** {
     s = table {
       APosit Masc n d c => m.s ! APosit Masc n d c ;
@@ -869,7 +885,7 @@ param VerbForm =
   FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX | FormXI ;
 
 
-{- temporarily moved to wiktionary/MoreAra.gf
+
 -- paradigms for Wiktionary extraction
 ---- TODO: better usage of information in Wiktionary
 
@@ -913,25 +929,25 @@ oper
     wmkA : {masc_sg, masc_pl, root, sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root, pl_patt : Str} -> A
-      = \r -> mkA r.root ; ----
+      = \r -> mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root : Str} -> A
-      = \r -> mkA r.root ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, root : Str} -> A
       = \r -> mkA r.root ; ----
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, pl_patt : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; root : Str ; sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg : Str; fem_sg : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl, pl_patt : Str; root : Str} -> A
@@ -939,28 +955,28 @@ oper
     wmkA : {masc_sg : Str; masc_pl, pl_patt, sg_patt : Str; root : Str} -> A
       = \r -> mkA r.sg_patt r.pl_patt ;
     wmkA : {masc_sg : Str; masc_pl : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r -> mascA r.masc_sg ; ----
     wmkA : {masc_sg : Str; masc_pl, pl_patt : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r -> mascA r.masc_sg ; ----
     wmkA : {masc_sg : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str} -> A
-      = \r -> mkA r.masc_sg ; ----
+      = \r -> mascA r.masc_sg ; ----
     } ;
 
   wmkV = overload {
     wmkV : {perfect : Str; cls : VerbForm; root : Str} -> V
       = \r -> mkV r.root r.cls ; ----
     wmkV : {perfect : Str; cls : VerbForm} -> V
-      = \r -> mkV r.perfect r.cls ; ----
+      = \r -> mkV r.perfect r.cls ; ---- expects root
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm; root : Str} -> V
       = \r -> mkV r.root r.cls ; ----
     wmkV : {perfect : Str; imperfect : Str; cls : VerbForm} -> V
-      = \r -> mkV r.perfect r.cls ; ----
+      = \r -> mkV r.perfect r.cls ; ---- expects root
     wmkV : {root : Str ; cls : VerbForm} -> V
       = \r -> mkV r.root r.cls ;
     wmkV : {imperfect : Str} -> V
-      = \r -> variants {} ; ---- mkV r.imperfect ;
+      = \r -> variants {} ; ---- mkV r.imperfect ; -- expects cls I
     } ;
--}
+
 } ;

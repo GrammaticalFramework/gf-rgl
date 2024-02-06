@@ -491,6 +491,28 @@ oper
       AComp d c => indeclN aHmar ! d ! c
     };
 
+--  NTable = Number => State => Case => Str;
+--  Adj  : Type = {s : AForm => Str} ;
+--  AForm = APosit Gender Number State Case | AComp State Case ;
+
+  ntablesAdj : (masc, fem, comp : NTable) -> Adj = \masc, fem, comp -> {
+    s = table {
+      APosit Masc n d c => masc ! n ! d ! c ;
+      APosit Fem n d c => fem ! n ! d ! c ;
+      AComp d c => comp ! Sg ! d ! c
+      }
+   } ;
+	
+  mascFemCompAdj : (kabir, kabira, akbar : Str) -> Adj =
+    \kabir, kabira, akbar ->
+    ntablesAdj (positAdj kabir ! Masc) (positAdj kabir ! Fem) (positAdj akbar ! Masc) ;
+  
+  mascFemAdj : (kabir, kabira : Str) -> Adj = \kabir, kabira ->
+    mascFemCompAdj kabir kabira kabir ; ---- comp
+
+  mascAdj : (kabir : Str) -> Adj = \kabir ->
+    mascFemAdj kabir (kabir + "َة") ;
+    
 
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------
