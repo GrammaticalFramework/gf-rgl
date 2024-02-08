@@ -9,14 +9,9 @@ lincat
            n : Size } ;
   Sub10 = {s : DForm => CardOrd => Gender => State => Case => Str ;
            n : Size } ;
-  Sub100 = {s : CardOrd => Gender => State => Case => Str ;
-            n : Size} ;
-  Sub1000 = {s : CardOrd => Gender => State => Case => Str ;
-             n : Size } ;
-  Sub1000000 = {s : CardOrd => Gender => State => Case => Str ;
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000
+             = {s : CardOrd => Gender => State => Case => Str ;
                 n : Size} ;
-
-
 
   lin num x = x ;
 
@@ -108,6 +103,9 @@ lincat
         };
 --lin pot3plus n m = {
 --  s = \\c => n.s ! NCard ++ "تهُْسَند" ++ m.s ! c ; n = Pl} ;
+
+lin pot3as4 n = n ;
+lin pot4as5 n = n ;
 
 -- numerals as sequences of digits
 
