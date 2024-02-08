@@ -130,6 +130,6 @@ concrete VerbAra of Verb = CatAra ** open Prelude, ResAra, ParamX in {
     CompNP np = {s = \\_,_ => [] ;
                  obj = {s = np.s ! Nom ; a = agrLite np.a} ;
                  isNP = True} ;
---
+
 --
 }
