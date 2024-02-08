@@ -95,6 +95,16 @@ resource ParadigmsAra = open
      = mkFullPN ;
   } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN  -- Predictable LN from a Str: fem hum if ends in ة, otherwise masc hum.
+     = \s -> lin LN (smartPN s) ;
+    mkLN : N -> LN    -- Make a LN out of N. The LN is in construct state.
+     = \n -> lin LN (n ** {
+          s = \\c => n.s ! Sg ! Const ! c
+                  ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
+        }) ;
+  } ;
+
 --3 Relational nouns
 
   mkN2 : overload {
