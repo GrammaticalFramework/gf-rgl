@@ -27,7 +27,7 @@ lin bank_N = mkN "bank" ;
 lin beautiful_A = mkA "cantik" ;
 -- lin become_VA = mkVA "jadi" ;
 lin beer_N = mkN "bir" ;
--- lin beg_V2V = mkV2 "" ;
+lin beg_V2V = mkV2 "rayu" ;
 -- lin belly_N = mkN "" ;
 lin big_A = mkA "besar" ;
 lin bike_N = mkN "basikal" ;
@@ -95,8 +95,9 @@ lin day_N = mkN "hari" ;
 -- lin doctor_N = mkN "" ;
 lin dog_N = mkN "anjing" ;
 lin door_N = mkN "pintu" ;
-lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
-  s = \\_ => "minum" ;
+lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** { s = table {
+    Passive => "diminum" ;
+    _ => "minum"} ;
 };
 -- lin dry_A = mkA "" ;
 -- lin dull_A = mkA "" ;
@@ -108,7 +109,9 @@ lin drink_V2 = let drink' : V2 = mkV2 "minum" in drink' ** {
 -- lin ear_N = mkN "" ;
 -- lin earth_N = mkN "" ;
 lin eat_V2 = let eat' : V2 = mkV2 "makan" in eat' ** {
-  s = \\_ => "makan" ;
+  s = table {
+    Passive => "dimakan" ;
+    _ => "makan"} ;
 };
 -- lin egg_N = mkN "" ;
 -- lin empty_A = mkA "" ;
@@ -208,15 +211,16 @@ lin king_N = mkN "raja" ;
 -- lin language_N = mkN "" ;
 -- lin laugh_V = mkV "" ;
 -- lin leaf_N = mkN "" ;
-lin learn_V2 = mkV2 (prefixV (mkV "ajar" Ber)) emptyPrep ;
+lin learn_V2 = mkV2 (prefixV (mkV "belajar" NoPrefix)) emptyPrep ;
 -- lin leather_N = mkN "" ;
 -- lin leave_V2 = mkV2 "" ;
 -- lin leg_N = mkN "" ;
 -- lin lie_V = mkV "" ;
 lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
-  s = \\_ => "suka" ;
-  passive = "disukai" ;
-} ;
+  s = table {
+    Passive => "disukai" ;
+    _ => "suka"} ;
+};
 -- lin listen_V2 = mkV2 "" ;
 -- lin live_V = mkV "";
 -- lin liver_N = mkN "" ;
@@ -224,11 +228,12 @@ lin long_A = mkA "panjang" ;
 -- lin lose_V2 = mkV2 "" ;
 -- lin louse_N = mkN "" ;
 -- lin love_N = mkN "" ;
--- lin love_V2 = let love' : V2 = mkV2 "cinta" in love' ** {
---   s = \\_ => "mencintai" ;
---   passive = "dicintai" ;
--- } ;
-lin love_V2 = mkV4 "cinta" "i";
+lin love_V2 = let love' : V2 = mkV2 "cinta" in love' ** {
+  s = table {
+    Passive => "dicintai" ;
+    _ => "mencintai" };
+};
+-- lin love_V2 = mkV4 "cinta" "i";
 
 ----
 -- M
@@ -288,7 +293,7 @@ lin queen_N = mkN "ratu" ;
 -- lin radio_N = mkN "" ;
 lin rain_N = mkN "hujan" ;
 lin rain_V0 = mkV "hujan" ;
-lin read_V2 = mkV2 "baca" ;
+lin read_V2 = mkV2 (prefixV (mkV "baca" Meng)) emptyPrep ;
 -- lin ready_A = mkA "" ;
 -- lin reason_N = mkN "" ;
 -- lin red_A = mkA "" ;
@@ -336,7 +341,7 @@ lin sing_V = mkV "nyanyi" ;
 -- lin sit_V = mkV "" ;
 -- lin skin_N = mkN "" ;
 -- lin sky_N = mkN "" ;
--- lin sleep_V = mkV "" ;
+lin sleep_V = mkV "tidur" ;
 lin small_A = mkA "kecil" ;
 -- lin smell_V = mkV "" ;
 -- lin smoke_N = mkN "" ;
@@ -345,7 +350,8 @@ lin small_A = mkA "kecil" ;
 -- lin snow_N = mkN "" ;
 -- lin sock_N = mkN "" ;
 lin song_N = mkN "lagu" ;
--- lin speak_V2 = mkV2 "" ;
+lin speak_V2 = mkV2 (prefixV (mkV "cakap" Ber)) emptyPrep  ;
+
 -- lin spit_V = mkV "" ;
 -- lin split_V2 = mkV2 "" ;
 -- lin squeeze_V2 = mkV2 "" ;
@@ -372,7 +378,7 @@ lin stop_V =  mkV "henti" ;
 -- lin table_N = mkN "" ;
 -- lin tail_N = mkN "" ;
 lin talk_V3 = mkV3 (mkV "cakap" Ber) (mkPrep "tentang") (mkPrep "dengan") ;
-lin teach_V2 = mkV2 "ajar" ;
+lin teach_V2 = mkV2 (prefixV (mkV "ajar" Meng)) emptyPrep;
 -- lin teacher_N = mkN "" ;
 -- lin television_N = mkN "" ;
 -- lin thick_A = mkA "" ;
@@ -402,7 +408,7 @@ lin ugly_A = mkA "jelek" ;
 -- W - Y
 
 -- lin wait_V2 = mkV2 "" ;
-lin walk_V = mkV "jalan" ;
+lin walk_V = (prefixV (mkV "jalan" Ber)) ;
 -- lin war_N = mkN "" ;
 -- lin warm_A = mkA "" ;
 -- lin wash_V2 = mkV2 "" ;

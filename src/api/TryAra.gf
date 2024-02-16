@@ -1,6 +1,6 @@
---# -path=.:../arabic:../common:../abstract:../prelude
+--# -path=.:../arabic:../common:../abstract:../prelude:../morphodict
 
-resource TryAra = SyntaxAra, LexiconAra, ParadigmsAra - [mkAdN, mkAdv,mkOrd,mkQuant] ** 
+resource TryAra = SyntaxAra, LexiconAra, MorphoDictAra, ParadigmsAra - [mkAdN, mkAdv,mkOrd,mkQuant] ** 
   open (P = ParadigmsAra) in {
 
 }

@@ -47,9 +47,9 @@ lin or_Conj = {s2 = "atau" ; s1 = [] ; n = Sg} ;
 -- lin both7and_DConj = mkConj "" "" pl ;
 -- lin either7or_DConj = {s2 = \\_ => "" ; s1 = "" ; n = Sg} ;
 --
--- lin but_PConj = ss "" ;
+lin but_PConj = ss "tetapi" ;
 -- lin otherwise_PConj = ss "" ;
--- lin therefore_PConj = ss "" ;
+lin therefore_PConj = ss "oleh itu" ;
 
 
 -----------------
@@ -104,7 +104,7 @@ lin by8agent_Prep = mkPrep "oleh" ; -- for pronoun agent, see Mintz p. 170, 5.4.
 lin by8means_Prep = mkPrep "dengan" ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
--- lin for_Prep = mkPrep ;
+lin for_Prep = mkPrep "untuk" ;
 -- lin from_Prep = mkPrep "" ;
 -- lin in8front_Prep = mkPrep "" ;
 lin in_Prep = mkPrep "di" ;

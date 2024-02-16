@@ -97,7 +97,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     N2 = SNoun ** {c2 : Compl ; isPre : Bool ; postmod : Number => Str} ;
     N3 = SNoun ** {c2,c3 : Compl ; isPre,isPre2 : Bool} ;
     PN = SPN ;
-    LN = SPN ** {n : Number} ;
+    LN = SPN ** {n : Number ; extCase : Bool} ; -- extCase=True -> Adessive, Ablative, Allative
     GN = SPN ** {g : Sex} ;
     SN = {s : Sex => SPN; pl : SPN} ;
 

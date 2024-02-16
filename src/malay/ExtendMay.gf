@@ -8,6 +8,7 @@ concrete ExtendMay of Extend = CatMay
     , ListVPI -- infinitive VP's (TODO: with anteriority and polarity)
     , MkVPS
     , PredVPS, RelVPS, QuestVPS, SQuestVPS
+    , PassVPSlash, PassAgentVPSlash
 
     -- excluded because RGL funs needed for them not implemented yet
     , PredAPVP
@@ -79,6 +80,7 @@ concrete ExtendMay of Extend = CatMay
       PastPartAP vp = {
         s = linVP vp
       } ;
+
       -- GenModNP    : Num -> NP -> CN -> NP ; -- this man's car(s)
       GenModNP n np cn = variants {};
 
@@ -99,6 +101,22 @@ concrete ExtendMay of Extend = CatMay
       GerundAdv vp = ss (linVP vp) ;
 
       ByVP vp = cc2 by8means_Prep (GerundAdv vp) ;
+
+      -- PassVPSlash : VPS -> VP ;
+      -- be begged to sleep
+      PassVPSlash vps = vps ** {
+        s = \\vf,pol => vps.s ! Passive ! pol ++ vps.adjCompl;
+      };
+
+    -- PassAgentVPSlash : VPSlash -> NP -> VP ;  -- be begged by her to go
+      PassAgentVPSlash vps np = {
+        s = \\vf,pol => vps.s ! Passive ! pol ++ vps.adjCompl ++ (applyPrep by8agent_Prep np);
+      };
+      --      PassAgentVPSlash vps np = {
+      --   s = \\vf,pol => vps.s ! Passive ! pol ++ (applyPrep by8agent_Prep np) ;
+      -- };
+
+
 
       -- MkVPS2    : Temp -> Pol -> VPSlash -> VPS2 ;  -- has loved
       -- ConjVPS2  : Conj -> [VPS2] -> VPS2 ;          -- has loved and now hates

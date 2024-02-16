@@ -32,12 +32,8 @@ lin UseLN, PlainLN = \ln -> {
       isPron = False ; isNeg = False
       } ;
 
-lin InLP ln = {
-      s = appCompl True Pos ln.c { s = snoun2np ln.n ln ;
-                                   a = agrP3 ln.n ;
-                                   isPron = False ;
-                                   isNeg = False
-                                 }
-   } ;
+lin InLN ln =
+   let c = case ln.extCase of {True => Adess ; False => Iness}
+   in {s = ln.s ! c} ;
 
 }

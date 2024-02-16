@@ -75,12 +75,16 @@ oper
   -- mkVQ : Str -> VQ
   --   = \s -> lin VQ (regV s) ;
 
-
+  mkV2A : overload {
+    mkV2A : Str -> V2A ;
+  } ;
   --
   -- mkV2A : Str -> V2A
   --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
-  -- mkV2Q : Str -> V2Q
-  --   = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
+  mkV2Q : overload {
+    mkV2Q : Str -> V2Q ;
+    mkV2Q : V -> Prep -> V2Q ;
+  } ;
 
   -----
 

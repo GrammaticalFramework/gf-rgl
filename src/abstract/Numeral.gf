@@ -28,8 +28,10 @@ cat
   Sub1000000000 ;    -- 1..999999999
   Sub1000000000000 ; -- 1..999999999999
 
-data 
+data
+
   num : Sub1000000 -> Numeral ; -- 123456 [coercion to top category]
+  ---- num : Sub1000000000000 -> Numeral ; ---- should be this, but not yet available in most langs AR 6/2/2024
 
   n2, n3, n4, n5, n6, n7, n8, n9 : Digit ;
 

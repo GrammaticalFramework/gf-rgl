@@ -843,10 +843,14 @@ mkVS = overload {
     } ;
 
   mkLN = overload {
-    mkLN : Str -> LN = \s -> lin LN (snoun2spn (mk1N s) ** {n = Sg}) ;
-    mkLN : Str -> Number -> LN = \s,n -> lin LN (snoun2spn (mk1N s) ** {n = n}) ;
-    mkLN : N -> LN = \noun -> lin LN (snoun2spn noun ** {n = Sg}) ;
-    mkLN : N -> Number -> LN = \noun,n -> lin LN (snoun2spn noun ** {n = n}) ;
+    mkLN : Str -> LN = \s -> lin LN (snoun2spn (mk1N s) ** {n = Sg ; extCase = False}) ;
+    mkLN : Str -> Number -> LN = \s,n -> lin LN (snoun2spnGen (mk1N s) n ** {n = n ;
+             extCase = case n of {Pl => True ; Sg => False}}) ; -- default case for Sg is In, for Pl is On
+    mkLN : N -> LN = \noun -> lin LN (snoun2spn noun ** {n = Sg ; extCase = False}) ;
+    mkLN : N -> Number -> LN = \noun,n -> lin LN (snoun2spnGen noun n ** {n = n ;
+             extCase = case n of {Pl => True ; Sg => False}}) ;
+    mkLN : Str -> Number -> Bool -> LN = \s,n,c -> lin LN (snoun2spnGen (mk1N s) n ** {n = n ; extCase = c}) ;
+    mkLN : N -> Number -> Bool -> LN = \noun,n,c -> lin LN (snoun2spnGen noun n ** {n = n ; extCase = c}) ;
   } ;
 
   mkGN = overload {

@@ -3,7 +3,8 @@
 concrete LangAra of Lang =
   GrammarAra,
   LexiconAra,
-  ConstructionAra
+  ConstructionAra,
+  DocumentationAra
   ** {
 
   flags startcat = Phr ; unlexer = text ; lexer = text ; coding = utf8 ;

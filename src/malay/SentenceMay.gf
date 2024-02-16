@@ -95,7 +95,7 @@ lin
 oper
 
   advS : (comma : Str) -> Adverb -> S -> S = \comma,a,sent -> sent ** {
-    s = sent.s ++ comma ++ a.s
+    s = a.s ++ comma ++ sent.s
     } ;
 
 }

@@ -4,6 +4,7 @@ LangMay: dia memberi kucing kepadaku
 
 Lang: UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (Slash3V3 give_V3 (UsePron i_Pron)) (MassNP (UseN cat_N)))))
 LangMay: dia memberi aku kucing
+-- dia memberi aku kepada kucing
 
 -- Sentence complements
 

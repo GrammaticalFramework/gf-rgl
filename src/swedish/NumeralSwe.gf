@@ -1,3 +1,5 @@
+--# -path=.:../abstract
+
 concrete NumeralSwe of Numeral = CatSwe [Numeral,Digits,Decimal] ** open ResSwe, MorphoSwe, Prelude in {
   flags coding=utf8 ;
 
@@ -50,21 +52,24 @@ lin
     {s = \\g => n.s ! invNum ++ BIND ++ "tusen" ++ m.s ! g ; n = Pl} ;
   pot3as4 n = n ;
 
-  pot41 = numPl (cardOrd "miljon" "miljonde") ;
+  pot41 = numPl (cardOrd "en miljon" "miljonde") ;
   pot4 n =
     numPl (\\g => n.s ! NCard Utr ++
                   cardOrd (case n.n of {
                              Sg => "miljon" ;
                              Pl => "miljoner"
                            })
-                          "miljonde" ! g) ;
+                          "miljonte" ! g) ;
   pot4plus n m =
-    {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljon" ++ m.s ! g ; n = Pl} ;
+    {s = \\g => n.s ! NCard Utr ++ case n.n of {
+                             Sg => "miljon" ;
+                             Pl => "miljoner"
+                           } ++ m.s ! g ; n = Pl} ;
   pot4as5 n = n ;
   pot4decimal d = 
-    numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljoner" "miljonde" ! g) ;
+    numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljoner" "miljonte" ! g) ;
 
-  pot51 = numPl (cardOrd "miljard" "miljarde") ;
+  pot51 = numPl (cardOrd "en miljard" "miljarde") ;
   pot5 n =
     numPl (\\g => n.s ! NCard Utr ++
                   cardOrd (case n.n of {
@@ -73,7 +78,7 @@ lin
                            })
                           "miljarde" ! g) ;
   pot5plus n m =
-    {s = \\g => n.s ! NCard Utr ++ BIND ++ "miljard" ++ m.s ! g ; n = Pl} ;
+    {s = \\g => n.s ! NCard Utr ++ "miljard" ++ m.s ! g ; n = Pl} ;
   pot5decimal d = 
     numPl (\\g => d.s ! NCard Utr ++ cardOrd "miljarder" "miljarde" ! g) ;
 

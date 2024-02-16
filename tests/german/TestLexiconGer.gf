@@ -55,8 +55,6 @@ lin
   kaufen_bei_fuer_V4 = dirV4 (regV "kaufen") bei_Prep fuer_Prep ;
   mieten_von_fuer_V4 = dirV4 (regV "mieten") von_Prep fuer_Prep ;
 
-  neugierig_auf_A2 = mkA2 (mk3A "neugierig" "neugieriger" "neugierigste") (mkPrep "auf" accusative) ;
-  
   -- verbs with infinitival object (non-modal):
   wagen_VV = mkVV (regV "wagen")  ;
   versuchen_VV = mkVV (irregV "versuchen" "versucht" "versuchte" "versuchte" "versucht") ;
@@ -72,4 +70,11 @@ lin
   -- aci verb:
   sehen_V2V  = auxV2V (irregV "sehen" "sieht" "sah" "sähe" "gesehen") accPrep ;
   hoeren_V2V = auxV2V (regV "hören") accPrep ;
+
+  -- Adjectives
+
+  neugierig_auf_A2 = mkA2 (mk3A "neugierig" "neugieriger" "neugierigste") (mkPrep "auf" accusative) ;
+  treu_A2 = mkA2 (mk3A "treu" "treuer" "treueste") datPrep ;
+  stolz_A2 = mkA2 (mk3A "stolz" "stolzer" "stolzeste") (mkPrep "auf" accusative) ;
+
 }

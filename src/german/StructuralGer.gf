@@ -103,17 +103,18 @@ concrete StructuralGer of Structural = CatGer **
     } ;
   something_NP = nameNounPhrase Neutr {s = \\_ => "etwas"} ;
   somewhere_Adv = ss "irgendwo" ;
-  that_Quant = {
-    s,sp = \\gn,c => "jen" + detEnding ! gn ! c ; a = Weak ; isDefArt,delCardOne = False} ;
+  that_Quant = let jener : GenNum => Case => Str = \\gn,c => "jen" + detEnding ! gn ! c
+    in {s = \\_ => jener ; sp = jener ; a = Weak ; isDefArt,delCardOne = False} ;
 ---b  that_NP = nameNounPhrase Neutr {s = caselist "das" "das" "dem" "dessen"} ; ----
   there_Adv = ss "da" ; --- no variants in the rgl | ss "dort" ;
   there7to_Adv = ss "dahin" ;
   there7from_Adv = ss ["daher"] ;
   therefore_PConj = ss "deshalb" ;
 ---b  these_NP = {s = caselist "diese" "diese" "diesen" "dieser" ; a = agrP3 Pl} ;
+
   they_Pron = mkPronPers "sie" "sie" "ihnen" "ihrer" "ihr" Fem Pl P3 ;
-  this_Quant = {
-    s,sp = \\gn,c => "dies" + detEnding ! gn ! c ; a = Weak ; isDefArt, delCardOne = False} ;
+  this_Quant = let dieser : GenNum => Case => Str = \\gn,c => "dies" + detEnding ! gn ! c
+    in {s = \\_ => dieser ; sp = dieser ; a = Weak ; isDefArt, delCardOne = False} ;
 ---b  this_NP = nameNounPhrase Neutr {s = caselist "dies" "dies" "diesem" "dieses"} ; ----
 ---b  those_NP = {s = caselist "jene" "jene" "jenen" "jener" ; a = agrP3 Pl} ;
   through_Prep = mkPrep "durch" P.accusative ;
@@ -148,8 +149,8 @@ concrete StructuralGer of Structural = CatGer **
 
   not_Predet = {s = \\_,_,_ => "nicht" ; c = noCase ; a = PAgNone} ;
   no_Quant = {
-    s = table {GSg g => \\c => "kein" + pronEnding ! GSg g ! c ;
-               GPl   => \\c => "kein" + detEnding ! GPl ! c} ;
+    s = \\_ => table {GSg g => \\c => "kein" + pronEnding ! GSg g ! c ;
+                      GPl   => \\c => "kein" + detEnding ! GPl ! c} ;
     sp = \\gn,c => "kein" + detEnding ! gn ! c ;
     a = Mixed ; isDefArt = False ; delCardOne = True} ; -- HL kein+ein(er) => kein(er)
   if_then_Conj = {s1 = "wenn" ; s2 = "dann" ; n = Sg ; lock_Conj = <>} ;
