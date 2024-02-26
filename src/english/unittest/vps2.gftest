@@ -1,0 +1,216 @@
+-- VPS2 list: both prepositions are kept
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she wouldn't have waited for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and wouldn't have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would have waited for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she wouldn't wait for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and wouldn't wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she would wait for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she won't have waited for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and won't have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will have waited for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she won't wait for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and won't wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she will wait for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she hadn't waited for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and hadn't waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she had waited for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng:  she had waited for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng:  she waited for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she didn't wait for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and didn't wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waited for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she hasn't waited for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and hasn't waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she has waited for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and would have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TCond ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and would wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and will have waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TFut ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and will wait for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng:  she waits for and had waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPast ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres AAnter) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng:  she waits for and has waited for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PNeg (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she doesn't wait for and waits for them
+
+AllEngAbs: PredVPS (UsePron she_Pron) (ComplVPS2 (ConjVPS2 and_Conj (BaseVPS2 (MkVPS2 (TTAnt TPres ASimul) PPos (SlashV2a wait_V2)) (MkVPS2 (TTAnt TPres ASimul) PNeg (SlashV2a wait_V2)))) (UsePron they_Pron))
+AllEng: she waits for and doesn't wait for them
