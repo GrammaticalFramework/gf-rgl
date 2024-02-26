@@ -118,7 +118,18 @@ concrete ExtendEng of Extend =
           ODir _ => []
         }
       } ;
-
+    baseVPS2 : VPS2 -> OneFinVPS = \vps2 -> {
+      s = \\o,a => let vp = vps2.s ! o ! a in
+        case o of {
+          OQuest => vp.inf ++ vps2.c2 ;
+          ODir _ => vp.fin ++ vp.inf ++ vps2.c2
+        } ;
+      fin = \\o,a => let vp = vps2.s ! o ! a in
+        case o of {
+          OQuest => vp.fin ;
+          ODir _ => []
+        }
+      } ;
   lin
     BaseVPI = twoTable2 VVType Agr ;
     ConsVPI = consrTable2 VVType Agr comma ;
@@ -169,8 +180,13 @@ concrete ExtendEng of Extend =
     MkVPS2 t p vpsl = mkVPS (lin Temp t) (lin Pol p) (lin VP vpsl) ** {c2 = vpsl.c2} ;
     MkVPI2 vpsl = mkVPI (lin VP vpsl) ** {c2 = vpsl.c2} ;
 
-    BaseVPS2 x y = BaseVPS x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
-    ConsVPS2 x xs = ConsVPS x xs ** {c2 = xs.c2} ;
+    BaseVPS2 x y =
+      let baseX : OneFinVPS = baseVPS2 x ;
+          baseY : OneFinVPS = baseVPS y ;
+       in twoTable2 Order Agr baseX baseY ** {fin = baseX.fin ; c2 = y.c2} ;
+    ConsVPS2 x xs =
+      let baseX : OneFinVPS = baseVPS2 x ;
+       in consrTable2 Order Agr comma baseX xs ** {fin = baseX.fin ; c2 = xs.c2} ;
 
     BaseVPI2 x y = twoTable2 VVType Agr x y ** {c2 = y.c2} ; ---- just remembering the prep of the latter verb
     ConsVPI2 x xs = consrTable2 VVType Agr comma x xs ** {c2 = xs.c2} ;
