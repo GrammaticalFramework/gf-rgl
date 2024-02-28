@@ -1,3 +1,4 @@
+--# -path=.:../abstract:../common
 --1 Russian Lexical Paradigms
 
 resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe, MorphoRus in {
@@ -102,9 +103,10 @@ oper
 
   mkN : overload {
     mkN : Str -> N ;     -- can guess declension and gender of some nouns given nominative
-    mkN : Str -> Gender -> Animacy -> N ;  -- can guess declension of more nouns
-    mkN : Str -> Gender -> Animacy -> (idx : Str) -> N ;  -- Fourth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*a(1)"
-    mkN : Str -> Gender -> Animacy -> (idx : Str) -> MaybeNumber -> N ;  -- Same, but number restrictions can be added
+    mkN : Str -> NRelType -> N ;
+    mkN : Str -> Gender -> Animacy -> NRelType -> N ;  -- can guess declension of more nouns
+    mkN : Str -> Gender -> Animacy -> NRelType -> (idx : Str) -> N ;  -- Fifth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*a(1)"
+    mkN : Str -> Gender -> Animacy -> NRelType -> (idx : Str) -> MaybeNumber -> N ;  -- Same, but number restrictions can be added
     mkN : A -> Gender -> Animacy -> N ;  -- for nouns, which decline as adjective
     mkN : A -> Gender -> Animacy -> MaybeNumber -> N ;  -- same, with possibility to limit number (usually to only_singular)
     mkN : N -> (link : Str) -> N -> N ; -- compound noun. Link can end on "-", in which case parts are glued together. First one characterizes the whole.
@@ -124,6 +126,8 @@ oper
   mkPN : overload {
     mkPN : N -> PN ;
     mkPN : N -> Str -> N -> PN ; -- see compound noun
+    mkPN : A -> PN -> PN ;
+
   } ;
 
 --2 Adjectives
@@ -241,112 +245,45 @@ oper
 
   mkN = overload {
     mkN : Str -> N
-      = \nom -> lin N (guessNounForms nom) ;
-    mkN : Str -> Animacy -> N
-      = \nom,anim -> lin N ((guessNounForms nom) ** {anim=anim}) ;
+      = \nom -> lin N (guessNounForms nom (guessAdjectiveForms "") GenType); -- the default type of compound
+    mkN : Str -> Str-> NRelType -> N
+      = \nom, rel, rt -> lin N (guessNounForms nom (guessAdjectiveForms rel) rt) ;
+    mkN : Str -> Animacy -> Str -> NRelType -> N
+      = \nom,anim,rel,rt -> lin N (guessNounForms nom (guessAdjectiveForms rel) rt) ** {anim=anim} ;
     mkN : Str -> Gender -> Animacy -> N
-      = \nom, g, anim -> lin N (guessLessNounForms nom g anim) ;
+      = \nom, g, anim -> lin N (guessLessNounForms nom g anim (guessAdjectiveForms "") GenType) ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> N
+      = \nom, g, anim, rel, rt -> lin N (guessLessNounForms nom g anim (guessAdjectiveForms rel) rt) ;
     mkN : Str -> Gender -> Animacy -> Z.ZNIndex -> N
-      = \word, g, anim, z -> lin N (noMinorCases (Z.makeNoun word g anim z)) ;
+      = \word, g, anim, z -> lin N (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType z)) ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> Z.ZNIndex -> N
+      = \word, g, anim, rel, rt, z -> lin N (noMinorCases (Z.makeNoun word g anim  (guessAdjectiveForms rel) rt z)) ;
     mkN : Str -> Gender -> Animacy -> Str -> N
-      = \word, g, anim, zi -> lin N (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
+      = \word, g, anim, zi -> lin N (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType (Z.parseIndex zi))) ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> Str -> N
+      = \word, g, anim, rel, rt, zi -> lin N (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms rel) rt (Z.parseIndex zi))) ;
     mkN : Str -> Gender -> Animacy -> Str -> MaybeNumber -> N
-      = \word, g, anim, zi, mbn -> lin N (applyMaybeNumber ((noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ** {mayben=mbn})) ;
+      = \word, g, anim, zi, mbn -> lin N (applyMaybeNumber ((noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType (Z.parseIndex zi))) ** {mayben=mbn})) ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> Str -> MaybeNumber -> N
+      = \word, g, anim, rel, rt, zi, mbn -> lin N (applyMaybeNumber ((noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms rel) rt (Z.parseIndex zi))) ** {mayben=mbn})) ;
     mkN : A -> Gender -> Animacy -> N
       = \a, g, anim -> lin N (makeNFFromAF a g anim) ;
     mkN : A -> Gender -> Animacy -> MaybeNumber -> N
       = \a, g, anim, mbn -> lin N (applyMaybeNumber ((makeNFFromAF a g anim) ** {mayben=mbn})) ;
-    mkN : N -> Str -> N -> N
-      = \n1,link,n2 -> lin N (mkCompoundN n1 link n2) ;
+   mkN : N -> Str -> N -> N
+      = \n1,link,n2 -> lin N (mkCompoundN n1 link n2)  ;
 
     -- For backwards compatibility:
-    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
-      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
+    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> Str -> NRelType -> N
+      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim, rel, rt ->
         lin N {
           snom=nomSg;pnom=nomPl;sgen=genSg;pgen=genPl;sdat=datSg;pdat=datPl;sacc=accSg;pacc=accPl;sins=instSg;pins=instPl;sprep=preposSg;pprep=preposPl;
           sloc=prepos2Sg; sptv=genSg ; svoc=nomSg ;
           anim=anim;
           mayben=BothSgPl ;
-          g=g
-        } ;
-  } ;
-
-  compoundN = overload {
-    compoundN : A -> N -> N
-      = \a, n -> applyMaybeNumber
-           {snom = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsnom n.snom ;
-                     Masc => preOrPost (notB a.p) a.msnom n.snom ;
-                     Neut => preOrPost (notB a.p) a.nsnom n.snom
-                   } ;
-            sgen = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsgen n.sgen ;
-                     _    => preOrPost (notB a.p) a.msgen n.sgen
-                   } ;
-            sdat = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsgen n.sdat ;
-                     _    => preOrPost (notB a.p) a.msdat n.sdat
-                   } ;
-            sacc = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsacc n.sacc ;
-                     Masc => case n.anim of {
-                               Inanimate => preOrPost (notB a.p) a.msnom n.sacc ;
-                               Animate   => preOrPost (notB a.p) a.msgen n.sacc
-                             } ;
-                     Neut => preOrPost (notB a.p) a.nsnom n.sacc
-                   } ;
-            sins = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsins n.sins ;
-                     _    => preOrPost (notB a.p) a.msins n.sins
-                   } ;
-            sprep= case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsgen  n.sprep ;
-                     _    => preOrPost (notB a.p) a.msprep n.sprep
-                   } ;
-            sloc = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsgen  n.sloc ;
-                     _    => preOrPost (notB a.p) a.msprep n.sloc
-                   } ;
-            sptv = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsgen  n.sptv ;
-                     _    => preOrPost (notB a.p) a.msgen  n.sptv
-                   } ;
-            svoc = case n.g of {
-                     Fem  => preOrPost (notB a.p) a.fsnom n.svoc ;
-                     Masc => preOrPost (notB a.p) a.msnom n.svoc ;
-                     Neut => preOrPost (notB a.p) a.nsnom n.svoc
-                   } ;
-            pnom = preOrPost (notB a.p) a.pnom  n.pnom ;
-            pgen = preOrPost (notB a.p) a.pgen  n.pgen ;
-            pdat = preOrPost (notB a.p) a.msins n.pdat ;
-            pacc = case n.anim of {
-                     Inanimate => preOrPost (notB a.p) a.pnom n.pacc ;
-                     Animate   => preOrPost (notB a.p) a.pgen n.pacc
-                   } ;
-            pins = preOrPost (notB a.p) a.pins  n.pins ;
-            pprep= preOrPost (notB a.p) a.pgen  n.sprep ;
-            anim=n.anim;
-            mayben=n.mayben ;
-            g=n.g
-           } ;
-
-    compoundN : N -> Str -> N
-      = \n, adv -> n ** {
-           snom = n.snom ++ adv;
-           sgen = n.sgen ++ adv;
-           sdat = n.sdat ++ adv;
-           sacc = n.sacc ++ adv;
-           sins = n.sins ++ adv;
-           sprep = n.sprep ++ adv;
-           sloc = n.sloc ++ adv;
-           sptv = n.sptv ++ adv;
-           svoc = n.svoc ++ adv;
-           pnom = n.pnom ++ adv;
-           pgen = n.pgen ++ adv;
-           pdat = n.pdat ++ adv;
-           pacc = n.pacc ++ adv;
-           pins = n.pins ++ adv;
-           pprep = n.pprep ++ adv
+          g=g ;
+          rel=(guessAdjectiveForms rel) ;
+          rt=rt
         } ;
   } ;
 
@@ -356,8 +293,10 @@ oper
     mkN2 : N -> Prep -> N2
       = \n, p -> lin N2 (mkFun n p) ;
     mkN2 : Str -> Gender -> Animacy -> Str -> Prep -> N2
-      = \word, g, anim, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p)   ;
-  } ;
+      = \word, g, anim, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType (Z.parseIndex zi))) p)   ;
+    mkN2 : Str -> Gender -> Animacy -> Str -> NRelType -> Str -> Prep -> N2
+      = \word, g, anim, rel, rt, zi, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms rel) rt (Z.parseIndex zi))) p)   ;
+    } ;
 
   nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
@@ -365,7 +304,10 @@ oper
     mkN3 : N -> Prep -> Prep -> N3
       = \n, p2, p3 -> lin N3 (mkFun2 n p2 p3) ;
     mkN3 : Str -> Gender -> Animacy -> Str -> Prep -> Prep -> N3
-      = \word, g, anim, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) p2 p3) ;
+      = \word, g, anim, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType (Z.parseIndex zi))) p2 p3) ;
+    mkN3 : Str -> Gender -> Animacy -> Str -> NRelType -> Str -> Prep -> Prep -> N3
+      = \word, g, anim, rel, rt, zi, p2, p3 -> lin N3 (mkFun2 (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms rel) rt (Z.parseIndex zi))) p2 p3) ;
+
   } ;
 
   mkPN = overload {
@@ -374,20 +316,38 @@ oper
     mkPN : N -> Str -> N -> PN
       = \n1,link,n2 -> lin PN (mkCompoundN n1 link n2) ;
     mkPN : Str -> PN
-      = \nom -> lin PN (guessNounForms nom) ;
+      = \nom -> lin PN (guessNounForms nom (guessAdjectiveForms "") GenType) ;
     mkPN : Str -> Gender -> Animacy -> PN
-      = \nom, g, anim -> lin PN (guessLessNounForms nom g anim) ;
+      = \nom, g, anim -> lin PN (guessLessNounForms nom g anim (guessAdjectiveForms "") GenType) ;
     mkPN : Str -> Gender -> Number -> Animacy -> PN
-      = \nom, g, n, anim -> lin PN (guessLessNounForms nom g anim) ;
+      = \nom, g, n, anim -> lin PN (guessLessNounForms nom g anim (guessAdjectiveForms "") GenType) ;
     mkPN : Str -> Gender -> Animacy -> Z.ZNIndex -> PN
-      = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim z)) ;
+      = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType z)) ;
     mkPN : Str -> Gender -> Animacy -> Str -> PN
-      = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (Z.parseIndex zi))) ;
+      = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms "") GenType (Z.parseIndex zi))) ;
+    mkPN : A -> PN -> PN
+      = \a, pn -> pn ** {
+        snom = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Nom ++ pn.snom ;
+        sgen = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Gen ++ pn.sgen ;
+        sdat = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Dat ++ pn.sdat ;
+        sacc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Acc ++ pn.sacc ;
+        sins = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Ins ++ pn.sins ;
+        sprep = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Loc ++ pn.sprep ;
+        sloc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Loc ++ pn.sloc ;
+        sptv = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Gen ++ pn.sptv ;
+        svoc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Nom ++ pn.svoc ;
+        pnom = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Nom ++ pn.pnom ;
+        pgen = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Gen ++ pn.pgen ;
+        pdat = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Dat ++ pn.pdat ;
+        pacc = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Acc ++ pn.pacc ;
+        pins = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Ins ++ pn.pins ;
+        pprep = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Loc ++ pn.pprep ;
+      } ;
   } ;
 
   mkGN = overload {
     mkGN : Str -> GN
-      = \nom -> let nf = guessNounForms nom
+      = \nom -> let nf = guessNounForms nom (guessAdjectiveForms "") GenType
                 in lin GN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      g = case nf.g of {
@@ -401,7 +361,7 @@ oper
                            Male => Masc ;
                            Female => Fem
                          } ;
-                    nf = guessLessNounForms nom g Animate
+                    nf = guessLessNounForms nom g Animate (guessAdjectiveForms "") GenType
                 in lin GN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      g = sex
@@ -412,7 +372,7 @@ oper
                            Male => Masc ;
                            Female => Fem
                          } ;
-                    nf = noMinorCases (Z.makeNoun nom g Animate z)
+                    nf = noMinorCases (Z.makeNoun nom g Animate (guessAdjectiveForms "") GenType z)
                 in lin GN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      g = sex
@@ -423,7 +383,7 @@ oper
                            Male => Masc ;
                            Female => Fem
                          } ;
-                    nf = noMinorCases (Z.makeNoun nom g Animate (Z.parseIndex zi))
+                    nf = noMinorCases (Z.makeNoun nom g Animate (guessAdjectiveForms "") GenType (Z.parseIndex zi))
                 in lin GN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      g = sex
@@ -434,32 +394,32 @@ oper
     mkSN : Str -> SN
       = \nom -> lin SN {
                   s = table {
-                        Male   => (nounFormsNoun (guessLessNounForms nom Masc Animate)).s ! Sg ;
-                        Female => (nounFormsNoun (guessLessNounForms nom Fem Animate)).s ! Sg
+                        Male   => (nounFormsNoun (guessLessNounForms nom Masc Animate (guessAdjectiveForms "") GenType)).s ! Sg ;
+                        Female => (nounFormsNoun (guessLessNounForms nom Fem Animate (guessAdjectiveForms "") GenType)).s ! Sg
                       } ;
-                  p = (nounFormsNoun (guessLessNounForms nom Masc Animate)).s ! Pl ;
+                  p = (nounFormsNoun (guessLessNounForms nom Masc Animate (guessAdjectiveForms "") GenType)).s ! Pl ;
                 } ;
     mkSN : Str -> Str -> SN
       = \male,female -> lin SN {
                   s = table {
-                        Male   => (nounFormsNoun (guessLessNounForms male Masc Animate)).s ! Sg ;
-                        Female => (nounFormsNoun (guessLessNounForms female Fem Animate)).s ! Sg
+                        Male   => (nounFormsNoun (guessLessNounForms male Masc Animate (guessAdjectiveForms "") GenType)).s ! Sg ;
+                        Female => (nounFormsNoun (guessLessNounForms female Fem Animate (guessAdjectiveForms "") GenType)).s ! Sg
                       } ;
-                  p = (nounFormsNoun (guessLessNounForms male Masc Animate)).s ! Pl ;
+                  p = (nounFormsNoun (guessLessNounForms male Masc Animate (guessAdjectiveForms "") GenType)).s ! Pl ;
                 } ;
     mkSN : Str -> Z.ZNIndex -> Str -> Z.ZNIndex -> SN
       = \male,zm,female,zf -> lin SN {
                   s = table {
-                        Male   => (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate zm))).s ! Sg ;
-                        Female => (nounFormsNoun (noMinorCases (Z.makeNoun female Masc Animate zf))).s ! Sg
+                        Male   => (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate (guessAdjectiveForms "") GenType zm))).s ! Sg ;
+                        Female => (nounFormsNoun (noMinorCases (Z.makeNoun female Masc Animate (guessAdjectiveForms "") GenType zf))).s ! Sg
                       } ;
-                  p = (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate zm))).s ! Pl ;
+                  p = (nounFormsNoun (noMinorCases (Z.makeNoun male Masc Animate (guessAdjectiveForms "") GenType zm))).s ! Pl ;
                 } ;
   } ;
 
   mkLN = overload {
     mkLN : Str -> LN
-      = \nom -> let nf = guessNounForms nom
+      = \nom -> let nf = guessNounForms nom (guessAdjectiveForms "") GenType
                 in lin LN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      anim = nf.anim ;
@@ -469,7 +429,7 @@ oper
                    } ;
     mkLN : Str -> Gender -> LN
       = \nom, g -> 
-                let nf = guessLessNounForms nom g Animate
+                let nf = guessLessNounForms nom g Animate (guessAdjectiveForms "") GenType
                 in lin LN {
                      s = (nounFormsNoun nf).s ! Sg ;
                      anim = nf.anim ;
@@ -479,7 +439,7 @@ oper
                    } ;
     mkLN : Str -> Gender -> Number -> LN
       = \nom, g, n -> 
-                let nf = guessLessNounForms nom g Animate
+                let nf = guessLessNounForms nom g Animate (guessAdjectiveForms "") GenType
                 in lin LN {
                      s = (nounFormsNoun nf).s ! n ;
                      anim = nf.anim ;
@@ -489,7 +449,7 @@ oper
                    } ;
     mkLN : Str -> Gender -> Number -> Z.ZNIndex -> LN
       = \nom, g, n, z -> 
-                let nf = noMinorCases (Z.makeNoun nom g Animate z)
+                let nf = noMinorCases (Z.makeNoun nom g Animate (guessAdjectiveForms "") GenType z)
                 in lin LN {
                      s = (nounFormsNoun nf).s ! n ;
                      anim = nf.anim ;
@@ -499,7 +459,7 @@ oper
                    } ;
     mkLN : Str -> Gender -> Number -> Str -> LN
       = \nom, g, n, zi -> 
-                let nf = noMinorCases (Z.makeNoun nom g Animate (Z.parseIndex zi))
+                let nf = noMinorCases (Z.makeNoun nom g Animate (guessAdjectiveForms "") GenType (Z.parseIndex zi))
                 in lin LN {
                      s = (nounFormsNoun nf).s ! n ;
                      anim = nf.anim ;

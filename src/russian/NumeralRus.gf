@@ -431,7 +431,7 @@ lin
   D_7 = mk2Dig "7" Num5 ;
   D_8 = mk2Dig "8" Num5 ;
   D_9 = mk2Dig "9" Num5 ;
-  
+
   PosDecimal d = d ** {hasDot=False} ;
   NegDecimal d = {
     s = "-" ++ BIND ++ d.s ;

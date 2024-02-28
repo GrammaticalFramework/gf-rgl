@@ -142,7 +142,7 @@ lin
     } ;
 
   only_Predet = (adjFormsAdjective (pronToAdj only_Pron)) ** {size=Num1} ;
-  most_Predet = (makeAdjectiveFromNoun (nounFormsNoun (guessNounForms "большинство"))) ** {size=Num5} ;
+  most_Predet = (makeAdjectiveFromNoun (nounFormsNoun (guessNounForms "большинство" (guessAdjectiveForms "") GenType))) ** {size=Num5} ;
   all_Predet = (adjFormsAdjective (pronToAdj all_Pron)) ** {size=NumAll};
   not_Predet = (adjFormsAdjective (mkA "не" "" "0")) ** {size=Num1} ;
 
