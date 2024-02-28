@@ -36,7 +36,7 @@ concrete ExtendRus of Extend =
     -- GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP,
     InOrderToVP,
     -- NominalizeVPSlashNP,
-    -- PassAgentVPSlash,
+    PassAgentVPSlash,
     PassVPSlash,
     -- ProgrVPSlash,
     PastPartAP,
@@ -181,6 +181,10 @@ lin
     } ;
   -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
   -- use PlP2 + "ый"
+
+  PassAgentVPSlash vps np =
+     passVPSlash (lin VPS vps) (np.s ! NPAcc);
+
 
   -- : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
   ProDrop pron = {
