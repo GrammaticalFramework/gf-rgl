@@ -182,8 +182,12 @@ lin
   -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
   -- use PlP2 + "ый"
 
+  -- : VPSlash -> VP
   PassAgentVPSlash vps np =
-     passVPSlash (lin VPS vps) (np.s ! NPAcc);
+     vps ** {
+       verb=copulaEll ;
+        compl=\\p,a => vps.compl ! p ! a ++ shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s ++ np.s ! Ins
+        } ;
 
 
   -- : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"

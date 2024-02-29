@@ -103,10 +103,13 @@ oper
 
   mkN : overload {
     mkN : Str -> N ;     -- can guess declension and gender of some nouns given nominative
-    mkN : Str -> NRelType -> N ;
-    mkN : Str -> Gender -> Animacy -> NRelType -> N ;  -- can guess declension of more nouns
-    mkN : Str -> Gender -> Animacy -> NRelType -> (idx : Str) -> N ;  -- Fifth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*a(1)"
-    mkN : Str -> Gender -> Animacy -> NRelType -> (idx : Str) -> MaybeNumber -> N ;  -- Same, but number restrictions can be added
+    mkN : Str -> Str -> NRelType -> N ;
+    mkN : Str -> Gender -> Animacy -> N ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> N ;  -- can guess declension of more nouns
+    mkN : Str -> Gender -> Animacy -> (idx : Str) -> N ; -- Fourth parameter is a declension type index (based on Zaliznyak's dictionary), for example, "1*a(1)"
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> (idx : Str) -> N ;
+    mkN : Str -> Gender -> Animacy -> (idx : Str) -> MaybeNumber -> N ;
+    mkN : Str -> Gender -> Animacy -> Str -> NRelType -> (idx : Str) -> MaybeNumber -> N ;  -- Same, but number restrictions can be added
     mkN : A -> Gender -> Animacy -> N ;  -- for nouns, which decline as adjective
     mkN : A -> Gender -> Animacy -> MaybeNumber -> N ;  -- same, with possibility to limit number (usually to only_singular)
     mkN : N -> (link : Str) -> N -> N ; -- compound noun. Link can end on "-", in which case parts are glued together. First one characterizes the whole.
@@ -274,16 +277,16 @@ oper
       = \n1,link,n2 -> lin N (mkCompoundN n1 link n2)  ;
 
     -- For backwards compatibility:
-    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> Str -> NRelType -> N
-      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim, rel, rt ->
+    mkN : (nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl : Str) -> Gender -> Animacy -> N
+      = \nomSg, genSg, datSg, accSg, instSg, preposSg, prepos2Sg, nomPl, genPl, datPl, accPl, instPl, preposPl, g, anim ->
         lin N {
           snom=nomSg;pnom=nomPl;sgen=genSg;pgen=genPl;sdat=datSg;pdat=datPl;sacc=accSg;pacc=accPl;sins=instSg;pins=instPl;sprep=preposSg;pprep=preposPl;
           sloc=prepos2Sg; sptv=genSg ; svoc=nomSg ;
           anim=anim;
           mayben=BothSgPl ;
           g=g ;
-          rel=(guessAdjectiveForms rel) ;
-          rt=rt
+          rel=(guessAdjectiveForms "") ;
+          rt=GenType
         } ;
   } ;
 
