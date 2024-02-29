@@ -68,15 +68,19 @@ lin
     s=\\n,cas=> (nounFormsNoun n2).s ! n ! cas ++ n2.c2.s ++ np.s ! n2.c2.c ;
     g=n2.g ;
     mayben=n2.mayben ;
-    anim=n2.anim
+    anim=n2.anim ;
+    rel=n2.rel;
+    rt=n2.rt;
     } ;
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   ComplN3 n3 np = let n3_noun = nounFormsNoun n3 in nounToNounForm {
     s=\\n,g=>n3_noun.s ! n ! g ++ n3.c2.s ++ np.s ! n3.c2.c ;
     g=n3.g ;
     mayben=n3.mayben ;
-    anim=n3.anim
-  } ** {c2=n3.c3} ;
+    anim=n3.anim ;
+    rel=n3.rel;
+    rt=n3.rt ;
+  } ** {c2=n3.c3; rt = n3.rt} ;
 
 --------------
 -- Determiners
@@ -167,6 +171,7 @@ lin
 
   -- : N3 -> N2 ; -- distance (to Paris)
   Use3N3 n3 = lin N2 n3 ;
+
 
   -- : CN -> RS -> CN ;   -- house that John bought
   RelCN cn rs = cn ** {
