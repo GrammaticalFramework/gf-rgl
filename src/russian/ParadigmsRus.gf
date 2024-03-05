@@ -248,7 +248,7 @@ oper
 
   mkN = overload {
     mkN : Str -> N
-      = \nom -> lin N (guessNounForms nom (guessAdjectiveForms nonExist) GenType); -- the default type of compound
+      = \nom -> lin N (guessNounForms nom (mkA nonExist) GenType); -- the default type of compound
     mkN : Str -> NRelType -> A -> N
       = \nom, rt, rel -> lin N (guessNounForms nom rel rt) ;
     mkN : Str -> Animacy -> NRelType -> A -> N
