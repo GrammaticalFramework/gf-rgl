@@ -412,13 +412,14 @@ lin pot4as5 n = n ;
 lincat
   Dig = TDigit ;
 
-lin
-  IDig d = {s = d.s ; n = d.n ; size = d.size} ;
+  lin
+    IDig d = d ** {tail = T1} ;
 
-  IIDig d i = {
-    s = d.s ++ BIND ++ i.s ;
+    IIDig d i = {
+    s = d.s ++ spaceIf i.tail ++ i.s ;
     n = Pl ;
-    size = i.size
+    size = i.size ;
+    tail = inc i.tail
   } ;
 
   D_0 = mk2Dig "0" Num5 ;
@@ -448,7 +449,20 @@ lin
     hasDot=True
   } ;
 
-oper
+  oper
+    spaceIf : DTail -> Str = \t -> case t of {
+      T3 => SOFT_SPACE ;
+      _  => BIND
+      } ;
+
+    inc : DTail -> DTail = \t -> case t of {
+      T1 => T2 ;
+      T2 => T3 ;
+      T3 => T1
+      } ;
+
+  oper
+
   mk3Dig : Str -> Str -> NumSize -> TDigit = \c,o,size -> mk4Dig c o Pl size ;
   mk2Dig : Str -> NumSize -> TDigit = \c,size -> mk3Dig c (c + "o") size ;
   mk4Dig : Str -> Str -> Number -> NumSize -> TDigit = \c,o,n,size -> {
