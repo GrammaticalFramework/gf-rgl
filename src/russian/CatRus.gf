@@ -81,7 +81,7 @@ lincat
   Numeral = NumeralForms ;
   Num = NumDet ;
   Card = NumDet ;
-  Digits = {s : Str ; size: NumSize} ;
+  Digits = {s : Str ; size: NumSize; tail: DTail} ;
   Decimal = {s : Str ; size: NumSize; hasDot : Bool} ;
 
   QS  = {s : QForm => Str} ;
