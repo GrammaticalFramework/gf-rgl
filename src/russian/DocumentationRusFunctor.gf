@@ -29,7 +29,12 @@ lin
                      Fem  => "(ж.р.)" ;
                      Neut => "(ср.р.)"
                    }) ;
-    s2 = inflNoun noun
+    s2 = inflNoun noun ++
+         case noun.rt of {
+           GenType => [] ;
+           AdjType => heading1 (heading adjective_Category) ++
+                      inflAdj noun.rel
+         }
     } ;
 
   InflectionPN = \pn -> {
@@ -114,14 +119,7 @@ lin
   InflectionA, InflectionA2 = \adj -> {
     t  = "пр" ;
     s1 = heading1 (heading adjective_Category) ;
-    s2 = heading2 (heading feminine_Parameter) ++
-         inflNoun (makeNFFromAF adj Fem Inanimate) ++
-         heading2 (heading masculine_Parameter) ++
-         inflNoun (makeNFFromAF adj Masc Inanimate) ++
-         heading2 (heading neuter_Parameter) ++
-         inflNoun (makeNFFromAF adj Neut Inanimate) ++
-         heading2 (heading comparative_Parameter) ++
-         frameTable (tr (tr (adj.comp)))
+    s2 = inflAdj adj
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
@@ -237,6 +235,16 @@ oper
           tr (th ("местный") ++ td (nf.sloc) ++ td ("-")) ++
           tr (th ("звательный") ++ td (nf.svoc) ++ td ("-"))
           ) ;
+
+  inflAdj : AdjForms -> Str = \adj ->
+    heading2 (heading masculine_Parameter) ++
+    inflNoun (makeNFFromAF adj Masc Inanimate) ++
+    heading2 (heading feminine_Parameter) ++
+    inflNoun (makeNFFromAF adj Fem Inanimate) ++
+    heading2 (heading neuter_Parameter) ++
+    inflNoun (makeNFFromAF adj Neut Inanimate) ++
+    heading2 (heading comparative_Parameter) ++
+    frameTable (tr (tr (adj.comp))) ;
 
 lin
   -- : String -> Definition ;
