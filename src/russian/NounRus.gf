@@ -19,9 +19,9 @@ lin
 
   -- : PN -> NP ;          -- John
   UsePN pn = {
-    s=\\cas => (nounFormsNoun pn).s ! Sg ! cas ;
+    s=pn.s ;
     pron=False;
-    a=Ag (gennum pn.g Sg) P3
+    a=Ag (gennum pn.g pn.n) P3
     } ;   -- Does NP need animacy?
 
   -- : Pron -> NP ;

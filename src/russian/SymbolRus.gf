@@ -5,14 +5,14 @@ flags coding=utf8;
 
 lin
   -- : Symb -> PN ;                -- x
-  SymbPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  SymbPN i = {s = (nounFormsNoun (immutableNounForms i.s Neut Inanimate)).s ! Sg; g = Neut; anim = Inanimate; n=Sg} ;
 
   -- : Int -> PN ;                 -- 27
-  IntPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  IntPN i = {s = (nounFormsNoun (immutableNounForms i.s Neut Inanimate)).s ! Sg; g = Neut; anim = Inanimate; n=Sg} ;
   -- : Float -> PN ;               -- 3.14159
-  FloatPN i = (immutableNounForms i.s Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  FloatPN i = {s = (nounFormsNoun (immutableNounForms i.s Neut Inanimate)).s ! Sg; g = Neut; anim = Inanimate; n=Sg} ;
   -- : Card -> PN ;                -- twelve [as proper name]  -- TODO: implement properly
-  NumPN card = (immutableNounForms (card.s ! Neut ! Inanimate ! Nom) Neut Inanimate) ** {g = Neut; a = Inanimate} ;
+  NumPN card = {s = (nounFormsNoun (immutableNounForms (card.s ! Neut ! Inanimate ! Nom) Neut Inanimate)).s ! Sg; g = Neut; anim = Inanimate; n=Sg} ;
 
   -- : CN -> Card -> NP ;          -- level five ; level 5
   CNNumNP cn card = {

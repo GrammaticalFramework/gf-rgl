@@ -396,36 +396,27 @@ oper
 
   mkPN = overload {
     mkPN : N -> PN
-      = \n -> lin PN n ;
+      = \n -> lin PN {s = (nounFormsNoun n).s ! Sg; g=n.g; anim=n.anim; n=Sg} ;
     mkPN : N -> Str -> N -> PN
-      = \n1,link,n2 -> lin PN (mkCompoundN n1 link n2) ;
+      = \n1,link,n2 -> lin PN {s = (nounFormsNoun (mkCompoundN n1 link n2)).s ! Sg; g=n1.g; anim=n1.anim; n=Sg} ;
     mkPN : Str -> PN
-      = \nom -> lin PN (guessNounForms nom (guessAdjectiveForms nonExist) GenType) ;
+      = \nom -> let n = guessNounForms nom (guessAdjectiveForms nonExist) GenType
+                in lin PN {s = (nounFormsNoun n).s ! Sg; g=n.g; anim=n.anim; n=Sg} ;
     mkPN : Str -> Gender -> Animacy -> PN
-      = \nom, g, anim -> lin PN (guessLessNounForms nom g anim (guessAdjectiveForms nonExist) GenType) ;
+      = \nom, g, anim -> let n = guessLessNounForms nom g anim (guessAdjectiveForms nonExist) GenType
+                         in lin PN {s = (nounFormsNoun n).s ! Sg; g=n.g; anim=n.anim; n=Sg} ;
     mkPN : Str -> Gender -> Number -> Animacy -> PN
-      = \nom, g, n, anim -> lin PN (guessLessNounForms nom g anim (guessAdjectiveForms nonExist) GenType) ;
+      = \nom, g, num, anim -> let n = guessLessNounForms nom g anim (guessAdjectiveForms nonExist) GenType
+                              in lin PN {s = (nounFormsNoun n).s ! num; g=g; anim=anim; n=num} ;
     mkPN : Str -> Gender -> Animacy -> Z.ZNIndex -> PN
-      = \word, g, anim, z -> lin PN (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms nonExist) GenType z)) ;
+      = \word, g, anim, z -> let n = noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms nonExist) GenType z)
+                             in lin PN {s = (nounFormsNoun n).s ! Sg; g=g; anim=anim; n=Sg} ;
     mkPN : Str -> Gender -> Animacy -> Str -> PN
-      = \word, g, anim, zi -> lin PN (noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms nonExist) GenType (Z.parseIndex zi))) ;
+      = \word, g, anim, zi -> let n = noMinorCases (Z.makeNoun word g anim (guessAdjectiveForms nonExist) GenType (Z.parseIndex zi))
+                              in lin PN {s = (nounFormsNoun n).s ! Sg; g=g; anim=anim; n=Sg} ;
     mkPN : A -> PN -> PN
       = \a, pn -> pn ** {
-        snom = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Nom ++ pn.snom ;
-        sgen = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Gen ++ pn.sgen ;
-        sdat = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Dat ++ pn.sdat ;
-        sacc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Acc ++ pn.sacc ;
-        sins = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Ins ++ pn.sins ;
-        sprep = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Loc ++ pn.sprep ;
-        sloc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Loc ++ pn.sloc ;
-        sptv = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Gen ++ pn.sptv ;
-        svoc = (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! Nom ++ pn.svoc ;
-        pnom = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Nom ++ pn.pnom ;
-        pgen = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Gen ++ pn.pgen ;
-        pdat = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Dat ++ pn.pdat ;
-        pacc = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Acc ++ pn.pacc ;
-        pins = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Ins ++ pn.pins ;
-        pprep = (adjFormsAdjective a).s ! (gennum pn.g Pl) ! pn.anim ! Loc ++ pn.pprep ;
+        s = \\c => (adjFormsAdjective a).s ! (gennum pn.g Sg) ! pn.anim ! c ++ pn.s ! c
       } ;
   } ;
 

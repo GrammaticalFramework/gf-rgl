@@ -46,15 +46,14 @@ lin
                      Neut => "(ср.р.)"
                    }) ;
     s2 = frameTable (
-          tr (th (heading nominative_Parameter) ++ td (pn.snom)) ++
-          tr (th (heading genitive_Parameter) ++ td (pn.sgen)) ++ 
-          tr (th (heading dative_Parameter) ++ td (pn.sdat)) ++ 
-          tr (th (heading accusative_Parameter) ++ td (pn.sacc)) ++ 
-          tr (th ("творительный") ++ td (pn.sins)) ++ 
-          tr (th ("предложный") ++ td (pn.sprep)) ++ 
-          tr (th (heading partitive_Parameter) ++ td (pn.sptv)) ++
-          tr (th ("местный") ++ td (pn.sloc)) ++
-          tr (th ("звательный") ++ td (pn.svoc))
+          tr (th (heading nominative_Parameter) ++ td (pn.s!Nom)) ++
+          tr (th (heading genitive_Parameter) ++ td (pn.s!Gen)) ++ 
+          tr (th (heading dative_Parameter) ++ td (pn.s!Dat)) ++ 
+          tr (th (heading accusative_Parameter) ++ td (pn.s!Acc)) ++ 
+          tr (th ("творительный") ++ td (pn.s!Ins)) ++ 
+          tr (th ("предложный") ++ td (pn.s!Pre)) ++ 
+          tr (th (heading partitive_Parameter) ++ td (pn.s!Ptv)) ++
+          tr (th ("местный") ++ td (pn.s!Loc))
           ) ;
     } ;
 
