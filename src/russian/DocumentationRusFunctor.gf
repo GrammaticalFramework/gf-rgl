@@ -53,7 +53,8 @@ lin
           tr (th ("творительный") ++ td (pn.s!Ins)) ++ 
           tr (th ("предложный") ++ td (pn.s!Pre)) ++ 
           tr (th (heading partitive_Parameter) ++ td (pn.s!Ptv)) ++
-          tr (th ("местный") ++ td (pn.s!Loc))
+          tr (th ("местный") ++ td (pn.s!Loc)) ++
+          tr (th ("звательный") ++ td (pn.s ! VocRus))
           ) ;
     } ;
 
