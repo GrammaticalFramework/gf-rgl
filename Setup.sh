@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ---
 # Non-Haskell RGL build script for Unix-based machines
