@@ -14,7 +14,7 @@
         defaultPackage = pkgs.stdenv.mkDerivation {
           name = "gf-rgl";
           src = ./.;
-          buildInputs = [gf-core.packages.${system}.gf];
+          buildInputs = [gf-core.packages.${system}.gf pkgs.bash];
           buildPhase = ''
             mkdir -p build
             ./Setup.sh --dest=build
