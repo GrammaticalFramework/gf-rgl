@@ -22,7 +22,7 @@
             ];
           buildPhase = ''
             mkdir -p build
-            ./Setup.sh --dest=build
+            bash Setup.sh --dest=build
           '';
           installPhase = ''
             mkdir -p $out
