@@ -178,7 +178,7 @@ lin
   PassVPSlash vps = case vps.verb.asp of {
   Perfective => vps ** {
     verb=copulaEll ;
-    compl=\\p,a => vps.compl ! p ! a ++ shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s
+    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl ! p ! a ++ vps.c.s
     } ;
   Imperfective => vps ** {
     verb=(passivate vps.verb);
