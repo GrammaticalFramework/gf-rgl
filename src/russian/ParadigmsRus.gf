@@ -371,6 +371,17 @@ oper
          } ;
    } ;
 
+
+   compoundPN : (PN -> Str -> PN)
+       = \pn, adv -> pn ** {
+        s = \\c => pn.s ! c ++ adv
+      } ;
+
+    compoundLN : (LN -> Str -> LN)
+       = \ln, adv -> ln ** {
+        s = \\c => ln.s ! c ++ adv
+      } ;
+
   mkN2 = overload {
     mkN2 : N -> N2
       = \n -> lin N2 (mkFun n nullPrep) ;
