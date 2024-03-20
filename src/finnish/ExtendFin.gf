@@ -5,7 +5,7 @@ concrete ExtendFin of Extend =
     VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
     ,ExistCN, ExistMassCN, ICompAP, ByVP
-    ,CompoundN, GenNP, GenIP, AdvIsNP, EmbedSSlash
+    ,CompoundN, GenNP, GenIP, GenRP, AdvIsNP, EmbedSSlash
     ,PassVPSlash, PassAgentVPSlash
     ,CardCNCard
     ,UttAccNP
@@ -190,6 +190,15 @@ lin
      } ;
 
     GenIP ip = {s = \\_,_ => ip.s ! NPCase Gen} ;
+
+    GenRP num cn = {
+      s = \\n,c =>
+        let k = npform2case num.n c
+         in relPron ! n ! Gen ++ linCN (NCase num.n k) cn ;
+---      a = RNoAg
+      a = RAg (agrP3 num.n)
+      } ;
+
 
     ByVP vp = lin Adv {s = S.infVP vp.s.sc Pos (Ag Sg P3) vp Inf3Adess} ; ---- Agr ?
 
