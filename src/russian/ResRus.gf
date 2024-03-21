@@ -599,6 +599,70 @@ oper
 -- we can store the sya-schema and 'BIND++' as necessary.
 
 oper
+  VP : Type = {
+    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
+    verb : ResRus.VerbForms ;
+    dep : Str ;  -- dependent infinitives and such
+    compl : ComplTable
+    } ;
+
+  VPSlash = {
+    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
+    verb : VerbForms ;
+    dep : Str ;  -- dependent infinitives and such
+    compl1 : ComplTable ;
+    compl2 : ComplTable ;
+    c : ComplementCase ;
+    } ; ----
+
+  slashV : VerbForms -> ComplementCase -> VPSlash = \verb,c -> {
+      verb     = verb ;
+      adv      = \\a => [];
+      compl1   = \\_,a => [] ;
+      compl2   = \\_,a => [] ;
+      dep      = [] ;
+      c        = c ;
+    } ;
+
+  insertSlashObjA : Adjective -> ComplementCase -> VPSlash -> VPSlash = \ap,c,slash -> {
+      verb     = slash.verb ;
+      adv     = slash.adv ;
+      compl1 = slash.compl1 ;
+      compl2 = \\p,a => case p of {
+           Pos => case ap.preferShort of {
+             PreferFull => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! slash.c.c ;
+             PrefShort => slash.compl2 ! p ! a ++ ap.short ! a
+             } ;
+           Neg => case ap.preferShort of {
+             PreferFull => case neggen slash.c of {
+                 False => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! slash.c.c ;
+                 True  => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! Gen
+              } ;
+             PrefShort => slash.compl2 ! p ! a ++ ap.short ! a
+             }
+           } ;
+      c = {s="" ; c=Acc ; neggen=True ; hasPrep=False};
+      dep = slash.dep ;
+      } ;
+
+  insertSlashObj1 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
+      verb     = slash.verb ;
+      adv     = slash.adv;
+      compl1 =\\p,a => slash.compl1 ! p ! a ++ obj ! p ! a;
+      compl2 = slash.compl2 ;
+      c     = slash.c ;
+      dep = slash.dep ;
+      } ;
+
+   insertSlashObj2 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
+      verb     = slash.verb ;
+      adv     = slash.adv;
+      compl1 = slash.compl1 ;
+      compl2 =\\p,a => slash.compl2 ! p ! a ++ obj ! p ! a;
+      c     = slash.c ;
+      dep = slash.dep ;
+      } ;
+
 
   guessVerbForms : Aspect -> Transitivity -> Str -> Str -> Str -> VerbForms
     = \asp,tran,inf,sg1,sg3 ->

@@ -53,81 +53,39 @@ lin
     } ;
 
   -- : V2 -> VPSlash ;  -- love (it)
-  SlashV2a v2 = {
-    adv=\\a=>[] ;
-    verb=v2 ;
-    dep=[] ;
-    compl=\\_,_ => [] ;
-    c=v2.c
-    } ;
+  SlashV2a v2 = slashV v2 v2.c ;
 
   -- : V3 -> NP -> VPSlash ;  -- give it (to her)
-  Slash2V3 v3 np = {
-    adv=\\a=>[] ;
-    verb=v3 ;
-    dep=[] ;
-    compl=\\p,a => applyPolPrep p v3.c np ;
-    c=v3.c2
-    } ;
+  Slash2V3 v3 np = insertSlashObj1 (\\p,_ => applyPolPrep p v3.c np) v3.c (slashV v3 v3.c) ;
 
   -- : V3 -> NP -> VPSlash ;  -- give (it) to her
-  Slash3V3 v3 np = {
-    adv=\\a=>[] ;
-    verb=v3 ;
-    dep=[] ;
-    compl=\\p,a => applyPolPrep p v3.c2 np ;
-    c=v3.c
-    } ;
+  Slash3V3 v3 np = insertSlashObj2 (\\p,_ => applyPolPrep p v3.c2 np) v3.c2 (slashV v3 v3.c2) ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2v vp = vp ** {
-    verb=v2v ;
-    dep=verbInf vp.verb ;
-    c=v2v.c
-    } ;
+ SlashV2V v2v vp = insertSlashObj2 (\\_,a => verbInf vp.verb) v2v.c (slashV v2v v2v.c) ;
 
   -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
-  SlashV2S v2s s = {
-    adv=\\a=>[] ;
-    verb=v2s ;
-    dep=[] ;
-    compl=\\_,a=> embedInCommas ("что" ++ s.s ! Ind) ;
-    c=v2s.c
-    } ;
+  SlashV2S v2s s = insertSlashObj2 (\\_,a=> embedInCommas ("что" ++ s.s ! Ind)) v2s.c (slashV v2s v2s.c) ;
+
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
-  SlashV2Q v2q qs = {
-    adv=\\a=>[] ;
-    verb=v2q ;
-    dep=[] ;
-    compl=\\_,a=>qs.s ! QDir;
-    c=v2q.c
-    } ;
+  SlashV2Q v2q qs = insertSlashObj2 (\\_,_=> qs.s ! QDir) v2q.c (slashV v2q v2q.c);
 
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
-  SlashV2A v2a ap = {
-    adv=\\a=>[] ;
-    verb=v2a ;
-    dep=[] ;
-    compl=table {
-      Pos => case ap.preferShort of {
-        PreferFull => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
-        PrefShort => ap.short
-        } ;
-      Neg => case ap.preferShort of {
-        PreferFull => case neggen v2a.c of {
-            False => \\a => ap.s ! agrGenNum a ! Animate ! v2a.c.c ;
-            True => \\a => ap.s ! agrGenNum a ! Animate ! Gen
-          } ;
-        PrefShort => ap.short
-        }
-      } ;
-    c={s="" ; c=Acc ; neggen=True ; hasPrep=False}
-    } ;
+  SlashV2A v2a ap = insertSlashObjA ap v2a.c (slashV v2a v2a.c) ;
 
-  -- : VPSlash -> NP -> VP ; -- love it
-  ComplSlash vps np = vps ** {
-    compl=\\p,a => applyPolPrep p vps.c np ++ vps.compl ! p ! a
-    } ;
+ --  : VPSlash -> NP -> VP ; -- love it
+ ComplSlash vps np =
+      let arg : {obj,acc,dat : Str}
+              = case vps.c.c of {
+                 Dat => {obj=[];            acc=np.s ! Acc; dat=[]             } ;
+                 Acc => {obj=[];            acc=[];              dat=np.s ! Dat} ;
+                  c => {obj=np.s ! c; acc=[];              dat=[]             }
+                }
+      in {verb   = vps.verb ;
+          adv  = vps.adv ;
+          dep = vps.dep ;
+          compl = \\p,a => vps.compl1 ! p ! a  ++ arg.acc ++ arg.dat ++ arg.obj ++ vps.compl2 ! p ! a  ;
+         } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy
   SlashVV vv vps = vps ** {
@@ -149,7 +107,7 @@ lin
 
   -- : VPSlash -> VP ;         -- love himself
   ReflVP vps = vps ** {
-    compl=\\p,a => vps.compl ! p ! a ++ vps.c.s ++ sebya.s ! vps.c.c
+    compl=\\p,a => vps.compl1 ! p ! a ++ vps.c.s ++ vps.compl2 ! p ! a ++ sebya.s ! vps.c.c
     } ;
 
   -- : Comp -> VP ;            -- be warm
@@ -180,7 +138,8 @@ lin
   AdVVPSlash adv vps = vps ** {adv=\\a=>adv.s ++ vps.adv ! a} ;
 
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  VPSlashPrep vp prep = vp ** {c=prep} ;
+  VPSlashPrep vp prep = vp ** {c = prep ; compl1 = vp.compl ; compl2 = \\_,_ => []; dep=[]} ;
+
   -- : AP -> Comp ;            -- (be) small
   CompAP ap = case ap.preferShort of {
     PreferFull => {s=\\a=>ap.s ! agrGenNum a ! Inanimate ! Ins ; adv=[] ; cop=InsCopula} ;

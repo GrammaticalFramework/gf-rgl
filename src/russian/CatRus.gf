@@ -37,19 +37,9 @@ lincat
   CN = ResRus.Noun ;
 
   NP = ResRus.NounPhrase ;
-  VP = {
-    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
-    verb : ResRus.VerbForms ;
-    dep : Str ;  -- dependent infinitives and such
-    compl : ComplTable
-    } ;
-  VPSlash = {
-    adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
-    verb : ResRus.VerbForms ;
-    dep : Str ;  -- dependent infinitives and such
-    compl : ComplTable ;
-    c : ComplementCase
-    } ; ----
+  VP = ResRus.VP ;
+
+  VPSlash = ResRus.VPSlash ;
 
   AP = ResRus.Adjective ** {isPost : Bool} ;
 
@@ -142,7 +132,13 @@ linref
   VP = \s -> s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ! Ag (GSg Neut) P3 ;
   Comp = \s -> copula.inf ++ s.s ! Ag (GSg Neut) P3 ++ s.adv ;
   IComp = \s -> s.s ! Ag (GSg Neut) P3 ++ s.adv ++ copula.inf;
-  VPSlash = \s -> s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ! Ag (GSg Neut) P3 ++ s.c.s ;
+  VPSlash = \s -> let vp : VP
+                            =  {verb = s.verb ;
+                                adv = s.adv ;
+                                dep = s.dep ;
+                                compl = \\p, a => s.compl1 ! p ! a ++ s.c.s ++ s.compl2 ! p ! a
+                               }
+         in vp.adv ! Ag (GSg Neut) P3 ++ (verbInf vp.verb) ++ vp.dep ++ vp.compl ! Pos ! Ag (GSg Neut) P3 ;
   Cl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ;
   ClSlash = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ;
   QCl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ;

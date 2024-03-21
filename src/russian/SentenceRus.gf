@@ -41,7 +41,7 @@ lin
     adv=vps.adv ! np.a ;  -- ??
     verb=vps.verb ;
     dep=vps.dep ;
-    compl=\\p => vps.compl ! p ! np.a ;  -- ??
+    compl=\\p => vps.compl1 ! p ! np.a ++ vps.compl2 ! p ! np.a;  -- ??
     a=np.a ;
     c=vps.c
   } ;
