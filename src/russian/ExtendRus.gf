@@ -145,12 +145,14 @@ lin
       vps.adv ! (genNumAgrP3 gn)
       ++ shortPastPassPart vps.verb gn
       ++ vps.dep
-      ++ vps.compl ! Pos ! (genNumAgrP3 gn) ;
+      ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
+      ++ vps.compl2 ! Pos ! (genNumAgrP3 gn);
     short=\\a =>
       vps.adv ! a
       ++ shortPastPassPart vps.verb (agrGenNum a)
       ++ vps.dep
-      ++ vps.compl ! Pos ! a
+      ++ vps.compl1 ! Pos ! a
+      ++ vps.compl2 ! Pos ! a
       ++ vps.c.s ; --
     isPost = False ;
     preferShort=PreferFull
@@ -163,13 +165,15 @@ lin
       ++ shortPastPassPart vps.verb gn
       ++ vps.dep
       ++ applyPolPrep Pos vps.c np
-      ++ vps.compl ! Pos ! (genNumAgrP3 gn) ;
+      ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
+      ++ vps.compl2 ! Pos ! (genNumAgrP3 gn);
     short=\\a =>
       vps.adv ! a
       ++ shortPastPassPart vps.verb (agrGenNum a)
       ++ vps.dep
       ++ applyPolPrep Pos vps.c np
-      ++ vps.compl ! Pos ! a ;
+      ++ vps.compl1 ! Pos ! a
+      ++ vps.compl2 ! Pos ! a ;
     isPost = False ;
     preferShort=PreferFull
     } ;
@@ -178,10 +182,11 @@ lin
   PassVPSlash vps = case vps.verb.asp of {
   Perfective => vps ** {
     verb=copulaEll ;
-    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl ! p ! a ++ vps.c.s
+    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
     } ;
   Imperfective => vps ** {
     verb=(passivate vps.verb);
+    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
   }
      };
 
@@ -192,11 +197,11 @@ lin
   PassAgentVPSlash vps np = case vps.verb.asp of {
       Perfective => vps ** {
         verb=copulaEll ;
-        compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s ++ vps.compl ! p ! a ++ np.s ! Ins
+        compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ np.s ! Ins
         } ;
       Imperfective => vps ** {
         verb=(passivate vps.verb);
-        compl=\\p,a => vps.compl ! p ! a ++ np.s ! Ins
+        compl=\\p,a => vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ np.s ! Ins
       }
      };
 

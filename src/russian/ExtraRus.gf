@@ -144,7 +144,8 @@ lin
       ++ verbRefl vps.verb
       ++ case temp.t of {Cond => "бы" ; _ => []}
       ++ vps.dep
-      ++ vps.compl ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.compl1 ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.compl2 ! pol.p ! Ag (GSg Neut) P3
       ++ vps.c.s
       )
     } ;
@@ -157,7 +158,8 @@ lin
       ++ verbRefl vps.verb
       ++ case temp.t of {Cond => "бы" ; _ => []}
       ++ vps.dep
-      ++ vps.compl ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.compl1 ! pol.p ! Ag (GSg Neut) P3
+      ++ vps.compl2 ! pol.p ! Ag (GSg Neut) P3
       ++ vps.c.s
       ++ endComma
     } ;
