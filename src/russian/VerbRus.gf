@@ -56,10 +56,10 @@ lin
   SlashV2a v2 = slashV v2 v2.c ;
 
   -- : V3 -> NP -> VPSlash ;  -- give it (to her)
-  Slash2V3 v3 np = insertSlashObj1 (\\p,_ => applyPolPrep p v3.c np) v3.c (slashV v3 v3.c) ;
+  Slash2V3 v3 np = insertSlashObj1 (\\p,_ => applyPolPrep p v3.c np) v3.c2 (slashV v3 v3.c2) ;
 
   -- : V3 -> NP -> VPSlash ;  -- give (it) to her
-  Slash3V3 v3 np = insertSlashObj2 (\\p,_ => applyPolPrep p v3.c2 np) v3.c2 (slashV v3 v3.c2) ;
+  Slash3V3 v3 np = insertSlashObj2 (\\p,_ => applyPolPrep p v3.c2 np) v3.c (slashV v3 v3.c) ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
  SlashV2V v2v vp = insertSlashObj2 (\\_,a => verbInf vp.verb) v2v.c (slashV v2v v2v.c) ;
@@ -75,16 +75,10 @@ lin
 
  --  : VPSlash -> NP -> VP ; -- love it
  ComplSlash vps np =
-      let arg : {obj,acc,dat : Str}
-              = case vps.c.c of {
-                 Dat => {obj=[];            acc=np.s ! Acc; dat=[]             } ;
-                 Acc => {obj=[];            acc=[];              dat=np.s ! Dat} ;
-                  c => {obj=np.s ! c; acc=[];              dat=[]             }
-                }
-      in {verb   = vps.verb ;
+     {verb   = vps.verb ;
           adv  = vps.adv ;
           dep = vps.dep ;
-          compl = \\p,a => vps.compl1 ! p ! a  ++ arg.acc ++ arg.dat ++ arg.obj ++ vps.compl2 ! p ! a  ;
+          compl = \\p,a => vps.compl1 ! p ! a  ++ applyPolPrep p vps.c np ++ vps.compl2 ! p ! a  ;
          } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy
