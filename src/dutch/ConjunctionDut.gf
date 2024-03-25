@@ -19,6 +19,10 @@ concrete ConjunctionDut of Conjunction =
 
     ConjRS conj ss = conjunctDistrTable2 Gender Number conj ss ;
 
+    ConjCN conj ss = conjunctDistrTable2 Adjf NForm conj ss ** {
+      g = Utr
+      } ;
+
 -- These fun's are generated from the list cat's.
 
     BaseS = twoTable Order ;
@@ -31,6 +35,8 @@ concrete ConjunctionDut of Conjunction =
     ConsAP xs x = consrTable2 Agr AForm comma xs x ** {isPre = andB xs.isPre x.isPre} ;
     BaseRS x y = twoTable2 Gender Number x y ** {c = y.c} ;
     ConsRS xs x = consrTable2 Gender Number comma xs x ;
+    BaseCN x y = twoTable2 Adjf NForm x y ;
+    ConsCN xs x = consrTable2 Adjf NForm comma xs x ;
 
   lincat
     [S] = {s1,s2 : Order => Str} ;
@@ -38,5 +44,6 @@ concrete ConjunctionDut of Conjunction =
     [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
     [AP] = {s1,s2 : Agr => AForm => Str ; isPre : Bool} ;
     [RS] = {s1,s2 : Gender => Number => Str} ;
+    [CN] = {s1,s2 : Adjf => NForm => Str} ;
 
 }

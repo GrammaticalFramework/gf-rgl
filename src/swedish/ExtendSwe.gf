@@ -16,7 +16,8 @@ concrete ExtendSwe of Extend = CatSwe **
     CompoundN, CompoundAP, AdvIsNP,
     UttAccNP,
     A2VPSlash, N2VPSlash,
-    CardCNCard 
+    CardCNCard,
+    GenRP
   ]
   with (Grammar = GrammarSwe)
     **
@@ -392,5 +393,10 @@ lin UseDAPMasc, UseDAPFem = \dap ->
 
 lin CardCNCard card cn =
   {s = \\g => card.s ! cn.g ++ cn.s ! card.n ! DIndef ! Nom ; n = Pl} ;
-  
+
+  GenRP num cn = {
+      s = \\g_,n,c => "vars" ++ cn.s ! num.n ! DDef Indef ! Nom ; --- c ?
+      a = RAg cn.g num.n P3
+      } ;
+
 }

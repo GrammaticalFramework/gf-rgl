@@ -3,7 +3,7 @@
 concrete ExtendGer of Extend =
   CatGer ** ExtendFunctor
   - [ -- remove the default implementations of:
-      GenNP, EmptyRelSlash,
+      GenNP, GenRP, EmptyRelSlash,
       VPS, ListVPS, MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
       VPI, ListVPI, MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
       ICompAP, IAdvAdv, CompIQuant, PrepCN,
@@ -35,6 +35,13 @@ concrete ExtendGer of Extend =
           isDefArt = False ;
           delCardOne = False
       } ;
+
+    GenRP nu cn = {
+      s = \\gn,c => relPron ! gn ! Gen ++ cn.s ! Weak ! nu.n ! c ;
+      a = RAg nu.n P3
+      } ;
+
+
 
     EmptyRelSlash slash = {
       s = \\m,t,a,p,gn =>

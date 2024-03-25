@@ -62,7 +62,7 @@ lin
   Slash3V3 v3 np = insertSlashObj2 (\\p,_ => applyPolPrep p v3.c2 np) v3.c (slashV v3 v3.c) ;
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
- SlashV2V v2v vp = insertSlashObj2 (\\_,a => verbInf vp.verb) v2v.c (slashV v2v v2v.c) ;
+  SlashV2V v2v vp = insertSlashObj2 (\\_,a => verbInf vp.verb) v2v.c (slashV v2v v2v.c) ;
 
   -- : V2S -> S -> VPSlash ;  -- answer (to him) that it is good
   SlashV2S v2s s = insertSlashObj2 (\\_,a=> embedInCommas ("что" ++ s.s ! Ind)) v2s.c (slashV v2s v2s.c) ;

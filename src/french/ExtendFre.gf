@@ -4,6 +4,7 @@ concrete ExtendFre of Extend =
   CatFre ** ExtendFunctor -
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
+   GenRP,
    ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
    PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN
    ]                   -- put the names of your own definitions here
@@ -23,6 +24,16 @@ lincat
   RNP = {s : Agr => Case => Str} ;
 
 lin
+    GenRP nu cn = {
+      s = \\_b,_aagr,_c => "dont" ++ num ++ artDef False g n Nom ++ cn.s ! n ;
+      a = aagr g n ;
+      hasAgr = True
+      } where {
+        g = cn.g ;
+        n = nu.n ;
+        num = if_then_Str nu.isNum (nu.s ! g) []
+      } ;
+
    ExistCN cn =
       let
          pos = ExistNP (DetCN (DetQuant IndefArt NumSg) cn) ;

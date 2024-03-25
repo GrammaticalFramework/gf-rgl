@@ -57,5 +57,7 @@ lin
   youPolPl_Pron  = youPol_Pron ;
   youPolPlFem_Pron = youPlFem_Pron ;
 
+  TPastSimple = TPast ;
+
 }
 

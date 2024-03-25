@@ -1,6 +1,7 @@
 --# -path=alltenses:../common:../abstract:../romance
 concrete ExtendIta of Extend = CatIta ** ExtendRomanceFunctor  -
    [
+   GenRP,
    PassVPSlash, PassAgentVPSlash
    ]
   -- don't forget to put the names of your own
@@ -15,6 +16,19 @@ concrete ExtendIta of Extend = CatIta ** ExtendRomanceFunctor  -
   Prelude,
   ParadigmsIta in {
     -- put your own definitions here
+
+lin
+    GenRP nu cn = {
+      s = \\_b,_aagr,_c => "di cui" ++ num ++ cn.s ! n ;
+      a = aagr g n ;
+      hasAgr = True
+      } where {
+        g = cn.g ;
+        n = nu.n ;
+        num = if_then_Str nu.isNum (nu.s ! g) []
+      } ;
+
+
 
 
 lin PassVPSlash vps = passVPSlash vps [] ;
