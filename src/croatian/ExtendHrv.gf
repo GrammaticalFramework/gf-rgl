@@ -33,7 +33,7 @@ concrete ExtendHrv of Extend = CatHrv **
   with (Grammar = GrammarHrv)
     **
 open
-  ResHrv
+  ResHrv, ParadigmsHrv
 in {
 
 ---lin ReflPossPron = justDemPronFormsAdjective reflPossessivePron ;
@@ -45,7 +45,7 @@ lin
     } ;
 
   GenRP num cn = {
-    s = \\g, n, c => Grammar.IdRP.s ! g ! n ! Gen ++ num.s ! cn.g ! c ++ cn.s ! n ! c
+    s = \\g, n, c => (adjFormsAdjective (mkA "čiji").posit).s ! g ! n ! c ++ num.s ! cn.g ! c ++ cn.s ! n ! c
     } ;
 
 }
