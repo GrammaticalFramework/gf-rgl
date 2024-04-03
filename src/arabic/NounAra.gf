@@ -237,6 +237,9 @@ lin
              }
     };
 
-  -- : CN -> NP -> CN ;     -- glass of wine
-  --PartNP
+  QuantityNP n m = emptyNP ** {
+    s = \\c => preOrPost m.isPre m.s n.s ;
+    a = { pgn = agrP3 NoHum Masc (sizeToNumber n.n);
+          isPron = False }
+  };
 }

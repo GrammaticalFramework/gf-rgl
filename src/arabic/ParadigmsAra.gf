@@ -206,6 +206,10 @@ resource ParadigmsAra = open
     mkConj : Str -> Str -> Number -> Conj ; -- either, or, sg
   } ;
 
+--2 Measurement Units
+
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 --2 Verbs
 
 -- Overloaded operations
