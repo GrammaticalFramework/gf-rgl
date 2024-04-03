@@ -8,7 +8,7 @@ concrete ExtendAra of Extend =
     VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS,
     EmbedSSlash, AdjAsNP, GerundNP,
     PassVPSlash, ---- bogus implementation, see below
-    CompoundN
+    CompoundN, UseDAP, UseDAPMasc, UseDAPFem
 ]
   with (Grammar=GrammarAra)
   ** open
@@ -104,5 +104,32 @@ lin
       s  = \\n, s, c => b.s ! n ! Const ! c ++ a.s ! n ! s ! c ;
       s2 = \\n, s, c => b.s2 ! n ! Const ! c ++ a.s2 ! n ! s ! c
       } ;
+
+lin UseDAP dap = case dap.isEmpty of {
+      True => case <dap.d,dap.n> of {  -- if the s field is empty, make up some other determiner
+                <Def,One>   => it_Pron ;
+                <Def,_>     => they_Pron ;
+                <Indef,One> => emptyNP ** {s = someSg_Det.s ! NoHum ! Masc} ;
+                _           => emptyNP ** {s = somePl_Det.s ! NoHum ! Masc}
+              } ;
+      False => emptyNP ** {s = dap.s ! NoHum ! Masc} } ;
+
+lin UseDAPMasc dap = case dap.isEmpty of {
+      True => case <dap.d,dap.n> of {  -- if the s field is empty, make up some other determiner
+                <Def,One>   => it_Pron ;
+                <Def,_>     => theyMasc_Pron ;
+                <Indef,One> => emptyNP ** {s = someSg_Det.s ! NoHum ! Masc} ;
+                _           => emptyNP ** {s = somePl_Det.s ! NoHum ! Masc}
+              } ;
+      False => emptyNP ** {s = dap.s ! NoHum ! Masc} } ;
+
+lin UseDAPFem dap = case dap.isEmpty of {
+      True => case <dap.d,dap.n> of {  -- if the s field is empty, make up some other determiner
+                <Def,One>   => it_Pron ;
+                <Def,_>     => theyFem_Pron ;
+                <Indef,One> => emptyNP ** {s = someSg_Det.s ! NoHum ! Fem} ;
+                _           => emptyNP ** {s = somePl_Det.s ! NoHum ! Fem}
+              } ;
+      False => emptyNP ** {s = dap.s ! NoHum ! Fem} } ;
 
 }

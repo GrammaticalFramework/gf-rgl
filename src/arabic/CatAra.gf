@@ -54,7 +54,7 @@ concrete CatAra of Cat = CommonX - [Utt]  ** open ResAra, Prelude, ParamX in {
     Card = ResAra.NumOrdCard ;
     Predet = ResAra.Predet ;
 
-    Det = ResAra.Det ;
+    DAP, Det = ResAra.Det ;
 --  {s : Species => Gender => Case => Str ;
 --   d : State; n : Size; isNum : Bool } ;
     Quant = ResAra.Quant ;
