@@ -3,6 +3,7 @@ concrete ExtendHrv of Extend = CatHrv **
     --- ReflPossPron
     CardCNCard
     ---- constant not found (yet)
+    ,GenRP
     ,youPolFem_Pron
     ,UttVPShort
     ,UttAccIP
@@ -37,9 +38,14 @@ in {
 
 ---lin ReflPossPron = justDemPronFormsAdjective reflPossessivePron ;
 
-lin CardCNCard card cn = {
-  s = \\g,c => card.s ! g ! c ++ numSizeForm cn.s card.size c ;
-  size = NS_20_
-  } ;
+lin
+  CardCNCard card cn = {
+    s = \\g,c => card.s ! g ! c ++ numSizeForm cn.s card.size c ;
+    size = NS_20_
+    } ;
+
+  GenRP num cn = {
+    s = \\g, n, c => Grammar.IdRP.s ! g ! n ! Gen ++ num.s ! cn.g ! c ++ cn.s ! n ! c
+    } ;
 
 }

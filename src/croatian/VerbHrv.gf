@@ -37,6 +37,12 @@ lin
       s = \\a_ => np.s ! Nom ;
       } ;
       
+    CompCN cn = {
+      s = \\a => case a of {
+        Ag _ n _ => cn.s ! n ! Nom
+	} ;
+      } ;
+      
     CompAdv adv = {
       s = \\a_ => adv.s
       } ;
