@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common
+	--# -path=.:../abstract:../common
 
 -- documenting Arabic inflection
 ---- so far with English titles and tags, AR 2024-01-31
@@ -32,7 +32,7 @@ lin
          )
     } ;
 
-  InflectionPN, InflectionLN, InflectionGN, InflectionSN = \pn -> { ---- TODO: special for LN, GN, SN
+  InflectionPN, InflectionGN, InflectionSN = \pn -> { ---- TODO: special for LN, GN, SN
     t  = "pn" ;
     s1 = heading1 ("Proper Name" ++
                     case pn.g of {

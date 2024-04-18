@@ -9,11 +9,10 @@ lin FullName gn sn = emptyNP ** {
       a = {pgn = Per3 gn.g Sg ; isPron = False} ;
       } ;
 
-lin UseLN pn = emptyNP ** {
-      s = pn.s ;
-      a = {pgn = Per3 pn.g Sg ; isPron = False} ;
-      } ;
+lin UseLN ln = ln ;
 
-lin InLN n = A.PrepNP S.in_Prep (N.UsePN n) ; ---- TODO: alternative prepositions
+lin PlainLN ln = ln ;
+
+lin InLN n = A.PrepNP S.in_Prep n ; ---- TODO: alternative prepositions
 
 }

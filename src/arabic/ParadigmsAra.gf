@@ -30,6 +30,7 @@ resource ParadigmsAra = open
   ResAra,
   OrthoAra,
   (A=AdjectiveAra),
+  (N=NounAra),
   CatAra
   in {
 
@@ -97,12 +98,17 @@ resource ParadigmsAra = open
 
   mkLN = overload {
     mkLN : Str -> LN  -- Predictable LN from a Str: fem hum if ends in ة, otherwise masc hum.
-     = \s -> lin LN (smartPN s) ;
+     = \s -> lin LN (N.UsePN (smartPN s)) ;
+    mkLN : Str -> Gender -> LN  
+     = \s, g -> lin LN (N.UsePN (smartPN s ** {g = g})) ;
     mkLN : N -> LN    -- Make a LN out of N. The LN is in construct state.
-     = \n -> lin LN (n ** {
-          s = \\c => n.s ! Sg ! Const ! c
-                  ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
-        }) ;
+     = \n -> lin LN (N.MassNP (N.UseN n)) ;
+     ----(n ** { ---- cannot get this to compile AR 2024-04-18
+         ---- s = \\c => n.s ! Sg ! Const ! c
+             ----     ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
+----        }))) ;
+    mkLN : NP -> LN
+      = \np -> np ;
   } ;
 
 --3 Relational nouns
