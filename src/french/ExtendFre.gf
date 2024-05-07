@@ -6,7 +6,8 @@ concrete ExtendFre of Extend =
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
    GenRP,
    ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
-   PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN
+   PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN,
+   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -122,5 +123,25 @@ lin UseDAP = \dap ->
            a = agrP3 g n ;
            hasClit = False
            } ;
+
+  lincat
+    VPS = {s : Mood => Agr => Bool => Str} ;
+    [VPS] = {s1,s2 : Mood => Agr => Bool => Str} ;
+
+  lin
+    BaseVPS x y = twoTable3 Mood Agr Bool x y ;
+    ConsVPS = consrTable3 Mood Agr Bool comma ;
+
+  lin
+    PredVPS np vpi = {
+      s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg
+      } ;
+    MkVPS tm p vp = {
+      s = \\m,agr,isNeg =>
+        tm.s ++ p.s ++
+        (mkClausePol (orB isNeg vp.isNeg) [] False False agr vp).s
+          ! DDir ! tm.t ! tm.a ! p.p ! m
+      } ;
+    ConjVPS = conjunctDistrTable3 Mood Agr Bool ;
 
 }
