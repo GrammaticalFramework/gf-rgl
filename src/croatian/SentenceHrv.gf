@@ -28,5 +28,9 @@ lin
 		 pol.s ++ verbAgr rcl.verb a CTPres ++
 		 rcl.compl ! a ;
       } ;  ---- TODO tenses
+
+
+    AdvS adv s = {s = adv.s ++ s.s} ;
+    ExtAdvS adv s = {s = adv.s ++ Predef.BIND ++ "," ++ s.s} ;
     
 }

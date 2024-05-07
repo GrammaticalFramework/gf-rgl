@@ -18,7 +18,7 @@ concrete CatHrv of Cat =
 
     RS  = {s : Agr => Str} ;
     RCl = {subj,clit,compl : Agr => Str ; verb : VerbForms} ; ---- RAgr with composite RP
-    RP  = AdjForms ;
+    RP  = {s : Gender => Number => Case => Str} ; -- same as AP 
 
     VP = {verb : VerbForms ; clit,compl : Agr => Str} ; ---- more fields probably needed
     VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
@@ -33,10 +33,12 @@ concrete CatHrv of Cat =
     AdA = {s : Str} ;
 
     N  = ResHrv.NounForms ** {g : Gender} ;
+    N2  = ResHrv.NounForms ** {g : Gender ; c : ComplementCase} ;
     CN = ResHrv.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; -- clit,prep differ for pronouns
     PN = {s : Case => Str ; g : Gender} ; 
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
+    Predet = {s : Gender => Number => Case => Str} ; -- same as AP
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;

@@ -62,6 +62,15 @@ lin
       s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
       g = cn.g
       } ;
+      
+    PredetNP predet np =
+      case np.a of {
+        Ag g n _ => { 
+          s,clit,prep = \\c => predet.s ! g ! n ! c ++ np.s ! c ;
+          a = np.a ;
+	  hasClit = False 
+	}
+      } ;
 
     RelCN cn rs = {
       s = \\n,c => cn.s ! n ! c ++ rs.s ! Ag cn.g n P3 ;

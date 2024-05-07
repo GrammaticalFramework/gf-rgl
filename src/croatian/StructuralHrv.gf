@@ -31,4 +31,17 @@ lin
 
     somewhere_Adv = mkAdv "negdje" ;
 
+    if_Subj = lin Subj {s = "ako"} ;
+    every_Det = {s = \\g, c => (adjFormsAdjective (velikA "svaki")).s ! g ! Sg ! c ; size = NS_1} ;
+    all_Predet = adjFormsAdjective (velikA "svi") ;
+    that_Subj = lin Subj {s = "da"} ;
+    someSg_Det = {s = \\g, c => (adjFormsAdjective (velikA "neki")).s ! g ! Sg ! c ; size = NS_1} ;
+    at_least_AdN = lin AdN {s = "najmanje"} ;
+    part_Prep = mkPrep genitive ;
+
+
+--    ExtAdvS
+--    mkN2
+--    mkA2
+
 }
