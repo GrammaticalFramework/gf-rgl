@@ -330,8 +330,8 @@ instance DiffFre of DiffRomance - [
       <_, _, True> =>
            neg.p1 ++ clit ++ fin ++ bindHyphen ++ subj ++ neg.p2 ++ inf ++ compl ++ ext ;
 
-      -- est loin la ville
-      _ => neg.p1 ++ clit ++ fin ++ neg.p2 ++ inf ++ compl ++ subj ++ ext
+      -- est Paris loin
+      _ => neg.p1 ++ clit ++ fin ++ neg.p2 ++ subj ++ inf ++ compl ++ ext
       } ;
 
   bindHyphensT : Str = bindHyphen ++ "t" ++ bindHyphen ;

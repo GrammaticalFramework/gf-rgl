@@ -55,5 +55,10 @@ concrete IdiomIta of Idiom = CatIta **
       mkImperative False P1 vp ! RPos ! Masc ! Pl --- fem
       } ;
 
+    ImpP3 np vp = {
+      s = (mkClause (np.s ! Nom).comp np.hasClit False np.a vp).s 
+             ! DInv ! RPres ! Simul ! RPos ! Conjunct
+      } ;
+
 }
 

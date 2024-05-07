@@ -54,6 +54,8 @@ concrete IdiomSwe of Idiom = CatSwe **
       insertObj (\\a => "att" ++ infVP vp a) (predV (partV hålla_V "på")) ;
 
     ImpPl1 vp = {s = ["låt oss"] ++ infVP vp {g = Utr ; n = Pl ; p = P1}} ;
+    
+    ImpP3 np vp = {s = "låt" ++ np.s ! accusative ++ infVP vp {g = np.a.g ; n = np.a.n ; p = np.a.p}} ;
 
     SelfAdvVP vp = insertObj (\\a => sjalv a.g a.n) vp ;
     SelfAdVVP vp = insertAdVAgr (\\a => sjalv a.g a.n) vp ;
