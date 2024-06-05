@@ -61,8 +61,10 @@ concrete IdiomFin of Idiom = CatFin **
   ImpP3 np vp =
     let vps = (sverb2verbSep vp.s).s ! ImperP3 (verbAgr np.a).n
     in
-    {s = np.s ! subjcase2npform vp.s.sc ++ vps ++
-         vp.s2 ! True ! Pos ! np.a ++ vp.adv ! Pos ++ vp.ext
+    {s = vps ++
+         np.s ! subjcase2npform vp.s.sc ++ 
+         vp.s2 ! True ! Pos ! np.a ++
+	 vp.adv ! Pos ++ vp.ext
     } ;
 
   SelfAdvVP vp = insertAdv (\\_ => "itse") vp ;
