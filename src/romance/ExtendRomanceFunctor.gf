@@ -319,7 +319,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
 
     pastPartAP : VPSlash -> Str -> AP ;
     pastPartAP vps agent = lin AP {
-      s = \\af => vps.comp ! (aform2aagr af ** {p = P3}) ++ vps.s.s ! VPart (aform2gender af) (aform2number af) ++ agent ;
+      s = \\af => vps.s.s ! VPart (aform2gender af) (aform2number af) ++ vps.comp ! (aform2aagr af ** {p = P3}) ++ agent ;
       isPre = False ;
       copTyp = serCopula
       } ;

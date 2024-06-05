@@ -6,7 +6,7 @@ concrete ExtendFre of Extend =
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
    GenRP,
    ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
-   PassVPSlash, PassAgentVPSlash, ApposNP, CompoundN,
+   PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP, ApposNP, CompoundN,
    BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS
    ]                   -- put the names of your own definitions here
   with
@@ -58,6 +58,9 @@ lin PassVPSlash vps = passVPSlash vps [] ;
     PassAgentVPSlash vps np = passVPSlash 
       vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
 
+    PastPartAP vps = pastPartAP vps [] ;
+    PastPartAgentAP vps np = pastPartAP vps (let by = <Grammar.by8agent_Prep : Prep> in by.s ++ (np.s ! by.c).ton) ;
+
     ReflRNP v rnp =      -- VPSlash -> RNP -> VP ; -- love my family and myself
       case v.c2.isDir of {
         True  => insertRefl v ;
@@ -78,6 +81,13 @@ oper
          agr = auxvp.agr ;
          comp  = \\a => (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ vps.comp ! a ++ agent ;
         } ;
+
+    pastPartAP : VPSlash -> Str -> AP ;
+    pastPartAP vps agent = lin AP {
+      s = \\af => vps.s.s ! VPart (aform2gender af) (aform2number af) ++ vps.comp ! (aform2aagr af ** {p = P3}) ++ agent ;
+      isPre = False ;
+      copTyp = serCopula
+      } ;
 
 lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
       s = \\c => np1.s ! c ** {ton  =(np1.s ! c).ton  ++ "," ++ (np2.s ! Nom).ton;
