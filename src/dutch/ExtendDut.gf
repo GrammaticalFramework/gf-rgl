@@ -6,7 +6,8 @@ concrete ExtendDut of Extend =
       VPS,
       BaseVPS, ConsVPS,
       MkVPS, ConjVPS, PredVPS,
-      PassVPSlash, PassAgentVPSlash
+      PassVPSlash, PassAgentVPSlash,
+      CompoundN
      ]
   with
     (Grammar = GrammarDut) **
@@ -119,6 +120,11 @@ lin
     s = \\_ => dap.sp ! Utr ;
     a = agrP3 dap.n ;
     isPron = False
+    } ;
+
+lin CompoundN n1 n2 = {
+    s  = \\n => n1.s ! NF Sg Nom  ++ BIND ++ n2.s ! n ;
+    g = n2.g
     } ;
 
 }
