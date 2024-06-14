@@ -86,7 +86,7 @@ concrete VerbDut of Verb = CatDut ** open Prelude, ResDut in {
 
     AdVVP adv vp = insertAdV adv.s vp ;
 
-    AdvVPSlash vp adv = vp ** {a2 = vp.a2 ++ adv.s} ;
+    AdvVPSlash vp adv = vp ** {a2 = vp.a2 ++ adv.s; isHeavy=True} ;
     AdVVPSlash adv vp = vp ** {a1 = \\a => adv.s ++ vp.a1 ! a} ;
 
     ReflVP vp = insertObj (\\a => appPrep vp.c2.p1 
