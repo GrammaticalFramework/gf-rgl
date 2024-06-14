@@ -154,7 +154,10 @@ lin
       ++ vps.compl1 ! Pos ! a
       ++ vps.compl2 ! Pos ! a
       ++ vps.c.s ; --
-    isPost = False ;
+    isPost = case vps.isSimple of {
+               True  => False ;
+               False => True
+             } ;
     preferShort=PreferFull
     } ;
 

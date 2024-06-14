@@ -126,13 +126,13 @@ lin
   AdVVP adv vp = vp ** {adv=\\a => adv.s ++ vp.adv ! a} ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
-  AdvVPSlash vps adv = vps ** {compl=\\p,a => vps.compl ! p ! a ++ adv.s} ;
+  AdvVPSlash vps adv = vps ** {compl1=\\p,a => vps.compl1 ! p ! a ++ adv.s; isSimple=False} ;
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
   AdVVPSlash adv vps = vps ** {adv=\\a=>adv.s ++ vps.adv ! a} ;
 
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  VPSlashPrep vp prep = vp ** {c = prep ; compl1 = vp.compl ; compl2 = \\_,_ => []; dep=[]} ;
+  VPSlashPrep vp prep = vp ** {c = prep ; compl1 = vp.compl ; compl2 = \\_,_ => []; dep=[]; isSimple=False} ;
 
   -- : AP -> Comp ;            -- (be) small
   CompAP ap = case ap.preferShort of {

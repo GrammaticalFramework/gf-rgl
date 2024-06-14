@@ -613,6 +613,7 @@ oper
     compl1 : ComplTable ;
     compl2 : ComplTable ;
     c : ComplementCase ;
+    isSimple : Bool ;    -- regulates the place of participle used as adjective
     } ; ----
 
   slashV : VerbForms -> ComplementCase -> VPSlash = \verb,c -> {
@@ -622,6 +623,7 @@ oper
       compl2   = \\_,a => [] ;
       dep      = [] ;
       c        = c ;
+      isSimple = True
     } ;
 
   insertSlashObjA : Adjective -> ComplementCase -> VPSlash -> VPSlash = \ap,c,slash -> {
@@ -643,6 +645,7 @@ oper
            } ;
       c = {s="" ; c=Acc ; neggen=True ; hasPrep=False};
       dep = slash.dep ;
+      isSimple = False
       } ;
 
   insertSlashObj1 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
@@ -652,6 +655,7 @@ oper
       compl2 = slash.compl2 ;
       c     = slash.c ;
       dep = slash.dep ;
+      isSimple = False
       } ;
 
    insertSlashObj2 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
@@ -661,6 +665,7 @@ oper
       compl2 =\\p,a => slash.compl2 ! p ! a ++ obj ! p ! a;
       c     = slash.c ;
       dep = slash.dep ;
+      isSimple = False
       } ;
 
 
