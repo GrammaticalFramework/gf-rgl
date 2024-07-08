@@ -62,6 +62,7 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     ablatSuffix     : Suffix = regSuffix "den" "den" ;
     abessPosSuffix  : Suffix = regSuffix "li" "li" ;
     abessNegSuffix  : Suffix = regSuffix "siz" "siz" ;
+    instrSuffix     : Suffix = regSuffix "la" "la" ;
 --  following 4 suffixes has other forms used after genSgP3Suffix
     accSuffixN      : Suffix = regSuffix "i" "ni" ;
     datSuffixN      : Suffix = regSuffix "e" "ne" ;
@@ -96,6 +97,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     p2PlVerbalSuffix : Suffix = regSuffix21 "siniz" "niz" ;
     p3PlVerbalSuffix : Suffix = regSuffix "ler" "ler" ;
 
+    p2PlImperSuffix : Suffix = regSuffix "in" "yin" ;
+
     p1SgAlethicCopulaSuffix : Suffix = regSuffix "dim" "ydim" ;
     p2SgAlethicCopulaSuffix : Suffix = regSuffix "din" "ydin" ;
     p3SgAlethicCopulaSuffix : Suffix = regSuffix "di"  "ydi" ;
@@ -127,7 +130,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
 	Loc   => locSuffix ;
 	Ablat => ablatSuffix ;
 	Abess Pos => abessPosSuffix ;
-	Abess Neg => abessNegSuffix
+	Abess Neg => abessNegSuffix ;
+    Instr => instrSuffix
       } ;
 
     genSuffixes : Agr => Suffix =

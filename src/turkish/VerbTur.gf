@@ -1,8 +1,8 @@
 concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur in {
 
   lin
-    UseV v = v ;
-    SlashV2a v = lin VP v ;
+    UseV v = lin VP (v ** {compl = []}) ;
+    SlashV2a v = v ** {compl = []} ;
 
     Slash2V3 v = variants {} ;
     Slash3V3 v = variants {} ;
@@ -13,20 +13,20 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     SlashVV v = variants {} ;
     SlashV2VNP = variants {} ;
 
-    ComplSlash vps np = {
-      s = \\ vf => vps.c.s ++ np.s ! vps.c.c ++ vps.s ! vf ;
+    ComplSlash vps np = vps ** {
+      compl = vps.compl ++ vps.c.s ++ np.s ! vps.c.c ;
     } ;
 
     -- TODO: test this and fix.
-    ComplVS vs s = {
-      s = \\vf => s.subord ++ vs.s ! vf
+    ComplVS vs s = vs ** {
+      compl = s.subord
     } ;
 
     ComplVA _ _ = variants {} ;
     ComplVV _ _ = variants {} ;
     ComplVQ _ _ = variants {} ;
     
-    UseComp comp = comp ;
+    UseComp comp = comp ** {compl = []} ;
     CompCN _ = variants {} ;
 
     CompNP ap = lin VP {
@@ -65,9 +65,14 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     CompAdv _ = variants {} ;
 
     ReflVP = variants {} ;
-    
-    AdvVP = variants {} ;
-    AdVVP = variants {} ;
+
+    AdvVP vp adv = vp ** {
+      compl = vp.compl ++ adv.s ;
+    } ;
+
+    AdVVP adv vp = vp ** {
+      s = \\vf => adv.s ++ vp.s ! vf ;
+    } ;
 
     PassV2 = variants {} ;
 }

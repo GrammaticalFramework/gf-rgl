@@ -71,7 +71,8 @@ lin
                      Gen     => "tamlayan" ;
                      Loc     => "bulunma" ;
                      Ablat   => "ayrılma" ;
-                     Abess _ => ""
+                     Abess _ => "" ;
+                     Instr   => ""
                    }) ;
     s3= ""
     } ;
@@ -104,7 +105,12 @@ oper
      heading2 ("Gelecek zaman") ++
      finite VFuture ++
      heading2 ("Emir kipi") ++
-     paragraph (v.s ! VImperative) ++
+     frameTable (
+        tr (th "tekil" ++
+            th "çoğul") ++
+        tr (td (v.s ! VImperative Sg) ++
+            td (v.s ! VImperative Pl))
+      ) ++
      heading2 ("Eylemlik") ++
      paragraph (v.s ! VInfinitive) ++
      heading2 ("Ulaç") ++

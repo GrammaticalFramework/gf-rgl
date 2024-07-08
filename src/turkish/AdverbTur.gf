@@ -18,6 +18,6 @@ concrete AdverbTur of Adverb = CatTur ** open ResTur, Prelude in {
 
     SubjS s1 s2 = {s = s1.s ++ s2.subord} ;
 
-    PositAdvAdj _ = variants {} ;
+    PositAdvAdj a = {s = a.adv} ;
 
 }

@@ -1,5 +1,6 @@
 --# -path=.:../abstract:../common:prelude
 
 abstract AllTurAbs = 
-  Lang
+  Lang,
+  Extend
   ** {} ;

@@ -85,14 +85,14 @@ resource ParadigmsTur = open
 
     mkV2 = overload {
       -- sormak
-      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = noPrep} ;
+      mkV2 : V -> V2 = \verb -> verb ** lin V2 {c = mkPrep [] Acc} ;
       -- (bir şeyden) korkmak
       mkV2 : V -> Prep -> V2 = \verb,c -> verb ** lin V2 {c = c} ;
     } ;
 
     mkV3 = overload {
       -- (birine bir şeyi) satmak
-      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = noPrep; c2 = noPrep} ;
+      mkV3 : V -> V3 = \verb -> verb ** lin V3 {c1 = mkPrep [] Acc; c2 = mkPrep [] Dat} ;
       -- (biri ile bir şeyi) konuşmak
       mkV3 : V -> Prep -> Prep -> V3 =
         \verb,c1,c2 -> verb ** lin V3 {c1 = c1; c2 = c2} ;
@@ -128,7 +128,7 @@ resource ParadigmsTur = open
     -- worst case function
     -- parameters: all singular cases of base, base of genitive table, plural
     -- form of base and harmony of base
-    mkNoun : (nom,acc,dat,gen,loc,abl,abessPos,abessNeg,gens,plural : Str)
+    mkNoun : (nom,acc,dat,gen,loc,abl,abessPos,abessNeg,instr,gens,plural : Str)
           -> Harmony
           -> N ;
 
@@ -171,6 +171,8 @@ resource ParadigmsTur = open
       -- pürdikkat
       mkA : Str -> Str -> HarVowP -> A ;
     } ;
+
+    irregAdv  : A -> Str -> A ;
 
     mkAS : A -> AS ;
     mkAV : A -> AV ;
@@ -284,8 +286,10 @@ resource ParadigmsTur = open
                 addSuffix pastBase   pastHar (verbSuffixes ! agr) ;
               VFuture agr    =>
                 addSuffix futureTable futHar (verbSuffixes ! agr) ;
-              VImperative    =>
+              VImperative Sg  =>
                 base ;
+              VImperative Pl  =>
+                addSuffix base har p2PlImperSuffix ;
               VInfinitive    =>
                 inf ;
               Gerund _  Acc  =>
@@ -321,7 +325,7 @@ resource ParadigmsTur = open
         } ;
 
     -- Implementation of noun paradigms
-    mkNoun sn sa sd sg sl sabl sgabPos sgabNeg sgs pln har =
+    mkNoun sn sa sd sg sl sabl sgabPos sgabNeg si sgs pln har =
         let plHar = getHarmony pln ;
         in
       lin N {
@@ -334,7 +338,8 @@ resource ParadigmsTur = open
                         Loc       => sl ;
                         Ablat     => sabl ;
                         Abess Pos => sgabPos ;
-                        Abess Neg => sgabNeg
+                        Abess Neg => sgabNeg ;
+                        Instr     => si
                       } ;
                 Pl => table {
                         Abess Pos => addSuffix sgabPos plHar plSuffix;
@@ -364,15 +369,16 @@ resource ParadigmsTur = open
       in
       mkNoun sn
             (addSuffix sg irHar accSuffix)
-      (addSuffix sg irHar datSuffix)
+            (addSuffix sg irHar datSuffix)
             (addSuffix sg har genSuffix)
             (addSuffix sn har locSuffix)
-      (addSuffix sn har ablatSuffix)
-      (addSuffix sn har abessPosSuffix)
-      (addSuffix sn har abessNegSuffix)
-      sg
-            pln
-            har ;
+            (addSuffix sn har ablatSuffix)
+            (addSuffix sn har abessPosSuffix)
+            (addSuffix sn har abessNegSuffix)
+            (addSuffix sn har instrSuffix)
+             sg
+             pln
+             har ;
 
     regN sn =
       let har = getHarmony sn ;
@@ -382,14 +388,15 @@ resource ParadigmsTur = open
       mkNoun sn
             (addSuffix bt har accSuffix)
             (addSuffix bt har datSuffix)
-      (addSuffix bt har genSuffix)
-      (addSuffix bt har locSuffix)
-      (addSuffix bt har ablatSuffix)
-      (addSuffix bt har abessPosSuffix)
-      (addSuffix bt har abessNegSuffix)
-      (bt ! Soft)
-      pln
-      har ;
+            (addSuffix bt har genSuffix)
+            (addSuffix bt har locSuffix)
+            (addSuffix bt har ablatSuffix)
+            (addSuffix bt har abessPosSuffix)
+            (addSuffix bt har abessNegSuffix)
+            (addSuffix bt har instrSuffix)
+            (bt ! Soft)
+             pln
+             har ;
 
     regPN sn = makePN sn sn ;
 
@@ -405,6 +412,7 @@ resource ParadigmsTur = open
                 (addSuffix bn har ablatSuffix)
                 (addSuffix bn har abessPosSuffix)
                 (addSuffix bn har abessNegSuffix)
+                (addSuffix bn har instrSuffix)
                 by
                 pln
                 har ;
@@ -446,7 +454,8 @@ resource ParadigmsTur = open
                           Loc     => addSuffix sn sgHar locSuffixN ; --tereyağında
                           Ablat   => addSuffix sn sgHar ablatSuffixN ; --tereyağından
                           Abess Pos => sgAbessPos ; --tereyağlı
-                          Abess Neg => sgAbessNeg   --tereyağsız
+                          Abess Neg => sgAbessNeg ; --tereyağsız
+                          Instr   => addSuffix sn sgHar instrSuffix
                         } ;
                   Pl => table {
                           Nom     => pn ;--tereyağları
@@ -456,7 +465,8 @@ resource ParadigmsTur = open
                           Loc     => addSuffix pn plHar locSuffixN ; --tereyağlarında
                           Ablat   => addSuffix pn plHar ablatSuffixN ; --tereyağlarından
                           Abess   Pos => addSuffix sgAbessPos plHar abessPosSuffix ; --tereyağlılar
-                          Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix   --tereyağsızlar
+                          Abess   Neg => addSuffix sgAbessNeg plHar abessNegSuffix ; --tereyağsızlar
+                          Instr   => addSuffix pn plHar instrSuffix
                       }
                   } ;
           gen = case ct of {
@@ -509,6 +519,8 @@ resource ParadigmsTur = open
       -- pürdikkat
       mkA : (base, base1 : Str) -> (ih_har : HarVowP) -> A = \base,base1,ih_har -> (irregN_h base base ih_har) ** lin A {adv = addSuffix base (mkHar ih_har (getHarConP base)) adjAdvSuffix};
     } ;
+
+    irregAdv  : A -> Str -> A = \a,adv -> a ** {adv = adv};
 
     mkAS v = v ;
     mkAV v = v ;

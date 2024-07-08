@@ -8,7 +8,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     coding=utf8 ;
 
   param
-    Case = Nom | Acc | Dat | Gen | Loc | Ablat | Abess Polarity ;
+    Case = Nom | Acc | Dat | Gen | Loc | Ablat | Abess Polarity | Instr ;
     Species = Indef | Def ;
     Contiguity = Con | Sep ; --Concatenate or Separate
 
@@ -41,7 +41,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
      | VProg      Agr
      | VPast      Agr
      | VFuture    Agr
-     | VImperative
+     | VImperative Number
      | VInfinitive
      | Gerund Number Case
      | VNoun Number Case
@@ -63,8 +63,8 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     CardOrd = NCard | NOrd ;
 
   oper
-    mkPron : (ben,beni,bana,banin,bende,benden,benli,bensiz:Str) -> Number -> Person -> Pron =
-     \ben,beni,bana,benim,bende,benden,benli,bensiz,n,p -> {
+    mkPron : (ben,beni,bana,banin,bende,benden,benli,bensiz,benimle:Str) -> Number -> Person -> Pron =
+     \ben,beni,bana,benim,bende,benden,benli,bensiz,benimle,n,p -> {
      s = table {
        Nom => ben ;
        Acc => beni ;
@@ -73,7 +73,8 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
        Loc => bende ;
        Ablat => benden ;
        Abess Pos => benli ;
-       Abess Neg => bensiz
+       Abess Neg => bensiz ;
+       Instr => benimle
        } ;
      h = getHarmony ben ;
      a = {n=n; p=p} ;
@@ -92,15 +93,15 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
         a = {n = n; p = p}
       } ;
 
-    mkClause : Str -> Agr -> Verb -> {s : Tense => Str; subord : Str} =
-      \np, a, v -> {
+    mkClause : Str -> Agr -> Str -> Verb -> {s : Tense => Str; subord : Str} =
+      \np, a, compl, v -> {
         s = table {
-              Pres => np ++ v.s ! VPres a ;
-              Past => np ++ v.s ! VPast a ;
-              Fut  => np ++ v.s ! VFuture a ;
+              Pres => np ++ compl ++ v.s ! VPres a ;
+              Past => np ++ compl ++ v.s ! VPast a ;
+              Fut  => np ++ compl ++ v.s ! VFuture a ;
               Cond => "TODO"
             } ;
-        subord = np ++ v.s ! VNoun a.n Nom
+        subord = np ++ compl ++ v.s ! VNoun a.n Nom
       } ;
 
     mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
@@ -109,7 +110,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur in {
     attachMe : Verb -> {s : Str} =
       \v ->
         let
-          s : Str = v.s ! VImperative
+          s : Str = v.s ! VImperative Sg
         in
           case s of {
             (_ + #vowel + _ )* + (_ + #frontVowel + _) => ss (s ++ "me") ;

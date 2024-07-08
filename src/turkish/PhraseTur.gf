@@ -5,9 +5,9 @@ concrete PhraseTur of Phrase = CatTur ** open Prelude, ResTur in {
     -- The following are utterly untested.
     -- Currently, they should be treated as just implementation stubs.
     UttQS qs = {s = qs.s} ;
-    UttImpSg pol imp = {s = imp.s} ;
-    UttImpPl pol imp = {s = imp.s} ;
-    UttImpPol pol imp = {s = imp.s} ;
+    UttImpSg pol imp = {s = imp.s ! Sg} ;
+    UttImpPl pol imp = {s = imp.s ! Pl} ;
+    UttImpPol pol imp = {s = imp.s ! Pl} ;
     UttIP ip = {s = ip.s} ;
     UttIAdv iadv = iadv ;
     UttCard n = {s = n.s ! Sg ! Nom} ;

@@ -9,4 +9,6 @@ concrete ExtendTur of Extend = CatTur ** open ResTur in {
 
     TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
 
+    PositAdVAdj a = {s = a.s ! Sg ! Nom} ;
+
 }
