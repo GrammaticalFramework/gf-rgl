@@ -169,7 +169,7 @@ concrete ExtendGer of Extend =
           in case o of {
             Main => subj ++ verb.verb ++ verb.compl ;
             Inv  => verb.verb ++ subj ++ verb.compl ;   -- älskar jag henne och sover
-            Sub  => subj ++ verb.verb ++ verb.compl     --- not quite correct in ConjVPS
+            Sub  => subj ++ verb.compl ++ verb.verb     --- not quite correct in ConjVPS
             }
         } ;
 
