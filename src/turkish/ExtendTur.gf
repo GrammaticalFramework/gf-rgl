@@ -7,6 +7,8 @@ concrete ExtendTur of Extend = CatTur ** open ResTur in {
       a = {n=num.n; p=P3} ;
     } ;
 
+    UttVPShort vp = {s = vp.s ! VInf Pos} ;
+
     TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
 
     PositAdVAdj a = {s = a.s ! Sg ! Nom} ;
