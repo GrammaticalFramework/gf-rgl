@@ -12,11 +12,11 @@ concrete AdverbTur of Adverb = CatTur ** open ResTur, Prelude in {
     } ;
 
     -- TODO: inflect the subject to genitive.
-    ComparAdvAdjS cadv a s = {
+    ComparAdvAdjS cadv a s = variants {} ; {- {
       s = s.subord ++ cadv.s ++ a.s ! Sg ! Nom
-    } ;
+    } ; -}
 
-    SubjS s1 s2 = {s = s1.s ++ s2.subord} ;
+    SubjS s1 s2 = variants {} ; -- {s = s1.s ++ s2.subord} ;
 
     PositAdvAdj a = {s = a.adv} ;
 

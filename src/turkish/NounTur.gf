@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../../prelude
 
-concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude in {
+concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -194,7 +194,9 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, Prelude
     } ;
 
     PPartNP np v2 = {
-      s = \\c => np.s ! c ++ v2.s ! (VPast np.a);
+      s = \\c => np.s ! c
+                 ++ mkVerbForms v2 ! VFin Past Pos np.a   --# notpresent
+                 ;
       h = np.h ;
       a = np.a
     } ;

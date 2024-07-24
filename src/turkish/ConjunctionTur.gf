@@ -4,7 +4,6 @@ concrete ConjunctionTur of Conjunction =
   lin
     ConjS conj ss = {
       s = linCoord []!conj.sep ++ ss.s!conj.sep ++ conj.s ++ ss.s!4;
-      subord = linCoord []!conj.sep ++ ss.subord!conj.sep ++ conj.s ++ ss.subord!4;
       } ;
 
     ConjNP conj ss = {
@@ -14,10 +13,8 @@ concrete ConjunctionTur of Conjunction =
       } ;
 
     BaseS x y  = {s      = table {4 => y.s;      _ => x.s};
-                  subord = table {4 => y.subord; _ => x.subord};
                  } ;
     ConsS x xs = {s      = table {4 => xs.s!4; t => x.s++linCoord bindComma!t++xs.s!t};
-                  subord = table {4 => xs.subord!4; t => x.subord++linCoord bindComma!t++xs.subord!t} ;
                  } ;
 
     BaseNP x y =
@@ -89,7 +86,7 @@ concrete ConjunctionTur of Conjunction =
     BaseRS _ _ = variants {} ;
 
   lincat
-    [S]   = {s,subord : Ints 4 => Str} ;
+    [S]   = {s : Ints 4 => Str} ;
     [Adv] = {s : Ints 4 => Str} ;
     [AdV] = {s : Ints 4 => Str} ;
     [NP]  = {s : Case => Ints 4 => Str; h : Harmony; a : Agr} ;

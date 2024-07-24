@@ -60,13 +60,6 @@ resource ParadigmsTur = open
     mkVS : V -> VS = \verb -> verb ;
     mkVQ : V -> VQ = \verb -> verb ;
 
-    -- worst-case function
-    -- bases of all forms are required.
-    makeVerb : (mek,inf,base,presBase,pastBase,aoristBase : Str)
-            -> (futureBase : Softness => Str )
-            -> Harmony
-            -> V ;
-
     -- make a regular verb
     -- supply infinitive, softened infinitive, future infinitive forms and
     -- aorist type
@@ -234,8 +227,8 @@ resource ParadigmsTur = open
 
     auxillaryVerb prefix verb con =
       case con of {
-        Sep => lin V {s = \\t => prefix ++ verb.s ! t} ;
-        Con => lin V {s = \\t => prefix + verb.s ! t}
+        Sep => lin V {s = prefix ++ verb.s; stems : VStem => Str = \\t => prefix ++ verb.stems ! t; h = verb.h; aoristType = verb.aoristType} ;
+        Con => lin V {s = prefix +  verb.s; stems : VStem => Str = \\t => prefix +  verb.stems ! t; h = verb.h; aoristType = verb.aoristType}
       } ;
 
     regV inf = regVerb inf inf inf (getAoristType (tk 3 inf)) ;
@@ -243,86 +236,25 @@ resource ParadigmsTur = open
     irregV_aor inf aorT = regVerb inf inf inf aorT ;
 
     regVerb inf softInf futInf aoristType =
-      let base = (tk 3 inf) ;
-          softBase = (tk 3 softInf) ;
-          futBase = (tk 3 futInf) ;
-          har = getHarmony base ;
-          softness = getSoftness base ;
-          futureBase = addSuffix futBase har futureSuffix ;
-          softFutureBase = addSuffix futBase har softFutureSuffix ;
-          pastBase = addSuffix base har pastSuffix ;
-          futureTable =
-            table {
-              Soft => softFutureBase ;
-              Hard => futureBase
-            } ;
-          aoristBase =
-            case aoristType of {
-              SgSylConReg => addSuffix softBase har aoristErSuffix ;
-              _           => addSuffix softBase har aoristIrSuffix
-          } ;
+      let base = tk 3 inf ;
+          softBase = tk 3 softInf ;
+          futBase = tk 3 futInf ;
           progBase =
-            case (getHarConP base) of {
-              SVow => addSuffix (tk 1 base) (getHarmony (tk 1 base)) presentSuffix ;
-              _    => addSuffix softBase har presentSuffix
-        } ;
-    in makeVerb (init inf) inf base progBase pastBase aoristBase futureTable har;
-
-    makeVerb mek inf base progBase pastBase aoristBase futureTable har =
-      let
-        futht = getHarVowP (futureTable ! Hard) ;
-        pastHar = {vow = har.vow ; con = SVow} ;
-        futHar = {vow = futht ; con = (SCon Soft)} ;
-        aorHar = {vow = getHarVowP aoristBase ; con = (SCon Soft)} ;
-      in
-        lin V {
-          s =
-            table {
-              VPres agr    =>
-                addSuffix aoristBase aorHar (verbSuffixes ! agr) ;
-              VProg agr      =>
-                addSuffix progBase   progHar (verbSuffixes ! agr) ;
-              VPast agr      =>
-                addSuffix pastBase   pastHar (verbSuffixes ! agr) ;
-              VFuture agr    =>
-                addSuffix futureTable futHar (verbSuffixes ! agr) ;
-              VImperative Sg  =>
-                base ;
-              VImperative Pl  =>
-                addSuffix base har p2PlImperSuffix ;
-              VInfinitive    =>
-                inf ;
-              Gerund _  Acc  =>
-                case aorHar.vow of {
-                  Ih_Har  => mek + "si" ;
-                  I_Har   => mek + "sı" ;
-                  U_Har   => "TODO" ;
-                  Uh_Har  => "TODO"
-                } ;
-              Gerund _  _    => mek ;
-              VNoun n Gen =>
-                case aorHar.vow of {
-                  Ih_Har => base + "tiği" ;
-                  I_Har  => base + "tığı" ;
-                  U_Har  => base + "duğu" ;
-                  Uh_Har => base + "düğü"
-                } ;
-              VNoun n Ablat =>
-                case aorHar.vow of {
-                  Ih_Har => base + "tıktan" ;
-                  I_Har  => base + "tıktan" ;
-                  U_Har  => base + "duktan" ;
-                  Uh_Har => base + "dükten"
-                } ;
-              VNoun n _ =>
-                case aorHar.vow of {
-                  Ih_Har => base + "(TODO: makeVerb)" ;
-                  I_Har  => base + "(TODO: makeVerb)" ;
-                  U_Har  => base + "(TODO: makeVerb)" ;
-                  Uh_Har => base + "(TODO: makeVerb)"
-                }
-            } ;
-        } ;
+            case getHarConP base of {
+              SVow => tk 1 base ;
+              _    => softBase
+            }
+      in lin V {
+           s = inf ;
+           stems = table {
+                      VBase Hard => base ;
+                      VBase Soft => softBase ;
+                      VProg => progBase ;
+                      VFut => futBase
+                   } ;
+           aoristType = aoristType ;
+           h = getHarmony base
+         } ;
 
     -- Implementation of noun paradigms
     mkNoun sn sa sd sg sl sabl sgabPos sgabNeg si sgs pln har =
@@ -635,14 +567,6 @@ resource ParadigmsTur = open
     acc_Case   : Prep = mkPrep [] Acc;
 
     mkQuant : Str -> Quant = \s -> lin Quant {s=s; useGen = NoGen} ;
-
-  param
-    AoristType =
-        PlSyl -- more than one syllable, takes -ir
-      | SgSylConIrreg -- one syllable ending with consonant, but takes -ir
-                      -- (here is the list: al-, bil-, bul-, dur-, gel-, gör-,
-                      -- kal-, ol-, öl-, var-, ver-, vur-, san- )
-      | SgSylConReg ; -- one syllable ending with consonant, takes -er
 
   oper
     mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;

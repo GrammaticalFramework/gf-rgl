@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common
 concrete DocumentationTur of Documentation = CatTur ** open
-  ResTur,
+  ResTur, Prelude,
   HTML in {
 
 lincat
@@ -97,52 +97,37 @@ lin
 oper
   inflVerb : Verb -> Str = \v ->
     (heading2 ("Şimdiki zaman") ++
-     finite VPres ++
-     tag "br" ++
-     finite VProg ++
+     finite Pres ++
      heading2 ("Geçmiş zaman") ++
-     finite VPast ++
+     finite Past ++
      heading2 ("Gelecek zaman") ++
-     finite VFuture ++
+     finite Fut ++
      heading2 ("Emir kipi") ++
      frameTable (
         tr (th "tekil" ++
             th "çoğul") ++
-        tr (td (v.s ! VImperative Sg) ++
-            td (v.s ! VImperative Pl))
+        tr (td (tbl ! VImp Pos Sg) ++
+            td (tbl ! VImp Pos Pl))
       ) ++
      heading2 ("Eylemlik") ++
-     paragraph (v.s ! VInfinitive) ++
-     heading2 ("Ulaç") ++
-     nounForm Gerund ++
-     heading2 ("Ad") ++
-     nounForm VNoun)
+     paragraph (tbl ! VInf Pos))
   where {
-    finite : (Agr -> VForm) -> Str = \f ->
+    tbl : VForm => Str = mkVerbForms v ;
+
+    finite : Tense -> Str = \t ->
       frameTable (
         tr (th "" ++
             th "tekil" ++
             th "çoğul") ++
         tr (th "1." ++ 
-            td (v.s ! f {n=Sg; p=P1}) ++ 
-            td (v.s ! f {n=Pl; p=P1})) ++
+            td (tbl ! VFin t Pos {n=Sg; p=P1}) ++
+            td (tbl ! VFin t Pos {n=Pl; p=P1})) ++
         tr (th "2." ++ 
-            td (v.s ! f {n=Sg; p=P2}) ++
-            td (v.s ! f {n=Pl; p=P2})) ++
+            td (tbl ! VFin t Pos {n=Sg; p=P2}) ++
+            td (tbl ! VFin t Pos {n=Pl; p=P2})) ++
         tr (th "3." ++
-            td (v.s ! f {n=Sg; p=P3}) ++
-            td (v.s ! f {n=Pl; p=P3}))
-      ) ;
-
-    nounForm : (Number -> Case -> VForm) -> Str = \f ->
-      frameTable (
-        tr (th ""         ++ th "tekil"            ++ th "çoğul") ++
-        tr (th "yalın"    ++ td (v.s ! f Sg Nom)   ++ td (v.s ! f Pl Nom)) ++
-        tr (th "belirtme" ++ td (v.s ! f Sg Acc)   ++ td (v.s ! f Pl Acc)) ++
-        tr (th "yönelme"  ++ td (v.s ! f Sg Dat)   ++ td (v.s ! f Pl Dat)) ++
-        tr (th "bulunma"  ++ td (v.s ! f Sg Loc)   ++ td (v.s ! f Pl Loc)) ++
-        tr (th "ayrılma"  ++ td (v.s ! f Sg Ablat) ++ td (v.s ! f Pl Ablat)) ++
-        tr (th "tamlayan" ++ td (v.s ! f Sg Gen)   ++ td (v.s ! f Pl Gen))
+            td (tbl ! VFin t Pos {n=Sg; p=P3}) ++
+            td (tbl ! VFin t Pos {n=Pl; p=P3}))
       ) ;
    } ;
 }

@@ -10,7 +10,7 @@
 
 --# -path=.:../abstract:../common:../../prelude
 
-resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
+resource SuffixTur = open Prelude, Predef, HarmonyTur in {
   flags
     coding=utf8 ;
 
@@ -62,7 +62,7 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     ablatSuffix     : Suffix = regSuffix "den" "den" ;
     abessPosSuffix  : Suffix = regSuffix "li" "li" ;
     abessNegSuffix  : Suffix = regSuffix "siz" "siz" ;
-    instrSuffix     : Suffix = regSuffix "la" "la" ;
+    instrSuffix     : Suffix = regSuffix "le" "le" ;
 --  following 4 suffixes has other forms used after genSgP3Suffix
     accSuffixN      : Suffix = regSuffix "i" "ni" ;
     datSuffixN      : Suffix = regSuffix "e" "ne" ;
@@ -79,6 +79,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
 --  see the comment at makeNoun operation in ParadigmsTur.gf
     genPlP3Suffix   : Suffix = regSuffix "i" "i" ;
 
+    negativeSuffix  : Suffix = regSuffix "me" "me" ;
+
 --  Tense Suffixes
     pastSuffix      : Suffix = regSuffix "di" "di" ;
     inferentSuffix  : Suffix = regSuffix "miş" "miş" ;
@@ -86,8 +88,10 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     presentSuffix   : Suffix = regSuffix "iyor" "iyor" ;
     aoristIrSuffix  : Suffix = regSuffix "ir" "r" ;
     aoristErSuffix  : Suffix = regSuffix "er" "r" ;
+    aoristIzSuffix  : Suffix = regSuffix "iz" "z" ;
     futureSuffix    : Suffix = regSuffix2 "ecek" "yecek" ;
-    softFutureSuffix    : Suffix = regSuffix2 "eceğ" "yeceğ" ;
+    softFutureSuffix: Suffix = regSuffix2 "eceğ" "yeceğ" ;
+
 --  Person Suffixes for Verbs
 
     p1SgVerbalSuffix : Suffix = regSuffix "im" "m" ;
@@ -97,7 +101,8 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     p2PlVerbalSuffix : Suffix = regSuffix21 "siniz" "niz" ;
     p3PlVerbalSuffix : Suffix = regSuffix "ler" "ler" ;
 
-    p2PlImperSuffix : Suffix = regSuffix "in" "yin" ;
+    p1PlAoristSuffix : Suffix = regSuffix "iz" "yiz" ;
+    p2PlImperSuffix  : Suffix = regSuffix "in" "yin" ;
 
     p1SgAlethicCopulaSuffix : Suffix = regSuffix "dim" "ydim" ;
     p2SgAlethicCopulaSuffix : Suffix = regSuffix "din" "ydin" ;
@@ -110,69 +115,16 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
     p2SgCondCopulaSuffix : Suffix = regSuffix "sen" "sen" ;
     p3SgCondCopulaSuffix : Suffix = regSuffix "se" "se" ;
     p1PlCondCopulaSuffix : Suffix = regSuffix "sek" "sek" ;
-    p2PlCondCopulaSuffix : Suffix = regSuffix21 "seniz" "seniz" ;
-    p3PlCondCopulaSuffix : Suffix = regSuffix "lerse" "lerse" ;
+    p2PlCondCopulaSuffix : Suffix = regSuffix2 "seniz" "seniz" ;
+    p3PlCondCopulaSuffix : Suffix = regSuffix "seler" "seler" ;
 
-    subordSuffixDik  : Suffix = regSuffix2 "dik" "dikler" ;
-    softSubordSuffixDik : Suffix = regSuffix2 "diğ" "dikler" ;
+    infinitiveSuffix : Suffix = regSuffix "mek" "mek" ;
 
 --  Ordinal suffix for numbers
     ordNumSuffix     : Suffix = regSuffix21 "inci" "nci" ;
 --  Suffix for deriving adverb from a adjective
     adjAdvSuffix     : Suffix = regSuffix "ce" "ce" ;
 
-    caseSuffixes : Case => Suffix =
-      table {
-	Nom   => empSuffix ;
-	Acc   => accSuffix ;
-	Dat   => datSuffix ;
-	Gen   => genSuffix ;
-	Loc   => locSuffix ;
-	Ablat => ablatSuffix ;
-	Abess Pos => abessPosSuffix ;
-	Abess Neg => abessNegSuffix ;
-    Instr => instrSuffix
-      } ;
-
-    genSuffixes : Agr => Suffix =
-      table {
-	{n=Sg; p=P1} => genSgP1Suffix ;
-	{n=Sg; p=P2} => genSgP2Suffix ;
-	{n=Sg; p=P3} => genSgP3Suffix ;
-	{n=Pl; p=P1} => genPlP1Suffix ;
-	{n=Pl; p=P2} => genPlP2Suffix ;
-	{n=Pl; p=P3} => genPlP3Suffix
-      } ;
-
-    verbSuffixes : Agr => Suffix =
-      table {
-	{n=Sg; p=P1} => p1SgVerbalSuffix ;
-	{n=Sg; p=P2} => p2SgVerbalSuffix ;
-	{n=Sg; p=P3} => empSuffix ;
-	{n=Pl; p=P1} => p1PlVerbalSuffix ;
-	{n=Pl; p=P2} => p2PlVerbalSuffix ;
-	{n=Pl; p=P3} => p3PlVerbalSuffix
-      } ;
-
-    alethicCopulaSuffixes : Agr => Suffix =
-      table {
-	{n=Sg; p=P1} => p1SgAlethicCopulaSuffix ;
-	{n=Sg; p=P2} => p2SgAlethicCopulaSuffix ;
-	{n=Sg; p=P3} => p3SgAlethicCopulaSuffix ;
-	{n=Pl; p=P1} => p1PlAlethicCopulaSuffix ;
-	{n=Pl; p=P2} => p2PlAlethicCopulaSuffix ;
-	{n=Pl; p=P3} => p3PlAlethicCopulaSuffix
-      } ;
-
-    condCopulaSuffixes : Agr => Suffix =
-      table {
-	{n=Sg; p=P1} => p1SgCondCopulaSuffix ;
-	{n=Sg; p=P2} => p2SgCondCopulaSuffix ;
-	{n=Sg; p=P3} => p3SgCondCopulaSuffix ;
-	{n=Pl; p=P1} => p1PlCondCopulaSuffix ;
-	{n=Pl; p=P2} => p2PlCondCopulaSuffix ;
-	{n=Pl; p=P3} => p3PlCondCopulaSuffix
-      } ;
 
 --  Adds a suffix to the base given as Str using Harmony.
 --  If only one form of base is given then it is assumed that base does not soften
@@ -188,7 +140,7 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
       \baseTable,har,suf -> (baseTable ! suf.stemT) + suf.st ! har.con ! har.vow ;
 
     suffixStr : Harmony -> Suffix -> Str =
-      \har,suf -> BIND ++ suf.st ! har.con ! har.vow ;
+      \har,suf -> suf.st ! har.con ! har.vow ;
 
     regSuffix larC larV =
 	{
@@ -257,7 +209,7 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
         lirCH = hardenWord wordC ;
         lirC = case wordC.p4 of {
                 "WXQ" => <wordC.p1, wordC.p1, wordC.p1, wordC.p1, lirCH, lirCH, lirCH, lirCH> ;
-                "i"   => <wordC.p1 + "ı" + wordC.p2 + "ı" + wordC.p3,
+                "ii"  => <wordC.p1 + "ı" + wordC.p2 + "ı" + wordC.p3,
                           wordC.p1 + "i" + wordC.p2 + "i" + wordC.p3,
                           wordC.p1 + "u" + wordC.p2 + "u" + wordC.p3,
                           wordC.p1 + "ü" + wordC.p2 + "ü" + wordC.p3,
@@ -265,7 +217,23 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
                           lirCH + "i" + wordC.p2 + "i" + wordC.p3,
                           lirCH + "u" + wordC.p2 + "u" + wordC.p3,
                           lirCH + "ü" + wordC.p2 + "ü" + wordC.p3> ;
-                _   => <wordC.p1 + "a" + wordC.p2 + "a" + wordC.p3,
+                "ie"  => <wordC.p1 + "ı" + wordC.p2 + "a" + wordC.p3,
+                          wordC.p1 + "i" + wordC.p2 + "e" + wordC.p3,
+                          wordC.p1 + "u" + wordC.p2 + "a" + wordC.p3,
+                          wordC.p1 + "ü" + wordC.p2 + "e" + wordC.p3,
+                          lirCH + "ı" + wordC.p2 + "a" + wordC.p3,
+                          lirCH + "i" + wordC.p2 + "e" + wordC.p3,
+                          lirCH + "u" + wordC.p2 + "a" + wordC.p3,
+                          lirCH + "ü" + wordC.p2 + "e" + wordC.p3> ;
+                "ei"  => <wordC.p1 + "a" + wordC.p2 + "ı" + wordC.p3,
+                          wordC.p1 + "e" + wordC.p2 + "i" + wordC.p3,
+                          wordC.p1 + "a" + wordC.p2 + "ı" + wordC.p3,
+                          wordC.p1 + "e" + wordC.p2 + "i" + wordC.p3,
+                          lirCH + "a" + wordC.p2 + "ı" + wordC.p3,
+                          lirCH + "e" + wordC.p2 + "i" + wordC.p3,
+                          lirCH + "a" + wordC.p2 + "ı" + wordC.p3,
+                          lirCH + "e" + wordC.p2 + "i" + wordC.p3> ;
+                "ee"  => <wordC.p1 + "a" + wordC.p2 + "a" + wordC.p3,
                           wordC.p1 + "e" + wordC.p2 + "e" + wordC.p3,
                           wordC.p1 + "a" + wordC.p2 + "a" + wordC.p3,
                           wordC.p1 + "e" + wordC.p2 + "e" + wordC.p3,
@@ -277,11 +245,19 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
         wordV = twoSylParser baseV ;
         lirV = case wordV.p4 of {
                 "WXQ" => <wordV.p1, wordV.p1, wordV.p1, wordV.p1> ;
-                "i"     => <wordV.p1 + "ı" + wordV.p2 + "ı" + wordV.p3,
+                "ii"  => <wordV.p1 + "ı" + wordV.p2 + "ı" + wordV.p3,
                           wordV.p1 + "i" + wordV.p2 + "i" + wordV.p3,
                           wordV.p1 + "u" + wordV.p2 + "u" + wordV.p3,
                           wordV.p1 + "ü" + wordV.p2 + "ü" + wordV.p3> ;
-                _     => <wordV.p1 + "a" + wordV.p2 + "a" + wordV.p3,
+                "ie"  => <wordV.p1 + "ı" + wordV.p2 + "a" + wordV.p3,
+                          wordV.p1 + "i" + wordV.p2 + "e" + wordV.p3,
+                          wordV.p1 + "u" + wordV.p2 + "a" + wordV.p3,
+                          wordV.p1 + "ü" + wordV.p2 + "e" + wordV.p3> ;
+                "ei"  => <wordV.p1 + "a" + wordV.p2 + "ı" + wordV.p3,
+                          wordV.p1 + "e" + wordV.p2 + "i" + wordV.p3,
+                          wordV.p1 + "a" + wordV.p2 + "u" + wordV.p3,
+                          wordV.p1 + "e" + wordV.p2 + "ü" + wordV.p3> ;
+                "ee"  => <wordV.p1 + "a" + wordV.p2 + "a" + wordV.p3,
                           wordV.p1 + "e" + wordV.p2 + "e" + wordV.p3,
                           wordV.p1 + "a" + wordV.p2 + "a" + wordV.p3,
                           wordV.p1 + "e" + wordV.p2 + "e" + wordV.p3>
@@ -306,7 +282,7 @@ resource SuffixTur = open Prelude, Predef, ResTur, HarmonyTur in {
                 c@("i"|"e") +
                 y@(#consonant*) +
                 d@("i"|"e") +
-                z@(#consonant*)=> <x, y, z, c> ;
+                z@(#consonant*)=> <x, y, z, c+d> ;
                  _ => <base, "WXQ", "WXQ", "WXQ">
               } ;
 
