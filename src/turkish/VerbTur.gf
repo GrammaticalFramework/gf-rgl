@@ -95,8 +95,20 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
       compl = vp.compl ++ adv.s ;
     } ;
 
+    ExtAdvVP vp adv = vp ** {
+      compl = vp.compl ++ adv.s ;
+    } ;
+
     AdVVP adv vp = vp ** {
       s = \\vf => adv.s ++ vp.s ! vf ;
+    } ;
+
+    AdvVPSlash vp adv = vp ** {
+      compl = vp.compl ++ adv.s ;
+    } ;
+
+    AdVVPSlash adv vp = vp ** {
+      compl = vp.compl ++ adv.s ;
     } ;
 
     PassV2 = variants {} ;
