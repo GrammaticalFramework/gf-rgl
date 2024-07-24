@@ -53,15 +53,50 @@ concrete ExtendGer of Extend =
   lincat
     VPI   = {s : Bool => Str} ;
     [VPI] = {s1,s2 : Bool => Str} ;
-    VPS   = {s : Order => Agr => Str} ;
-    [VPS] = {s1,s2 : Order => Agr => Str} ;
+    VPS   = {s : Order => Agr => {verb, compl : Str}} ;
+    [VPS] = {s : Order => Agr => {s1, s2, s3 : Str}} ; -- liebe, (ich) dich, (und) bin glücklich
 
   lin
     BaseVPI = twoTable Bool ;
     ConsVPI = consrTable Bool comma ;
 
-    BaseVPS = twoTable2 Order Agr ;
-    ConsVPS = consrTable2 Order Agr comma ;
+    BaseVPS v w = {
+      s = \\ord, agr =>
+        let
+	  vs = v.s ! ord ! agr ;
+	  ws = w.s ! ord ! agr ;
+	in {
+	  s1 = vs.verb ;
+	  s2 = vs.compl ;
+	  s3 = case ord of {
+	    Sub => ws.compl ++ ws.verb ;
+	    _ => ws.verb ++ ws.compl
+	    }
+	  }
+       } ;
+	  
+    ConsVPS v vv = {
+      s = \\ord, agr =>
+        let
+	  vs = v.s ! ord ! agr ;
+	  vvs = vv.s ! ord ! agr ;
+	in {
+	  s1 = vs.verb ;
+	  s2 = vs.compl ++ comma ++ vvs.s1 ++ vvs.s2 ;
+	  s3 = vvs.s3
+	  }
+      } ;
+
+    ConjVPS conj vv = {
+      s = \\ord, agr =>
+         let
+           vvs = vv.s ! ord ! agr
+         in {
+	   verb = vvs.s1 ;
+	   compl = conj.s1 ++ vvs.s2 ++ conj.s2 ++ vvs.s3
+	   }
+      } ;
+
 
     MkVPS tm p vp = 
       let vps = useVP vp in {
@@ -112,26 +147,29 @@ concrete ExtendGer of Extend =
               } ;
            extra = vp.inf.extr!agr ++ vp.ext ;
         in
+	--- AR 22/7/2024 as the subject comes to a wrong place in PredVPS Inv
+	{verb = verb.fin ; compl = compl ++ infCompl ++ pred.inf ++ extra} 
+	{-
         case o of {
-	  Main => subj ++ verb.fin ++ compl ++ infCompl ++ pred.inf ++ extra ;
+	  Main => verb.fin ++ compl ++ infCompl ++ pred.inf ++ extra ;
 	  Inv  => verb.fin ++ subj ++ compl ++ infCompl ++ pred.inf ++ extra ;
 	  Subj =>             subj ++ compl ++   pred.infComplfin   ++ extra
         }
+	-}
     } ;
 
-    ConjVPS = conjunctDistrTable2 Order Agr ;
 
-    PredVPS np vpi =
+    PredVPS np vps =
       let
         subj = np.s ! False ! Nom ++ bigNP np ;
         agr  = np.a ;
       in {
         s = \\o =>
-          let verb = vpi.s ! o ! agr
+          let verb = vps.s ! o ! agr
           in case o of {
-            Main => subj ++ verb ;
-            Inv  => verb ++ subj ;   ---- älskar henne och sover jag
-            Sub  => subj ++ verb
+            Main => subj ++ verb.verb ++ verb.compl ;
+            Inv  => verb.verb ++ subj ++ verb.compl ;   -- älskar jag henne och sover
+            Sub  => subj ++ verb.compl ++ verb.verb     --- not quite correct in ConjVPS
             }
         } ;
 

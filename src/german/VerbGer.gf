@@ -109,7 +109,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
     UseCopula = predV sein_V ;
 
-    CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.ext} ;
+    CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.s2 ! Nom ++ ap.ext} ;
     CompNP np = {s = \\_ => np.s ! False ! Nom ++ np.rc ; ext = np.ext} ;
     CompAdv a = {s = \\_ => a.s ; ext = []} ;
 

@@ -1,5 +1,5 @@
 abstract MorphoDictFinAbs =
-  Cat [N,A,V,Adv,Prep] **
+  Cat **
 {
 
 fun 'azerbaidžani_N' : N ;
