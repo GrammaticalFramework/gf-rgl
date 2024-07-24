@@ -98,10 +98,10 @@ oper
   inflVerb : Verb -> Str = \v ->
     (heading2 ("Şimdiki zaman") ++
      finite Pres ++
-     heading2 ("Geçmiş zaman") ++
-     finite Past ++
-     heading2 ("Gelecek zaman") ++
-     finite Fut ++
+     heading2 ("Geçmiş zaman") ++     --# notpresent
+     finite Past ++                   --# notpresent
+     heading2 ("Gelecek zaman") ++    --# notpresent
+     finite Fut ++                    --# notpresent
      heading2 ("Emir kipi") ++
      frameTable (
         tr (th "tekil" ++
