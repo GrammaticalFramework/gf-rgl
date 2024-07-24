@@ -243,17 +243,23 @@ resource ParadigmsTur = open
             case getHarConP base of {
               SVow => tk 1 base ;
               _    => softBase
-            }
+            } ;
+          h = getHarmony base
       in lin V {
            s = inf ;
            stems = table {
                       VBase Hard => base ;
                       VBase Soft => softBase ;
                       VProg => progBase ;
-                      VFut => futBase
+                      VFuture => futBase ;
+                      VPass => case last base of {
+                                 #vowel => base + "n" ;
+                                 "l"    => base + suffixStr h passiveInSuffix ;
+                                 _      => base + suffixStr h passiveIlSuffix
+                               }
                    } ;
            aoristType = aoristType ;
-           h = getHarmony base
+           h = h
          } ;
 
     -- Implementation of noun paradigms

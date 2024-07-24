@@ -120,6 +120,9 @@ resource SuffixTur = open Prelude, Predef, HarmonyTur in {
 
     infinitiveSuffix : Suffix = regSuffix "mek" "mek" ;
 
+    passiveInSuffix : Suffix = regSuffix "in" "n" ;
+    passiveIlSuffix : Suffix = regSuffix "il" "l" ;
+
 --  Ordinal suffix for numbers
     ordNumSuffix     : Suffix = regSuffix21 "inci" "nci" ;
 --  Suffix for deriving adverb from a adjective

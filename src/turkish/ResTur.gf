@@ -47,6 +47,7 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
        VBase Softness
      | VProg
      | VFuture
+     | VPass
      ;
 
   param

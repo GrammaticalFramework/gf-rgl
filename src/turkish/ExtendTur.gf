@@ -1,4 +1,4 @@
-concrete ExtendTur of Extend = CatTur ** open ResTur in {
+concrete ExtendTur of Extend = CatTur ** open ResTur, SuffixTur, Predef in {
 
   lin
     GenModNP num np cn = {
@@ -12,5 +12,15 @@ concrete ExtendTur of Extend = CatTur ** open ResTur in {
     TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
 
     PositAdVAdj a = {s = a.s ! Sg ! Nom} ;
+
+    PassVPSlash vps = {
+      s = mkVerbForms {
+            s = vps.stems ! VPass ++ BIND ++ suffixStr vps.h infinitiveSuffix ;
+            stems = \\_ => vps.stems ! VPass ;
+            aoristType = vps.aoristType ;
+            h = vps.h ;
+          } ;
+      compl = []
+    } ;
 
 }

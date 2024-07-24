@@ -2,7 +2,7 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
 
   lin
     UseV v = {s = mkVerbForms v; compl = []} ;
-    SlashV2a v = {s = mkVerbForms v; compl = []; c = v.c} ;
+    SlashV2a v = v ** {compl = []} ;
 
     Slash2V3 v = variants {} ;
     Slash3V3 v = variants {} ;
@@ -13,7 +13,8 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     SlashVV v = variants {} ;
     SlashV2VNP = variants {} ;
 
-    ComplSlash vps np = vps ** {
+    ComplSlash vps np = {
+      s     = mkVerbForms vps ;
       compl = vps.compl ++ vps.c.s ++ np.s ! vps.c.c ;
     } ;
 
@@ -111,7 +112,15 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
       compl = vp.compl ++ adv.s ;
     } ;
 
-    PassV2 = variants {} ;
+    PassV2 v = {
+      s = mkVerbForms {
+            s = v.stems ! VPass ++ BIND ++ suffixStr v.h infinitiveSuffix ;
+            stems = \\_ => v.stems ! VPass ;
+            aoristType = v.aoristType ;
+            h = v.h ;
+          } ;
+      compl = []
+    } ;
 
 oper
   olmak_V : V = lin V {

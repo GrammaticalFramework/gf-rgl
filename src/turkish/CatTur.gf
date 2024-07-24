@@ -14,7 +14,7 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
     NP = {s : Case => Str ; h : Harmony; a : Agr} ;
 
     VP = {s : VForm => Str; compl : Str} ;
-    VPSlash = {s : VForm => Str; compl : Str; c : Prep} ;
+    VPSlash = Verb ** {compl : Str; c : Prep} ;
     Comp = {s : VForm => Str; compl : Str} ;
 
     Pron = ResTur.Pron ;
