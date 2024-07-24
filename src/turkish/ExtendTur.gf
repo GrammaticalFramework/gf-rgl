@@ -7,7 +7,7 @@ concrete ExtendTur of Extend = CatTur ** open ResTur, SuffixTur, Predef in {
       a = {n=num.n; p=P3} ;
     } ;
 
-    UttVPShort vp = {s = vp.s ! VInf Pos} ;
+    UttVPShort vp = {s = vp.s ! Perf ! VInf Pos} ;
 
     TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
 

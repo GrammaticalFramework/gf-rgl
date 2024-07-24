@@ -97,37 +97,39 @@ lin
 oper
   inflVerb : Verb -> Str = \v ->
     (heading2 ("Şimdiki zaman") ++
-     finite Pres ++
+     finite Perf Pres ++
+     finite Imperf Pres ++
      heading2 ("Geçmiş zaman") ++     --# notpresent
-     finite Past ++                   --# notpresent
+     finite Perf Past ++              --# notpresent
+     finite Imperf Past ++            --# notpresent
      heading2 ("Gelecek zaman") ++    --# notpresent
-     finite Fut ++                    --# notpresent
+     finite Perf Fut ++               --# notpresent
      heading2 ("Emir kipi") ++
      frameTable (
         tr (th "tekil" ++
             th "çoğul") ++
-        tr (td (tbl ! VImp Pos Sg) ++
-            td (tbl ! VImp Pos Pl))
+        tr (td (tbl ! Perf ! VImp Pos Sg) ++
+            td (tbl ! Perf ! VImp Pos Pl))
       ) ++
      heading2 ("Eylemlik") ++
-     paragraph (tbl ! VInf Pos))
+     paragraph (tbl ! Perf ! VInf Pos))
   where {
-    tbl : VForm => Str = mkVerbForms v ;
+    tbl : Aspect => VForm => Str = mkVerbForms v ;
 
-    finite : Tense -> Str = \t ->
+    finite : Aspect -> Tense -> Str = \asp,t ->
       frameTable (
         tr (th "" ++
             th "tekil" ++
             th "çoğul") ++
         tr (th "1." ++ 
-            td (tbl ! VFin t Pos {n=Sg; p=P1}) ++
-            td (tbl ! VFin t Pos {n=Pl; p=P1})) ++
+            td (tbl ! asp ! VFin t Pos {n=Sg; p=P1}) ++
+            td (tbl ! asp ! VFin t Pos {n=Pl; p=P1})) ++
         tr (th "2." ++ 
-            td (tbl ! VFin t Pos {n=Sg; p=P2}) ++
-            td (tbl ! VFin t Pos {n=Pl; p=P2})) ++
+            td (tbl ! asp ! VFin t Pos {n=Sg; p=P2}) ++
+            td (tbl ! asp ! VFin t Pos {n=Pl; p=P2})) ++
         tr (th "3." ++
-            td (tbl ! VFin t Pos {n=Sg; p=P3}) ++
-            td (tbl ! VFin t Pos {n=Pl; p=P3}))
+            td (tbl ! asp ! VFin t Pos {n=Sg; p=P3}) ++
+            td (tbl ! asp ! VFin t Pos {n=Pl; p=P3}))
       ) ;
    } ;
 }

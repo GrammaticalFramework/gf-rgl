@@ -252,10 +252,10 @@ resource ParadigmsTur = open
                       VBase Soft => softBase ;
                       VProg => progBase ;
                       VFuture => futBase ;
-                      VPass => case last base of {
-                                 #vowel => base + "n" ;
-                                 "l"    => base + suffixStr h passiveInSuffix ;
-                                 _      => base + suffixStr h passiveIlSuffix
+                      VPass => case last softBase of {
+                                 #vowel => softBase + "n" ;
+                                 "l"    => softBase + suffixStr h passiveInSuffix ;
+                                 _      => softBase + suffixStr h passiveIlSuffix
                                }
                    } ;
            aoristType = aoristType ;

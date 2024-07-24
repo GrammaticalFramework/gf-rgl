@@ -16,7 +16,7 @@ concrete PhraseTur of Phrase = CatTur ** open Prelude, ResTur in {
     -- The following have been somewhat tested and seem to be working fine
     -- to some extent.
     UttNP np = {s = np.s ! Nom} ;
-    UttVP vp = {s = vp.s ! VInf Pos} ;
+    UttVP vp = {s = vp.s ! Perf ! VInf Pos} ;
     UttAP ap = {s = ap.s ! Sg ! Nom} ;
     UttCN n = {s = n.s ! Sg ! Nom} ;
     UttS s = {s = s.s} ;

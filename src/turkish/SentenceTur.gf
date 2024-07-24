@@ -1,7 +1,7 @@
 concrete SentenceTur of Sentence = CatTur ** open Prelude, ResTur in {
 
   lin
-    PredVP np vp = {s = \\t,p => np.s ! Nom ++ vp.compl ++ vp.s ! VFin t p np.a} ;
+    PredVP np vp = {s = \\t,p => np.s ! Nom ++ vp.compl ++ vp.s ! Perf ! VFin t p np.a} ;
 
     PredSCVP sc vp = variants {} ;
 
@@ -22,7 +22,7 @@ concrete SentenceTur of Sentence = CatTur ** open Prelude, ResTur in {
     EmbedQS _ = variants {} ;
     EmbedS _ = variants {} ;
 
-    ImpVP vp = {s = \\p,n => vp.compl ++ vp.s ! VImp p n
+    ImpVP vp = {s = \\p,n => vp.compl ++ vp.s ! Perf ! VImp p n
                } ;
 
     AdvS _ _ = variants {} ;

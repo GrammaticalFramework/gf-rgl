@@ -1,4 +1,4 @@
-concrete IdiomTur of Idiom = CatTur ** open Prelude, ResTur in {
+concrete IdiomTur of Idiom = CatTur ** open Prelude, ResTur, SuffixTur in {
 
 lin
   ImpersCl _ = variants {} ;
@@ -8,7 +8,10 @@ lin
   CleftNP _ _ = variants {} ;
   CleftAdv _ _ = variants {} ;
   ImpPl1 _ = variants {} ;
-  ProgrVP _ = variants {} ;
+
+  ProgrVP vp = vp ** {
+    s = \\asp,vform => vp.s ! Imperf ! vform
+  } ;
 
 }
 

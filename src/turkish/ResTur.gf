@@ -36,6 +36,9 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
     -- For $Verb$.
 
   param
+    Aspect =
+       Perf | Imperf ;
+
     VForm =
        VInf Polarity
      | VImp Polarity Number
@@ -107,26 +110,45 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
         a = {n = n; p = p}
       } ;
 
-    mkVerbForms : Verb -> VForm => Str =
-      \v -> table {
-              VInf Pos => v.s ;
+    mkVerbForms : Verb -> Aspect => VForm => Str =
+      \v -> \\asp =>
+            table {
+              VInf Pos => case asp of {
+                            Perf   => v.s ;
+                            Imperf => v.stems ! VBase Soft ++ BIND ++
+                                      suffixStr v.h progrSuffix +
+                                      suffixStr progrHar infinitiveSuffix
+                          } ;
               VInf Neg => v.stems ! VBase Soft ++ BIND ++
                           suffixStr v.h negativeSuffix +
-                          suffixStr v.h infinitiveSuffix ;
-              VImp p n => v.stems ! VBase Soft ++
-                          case <p,n> of {
-                            <Pos,Sg> => [] ;
-                            <Neg,Sg> => BIND ++
-                                        suffixStr v.h negativeSuffix ;
-                            <Pos,Pl> => BIND ++
-                                        suffixStr v.h p2PlImperSuffix ;
-                            <Neg,Pl> => BIND ++
-                                        suffixStr v.h negativeSuffix +
-                                        (let negHar = mkHar (case v.h.vow of {
-                                                               I_Har  | U_Har  => I_Har ;
-                                                               Ih_Har | Uh_Har => Ih_Har
-                                                             }) SVow
-                                         in suffixStr negHar p2PlImperSuffix)
+                          case asp of {
+                            Perf   => suffixStr v.h infinitiveSuffix ;
+                            Imperf => suffixStr negHar progrSuffix +
+                                      suffixStr progrHar infinitiveSuffix
+                          } ;
+              VImp p n => case asp of {
+                            Perf   => v.stems ! VBase Soft ++
+                                      case <p,n> of {
+                                        <Pos,Sg> => [] ;
+                                        <Neg,Sg> => BIND ++
+                                                    suffixStr v.h negativeSuffix ;
+                                        <Pos,Pl> => BIND ++
+                                                    suffixStr v.h p2PlImperSuffix ;
+                                        <Neg,Pl> => BIND ++
+                                                    suffixStr v.h negativeSuffix +
+                                                    suffixStr negHar p2PlImperSuffix
+                                      } ;
+                            Imperf => v.stems ! VBase Soft ++ BIND ++
+                                      case <p,n> of {
+                                        <Pos,Sg> => suffixStr v.h progrSuffix ;
+                                        <Neg,Sg> => suffixStr v.h negativeSuffix +
+                                                    suffixStr negHar progrSuffix ;
+                                        <Pos,Pl> => suffixStr v.h progrSuffix +
+                                                    suffixStr progrHar p2PlImperSuffix ;
+                                        <Neg,Pl> => suffixStr v.h negativeSuffix +
+                                                    suffixStr negHar progrSuffix +
+                                                    suffixStr progrHar p2PlImperSuffix
+                                      }
                           } ;
               VFin t p agr =>
                 let presHar = mkHar (case v.h.con of {
@@ -137,28 +159,40 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
                                        SVow   => v.h.vow
                                      }) (SCon Soft) ;
                     pastHar = mkHar v.h.vow SVow ;
+                    pastIHar= mkHar U_Har SVow ;
                     futSoft = (verbSuffixes ! agr).stemT ;
                     futHar  = mkHar (case v.h.vow of {
                                        I_Har  | U_Har  => I_Har ;
                                        Ih_Har | Uh_Har => Ih_Har
                                      }) (SCon futSoft) ;
-                    negHar  = mkHar (case v.h.vow of {
-                                       I_Har  | U_Har  => I_Har ;
-                                       Ih_Har | Uh_Har => Ih_Har
-                                     }) SVow ;
                     presNegHar =
                               mkHar negHar.vow (SCon Soft)
                 in case p of {
                      Pos => case t of {
-                              Pres => v.stems ! VBase Soft ++ BIND ++
-                                      suffixStr v.h (case v.aoristType of {
-                                                       SgSylConReg => aoristErSuffix ;
-                                                       _           => aoristIrSuffix
-                                                     }) +
-                                      suffixStr presHar (verbSuffixes ! agr) ;
-                              Past => v.stems ! VBase Hard ++ BIND ++
-                                      suffixStr v.h pastSuffix +
-                                      suffixStr pastHar (verbSuffixes ! agr) ;
+                              Pres => case asp of {
+                                        Perf =>   v.stems ! VBase Soft ++ BIND ++
+                                                  suffixStr v.h (case v.aoristType of {
+                                                                   SgSylConReg => aoristErSuffix ;
+                                                                   _           => aoristIrSuffix
+                                                                }) +
+                                                  suffixStr presHar (verbSuffixes ! agr) ;
+                                        Imperf => v.stems ! VProg ++ BIND ++
+                                                  suffixStr v.h progrSuffix +
+                                                  suffixStr progrHar (verbSuffixes ! agr)
+                                      } ;
+                              Past => case asp of {
+                                        Perf => v.stems ! VBase Hard ++ BIND ++
+                                                suffixStr v.h pastSuffix +
+                                                suffixStr pastHar (verbSuffixes ! agr) ;
+                                        Imperf => v.stems ! VProg ++ BIND ++
+                                                  suffixStr v.h progrSuffix +
+                                                  case agr of {
+                                                    {n=Pl; p=P3} => suffixStr progrHar (verbSuffixes ! agr) +
+                                                                    suffixStr (mkHar Ih_Har (SCon Soft)) pastSuffix ;
+                                                    _            => suffixStr progrHar pastSuffix +
+                                                                    suffixStr pastIHar (verbSuffixes ! agr)
+                                                  }
+                                      } ;
                               Fut  => v.stems ! VFuture ++ BIND ++
                                       suffixStr v.h (case futSoft of {
                                                        Soft => softFutureSuffix ;
@@ -169,17 +203,30 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
                                       suffixStr v.h (condCopulaSuffixes ! agr)
                             } ;
                      Neg => case t of {
-                              Pres => v.stems ! VBase Hard ++ BIND ++
-                                      suffixStr v.h negativeSuffix +
-                                      case agr of {
-                                        {n=Sg; p=P1} => suffixStr negHar (verbSuffixes ! agr) ;
-                                        {n=Pl; p=P1} => suffixStr negHar p1PlAoristSuffix ;
-                                        _            => suffixStr negHar aoristIzSuffix + suffixStr presNegHar (verbSuffixes ! agr)
+                              Pres => case asp of {
+                                        Perf =>   v.stems ! VBase Hard ++ BIND ++
+                                                  suffixStr v.h negativeSuffix +
+                                                  case agr of {
+                                                    {n=Sg; p=P1} => suffixStr negHar (verbSuffixes ! agr) ;
+                                                    {n=Pl; p=P1} => suffixStr negHar p1PlAoristSuffix ;
+                                                    _            => suffixStr negHar aoristIzSuffix + suffixStr presNegHar (verbSuffixes ! agr)
+                                                  } ;
+                                        Imperf => v.stems ! VBase Soft ++ BIND ++
+                                                  tk 1 (suffixStr v.h negativeSuffix) +
+                                                  suffixStr v.h progrSuffix +
+                                                  suffixStr progrHar (verbSuffixes ! agr)
                                       } ;
-                              Past => v.stems ! VBase Hard ++ BIND ++
-                                      suffixStr v.h negativeSuffix +
-                                      suffixStr negHar pastSuffix +
-                                      suffixStr negHar (verbSuffixes ! agr) ;
+                              Past => case asp of {
+                                        Perf =>   v.stems ! VBase Hard ++ BIND ++
+                                                  suffixStr v.h negativeSuffix +
+                                                  suffixStr negHar pastSuffix +
+                                                  suffixStr negHar (verbSuffixes ! agr) ;
+                                        Imperf => v.stems ! VBase Soft ++ BIND ++
+                                                  tk 1 (suffixStr v.h negativeSuffix) +
+                                                  suffixStr v.h progrSuffix +
+                                                  suffixStr progrHar pastSuffix +
+                                                  suffixStr pastIHar (verbSuffixes ! agr)
+                                      } ;
                               Fut  => v.stems ! VBase Hard ++ BIND ++
                                       suffixStr v.h negativeSuffix +
                                       suffixStr negHar (case (verbSuffixes ! agr).stemT of {
@@ -192,7 +239,14 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
                                       suffixStr negHar (condCopulaSuffixes ! agr)
                             }
                    }
-          } ;
+          }
+        where {
+          negHar = mkHar (case v.h.vow of {
+                            I_Har  | U_Har  => I_Har ;
+                            Ih_Har | Uh_Har => Ih_Har
+                          }) SVow ;
+          progrHar = mkHar U_Har (SCon Soft)
+       } ;
 
     mkDet : Str -> Number -> UseGen -> {s : Str; n : Number; useGen : UseGen} =
       \s, n, ug -> {s = s; n = n; useGen = ug} ;

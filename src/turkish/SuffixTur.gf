@@ -85,7 +85,7 @@ resource SuffixTur = open Prelude, Predef, HarmonyTur in {
     pastSuffix      : Suffix = regSuffix "di" "di" ;
     inferentSuffix  : Suffix = regSuffix "miş" "miş" ;
 --  Vowel "o" does not obey harmony rules so assume that "iyor" is a one syllable word (see oper oneSylParser)
-    presentSuffix   : Suffix = regSuffix "iyor" "iyor" ;
+    progrSuffix     : Suffix = regSuffix "iyor" "iyor" ;
     aoristIrSuffix  : Suffix = regSuffix "ir" "r" ;
     aoristErSuffix  : Suffix = regSuffix "er" "r" ;
     aoristIzSuffix  : Suffix = regSuffix "iz" "z" ;

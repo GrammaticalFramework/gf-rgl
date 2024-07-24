@@ -31,8 +31,10 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     CompCN _ = variants {} ;
 
     CompNP np = {
-      s = table {
-            VFin Pres p agr => np.s ! Nom ++
+      s = \\asp,vform =>
+          case <asp,vform> of {
+            <Perf,VFin Pres p agr>
+                            => np.s ! Nom ++
                                case <agr,p> of {
                                  <{n=Sg; p=P3},Pos> => [] ;
                                  <{n=Sg; p=P3},Neg> => BIND ++ suffixStr np.h negativeSuffix ;
@@ -44,25 +46,28 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
                                                                             }) SVow
                                                         in suffixStr negHar (verbSuffixes ! agr))
                                } ;
-            VFin Past p agr => np.s ! Nom ++ BIND ++
+            <Perf,VFin Past p agr>
+                            => np.s ! Nom ++ BIND ++
                                case p of {
                                  Pos => [] ;
                                  Neg => suffixStr np.h negativeSuffix
                                } +
                                suffixStr np.h (alethicCopulaSuffixes ! agr) ;
-            vform           => np.s ! Nom ++
-                               mkVerbForms olmak_V ! vform
+            _               => np.s ! Nom ++
+                               mkVerbForms olmak_V ! asp ! vform
           } ;
       compl = []
     } ;
 
     CompAP ap = {
-      s = table {
-            VInf p          => ap.s ! Sg ! Nom ++
-                               mkVerbForms olmak_V ! (VInf p) ;
-            VImp p n        => ap.s ! n ! Nom ++
-                               mkVerbForms olmak_V ! (VImp p n) ;
-            VFin Pres p agr => ap.s ! agr.n ! Nom ++
+      s = \\asp,vform =>
+          case <asp,vform> of {
+            <_,VInf p>      => ap.s ! Sg ! Nom ++
+                               mkVerbForms olmak_V ! asp ! (VInf p) ;
+            <_,VImp p n>    => ap.s ! n ! Nom ++
+                               mkVerbForms olmak_V ! asp ! (VImp p n) ;
+            <Perf,VFin Pres p agr> =>
+                               ap.s ! agr.n ! Nom ++
                                case <agr,p> of {
                                  <{n=Sg; p=P3},Pos> => [] ;
                                  <{n=Sg; p=P3},Neg> => BIND ++ suffixStr ap.h negativeSuffix ;
@@ -76,14 +81,16 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
                                                                     }
                                                         in suffixStr negHar (verbSuffixes ! agr))
                                } ;
-            VFin Past p agr => ap.s ! agr.n ! Nom ++ BIND ++
+            <Perf,VFin Past p agr> =>
+                               ap.s ! agr.n ! Nom ++ BIND ++
                                case p of {
                                  Pos => [] ;
                                  Neg => suffixStr ap.h negativeSuffix
                                } +
                                suffixStr ap.h (alethicCopulaSuffixes ! agr) ;
-            VFin t p agr    => ap.s ! agr.n ! Nom ++
-                               mkVerbForms olmak_V ! (VFin t p agr)
+            <_,VFin t p agr> => 
+                               ap.s ! agr.n ! Nom ++
+                               mkVerbForms olmak_V ! asp ! (VFin t p agr)
           } ;
       compl = []
     } ;
@@ -101,7 +108,7 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     } ;
 
     AdVVP adv vp = vp ** {
-      s = \\vf => adv.s ++ vp.s ! vf ;
+      s = \\asp,vf => adv.s ++ vp.s ! asp ! vf ;
     } ;
 
     AdvVPSlash vp adv = vp ** {
