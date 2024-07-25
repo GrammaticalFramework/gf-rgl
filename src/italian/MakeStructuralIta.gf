@@ -61,7 +61,14 @@ oper
   } ;
 
   mkDet = overload {
-    -- Does not inflect for number
+    -- singular, does not inflect for gender
+    mkDet : Str ->  Det = \piu -> lin Det {
+      s,sp = \\_,_ => piu ;
+      spn = \\_ => piu ;
+      n = Sg ;
+      s2 = \\g => [] ;
+      isNeg = False
+    } ;
     mkDet : Str -> Number -> Det = \piu,n -> lin Det {
       s,sp = \\_,_ => piu ;
       spn = \\_ => piu ;
@@ -69,7 +76,7 @@ oper
       s2 = \\g => [] ;
       isNeg = False
     } ;
-    -- Inflects for number
+    -- Inflects for gender
     mkDet : Str -> Str -> Number -> Det = \alcuni,alcune,n -> lin Det {
       s,sp = table {
         Masc => \\_ => alcuni ;
