@@ -62,8 +62,6 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
     CompAP ap = {
       s = \\asp,vform =>
           case <asp,vform> of {
-            <_,VInf p>      => ap.s ! Sg ! Nom ++
-                               mkVerbForms olmak_V ! asp ! (VInf p) ;
             <_,VImp p n>    => ap.s ! n ! Nom ++
                                mkVerbForms olmak_V ! asp ! (VImp p n) ;
             <Perf,VFin Pres p agr> =>
@@ -88,9 +86,11 @@ concrete VerbTur of Verb = CatTur ** open Prelude, ResTur, SuffixTur, HarmonyTur
                                  Neg => suffixStr ap.h negativeSuffix
                                } +
                                suffixStr ap.h (alethicCopulaSuffixes ! agr) ;
-            <_,VFin t p agr> => 
+            <_,VFin t p agr> =>
                                ap.s ! agr.n ! Nom ++
-                               mkVerbForms olmak_V ! asp ! (VFin t p agr)
+                               mkVerbForms olmak_V ! asp ! (VFin t p agr) ;
+            _               => ap.s ! Sg ! Nom ++
+                               mkVerbForms olmak_V ! asp ! vform
           } ;
       compl = []
     } ;

@@ -231,19 +231,16 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
       h   = cn.h
     } ;
 
-    -- TODO: currently not able to generate trees.
     RelCN cn rs = {
-      s   = \\n,c => "(TODO: RelCN)" ;
-      gen = cn.gen ;
+      s   = \\n,c => rs.s ! {n=n; p=P3} ++ cn.s ! n ! c ;
+      gen = \\n,c => rs.s ! {n=n; p=P3} ++ cn.gen ! n ! c ;
       h   = cn.h
     } ;
 
     RelNP np rs = {
-      s   = \\c => "(TODO: RelNP)" ;
-      gen = np.gen ;
+      s   = \\c => rs.s ! np.a ++ np.s ! c ;
       h   = np.h ;
-      a   = np.a ;
-      c   = np.c
+      a   = np.a
     } ;
 
 }

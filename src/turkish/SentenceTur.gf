@@ -12,7 +12,7 @@ concrete SentenceTur of Sentence = CatTur ** open Prelude, ResTur in {
 
     UseQCl _ _ = variants {} ;
 
-    UseRCl _ _ _ = variants {} ;
+    UseRCl temp pol cl = {s = \\agr => temp.s ++ pol.s ++ cl.s ! temp.t ! pol.p ! agr} ;
 
     SlashVP _ _ = variants {} ;
     AdvSlash _ _ = variants {} ;

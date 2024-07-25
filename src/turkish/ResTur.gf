@@ -41,6 +41,9 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
 
     VForm =
        VInf Polarity
+     | VImperfPart Polarity
+     | VPerfPart   Polarity
+     | VProspPart  Polarity
      | VImp Polarity Number
      | VFin Tense Polarity Agr
      ;
@@ -126,6 +129,21 @@ resource ResTur = ParamX ** open Prelude, Predef, HarmonyTur, SuffixTur in {
                             Imperf => suffixStr negHar progrSuffix +
                                       suffixStr progrHar infinitiveSuffix
                           } ;
+              VImperfPart Pos => v.stems ! VFuture ++ BIND ++
+                                 suffixStr v.h imperfParticipleSuffix ;
+              VImperfPart Neg => v.stems ! VBase Hard ++ BIND ++
+                                 suffixStr v.h negativeSuffix +
+                                 suffixStr negHar imperfParticipleSuffix ;
+              VPerfPart Pos   => v.stems ! VBase Hard ++ BIND ++
+                                 suffixStr v.h perfParticipleSuffix ;
+              VPerfPart Neg   => v.stems ! VBase Hard ++ BIND ++
+                                 suffixStr v.h negativeSuffix +
+                                 suffixStr negHar perfParticipleSuffix ;
+              VProspPart Pos  => v.stems ! VFuture ++ BIND ++
+                                 suffixStr v.h prospParticipleSuffix ;
+              VProspPart Neg  => v.stems ! VBase Hard ++ BIND ++
+                                 suffixStr v.h negativeSuffix +
+                                 suffixStr negHar prospParticipleSuffix ;
               VImp p n => case asp of {
                             Perf   => v.stems ! VBase Soft ++
                                       case <p,n> of {

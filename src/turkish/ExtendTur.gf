@@ -1,6 +1,10 @@
 concrete ExtendTur of Extend = CatTur ** open ResTur, SuffixTur, Predef in {
 
   lin
+    GenRP n cn = {
+      s = cn.gen ! n.n
+    } ;
+
     GenModNP num np cn = {
       s = \\c => np.s ! Nom ++ num.s ! num.n ! c ++ cn.gen ! num.n ! np.a ;
       h = cn.h ;
