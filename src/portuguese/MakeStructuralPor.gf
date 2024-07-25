@@ -19,4 +19,34 @@ oper
     a = if_then_else PAgr p (PAg Sg) PNoAg ---- e,g, "chacun de"; other possibilities?
     } ;
 
+  mkDet = overload {
+    -- singular, does not inflect for gender
+    mkDet : Str ->  Det = \piu -> lin Det {
+      s,sp = \\_,_ => piu ;
+      spn = \\_ => piu ;
+      n = Sg ;
+      s2 = \\g => [] ;
+      isNeg = False
+    } ;
+    mkDet : Str -> Number -> Det = \piu,n -> lin Det {
+      s,sp = \\_,_ => piu ;
+      spn = \\_ => piu ;
+      n = n ;
+      s2 = \\g => [] ;
+      isNeg = False
+    } ;
+    -- Inflects for gender
+    mkDet : Str -> Str -> Number -> Det = \alcuni,alcune,n -> lin Det {
+      s,sp = table {
+        Masc => \\_ => alcuni ;
+        Fem  => \\_ => alcune
+      } ;
+      spn = \\_ => alcuni ;
+      n = n ;
+      s2 = \\g => [] ;
+      isNeg = False
+    } ;
+  } ;
+
+
 } ;
