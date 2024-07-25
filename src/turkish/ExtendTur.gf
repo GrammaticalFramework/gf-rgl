@@ -27,4 +27,14 @@ concrete ExtendTur of Extend = CatTur ** open ResTur, SuffixTur, Predef in {
       compl = []
     } ;
 
+    PassAgentVPSlash vps np = {
+      s = mkVerbForms {
+            s = vps.stems ! VPass ++ BIND ++ suffixStr vps.h infinitiveSuffix ;
+            stems = \\_ => vps.stems ! VPass ;
+            aoristType = vps.aoristType ;
+            h = vps.h ;
+          } ;
+      compl = np.s ! Acc ++ "tarafından"
+    } ;
+
 }
