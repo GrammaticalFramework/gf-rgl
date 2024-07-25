@@ -9,7 +9,7 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
     RS = {s : Agr => Str} ;
 
     -- Sentence
-    Cl = {s : Tense => Polarity => Str} ;
+    Cl = {s : Tense => Anteriority => Polarity => Str} ;
     Imp = {s : Polarity => Number => Str} ;
 
     -- Noun
@@ -17,7 +17,7 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
     NP = {s : Case => Str ; h : Harmony; a : Agr} ;
 
     -- Relative
-    RCl = {s : Tense => Polarity => Agr => Str} ;
+    RCl = {s : Tense => Anteriority => Polarity => Agr => Str} ;
     RP = {s : Agr => Str} ;
 
     -- Verb

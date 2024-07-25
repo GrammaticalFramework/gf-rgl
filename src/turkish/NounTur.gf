@@ -195,7 +195,7 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
 
     PPartNP np v2 = {
       s = \\c => np.s ! c
-                 ++ mkVerbForms v2 ! Perf ! VFin Past Pos np.a   --# notpresent
+                 ++ mkVerbForms v2 ! Perf ! VFin Past Simul Pos np.a   --# notpresent
                  ;
       h = np.h ;
       a = np.a

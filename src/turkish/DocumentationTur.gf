@@ -122,14 +122,14 @@ oper
             th "tekil" ++
             th "çoğul") ++
         tr (th "1." ++ 
-            td (tbl ! asp ! VFin t Pos {n=Sg; p=P1}) ++
-            td (tbl ! asp ! VFin t Pos {n=Pl; p=P1})) ++
+            td (tbl ! asp ! VFin t Simul Pos {n=Sg; p=P1}) ++
+            td (tbl ! asp ! VFin t Simul Pos {n=Pl; p=P1})) ++
         tr (th "2." ++ 
-            td (tbl ! asp ! VFin t Pos {n=Sg; p=P2}) ++
-            td (tbl ! asp ! VFin t Pos {n=Pl; p=P2})) ++
+            td (tbl ! asp ! VFin t Simul Pos {n=Sg; p=P2}) ++
+            td (tbl ! asp ! VFin t Simul Pos {n=Pl; p=P2})) ++
         tr (th "3." ++
-            td (tbl ! asp ! VFin t Pos {n=Sg; p=P3}) ++
-            td (tbl ! asp ! VFin t Pos {n=Pl; p=P3}))
+            td (tbl ! asp ! VFin t Simul Pos {n=Sg; p=P3}) ++
+            td (tbl ! asp ! VFin t Simul Pos {n=Pl; p=P3}))
       ) ;
    } ;
 }
