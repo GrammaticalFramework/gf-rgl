@@ -20,7 +20,9 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPolPlFem_Pron,
  youPolPl_Pron,
  PassVPSlash, PassAgentVPSlash,
- UseComp_estar, UseComp_ser
+ UseComp_estar, UseComp_ser,
+ BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS
+
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -125,4 +127,10 @@ oper
 
 lin AnaphPron np = agr2pron ! np.a ;
 
+    
+    RelVPS rp vpi = {
+      s = \\m, agr => rp.s ! False ! complAgr agr ! Nom ++ vpi
+                      .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
+      c = Nom
+      } ;
 } ;
