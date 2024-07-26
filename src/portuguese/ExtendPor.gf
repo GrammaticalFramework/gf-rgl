@@ -17,8 +17,7 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
      youPlFem_Pron,
      youPolFem_Pron,
      youPolPlFem_Pron,
-     youPolPl_Pron,
-     BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS
+     youPolPl_Pron
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -120,32 +119,5 @@ concrete ExtendPor of Extend = CatPor ** ExtendRomanceFunctor -
     youPolFem_Pron = pronAgr S.youPol_Pron Fem Sg P2 ;
     youPolPlFem_Pron = pronAgr youPolPl_Pron Fem Pl P2 ;
     theyFem_Pron = mkPronFrom S.they_Pron "elas" "as" "lhes" "elas" Fem Pl P3 ;
-
-  lincat
-    VPS = {s : Mood => Agr => Bool => Str} ;
-    [VPS] = {s1,s2 : Mood => Agr => Bool => Str} ;
-
-  lin
-    BaseVPS x y = twoTable3 Mood Agr Bool x y ;
-    ConsVPS = consrTable3 Mood Agr Bool comma ;
-
-  lin
-    PredVPS np vpi = {
-      s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg
-      } ;
-    MkVPS tm p vp = {
-      s = \\m,agr,isNeg =>
-        tm.s ++ p.s ++
-        (mkClausePol (orB isNeg vp.isNeg) [] False False agr vp).s
-          ! DDir ! tm.t ! tm.a ! p.p ! m
-      } ;
-    ConjVPS = conjunctDistrTable3 Mood Agr Bool ;
-
-    
-    RelVPS rp vpi = {
-      s = \\m, agr => rp.s ! False ! complAgr agr ! Nom ++ vpi
-                      .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
-      c = Nom
-      } ;
 
 } ;

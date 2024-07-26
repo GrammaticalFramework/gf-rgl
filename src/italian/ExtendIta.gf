@@ -3,7 +3,7 @@ concrete ExtendIta of Extend = CatIta ** ExtendRomanceFunctor  -
    [
    GenRP,
    PassVPSlash, PassAgentVPSlash,
-   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS
+   ExistsNP
 
    ]
   -- don't forget to put the names of your own
@@ -16,7 +16,8 @@ concrete ExtendIta of Extend = CatIta ** ExtendRomanceFunctor  -
   MorphoIta,
   Coordination,
   Prelude,
-  ParadigmsIta in {
+  ParadigmsIta,
+  IrregIta in {
     -- put your own definitions here
 
 lin
@@ -47,30 +48,13 @@ oper
          comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
         } ;
 
-  lincat
-    VPS = {s : Mood => Agr => Bool => Str} ;
-    [VPS] = {s1,s2 : Mood => Agr => Bool => Str} ;
 
-  lin
-    BaseVPS x y = twoTable3 Mood Agr Bool x y ;
-    ConsVPS = consrTable3 Mood Agr Bool comma ;
+lin
+    ExistsNP np =
+      mkClause [] True False np.a
+      (insertComplement (\\_ => (np.s ! Nom).ton)
+         (predV esistere_V)) ;
 
-  lin
-    PredVPS np vpi = {
-      s = \\m => (np.s ! Nom).comp ++ vpi.s ! m ! np.a ! np.isNeg
-      } ;
-    MkVPS tm p vp = {
-      s = \\m,agr,isNeg =>
-        tm.s ++ p.s ++
-        (mkClausePol (orB isNeg vp.isNeg) [] False False agr vp).s
-          ! DDir ! tm.t ! tm.a ! p.p ! m
-      } ;
-    ConjVPS = conjunctDistrTable3 Mood Agr Bool ;
-    
-    RelVPS rp vpi = {
-      s = \\m, agr => rp.s ! False ! complAgr agr ! Nom ++ vpi
-                      .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
-      c = Nom
-      } ;
+
 
 }

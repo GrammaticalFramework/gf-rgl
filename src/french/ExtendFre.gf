@@ -7,7 +7,7 @@ concrete ExtendFre of Extend =
    GenRP,
    ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
    PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP, ApposNP, CompoundN,
-   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS
+   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS, ExistsNP
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -159,5 +159,10 @@ lin UseDAP = \dap ->
                       .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
       c = Nom
       } ;
+
+    ExistsNP np =
+      mkClause [] True False np.a
+      (insertComplement (\\_ => (np.s ! Nom).ton)
+         (predV (mkV "exister"))) ;
 
 }

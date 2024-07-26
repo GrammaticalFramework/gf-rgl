@@ -21,7 +21,7 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPolPl_Pron,
  PassVPSlash, PassAgentVPSlash,
  UseComp_estar, UseComp_ser,
- BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS
+ ExistNP
 
     ]                   -- don't forget to put the names of your own
                        -- definitions here
@@ -127,10 +127,10 @@ oper
 
 lin AnaphPron np = agr2pron ! np.a ;
 
-    
-    RelVPS rp vpi = {
-      s = \\m, agr => rp.s ! False ! complAgr agr ! Nom ++ vpi
-                      .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
-      c = Nom
-      } ;
+    ExistsNP np =
+      mkClause [] True False np.a
+      (insertComplement (\\_ => (np.s ! Nom).ton)
+         (predV (mkV "existir"))) ;
+
+
 } ;
