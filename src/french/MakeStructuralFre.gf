@@ -44,6 +44,11 @@ oper
       spn = \\c => prepCase c ++ s ;
       n = Sg ; s2 = \\g => [] ; isNeg = False
     } ;
+    mkDet : Str -> Number -> Det = \s, n -> lin Det {
+      s,sp = \\_,c => prepCase c ++ s ;
+      spn = \\c => prepCase c ++ s ;
+      n = n ; s2 = \\g => [] ; isNeg = False
+    } ;
     mkDet : Str -> Str -> Number -> Det = \m,f,n -> lin Det {
       s,sp = \\g,c => prepCase c ++ case g of {Masc => m ; Fem => f} ;
       spn = \\c => prepCase c ++ m ;
