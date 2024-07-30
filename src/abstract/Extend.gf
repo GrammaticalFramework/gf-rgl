@@ -305,4 +305,7 @@ fun
 fun
   TPastSimple : Tense ;
 
+fun
+  SubjunctRelCN : CN -> RS -> CN ; -- e.g. Romance languages when subjunctive/conjunctive is needed
+
 }

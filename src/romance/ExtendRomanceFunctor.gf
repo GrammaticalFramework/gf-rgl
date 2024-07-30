@@ -73,7 +73,12 @@ incomplete concrete ExtendRomanceFunctor of Extend =
                       .s ! m ! (Ag rp.a.g rp.a.n P3) ! False ;
       c = Nom
       } ;
-      
+
+    SubjunctRelCN cn rs = let g = cn.g in {
+      s = \\n => cn.s ! n ++ rs.s ! Conjunct ! agrP3 g n ; --- mood
+      g = g
+      } ;
+
 
     MkVPI vp = variants {} ;     -- Temp -> Pol -> VP -> VPI ; -- to sleep / hasn't slept
     ConjVPI = variants {} ;     -- Conj -> [VPI] -> VPI ; -- has walked and won't sleep
