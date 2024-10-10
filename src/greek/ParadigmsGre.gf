@@ -72,6 +72,11 @@ oper
             = \ nm,gm,am,vm,pn,pa, g -> lin PN (mkName  nm  gm  am  vm pn pa g) ;
         } ; 
 
+      mkLN = overload {
+        mkLN : Str -> LN
+            = \s -> lin LN {s=s} ;
+        } ; 
+
       makeNP = overload {
           makeNP : (_,_,_: Str) -> Number -> Gender -> NP = mkpanta;
           makeNP : Str -> Number -> Gender ->Bool -> NP = mkkati
@@ -310,7 +315,13 @@ oper
 
 
 
-
-
+  mkGN : Str -> GN = \s -> lin GN {s = s} ;
+  mkSN : Str -> SN = \s -> lin SN {s = s} ;
+  mkAdv : Str -> Adv = \s -> lin Adv {s = s} ;
+  mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
+  mkAdA : Str -> AdA = \s -> lin AdA {s = s} ;
+  mkAdN : Str -> AdN = \s -> lin AdN {s = s} ;
+  mkInterj : Str -> Interj = \s -> lin Interj {s = s} ;
+  mkVoc : Str -> Voc = \s -> lin Voc {s = s} ;
       
-  }
+}
