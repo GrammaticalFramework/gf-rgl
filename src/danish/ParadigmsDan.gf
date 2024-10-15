@@ -144,7 +144,6 @@ oper
     mkPN : N -> PN ; --%
     } ;
 
-
 --2 Adjectives
 
 -- The regular pattern works for many adjectives, e.g. those ending
@@ -182,6 +181,7 @@ oper
 -- Adverbs modifying adjectives and sentences can also be formed.
 
   mkAdA : Str -> AdA ; -- modify adjective, e.g. "meget"
+  mkAdN : Str -> AdN ;
 
 
 --2 Verbs
@@ -386,6 +386,7 @@ oper
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
   mkAdA x = ss x ** {lock_AdA = <>} ;
+  mkAdN x = ss x ** {lock_AdN = <>} ;
 
   mk6V a b c d e f = mkVerb6 a b c d e f ** 
     {part = [] ; vtype = VAct ; lock_V = <> ; isVaere = False} ;
@@ -491,6 +492,25 @@ oper
   mk2PN : Str -> Gender -> PN ;  
   nounPN : N -> PN ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN (regPN s) ** {n=Sg};   -- default gender utrum
+    mkLN : Str -> Gender -> LN = \s,g -> lin LN (mk2PN s g) ** {n=Sg} ; -- set other gender
+    mkLN : Str -> Gender -> Number -> LN = \s,g,n -> lin LN (mk2PN s g) ** {n=n} ; -- set other gender and number
+    } ;
+  mkGN = overload {
+    mkGN : Str -> GN = \s -> lin GN {s = \\c => mkCase c s ; g = Male};   -- default gender utrum
+    mkGN : Str -> Sex -> GN = \s,g -> lin GN {s = \\c => mkCase c s ; g = g} ; -- set other gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_,c => mkCase c s; pl = \\c => mkCase c s};   -- default gender utrum
+    mkSN : Str -> Str -> Str -> SN = 
+      \male,female,pl -> lin SN {s  = table {Male => \\c => mkCase c male;
+                                             Female => \\c => mkCase c female} ;
+                                 pl = \\c => mkCase c pl
+                                } ;
+    } ;
+
   mkA = overload {
     mkA : (fin : Str) -> A = regADeg ;
     mkA : (fin,fint : Str) -> A = mk2ADeg ;
@@ -532,5 +552,8 @@ oper
 
   mk2V2  : V -> Prep -> V2 ;
   dirV2 : V -> V2 ;
+
+  mkInterj : Str -> Interj
+  = \s -> lin Interj {s = s} ;
 
 } ;
