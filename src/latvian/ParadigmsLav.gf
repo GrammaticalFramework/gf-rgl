@@ -49,9 +49,27 @@ oper
   } ;
 
   mkPN = overload {
-    mkN : (lemma : Str) ->           PN = \l   -> lin PN (mkProperNoun l Sg) ;
-    mkN : (lemma : Str) -> Number -> PN = \l,n -> lin PN (mkProperNoun l n) ;
+    mkPN : (lemma : Str) ->           PN = \l   -> lin PN (mkProperNoun l Sg) ;
+    mkPN : (lemma : Str) -> Number -> PN = \l,n -> lin PN (mkProperNoun l n) ;
   } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN (mkProperNoun s Sg);   -- default gender utrum
+    mkLN : Str -> Number -> LN = \s,n -> lin LN (mkProperNoun s n) ; -- set other number
+    } ;
+
+  mkGN = overload {
+    mkGN : Str -> GN = \s -> lin GN (mkProperNoun s Sg);
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_ => (mkProperNoun s Sg).s; pl = (mkProperNoun s Sg).s};   -- default gender utrum
+    mkSN : Str -> Str -> Str -> SN = 
+      \male,female,pl -> lin SN {s  = table {Male => (mkProperNoun male Sg).s;
+                                             Female => (mkProperNoun female Sg).s} ;
+                                 pl = (mkProperNoun pl Sg).s
+                                } ;
+    } ;
 
   mkN2 = overload {
     mkN2 : N -> Prep ->         N2 = \n,p     -> lin N2 (n ** {prep = p ; isPre = True}) ;
@@ -140,6 +158,8 @@ oper
   dat_Prep : Prep = mkPrep Dat ;
   acc_Prep : Prep = mkPrep Acc ;
   loc_Prep : Prep = mkPrep Loc ;
+  
+  mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
 
   -- Adverbs
 
@@ -225,5 +245,8 @@ oper
         g => table { n => table { c => ord ! g ! n ! c } }
       }
     } ;
+
+  mkInterj : Str -> Interj
+  = \s -> lin Interj {s = s} ;
 
 }
