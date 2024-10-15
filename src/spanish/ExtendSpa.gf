@@ -20,7 +20,9 @@ concrete ExtendSpa of Extend = CatSpa ** ExtendRomanceFunctor -
  youPolPlFem_Pron,
  youPolPl_Pron,
  PassVPSlash, PassAgentVPSlash,
- UseComp_estar, UseComp_ser
+ UseComp_estar, UseComp_ser,
+ ExistNP
+
     ]                   -- don't forget to put the names of your own
                        -- definitions here
   with
@@ -124,5 +126,11 @@ oper
         } ;
 
 lin AnaphPron np = agr2pron ! np.a ;
+
+    ExistsNP np =
+      mkClause [] True False np.a
+      (insertComplement (\\_ => (np.s ! Nom).ton)
+         (predV (mkV "existir"))) ;
+
 
 } ;

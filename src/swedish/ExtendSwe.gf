@@ -113,24 +113,55 @@ in {
     ComplVPIVV vv vpi = insertObj (\\a => vv.c2.s ++ vpi.s ! VPIInf ! a) (predV vv) ;
 
   lincat
-    VPS   = {s : Order => Agr => Str} ;
-    [VPS] = {s1,s2 : Order => Agr => Str} ;
+    VPS   = {s : Order => Agr => {verb, compl : Str}} ;
+    [VPS] = {s : Order => Agr => {s1, s2, s3 : Str}} ; -- älskar, (jag) dig, (och) är lycklig
 
   lin
-    BaseVPS = twoTable2 Order Agr ;
-    ConsVPS = consrTable2 Order Agr comma ;
+      BaseVPS v w = {
+      s = \\ord, agr =>
+        let
+	  vs = v.s ! ord ! agr ;
+	  ws = w.s ! ord ! agr ;
+	in {
+	  s1 = vs.verb ;
+	  s2 = vs.compl ;
+	  s3 = ws.verb ++ ws.compl
+	  }
+       } ;
+	  
+    ConsVPS v vv = {
+      s = \\ord, agr =>
+        let
+	  vs = v.s ! ord ! agr ;
+	  vvs = vv.s ! ord ! agr ;
+	in {
+	  s1 = vs.verb ;
+	  s2 = vs.compl ++ comma ++ vvs.s1 ++ vvs.s2 ;
+	  s3 = vvs.s3
+	  }
+      } ;
 
-    PredVPS np vpi =
+    ConjVPS conj vv = {
+      s = \\ord, agr =>
+         let
+           vvs = vv.s ! ord ! agr
+         in {
+	   verb = vvs.s1 ;
+	   compl = conj.s1 ++ vvs.s2 ++ conj.s2 ++ vvs.s3
+	   }
+      } ;
+
+    PredVPS np vps =
       let
         subj = np.s ! nominative ;
         agr  = np.a ;
       in {
         s = \\o =>
-          let verb = vpi.s ! o ! agr
+          let verb = vps.s ! o ! agr
           in case o of {
-            Main => subj ++ verb ;
-            Inv  => verb ++ subj ;   ---- älskar henne och sover jag
-            Sub  => subj ++ verb
+            Main => subj ++ verb.verb ++ verb.compl ;
+            Inv  => verb.verb ++ subj ++ verb.compl ;   -- älskar jag henne och sover
+            Sub  => subj ++ verb.verb ++ verb.compl     --- not quite correct in ConjVPS
             }
         } ;
 
@@ -140,7 +171,9 @@ in {
                     RNoAg => ag ;
                     RAg g n p => {g = g ; n = n ; p = p}
                   } ;
-         in rp.s ! ag.g ! ag.n ! rcase ++ vps.s ! Sub ! agr ;
+	    verb = vps.s ! Sub ! agr
+        in
+	    rp.s ! ag.g ! ag.n ! rcase ++ verb.verb ++ verb.compl ;
       c = NPNom
       } ;
 
@@ -150,15 +183,15 @@ in {
               verb  = vp.s ! Act ! VPFinite t.t t.a ;
 	      neg   = verb.a1 ! p.p ! a ;
               compl = vp.n2 ! a ++ vp.a2 ++ vp.ext ;
-	      pron  = vp.n1 ! a
-            in t.s ++ p.s ++ case o of {
-              Main => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ;
-              Inv  => verb.fin ++ neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl ; ----
-              Sub  => neg.p1 ++ neg.p2 ++ verb.fin ++ verb.inf ++ pron ++ compl
+	      pron  = vp.n1 ! a ;
+	      verbf = t.s ++ p.s ++ verb.fin
+            in 
+            case o of { 
+              Main => {verb = verbf ; compl = neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl} ;
+              Inv  => {verb = verbf ; compl = neg.p1 ++ verb.inf ++ pron ++ neg.p2 ++ compl} ;
+              Sub  => {verb = neg.p1 ++ neg.p2 ++ verbf ; compl = verb.inf ++ pron ++ compl}
               }
       } ;
-
-    ConjVPS = conjunctDistrTable2 Order Agr ;
 
   lincat
     VPS2   = {s : Order => Agr => Str ; c2 : {s : Str; hasPrep : Prelude.Bool}} ;
@@ -185,10 +218,10 @@ in {
       } ;
 
     ComplVPS2 vps2 np = {
-        s = \\o,a => vps2.s !o ! a ++ vps2.c2.s ++ np.s ! NPAcc
+        s = \\o,a => {verb = vps2.s !o ! a ; compl = vps2.c2.s ++ np.s ! NPAcc}
         } ;
     ReflVPS2 vps2 rnp = {
-        s = \\o,a => vps2.s ! o ! a ++ vps2.c2.s ++ rnp.s ! a
+        s = \\o,a => {verb = vps2.s ! o ! a ; compl = vps2.c2.s ++ rnp.s ! a}
         } ;
 
     ConjVPS2 c xs = conjunctDistrTable2 Order Agr c xs ** {c2 = xs.c2} ;

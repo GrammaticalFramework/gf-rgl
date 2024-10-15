@@ -137,6 +137,8 @@ lin
   ExistNPQS t p np = UseQCl t p (QuestCl (ExistNP np)) ;
   ExistIPQS t p np = UseQCl t p (ExistIP np) ;
 
+  SubjunctRelCN cn rs = RelCN cn rs ; -- no difference from indicative
+
 lincat
   X = {s : Str} ;
 

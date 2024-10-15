@@ -29,7 +29,7 @@ resource Formal = open Prelude in {
     usePrec : Prec -> TermPrec -> Str = \p,x ->
       case lessPrec x.p p of {
         True => parenth x.s ;
-        False => parenthOpt x.s
+        False => x.s --- parenthOpt x.s
       } ;
 
     parenth : Str -> Str = \s -> "(" ++ s ++ ")" ;
