@@ -14,7 +14,8 @@ concrete GrammarNno of Grammar =
   TextX - [Tense,Temp] ,
   IdiomNno,
   StructuralNno,
-  TenseNno
+  TenseNno,
+  NamesNno
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
