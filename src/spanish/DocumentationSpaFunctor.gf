@@ -27,7 +27,7 @@ oper
    heading : N -> Str = \n -> (nounHeading n).s ;
 
 lin
-  InflectionN, InflectionN3, InflectionN3 = \noun -> {
+  InflectionN, InflectionN2, InflectionN3 = \noun -> {
     t = "n" ;
     s1 = heading1 (heading noun_Category ++
                    case noun.g of {
