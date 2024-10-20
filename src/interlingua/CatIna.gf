@@ -78,6 +78,8 @@ concrete CatIna of Cat = CommonX ** open ResIna, Prelude in {
     N2 = {s : Number => Str} ** {p2 : Str; c2 : Case} ;
     N3 = {s : Number => Str} ** {p2,p3 : Str; c2,c3 : Case} ;
 
-    PN = {s : Str} ;
+    PN,LN = {s : Str} ;
+    GN = {s : Str ; g : Sex} ;
+    SN = {s : Sex => Str ; pl : Str} ;
 
 }

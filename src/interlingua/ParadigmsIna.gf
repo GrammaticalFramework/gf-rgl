@@ -29,23 +29,17 @@ resource ParadigmsIna = open
   (Predef=Predef), 
   Prelude, 
   MorphoIna,
-  CatIna
+  CatIna,
+  CommonX
   in {
 --2 Parameters 
 --
 -- To abstract over gender names, we define the following identifiers.
+oper
+  male : Sex = Male ;
+  female : Sex = Female ;
 
 oper
---  Gender : Type ; 
--- There is no grammatical gender in interlingua.
-
----- To abstract over number names, we define the following.
---
---  Number : Type ; 
---
---  singular : Number ;
---  plural   : Number ;
-
 -- To abstract over case names, we define the following.
 
   nominative : Case ;
@@ -63,7 +57,7 @@ oper
 --2 Nouns
 --
 
--- All nouns are regular, so one should use $regN$ to construct them.
+-- All nouns are regular, so one should use $mkN$ to construct them.
 
 --3 Relational nouns 
 -- 
@@ -96,6 +90,7 @@ oper
 -- Adverbs modifying adjectives and sentences can also be formed.
 
   mkAdA : Str -> AdA ;
+  mkAdN : Str -> AdA ;
 
 --2 Prepositions
 --
@@ -124,20 +119,22 @@ oper
 -- I decided to provide the following combinators for forming verbs with
 -- complex grammar rules:
 
-  prepV2 : Prep  -> V -> V2 ;
-  prepV3 : Prep -> V2 -> V3 ;
-  dirV2  : V -> V2 ;
+  mkV2 = overload {
+    mkV2 : V -> Prep -> V2 = prepV2 ;
+    mkV2 : V -> V2 = dirV2 ;
+  } ;
 
+  mkV3 : V -> Prep -> Prep -> V3 ;
 
   mkV0  : V -> V0 ;
   mkVS  : V -> VS ;
---  mkV2S : V -> Prep -> V2S ;
---  mkVV  : V -> VV ;
-  mkV2V : Prep -> Prep -> V -> V2V ;
+  mkV2S : V -> Prep -> V2S ;
+  mkVV  : V -> VV ;
+  mkV2V : V -> Prep -> Prep -> V2V ;
   mkVA  : V -> VA ;
-  mkV2A : Prep -> Prep -> V -> V2A ;
+  mkV2A : V -> Prep -> Prep -> V2A ;
   mkVQ  : V -> VQ ;
-  mkV2Q : Prep -> V -> V2Q ;
+  mkV2Q : V -> Prep -> V2Q ;
   
   mkAS  : A -> AS ;
 --  mkA2S : A -> Prep -> A2S ;
@@ -163,7 +160,7 @@ oper
   dative = Dat ;
   ablative = Abl ;
 
-  regN s = nounReg s ** {lock_N = <>};
+  mkN s = nounReg s ** {lock_N = <>};
 
   compN : N -> Str -> N;
   compN n s = {s = \\x => n.s ! x ++ s; lock_N = <>} ;
@@ -173,7 +170,7 @@ oper
   prepN3 : Prep -> N2 -> N3;  
   prepN2 = \p,n -> n ** {lock_N2 = <> ; p2 = p.s; c2 = p.c} ;
   prepN3 = \p,n -> n ** {lock_N3 = <> ; p3 = p.s; c3 = p.c} ;
-  regN2 n = prepN2 (mkPrep [] genitive) (regN n) ** {lock_N2 = <>};
+  regN2 n = prepN2 (mkPrep [] genitive) (mkN n) ** {lock_N2 = <>};
 
 ----3 Relational common noun phrases
 ----
@@ -187,12 +184,20 @@ oper
 --  cnN2 = \n,p -> n ** {lock_N2 = <> ; c2 = p.s} ;
 --  cnN3 = \n,p,q -> n ** {lock_N3 = <> ; c2 = p.s ; c3 = q.s} ;
 --
-  regPN n = regGenPN n;
-  regGenPN n = {s = n; lock_PN = <>} ;
---  nounPN n = {s = n.s ! singular ; g = n.g ; lock_PN = <>} ;
---
---  mk2A a b = mkAdjective a a a b ** {lock_A = <>} ;
-  regA a = regAdjective a ** {lock_A = <>} ;
+  mkPN : Str -> PN = regGenPN;
+  
+  mkLN : Str -> LN = \s -> lin LN {s=s};
+  mkGN : Str -> Sex -> GN = \s,g -> lin GN {s=s; g=g};
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s=\\_ => s; pl=s};
+    mkSN : Str -> Str -> Str -> SN = \m,f,pl -> lin SN {s=table {Male=>m; Female=>f}; pl=pl};
+  } ;
+  
+  regGenPN : Str -> PN ;
+  regGenPN s = {s = s; lock_PN = <>} ;
+
+  mkA : Str -> A ;
+  mkA a = regAdjective a ** {lock_A = <>} ;
 
   mkA2 a p = a ** {c2 = casePrep p.s p.c ; lock_A2 = <>} ;
 
@@ -201,114 +206,49 @@ oper
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
   mkAdA x = ss x ** {lock_AdA = <>} ;
+  mkAdN x = ss x ** {lock_AdA = <>} ;
 
   mkPrep p c = ss p ** {c = c; lock_Prep = <>} ;
   noPrep = mkPrep [] accusative ;
 
-
   -- Verb-formation combinators.
-    regV : Str -> V;
-    regV s = mkVerb s ** {lock_V = <>};
+  mkV : Str -> V;
+  mkV s = mkVerb s ** {lock_V = <>};
 
-    prepV2 p v = v ** {c2 = p.c; p2 = p.s ; lock_V2 = <>} ;
-    prepV3 p v = v ** {c3 = p.c; p3 = p.s ; lock_V3 = <>} ;
-    dirV2 = prepV2 noPrep ;
+  prepV2 : V -> Prep  -> V2 ;
+  prepV2 v p = v ** {c2 = p.c; p2 = p.s ; lock_V2 = <>} ;
 
-    mkVS  v = v ** {lock_VS = <>} ;
---  mkVV  v = {
---    s = table {VVF vf => v.s ! vf ; _ => variants {}} ; 
---    isAux = False ; lock_VV = <>
---    } ;
-    mkVQ  v = v ** {lock_VQ = <>} ;
+  dirV2  : V -> V2 ;
+  dirV2 v = prepV2 v noPrep ;
+
+  mkV3 v p1 p2 = v ** {c2 = p1.c; p2 = p1.s ; c3 = p2.c; p3 = p2.s ; lock_V3 = <>} ;
+
+  mkVS  v = v ** {lock_VS = <>} ;
+  mkVV  v = v ** {lock_VV = <>} ;
+  mkVQ  v = v ** {lock_VQ = <>} ;
   
     V0 : Type = V ;
 ---    V2S, V2V, V2Q : Type = V2 ;
     AS, A2S, AV : Type = A ;
     A2V : Type = A2 ;
 --
-    mkV0  v = v ** {lock_V = <>} ;
---  mkV2S v p = prepV2 v p ** {lock_V2 = <>} ;
-    mkV2V p t v = prepV2 p v ** {s4 = t ; lock_V2V = <>} ;
-    mkVA  v = v ** {lock_VA = <>} ;
-    mkV2A p2 p3 v = (prepV3 p3 (prepV2 p2 v)) ** {lock_V2A = <>} ;
-    mkV2Q p v = prepV2 p v ** {lock_V2Q = <>} ;
-    mkAS  v = v ** {lock_A = <>} ;
---  mkA2S v p = mkA2 v p ** {lock_A = <>} ;
-    mkAV  v = v ** {lock_A = <>} ;
-    mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
+  mkV0  v = v ** {lock_V = <>} ;
+  mkV2S v p = prepV2 v p ** {lock_V2S = <>} ;
+  mkV2V v p t = prepV2 v p ** {s4 = t ; lock_V2V = <>} ;
+  mkVA  v = v ** {lock_VA = <>} ;
+  mkV2A v p2 p3 = mkV3 v p2 p3 ** {lock_V2A = <>} ;
+  mkV2Q p v = prepV2 p v ** {lock_V2Q = <>} ;
+  mkAS  v = v ** {lock_A = <>} ;
+  mkAV  v = v ** {lock_A = <>} ;
+  mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
 
 
 -- pre-overload API and overload definitions
-    regN : Str -> N ;
---  mk2N : (man,men : Str) -> N ;
---  genderN : Gender -> N -> N ;
---  compN : Str -> N -> N ;
---
---
---
---  mk2A : (free,freely : Str) -> A ;
-    regA : Str -> A ;
---
---  mkA = overload {
---    mkA : Str -> A = regA ;
---    mkA : (fat,fatter : Str) -> A = \fat,fatter -> 
---      mkAdjective fat fatter (init fatter + "st") (fat + "ly") ** {lock_A = <>} ;
---    mkA : (good,better,best,well : Str) -> A = \a,b,c,d ->
---      mkAdjective a b c d  ** {lock_A = <>}
---    } ;
---
---  compoundA = compoundADeg ;
---
---
---  mk5V : (go, goes, went, gone, going : Str) -> V ;
---  regV : (cry : Str) -> V ;
---  reg2V : (stop, stopped : Str) -> V;
---  irregV : (drink, drank, drunk  : Str) -> V ;
---  irreg4V : (run, ran, run, running  : Str) -> V ;
---
---  -- Use reg2V instead
---  regDuplV : Str -> V ;
---  -- Use irreg4V instead
---  irregDuplV : (get,   got,   gotten : Str) -> V ;
---
+  mkN : Str -> N ;
 
 
------- obsolete
---
----- Comparison adjectives may two more forms. 
---
---  ADeg : Type ;
---
---  mkADeg : (good,better,best,well : Str) -> ADeg ;
---
----- The regular pattern recognizes two common variations: 
----- "-e" ("rude" - "ruder" - "rudest") and
----- "-y" ("happy - happier - happiest - happily")
---
---  regADeg : Str -> ADeg ;      -- long, longer, longest
---
----- However, the duplication of the final consonant is nor predicted,
----- but a separate pattern is used:
---
---  duplADeg : Str -> ADeg ;      -- fat, fatter, fattest
---
----- If comparison is formed by "more", "most", as in general for
----- long adjective, the following pattern is used:
---
---  compoundADeg : A -> ADeg ; -- -/more/most ridiculous
---
----- From a given $ADeg$, it is possible to get back to $A$.
---
---  adegA : ADeg -> A ;
---
---
-  regPN    : Str -> PN ;          
-  regGenPN : Str -> PN ;     -- John, John's
---
----- Sometimes you can reuse a common noun as a proper name, e.g. "Bank".
---
---  nounPN : N -> PN ;
-
+  mkInterj : Str -> Interj = \s -> lin Interj {s=s};
+  mkVoc : Str -> Voc = variants {} ;
 
 
 } ;

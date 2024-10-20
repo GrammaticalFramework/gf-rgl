@@ -2,7 +2,8 @@
 
 concrete LangIna of Lang = 
   GrammarIna,
-  LexiconIna
+  LexiconIna,
+  DocumentationIna
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

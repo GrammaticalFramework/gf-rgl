@@ -4,7 +4,6 @@ concrete StructuralIna of Structural = CatIna **
   flags optimize=all ;
 
   oper
----    mkPrep = P.mkPrep;
     pp : Str -> Prep = \s-> P.mkPrep s Acc;
   lin
     above_Prep = pp "supra";
@@ -22,8 +21,8 @@ concrete StructuralIna of Structural = CatIna **
     but_PConj = ss "sed" ;
     by8agent_Prep = pp "per" ;
     by8means_Prep = pp "per" ;
-    can_VV = P.regV "poter";
-    can8know_VV = P.regV "saper";
+    can_VV = P.mkVV (P.mkV "poter");
+    can8know_VV = P.mkVV (P.mkV "saper");
     during_Prep = pp "durante" ;
     either7or_DConj = sd2 "o" "o" ** {n = Sg} ;
     everybody_NP = regNP "totos" ;
@@ -49,7 +48,7 @@ concrete StructuralIna of Structural = CatIna **
     more_CAdv = {s = "plus" ; p = "que"} ;
     most_Predet = ss ("le"++"plus");
     much_Det = mkDeterminer Sg "tanto" ;
-    must_VV = P.regV "deber";
+    must_VV = P.mkV "deber";
     no_Utt = ss "no" ;
     on_Prep = P.mkPrep "super" Acc;
     only_Predet = ss "unic" ;
@@ -81,8 +80,8 @@ concrete StructuralIna of Structural = CatIna **
     too_AdA = ss "alsi" ;
     to_Prep = P.mkPrep "" Dat;
     under_Prep = pp "infra" ;
-    very_AdA = ss "multo" ;
-    want_VV = P.regV "want" ;
+    very_AdA = P.mkAdA "multo" ;
+    want_VV = P.mkVV (P.mkV "want") ;
     we_Pron = mkPron "nos" "nos" "nostre" Pp1;
     whatPl_IP = mkIP "que" Pl ;
     whatSg_IP = mkIP "que" Sg ;
