@@ -3,5 +3,5 @@
 concrete AllNor of AllNorAbs = 
   LangNor,
   IrregNor - [fly_V],
-  ExtraNor 
+  ExtendNor 
   ** {} ;
