@@ -556,4 +556,6 @@ oper
   mkInterj : Str -> Interj
   = \s -> lin Interj {s = s} ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
+
 } ;
