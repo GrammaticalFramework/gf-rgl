@@ -1,3 +1,3 @@
 --# -path=.:../abstract:../common:../prelude
 
-concrete AllIna of AllInaAbs = LangIna ;
+concrete AllIna of AllInaAbs = LangIna, ExtendIna ;
