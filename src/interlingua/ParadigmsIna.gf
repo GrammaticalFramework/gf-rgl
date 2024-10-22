@@ -185,8 +185,12 @@ oper
 --  cnN3 = \n,p,q -> n ** {lock_N3 = <> ; c2 = p.s ; c3 = q.s} ;
 --
   mkPN : Str -> PN = regGenPN;
-  
-  mkLN : Str -> LN = \s -> lin LN {s=s};
+
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN {s=s; n=Sg; art=False};
+    mkLN : Str -> Number -> LN = \s,n -> lin LN {s=s; n=n; art=False};
+  } ;
+
   mkGN : Str -> Sex -> GN = \s,g -> lin GN {s=s; g=g};
   mkSN = overload {
     mkSN : Str -> SN = \s -> lin SN {s=\\_ => s; pl=s};

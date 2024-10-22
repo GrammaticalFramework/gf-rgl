@@ -14,7 +14,8 @@ concrete GrammarIna of Grammar =
   TextX,
   StructuralIna,
   IdiomIna,
-  TenseX
+  TenseX,
+  NamesIna
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
