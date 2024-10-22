@@ -118,4 +118,10 @@ concrete NounIna of Noun = CatIna ** open ResIna, Prelude in {
       isPronoun = np.isPronoun ---- ?? AR
       } ;
 
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard) ;
+      a = agrP3 n.n ;
+      isPronoun = False
+    } ;
+
 }

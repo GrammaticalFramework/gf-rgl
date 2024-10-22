@@ -254,5 +254,6 @@ oper
   mkInterj : Str -> Interj = \s -> lin Interj {s=s};
   mkVoc : Str -> Voc = variants {} ;
 
+  mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
 } ;
