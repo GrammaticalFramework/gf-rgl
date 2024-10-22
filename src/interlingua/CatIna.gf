@@ -83,4 +83,9 @@ concrete CatIna of Cat = CommonX ** open ResIna, Prelude in {
     GN = {s : Str ; g : Sex} ;
     SN = {s : Sex => Str ; pl : Str} ;
 
+  linref
+    V, VS, VQ, VA, VV = \v -> v.s ! VInf ++ case v.isRefl of {True => "se"; False => []} ;
+    V2, V2V, V2S, V2Q = \v -> v.s ! VInf ++ case v.isRefl of {True => "se"; False => []} ++ v.p2 ;
+    V3, V2A = \v -> v.s ! VInf ++ case v.isRefl of {True => "se"; False => []} ++ v.p2 ++ v.p3 ;
+
 }
