@@ -9963,47 +9963,35 @@ mkAdv base_1 =
   { s = base_1
   } ;
 
-mkPron : Str -> Pron ;
-mkPron base =
-  case base of {
-    "јас" => lin Pron
-      { Sg = { P1 = { subjective = "јас" ;
-                      error_unrecognized_form = "ми" ;
-                      possessive = "мој"
-                    } ;
-               P2 = { subjective = "ти" ;
-                      error_unrecognized_form = "ти" ;
-                      possessive = "твој"
-                    } ;
-               P3 = { subjective = "тоа" ;
-                      error_unrecognized_form = "ѝ" ;
-                      possessive = "нејзин"
-                    } ;
-               reflexive = { subjective = "-"
-                           } ;
-               error_unrecognized_form = { reflexive = "си"
-                                         } ;
-               possessive = { reflexive = "свој"
-                            }
-             } ;
-        Pl = { P1 = { subjective = "ние" ;
-                      error_unrecognized_form = "ни" ;
-                      possessive = "наш"
-                    } ;
-               P2 = { subjective = "вие" ;
-                      error_unrecognized_form = "ви" ;
-                      possessive = "ваш"
-                    } ;
-               P3 = { subjective = "тие" ;
-                      error_unrecognized_form = "им" ;
-                      possessive = "нивен"
-                    } ;
-               reflexive = { subjective = "-"
-                           } ;
-               possessive = { reflexive = "свој"
-                            }
-             }
-      };
-    _ => error "Can't apply paradigm mkPron"
-  } ;
+mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
+  \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15 ->
+      { s = table {
+              RSubj => f1 ;
+              RObj Acc => f2 ;
+              RObj Dat => f4 ;
+              RPrep => f6
+            } ;
+        clitic =
+            table {
+              Acc => f3 ;
+              Dat => f5
+            } ;
+        poss = 
+            table {
+              Indef => table {
+                         GSg Masc   => f7 ;
+                         GSg Fem    => f9 ;
+                         GSg Neuter => f11 ;
+                         GPl        => f13
+                       } ;
+              Def _ => table {
+                         GSg Masc   => f8 ;
+                         GSg Fem    => f10 ;
+                         GSg Neuter => f12 ;
+                         GPl        => f14
+                       }
+            } ;
+        poss_clitic = f15
+      } ;
+
 }

@@ -142,48 +142,9 @@ oper mkAdv : Str -> Adv =
           { s = f1
           } ;
 
-
-
-oper Pron = {Sg: {P1: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; P2: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; P3: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; reflexive: {subjective: Str}; error_unrecognized_form: {reflexive: Str}; possessive: {reflexive: Str}}; Pl: {P1: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; P2: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; P3: {subjective: Str; error_unrecognized_form: Str; possessive: Str}; reflexive: {subjective: Str}; possessive: {reflexive: Str}}} ; -- 8
-oper mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
-       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23 ->
-          { Sg = { P1 = { subjective = f1 ;
-                          error_unrecognized_form = f2 ;
-                          possessive = f3
-                        } ;
-                   P2 = { subjective = f4 ;
-                          error_unrecognized_form = f5 ;
-                          possessive = f6
-                        } ;
-                   P3 = { subjective = f7 ;
-                          error_unrecognized_form = f8 ;
-                          possessive = f9
-                        } ;
-                   reflexive = { subjective = f10
-                               } ;
-                   error_unrecognized_form = { reflexive = f11
-                                             } ;
-                   possessive = { reflexive = f12
-                                }
-                 } ;
-            Pl = { P1 = { subjective = f13 ;
-                          error_unrecognized_form = f14 ;
-                          possessive = f15
-                        } ;
-                   P2 = { subjective = f16 ;
-                          error_unrecognized_form = f17 ;
-                          possessive = f18
-                        } ;
-                   P3 = { subjective = f19 ;
-                          error_unrecognized_form = f20 ;
-                          possessive = f21
-                        } ;
-                   reflexive = { subjective = f22
-                               } ;
-                   possessive = { reflexive = f23
-                                }
-                 }
-          } ;
+param Case = Acc | Dat ;
+param Role = RSubj | RObj Case | RPrep ;
+oper Pron = {s : Role => Str; clitic : Case => Str} ;
 
 genNum : Gender -> Number -> GenNum = \g,n ->
   case n of {
