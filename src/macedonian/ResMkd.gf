@@ -1,4 +1,4 @@
-resource ResMkd = {
+resource ResMkd = open Prelude in {
 
 oper Compl = {s : Str} ;
 
@@ -38,7 +38,7 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
 
 param Person = P1 | P3 | P2 ;
 param GenNum = GSg Gender | GPl ;
-oper Verb = {present: Number => Person => Str; aorist: Number => Person => Str; imperfect: Number => Person => Str; Imperative: Number => Str; participle: {aorist: GenNum => Str; imperfect: GenNum => Str; perfect: Str; adjectival: Str; adverbial: Str}; noun_from_verb: Str} ; -- 8174
+oper Verb = {present: Number => Person => Str; aorist: Number => Person => Str; imperfect: Number => Person => Str; Imperative: Number => Str; participle: {aorist: GenNum => Str; imperfect: GenNum => Str; perfect: Str; adjectival: Str; adverbial: Str}; noun_from_verb: Str; isRefl: Bool} ; -- 8174
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32 ->
           { present = table {
@@ -97,7 +97,8 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                            adjectival = f30 ;
                            adverbial = f31
                          } ;
-            noun_from_verb = f32
+            noun_from_verb = f32 ;
+            isRefl = False
           } ;
 
 

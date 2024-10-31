@@ -15,5 +15,11 @@ lincat Interj = {s : Str} ;
 lincat Voc = {s : Str} ;
 
 linref N,N2,N3 = \n -> n.s ! Indef ! Sg ;
+linref V, VA, VV, VS, VQ, V2, V2S, V2Q, V3, V2A, V2V = 
+  \v -> v.present ! Sg ! P1 ++
+        case v.isRefl of {
+          True  => "се" ;
+          False => []
+        } ;
 
 }
