@@ -1566,7 +1566,7 @@ mkV = overload {
   mkV : Str -> Str -> Str -> Str -> V = reg4V
 } ;
 
-reflV : V -> V = \v -> v ;
+reflV : V -> V = \v -> v ** {isRefl=True} ;
 
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
