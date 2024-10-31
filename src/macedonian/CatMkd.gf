@@ -21,5 +21,6 @@ linref V, VA, VV, VS, VQ, V2, V2S, V2Q, V3, V2A, V2V =
           True  => "се" ;
           False => []
         } ;
+linref A, A2 = \a -> a.s ! Indef ! GSg Masc ;
 
 }
