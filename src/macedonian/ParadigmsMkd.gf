@@ -1533,11 +1533,25 @@ mkN2 = overload {
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 n ** {c2=p};
 } ;
 
-compoundN : A -> N -> N = \a,n -> lin N {
-  s = \\spec,num => a.s ! spec ! genNum n.g num ++ n.s ! Indef ! num ;
-  count_form = a.s ! Indef ! genNum n.g Pl ++ n.count_form ;
-  vocative = \\num => a.s ! Indef ! genNum n.g num ++ n.vocative ! num ;
-  g = n.g
+compoundN = overload {
+  compoundN : A -> N -> N = \a,n -> lin N {
+    s = \\spec,num => a.s ! spec ! genNum n.g num ++ n.s ! Indef ! num ;
+    count_form = a.s ! Indef ! genNum n.g Pl ++ n.count_form ;
+    vocative = \\num => a.s ! Indef ! genNum n.g num ++ n.vocative ! num ;
+    g = n.g
+  } ;
+  compoundN : N -> Str -> N = \n,adv -> lin N {
+    s = \\spec,num => n.s ! spec ! num ++ adv ;
+    count_form = n.count_form ++ adv ;
+    vocative = \\num => n.vocative ! num ++ adv ;
+    g = n.g
+  } ;
+  compoundN : Str -> N -> N = \pref,n -> lin N {
+    s = \\spec,num => pref ++ n.s ! spec ! num ;
+    count_form = pref ++ n.count_form ;
+    vocative = \\num => pref ++ n.vocative ! num ;
+    g = n.g
+  }
 } ;
 
 mkPN : Str -> PN = \s -> lin PN {s=s} ;

@@ -184,4 +184,10 @@ oper mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
                  }
           } ;
 
+genNum : Gender -> Number -> GenNum = \g,n ->
+  case n of {
+    Sg => GSg g ;
+    Pl => GPl
+  } ;
+
 }
