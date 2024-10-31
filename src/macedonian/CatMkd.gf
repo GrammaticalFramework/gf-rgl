@@ -14,4 +14,6 @@ lincat Prep = Compl ;
 lincat Interj = {s : Str} ;
 lincat Voc = {s : Str} ;
 
+linref N,N2,N3 = \n -> n.s ! Indef ! Sg ;
+
 }
