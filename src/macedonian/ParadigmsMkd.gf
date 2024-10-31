@@ -1533,6 +1533,13 @@ mkN2 = overload {
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 n ** {c2=p};
 } ;
 
+compoundN : A -> N -> N = \a,n -> lin N {
+  s = \\spec,num => a.s ! spec ! genNum n.g num ++ n.s ! Indef ! num ;
+  count_form = a.s ! Indef ! genNum n.g Pl ++ n.count_form ;
+  vocative = \\num => a.s ! Indef ! genNum n.g num ++ n.vocative ! num ;
+  g = n.g
+} ;
+
 mkPN : Str -> PN = \s -> lin PN {s=s} ;
 mkLN : Str -> LN = \s -> lin LN {s=s} ;
 mkGN : Str -> GN = \s -> lin GN {s=s} ;
