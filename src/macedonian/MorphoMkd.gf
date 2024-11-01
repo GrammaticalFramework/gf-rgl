@@ -5217,7 +5217,8 @@ mkN167 base_1 =
 mkV001 : Str -> V ;
 mkV001 base_1 =
   lin V
-  { present = table {
+  { present = \\_ =>
+              table {
                 Sg => table {
                         P1 => base_1+"м" ;
                         P2 => base_1+"ш" ;
@@ -5241,7 +5242,8 @@ mkV001 base_1 =
                        P3 => base_1+"а"
                      }
              } ;
-    imperfect = table {
+    imperfect = \\_ =>
+                table {
                   Sg => table {
                           P1 => base_1+"в" ;
                           P2 => base_1+"ше" ;
@@ -5253,11 +5255,13 @@ mkV001 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = table {
+    Imperative = \\_ =>
+                 table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
                  } ;
-    participle = { aorist = table {
+    participle = { aorist = \\_ =>
+                            table {
                               GSg Masc => base_1+"л" ;
                               GSg Fem => base_1+"ла" ;
                               GSg Neuter => base_1+"ло" ;
@@ -5269,8 +5273,8 @@ mkV001 base_1 =
                                  GSg Neuter => base_1+"ло" ;
                                  GPl => base_1+"ле"
                                } ;
-                   perfect = nonExist ; --guessed
-                   adjectival = base_1+"н" ;
+                   perfect = \\_ => nonExist ; --guessed
+                   adjectival = \\_ => base_1+"н" ;
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
@@ -5281,7 +5285,8 @@ mkV002 : Str -> V ;
 mkV002 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ => 
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -5305,7 +5310,8 @@ mkV002 base =
                            P3 => base_1+"оа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ => 
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5317,11 +5323,13 @@ mkV002 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ => 
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ => 
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -5333,8 +5341,8 @@ mkV002 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5347,7 +5355,8 @@ mkV003 : Str -> V ;
 mkV003 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ => 
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -5371,7 +5380,8 @@ mkV003 base =
                            P3 => base_1+"ија"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ => 
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5383,11 +5393,13 @@ mkV003 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ => 
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ => 
+                                table {
                                   GSg Masc => base_1+"ил" ;
                                   GSg Fem => base_1+"ила" ;
                                   GSg Neuter => base_1+"ило" ;
@@ -5399,8 +5411,8 @@ mkV003 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -5413,7 +5425,8 @@ mkV004 : Str -> V ;
 mkV004 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -5437,7 +5450,8 @@ mkV004 base =
                            P3 => base_1+"еа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5449,11 +5463,13 @@ mkV004 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -5465,8 +5481,8 @@ mkV004 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5479,7 +5495,8 @@ mkV005 : Str -> V ;
 mkV005 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -5503,7 +5520,8 @@ mkV005 base =
                            P3 => base_1+"оа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5515,11 +5533,13 @@ mkV005 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ол" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -5531,8 +5551,8 @@ mkV005 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5545,7 +5565,8 @@ mkV006 : Str -> V ;
 mkV006 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -5569,7 +5590,8 @@ mkV006 base =
                            P3 => base_1+"еа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5581,11 +5603,13 @@ mkV006 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -5597,8 +5621,8 @@ mkV006 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5611,7 +5635,8 @@ mkV007 : Str -> V ;
 mkV007 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -5635,7 +5660,8 @@ mkV007 base =
                            P3 => base_1+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5647,11 +5673,13 @@ mkV007 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ал" ;
                                   GSg Fem => base_1+"ала" ;
                                   GSg Neuter => base_1+"ало" ;
@@ -5663,8 +5691,8 @@ mkV007 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ат" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ат" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -5677,7 +5705,8 @@ mkV008 : Str -> V ;
 mkV008 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -5701,7 +5730,8 @@ mkV008 base =
                            P3 => base_1+"ија"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5713,11 +5743,13 @@ mkV008 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ил" ;
                                   GSg Fem => base_1+"ила" ;
                                   GSg Neuter => base_1+"ило" ;
@@ -5729,8 +5761,8 @@ mkV008 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ет" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ет" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5743,7 +5775,8 @@ mkV009 : Str -> V ;
 mkV009 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -5767,7 +5800,8 @@ mkV009 base =
                            P3 => base_1+"еа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5779,11 +5813,13 @@ mkV009 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -5795,8 +5831,8 @@ mkV009 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ет" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ет" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5809,7 +5845,8 @@ mkV010 : Str -> V ;
 mkV010 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"јам" ;
                             P2 => base_1+"еш" ;
@@ -5833,7 +5870,8 @@ mkV010 base =
                            P3 => base_1+"ја"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5845,11 +5883,13 @@ mkV010 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -5861,8 +5901,8 @@ mkV010 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -5875,7 +5915,8 @@ mkV011 : Str -> V ;
 mkV011 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"јам" ;
                             P2 => base_1+"иш" ;
@@ -5899,7 +5940,8 @@ mkV011 base =
                            P3 => base_1+"ија" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -5911,11 +5953,13 @@ mkV011 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -5927,8 +5971,8 @@ mkV011 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -5941,7 +5985,8 @@ mkV012 : Str -> V ;
 mkV012 base =
   case base of {
     base_1+"де" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"дам" ;
                             P2 => base_1+"деш" ;
@@ -5965,7 +6010,8 @@ mkV012 base =
                            P3 => base_1+"доа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"дев" ;
                               P2 => base_1+"деше" ;
@@ -5977,11 +6023,13 @@ mkV012 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -5993,8 +6041,8 @@ mkV012 base =
                                      GSg Neuter => base_1+"дело" ;
                                      GPl => base_1+"деле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ден" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ден" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6007,7 +6055,8 @@ mkV013 : Str -> V ;
 mkV013 base =
   case base of {
     base_1+"зе" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"зам" ;
                             P2 => base_1+"зеш" ;
@@ -6031,7 +6080,8 @@ mkV013 base =
                            P3 => base_1+"гоа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"зев" ;
                               P2 => base_1+"зеше" ;
@@ -6043,11 +6093,13 @@ mkV013 base =
                               P3 => base_1+"зеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"зи" ;
                        Pl => base_1+"зете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"гол" ;
                                   GSg Fem => base_1+"гла" ;
                                   GSg Neuter => base_1+"гло" ;
@@ -6059,8 +6111,8 @@ mkV013 base =
                                      GSg Neuter => base_1+"зело" ;
                                      GPl => base_1+"зеле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"зен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"зен" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6073,7 +6125,8 @@ mkV014 : Str -> V ;
 mkV014 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -6097,7 +6150,8 @@ mkV014 base =
                            P3 => base_1+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -6109,11 +6163,13 @@ mkV014 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ал" ;
                                   GSg Fem => base_1+"ала" ;
                                   GSg Neuter => base_1+"ало" ;
@@ -6125,8 +6181,8 @@ mkV014 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ан" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6139,7 +6195,8 @@ mkV015 : Str -> V ;
 mkV015 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -6163,7 +6220,8 @@ mkV015 base =
                            P3 => base_1+"јаа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -6175,11 +6233,13 @@ mkV015 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"јал" ;
                                   GSg Fem => base_1+"јала" ;
                                   GSg Neuter => base_1+"јало" ;
@@ -6191,8 +6251,8 @@ mkV015 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6205,7 +6265,8 @@ mkV016 : Str -> V ;
 mkV016 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -6229,7 +6290,8 @@ mkV016 base =
                            P3 => base_1+"а"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -6241,11 +6303,13 @@ mkV016 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -6257,8 +6321,8 @@ mkV016 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6271,7 +6335,8 @@ mkV017 : Str -> V ;
 mkV017 base =
   case base of {
     base_1+"се" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"сам" ;
                             P2 => base_1+"сеш" ;
@@ -6295,7 +6360,8 @@ mkV017 base =
                            P3 => base_1+"соа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"сев" ;
                               P2 => base_1+"сеше" ;
@@ -6307,11 +6373,13 @@ mkV017 base =
                               P3 => base_1+"сеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"си" ;
                        Pl => base_1+"сете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -6323,8 +6391,8 @@ mkV017 base =
                                      GSg Neuter => base_1+"село" ;
                                      GPl => base_1+"селе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"сен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"сен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6337,7 +6405,8 @@ mkV018 : Str -> V ;
 mkV018 base =
   case base of {
     base_1+"де" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"дам" ;
                             P2 => base_1+"деш" ;
@@ -6361,7 +6430,8 @@ mkV018 base =
                            P3 => base_1+"доа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"дев" ;
                               P2 => base_1+"деше" ;
@@ -6373,11 +6443,13 @@ mkV018 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -6389,8 +6461,8 @@ mkV018 base =
                                      GSg Neuter => base_1+"дело" ;
                                      GPl => base_1+"деле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ден" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ден" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6403,7 +6475,8 @@ mkV019 : Str -> V ;
 mkV019 base =
   case base of {
     base_1+"те" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"там" ;
                             P2 => base_1+"теш" ;
@@ -6427,7 +6500,8 @@ mkV019 base =
                            P3 => base_1+"тоа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"тев" ;
                               P2 => base_1+"теше" ;
@@ -6439,11 +6513,13 @@ mkV019 base =
                               P3 => base_1+"теа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ти" ;
                        Pl => base_1+"тете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -6455,8 +6531,8 @@ mkV019 base =
                                      GSg Neuter => base_1+"тело" ;
                                      GPl => base_1+"теле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"тен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"тен" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ;
@@ -6469,7 +6545,8 @@ mkV020 : Str -> V ;
 mkV020 base =
   case base of {
     base_1+"че" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"чам" ;
                             P2 => base_1+"чеш" ;
@@ -6493,7 +6570,8 @@ mkV020 base =
                            P3 => base_1+"коа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"чев" ;
                               P2 => base_1+"чеше" ;
@@ -6505,11 +6583,13 @@ mkV020 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"кол" ;
                                   GSg Fem => base_1+"кла" ;
                                   GSg Neuter => base_1+"кло" ;
@@ -6521,8 +6601,8 @@ mkV020 base =
                                      GSg Neuter => base_1+"чело" ;
                                      GPl => base_1+"челе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"чен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"чен" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -6535,7 +6615,8 @@ mkV021 : Str -> V ;
 mkV021 base =
   case base of {
     base_1+"чее" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"чеам" ;
                             P2 => base_1+"чееш" ;
@@ -6559,7 +6640,8 @@ mkV021 base =
                            P3 => base_1+"коа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"чеев" ;
                               P2 => base_1+"чееше" ;
@@ -6571,11 +6653,13 @@ mkV021 base =
                               P3 => base_1+"чееа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"чеи" ;
                        Pl => base_1+"чеете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"кол" ;
                                   GSg Fem => base_1+"кла" ;
                                   GSg Neuter => base_1+"кло" ;
@@ -6587,8 +6671,8 @@ mkV021 base =
                                      GSg Neuter => base_1+"чеело" ;
                                      GPl => base_1+"чееле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"чеен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"чеен" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -6601,7 +6685,8 @@ mkV022 : Str -> V ;
 mkV022 base =
   case base of {
     base_1+"е"+base_2@?+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"е"+base_2+"ам" ;
                             P2 => base_1+"е"+base_2+"еш" ;
@@ -6625,7 +6710,8 @@ mkV022 base =
                            P3 => base_1+base_2+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"е"+base_2+"ев" ;
                               P2 => base_1+"е"+base_2+"еше" ;
@@ -6637,11 +6723,13 @@ mkV022 base =
                               P3 => base_1+"е"+base_2+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"е"+base_2+"и" ;
                        Pl => base_1+"е"+base_2+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+base_2+"ал" ;
                                   GSg Fem => base_1+base_2+"ала" ;
                                   GSg Neuter => base_1+base_2+"ало" ;
@@ -6653,8 +6741,8 @@ mkV022 base =
                                      GSg Neuter => base_1+"е"+base_2+"ело" ;
                                      GPl => base_1+"е"+base_2+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+base_2+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+base_2+"ан" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ;
@@ -6667,7 +6755,8 @@ mkV023 : Str -> V ;
 mkV023 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -6691,7 +6780,8 @@ mkV023 base =
                            P3 => base_1+"аја"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -6703,11 +6793,13 @@ mkV023 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ал" ;
                                   GSg Fem => base_1+"ала" ;
                                   GSg Neuter => base_1+"ало" ;
@@ -6719,8 +6811,8 @@ mkV023 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ан" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6733,7 +6825,8 @@ mkV024 : Str -> V ;
 mkV024 base =
   case base of {
     base_1+"о"+base_2@?+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"о"+base_2+"ам" ;
                             P2 => base_1+"о"+base_2+"еш" ;
@@ -6757,7 +6850,8 @@ mkV024 base =
                            P3 => base_1+base_2+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"о"+base_2+"ев" ;
                               P2 => base_1+"о"+base_2+"еше" ;
@@ -6769,11 +6863,13 @@ mkV024 base =
                               P3 => base_1+"о"+base_2+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"о"+base_2+"и" ;
                        Pl => base_1+"о"+base_2+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+base_2+"ал" ;
                                   GSg Fem => base_1+base_2+"ала" ;
                                   GSg Neuter => base_1+base_2+"ало" ;
@@ -6785,8 +6881,8 @@ mkV024 base =
                                      GSg Neuter => base_1+"о"+base_2+"ело" ;
                                      GPl => base_1+"о"+base_2+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+base_2+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+base_2+"ан" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -6798,7 +6894,8 @@ mkV024 base =
 mkV025 : Str -> V ;
 mkV025 base_1 =
   lin V
-  { present = table {
+  { present = \\_ =>
+              table {
                 Sg => table {
                         P1 => base_1+"м" ;
                         P2 => base_1+"ш" ;
@@ -6822,7 +6919,8 @@ mkV025 base_1 =
                        P3 => base_1+"а"
                      }
              } ;
-    imperfect = table {
+    imperfect = \\_ =>
+                table {
                   Sg => table {
                           P1 => base_1+"в" ;
                           P2 => base_1+"ше" ;
@@ -6834,11 +6932,13 @@ mkV025 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = table {
+    Imperative = \\_ =>
+                 table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
                  } ;
-    participle = { aorist = table {
+    participle = { aorist = \\_ =>
+                            table {
                               GSg Masc => base_1+"л" ;
                               GSg Fem => base_1+"ла" ;
                               GSg Neuter => base_1+"ло" ;
@@ -6850,8 +6950,8 @@ mkV025 base_1 =
                                  GSg Neuter => base_1+"ло" ;
                                  GPl => base_1+"ле"
                                } ;
-                   perfect = nonExist ; --guessed
-                   adjectival = base_1+"т" ;
+                   perfect = \\_ => nonExist ; --guessed
+                   adjectival = \\_ => base_1+"т" ;
                    adverbial = base_1+"ејќи" --guessed
                  } ;
     noun_from_verb = base_1+"ење" ; --guessed
@@ -6862,7 +6962,8 @@ mkV026 : Str -> V ;
 mkV026 base =
   case base of {
     base_1+"де" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"дам" ;
                             P2 => base_1+"деш" ;
@@ -6886,7 +6987,8 @@ mkV026 base =
                            P3 => base_1+"доа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"дев" ;
                               P2 => base_1+"деше" ;
@@ -6898,11 +7000,13 @@ mkV026 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"шол" ;
                                   GSg Fem => base_1+"шла" ;
                                   GSg Neuter => base_1+"шло" ;
@@ -6914,8 +7018,8 @@ mkV026 base =
                                      GSg Neuter => base_1+"дело" ;
                                      GPl => base_1+"деле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ден" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ден" ; --guessed
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -6928,7 +7032,8 @@ mkV027 : Str -> V ;
 mkV027 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"м" ;
                             P2 => base_1+"еш" ;
@@ -6952,7 +7057,8 @@ mkV027 base =
                            P3 => base_1+"јаа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -6964,11 +7070,13 @@ mkV027 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -6980,8 +7088,8 @@ mkV027 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -6994,7 +7102,8 @@ mkV028 : Str -> V ;
 mkV028 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -7018,7 +7127,8 @@ mkV028 base =
                            P3 => base_1+"еа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -7030,11 +7140,13 @@ mkV028 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -7046,8 +7158,8 @@ mkV028 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ет" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ет" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -7060,7 +7172,8 @@ mkV029 : Str -> V ;
 mkV029 base =
   case base of {
     base_1+base_2@(?+?+?+?) => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+base_2+"м" ;
                             P2 => base_1+base_2+"ш" ;
@@ -7084,7 +7197,8 @@ mkV029 base =
                            P3 => base_1+base_2+"а"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+base_2+"в" ;
                               P2 => base_1+base_2+"ше" ;
@@ -7096,11 +7210,13 @@ mkV029 base =
                               P3 => base_1+base_2+"а"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+base_2+"ј" ;
                        Pl => base_1+base_2+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+base_2+"л" ;
                                   GSg Fem => base_1+base_2+"ла" ;
                                   GSg Neuter => base_1+base_2+"ло" ;
@@ -7112,8 +7228,8 @@ mkV029 base =
                                      GSg Neuter => base_1+base_2+"ло" ;
                                      GPl => base_1+base_2+"ле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+base_2+"н" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+base_2+"н" ;
                        adverbial = base_1+"и"+base_2+"јќи"
                      } ;
         noun_from_verb = base_1+"и"+base_2+"ње" ;
@@ -7126,7 +7242,8 @@ mkV030 : Str -> V ;
 mkV030 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -7150,7 +7267,8 @@ mkV030 base =
                            P3 => base_1+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -7162,11 +7280,13 @@ mkV030 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ал" ;
                                   GSg Fem => base_1+"ала" ;
                                   GSg Neuter => base_1+"ало" ;
@@ -7178,8 +7298,8 @@ mkV030 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7192,7 +7312,8 @@ mkV031 : Str -> V ;
 mkV031 base =
   case base of {
     base_1+"јде" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"јдам" ;
                             P2 => base_1+"јдеш" ;
@@ -7216,7 +7337,8 @@ mkV031 base =
                            P3 => base_1+"јдоа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"јдев" ;
                               P2 => base_1+"јдеше" ;
@@ -7228,11 +7350,13 @@ mkV031 base =
                               P3 => base_1+"јдеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"јди" ;
                        Pl => base_1+"јдете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"шол" ;
                                   GSg Fem => base_1+"шла" ;
                                   GSg Neuter => base_1+"шло" ;
@@ -7244,8 +7368,8 @@ mkV031 base =
                                      GSg Neuter => base_1+"јдело" ;
                                      GPl => base_1+"јделе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"јден" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"јден" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7258,7 +7382,8 @@ mkV032 : Str -> V ;
 mkV032 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -7282,7 +7407,8 @@ mkV032 base =
                            P3 => base_1+"ија"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -7294,11 +7420,13 @@ mkV032 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ил" ;
                                   GSg Fem => base_1+"ила" ;
                                   GSg Neuter => base_1+"ило" ;
@@ -7310,8 +7438,8 @@ mkV032 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7324,7 +7452,8 @@ mkV033 : Str -> V ;
 mkV033 base =
   case base of {
     base_1+"ме" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"мам" ;
                             P2 => base_1+"меш" ;
@@ -7348,7 +7477,8 @@ mkV033 base =
                            P3 => base_1+"доа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"мев" ;
                               P2 => base_1+"меше" ;
@@ -7360,11 +7490,13 @@ mkV033 base =
                               P3 => base_1+"меа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ми" ;
                        Pl => base_1+"мете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -7376,8 +7508,8 @@ mkV033 base =
                                      GSg Neuter => base_1+"мело" ;
                                      GPl => base_1+"меле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"мен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"мен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7390,7 +7522,8 @@ mkV034 : Str -> V ;
 mkV034 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -7414,7 +7547,8 @@ mkV034 base =
                            P3 => base_1+"јаа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -7426,11 +7560,13 @@ mkV034 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"јал" ;
                                   GSg Fem => base_1+"јала" ;
                                   GSg Neuter => base_1+"јало" ;
@@ -7442,8 +7578,8 @@ mkV034 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"јан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"јан" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7456,7 +7592,8 @@ mkV035 : Str -> V ;
 mkV035 base =
   case base of {
     base_1+"те"+base_2@?+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"те"+base_2+"ам" ;
                             P2 => base_1+"те"+base_2+"еш" ;
@@ -7480,7 +7617,8 @@ mkV035 base =
                            P3 => base_1+base_2+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"те"+base_2+"ев" ;
                               P2 => base_1+"те"+base_2+"еше" ;
@@ -7492,11 +7630,13 @@ mkV035 base =
                               P3 => base_1+"те"+base_2+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"те"+base_2+"и" ;
                        Pl => base_1+"те"+base_2+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+base_2+"ал" ;
                                   GSg Fem => base_1+base_2+"ала" ;
                                   GSg Neuter => base_1+base_2+"ало" ;
@@ -7508,8 +7648,8 @@ mkV035 base =
                                      GSg Neuter => base_1+"те"+base_2+"ело" ;
                                      GPl => base_1+"те"+base_2+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+base_2+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+base_2+"ан" ;
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
@@ -7522,7 +7662,8 @@ mkV036 : Str -> V ;
 mkV036 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"јам" ;
                             P2 => base_1+"иш" ;
@@ -7546,7 +7687,8 @@ mkV036 base =
                            P3 => base_1+"јаа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -7558,11 +7700,13 @@ mkV036 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"јал" ;
                                   GSg Fem => base_1+"јала" ;
                                   GSg Neuter => base_1+"јало" ;
@@ -7574,8 +7718,8 @@ mkV036 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7588,7 +7732,8 @@ mkV037 : Str -> V ;
 mkV037 base =
   case base of {
     base_1+"че" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"чам" ;
                             P2 => base_1+"чеш" ;
@@ -7612,7 +7757,8 @@ mkV037 base =
                            P3 => base_1+"каа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"чев" ;
                               P2 => base_1+"чеше" ;
@@ -7624,11 +7770,13 @@ mkV037 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"кал" ;
                                   GSg Fem => base_1+"кала" ;
                                   GSg Neuter => base_1+"кало" ;
@@ -7640,8 +7788,8 @@ mkV037 base =
                                      GSg Neuter => base_1+"чело" ;
                                      GPl => base_1+"челе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -7654,7 +7802,8 @@ mkV038 : Str -> V ;
 mkV038 base =
   case base of {
     base_1+"ие" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ијам" ;
                             P2 => base_1+"иеш" ;
@@ -7678,7 +7827,8 @@ mkV038 base =
                            P3 => base_1+"аа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"иев" ;
                               P2 => base_1+"иеше" ;
@@ -7690,11 +7840,13 @@ mkV038 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ал" ;
                                   GSg Fem => base_1+"ала" ;
                                   GSg Neuter => base_1+"ало" ;
@@ -7706,8 +7858,8 @@ mkV038 base =
                                      GSg Neuter => base_1+"иело" ;
                                      GPl => base_1+"иеле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ан" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ан" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7720,7 +7872,8 @@ mkV039 : Str -> V ;
 mkV039 base =
   case base of {
     base_1+"ие" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ијам" ;
                             P2 => base_1+"иеш" ;
@@ -7744,7 +7897,8 @@ mkV039 base =
                            P3 => base_1+"еа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"иев" ;
                               P2 => base_1+"иеше" ;
@@ -7756,11 +7910,13 @@ mkV039 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -7772,8 +7928,8 @@ mkV039 base =
                                      GSg Neuter => base_1+"иело" ;
                                      GPl => base_1+"иеле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"иен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"иен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7786,7 +7942,8 @@ mkV040 : Str -> V ;
 mkV040 base =
   case base of {
     base_1+base_2@?+"ле" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+base_2+"лам" ;
                             P2 => base_1+base_2+"леш" ;
@@ -7810,7 +7967,8 @@ mkV040 base =
                            P3 => base_1+"л"+base_2+"а"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+base_2+"лев" ;
                               P2 => base_1+base_2+"леше" ;
@@ -7822,11 +7980,13 @@ mkV040 base =
                               P3 => base_1+base_2+"леа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+base_2+"ли" ;
                        Pl => base_1+base_2+"лете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л"+base_2+"л" ;
                                   GSg Fem => base_1+"л"+base_2+"ла" ;
                                   GSg Neuter => base_1+"л"+base_2+"ло" ;
@@ -7838,8 +7998,8 @@ mkV040 base =
                                      GSg Neuter => base_1+base_2+"лело" ;
                                      GPl => base_1+base_2+"леле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+base_2+"лен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+base_2+"лен" ;
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
@@ -7852,7 +8012,8 @@ mkV041 : Str -> V ;
 mkV041 base =
   case base of {
     base_1+"же" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"жам" ;
                             P2 => base_1+"жеш" ;
@@ -7876,7 +8037,8 @@ mkV041 base =
                            P3 => base_1+"гоа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"жев" ;
                               P2 => base_1+"жеше" ;
@@ -7888,11 +8050,13 @@ mkV041 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"гол" ;
                                   GSg Fem => base_1+"гла" ;
                                   GSg Neuter => base_1+"гло" ;
@@ -7904,8 +8068,8 @@ mkV041 base =
                                      GSg Neuter => base_1+"жело" ;
                                      GPl => base_1+"желе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"жен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"жен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -7918,7 +8082,8 @@ mkV042 : Str -> V ;
 mkV042 base =
   case base of {
     base_1+"н"+base_2@?+"ф"+base_3@(?+?+?) => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"н"+base_2+"ф"+base_3+"м" ;
                             P2 => base_1+"н"+base_2+"ф"+base_3+"ш" ;
@@ -7942,7 +8107,8 @@ mkV042 base =
                            P3 => base_1+"н"+base_2+"ф"+base_3+"а"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"н"+base_2+"ф"+base_3+"в" ;
                               P2 => base_1+"н"+base_2+"ф"+base_3+"ше" ;
@@ -7954,11 +8120,13 @@ mkV042 base =
                               P3 => base_1+"н"+base_2+"ф"+base_3+"а"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"н"+base_2+"ф"+base_3+"ј" ;
                        Pl => base_1+"н"+base_2+"ф"+base_3+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"н"+base_2+"ф"+base_3+"л" ;
                                   GSg Fem => base_1+"н"+base_2+"ф"+base_3+"ла" ;
                                   GSg Neuter => base_1+"н"+base_2+"ф"+base_3+"ло" ;
@@ -7970,8 +8138,8 @@ mkV042 base =
                                      GSg Neuter => base_1+"н"+base_2+"ф"+base_3+"ло" ;
                                      GPl => base_1+"н"+base_2+"ф"+base_3+"ле"
                                    } ;
-                       perfect = nonExist ;
-                       adjectival = base_1+"н"+base_2+"ф"+base_3+"н" ;
+                       perfect = \\_ => nonExist ;
+                       adjectival = \\_ => base_1+"н"+base_2+"ф"+base_3+"н" ;
                        adverbial = base_1+"ф"+base_2+"н"+base_3+"јќи"
                      } ;
         noun_from_verb = base_1+"ф"+base_2+"н"+base_3+"ње" ;
@@ -7984,7 +8152,8 @@ mkV043 : Str -> V ;
 mkV043 base =
   case base of {
     "и"+base_1+"те" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => "и"+base_1+"там" ;
                             P2 => "и"+base_1+"теш" ;
@@ -8008,7 +8177,8 @@ mkV043 base =
                            P3 => "и"+base_1+"тоа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => "и"+base_1+"тев" ;
                               P2 => "и"+base_1+"теше" ;
@@ -8020,11 +8190,13 @@ mkV043 base =
                               P3 => "и"+base_1+"теа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => "и"+base_1+"ти" ;
                        Pl => "и"+base_1+"тете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ;
                                   GSg Fem => base_1+"ла" ;
                                   GSg Neuter => base_1+"ло" ;
@@ -8036,8 +8208,8 @@ mkV043 base =
                                      GSg Neuter => "и"+base_1+"тело" ;
                                      GPl => "и"+base_1+"теле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = "и"+base_1+"тен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => "и"+base_1+"тен" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -8050,7 +8222,8 @@ mkV045 : Str -> V ;
 mkV045 base =
   case base of {
     base_1+"же" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"жам" ;
                             P2 => base_1+"жеш" ;
@@ -8074,7 +8247,8 @@ mkV045 base =
                            P3 => base_1+"гаа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"жев" ;
                               P2 => base_1+"жеше" ;
@@ -8086,11 +8260,13 @@ mkV045 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"гал" ;
                                   GSg Fem => base_1+"гала" ;
                                   GSg Neuter => base_1+"гало" ;
@@ -8102,8 +8278,8 @@ mkV045 base =
                                      GSg Neuter => base_1+"жело" ;
                                      GPl => base_1+"желе"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ган" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ган" ;
                        adverbial = nonExist --guessed
                      } ;
         noun_from_verb = nonExist ; --guessed
@@ -8116,7 +8292,8 @@ mkV046 : Str -> V ;
 mkV046 base =
   case base of {
     base_1+"и"+base_2@(?+?) => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"и"+base_2+"м" ;
                             P2 => base_1+"и"+base_2+"ш" ;
@@ -8140,7 +8317,8 @@ mkV046 base =
                            P3 => base_1+"и"+base_2+"а"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"и"+base_2+"в" ;
                               P2 => base_1+"и"+base_2+"ше" ;
@@ -8152,11 +8330,13 @@ mkV046 base =
                               P3 => base_1+"и"+base_2+"а"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и"+base_2+"ј" ;
                        Pl => base_1+"и"+base_2+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"и"+base_2+"л" ;
                                   GSg Fem => base_1+"и"+base_2+"ла" ;
                                   GSg Neuter => base_1+"и"+base_2+"ло" ;
@@ -8168,8 +8348,8 @@ mkV046 base =
                                      GSg Neuter => base_1+"и"+base_2+"ло" ;
                                      GPl => base_1+"и"+base_2+"ле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"и"+base_2+"н" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"и"+base_2+"н" ;
                        adverbial = base_1+base_2+"јќи"
                      } ;
         noun_from_verb = base_1+base_2+"ње" ;
@@ -8178,11 +8358,82 @@ mkV046 base =
     _ => error "Can't apply paradigm mkV046"
   } ;
 
+mkV047 : Str -> V ;
+mkV047 base =
+  case base of {
+    "се "+base_1 => lin V
+      { present = \\_ =>
+                  table {
+                    Sg => table {
+                            P1 => "се "+base_1+"м" ;
+                            P2 => "се "+base_1+"ш" ;
+                            P3 => "се "+base_1
+                          } ;
+                    Pl => table {
+                            P1 => "се "+base_1+"ме" ;
+                            P2 => "се "+base_1+"те" ;
+                            P3 => "се "+base_1+"ат"
+                          }
+                  } ;
+        aorist = table {
+                   Sg => table {
+                           P1 => base_1+"ев" ; --guessed
+                           P2 => base_1+"е" ; --guessed
+                           P3 => base_1+"е" --guessed
+                         } ;
+                   Pl => table {
+                           P1 => base_1+"евме" ; --guessed
+                           P2 => base_1+"евте" ; --guessed
+                           P3 => base_1+"еа" --guessed
+                         }
+                 } ;
+        imperfect = \\_ =>
+                    table {
+                      Sg => table {
+                              P1 => "се "+base_1+"в" ;
+                              P2 => "се "+base_1+"ше" ;
+                              P3 => "се "+base_1+"ше"
+                            } ;
+                      Pl => table {
+                              P1 => "се "+base_1+"вме" ;
+                              P2 => "се "+base_1+"вте" ;
+                              P3 => "се "+base_1+"а"
+                            }
+                    } ;
+        Imperative = \\_ =>
+                     table {
+                       Sg => base_1+"ј се" ;
+                       Pl => base_1+"јте се"
+                     } ;
+        participle = { aorist = \\_ =>
+                                table {
+                                  GSg Masc => base_1+"л" ; --guessed
+                                  GSg Fem => base_1+"ла" ; --guessed
+                                  GSg Neuter => base_1+"ло" ; --guessed
+                                  GPl => base_1+"ле" --guessed
+                                } ;
+                       imperfect = table {
+                                     GSg Masc => "се "+base_1+"л" ;
+                                     GSg Fem => "се "+base_1+"ла" ;
+                                     GSg Neuter => "се "+base_1+"ло" ;
+                                     GPl => "се "+base_1+"ле"
+                                   } ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
+                       adverbial = base_1+"јќи се"
+                     } ;
+        noun_from_verb = base_1+"ње" ;
+        isRefl = False
+      };
+    _ => error "Can't apply paradigm mkV047"
+  } ;
+
 mkV048 : Str -> V ;
 mkV048 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -8206,7 +8457,8 @@ mkV048 base =
                            P3 => base_1+"еа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8218,11 +8470,13 @@ mkV048 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -8234,8 +8488,8 @@ mkV048 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -8248,7 +8502,8 @@ mkV049 : Str -> V ;
 mkV049 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -8272,7 +8527,8 @@ mkV049 base =
                            P3 => base_1+"еа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8284,11 +8540,13 @@ mkV049 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -8300,8 +8558,8 @@ mkV049 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -8314,7 +8572,8 @@ mkV050 : Str -> V ;
 mkV050 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -8338,7 +8597,8 @@ mkV050 base =
                            P3 => base_1+"еа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8350,11 +8610,13 @@ mkV050 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -8366,8 +8628,8 @@ mkV050 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ет" ;
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ет" ;
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -8380,7 +8642,8 @@ mkV051 : Str -> V ;
 mkV051 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -8404,7 +8667,8 @@ mkV051 base =
                            P3 => base_1+"јаа" --guessed
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8416,11 +8680,13 @@ mkV051 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"л" ; --guessed
                                   GSg Fem => base_1+"ла" ; --guessed
                                   GSg Neuter => base_1+"ло" ; --guessed
@@ -8432,8 +8698,8 @@ mkV051 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
@@ -8446,7 +8712,8 @@ mkV052 : Str -> V ;
 mkV052 base =
   case base of {
     base_1+"и" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"иш" ;
@@ -8470,7 +8737,8 @@ mkV052 base =
                            P3 => base_1+"еа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8482,11 +8750,13 @@ mkV052 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"ел" ;
                                   GSg Fem => base_1+"ела" ;
                                   GSg Neuter => base_1+"ело" ;
@@ -8498,8 +8768,8 @@ mkV052 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
@@ -8512,7 +8782,8 @@ mkV053 : Str -> V ;
 mkV053 base =
   case base of {
     base_1+"е" => lin V
-      { present = table {
+      { present = \\_ =>
+                  table {
                     Sg => table {
                             P1 => base_1+"ам" ;
                             P2 => base_1+"еш" ;
@@ -8536,7 +8807,8 @@ mkV053 base =
                            P3 => base_1+"јаа"
                          }
                  } ;
-        imperfect = table {
+        imperfect = \\_ =>
+                    table {
                       Sg => table {
                               P1 => base_1+"ев" ;
                               P2 => base_1+"еше" ;
@@ -8548,11 +8820,13 @@ mkV053 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = table {
+        Imperative = \\_ =>
+                     table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
                      } ;
-        participle = { aorist = table {
+        participle = { aorist = \\_ =>
+                                table {
                                   GSg Masc => base_1+"јал" ;
                                   GSg Fem => base_1+"јала" ;
                                   GSg Neuter => base_1+"јало" ;
@@ -8564,8 +8838,8 @@ mkV053 base =
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = nonExist ; --guessed
-                       adjectival = base_1+"ен" ; --guessed
+                       perfect = \\_ => nonExist ; --guessed
+                       adjectival = \\_ => base_1+"ен" ; --guessed
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed

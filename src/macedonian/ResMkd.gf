@@ -36,12 +36,14 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
           } ;
 
 
+param Aspect = Imperfective | Perfective ;
 param Person = P1 | P3 | P2 ;
 param GenNum = GSg Gender | GPl ;
-oper Verb = {present: Number => Person => Str; aorist: Number => Person => Str; imperfect: Number => Person => Str; Imperative: Number => Str; participle: {aorist: GenNum => Str; imperfect: GenNum => Str; perfect: Str; adjectival: Str; adverbial: Str}; noun_from_verb: Str; isRefl: Bool} ; -- 8174
+oper Verb = {present: Aspect => Number => Person => Str; aorist: Number => Person => Str; imperfect: Aspect => Number => Person => Str; Imperative: Aspect => Number => Str; participle: {aorist: Aspect => GenNum => Str; imperfect: GenNum => Str; perfect: Aspect => Str; adjectival: Aspect => Str; adverbial: Str}; noun_from_verb: Str; isRefl: Bool} ; -- 8174
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32 ->
-          { present = table {
+          { present = \\_ =>
+                      table {
                         Sg => table {
                                 P1 => f1 ;
                                 P2 => f2 ;
@@ -53,7 +55,7 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                                 P3 => f6
                               }
                       } ;
-            aorist = table {
+            aorist =  table {
                        Sg => table {
                                P1 => f7 ;
                                P2 => f8 ;
@@ -65,7 +67,8 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                                P3 => f12
                              }
                      } ;
-            imperfect = table {
+            imperfect = \\_ =>
+                        table {
                           Sg => table {
                                   P1 => f13 ;
                                   P2 => f14 ;
@@ -77,11 +80,13 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                                   P3 => f18
                                 }
                         } ;
-            Imperative = table {
+            Imperative = \\_ =>
+                         table {
                            Sg => f19 ;
                            Pl => f20
                          } ;
-            participle = { aorist = table {
+            participle = { aorist = \\_ =>
+                                    table {
                                       GSg Masc => f21 ;
                                       GSg Fem => f22 ;
                                       GSg Neuter => f23 ;
@@ -93,8 +98,8 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                                          GSg Neuter => f27 ;
                                          GPl => f28
                                        } ;
-                           perfect = f29 ;
-                           adjectival = f30 ;
+                           perfect = \\_ => f29 ;
+                           adjectival = \\_ => f30 ;
                            adverbial = f31
                          } ;
             noun_from_verb = f32 ;

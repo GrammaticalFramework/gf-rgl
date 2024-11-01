@@ -1559,10 +1559,43 @@ mkV = overload {
   mkV : Str -> V = regV;
   mkV : Str -> Str -> V = reg2V;
   mkV : Str -> Str -> Str -> V = reg3V;
-  mkV : Str -> Str -> Str -> Str -> V = reg4V
+  mkV : Str -> Str -> Str -> Str -> V = reg4V ;
 } ;
 
 reflV : V -> V = \v -> v ** {isRefl=True} ;
+
+dualV : V -> V -> V = \impf,perf -> lin V
+  { present = table {
+                Imperfective => impf.present ! Imperfective ;
+                Perfective   => perf.present ! Perfective
+              } ;
+    aorist = perf.aorist ;
+    imperfect = table {
+                  Imperfective => impf.imperfect ! Imperfective ;
+                  Perfective   => perf.imperfect ! Perfective
+                } ;
+    Imperative = table {
+                   Imperfective => impf.Imperative ! Imperfective ;
+                   Perfective   => perf.Imperative ! Perfective
+                 } ;
+    participle = { aorist = table {
+                              Imperfective => impf.participle.aorist ! Imperfective ;
+                              Perfective   => perf.participle.aorist ! Perfective
+                            } ;
+                   imperfect = impf.participle.imperfect ;
+                   perfect = table {
+                               Imperfective => impf.participle.perfect ! Imperfective ;
+                               Perfective   => perf.participle.perfect ! Perfective
+                             } ;
+                   adjectival = table {
+                                  Imperfective => impf.participle.adjectival ! Imperfective ;
+                                  Perfective   => perf.participle.adjectival ! Perfective
+                                } ;
+                   adverbial = impf.participle.adverbial
+                 } ;
+    noun_from_verb = impf.noun_from_verb ;
+    isRefl = impf.isRefl
+  } ;
 
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;

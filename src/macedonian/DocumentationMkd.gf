@@ -95,19 +95,30 @@ lin
   InflectionVQ, InflectionVA = \v -> {
     t = "гл" ;
     s1= heading1 ("Глагол") ;
-    s2= heading3 ("Изявително наклонение") ++
+    s2= heading2 ("Несвършен вид") ++
+        heading3 ("Изявително наклонение") ++
         heading4 ("Сегашно време") ++
-        finite v.present ++
+        finite (v.present ! Imperfective) ++
+        heading4 ("Минато несвршено време (имперфект)") ++
+        finite (v.imperfect ! Imperfective) ++
+        heading3 ("Повелително наклонение") ++
+        imperative (v.Imperative ! Imperfective) ++
+        heading3 ("Партицип") ++
+        adjForms (v.participle.aorist ! Imperfective) ++
+        tag "br" ++
+        adjForms v.participle.imperfect ++
+        heading2 ("Свършен вид") ++
+        heading3 ("Изявително наклонение") ++
+        heading4 ("Сегашно време") ++
+        finite (v.present ! Perfective) ++
         heading4 ("Минатото свршено време (аорист)") ++
         finite v.aorist ++
         heading4 ("Минато несвршено време (имперфект)") ++
-        finite v.imperfect ++
+        finite (v.imperfect ! Perfective) ++
         heading3 ("Повелително наклонение") ++
-        imperative v.Imperative ++
+        imperative (v.Imperative ! Perfective) ++
         heading3 ("Партицип") ++
-        adjForms v.participle.aorist ++
-        tag "br" ++
-        adjForms v.participle.imperfect ++
+        adjForms (v.participle.aorist ! Perfective) ++
         heading1 ("Именка") ++
         v.noun_from_verb ;
     s3= ""
