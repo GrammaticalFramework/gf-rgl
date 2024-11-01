@@ -5,8 +5,9 @@ oper Compl = {s : Str} ;
 param Species = Def Distance | Indef ;
 param Distance = Distal | Unspecified | Proximal ;
 param Number = Sg | Pl ;
-param Gender = Masc | Fem | Neuter  ;
-oper Noun = {s: Species => Number => Str; count_form: Str; vocative: Number => Str; g: Gender} ; -- 24855
+param NRelType = Pref | AdjMod | AdvMod ;
+param Gender = Masc | Fem | Neuter ;
+oper Noun = {s: Species => Number => Str; count_form: Str; vocative: Number => Str; rel: Species => GenNum => Str; relType : NRelType; g: Gender} ; -- 24855
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,g ->
           { s = table {
@@ -32,6 +33,8 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
                          Sg => f10 ;
                          Pl => f11
                        } ;
+            rel = \\_,_ => f1 ;
+            relType = Pref ;
             g = g
           } ;
 

@@ -1534,20 +1534,31 @@ compoundN = overload {
     s = \\spec,num => a.s ! spec ! genNum n.g num ++ n.s ! Indef ! num ;
     count_form = a.s ! Indef ! genNum n.g Pl ++ n.count_form ;
     vocative = \\num => a.s ! Indef ! genNum n.g num ++ n.vocative ! num ;
+    rel = \\_,_ => a.s ! Indef ! GSg n.g ++ n.s ! Indef ! Sg ;
+    relType = Pref ;
     g = n.g
   } ;
   compoundN : N -> Str -> N = \n,adv -> lin N {
     s = \\spec,num => n.s ! spec ! num ++ adv ;
     count_form = n.count_form ++ adv ;
     vocative = \\num => n.vocative ! num ++ adv ;
+    rel = \\_,_ => n.s ! Indef ! Sg ++ adv ;
+    relType = Pref ;
     g = n.g
   } ;
   compoundN : Str -> N -> N = \pref,n -> lin N {
     s = \\spec,num => pref ++ n.s ! spec ! num ;
     count_form = pref ++ n.count_form ;
     vocative = \\num => pref ++ n.vocative ! num ;
+    rel = \\_,_ => pref ++ n.s ! Indef ! Sg ;
+    relType = Pref ;
     g = n.g
   }
+} ;
+
+dualN = overload {
+  dualN : N -> A -> N = \n,a -> n ** {rel=a.s; relType=AdjMod} ;
+  dualN : N -> Str -> N = \n,adv -> n ** {rel=\\_,_=>adv; relType=AdvMod} ;
 } ;
 
 mkPN : Str -> PN = \s -> lin PN {s=s} ;

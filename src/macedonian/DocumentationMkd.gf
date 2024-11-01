@@ -27,7 +27,22 @@ lin
           tr (intagAttr "th" "colspan=\"2\"" "вокатив" ++ td (n.vocative ! Sg) ++ td (n.vocative ! Pl)) ++
           tr (intagAttr "th" "colspan=\"2\"" "бройна форма" ++ td [] ++ td n.count_form)
         ) ;
-    s3= []
+    s3= case n.relType of {
+          Pref   => [] ;
+          AdjMod => heading1 ("Придавка") ++
+                    frameTable (
+                      tr (intagAttr "th" "rowspan=\"2\" colspan=\"2\"" [] ++
+                          intagAttr "th" "colspan=\"3\"" "еднина" ++ 
+                          intagAttr "th" "rowspan=\"2\"" "множина") ++
+                      tr (th "м.р." ++ th "ж.р." ++ th "с.р.") ++
+                      tr (intagAttr "th" "colspan=\"2\"" "неопределена"  ++ td (n.rel ! Indef ! GSg Masc) ++ td (n.rel ! Indef ! GSg Fem) ++ td (n.rel ! Indef ! GSg Neuter) ++ td (n.rel ! Indef ! GPl)) ++
+                      tr (intagAttr "th" "rowspan=\"3\"" "определеност" ++ td [] ++ td (n.rel ! Def Unspecified ! GSg Masc) ++ td (n.rel ! Def Unspecified ! GSg Fem) ++ td (n.rel ! Def Unspecified ! GSg Neuter) ++ td (n.rel ! Def Unspecified ! GPl)) ++
+                      tr (td "одд." ++ td (n.rel ! Def Distal ! GSg Masc) ++ td (n.rel ! Def Distal ! GSg Fem) ++ td (n.rel ! Def Distal ! GSg Neuter) ++ td (n.rel ! Def Distal ! GPl)) ++
+                      tr (td "бл." ++ td (n.rel ! Def Proximal ! GSg Masc) ++ td (n.rel ! Def Proximal ! GSg Fem) ++ td (n.rel ! Def Proximal ! GSg Neuter) ++ td (n.rel ! Def Proximal ! GPl))
+                    ) ;
+          AdvMod => heading1 ("Прилог") ++
+                    paragraph (n.rel ! Indef ! GSg Masc)
+        }
   } ;
 
   InflectionPN = \pn -> {
@@ -77,7 +92,7 @@ lin
     } ;
 
   InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
-    t = "нар" ;
+    t = "прил" ;
     s1= heading1 ("Прилог") ;
     s2= paragraph (adv.s) ;
     s3= ""

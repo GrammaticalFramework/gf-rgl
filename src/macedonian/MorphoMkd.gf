@@ -28,6 +28,8 @@ mkN001 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -58,6 +60,8 @@ mkN002 base =
                      Sg => base_1+"е"+base_2+"у" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN002"
@@ -89,6 +93,8 @@ mkN003 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"вци"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -118,6 +124,8 @@ mkN004 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"а"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -147,6 +155,8 @@ mkN005 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"ја"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -176,6 +186,8 @@ mkN006 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"ња"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -205,6 +217,8 @@ mkN007 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"ови"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -235,6 +249,8 @@ mkN008 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN008"
@@ -267,6 +283,8 @@ mkN009 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN009"
@@ -299,6 +317,8 @@ mkN010 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"иња"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN010"
@@ -331,6 +351,8 @@ mkN011 base =
                      Sg => base_1+"ку" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN011"
@@ -363,6 +385,8 @@ mkN012 base =
                      Sg => base_1+"ко" ;
                      Pl => base_1+"чи"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN012"
@@ -395,6 +419,8 @@ mkN013 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN013"
@@ -426,6 +452,8 @@ mkN014 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -455,6 +483,8 @@ mkN015 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -485,6 +515,8 @@ mkN016 base =
                      Sg => base_1+"ине" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN016"
@@ -517,6 +549,8 @@ mkN017 base =
                      Sg => base_1+"ну" ;
                      Pl => base_1
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN017"
@@ -549,6 +583,8 @@ mkN018 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN018"
@@ -581,6 +617,8 @@ mkN019 base =
                      Sg => base_1+"гу" ;
                      Pl => base_1+"зи"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN019"
@@ -613,6 +651,8 @@ mkN020 base =
                      Sg => base_1+"есу" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN020"
@@ -644,6 +684,8 @@ mkN021 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"еви"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -673,6 +715,8 @@ mkN022 base_1 =
                  Sg => base_1+"е" ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -703,6 +747,8 @@ mkN023 base =
                      Sg => base_1+"јо" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN023"
@@ -735,6 +781,8 @@ mkN024 base =
                      Sg => base_1+"те" ;
                      Pl => base_1+"ќа"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN024"
@@ -767,6 +815,8 @@ mkN025 base =
                      Sg => base_1+"а"+base_2+"е" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN025"
@@ -799,6 +849,8 @@ mkN026 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN026"
@@ -831,6 +883,8 @@ mkN027 base =
                      Sg => base_1+"же" ;
                      Pl => base_1+"гови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN027"
@@ -863,6 +917,8 @@ mkN028 base =
                      Sg => base_1+"го" ;
                      Pl => base_1+"зе"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN028"
@@ -895,6 +951,8 @@ mkN029 base =
                      Sg => base_1+"че" ;
                      Pl => base_1+"тци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN029"
@@ -927,6 +985,8 @@ mkN030 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"ја"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN030"
@@ -959,6 +1019,8 @@ mkN031 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN031"
@@ -990,6 +1052,8 @@ mkN032 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -1020,6 +1084,8 @@ mkN033 base =
                      Sg => base_1+base_2+"у" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN033"
@@ -1052,6 +1118,8 @@ mkN034 base =
                      Sg => base_1+base_2+"у" ;
                      Pl => base_1+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN034"
@@ -1084,6 +1152,8 @@ mkN035 base =
                      Sg => base_1+"ху" ;
                      Pl => base_1+"си"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN035"
@@ -1116,6 +1186,8 @@ mkN036 base =
                      Sg => base_1+"ју" ;
                      Pl => base_1+"еви"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN036"
@@ -1148,6 +1220,8 @@ mkN037 base =
                      Sg => base_1+"те" ;
                      Pl => base_1+"ца"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN037"
@@ -1180,6 +1254,8 @@ mkN038 base =
                      Sg => base_1+"ну" ;
                      Pl => base_1+"ња"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN038"
@@ -1211,6 +1287,8 @@ mkN039 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -1240,6 +1318,8 @@ mkN040 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1270,6 +1350,8 @@ mkN041 base =
                      Sg => base_1+"а"+base_2+"у" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN041"
@@ -1301,6 +1383,8 @@ mkN042 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1330,6 +1414,8 @@ mkN043 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"-а"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -1360,6 +1446,8 @@ mkN044 base =
                      Sg => base_1+"е"+base_2+"у" ;
                      Pl => base_1+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN044"
@@ -1392,6 +1480,8 @@ mkN045 base =
                      Sg => base_1+"јо" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN045"
@@ -1424,6 +1514,8 @@ mkN046 base =
                      Sg => "човеку" ;
                      Pl => "луѓе"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN046"
@@ -1455,6 +1547,8 @@ mkN047 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"ови"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1485,6 +1579,8 @@ mkN048 base =
                      Sg => base_1+base_2+"е" ;
                      Pl => base_1+base_2+"овци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN048"
@@ -1516,6 +1612,8 @@ mkN049 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"ци"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1546,6 +1644,8 @@ mkN050 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN050"
@@ -1578,6 +1678,8 @@ mkN051 base =
                      Sg => base_1+"ч"+base_2+"ну" ;
                      Pl => base_1+"ц"+base_2
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN051"
@@ -1609,6 +1711,8 @@ mkN052 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"ки"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1639,6 +1743,8 @@ mkN053 base =
                      Sg => base_1+"о"+base_2+"у" ;
                      Pl => base_1+base_2+"ишта"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN053"
@@ -1670,6 +1776,8 @@ mkN054 base_1 =
                  Sg => base_1+"е" ;
                  Pl => base_1+"ови"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1700,6 +1808,8 @@ mkN055 base =
                      Sg => base_1+"т" ;
                      Pl => base_1+"ти"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN055"
@@ -1732,6 +1842,8 @@ mkN056 base =
                      Sg => base_1+"ју" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN056"
@@ -1764,6 +1876,8 @@ mkN057 base =
                      Sg => base_1+"зе"+base_2+"у" ;
                      Pl => base_1+"с"+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN057"
@@ -1796,6 +1910,8 @@ mkN058 base =
                      Sg => base_1+"к" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN058"
@@ -1828,6 +1944,8 @@ mkN059 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"ја"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN059"
@@ -1860,6 +1978,8 @@ mkN060 base =
                      Sg => base_1+"ше"+base_2+"у" ;
                      Pl => base_1+"в"+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN060"
@@ -1892,6 +2012,8 @@ mkN061 base =
                      Sg => base_1+"ко" ;
                      Pl => base_1+"це"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN061"
@@ -1923,6 +2045,8 @@ mkN062 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -1953,6 +2077,8 @@ mkN063 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"ена"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN063"
@@ -1985,6 +2111,8 @@ mkN064 base =
                      Sg => base_1+"бе"+base_2+"у" ;
                      Pl => base_1+"п"+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN064"
@@ -2017,6 +2145,8 @@ mkN065 base =
                      Sg => base_1+"е"+base_2+"у" ;
                      Pl => base_1+"ј"+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN065"
@@ -2049,6 +2179,8 @@ mkN066 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN066"
@@ -2081,6 +2213,8 @@ mkN067 base =
                      Sg => base_1+"а" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN067"
@@ -2113,6 +2247,8 @@ mkN068 base =
                      Sg => base_1+"ко" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN068"
@@ -2145,6 +2281,8 @@ mkN069 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"вци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN069"
@@ -2177,6 +2315,8 @@ mkN070 base =
                      Sg => base_1+"ју" ;
                      Pl => base_1+"ишта"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN070"
@@ -2209,6 +2349,8 @@ mkN071 base =
                      Sg => base_1+"ау" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN071"
@@ -2240,6 +2382,8 @@ mkN072 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"вци"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -2270,6 +2414,8 @@ mkN073 base =
                      Sg => base_1 ; --guessed
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN073"
@@ -2301,6 +2447,8 @@ mkN074 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -2331,6 +2479,8 @@ mkN075 base =
                      Sg => base_1+"ецу" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN075"
@@ -2362,6 +2512,8 @@ mkN076 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -2392,6 +2544,8 @@ mkN077 base =
                      Sg => base_1+base_2+"т"+base_3+"о" ;
                      Pl => base_1+"т"+base_2+base_3+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN077"
@@ -2424,6 +2578,8 @@ mkN078 base =
                      Sg => base_1+"во" ;
                      Pl => base_1+"ши"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN078"
@@ -2456,6 +2612,8 @@ mkN079 base =
                      Sg => "чов"+base_1+"ку" ;
                      Pl => "луѓ"+base_1
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN079"
@@ -2487,6 +2645,8 @@ mkN080 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -2517,6 +2677,8 @@ mkN081 base =
                      Sg => base_1+base_2+"у" ;
                      Pl => base_1+base_2+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN081"
@@ -2549,6 +2711,8 @@ mkN082 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"иња"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN082"
@@ -2581,6 +2745,8 @@ mkN083 base =
                      Sg => base_1+"љу" ;
                      Pl => base_1+"ли"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN083"
@@ -2612,6 +2778,8 @@ mkN084 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"ишта"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -2642,6 +2810,8 @@ mkN085 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN085"
@@ -2674,6 +2844,8 @@ mkN086 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN086"
@@ -2706,6 +2878,8 @@ mkN087 base =
                      Sg => base_1+"г"+base_2+"ку" ;
                      Pl => base_1+"д"+base_2+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN087"
@@ -2738,6 +2912,8 @@ mkN088 base =
                      Sg => base_1+"т" ;
                      Pl => base_1+"ти"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN088"
@@ -2769,6 +2945,8 @@ mkN089 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -2798,6 +2976,8 @@ mkN090 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -2828,6 +3008,8 @@ mkN091 base =
                      Sg => base_1+"оку" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN091"
@@ -2860,6 +3042,8 @@ mkN092 base =
                      Sg => base_1+"тенце" ;
                      Pl => base_1+"чиња"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN092"
@@ -2892,6 +3076,8 @@ mkN093 base =
                      Sg => base_1+"лу" ;
                      Pl => base_1+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN093"
@@ -2923,6 +3109,8 @@ mkN094 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -2953,6 +3141,8 @@ mkN095 base =
                      Sg => base_1+"јау" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN095"
@@ -2985,6 +3175,8 @@ mkN096 base =
                      Sg => base_1+"о"+base_2+"у" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN096"
@@ -3017,6 +3209,8 @@ mkN097 base =
                      Sg => base_1+"фи"+base_2+base_3+base_4+"у" ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN097"
@@ -3049,6 +3243,8 @@ mkN098 base =
                      Sg => "сарк"+base_1+base_2+"у" ;
                      Pl => "сарк"+base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN098"
@@ -3081,6 +3277,8 @@ mkN099 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN099"
@@ -3113,6 +3311,8 @@ mkN100 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN100"
@@ -3145,6 +3345,8 @@ mkN101 base =
                      Sg => base_1+"ку" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN101"
@@ -3176,6 +3378,8 @@ mkN102 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"иња"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -3206,6 +3410,8 @@ mkN103 base =
                      Sg => base_1 ; --guessed
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN103"
@@ -3237,6 +3443,8 @@ mkN104 base_1 =
                  Sg => base_1+"е" ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -3267,6 +3475,8 @@ mkN105 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"вци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN105"
@@ -3299,6 +3509,8 @@ mkN106 base =
                      Sg => base_1+"’"+base_2+"у" ;
                      Pl => base_1+"‘"+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN106"
@@ -3331,6 +3543,8 @@ mkN107 base =
                      Sg => base_1+"е"+base_2+"у" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN107"
@@ -3363,6 +3577,8 @@ mkN108 base =
                      Sg => nonExist ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN108"
@@ -3395,6 +3611,8 @@ mkN109 base =
                      Sg => base_1+base_2+"е"+base_3+"у" ;
                      Pl => base_1+"д"+base_2+base_3+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN109"
@@ -3427,6 +3645,8 @@ mkN110 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN110"
@@ -3459,6 +3679,8 @@ mkN111 base =
                      Sg => base_1+"ју" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN111"
@@ -3491,6 +3713,8 @@ mkN112 base =
                      Sg => base_1+"о"+base_2+"о" ;
                      Pl => base_1+"а"+base_2+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN112"
@@ -3523,6 +3747,8 @@ mkN113 base =
                      Sg => base_1+"же"+base_2+"у" ;
                      Pl => base_1+"ш"+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN113"
@@ -3555,6 +3781,8 @@ mkN114 base =
                      Sg => base_1+"со"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN114"
@@ -3587,6 +3815,8 @@ mkN115 base =
                      Sg => base_1+"з"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN115"
@@ -3619,6 +3849,8 @@ mkN116 base =
                      Sg => base_1+"ос"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN116"
@@ -3651,6 +3883,8 @@ mkN117 base =
                      Sg => base_1+"с"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN117"
@@ -3683,6 +3917,8 @@ mkN118 base =
                      Sg => base_1+base_2+"н"+base_3 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN118"
@@ -3715,6 +3951,8 @@ mkN119 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN119"
@@ -3747,6 +3985,8 @@ mkN120 base =
                      Sg => base_1+"че" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN120"
@@ -3778,6 +4018,8 @@ mkN121 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -3808,6 +4050,8 @@ mkN122 base =
                      Sg => nonExist ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN122"
@@ -3840,6 +4084,8 @@ mkN123 base =
                      Sg => nonExist ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN123"
@@ -3872,6 +4118,8 @@ mkN124 base =
                      Sg => base_1 ; --guessed
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN124"
@@ -3904,6 +4152,8 @@ mkN125 base =
                      Sg => base_1+"к"+base_2+"ту" ;
                      Pl => base_1+base_2+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN125"
@@ -3936,6 +4186,8 @@ mkN126 base =
                      Sg => base_1+"е"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN126"
@@ -3968,6 +4220,8 @@ mkN127 base =
                      Sg => base_1+"а"+base_2+"ку" ;
                      Pl => base_1+"a"+base_2+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN127"
@@ -4000,6 +4254,8 @@ mkN128 base =
                      Sg => base_1+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN128"
@@ -4032,6 +4288,8 @@ mkN129 base =
                      Sg => base_1+"н"+base_2+base_3+"е" ;
                      Pl => base_1+base_2+"н"+base_3+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN129"
@@ -4064,6 +4322,8 @@ mkN130 base =
                      Sg => base_1+"ед"+base_2 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN130"
@@ -4095,6 +4355,8 @@ mkN131 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -4125,6 +4387,8 @@ mkN132 base =
                      Sg => base_1+"ко" ;
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN132"
@@ -4157,6 +4421,8 @@ mkN133 base =
                      Sg => base_1+"до"+base_2+base_3 ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN133"
@@ -4188,6 +4454,8 @@ mkN134 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -4218,6 +4486,8 @@ mkN135 base =
                      Sg => base_1+"ку" ;
                      Pl => base_1+"ции"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN135"
@@ -4250,6 +4520,8 @@ mkN136 base =
                      Sg => base_1 ; --guessed
                      Pl => base_1+"и" --guessed
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN136"
@@ -4281,6 +4553,8 @@ mkN137 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -4311,6 +4585,8 @@ mkN138 base =
                      Sg => base_1+"с"+base_2+base_3+"у" ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN138"
@@ -4343,6 +4619,8 @@ mkN139 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN139"
@@ -4375,6 +4653,8 @@ mkN140 base =
                      Sg => base_1+"чов"+base_2+"ку" ;
                      Pl => base_1+"луѓ"+base_2+"то"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN140"
@@ -4407,6 +4687,8 @@ mkN141 base =
                      Sg => base_1+"и"+base_2+"у" ;
                      Pl => base_1+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN141"
@@ -4439,6 +4721,8 @@ mkN142 base =
                      Sg => base_1+base_2+"е"+base_3+"у" ;
                      Pl => base_1+"о"+base_2+base_3+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN142"
@@ -4471,6 +4755,8 @@ mkN143 base =
                      Sg => "м"+base_1+"ецу" ;
                      Pl => "m"+base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN143"
@@ -4503,6 +4789,8 @@ mkN144 base =
                      Sg => base_1+"а"+base_2+"е"+base_3+"у" ;
                      Pl => base_1+base_2+base_3+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN144"
@@ -4535,6 +4823,8 @@ mkN145 base =
                      Sg => base_1+"е"+base_2+"у" ;
                      Pl => base_1+"ј"+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN145"
@@ -4567,6 +4857,8 @@ mkN146 base =
                      Sg => base_1+"аку" ;
                      Pl => base_1+"ци"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN146"
@@ -4599,6 +4891,8 @@ mkN147 base =
                      Sg => base_1+"тчов"+base_2+"ку" ;
                      Pl => base_1+"длуѓ"+base_2+"то"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN147"
@@ -4631,6 +4925,8 @@ mkN148 base =
                      Sg => base_1+base_2+"у" ;
                      Pl => base_1+base_2+"ови"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN148"
@@ -4663,6 +4959,8 @@ mkN149 base =
                      Sg => base_1+base_2+"е" ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN149"
@@ -4694,6 +4992,8 @@ mkN150 base_1 =
                  Sg => base_1+"у" ;
                  Pl => base_1+"еи"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -4723,6 +5023,8 @@ mkN151 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"вци"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -4753,6 +5055,8 @@ mkN152 base =
                      Sg => base_1+"ву" ;
                      Pl => base_1+"си"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN152"
@@ -4785,6 +5089,8 @@ mkN153 base =
                      Sg => base_1+"н" ;
                      Pl => base_1+"а"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN153"
@@ -4817,6 +5123,8 @@ mkN154 base =
                      Sg => base_1 ; --guessed
                      Pl => base_1
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN154"
@@ -4849,6 +5157,8 @@ mkN155 base =
                      Sg => "имит"+base_1+"ор"+base_2 ;
                      Pl => "подраж"+base_1+base_2+"ли"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN155"
@@ -4881,6 +5191,8 @@ mkN156 base =
                      Sg => base_1+"е" ;
                      Pl => base_1+"иња"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN156"
@@ -4912,6 +5224,8 @@ mkN157 base_1 =
                  Sg => base_1+"о" ;
                  Pl => base_1+"и"
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -4942,6 +5256,8 @@ mkN158 base =
                      Sg => base_1+"о" ;
                      Pl => base_1+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN158"
@@ -4974,6 +5290,8 @@ mkN159 base =
                      Sg => base_1+"е"+base_2+"е" ;
                      Pl => base_1+base_2+"и"
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN159"
@@ -5005,6 +5323,8 @@ mkN160 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -5034,6 +5354,8 @@ mkN161 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Masc
   } ;
 
@@ -5064,6 +5386,8 @@ mkN162 base =
                      Sg => base_1+base_2+"у" ;
                      Pl => nonExist
                    } ;
+        rel = \\_,_ => base ;
+        relType = Pref ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN162"
@@ -5095,6 +5419,8 @@ mkN163 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Fem
   } ;
 
@@ -5124,6 +5450,8 @@ mkN164 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -5153,6 +5481,8 @@ mkN165 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -5182,6 +5512,8 @@ mkN166 base_1 =
                  Sg => base_1 ; --guessed
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
@@ -5211,6 +5543,8 @@ mkN167 base_1 =
                  Sg => base_1 ;
                  Pl => base_1+"и" --guessed
                } ;
+    rel = \\_,_ => base_1 ;
+    relType = Pref ;
     g = Neuter
   } ;
 
