@@ -7,7 +7,8 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 	lincat
 		Digit				= {s : DForm => CardOrd => Str} ;
 		Sub10 				= {s : DForm => CardOrd => Str ; size : Size} ;
-		Sub100, Sub1000, Sub1000000 	= {s : CardOrd => Str ; size : Size} ;
+		Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 =
+          {s : CardOrd => Str ; size : Size} ;
 
 	lin 
 		num x = {
@@ -117,6 +118,9 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 			} ;
 			size = pl
 		} ;
+        pot3as4 n = n ;
+
+        pot4as5 n = n ;
 
 	oper
 
