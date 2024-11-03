@@ -256,6 +256,10 @@ resource ParadigmsIce = open
 
 		} ;
 
+        oper mkLN : Str -> LN = \s -> lin LN {s=s} ;
+        oper mkGN : Str -> GN = \s -> lin GN {s=s} ;
+        oper mkSN : Str -> SN = \s -> lin SN {s=s} ;
+
 		mkN2 : N -> Preposition -> N2 = \n,prep -> lin N2 (n ** {c2 = prep}) ;
 
 		mkN3 : N -> (_,_ : Preposition) -> N3 = \n,c2,c3 -> lin N3 (n ** {c2 = c2; c3 = c3}) ;
@@ -442,6 +446,8 @@ resource ParadigmsIce = open
 				sgNeutNom sgNeutAcc sgNeutDat sgNeutGen plMascNom plMascAcc plMascDat plMascGen 
 				plFemNom plFemAcc plFemDat plFemGen plNeutNom plNeutAcc plNeutDat plNeutGen 
 				weakSgMascNom weakSgMascAccDatGen weakSgFemNom weakSgFemAccDatGen weakSgNeut weakPl flogið) ;
+
+            mkV : V -> Str -> V = \v,part -> v ;
 		};
 
 		depV : V -> V = \verb -> lin V (deponentVerb verb) ;
@@ -460,6 +466,18 @@ resource ParadigmsIce = open
 
 		mk5V : (_,_,_,_,_ : Str) -> V = \telja,tel,taldi,talinn,talið ->
 			lin V (vForms2Verb telja (indsub3 telja tel taldi) (impSg taldi) (impPl telja) (presPart telja) talið (weakPP talinn) (strongPP talinn)) ;
+
+
+        oper mkVQ : V -> VQ = \v -> lin VQ v ;
+        oper mkVV : V -> VV = \v -> lin VV (v ** {c2 = mkPrep "" accusative}) ;
+        oper mkVS : V -> VS = \v -> lin VS v ;
+        oper mkVA : V -> VA = \v -> lin VA v ;
+        oper mkV2V : V -> V2V = \v -> lin V2V (v ** {c2 = mkPrep "" accusative; c3 = mkPrep "" accusative}) ;
+        oper mkV2S : V -> V2S = \v -> lin V2S (v ** {c2 = mkPrep "" accusative}) ;
+        oper mkV2A : V -> V2A = \v -> lin V2A (v ** {c2 = mkPrep "" accusative}) ;
+
+        oper reflV : V -> V = \v -> v;
+
 
 		indsub1 : Str -> MForms = \inf -> case inf of {
 			stem@(front + "e" + c) + "ja"	=> cTelja inf stem (ðiditi (front + "a" + c)) ; 
@@ -807,7 +825,10 @@ resource ParadigmsIce = open
 
 		mkAdA : Str -> AdA = \x -> lin AdA (ss x) ;
 
-		mkAdN : CAdv -> AdN = \cadv -> lin AdN {s = cadv.s ++ cadv.p } ;
+		mkAdN = overload {
+          mkAdN : Str -> AdN = \s -> lin AdN {s = s} ;
+          mkAdN : CAdv -> AdN = \cadv -> lin AdN {s = cadv.s ++ cadv.p }
+        } ;
 
 		mkAdV : Str -> AdV = \x -> lin AdV (ss x) ;
 
@@ -826,4 +847,8 @@ resource ParadigmsIce = open
 
 		mk2Conj : Str -> Str -> Number -> Conj = \x,y,n ->
 			lin Conj (sd2 x y ** {n = n}) ;
+
+        mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
+        mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
+
 } ;
