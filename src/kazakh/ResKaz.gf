@@ -2,7 +2,7 @@ resource ResKaz = {
 
 oper Compl = {s : Str} ;
 
-param Case = Acc | Nom | Instr | Ablat | Gen | Loc | Dat ;
+param Case = Nom | Acc | Instr | Ablat | Gen | Loc | Dat ;
 param Number = Sg | Pl ;
 param Possession = Poss3Pl | Poss2Pl Formality | Poss1Pl | Poss2Sg Formality | Poss3Sg | Poss1Sg ;
 param Formality = Formal | Informal ;
