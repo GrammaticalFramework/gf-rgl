@@ -11,32 +11,22 @@ lin InflectionN,InflectionN2,InflectionN3 = \x -> {
       t="n" ;
       s1="" ;
       s2=frameTable (
-           tr (intagAttr "th" "rowspan=\"2\"" "Nom" ++ th "Sg" ++ td (x.s ! Nom ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Nom ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Acc" ++ th "Sg" ++ td (x.s ! Acc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Acc ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Dat" ++ th "Sg" ++ td (x.s ! Dat ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Dat ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Gen" ++ th "Sg" ++ td (x.s ! Gen ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Gen ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Ablat" ++ th "Sg" ++ td (x.s ! Ablat ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Ablat ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Instr" ++ th "Sg" ++ td (x.s ! Instr ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Instr ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Loc" ++ th "Sg" ++ td (x.s ! Loc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Loc ! Pl))) ++
+           tr (th "" ++ th "Sg" ++ th "Pl") ++ 
+           tr (th "Nom" ++ td (x.s ! Nom ! Sg) ++ td (x.s ! Nom ! Pl)) ++
+           tr (th "Acc" ++ td (x.s ! Acc ! Sg) ++ td (x.s ! Acc ! Pl)) ++
+           tr (th "Dat" ++ td (x.s ! Dat ! Sg) ++ td (x.s ! Dat ! Pl)) ++
+           tr (th "Gen" ++ td (x.s ! Gen ! Sg) ++ td (x.s ! Gen ! Pl)) ++
+           tr (th "Ablat" ++ td (x.s ! Ablat ! Sg) ++ td (x.s ! Ablat ! Pl)) ++
+           tr (th "Instr" ++ td (x.s ! Instr ! Sg) ++ td (x.s ! Instr ! Pl)) ++
+           tr (th "Loc" ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl))) ++
          tag "br" ++
          frameTable (
-           tr (intagAttr "th" "rowspan=\"2\"" "Poss1Pl" ++ th "Sg" ++ td (x.poss ! Poss1Pl ! Sg)) ++
-           tr (th "Pl" ++ td (x.poss ! Poss1Pl ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Poss1Sg" ++ th "Sg" ++ td (x.poss ! Poss1Sg ! Sg)) ++
-           tr (th "Pl" ++ td (x.poss ! Poss1Sg ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Poss2Sg Informal" ++ th "Sg" ++ td (x.poss ! Poss2Sg Informal ! Sg)) ++
-           tr (th "Pl" ++ td (x.poss ! Poss2Sg Informal ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Poss2Sg Formal" ++ th "Sg" ++ td (x.poss ! Poss2Sg Formal ! Sg)) ++
-           tr (th "Pl" ++ td (x.poss ! Poss2Sg Formal ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Poss3Sg" ++ th "Sg" ++ td (x.poss ! Poss3Sg ! Sg)) ++
-           tr (th "Pl" ++ td (x.poss ! Poss3Sg ! Pl))) ;
+           tr (th "" ++ th "Sg" ++ th "Pl") ++
+           tr (th "Poss1Pl" ++ td (x.poss ! Poss1Pl ! Sg) ++ td (x.poss ! Poss1Pl ! Pl)) ++
+           tr (th "Poss1Sg" ++ td (x.poss ! Poss1Sg ! Sg) ++ td (x.poss ! Poss1Sg ! Pl)) ++
+           tr (th "Poss2Sg Informal" ++ td (x.poss ! Poss2Sg Informal ! Sg) ++ td (x.poss ! Poss2Sg Informal ! Pl)) ++
+           tr (th "Poss2Sg Formal" ++ td (x.poss ! Poss2Sg Formal ! Sg) ++ td (x.poss ! Poss2Sg Formal ! Pl)) ++
+           tr (th "Poss3Sg" ++ td (x.poss ! Poss3Sg ! Sg) ++ td (x.poss ! Poss3Sg ! Pl))) ;
       s3=[]
     } ;
 
