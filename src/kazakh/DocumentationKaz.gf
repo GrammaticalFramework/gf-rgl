@@ -18,15 +18,14 @@ lin InflectionN,InflectionN2,InflectionN3 = \x -> {
            tr (th "Gen" ++ td (x.s ! Gen ! Sg) ++ td (x.s ! Gen ! Pl)) ++
            tr (th "Ablat" ++ td (x.s ! Ablat ! Sg) ++ td (x.s ! Ablat ! Pl)) ++
            tr (th "Instr" ++ td (x.s ! Instr ! Sg) ++ td (x.s ! Instr ! Pl)) ++
-           tr (th "Loc" ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl))) ++
-         tag "br" ++
-         frameTable (
+           tr (th "Loc" ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl)) ++
+           tr (intagAttr "th" "colspan=\"3\"" "poss") ++
            tr (th "" ++ th "Sg" ++ th "Pl") ++
-           tr (th "Poss1Pl" ++ td (x.poss ! Poss1Pl ! Sg) ++ td (x.poss ! Poss1Pl ! Pl)) ++
-           tr (th "Poss1Sg" ++ td (x.poss ! Poss1Sg ! Sg) ++ td (x.poss ! Poss1Sg ! Pl)) ++
-           tr (th "Poss2Sg Informal" ++ td (x.poss ! Poss2Sg Informal ! Sg) ++ td (x.poss ! Poss2Sg Informal ! Pl)) ++
-           tr (th "Poss2Sg Formal" ++ td (x.poss ! Poss2Sg Formal ! Sg) ++ td (x.poss ! Poss2Sg Formal ! Pl)) ++
-           tr (th "Poss3Sg" ++ td (x.poss ! Poss3Sg ! Sg) ++ td (x.poss ! Poss3Sg ! Pl))) ;
+           tr (th "P1 Sg" ++ td (x.poss ! Poss1Sg ! Sg) ++ td (x.poss ! Poss1Sg ! Pl)) ++
+           tr (th "P1 Pl" ++ td (x.poss ! Poss1Pl ! Sg) ++ td (x.poss ! Poss1Pl ! Pl)) ++
+           tr (th "P2 Sg Informal" ++ td (x.poss ! Poss2Sg Informal ! Sg) ++ td (x.poss ! Poss2Sg Informal ! Pl)) ++
+           tr (th "P2 Sg Formal" ++ td (x.poss ! Poss2Sg Formal ! Sg) ++ td (x.poss ! Poss2Sg Formal ! Pl)) ++
+           tr (th "P3 Sg" ++ td (x.poss ! Poss3Sg ! Sg) ++ td (x.poss ! Poss3Sg ! Pl))) ;
       s3=[]
     } ;
 
