@@ -1,7 +1,7 @@
---# -path=.:../abstract:../common
+--# -path=.:../abstract:../../prelude:../common
 --1 Russian Lexical Paradigms
 
-resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), Prelude, Maybe, MorphoRus in {
+resource ParadigmsRus = open CatRus, ResRus, (R=ResRus), ParamRus, (Z=InflectionRus), TenseRus, Maybe, MorphoRus, Prelude  in {
 
 --2 Parameters
 --
@@ -742,14 +742,17 @@ oper
       = \s -> lin Adv (makeAdverb s) ;
     } ;
 
-  mkAdV : Str -> AdV
-    = \s -> lin AdV (makeAdverb s) ;
-
   mkAdA : Str -> AdA
     = \s -> lin AdA (makeAdverb s) ;
 
   mkAdN : Str -> AdN
     = \s -> lin AdN (makeAdverb s) ;
+
+  mkAdV : Str -> AdV
+    = \s -> lin AdV {s = s; p = Pos} ;
+
+  mkAdVNeg : Str -> AdV
+    = \s -> lin AdV {s = s; p = Neg} ;
 
   mkIAdv : Str -> IAdv
     = \s -> lin IAdv (makeAdverb s) ;

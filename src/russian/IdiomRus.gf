@@ -64,15 +64,17 @@ lin
     compl=\\_ => [] ;
     a=ip.a
     } ;
+
   -- : NP -> Adv -> Cl ;    -- there is a house in Paris
   ExistNPAdv np adv = {
-    subj=np.s ! Nom ;
     adv=adv.s ;
-    verb=to_exist ;
+    subj=np.s ! Nom ;
+    verb= copulaEll ;
     dep=[] ;
     compl=\\_ => [] ;
     a=np.a
     } ;
+
   -- : IP -> Adv -> QCl ;   -- which houses are there in Paris
   ExistIPAdv ip adv = {
     subj=ip.nom ; -- gen?

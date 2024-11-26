@@ -14,7 +14,8 @@ concrete ExtendRus of Extend =
     -- AdvIsNPAP, AdAdV, AdjAsNP,
     ApposNP,
     -- BaseVPS, ConsVPS, BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
-    -- MkVPS, ConjVPS, MkVPI, ConjVPI, ComplVPIVV,
+    -- MkVPS,
+    -- ConjVPS, MkVPI, ConjVPI, ComplVPIVV,
     -- MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     -- Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
     -- CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
@@ -42,7 +43,8 @@ concrete ExtendRus of Extend =
     PastPartAP,
     PastPartAgentAP,
     PositAdVAdj,
-    -- PredVPS, PredVPSVV, PredetRNP, PrepCN,
+    PredVPS,
+    -- PredVPSVV, PredetRNP, PrepCN,
     -- EmbedSSlash, PresPartAP,
     PurposeVP,
     -- ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
@@ -89,7 +91,7 @@ lin
   ExistsNP np = {
     subj=[] ;
     adv=[] ;
-    verb=M.to_exist ;
+    verb=copulaFull ;
     dep=[] ;
     compl=table {
       Pos => np.s ! Nom ;
@@ -97,6 +99,8 @@ lin
       } ;
     a=np.a
     } ;
+
+
 
   iFem_Pron = personalPron (Ag (GSg Fem) P1) ;
   youFem_Pron = personalPron (Ag (GSg Fem) P2) ;
@@ -221,7 +225,7 @@ lin
   UttAdV adv = {s=adv.s} ;
 
   -- : A -> AdV ;                    -- (that she) positively (sleeps)
-  PositAdVAdj a = ss a.sn ;
+  PositAdVAdj a = ss a.sn ** {p=Pos} ;
 
   -- : NP -> SSlash -> Utt ; -- her I love
   FocusObj np ss = {
@@ -313,6 +317,16 @@ lin
       pron=False ;
       a=Ag (gennum g (numSizeNumber det.size)) P3
       } ;
+
+  --PredVPS np vps = {s = np.s ! Nom ++ vps.c.s } ;
+
+  -- mkVPS : Temp -> Pol -> VP -> VPS
+  --MkVPS t p vp = {
+  --  s = \\a =>
+  --        let verb  = vp.verb ;
+  --            compl = vp.compl
+  --        in verb
+  -- } ;
 
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?

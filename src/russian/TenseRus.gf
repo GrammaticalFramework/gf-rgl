@@ -1,4 +1,4 @@
-concrete TenseRus of Tense = TenseX - [PNeg,PPos] ** open (R = ParamX) in {
+concrete TenseRus of Tense = TenseX - [PNeg,PPos,AdV] ** open (R = ParamX) in {
 flags coding=utf8 ; optimize=all ;
 lin
   PNeg = {

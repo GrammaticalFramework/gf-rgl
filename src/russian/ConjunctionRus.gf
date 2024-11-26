@@ -102,8 +102,11 @@ concrete ConjunctionRus of Conjunction =
     ConjAdv = conjunctDistrSS ;
     -- : Conj -> ListIAdv -> IAdv ;   -- where or why
     ConjIAdv = conjunctDistrSS ;
-    -- : Conj -> ListAdV -> AdV ;   -- always or sometimes
-    ConjAdV = conjunctDistrSS ;
+    -- : Conj -> ListAdV -> AdV ;   -- always or sometimes;
+    ConjAdV conj xs = {
+      s = conj.s1 ++ xs.s1 ++ conj.s2 ++ xs.s2 ;
+      p = Pos
+      } ;
 
     -- : Conj -> ListAP -> AP ;     -- cold and warm
     ConjAP conj xs = conjunctDistrTable3 GenNum Animacy Case conj xs ** {

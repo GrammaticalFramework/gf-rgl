@@ -1,4 +1,4 @@
-concrete CatRus of Cat = CommonX ** open ResRus, Prelude in {
+concrete CatRus of Cat = CommonX - [AdV, mkAdV] ** open ResRus, Prelude in {
 flags coding=utf8 ; optimize=all ;
 lincat
   N = ResRus.NounForms ;
@@ -28,6 +28,11 @@ lincat
 
   A, Ord = ResRus.AdjForms ;
   A2 = ResRus.AdjForms ** {c : ComplementCase} ;
+
+  AdV = {
+     s : Str ;
+     p : Polarity
+  } ;
 
   V, VS, VQ, VA = ResRus.VerbForms ;
   V2, V2S, V2Q, V2A, V2V = ResRus.VerbForms2 ;
@@ -136,7 +141,8 @@ linref
                             =  {verb = s.verb ;
                                 adv = s.adv ;
                                 dep = s.dep ;
-                                compl = \\p, a => s.compl1 ! p ! a ++ s.c.s ++ s.compl2 ! p ! a
+                                compl = \\p, a => s.compl1 ! p ! a ++ s.c.s ++ s.compl2 ! p ! a ;
+                                p = s.p
                                }
          in vp.adv ! Ag (GSg Neut) P3 ++ (verbInf vp.verb) ++ vp.dep ++ vp.compl ! Pos ! Ag (GSg Neut) P3 ;
   Cl = \s -> s.subj ++ s.adv ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ;

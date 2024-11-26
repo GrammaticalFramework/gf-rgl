@@ -203,6 +203,12 @@ oper
   ellNoun : NounForms -> NounForms
    = \n -> noMinorCases (immutableNounCases "" n.g n.anim) ;
 
+  orPol : Polarity -> Polarity -> Polarity = \p1,p2 ->
+      case p1 of {
+        Neg => Neg;
+        Pos => p2
+      } ;
+
   AgrTable = Agr => Str ;
   ComplTable = Polarity => Agr => Str ;
   PolarityTable = Polarity => Str ;
@@ -399,6 +405,8 @@ oper
   the_most = guessAdjectiveForms "самый" ;
   utmost_Adv = makeAdverb "наиболее" ;
 
+
+
   -- [ISACHENKO],p.220 there are three forms in Russian: самый важный; наиболее важный/важен; важнее (всех, всего)
   -- here only first one:
   long_superlative : AdjForms -> AdjForms
@@ -589,6 +597,8 @@ oper
       comp  = a1.sn ++ l ++ a2.comp  ;
       } ;
 
+
+
 ---------------------
 -- Verbs -- Глаголы
 
@@ -603,7 +613,8 @@ oper
     adv : AgrTable ;  -- modals are in position of adverbials ones numgen gets fixed
     verb : ResRus.VerbForms ;
     dep : Str ;  -- dependent infinitives and such
-    compl : ComplTable
+    compl : ComplTable ;
+    p : Polarity
     } ;
 
   VPSlash = {
@@ -614,6 +625,7 @@ oper
     compl2 : ComplTable ;
     c : ComplementCase ;
     isSimple : Bool ;    -- regulates the place of participle used as adjective
+    p : Polarity
     } ; ----
 
   slashV : VerbForms -> ComplementCase -> VPSlash = \verb,c -> {
@@ -623,6 +635,7 @@ oper
       compl2   = \\_,a => [] ;
       dep      = [] ;
       c        = c ;
+      p        = Pos ;
       isSimple = True
     } ;
 
@@ -645,7 +658,8 @@ oper
            } ;
       c = {s="" ; c=Acc ; neggen=True ; hasPrep=False};
       dep = slash.dep ;
-      isSimple = False
+      isSimple = False ;
+      p = slash.p
       } ;
 
   insertSlashObj1 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
@@ -655,7 +669,8 @@ oper
       compl2 = slash.compl2 ;
       c     = slash.c ;
       dep = slash.dep ;
-      isSimple = False
+      isSimple = False ;
+      p = slash.p
       } ;
 
    insertSlashObj2 : (Polarity => Agr => Str) -> ComplementCase -> VPSlash -> VPSlash = \obj,c,slash -> {
@@ -665,7 +680,8 @@ oper
       compl2 =\\p,a => slash.compl2 ! p ! a ++ obj ! p ! a;
       c     = slash.c ;
       dep = slash.dep ;
-      isSimple = False
+      isSimple = False ;
+      p = slash.p
       } ;
 
 
@@ -1581,6 +1597,7 @@ oper
 
   makeAdverb : Str -> Adverb
     = \word -> {s=word} ;
+
 
 --------------------------------
 -- combining nouns with numerals

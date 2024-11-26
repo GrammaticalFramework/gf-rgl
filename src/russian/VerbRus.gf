@@ -6,7 +6,8 @@ lin
     adv = \\a=>[] ;
     verb = v ;
     dep=[] ;
-    compl = \\_,_ => []
+    compl = \\_,_ => [] ;
+    p = Pos
     } ;
 
   -- : V2 -> VP ;         -- be loved
@@ -14,14 +15,16 @@ lin
     adv = \\a=>[] ;
     verb = passivate v2 ;
     dep=[] ;
-    compl = \\p,a => []
+    compl = \\p,a => [] ;
+    p = Pos
   } ;
 
   -- : VV -> VP -> VP ;  -- want to run
   ComplVV vv vp = vp ** {
     verb=vv.v ;
     dep=verbInf vp.verb ++ vp.dep ;
-    adv=\\a=>vv.modal ! a ++ vp.adv ! a
+    adv=\\a=>vv.modal ! a ++ vp.adv ! a ;
+    p = Pos
     } ;
 
   -- : VS -> S -> VP ;  -- say that she runs
@@ -29,7 +32,8 @@ lin
     verb = vs ;
     dep=[] ;
     adv=\\a=>[] ;
-    compl=\\_,_ => comma ++ "что" ++ s.s ! Ind
+    compl=\\_,_ => comma ++ "что" ++ s.s ! Ind ;
+    p = Pos
     } ;
 
   -- : VQ -> QS -> VP ;  -- wonder who runs
@@ -37,7 +41,8 @@ lin
     verb = vq ;
     dep=[] ;
     adv=\\a=>[] ;
-    compl=\\_,_ => comma ++ "что" ++ qs.s ! QDir
+    compl=\\_,_ => comma ++ "что" ++ qs.s ! QDir ;
+    p = Pos
     } ;
 
 
@@ -49,7 +54,8 @@ lin
     compl=\\_ => case ap.preferShort of {
       PreferFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
       PrefShort => ap.short
-      }
+      } ;
+    p = Pos
     } ;
 
   -- : V2 -> VPSlash ;  -- love (it)
@@ -79,13 +85,15 @@ lin
           adv  = vps.adv ;
           dep = vps.dep ;
           compl = \\p,a => vps.compl1 ! p ! a  ++ applyPolPrep p vps.c np ++ vps.compl2 ! p ! a  ;
+          p = Pos
          } ;
 
   -- : VV -> VPSlash -> VPSlash ;       -- want to buy
   SlashVV vv vps = vps ** {
     verb=vv.v ;
     dep=(verbInf vps.verb) ++ vps.dep ;
-    adv=\\a=>vv.modal ! a ++ vps.adv ! a
+    adv=\\a=>vv.modal ! a ++ vps.adv ! a ;
+    p = Pos
     } ;
 
   {- This is very heavy, but can be replaced (see todo.txt)
@@ -109,7 +117,8 @@ lin
     adv=\\a => comp.adv ;
     verb=selectCopula comp.cop ;
     dep=[] ;
-    compl=\\p => comp.s
+    compl=\\p => comp.s;
+    p = Pos
     } ;
 
   -- : VP -> Adv -> VP ;        -- sleep here
@@ -123,7 +132,7 @@ lin
     } ;
 
   -- : AdV -> VP -> VP ;        -- always sleep
-  AdVVP adv vp = vp ** {adv=\\a => adv.s ++ vp.adv ! a} ;
+  AdVVP adv vp = vp ** {adv=\\a => adv.s ++ vp.adv ! a; p = orPol adv.p vp.p} ;
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash vps adv = vps ** {compl1=\\p,a => vps.compl1 ! p ! a ++ adv.s; isSimple=False} ;
@@ -153,5 +162,5 @@ lin
     } ;
 
   -- : VP ;                     -- be
-  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]} ;
+  UseCopula = {adv=\\a=>[] ; verb=copulaIns ; dep=[] ; compl=\\p,a=>[]; p=Pos} ;
 }

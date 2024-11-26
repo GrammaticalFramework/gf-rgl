@@ -46,6 +46,7 @@ fun
   that_way_Adv : Adv ;
   any_way_Adv : Adv ;
   never_Adv : Adv ;
+  never_AdV : AdV ;
   from_nowhere_Adv : Adv ;
   to_nowhere_Adv : Adv ;
   nowhere_Adv : Adv ;
@@ -112,4 +113,5 @@ fun
   TransgrAsAdv1 : Temp -> Pol -> VPSlash -> Adv ;
   UttImpImm : Pol -> Imp -> Utt ;
   CompNomNP : NP -> Comp ;
+  ExistsNPAdv : NP -> Adv -> Cl ;
 }

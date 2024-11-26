@@ -1,4 +1,4 @@
-resource ParamRus = ParamX, CommonX [Temp] ** open Prelude, Maybe in {
+resource ParamRus = ParamX - [mkAdV, AdV], CommonX [Temp] ** open Prelude, Maybe in {
   -- Mostly follows https://en.wikipedia.org/wiki/List_of_glossing_abbreviations
   -- see theory.txt
 

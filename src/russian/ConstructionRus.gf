@@ -45,6 +45,7 @@ lin
     verb=copulaEll ;
     dep=[] ;
     compl=\\p,a => (timeunitAdv card year_Timeunit).s;
+    p = Pos
     } ;
 
   -- : NP -> QCl ;          -- how old is x / quanti anni ha x (Ita)

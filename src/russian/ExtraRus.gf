@@ -170,6 +170,19 @@ lin
   -- : NP -> Comp ;            -- (Париж) - столица Франции
   CompNomNP np = {s=\\a=>np.s ! Nom ; adv=[] ; cop=NomCopula} ;
 
+  -- : NP -> Adv -> Cl ;       -- у них есть дети
+  ExistsNPAdv np adv = {
+    subj=[] ;
+    adv=adv.s ;
+    verb=copulaFull ;
+    dep=[] ;
+    compl=table {
+      Pos => np.s ! Nom ;
+      Neg => np.s ! Gen
+      } ;
+    a=np.a
+    } ;
+
 oper
   est_V : V = lin V {
     inf="есть";
@@ -190,6 +203,7 @@ oper
     -- refl=NonReflexive;
     -- tran=Transitive
   } ;
+
   est_ell_V = est_V ** {prsg1, prsg2, prsg3, prpl1, prpl2, prpl3=""} ;
   be_ell_V = est_ell_V ** {inf=""} ;
   net_V : V = lin V {

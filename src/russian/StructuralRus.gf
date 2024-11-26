@@ -1,5 +1,5 @@
 concrete StructuralRus of Structural = CatRus **
-  open ParadigmsRus, ResRus, MorphoRus, (X = ConstructX), Coordination, Prelude in {
+  open ParadigmsRus, ResRus, MorphoRus, ParamRus, Maybe, (X = ConstructX), Coordination, Prelude in {
 
 lin
   i_Pron = personalPron (Ag MSg P1) ;
@@ -82,6 +82,8 @@ lin
   there_Adv = mkAdv "там" ;
   there7to_Adv = mkAdv "туда" ;
   there7from_Adv = mkAdv "оттуда" ;
+  always_AdV = mkAdV "всегда";
+  --always_AdV = {s="всегда"; p=Pos} ;
 
   how_IAdv = ss "как" ;
   how8much_IAdv = ss "сколько" ;
@@ -162,7 +164,6 @@ lin
 
   almost_AdA = ss "почти" ;
   almost_AdN = ss "почти" ;
-  always_AdV = ss "всегда" ;
   at_least_AdN = ss "по меньшей мере" ;
   at_most_AdN = ss "самое большее" ;
   too_AdA = ss "слишком" ;
