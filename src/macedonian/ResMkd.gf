@@ -2,8 +2,8 @@ resource ResMkd = open Prelude in {
 
 oper Compl = {s : Str} ;
 
-param Species = Def Distance | Indef ;
-param Distance = Distal | Unspecified | Proximal ;
+param Species = Indef | Def Distance ;
+param Distance = Unspecified | Distal | Proximal ;
 param Number = Sg | Pl ;
 param NRelType = Pref | AdjMod | AdvMod ;
 param Gender = Masc | Fem | Neuter ;
@@ -58,7 +58,7 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ :
                                 P3 => f6
                               }
                       } ;
-            aorist =  table {
+            aorist = table {
                        Sg => table {
                                P1 => f7 ;
                                P2 => f8 ;
@@ -149,6 +149,7 @@ oper mkAdv : Str -> Adv =
        \f1 ->
           { s = f1
           } ;
+
 
 param Case = Acc | Dat ;
 param Role = RSubj | RObj Case | RPrep ;
