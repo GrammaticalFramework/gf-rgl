@@ -21,11 +21,11 @@ lin InflectionN,InflectionN2,InflectionN3 = \x -> {
            tr (th "Loc" ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl)) ++
            tr (intagAttr "th" "colspan=\"3\"" "poss") ++
            tr (th "" ++ th "Sg" ++ th "Pl") ++
-           tr (th "P1 Sg" ++ td (x.poss ! Poss1Sg ! Sg) ++ td (x.poss ! Poss1Sg ! Pl)) ++
-           tr (th "P1 Pl" ++ td (x.poss ! Poss1Pl ! Sg) ++ td (x.poss ! Poss1Pl ! Pl)) ++
-           tr (th "P2 Sg Informal" ++ td (x.poss ! Poss2Sg Informal ! Sg) ++ td (x.poss ! Poss2Sg Informal ! Pl)) ++
-           tr (th "P2 Sg Formal" ++ td (x.poss ! Poss2Sg Formal ! Sg) ++ td (x.poss ! Poss2Sg Formal ! Pl)) ++
-           tr (th "P3 Sg" ++ td (x.poss ! Poss3Sg ! Sg) ++ td (x.poss ! Poss3Sg ! Pl))) ;
+           tr (th "P1 Sg" ++ td (x.poss ! Sg ! P1 ! Sg) ++ td (x.poss ! Sg ! P1 ! Pl)) ++
+           tr (th "P1 Pl" ++ td (x.poss ! Pl ! P1 ! Sg) ++ td (x.poss ! Pl ! P1 ! Pl)) ++
+           tr (th "P2 Sg Informal" ++ td (x.poss ! Sg ! P2 Informal ! Sg) ++ td (x.poss ! Sg ! P2 Informal ! Pl)) ++
+           tr (th "P2 Sg Formal" ++ td (x.poss ! Sg ! P2 Formal ! Sg) ++ td (x.poss ! Sg ! P2 Formal ! Pl)) ++
+           tr (th "P3 Sg" ++ td (x.poss ! Sg ! P3 ! Sg) ++ td (x.poss ! Sg ! P3 ! Pl))) ;
       s3=[]
     } ;
 
@@ -40,70 +40,90 @@ lin InflectionV, InflectionV2, InflectionV3, InflectionV2V, InflectionV2S,
          frameTable (
            tr (intagAttr "th" "rowspan=\"6\"" "Pos" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Pos ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Pos ! P1 ! Pl))  ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Pos ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Pos ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Pos ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Neg" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Neg ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Neg ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 Formal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Neg ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Pres.noAspect ! Neg ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.noAspect ! Neg ! P3 ! Pl))) ++
          heading2 "Present Progressive"++
          frameTable (
            tr (intagAttr "th" "rowspan=\"6\"" "Pos" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Pos ! P1 ! Sg))++
            tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Pos ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Pos ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Pos ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Pos ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Neg" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Neg ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Neg ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Neg ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Pres.Progressive ! Neg ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Pres.Progressive ! Neg ! P3 ! Pl))) ++
          heading2 "Past" ++ 
          frameTable (
            tr (intagAttr "th" "rowspan=\"6\"" "Pos" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Pos ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Pos ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Pos ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Pos ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Pos ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Neg" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Neg ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Neg ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Neg ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.noAspect ! Neg ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.noAspect ! Neg ! P3 ! Pl))) ++
          heading2 "Past Perfect" ++ 
          frameTable (
            tr (intagAttr "th" "rowspan=\"6\"" "Pos" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Pos ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Pos ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Pos ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Pos ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Pos ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Neg" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Neg ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Neg ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Neg ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.Perfect ! Neg ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Perfect ! Neg ! P3 ! Pl))) ++
          heading2 "Past Progressive" ++ 
          frameTable (
            tr (intagAttr "th" "rowspan=\"6\"" "Pos" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Pos ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Pos ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Pos ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Pos ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Pos ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Neg" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Neg ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Neg ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Neg ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Indicative.Past.Progressive ! Neg ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Indicative.Past.Progressive ! Neg ! P3 ! Pl))) ++
          heading2 "Imperative" ++
@@ -120,8 +140,10 @@ lin InflectionV, InflectionV2, InflectionV3, InflectionV2V, InflectionV2S,
          frameTable (
            tr (intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td (x.Subjunctive ! P1 ! Sg)) ++
            tr (th "Pl" ++ td (x.Subjunctive ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td (x.Subjunctive ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td (x.Subjunctive ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Informal" ++ th "Sg" ++ td (x.Subjunctive ! P2 Informal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Subjunctive ! P2 Informal ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2 Formal" ++ th "Sg" ++ td (x.Subjunctive ! P2 Formal ! Sg)) ++
+           tr (th "Pl" ++ td (x.Subjunctive ! P2 Formal ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td (x.Subjunctive ! P3 ! Sg)) ++
            tr (th "Pl" ++ td (x.Subjunctive ! P3 ! Pl))) ;
       s3=[]
