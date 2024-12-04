@@ -1,7 +1,7 @@
 --# -path=.:../abstract
 concrete LangAlb of Lang =
-  GrammarAlb,
   LexiconAlb
+  ,DocumentationAlb --# notpresent
   ** {
 
 flags startcat = Phr ;
