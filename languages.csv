@@ -1,5 +1,6 @@
 Code,Name,Directory,Functor,Unlexer,Present,All,Try,Symbolic,Compatibility,Synopsis
 Afr,Afrikaans,afrikaans,,,,,,n,,y
+Alb,Albanian,albanian,,,,y,n,n,n,y
 Amh,Amharic,amharic,,,,,n,n,,n
 Ara,Arabic,arabic,,,,,,y,,y
 Bul,Bulgarian,bulgarian,,,y,,,,,y
