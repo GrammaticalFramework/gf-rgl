@@ -8,6 +8,8 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi in {
       a = agrgP3 cn.g det.n
       } ;
 
+    UsePron p = p ;
+
     DetQuant quant num = {
       s  = quant.s ++ num.s ;
       n  = num.n ;

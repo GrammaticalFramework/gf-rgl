@@ -1235,7 +1235,15 @@ mkQuant : Str -> Quant = \s -> lin Quant {s=s; spec=Indef} ;
 mkDet : Str -> Number -> Det = \s,n -> lin Det {s=s; spec=Indef; n=n} ;
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
-mkPron : Str -> Pron = \s -> lin Pron {s=s} ;
+
+mkPron : (nom,acc,dat,ablat,acc_clit,dat_clit : Str) -> GenNum -> Person -> Pron =
+  \nom,acc,dat,ablat,acc_clit,dat_clit,gn,p -> lin Pron 
+     {s = table Case [nom; acc; dat; ablat];
+      acc_clit = acc_clit;
+      dat_clit = dat_clit;
+      a = {gn=gn; p=p}
+     } ;
+
 mkCard : Str -> Card = \s -> lin Card {s=s} ;
 mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
 mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
