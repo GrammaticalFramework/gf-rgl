@@ -1,4 +1,4 @@
-resource ResSqi = ParamX-[Tense,Past,Pres] ** {
+resource ResSqi = ParamX-[Tense,Past,Pres] ** open Prelude in {
 
 oper Compl = {s : Str} ;
 
@@ -50,9 +50,9 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
           } ;
 
 
-oper Adj = {s: Case => Gender => Number => Str} ; -- 462
-oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
-       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->
+oper Adj = {s: Case => Gender => Number => Str; clit: Bool} ; -- 462
+oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Bool -> Adj =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,clit ->
           { s = table {
                   Nom => table {
                            Masc => table {
@@ -94,7 +94,8 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                                       Pl => f16
                                     }
                            }
-                }
+                } ;
+            clit = clit
           } ;
 
 
@@ -207,4 +208,40 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
                                 }
           } ;
 
+oper link_clitic : Species => Case => Gender => Number => Str =
+       table {
+         Indef => table {
+                    Nom => table {
+                             Masc => table {
+                                       Sg => "i" ;
+                                       Pl => "të"
+                                     } ;
+                             Fem => table {
+                                      Sg => "e" ;
+                                      Pl => "të"
+                                    }
+                           } ;
+                    _ => \\_,_ => "të"
+                  } ;
+         Def => table {
+                    Nom => table {
+                             Masc => table {
+                                       Sg => "i" ;
+                                       Pl => "e"
+                                     } ;
+                             Fem => table {
+                                      Sg => "e" ;
+                                      Pl => "e"
+                                    }
+                           } ;
+                    Acc => \\_,_ => "e" ;
+                    _   => table {
+                             Masc => \\_ => "të" ;
+                             Fem => table {
+                                      Sg => "së" ;
+                                      Pl => "të"
+                                    }
+                           }
+                  }
+          } ;
 }

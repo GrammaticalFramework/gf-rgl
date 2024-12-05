@@ -1,4 +1,4 @@
-resource MorphoSqi = open CatSqi, ResSqi, Predef in {
+resource MorphoSqi = open CatSqi, ResSqi, Predef, Prelude in {
 
 oper
 
@@ -25544,7 +25544,8 @@ mkA001 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA002 : Str -> A ;
@@ -25591,7 +25592,8 @@ mkA002 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA003 : Str -> A ;
@@ -25638,7 +25640,8 @@ mkA003 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA004 : Str -> A ;
@@ -25686,7 +25689,8 @@ mkA004 base =
                                   Pl => base_1+"ak"
                                 }
                        }
-            }
+            } ;
+        clit = False
       };
     _ => error "Can't apply paradigm mkA004"
   } ;
@@ -25735,7 +25739,8 @@ mkA005 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA006 : Str -> A ;
@@ -25783,7 +25788,8 @@ mkA006 base =
                                   Pl => base_1+"e"+base_2
                                 }
                        }
-            }
+            } ;
+        clit = True
       };
     _ => error "Can't apply paradigm mkA006"
   } ;
@@ -25832,7 +25838,8 @@ mkA007 base_1 =
                               Pl => base_1+"e"
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA008 : Str -> A ;
@@ -25879,7 +25886,8 @@ mkA008 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+    clit = True
   } ;
 
 mkA009 : Str -> A ;
@@ -25927,7 +25935,8 @@ mkA009 base =
                                   Pl => base_1+"a"+base_2
                                 }
                        }
-            }
+            } ;
+        clit = True
       };
     _ => error "Can't apply paradigm mkA009"
   } ;
@@ -25977,7 +25986,8 @@ mkA010 base =
                                   Pl => "t"+base_1+"a"
                                 }
                        }
-            }
+            } ;
+        clit = False
       };
     _ => error "Can't apply paradigm mkA010"
   } ;
@@ -26027,7 +26037,8 @@ mkA011 base =
                                   Pl => "to"+base_1+"a"
                                 }
                        }
-            }
+            } ;
+        clit = False
       };
     _ => error "Can't apply paradigm mkA011"
   } ;
@@ -26077,7 +26088,8 @@ mkA012 base =
                                   Pl => base_1+"ë"
                                 }
                        }
-            }
+            } ;
+        clit = True
       };
     _ => error "Can't apply paradigm mkA012"
   } ;
@@ -26126,7 +26138,8 @@ mkA013 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+     clit = False
   } ;
 
 mkA014 : Str -> A ;
@@ -26174,7 +26187,8 @@ mkA014 base =
                                   Pl => base_1+"u"+base_2+"r"
                                 }
                        }
-            }
+            } ;
+        clit = True
       };
     _ => error "Can't apply paradigm mkA014"
   } ;
@@ -26223,7 +26237,8 @@ mkA015 base_1 =
                               Pl => base_1
                             }
                    }
-        }
+        } ;
+     clit = True
   } ;
 
 mkV001 : Str -> V ;

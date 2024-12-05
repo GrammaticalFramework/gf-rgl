@@ -27,15 +27,21 @@ lin InflectionA = \x -> {
       s1="" ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Nom" ++ th "Masc" ++ td (x.s ! Nom ! Masc ! Sg) ++ td (x.s ! Nom ! Masc ! Pl)) ++
-           tr (th "Fem" ++ td (x.s ! Nom ! Fem ! Sg) ++ td (x.s ! Nom ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Acc" ++ th "Masc" ++ td (x.s ! Acc ! Masc ! Sg) ++ td (x.s ! Acc ! Masc ! Pl)) ++
-           tr (th "Fem" ++ td (x.s ! Acc ! Fem ! Sg) ++ td (x.s ! Acc ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Dat" ++ th "Masc" ++ td (x.s ! Dat ! Masc ! Sg) ++ td (x.s ! Dat ! Masc ! Pl)) ++
-           tr (th "Fem" ++ td (x.s ! Dat ! Fem ! Sg) ++ td (x.s ! Dat ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Ablat" ++ th "Masc" ++ td (x.s ! Ablat ! Masc ! Sg) ++ td (x.s ! Ablat ! Masc ! Pl)) ++
-           tr (th "Fem" ++ td (x.s ! Ablat ! Fem ! Sg) ++ td (x.s ! Ablat ! Fem ! Pl))) ;
+           tr (intagAttr "th" "rowspan=\"2\"" "Nom" ++ th "Masc" ++ td (y ! Nom ! Masc ! Sg) ++ td (y ! Nom ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (y ! Nom ! Fem ! Sg) ++ td (y ! Nom ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Acc" ++ th "Masc" ++ td (y ! Acc ! Masc ! Sg) ++ td (y ! Acc ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (y ! Acc ! Fem ! Sg) ++ td (y ! Acc ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Dat" ++ th "Masc" ++ td (y ! Dat ! Masc ! Sg) ++ td (y ! Dat ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (y ! Dat ! Fem ! Sg) ++ td (y ! Dat ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Ablat" ++ th "Masc" ++ td (y ! Ablat ! Masc ! Sg) ++ td (y ! Ablat ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (y ! Ablat ! Fem ! Sg) ++ td (y ! Ablat ! Fem ! Pl))) ;
       s3=[]
+    } where {
+        y : Case => Gender => Number => Str =
+          \\c,g,n => case x.clit of {
+                       True  => link_clitic ! Indef ! c ! g ! n ++ x.s ! c ! g ! n ;
+                       False => x.s ! c ! g ! n
+                     } ;
     } ;
 lin InflectionV = \x -> {
       t="verb" ;
