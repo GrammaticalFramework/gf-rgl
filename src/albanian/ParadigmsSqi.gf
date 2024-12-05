@@ -1231,8 +1231,78 @@ mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-mkQuant : Str -> Quant = \s -> lin Quant {s=s; spec=Indef} ;
-mkDet : Str -> Number -> Det = \s,n -> lin Det {s=s; spec=Indef; n=n} ;
+
+oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->  lin Quant
+          { s = table {
+                  Nom => table {
+                           Masc => table {
+                                     Sg => f1 ;
+                                     Pl => f2
+                                   } ;
+                           Fem => table {
+                                    Sg => f3 ;
+                                    Pl => f4
+                                  }
+                         } ;
+                  Acc => table {
+                           Masc => table {
+                                     Sg => f5 ;
+                                     Pl => f6
+                                   } ;
+                           Fem => table {
+                                    Sg => f7 ;
+                                    Pl => f8
+                                  }
+                         } ;
+                  Dat => table {
+                           Masc => table {
+                                     Sg => f9 ;
+                                     Pl => f10
+                                   } ;
+                           Fem => table {
+                                    Sg => f11 ;
+                                    Pl => f12
+                                  }
+                         } ;
+                  Ablat => table {
+                             Masc => table {
+                                       Sg => f13 ;
+                                       Pl => f14
+                                     } ;
+                             Fem => table {
+                                      Sg => f15 ;
+                                      Pl => f16
+                                    }
+                           }
+                } ;
+            spec = Indef
+          } ;
+
+oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
+       \f1,f2,f3,f4,f5,f6,f7,f8,n -> lin Det
+          { s = table {
+                  Nom => table {
+                           Masc => f1 ;
+                           Fem => f2
+                         } ;
+                  Acc => table {
+                           Masc => f3 ;
+                           Fem => f4
+                         } ;
+                  Dat => table {
+                           Masc => f5 ;
+                           Fem => f6
+                         } ;
+                  Ablat => table {
+                             Masc => f7 ;
+                             Fem => f8
+                           }
+                } ;
+            spec = Indef ;
+            n = n
+          } ;
+
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
 

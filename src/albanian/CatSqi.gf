@@ -19,8 +19,8 @@ lincat Decimal = {s : Str; n : Number; hasDot : Bool} ;
 lincat AP = {s: Species => Case => Gender => Number => Str} ;
 lincat CN = Noun ;
 lincat Num = {s : Str; n : Number} ;
-lincat Quant = {s : Str; spec : Species} ;
-lincat Det = {s : Str; spec : Species; n : Number} ;
+lincat Quant = {s : Case => Gender => Number => Str; spec : Species} ;
+lincat Det = {s : Case => Gender => Str; spec : Species; n : Number} ;
 lincat NP = {s: Case => Str; a : Agr} ;
 lincat Pron = {s: Case => Str; acc_clit, dat_clit : Str; a : Agr} ;
 
