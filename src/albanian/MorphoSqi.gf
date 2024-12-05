@@ -25507,41 +25507,41 @@ mkA001 base_1 =
           Nom => table {
                    Masc => table {
                              Sg => base_1 ;
-                             Pl => base_1+"ë" --guessed
+                             Pl => base_1
                            } ;
                    Fem => table {
                             Sg => base_1+"e" ;
-                            Pl => base_1+"e" --guessed
+                            Pl => base_1+"e"
                           }
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }
@@ -25563,32 +25563,32 @@ mkA002 base_1 =
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }
@@ -25601,41 +25601,41 @@ mkA003 base_1 =
           Nom => table {
                    Masc => table {
                              Sg => base_1 ;
-                             Pl => nonExist
+                             Pl => base_1
                            } ;
                    Fem => table {
                             Sg => base_1+"ë" ;
-                            Pl => nonExist
+                            Pl => base_1+"ë"
                           }
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }
@@ -25653,37 +25653,37 @@ mkA004 base =
                                } ;
                        Fem => table {
                                 Sg => base_1+"akë" ;
-                                Pl => nonExist
+                                Pl => base_1+"akë"
                               }
                      } ;
               Acc => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"ak" ;
+                                 Pl => base_1+"ak"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"ak" ;
+                                Pl => base_1+"ak"
                               }
                      } ;
               Dat => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"ak" ;
+                                 Pl => base_1+"ak"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"ak" ;
+                                Pl => base_1+"ak"
                               }
                      } ;
               Ablat => table {
                          Masc => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"ak" ;
+                                   Pl => base_1+"ak"
                                  } ;
                          Fem => table {
-                                  Sg => nonExist ;
-                                  Pl => nonExist
+                                  Sg => base_1+"ak" ;
+                                  Pl => base_1+"ak"
                                 }
                        }
             }
@@ -25707,32 +25707,32 @@ mkA005 base_1 =
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }
@@ -25755,32 +25755,32 @@ mkA006 base =
                      } ;
               Acc => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"e"+base_2 ;
+                                 Pl => base_1+"e"+base_2
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"e"+base_2 ;
+                                Pl => base_1+"e"+base_2
                               }
                      } ;
               Dat => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"e"+base_2 ;
+                                 Pl => base_1+"e"+base_2
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"e"+base_2 ;
+                                Pl => base_1+"e"+base_2
                               }
                      } ;
               Ablat => table {
                          Masc => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"e"+base_2 ;
+                                   Pl => base_1+"e"+base_2
                                  } ;
                          Fem => table {
-                                  Sg => nonExist ;
-                                  Pl => nonExist
+                                  Sg => base_1+"e"+base_2 ;
+                                  Pl => base_1+"e"+base_2
                                 }
                        }
             }
@@ -25795,48 +25795,95 @@ mkA007 base_1 =
           Nom => table {
                    Masc => table {
                              Sg => base_1 ;
-                             Pl => base_1 --guessed
+                             Pl => base_1+"e"
                            } ;
                    Fem => table {
-                            Sg => base_1+"e" ; --guessed
-                            Pl => base_1+"e" --guessed
+                            Sg => base_1+"e" ;
+                            Pl => base_1+"e"
                           }
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1+"e" ;
+                             Pl => base_1+"e"
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1+"e" ;
+                            Pl => base_1+"e"
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1+"e" ;
+                             Pl => base_1+"e"
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1+"e" ;
+                            Pl => base_1+"e"
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1+"e" ;
+                               Pl => base_1+"e"
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1+"e" ;
+                              Pl => base_1+"e"
                             }
                    }
         }
   } ;
 
 mkA008 : Str -> A ;
-mkA008 base =
+mkA008 base_1 =
+  lin A
+  { s = table {
+          Nom => table {
+                   Masc => table {
+                             Sg => base_1 ;
+                             Pl => base_1
+                           } ;
+                   Fem => table {
+                            Sg => base_1+"e" ;
+                            Pl => base_1
+                          }
+                 } ;
+          Acc => table {
+                   Masc => table {
+                             Sg => base_1 ;
+                             Pl => base_1
+                           } ;
+                   Fem => table {
+                            Sg => base_1 ;
+                            Pl => base_1
+                          }
+                 } ;
+          Dat => table {
+                   Masc => table {
+                             Sg => base_1 ;
+                             Pl => base_1
+                           } ;
+                   Fem => table {
+                            Sg => base_1 ;
+                            Pl => base_1
+                          }
+                 } ;
+          Ablat => table {
+                     Masc => table {
+                               Sg => base_1 ;
+                               Pl => base_1
+                             } ;
+                     Fem => table {
+                              Sg => base_1 ;
+                              Pl => base_1
+                            }
+                   }
+        }
+  } ;
+
+mkA009 : Str -> A ;
+mkA009 base =
   case base of {
     base_1+"a"+base_2@(?+?) => lin A
       { s = table {
@@ -25852,41 +25899,41 @@ mkA008 base =
                      } ;
               Acc => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"a"+base_2 ;
+                                 Pl => base_1+"a"+base_2
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"a"+base_2 ;
+                                Pl => base_1+"a"+base_2
                               }
                      } ;
               Dat => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"a"+base_2 ;
+                                 Pl => base_1+"a"+base_2
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"a"+base_2 ;
+                                Pl => base_1+"a"+base_2
                               }
                      } ;
               Ablat => table {
                          Masc => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"a"+base_2 ;
+                                   Pl => base_1+"a"+base_2
                                  } ;
                          Fem => table {
-                                  Sg => nonExist ;
-                                  Pl => nonExist
+                                  Sg => base_1+"a"+base_2 ;
+                                  Pl => base_1+"a"+base_2
                                 }
                        }
             }
       };
-    _ => error "Can't apply paradigm mkA008"
+    _ => error "Can't apply paradigm mkA009"
   } ;
 
-mkA009 : Str -> A ;
-mkA009 base =
+mkA010 : Str -> A ;
+mkA010 base =
   case base of {
     "j"+base_1 => lin A
       { s = table {
@@ -25932,11 +25979,11 @@ mkA009 base =
                        }
             }
       };
-    _ => error "Can't apply paradigm mkA009"
+    _ => error "Can't apply paradigm mkA010"
   } ;
 
-mkA010 : Str -> A ;
-mkA010 base =
+mkA011 : Str -> A ;
+mkA011 base =
   case base of {
     "y"+base_1+"ë" => lin A
       { s = table {
@@ -25982,104 +26029,57 @@ mkA010 base =
                        }
             }
       };
-    _ => error "Can't apply paradigm mkA010"
+    _ => error "Can't apply paradigm mkA011"
   } ;
 
-mkA011 : Str -> A ;
-mkA011 base =
+mkA012 : Str -> A ;
+mkA012 base =
   case base of {
     base_1+"ë" => lin A
       { s = table {
               Nom => table {
                        Masc => table {
                                  Sg => base_1+"ë" ;
-                                 Pl => nonExist
+                                 Pl => base_1+"ë"
                                } ;
                        Fem => table {
                                 Sg => base_1+"a" ;
-                                Pl => nonExist
+                                Pl => base_1+"a"
                               }
                      } ;
               Acc => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"ë" ;
+                                 Pl => base_1+"ë"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"ë" ;
+                                Pl => base_1+"ë"
                               }
                      } ;
               Dat => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"ë" ;
+                                 Pl => base_1+"ë"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"ë" ;
+                                Pl => base_1+"ë"
                               }
                      } ;
               Ablat => table {
                          Masc => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"ë" ;
+                                   Pl => base_1+"ë"
                                  } ;
                          Fem => table {
-                                  Sg => nonExist ;
-                                  Pl => nonExist
+                                  Sg => base_1+"ë" ;
+                                  Pl => base_1+"ë"
                                 }
                        }
             }
       };
-    _ => error "Can't apply paradigm mkA011"
-  } ;
-
-mkA012 : Str -> A ;
-mkA012 base_1 =
-  lin A
-  { s = table {
-          Nom => table {
-                   Masc => table {
-                             Sg => base_1 ;
-                             Pl => base_1
-                           } ;
-                   Fem => table {
-                            Sg => base_1+"e" ;
-                            Pl => base_1+"e"
-                          }
-                 } ;
-          Acc => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Dat => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Ablat => table {
-                     Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
-                             } ;
-                     Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
-                            }
-                   }
-        }
+    _ => error "Can't apply paradigm mkA012"
   } ;
 
 mkA013 : Str -> A ;
@@ -26089,192 +26089,98 @@ mkA013 base_1 =
           Nom => table {
                    Masc => table {
                              Sg => base_1 ;
-                             Pl => nonExist
+                             Pl => base_1
                            } ;
                    Fem => table {
                             Sg => base_1+"ε" ;
-                            Pl => nonExist
+                            Pl => base_1+"ε"
                           }
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }
   } ;
 
 mkA014 : Str -> A ;
-mkA014 base_1 =
-  lin A
-  { s = table {
-          Nom => table {
-                   Masc => table {
-                             Sg => base_1 ;
-                             Pl => base_1
-                           } ;
-                   Fem => table {
-                            Sg => base_1+"e" ;
-                            Pl => base_1
-                          }
-                 } ;
-          Acc => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Dat => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Ablat => table {
-                     Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
-                             } ;
-                     Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
-                            }
-                   }
-        }
-  } ;
-
-mkA015 : Str -> A ;
-mkA015 base =
+mkA014 base =
   case base of {
     base_1+"u"+base_2@?+"r" => lin A
       { s = table {
               Nom => table {
                        Masc => table {
                                  Sg => base_1+"u"+base_2+"r" ;
-                                 Pl => nonExist
+                                 Pl => base_1+"u"+base_2+"r"
                                } ;
                        Fem => table {
                                 Sg => base_1+"or"+base_2 ;
-                                Pl => nonExist
+                                Pl => base_1+"or"+base_2
                               }
                      } ;
               Acc => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"u"+base_2+"r" ;
+                                 Pl => base_1+"u"+base_2+"r"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"u"+base_2+"r" ;
+                                Pl => base_1+"u"+base_2+"r"
                               }
                      } ;
               Dat => table {
                        Masc => table {
-                                 Sg => nonExist ;
-                                 Pl => nonExist
+                                 Sg => base_1+"u"+base_2+"r" ;
+                                 Pl => base_1+"u"+base_2+"r"
                                } ;
                        Fem => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"u"+base_2+"r" ;
+                                Pl => base_1+"u"+base_2+"r"
                               }
                      } ;
               Ablat => table {
                          Masc => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"u"+base_2+"r" ;
+                                   Pl => base_1+"u"+base_2+"r"
                                  } ;
                          Fem => table {
-                                  Sg => nonExist ;
-                                  Pl => nonExist
+                                  Sg => base_1+"u"+base_2+"r" ;
+                                  Pl => base_1+"u"+base_2+"r"
                                 }
                        }
             }
       };
-    _ => error "Can't apply paradigm mkA015"
+    _ => error "Can't apply paradigm mkA014"
   } ;
 
-mkA016 : Str -> A ;
-mkA016 base_1 =
-  lin A
-  { s = table {
-          Nom => table {
-                   Masc => table {
-                             Sg => base_1 ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => base_1 ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Acc => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Dat => table {
-                   Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
-                           } ;
-                   Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
-                          }
-                 } ;
-          Ablat => table {
-                     Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
-                             } ;
-                     Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
-                            }
-                   }
-        }
-  } ;
-
-mkA017 : Str -> A ;
-mkA017 base_1 =
+mkA015 : Str -> A ;
+mkA015 base_1 =
   lin A
   { s = table {
           Nom => table {
@@ -26283,38 +26189,38 @@ mkA017 base_1 =
                              Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => base_1+"e" ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Acc => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Dat => table {
                    Masc => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base_1 ;
+                             Pl => base_1
                            } ;
                    Fem => table {
-                            Sg => nonExist ;
-                            Pl => nonExist
+                            Sg => base_1 ;
+                            Pl => base_1
                           }
                  } ;
           Ablat => table {
                      Masc => table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1 ;
+                               Pl => base_1
                              } ;
                      Fem => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1 ;
+                              Pl => base_1
                             }
                    }
         }

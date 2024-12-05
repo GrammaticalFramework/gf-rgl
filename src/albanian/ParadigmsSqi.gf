@@ -959,7 +959,7 @@ oper
 		_ + "riq" => mkA002 form;
 		_ + "ond" => mkA002 form;
 		_ + "al" => mkA002 form;
-		_ + "re" => mkA014 form;
+		_ + "re" => mkA008 form;
 		_ + "kt" => mkA002 form;
 		_ + "it" => mkA002 form;
 		_ + "ar" => mkA001 form;
@@ -1002,14 +1002,18 @@ oper
   reg2A : Str -> Str -> A   -- s;Nom;Masc;Sg  s;Nom;Masc;Pl
     = \form1, form2 -> case <form1, form2> of {
 		<_ + "nor", _ + "ë"> => mkA002 form1;
+		<_ + "al", _ + "l"> => mkA001 form1;
 		<_ + "ar", _ + "ë"> => mkA002 form1;
-		<_ + "ar", _ + "r"> => mkA012 form1;
+		<_ + "ek", _ + "e"> => mkA007 form1;
 		<_ + "ak", _ + "ë"> => mkA002 form1;
 		<_ + "n", _ + "ë"> => mkA002 form1;
+		<_ + "n", _ + "e"> => mkA007 form1;
 		<_ + "t", _ + "ë"> => mkA002 form1;
-		<_ + "s", _ + "s"> => mkA012 form1;
+		<_ + "r", _ + "r"> => mkA001 form1;
 		<_ + "r", _ + "e"> => mkA005 form1;
-		<_ + "h", _ + "j"> => mkA008 form1;
+		<_ + "v", _ + "v"> => mkA001 form1;
+		<_ + "k", _ + "k"> => mkA001 form1;
+		<_ + "h", _ + "j"> => mkA009 form1;
 		_ => regA form1
   } ;
 
