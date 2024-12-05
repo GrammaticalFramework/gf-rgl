@@ -1,4 +1,4 @@
-resource ResSqi = ParamX [Number,Person] ** {
+resource ResSqi = ParamX-[Tense,Past,Pres] ** {
 
 oper Compl = {s : Str} ;
 
