@@ -26,22 +26,15 @@ lin InflectionA = \x -> {
       t="adj" ;
       s1="" ;
       s2=frameTable (
-           tr (intagAttr "th" "rowspan=\"16\"" "s" ++ intagAttr "th" "rowspan=\"4\"" "Nom" ++ intagAttr "th" "rowspan=\"2\"" "Masc" ++ th "Sg" ++ td (x.s ! Nom ! Masc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Nom ! Masc ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Fem" ++ th "Sg" ++ td (x.s ! Nom ! Fem ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Nom ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"4\"" "Acc" ++ intagAttr "th" "rowspan=\"2\"" "Masc" ++ th "Sg" ++ td (x.s ! Acc ! Masc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Acc ! Masc ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Fem" ++ th "Sg" ++ td (x.s ! Acc ! Fem ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Acc ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"4\"" "Dat" ++ intagAttr "th" "rowspan=\"2\"" "Masc" ++ th "Sg" ++ td (x.s ! Dat ! Masc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Dat ! Masc ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Fem" ++ th "Sg" ++ td (x.s ! Dat ! Fem ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Dat ! Fem ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"4\"" "Ablat" ++ intagAttr "th" "rowspan=\"2\"" "Masc" ++ th "Sg" ++ td (x.s ! Ablat ! Masc ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Ablat ! Masc ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Fem" ++ th "Sg" ++ td (x.s ! Ablat ! Fem ! Sg)) ++
-           tr (th "Pl" ++ td (x.s ! Ablat ! Fem ! Pl))) ;
+           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Nom" ++ th "Masc" ++ td (x.s ! Nom ! Masc ! Sg) ++ td (x.s ! Nom ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (x.s ! Nom ! Fem ! Sg) ++ td (x.s ! Nom ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Acc" ++ th "Masc" ++ td (x.s ! Acc ! Masc ! Sg) ++ td (x.s ! Acc ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (x.s ! Acc ! Fem ! Sg) ++ td (x.s ! Acc ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Dat" ++ th "Masc" ++ td (x.s ! Dat ! Masc ! Sg) ++ td (x.s ! Dat ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (x.s ! Dat ! Fem ! Sg) ++ td (x.s ! Dat ! Fem ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Ablat" ++ th "Masc" ++ td (x.s ! Ablat ! Masc ! Sg) ++ td (x.s ! Ablat ! Masc ! Pl)) ++
+           tr (th "Fem" ++ td (x.s ! Ablat ! Fem ! Sg) ++ td (x.s ! Ablat ! Fem ! Pl))) ;
       s3=[]
     } ;
 lin InflectionV = \x -> {
