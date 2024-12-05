@@ -1,4 +1,4 @@
-concrete LexiconAlb of Lexicon = CatAlb ** open ParadigmsAlb in {
+concrete LexiconSqi of Lexicon = CatSqi ** open ParadigmsSqi in {
 
 lin
   airplane_N = mkN032 "aeroplan" ;

@@ -1,6 +1,5 @@
 Code,Name,Directory,Functor,Unlexer,Present,All,Try,Symbolic,Compatibility,Synopsis
 Afr,Afrikaans,afrikaans,,,,,,n,,y
-Alb,Albanian,albanian,,,,y,n,n,n,y
 Amh,Amharic,amharic,,,,,n,n,,n
 Ara,Arabic,arabic,,,,,,y,,y
 Bul,Bulgarian,bulgarian,,,y,,,,,y
@@ -47,6 +46,7 @@ Slo,Slovak,slovak,,,,,,n,,y
 Slv,Slovenian,slovenian,,,,,n,n,,n
 Snd,Sindhi,sindhi,,,,,,,,y
 Spa,Spanish,spanish,Romance,,y,,,,y,y
+Sqi,Albanian,albanian,,,,y,n,n,n,y
 Swa,Swahili,swahili,Bantu,,,y,n,n,n,n
 Swe,Swedish,swedish,Scand,,y,,,,y,y
 Tam,Tamil,tamil,n,n,n,n,n,n,n,n

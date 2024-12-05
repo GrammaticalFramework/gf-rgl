@@ -1,4 +1,4 @@
-concrete CatAlb of Cat = CommonX ** open ParamX, Prelude, ResAlb in {
+concrete CatSqi of Cat = CommonX ** open ParamX, Prelude, ResSqi in {
 
 lincat N = Noun ;
 lincat N2 = Noun ** {c2 : Compl} ;

@@ -1,5 +1,5 @@
-concrete DocumentationAlb of Documentation = CatAlb ** open
-  ParamX, ResAlb, Prelude, HTML in {
+concrete DocumentationSqi of Documentation = CatSqi ** open
+  ParamX, ResSqi, Prelude, HTML in {
 
 lincat
   Inflection = {t : Str; s1,s2,s3 : Str} ;

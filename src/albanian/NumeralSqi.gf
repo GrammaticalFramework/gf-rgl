@@ -1,4 +1,4 @@
-concrete NumeralAlb of Numeral = CatAlb ** open ParamX, Prelude in {
+concrete NumeralSqi of Numeral = CatSqi ** open ParamX, Prelude in {
 
 oper bind : Str -> Str -> Str = \a -> \b -> a ++ b ;
 
