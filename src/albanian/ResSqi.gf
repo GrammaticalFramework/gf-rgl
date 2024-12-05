@@ -2,9 +2,13 @@ resource ResSqi = ParamX-[Tense,Past,Pres] ** open Prelude in {
 
 oper Compl = {s : Str} ;
 
-param Species = Def | Indef ;
+param Species = Indef | Def ;
 param Case = Nom | Acc | Dat | Ablat ;
 param Gender = Masc | Fem ;
+
+param GenNum = GSg Gender | GPl ;
+oper Agr = {gn : GenNum; p : Person} ;
+
 oper Noun = {s: Species => Case => Number => Str; g: Gender} ; -- 3978
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,g ->
@@ -244,4 +248,14 @@ oper link_clitic : Species => Case => Gender => Number => Str =
                            }
                   }
           } ;
+
+oper genNum : Gender -> Number -> GenNum = \g,n ->
+       case n of {
+         Sg => GSg g ;
+         Pl => GPl
+       } ;
+
+     agrgP3 : Gender -> Number -> Agr = 
+       \g,n -> {gn=genNum g n; p=P3} ;
+
 }

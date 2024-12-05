@@ -1,4 +1,9 @@
 resource ParadigmsSqi = MorphoSqi  ** open Predef, Prelude, CatSqi, ResSqi in {
+
+oper
+  singular : Number = Sg ;
+  plural   : Number = Pl ;
+
 oper
   regN : Str -> N   -- s;Indef;Nom;Sg
     = \form -> case form of {
@@ -1226,8 +1231,8 @@ mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-mkQuant : Str -> Quant = \s -> lin Quant {s=s} ;
-mkDet : Str -> Det = \s -> lin Det {s=s} ;
+mkQuant : Str -> Quant = \s -> lin Quant {s=s; spec=Indef} ;
+mkDet : Str -> Number -> Det = \s,n -> lin Det {s=s; spec=Indef; n=n} ;
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
 mkPron : Str -> Pron = \s -> lin Pron {s=s} ;

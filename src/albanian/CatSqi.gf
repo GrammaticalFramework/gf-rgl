@@ -16,4 +16,11 @@ lincat Numeral = {s : Str} ;
 lincat Digits  = {s : Str; n : Number; tail : DTail} ;
 lincat Decimal = {s : Str; n : Number; hasDot : Bool} ;
 
+lincat AP = {s: Species => Case => Gender => Number => Str} ;
+lincat CN = Noun ;
+lincat Num = {s : Str; n : Number} ;
+lincat Quant = {s : Str; spec : Species} ;
+lincat Det = {s : Str; spec : Species; n : Number} ;
+lincat NP = {s: Case => Str; a : Agr} ;
+
 }
