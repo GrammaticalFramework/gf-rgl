@@ -12,5 +12,8 @@ lin this_Quant = mkQuant "ky"    "këta"     "kjo"   "këto"
                          "këtë"  "këtyre"   "këtë"  "këtyre"
                          "këtij" "këtyre"   "kësaj" "këtyre"
                          "këtij" "këtyre"   "kësaj" "këtyre" ;
-
+lin that_Quant = mkQuant "ai"   "ata"   "ajo"  "ato"
+                         "atë"  "ata"   "atë"  "ato"
+                         "atij" "atyre" "asaj" "atyre"
+                         "atij" "atyre" "asaj" "atyre" ;
 }
