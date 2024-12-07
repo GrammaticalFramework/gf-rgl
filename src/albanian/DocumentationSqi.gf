@@ -8,8 +8,12 @@ lincat
   Tag        = {s : Str} ;
 
 lin InflectionN = \x -> {
-      t="noun" ;
-      s1="" ;
+      t="em" ;
+      s1=heading1 ("Emër" ++
+                   case x.g of {
+                     Masc => "(mashkullor)" ;
+                     Fem  => "(femëror")
+                   }) ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Indef" ++ th "Nom" ++ td (x.s ! Indef ! Nom ! Sg) ++ td (x.s ! Indef ! Nom ! Pl)) ++
@@ -23,8 +27,8 @@ lin InflectionN = \x -> {
       s3=[]
     } ;
 lin InflectionA = \x -> {
-      t="adj" ;
-      s1="" ;
+      t="mb" ;
+      s1=heading1 "Mbiemër" ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
            tr (intagAttr "th" "rowspan=\"2\"" "Nom" ++ th "Masc" ++ td (y ! Nom ! Masc ! Sg) ++ td (y ! Nom ! Masc ! Pl)) ++
@@ -44,8 +48,8 @@ lin InflectionA = \x -> {
                      } ;
     } ;
 lin InflectionV = \x -> {
-      t="verb" ;
-      s1="" ;
+      t="fl" ;
+      s1=heading1 "Folje" ;
       s2=frameTable (
            tr (intagAttr "th" "rowspan=\"24\"" "Indicative" ++ intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.Indicative ! Pres ! Sg ! P1)) ++
            tr (th "P2" ++ td (x.Indicative ! Pres ! Sg ! P2)) ++
@@ -101,8 +105,8 @@ lin InflectionV = \x -> {
       s3=[]
     } ;
 lin InflectionAdv = \x -> {
-      t="adv" ;
-      s1="" ;
+      t="nd" ;
+      s1=heading1 "Ndajfolje" ;
       s2=frameTable (
            tr (th "s" ++ td (x.s))) ;
       s3=[]
