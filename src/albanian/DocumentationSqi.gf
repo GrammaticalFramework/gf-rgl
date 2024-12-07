@@ -12,7 +12,7 @@ lin InflectionN = \x -> {
       s1=heading1 ("Emër" ++
                    case x.g of {
                      Masc => "(mashkullor)" ;
-                     Fem  => "(femëror")
+                     Fem  => "(femëror)"
                    }) ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
