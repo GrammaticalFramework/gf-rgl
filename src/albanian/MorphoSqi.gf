@@ -7824,11 +7824,11 @@ mkN174 base =
                                   Pl => base_1+"ë"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -10323,11 +10323,11 @@ mkN228 base =
                                   Pl => "e"+base_1+"ë"
                                 } ;
                          Dat => table {
-                                  Sg => "a"+base_1+"ëe" ; --guessed
+                                  Sg => "a"+base_1+"ë" ; --guessed
                                   Pl => "a"+base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => "a"+base_1+"ëe" ; --guessed
+                                    Sg => "a"+base_1+"ë" ; --guessed
                                     Pl => "a"+base_1+"ësh" --guessed
                                   }
                        } ;
@@ -11964,11 +11964,11 @@ mkN264 base =
                                   Pl => base_1+"gë"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"dhëe" ; --guessed
+                                  Sg => base_1+"dhë" ; --guessed
                                   Pl => base_1+"dhëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"dhëe" ; --guessed
+                                    Sg => base_1+"dhë" ; --guessed
                                     Pl => base_1+"dhësh" --guessed
                                   }
                        } ;
@@ -12742,11 +12742,11 @@ mkN281 base =
                                   Pl => base_1+"ý"+base_2+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"y"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"y"+base_2+"ë" ; --guessed
                                   Pl => base_1+"y"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"y"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"y"+base_2+"ë" ; --guessed
                                     Pl => base_1+"y"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -13664,11 +13664,11 @@ mkN301 base =
                                   Pl => base_1+"u"+base_2+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"u"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"u"+base_2+"ë" ; --guessed
                                   Pl => base_1+"u"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"u"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"u"+base_2+"ë" ; --guessed
                                     Pl => base_1+"u"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -13943,11 +13943,11 @@ mkN307 base =
                                   Pl => base_1+"ra"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -14498,11 +14498,11 @@ mkN319 base =
                                   Pl => base_1+"ë"+base_2+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"e"+base_2+"ë" ; --guessed
                                   Pl => base_1+"e"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"e"+base_2+"ë" ; --guessed
                                     Pl => base_1+"e"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -14545,11 +14545,11 @@ mkN320 base =
                                   Pl => base_1+"ë"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -14592,11 +14592,11 @@ mkN321 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -14909,11 +14909,11 @@ mkN328 base =
                                   Pl => base_1+"e"+base_2
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"a"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"a"+base_2+"ë" ; --guessed
                                   Pl => base_1+"a"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"a"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"a"+base_2+"ë" ; --guessed
                                     Pl => base_1+"a"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -15000,11 +15000,11 @@ mkN330 base =
                                   Pl => base_1+base_2+"l"+base_3+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+base_2+"l"+base_3+"ëe" ; --guessed
+                                  Sg => base_1+base_2+"l"+base_3+"ë" ; --guessed
                                   Pl => base_1+base_2+"l"+base_3+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+base_2+"l"+base_3+"ëe" ; --guessed
+                                    Sg => base_1+base_2+"l"+base_3+"ë" ; --guessed
                                     Pl => base_1+base_2+"l"+base_3+"ësh" --guessed
                                   }
                        } ;
@@ -15276,11 +15276,11 @@ mkN336 base =
                                   Pl => base_1+"je"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"lëe" ; --guessed
+                                  Sg => base_1+"lë" ; --guessed
                                   Pl => base_1+"lëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"lëe" ; --guessed
+                                    Sg => base_1+"lë" ; --guessed
                                     Pl => base_1+"lësh" --guessed
                                   }
                        } ;
@@ -15323,11 +15323,11 @@ mkN337 base =
                                   Pl => base_1+"j"+base_2+"e"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"l"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"l"+base_2+"ë" ; --guessed
                                   Pl => base_1+"l"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"l"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"l"+base_2+"ë" ; --guessed
                                     Pl => base_1+"l"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -15461,11 +15461,11 @@ mkN340 base =
                                   Pl => nonExist
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -15508,11 +15508,11 @@ mkN341 base =
                                   Pl => base_1+"lla"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"llëe" ; --guessed
+                                  Sg => base_1+"llë" ; --guessed
                                   Pl => base_1+"llëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"llëe" ; --guessed
+                                    Sg => base_1+"llë" ; --guessed
                                     Pl => base_1+"llësh" --guessed
                                   }
                        } ;
@@ -15790,11 +15790,11 @@ mkN347 base =
                                   Pl => base_1+"je"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"llëe" ; --guessed
+                                  Sg => base_1+"llë" ; --guessed
                                   Pl => base_1+"llëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"llëe" ; --guessed
+                                    Sg => base_1+"llë" ; --guessed
                                     Pl => base_1+"llësh" --guessed
                                   }
                        } ;
@@ -15884,11 +15884,11 @@ mkN349 base =
                                   Pl => "r"+base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -16768,11 +16768,11 @@ mkN368 base =
                                   Pl => base_1+base_2+"e"+base_3+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ë"+base_2+base_3+"ëe" ; --guessed
+                                  Sg => base_1+"ë"+base_2+base_3+"ë" ; --guessed
                                   Pl => base_1+"ë"+base_2+base_3+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ë"+base_2+base_3+"ëe" ; --guessed
+                                    Sg => base_1+"ë"+base_2+base_3+"ë" ; --guessed
                                     Pl => base_1+"ë"+base_2+base_3+"ësh" --guessed
                                   }
                        } ;
@@ -17138,11 +17138,11 @@ mkN376 base =
                                   Pl => "r"+base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => "r"+base_1+"ëe" ; --guessed
+                                  Sg => "r"+base_1+"ë" ; --guessed
                                   Pl => "r"+base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => "r"+base_1+"ëe" ; --guessed
+                                    Sg => "r"+base_1+"ë" ; --guessed
                                     Pl => "r"+base_1+"ësh" --guessed
                                   }
                        } ;
@@ -17185,11 +17185,11 @@ mkN377 base =
                                   Pl => base_1+"r"+base_2+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+base_2+"ëe" ; --guessed
+                                  Sg => base_1+base_2+"ë" ; --guessed
                                   Pl => base_1+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+base_2+"ëe" ; --guessed
+                                    Sg => base_1+base_2+"ë" ; --guessed
                                     Pl => base_1+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -17467,11 +17467,11 @@ mkN383 base =
                                   Pl => nonExist
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ë"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"ë"+base_2+"ë" ; --guessed
                                   Pl => base_1+"ë"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ë"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"ë"+base_2+"ë" ; --guessed
                                     Pl => base_1+"ë"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -17790,11 +17790,11 @@ mkN390 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -17837,11 +17837,11 @@ mkN391 base =
                                   Pl => base_1+"ë"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"gëe" ; --guessed
+                                  Sg => base_1+"gë" ; --guessed
                                   Pl => base_1+"gëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"gëe" ; --guessed
+                                    Sg => base_1+"gë" ; --guessed
                                     Pl => base_1+"gësh" --guessed
                                   }
                        } ;
@@ -18110,11 +18110,11 @@ mkN397 base =
                                   Pl => base_1+"je"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -18386,11 +18386,11 @@ mkN403 base =
                                   Pl => base_1+"e"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -18433,11 +18433,11 @@ mkN404 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -18480,11 +18480,11 @@ mkN405 base =
                                   Pl => base_1+"qe"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"këe" ; --guessed
+                                  Sg => base_1+"kë" ; --guessed
                                   Pl => base_1+"këve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"këe" ; --guessed
+                                    Sg => base_1+"kë" ; --guessed
                                     Pl => base_1+"kësh" --guessed
                                   }
                        } ;
@@ -18571,11 +18571,11 @@ mkN407 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -19076,11 +19076,11 @@ mkN418 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -20230,11 +20230,11 @@ mkN443 base =
                                   Pl => base_1+"é"+base_2+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"e"+base_2+"ë" ; --guessed
                                   Pl => base_1+"e"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"e"+base_2+"ë" ; --guessed
                                     Pl => base_1+"e"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -22940,11 +22940,11 @@ mkN502 base =
                                   Pl => nonExist
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                  Sg => base_1+"e"+base_2+"ë" ; --guessed
                                   Pl => base_1+"e"+base_2+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"e"+base_2+"ëe" ; --guessed
+                                    Sg => base_1+"e"+base_2+"ë" ; --guessed
                                     Pl => base_1+"e"+base_2+"ësh" --guessed
                                   }
                        } ;
@@ -22987,11 +22987,11 @@ mkN503 base =
                                   Pl => base_1+"a"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -23900,11 +23900,11 @@ mkN523 base =
                                   Pl => base_1+"ë"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -23994,11 +23994,11 @@ mkN525 base =
                                   Pl => base_1+"ër"
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -24220,11 +24220,11 @@ mkN530 base =
                                   Pl => nonExist
                                 } ;
                          Dat => table {
-                                  Sg => base_1+"ëe" ; --guessed
+                                  Sg => base_1+"ë" ; --guessed
                                   Pl => base_1+"ëve" --guessed
                                 } ;
                          Ablat => table {
-                                    Sg => base_1+"ëe" ; --guessed
+                                    Sg => base_1+"ë" ; --guessed
                                     Pl => base_1+"ësh" --guessed
                                   }
                        } ;
@@ -26054,7 +26054,7 @@ mkA012 base =
                                  Pl => base_1+"ë"
                                } ;
                        Fem => table {
-                                Sg => base_1+"a" ;
+                                Sg => base_1+"ë" ;
                                 Pl => base_1+"a"
                               }
                      } ;

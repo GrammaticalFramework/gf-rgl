@@ -24,4 +24,7 @@ lincat Det = {s : Case => Gender => Str; spec : Species; n : Number} ;
 lincat NP = {s: Case => Str; a : Agr} ;
 lincat Pron = {s: Case => Str; acc_clit, dat_clit : Str; a : Agr} ;
 
+lincat PConj = {s : Str} ;
+lincat Phr, Utt = {s : Str} ;
+
 }

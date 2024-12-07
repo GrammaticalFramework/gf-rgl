@@ -998,7 +998,7 @@ oper
 		_ + "b" => mkA001 form;
 		_ + "z" => mkA001 form;
 		_ + "q" => mkA001 form;
-		_ + "ë" => mkA001 form;
+		_ + "ë" => mkA012 form;
 		_ + "d" => mkA001 form;
 		_ + "a" => mkA001 form;
 		_ => error "Cannot find an inflection rule"
