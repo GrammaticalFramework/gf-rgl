@@ -1219,6 +1219,8 @@ mkA = overload {
   mkA : Str -> Str -> A = reg2A   -- s;Nom;Masc;Sg  s;Nom;Masc;Pl
 } ;
 
+unartA : A -> A = \a -> a**{clit=False} ;
+
 mkA2 = overload {
   mkA2 : A -> A2 = \a -> lin A2 a ** {c2=noPrep} ;
   mkA2 : A -> Prep -> A2 = \a,p -> lin A2 a ** {c2=p} ;
