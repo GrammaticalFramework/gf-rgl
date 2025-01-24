@@ -9,7 +9,6 @@ lincat V, VA, VV, VS, VQ = Verb ;
 lincat V2, V2S, V2Q = Verb ** {c2 : Compl} ;
 lincat V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
 lincat Prep = Compl ;
-lincat Interj = {s : Str} ;
 lincat Voc = {s : Str} ;
 
 lincat Numeral = {s : Str} ;
