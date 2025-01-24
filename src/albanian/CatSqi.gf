@@ -9,7 +9,6 @@ lincat V, VA, VV, VS, VQ = Verb ;
 lincat V2, V2S, V2Q = Verb ** {c2 : Compl} ;
 lincat V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
 lincat Prep = Compl ;
-lincat Voc = {s : Str} ;
 
 lincat Numeral = {s : Str} ;
 lincat Digits  = {s : Str; n : Number; tail : DTail} ;
@@ -22,8 +21,5 @@ lincat Quant = {s : Case => Gender => Number => Str; spec : Species} ;
 lincat Det = {s : Case => Gender => Str; spec : Species; n : Number} ;
 lincat NP = {s: Case => Str; a : Agr} ;
 lincat Pron = {s: Case => Str; acc_clit, dat_clit : Str; a : Agr} ;
-
-lincat PConj = {s : Str} ;
-lincat Phr, Utt = {s : Str} ;
 
 }
