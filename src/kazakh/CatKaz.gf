@@ -9,6 +9,5 @@ lincat V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
 lincat A = {s : Str} ;
 lincat A2 = A ** {c2 : Compl} ;
 lincat Prep = Compl ;
-lincat Voc = {s : Str} ;
 
 }
