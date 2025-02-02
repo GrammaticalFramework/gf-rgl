@@ -3,6 +3,7 @@
 concrete LangFre of Lang = 
   GrammarFre,
   LexiconFre
+  ,MarkupFre - [stringMark]
   ,DocumentationFre --# notpresent
   ,ConstructionFre
   ** {
