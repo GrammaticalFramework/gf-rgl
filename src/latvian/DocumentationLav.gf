@@ -18,7 +18,7 @@ lin InflectionN, InflectionN2, InflectionN3 = \x -> {
                      Fem  => "(feminine)"
                    }) ;
       s2=frameTable (
-           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
+           tr (th ""    ++ th "Sg" ++             th "Pl") ++
            tr (th "Nom" ++ td (x.s ! Sg ! Nom) ++ td (x.s ! Pl ! Nom)) ++
            tr (th "Acc" ++ td (x.s ! Sg ! Acc) ++ td (x.s ! Pl ! Acc)) ++
            tr (th "Dat" ++ td (x.s ! Sg ! Dat) ++ td (x.s ! Pl ! Dat)) ++
@@ -106,7 +106,7 @@ lin InflectionA, InflectionA2 = \adj -> {
       t="a" ;
       s1=heading1 "Adjective" ;
       s2=frameTable (
-           tr (intagAttr "th" "rowspan=\"2\"" "" ++ intagAttr "th" "colspan=\"2\"" "Masculine" ++ intagAttr "th" "colspan=\"2\"" "Feminine") ++
+           tr (intagAttr "th" "rowspan=\"2\" colspan=\"2\"" "" ++ intagAttr "th" "colspan=\"2\"" "Masculine" ++ intagAttr "th" "colspan=\"2\"" "Feminine") ++
            tr (                                     th "Sg" ++ th "Pl" ++ th "Sg" ++ th "Pl") ++
            intagAttr "th" "colspan=\"6\"" "Positive" ++
            tr (intagAttr "th" "rowspan=\"6\"" "Indef" ++
