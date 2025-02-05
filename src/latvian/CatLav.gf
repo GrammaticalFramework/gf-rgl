@@ -110,7 +110,8 @@ lincat
 
   N3 = Noun ** {prep1, prep2 : Preposition ; isPre1, isPre2 : Bool} ;
 
-  PN,LN,GN = ProperNoun ;
+  PN,LN = ProperNoun ;
+  GN = {s : Case => Str ; gend : Gender} ;
   SN = {s : Sex => Case => Str; pl : Case => Str} ;
 
   -- Overriden from CommonX

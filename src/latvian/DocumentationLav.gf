@@ -28,6 +28,80 @@ lin InflectionN, InflectionN2, InflectionN3 = \x -> {
       s3=[]
     } ;
 
+lin InflectionPN = \pn -> {
+      t  = "pn" ;
+      s1 = heading1 ("Proper Name" ++ "(" ++ BIND ++
+                     case pn.gend of {
+                       Masc  => "masculine";
+                       Fem   => "feminine"
+                     } ++
+                     case pn.num of {
+                       Sg => "singular";
+                       Pl => "plural"
+                     } ++
+                     BIND ++ ")") ;
+      s2 = frameTable (
+             tr (th "Nom" ++ td (pn.s ! Nom)) ++
+             tr (th "Acc" ++ td (pn.s ! Acc)) ++
+             tr (th "Dat" ++ td (pn.s ! Dat)) ++
+             tr (th "Gen" ++ td (pn.s ! Gen)) ++
+             tr (th "Loc" ++ td (pn.s ! Loc)) ++
+             tr (th "Voc" ++ td (pn.s ! Voc))) ;
+      s3=[]
+    } ;
+
+lin InflectionLN = \pn -> {
+      t  = "ln" ;
+      s1 = heading1 ("Location Name" ++ "(" ++ BIND ++
+                     case pn.gend of {
+                       Masc  => "masculine";
+                       Fem   => "feminine"
+                     } ++
+                     case pn.num of {
+                       Sg => "singular";
+                       Pl => "plural"
+                     } ++
+                     BIND ++ ")") ;
+      s2 = frameTable (
+             tr (th "Nom" ++ td (pn.s ! Nom)) ++
+             tr (th "Acc" ++ td (pn.s ! Acc)) ++
+             tr (th "Dat" ++ td (pn.s ! Dat)) ++
+             tr (th "Gen" ++ td (pn.s ! Gen)) ++
+             tr (th "Loc" ++ td (pn.s ! Loc)) ++
+             tr (th "Voc" ++ td (pn.s ! Voc))) ;
+      s3=[]
+    } ;
+
+lin InflectionGN = \pn -> {
+      t  = "ln" ;
+      s1 = heading1 ("Given Name" ++
+                     case pn.gend of {
+                       Masc  => "(masculine)";
+                       Fem   => "(feminine)"
+                     }) ;
+      s2 = frameTable (
+             tr (th "Nom" ++ td (pn.s ! Nom)) ++
+             tr (th "Acc" ++ td (pn.s ! Acc)) ++
+             tr (th "Dat" ++ td (pn.s ! Dat)) ++
+             tr (th "Gen" ++ td (pn.s ! Gen)) ++
+             tr (th "Loc" ++ td (pn.s ! Loc)) ++
+             tr (th "Voc" ++ td (pn.s ! Voc))) ;
+      s3=[]
+    } ;
+
+lin InflectionSN = \pn -> {
+      t  = "ln" ;
+      s1 = heading1 "Family Name" ;
+      s2 = frameTable (
+             tr (th "Nom" ++ td (pn.s ! Male ! Nom)) ++
+             tr (th "Acc" ++ td (pn.s ! Male ! Acc)) ++
+             tr (th "Dat" ++ td (pn.s ! Male ! Dat)) ++
+             tr (th "Gen" ++ td (pn.s ! Male ! Gen)) ++
+             tr (th "Loc" ++ td (pn.s ! Male ! Loc)) ++
+             tr (th "Voc" ++ td (pn.s ! Male ! Voc))) ;
+      s3=[]
+    } ;
+
 lin InflectionA, InflectionA2 = \adj -> {
       t="a" ;
       s1=heading1 "Adjective" ;
@@ -87,5 +161,28 @@ lin InflectionA, InflectionA2 = \adj -> {
              tr (th "Superlative" ++ td (adj.s ! AAdv Superl))) ;
       s3=[]
     } ;
+
+lin InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
+      t = "adv" ;
+      s1= heading1 "Adverb" ;
+      s2= paragraph (adv.s) ;
+      s3= ""
+    } ;
+
+lin InflectionPrep = \prep -> {
+      t = "prep" ;
+      s1= heading1 "Preposition" ;
+      s2= paragraph (prep.s) ;
+      s3= ""
+    } ;
+
+lin
+  NoDefinition   t     = {s=t.s};
+  MkDefinition   t d   = {s="<p><b>Definition:</b>"++t.s++d.s++"</p>"};
+  MkDefinitionEx t d e = {s="<p><b>Definition:</b>"++t.s++d.s++"</p><p><b>Example:</b>"++e.s++"</p>"};
+
+lin
+  MkDocument d i e = {s = i.s1 ++ d.s ++ i.s2 ++ paragraph e.s} ;
+  MkTag i = {s = i.t} ;
 
 }
