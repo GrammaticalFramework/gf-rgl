@@ -119,5 +119,13 @@ lincat
   Adv = {s : Str ; isPron : Bool} ;
 
   CAdv = {s, prep : Str ; deg : Degree} ;
+  
+lindef
+  V2 = \s -> {s=\\_,_=>s; leftVal=Nom; rightVal={s=[]; c=\\_ => Acc}} ;
+  V3 = \s -> {s=\\_,_=>s; leftVal=Nom; rightVal1={s=[]; c=\\_ => Acc}; rightVal2={s=[]; c=\\_ => Dat}} ;
+
+linref
+  V2 = \v -> v.s ! Pos ! VInf ++ v.rightVal.s ;
+  V3 = \v -> v.s ! Pos ! VInf ++ v.rightVal1.s ++ v.rightVal2.s ;
 
 }
