@@ -139,13 +139,6 @@ lin InflectionA, InflectionA2 = \adj -> {
            tr (th "Loc" ++ td (adj.s ! AAdj Compar Def Masc Sg Loc) ++ td (adj.s ! AAdj Compar Def Masc Pl Loc) ++ td (adj.s ! AAdj Compar Def Fem Sg Nom) ++ td (adj.s ! AAdj Compar Def Fem Pl Nom)) ++
            tr (th "Voc" ++ td (adj.s ! AAdj Compar Def Masc Sg Voc) ++ td (adj.s ! AAdj Compar Def Masc Pl Voc) ++ td (adj.s ! AAdj Compar Def Fem Sg Nom) ++ td (adj.s ! AAdj Compar Def Fem Pl Nom)) ++
            intagAttr "th" "colspan=\"6\"" "Superlative" ++
-           tr (intagAttr "th" "rowspan=\"6\"" "Indef" ++
-               th "Nom" ++ td (adj.s ! AAdj Superl Indef Masc Sg Nom) ++ td (adj.s ! AAdj Superl Indef Masc Pl Nom) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
-           tr (th "Acc" ++ td (adj.s ! AAdj Superl Indef Masc Sg Acc) ++ td (adj.s ! AAdj Superl Indef Masc Pl Acc) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
-           tr (th "Dat" ++ td (adj.s ! AAdj Superl Indef Masc Sg Dat) ++ td (adj.s ! AAdj Superl Indef Masc Pl Dat) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
-           tr (th "Gen" ++ td (adj.s ! AAdj Superl Indef Masc Sg Gen) ++ td (adj.s ! AAdj Superl Indef Masc Pl Gen) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
-           tr (th "Loc" ++ td (adj.s ! AAdj Superl Indef Masc Sg Loc) ++ td (adj.s ! AAdj Superl Indef Masc Pl Loc) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
-           tr (th "Voc" ++ td (adj.s ! AAdj Superl Indef Masc Sg Voc) ++ td (adj.s ! AAdj Superl Indef Masc Pl Voc) ++ td (adj.s ! AAdj Superl Indef Fem Sg Nom) ++ td (adj.s ! AAdj Superl Indef Fem Pl Nom)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "Def" ++
                th "Nom" ++ td (adj.s ! AAdj Superl Def Masc Sg Nom) ++ td (adj.s ! AAdj Superl Def Masc Pl Nom) ++ td (adj.s ! AAdj Superl Def Fem Sg Nom) ++ td (adj.s ! AAdj Superl Def Fem Pl Nom)) ++
            tr (th "Acc" ++ td (adj.s ! AAdj Superl Def Masc Sg Acc) ++ td (adj.s ! AAdj Superl Def Masc Pl Acc) ++ td (adj.s ! AAdj Superl Def Fem Sg Nom) ++ td (adj.s ! AAdj Superl Def Fem Pl Nom)) ++
