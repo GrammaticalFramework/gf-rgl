@@ -1,6 +1,6 @@
 --# -path=.:abstract:common:prelude
 
-concrete CatLav of Cat = CommonX - [Adv, CAdv, Voc] ** open ResLav, Prelude in {
+concrete CatLav of Cat = CommonX - [Adv, CAdv] ** open ResLav, Prelude in {
 
 flags
 

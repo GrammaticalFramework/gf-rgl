@@ -2,7 +2,7 @@
 
 concrete AllLav of AllLavAbs =
   LangLav,
-  ExtraLav
+  ExtendLav
   ** {
 
 flags
