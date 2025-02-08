@@ -107,7 +107,8 @@ lincat
    N2 = Noun ** {c2 : Complement} ;
    N3 = Noun ** {c2,c3 : Complement} ;
    PN = {s : RCase => Str} ;
-   
+   LN,GN,SN = {s : Str} ;
+
    Temp = {s : Str ; t : ClTense ; a : Anteriority} ;
    Tense = {s : Str ; t : ClTense} ;
 }

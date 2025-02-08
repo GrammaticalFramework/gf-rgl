@@ -350,6 +350,9 @@ oper
 -- Adverb definitions
 
  mkAdv : Str -> Adv = \x -> lin Adv (ss x) ;
+ mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
+ mkAdA : Str -> AdA = \s -> lin AdA {s=s} ;
+ mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
  
 -- Verb definitions (without type, these defs cause errors because argtype is unknown)
 
@@ -384,5 +387,8 @@ oper
 
  mkAS, mkAV : Adjective -> A = \a -> lin A a ;
  mkA2S, mkA2V : Adjective -> Prep -> A2 = \a,p -> mkA2 a p ;
+
+
+ mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 
 } 

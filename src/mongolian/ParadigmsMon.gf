@@ -28,10 +28,6 @@ oper
         } 
     } ;
 
-
- mkLN = overload { mkLN : Str -> Noun = loanN ;
-                   mkLN : (_,_ : Str) -> Noun = loan2N } ; 
-
  regN  : Str -> Noun = \nomSg -> mkDeclDrop (chooseDcl nomSg) nomSg ; 
  loanN : Str -> Noun = \nomSg -> mkDeclNoDrop (chooseDcl nomSg) nomSg ; 
 
@@ -39,6 +35,9 @@ oper
     s = \\rc => (loanN pn).s ! (SF Sg (toNCase rc Definite)) 
     } ;
 
+ mkLN : Str -> LN = \s -> lin LN {s=s} ;
+ mkSN : Str -> SN = \s -> lin SN {s=s} ;
+ mkGN : Str -> GN = \s -> lin GN {s=s} ;
 
  modDecl : (Dcl -> Dcl) -> Str -> Noun = 
             \mod,nomSg -> mkDeclDrop (mod (chooseDcl nomSg)) nomSg ;

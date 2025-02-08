@@ -19,7 +19,7 @@ lin
   baby_N = mk2N "нялх" (mkN01f "хүүхэд") ;
   back_N = mk2N "ар" (mkN "тал" "талууд") ;
   bad_A = mkA "муу";
-  bank_N = mkLN "банк" ;
+  bank_N = loanN "банк" ;
   bark_N = mkN "холтос";
   beautiful_A = mkA "хөөрхөн";
   become_VA = mkVA (mkV "болох") ;
@@ -50,9 +50,9 @@ lin
   burn_V = mkV "шатах" ;
   butter_N = mk2N "цөцгийн" (mkN "тос") ;
   buy_V2 = mkV2 (mkV "худалдан авах") ;
-  camera_N = mk2N "зургийн" (mkLN "аппарат") ;
+  camera_N = mk2N "зургийн" (loanN "аппарат") ;
   cap_N = mkN "аяга" ; 
-  car_N = mkLN "машин" "машинууд" ;
+  car_N = loan2N "машин" "машинууд" ;
   carpet_N = mkN "хивс" ; 
   cat_N = mkN01h "муур" ;
   ceiling_N = mkN "тааз" ; 
@@ -234,7 +234,7 @@ lin
   reason_N = mkN "шалтгаан" "шалтгаанууд" ;
   red_A = mkA "улаан" ;
   religion_N = mkN "шашин" ;
-  restaurant_N = mkLN "ресторан" "ресторанууд" ; 
+  restaurant_N = loan2N "ресторан" "ресторанууд" ; 
   right_Ord = mkOrd "баруун" ;
   river_N = mkN "гол" "голууд" ;
   road_N = mkN "зам" "замууд" ;
