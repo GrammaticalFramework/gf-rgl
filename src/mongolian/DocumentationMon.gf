@@ -59,7 +59,17 @@ lin InflectionAdv, InflectionAdV, InflectionAdA, InflectionAdN = \adv -> {
 lin InflectionPrep = \prep -> {
       t = "prep" ;
       s1= heading1 "Preposition" ;
-      s2= paragraph (prep.s) ;
+      s2= paragraph (prep.s ++
+                     case prep.rc of {
+                       Nom => "nominative" ;
+                       Acc => "accusative" ;
+                       Dat => "dative" ;
+                       Gen => "genitive" ;
+                       Abl => "ablative" ;
+                       Inst=> "instrumental" ;
+                       Com => "commitative" ;
+                       Dir => "directional"
+                     }) ;
       s3= ""
     } ;
 
