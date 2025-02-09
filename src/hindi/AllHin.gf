@@ -2,5 +2,5 @@
 
 concrete AllHin of AllHinAbs =
   LangHin,
-  ExtraHin
-  ** {} ;
+  ExtendHin
+  ** open ExtraHin in {} ;

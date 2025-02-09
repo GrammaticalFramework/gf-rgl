@@ -1,4 +1,4 @@
 abstract AllUrdAbs =
   Lang,
-  ExtraUrdAbs
+  Extend
   ** {} ;

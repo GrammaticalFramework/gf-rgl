@@ -2,5 +2,5 @@
 
 concrete AllUrd of AllUrdAbs =
   LangUrd,
-  ExtraUrd
-  ** {} ;
+  ExtendUrd
+  ** open ExtraUrd in {} ;
