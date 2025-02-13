@@ -375,7 +375,8 @@ resource ResGre = ParamX  **  open Prelude in {
         Fros + "ω" => mkName  Giannis (Fros + "ως") (Fros + "ω") (Fros + "ω") ("") ("")Fem ;
         Mirt + "ώ" => mkName  Giannis (Mirt + "ώς") (Mirt + "ώ") (Mirt + "ώ") ("")("")Fem ;
         Londin + "ο" => mkName  Giannis (Londin + "ου") (Londin + "ο") (Londin + "ο") (Londin + "α") (Londin + "ων")   Neut ;
-        Paris + "ι" => mkName  Giannis (mkStemNouns Paris + "ιού") (Paris + "ι") (Paris + "ι")(Paris + "ια") (mkStemNouns Paris + "ιών")   Neut
+        Paris + "ι" => mkName  Giannis (mkStemNouns Paris + "ιού") (Paris + "ι") (Paris + "ι")(Paris + "ια") (mkStemNouns Paris + "ιών")   Neut ;
+	x => mkName x x x x x x Neut ---- AR 2025-02-13 guess
       };
 
 
