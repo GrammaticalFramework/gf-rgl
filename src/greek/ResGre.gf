@@ -1380,7 +1380,7 @@ resource ResGre = ParamX  **  open Prelude in {
 
 
   -----Pattern for the final -ν in the Feminine Accusative of the definite article----------
-   FemAccFinalN : pattern Str = #("ά" | "ό" | "ί"| "έ" | "ή" | "ύ"| "ώ" | "α" | "ο" | "ι"| "ε" |"η" | "υ" | "ω" |"κ"|"π" |"τ"| "ξ" |"ψ"| "γκ" |"μπ" |"ντ" );
+   FemAccFinalN : pattern Str = #("Α" | "Τ" | "ά" | "ό" | "ί"| "έ" | "ή" | "ύ"| "ώ" | "α" | "ο" | "ι"| "ε" |"η" | "υ" | "ω" |"κ"|"π" |"τ"| "ξ" |"ψ"| "γκ" |"μπ" |"ντ" );
 
 
 
@@ -1406,8 +1406,10 @@ resource ResGre = ParamX  **  open Prelude in {
         <Masc | Change,Sg,CPrep P_se > =>   "στον" ; 
         <Fem, Sg, Nom>    => "η" ;
         <Fem, Sg, Gen|CPrep P_Dat>   =>  "της" ;
-        <Fem, Sg, Acc |CPrep PNul>   =>   pre { "ά" | "ό" | "ί"| "έ" | "ή" | "ύ"| "ώ" | "α" | "ο" | "ι"| "ε" |"η" | "υ" | "ω" |"κ"|"π" |"τ"| "ξ" |"ψ"| "γκ" |"μπ" |"ντ"  => "την" ; _=> "τη"} ;
-        <Fem, Sg, CPrep P_se  >   =>   pre { "ά" | "ό" | "ί"| "έ" | "ή" | "ύ"| "ώ" | "α" | "ο" | "ι"| "ε" |"η" | "υ" | "ω" |"κ"|"π" |"τ"| "ξ" |"ψ"| "γκ" |"μπ" |"ντ" => "στην" ; _=> "στη"} ;
+        <Fem, Sg, Acc |CPrep PNul>   =>
+	pre {#FemAccFinalN => "την" ; _=> "τη"} ;
+        <Fem, Sg, CPrep P_se  >   =>
+	pre {#FemAccFinalN => "στην" ; _=> "στη"} ;
         <Neut, Sg, Nom | Acc |CPrep PNul>    => prepCase c++  "το" ;
         <Neut, Sg, Gen|CPrep P_Dat>   =>  "του" ;
         <Neut, Sg, CPrep P_se >    =>   "στο" ;
