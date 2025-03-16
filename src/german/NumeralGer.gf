@@ -40,29 +40,82 @@ lin
     e.s ! DUnit ! invNum ++ BIND ++ "und" ++ BIND ++ d.s ! DTen ! g; n = Pl} ;
   pot1as2 n = n ;
 
-  pot2 d = {s = \\g => 
+  -- HL 15.3.2025 added:
+  --    pot21, pot31, pot41, pot4, pot4plus, pot51, pot5, pot5plus, pot5decimal
+  --    and opers oneCardOrd, cardOrdNum, toFem
+  -- changed: multiple to get pot21      = hundert    (Eng: a hundred,   Swe: hundra)
+   --                  versus pot2 pot01 = einhundert (Eng: one hundred, Swe: etthundra)
+  --          likewise for [ein]tausend, [eine] Million, Milliarde
+  -- Q: add BIND or "und" in pot4plus, pot5plus ?
+
+  pot21 = {s = \\g => cardOrd "hundert" "hundertste" ! g ; n = Pl} ;
+  pot2 d = {s = \\g =>
     multiple (d.s ! DUnit) d.n ++ cardOrd "hundert" "hundertste" ! g ; n = Pl} ;
   pot2plus d e = {s = \\g => 
     multiple (d.s ! DUnit) d.n ++ "hundert" ++ BIND ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
 
+  pot31 = {s = \\g => cardOrd "tausend" "tausendste" ! g ; n = Pl} ;
   pot3 n = {s = \\g => 
     multiple n.s n.n ++ cardOrd "tausend" "tausendste" ! g ; n = Pl} ;
-  pot3plus n m = {s = \\g => 
+  pot3plus n m = {s = \\g =>
     multiple n.s n.n ++ "tausend" ++ m.s ! g ; n = Pl} ;
   pot3as4 n = n ;
   pot3decimal d = {s = \\g =>
-    d.s ! invNum ++ cardOrd "tausend" "tausendste" ! g ; n = Pl} ;
+    d.s ! invNum ++ cardOrd "Tausend" "tausendste" ! g ; n = Pl} ;
 
+  pot41 = {s = \\g => oneCardOrd "Million" "millionste" ! g ; n = Pl} ;
+  pot4 n = let tab = cardOrdNum n.n "Million" "millionste" in {
+    s = table{
+      NCard af => n.s ! (NCard (toFem af)) ++ tab ! (NCard af) ;
+      NOrd af  => n.s ! (NCard APred) ++ BIND ++ tab ! (NOrd af)
+      } ;
+    n = Pl} ;
+  pot4plus n m = let tab = cardOrdNum n.n "million" "millionste" in {
+    s = table{
+      NCard af => n.s ! (NCard (toFem af)) ++ BIND ++ tab ! (NCard af) ++ m.s ! NCard af ;
+      NOrd af  => n.s ! (NCard (toFem APred)) ++ BIND ++ tab ! (NCard (toFem af)) ++ m.s ! NOrd af
+      } ;
+    n = Pl} ;
   pot4as5 n = n ;
   pot4decimal d = {s = \\g =>
-    d.s ! invNum ++ cardOrd "Millionen" "Millionste" ! g ; n = Pl} ; -- * 1 Million
+    d.s ! invNum ++ cardOrdNum d.n "Million" "-millionste" ! g ; n = Pl} ;
 
-  pot51 = {s = \\g => "einer Milliarde"; n = Pl} ;  -- KA: case inflection missing
+  pot51 = {s = \\g => oneCardOrd "Milliarde" "milliardste" ! g ; n = Pl} ;
+  pot5 n = let tab = cardOrdNum n.n "Milliarde" "milliardste" in {
+    s = table{
+      NCard af => n.s ! (NCard (toFem af)) ++ tab ! (NCard af) ;
+      NOrd af  => n.s ! (NCard APred) ++ BIND ++ tab ! (NOrd af)
+      } ;
+    n = Pl} ;
+  pot5plus n m = let tab = cardOrdNum n.n "milliarde" "milliardste" in {
+    s = table{
+      NCard af => n.s ! (NCard (toFem af)) ++ BIND ++ tab ! (NCard af) ++ "und" ++ m.s ! NCard af ;
+      NOrd af  => n.s ! (NCard (toFem APred)) ++ BIND ++ tab ! (NCard (toFem af)) ++ m.s ! NOrd af
+      } ;
+    n = Pl} ;
+  pot5decimal d = {s = \\g =>
+    d.s ! invNum ++ cardOrdNum d.n "Milliarde" "-milliardste" ! g ; n = Pl} ;
 
 oper
   multiple : (CardOrd => Str) -> Number -> Str = \d,n -> 
-    case n of {Sg => [] ; _ => d ! invNum ++ BIND} ;
+  --    case n of {Sg => [] ; _ => d ! invNum ++ BIND} ;
+    d ! invNum ++ BIND ;  -- HL
+
+  oneCardOrd : Str -> Str -> CardOrd => Str =
+    \million,millionste -> table {
+      NCard (AMod (GSg _) c) => "ein" + pronEnding ! (GSg Fem) ! c ++ million ;
+      NCard (AMod GPl _)     => pluralN million ;
+      NCard APred => "ein" + pronEnding ! (GSg Fem) ! Nom ++ million ;
+      NOrd a => (regA (init millionste)).s ! Posit ! a
+      } ;
+
+  cardOrdNum : Number -> Str -> Str -> CardOrd => Str = \n,drei,dritte ->
+    case n of {Sg => cardOrd drei dritte ; _ => cardOrd (pluralN drei) dritte} ;
+
+  toFem : AForm -> AForm = \af -> case af of {
+    AMod _ c => AMod (GSg Fem) c ;
+    APred    => AMod (GSg Fem) Nom} ;
 
 --------------------
 
@@ -81,15 +134,15 @@ oper
     --                                101ter,...,119ter,120ster,...             , 200ster
     IIDig d i =
       let isPld : Bool = case d.n of {Sg => False ; _ => True} ;
+          i = lin Digits i ; -- suppress warning missing lock_Digits
           b : Bool = case i.isDig of {True => isPld ; _ => notB i.tail1to19} ;
           i' : Digits = case b of {True => IDig (mkDig (i.s ! invNum ++ BIND ++ "s")) ;
-                                   _  => i }
+                                   _  => i}
       in {s = table {NCard af => d.s ! invNum ++ BIND ++ i.s ! NCard af ;
                      NOrd af => d.s ! invNum ++ BIND ++ i'.s ! NOrd af} ;
           n = Pl ;
           isDig = False ;
           tail1to19 = case i.isDig of {True => notB isPld ; False => i.tail1to19} ;
-          lock_Digits = <>
       } ;
 
     D_0 = mkDig "0" ** {isZero = True} ;
@@ -123,7 +176,7 @@ oper
     mk3Dig : Str -> Str -> Number -> TDigit = \c,o,n -> {
       s = table {NCard _ => c ;                        -- 0,...,9
                  NOrd af => (regA o).s ! Posit ! af} ; -- (ein) 0ter .. 9ter | (der) 0te ... 9te
-      n = n ;                                          -- NOrd APred: "0",... or "am 0ten",... ?
+      n = n ;                                          -- NOrd APred: "0t"
       isZero = False
       } ;
 
