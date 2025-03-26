@@ -12,51 +12,48 @@ lin InflectionA, InflectionA2 = \x -> {
       s1="" ;
       s2=frameTable (
            tr (intagAttr "th" "rowspan=\"25\"" "s" ++ th "AF Masc Sg Indef ANomAcc" ++ td (x.s ! AF Masc Sg Indef ANomAcc)) ++
-           tr (th "AF Masc Sg Indef AGenDat" ++ td (x.s ! AF Masc Sg Indef AGenDat)) ++
-           tr (th "AF Masc Sg Indef AVoc" ++ td (x.s ! AF Masc Sg Indef AVoc)) ++
-           tr (th "AF Masc Sg Def ANomAcc" ++ td (x.s ! AF Masc Sg Def ANomAcc)) ++
-           tr (th "AF Masc Sg Def AGenDat" ++ td (x.s ! AF Masc Sg Def AGenDat)) ++
-           tr (th "AF Masc Sg Def AVoc" ++ td (x.s ! AF Masc Sg Def AVoc)) ++
-           tr (th "AF Masc Pl Indef ANomAcc" ++ td (x.s ! AF Masc Pl Indef ANomAcc)) ++
-           tr (th "AF Masc Pl Indef AGenDat" ++ td (x.s ! AF Masc Pl Indef AGenDat)) ++
-           tr (th "AF Masc Pl Indef AVoc" ++ td (x.s ! AF Masc Pl Indef AVoc)) ++
-           tr (th "AF Masc Pl Def ANomAcc" ++ td (x.s ! AF Masc Pl Def ANomAcc)) ++
-           tr (th "AF Masc Pl Def AGenDat" ++ td (x.s ! AF Masc Pl Def AGenDat)) ++
-           tr (th "AF Masc Pl Def AVoc" ++ td (x.s ! AF Masc Pl Def AVoc)) ++
-           tr (th "AF Fem Sg Indef ANomAcc" ++ td (x.s ! AF Fem Sg Indef ANomAcc)) ++
-           tr (th "AF Fem Sg Indef AGenDat" ++ td (x.s ! AF Fem Sg Indef AGenDat)) ++
-           tr (th "AF Fem Sg Indef AVoc" ++ td (x.s ! AF Fem Sg Indef AVoc)) ++
-           tr (th "AF Fem Sg Def ANomAcc" ++ td (x.s ! AF Fem Sg Def ANomAcc)) ++
-           tr (th "AF Fem Sg Def AGenDat" ++ td (x.s ! AF Fem Sg Def AGenDat)) ++
-           tr (th "AF Fem Sg Def AVoc" ++ td (x.s ! AF Fem Sg Def AVoc)) ++
-           tr (th "AF Fem Pl Indef ANomAcc" ++ td (x.s ! AF Fem Pl Indef ANomAcc)) ++
-           tr (th "AF Fem Pl Indef AGenDat" ++ td (x.s ! AF Fem Pl Indef AGenDat)) ++
-           tr (th "AF Fem Pl Indef AVoc" ++ td (x.s ! AF Fem Pl Indef AVoc)) ++
-           tr (th "AF Fem Pl Def ANomAcc" ++ td (x.s ! AF Fem Pl Def ANomAcc)) ++
-           tr (th "AF Fem Pl Def AGenDat" ++ td (x.s ! AF Fem Pl Def AGenDat)) ++
-           tr (th "AF Fem Pl Def AVoc" ++ td (x.s ! AF Fem Pl Def AVoc)) ++
-           tr (th "AA" ++ td (x.s ! AA))) ;
+           tr (th "Masc Sg Indef gen/dat" ++ td (x.s ! AF Masc Sg Indef AGenDat)) ++
+           tr (th "Masc Sg Indef voc" ++ td (x.s ! AF Masc Sg Indef AVoc)) ++
+           tr (th "Masc Sg Def nom/acc" ++ td (x.s ! AF Masc Sg Def ANomAcc)) ++
+           tr (th "Masc Sg Def gen/dat" ++ td (x.s ! AF Masc Sg Def AGenDat)) ++
+           tr (th "Masc Sg Def voc" ++ td (x.s ! AF Masc Sg Def AVoc)) ++
+           tr (th "Masc Pl Indef nom/acc" ++ td (x.s ! AF Masc Pl Indef ANomAcc)) ++
+           tr (th "Masc Pl Indef gen/dat" ++ td (x.s ! AF Masc Pl Indef AGenDat)) ++
+           tr (th "Masc Pl Indef voc" ++ td (x.s ! AF Masc Pl Indef AVoc)) ++
+           tr (th "Masc Pl Def nom/acc" ++ td (x.s ! AF Masc Pl Def ANomAcc)) ++
+           tr (th "Masc Pl Def gen/dat" ++ td (x.s ! AF Masc Pl Def AGenDat)) ++
+           tr (th "Masc Pl Def voc" ++ td (x.s ! AF Masc Pl Def AVoc)) ++
+           tr (th "Fem Sg Indef nom/acc" ++ td (x.s ! AF Fem Sg Indef ANomAcc)) ++
+           tr (th "Fem Sg Indef gen/dat" ++ td (x.s ! AF Fem Sg Indef AGenDat)) ++
+           tr (th "Fem Sg Indef voc" ++ td (x.s ! AF Fem Sg Indef AVoc)) ++
+           tr (th "Fem Sg Def nom/acc" ++ td (x.s ! AF Fem Sg Def ANomAcc)) ++
+           tr (th "Fem Sg Def gen/dat" ++ td (x.s ! AF Fem Sg Def AGenDat)) ++
+           tr (th "Fem Sg Def voc" ++ td (x.s ! AF Fem Sg Def AVoc)) ++
+           tr (th "Fem Pl Indef nom/acc" ++ td (x.s ! AF Fem Pl Indef ANomAcc)) ++
+           tr (th "Fem Pl Indef gen/dat" ++ td (x.s ! AF Fem Pl Indef AGenDat)) ++
+           tr (th "Fem Pl Indef voc" ++ td (x.s ! AF Fem Pl Indef AVoc)) ++
+           tr (th "Fem Pl Def nom/acc" ++ td (x.s ! AF Fem Pl Def ANomAcc)) ++
+           tr (th "Fem Pl Def gen/dat" ++ td (x.s ! AF Fem Pl Def AGenDat)) ++
+           tr (th "Fem Pl Def voc" ++ td (x.s ! AF Fem Pl Def AVoc)) ++
+           tr (th "" ++ td (x.s ! AA))) ;
       s3=[]
     } ;
 lin InflectionAdA = \x -> {
       t="ada" ;
       s1="" ;
-      s2=frameTable (
-           tr (th "s" ++ td (x.s))) ;
+      s2=paragraph x.s ;
       s3=[]
     } ;
 lin InflectionAdN = \x -> {
       t="adn" ;
       s1="" ;
-      s2=frameTable (
-           tr (th "s" ++ td (x.s))) ;
+      s2=paragraph x.s ;
       s3=[]
     } ;
 lin InflectionAdV, InflectionAdv = \x -> {
       t="adv" ;
       s1="" ;
-      s2=frameTable (
-           tr (th "s" ++ td (x.s))) ;
+      s2=paragraph x.s ;
       s3=[]
     } ;
 lin InflectionGN = \x -> {
@@ -199,18 +196,15 @@ lin InflectionVV = \x -> {
 oper
   inflNoun : Noun -> Str = \x ->
       frameTable (
-           tr (intagAttr "th" "rowspan=\"6\"" "Sg" ++ intagAttr "th" "rowspan=\"3\"" "Indef" ++ th "ANomAcc" ++ td (x.s ! Sg ! Indef ! ANomAcc)) ++
-           tr (th "AGenDat" ++ td (x.s ! Sg ! Indef ! AGenDat)) ++
-           tr (th "AVoc" ++ td (x.s ! Sg ! Indef ! AVoc)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Def" ++ th "ANomAcc" ++ td (x.s ! Sg ! Def ! ANomAcc)) ++
-           tr (th "AGenDat" ++ td (x.s ! Sg ! Def ! AGenDat)) ++
-           tr (th "AVoc" ++ td (x.s ! Sg ! Def ! AVoc)) ++
-           tr (intagAttr "th" "rowspan=\"6\"" "Pl" ++ intagAttr "th" "rowspan=\"3\"" "Indef" ++ th "ANomAcc" ++ td (x.s ! Pl ! Indef ! ANomAcc)) ++
-           tr (th "AGenDat" ++ td (x.s ! Pl ! Indef ! AGenDat)) ++
-           tr (th "AVoc" ++ td (x.s ! Pl ! Indef ! AVoc)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Def" ++ th "ANomAcc" ++ td (x.s ! Pl ! Def ! ANomAcc)) ++
-           tr (th "AGenDat" ++ td (x.s ! Pl ! Def ! AGenDat)) ++
-           tr (th "AVoc" ++ td (x.s ! Pl ! Def ! AVoc))) ;
+           tr (th "" ++ th "Sg" ++ th "Pl") ++
+           tr (intagAttr "th" "colspan=\"3\"" "Indef") ++ 
+           tr (th "nom/acc" ++ td (x.s ! Sg ! Indef ! ANomAcc) ++ td (x.s ! Pl ! Indef ! ANomAcc)) ++
+           tr (th "gen/dat" ++ td (x.s ! Sg ! Indef ! AGenDat) ++ td (x.s ! Pl ! Indef ! AGenDat)) ++
+           tr (th "voc"     ++ td (x.s ! Sg ! Indef ! AVoc)    ++ td (x.s ! Pl ! Indef ! AVoc)) ++
+           tr (intagAttr "th" "colspan=\"3\"" "Def") ++
+           tr (th "nom/acc" ++ td (x.s ! Sg ! Def ! ANomAcc) ++ td (x.s ! Pl ! Def ! ANomAcc)) ++
+           tr (th "gen/dat" ++ td (x.s ! Sg ! Def ! AGenDat) ++ td (x.s ! Pl ! Def ! AGenDat)) ++
+           tr (th "voc"     ++ td (x.s ! Sg ! Def ! AVoc)    ++ td (x.s ! Pl ! Def ! AVoc))) ;
 
   inflVerb : Verb -> Str = \x ->
       frameTable (
