@@ -187,7 +187,7 @@ oper
                  in {s = mkNoun (v0+"е"+v1)
                                 (v0+v1+"и")
                                 (v0+"е"+v1+"а")
-                                (v0+"е"+v1+"е")
+                                (v0+v1+"ьо")
                                 g ;
                      rel = \\_ => base ; relType = Pref ;
                      g   = g ;
