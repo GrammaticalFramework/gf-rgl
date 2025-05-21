@@ -33,13 +33,13 @@ oper
   mkA2 a p = a ** {c2 = p ; lock_A2 = <>} ;
   
   mkAS  : A -> AS ;
-  mkAS  v = v ** {lock_A = <>} ;
+  mkAS  v = v ;
   
   mkA2S : A -> Prep -> A2S ;
-  mkA2S v p = mkA2 v p ** {lock_A = <>} ;
+  mkA2S v p = mkA2 v p ;
   
   mkAV  : A -> AV ;
-  mkAV  v = v ** {lock_A = <>} ;
+  mkAV  v = v ;
   
   mkA2V : A -> Prep -> A2V ;
   mkA2V v p = mkA2 v p ** {lock_A2 = <>} ;
@@ -75,7 +75,6 @@ oper
   compoundV : V -> Str -> V ;
   compoundV v adv = {
     s = \\asp,vform => v.s ! asp ! vform ++ adv ;
-    n = \\nform => v.n ! nform ++ adv ;
     vtype = VNormal;
     lock_V=<>
     } ;
@@ -105,7 +104,7 @@ oper
 -- the first one or both can be absent.
 
   mkV3     : V -> Prep -> Prep -> V3 ;   -- speak, with, about
-  mkV3 v p q = {s = v.s; s1 = v.s1; c2 = p; c3 = q; vtype = v.vtype; lock_V3 = <>} ;
+  mkV3 v p q = {s = v.s; c2 = p; c3 = q; vtype = v.vtype; lock_V3 = <>} ;
   
   dirV3    : V -> Prep -> V3 ;           -- give,_,to
   dirV3 v p = mkV3 v noPrep p ;
@@ -189,9 +188,9 @@ oper
 
   compoundN = overload {
     compoundN : Str -> N -> N 
-      = \s,n -> {s = \\nform => s ++ n.s ! nform ; rel = \\aform => s ++ n.rel ! aform; relType = AdvMod; g=n.g ; anim=n.anim ; lock_N = <>} ;
+      = \s,n -> {s = \\nform => s ++ n.s ! nform ; rel = \\aform => s ++ n.rel ! aform; relType = AdvMod; g=n.g ; lock_N = <>} ;
     compoundN : N -> Str -> N 
-      = \n,s -> {s = \\nform => n.s ! nform ++ s; rel = \\aform => n.rel ! aform ++ s; relType = AdvMod; g=n.g ; anim=n.anim ; lock_N = <>} ;
+      = \n,s -> {s = \\nform => n.s ! nform ++ s; rel = \\aform => n.rel ! aform ++ s; relType = AdvMod; g=n.g ; lock_N = <>} ;
     compoundN : N -> N -> N 
       = \n1,n2 -> lin N
                 {s = table {

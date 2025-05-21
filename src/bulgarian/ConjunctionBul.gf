@@ -32,7 +32,6 @@ concrete ConjunctionBul of Conjunction =
 
     ConjAP conj ss = {
       s     = \\aform,p => linCoord []!conj.sep ++ ss.s!aform!p!conj.sep ++ conj.s ++ ss.s!aform!p!4;
-      adv   =              ss.adv!conj.conj ++ conj.s ++ ss.adv!4;
       isPre = ss.isPre
       } ;
 

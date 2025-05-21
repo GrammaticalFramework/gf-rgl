@@ -70,8 +70,7 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
       s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! q
     } ;
     UseRCl t p cl = {
-      s    = \\agr => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! agr ;
-      role = cl.role
+      s    = \\agr => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! agr
     } ;
     UseSlash t p cl = {
       s = \\agr => t.s ++ p.s ++ cl.s ! agr ! t.t ! t.a ! p.p ! Main ;
