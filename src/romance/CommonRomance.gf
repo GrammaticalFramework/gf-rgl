@@ -112,9 +112,9 @@ param
 -- Agreement of adjectives, verb phrases, relative pronouns, and predeterminers.
 
 oper
-  AAgr : Type = {g : Gender ; n : Number} ;
+  AAgr : PType = {g : Gender ; n : Number} ;
 
-  Agr : Type = {g : Gender ; n : Number ; p : Person} ;
+  Agr : PType = {g : Gender ; n : Number ; p : Person} ;
 
   complAgr : Agr -> {g : Gender ; n : Number} = \a -> {g = a.g ; n = a.n} ;
 

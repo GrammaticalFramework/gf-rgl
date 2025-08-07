@@ -21,14 +21,9 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	compl = vp.compl ! Ag Masc ip.n Nom ; -- default gender masculine
 	det = { s, sp = \\_ => [] ; n = ip.n } ;
       } ; 
-    --   let qcl = mkQuestion { s = ip.s ! Nom } ( mkClause emptyNP vp )
-    --   in {s = \\t,a,b,qd => qcl.s ! t ! a ! b ! qd} ;
 
     --  QuestSlash  : IP -> ClSlash -> QCl ; -- whom does John love
     -- TO FIX
-    
-    -- QuestSlash ip slash =
-    --   mkQuestion (ss ( ip.s ! Acc) ) slash ;
 
     -- QuestIAdv : 	IAdv -> Cl -> QCl
     QuestIAdv iadv cl = cl ** { q = iadv.s } ;

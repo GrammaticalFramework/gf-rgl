@@ -40,14 +40,14 @@ resource ParadigmsFre =
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ;
+  Gender : PType ;
 
   masculine : Gender ;
   feminine  : Gender ;
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ;  --%
+  Number : PType ;  --%
 
   singular : Number ; --%
   plural   : Number ; --%

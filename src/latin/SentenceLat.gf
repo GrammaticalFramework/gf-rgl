@@ -45,12 +45,12 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --    EmbedVP vp = {s = infVP False vp (agrP3 Sg)} ; --- agr
 --
     UseCl  t p cl = -- Temp -> Pol-> Cl -> S
-      (combineClause cl (lin Tense t) t.a (lin Pol p) VQFalse) ;
+      (combineClause (t.s++p.s) cl t.t t.a p.p VQFalse) ;
 
-    -- 	UseQCl : Temp -> Pol -> QCl -> QS -- maybe use mkQuestion
+    -- 	UseQCl : Temp -> Pol -> QCl -> QS
     UseQCl t p cl =
       {
-	s = let qs = combineClause cl t t.a p VQTrue in
+	s = let qs = combineClause (t.s++p.s) cl t.t t.a p.p VQTrue in
 	  \\q => case q of {
 	  QDir => cl.q ++ defaultSentence qs ! SVO ; -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV ++ cl.o ! PreV ;
 	  QIndir => cl.q ++ defaultSentence qs ! SOV -- t.s ++ p.s ++ cl.q ++ cl.s ! PreV ++ cl.o ! PreV ++ cl.v ! t.t ! t.a ! VQTrue ! PreV ! CPostV
@@ -58,7 +58,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
       } ;
     -- UseRCl : Temp -> Pol -> RCl -> RS ;
     UseRCl t p cl = {
-      s = \\g,n => defaultSentence (combineClause (cl.s ! g ! n) (lin Tense t) t.a (lin Pol p) VQFalse) ! SOV ;
+      s = \\g,n => defaultSentence (combineClause (t.s++p.s) (cl.s ! g ! n) t.t t.a p.p VQFalse) ! SOV ;
 --      s = \\r => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! r ;
 --      c = cl.c
     } ;

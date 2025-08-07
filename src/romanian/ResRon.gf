@@ -504,11 +504,11 @@ oper
 
 -- for relatives 
   
- AAgr : Type = {g : Gender ; n : Number} ;
+ AAgr : PType = {g : Gender ; n : Number} ;
   
 -- for agreement between subject and predicate
   
- Agr  : Type = AAgr ** {p : Person} ;
+ Agr  : PType = AAgr ** {p : Person} ;
 
 
 -- clause building function :

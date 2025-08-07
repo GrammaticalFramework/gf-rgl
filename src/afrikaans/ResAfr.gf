@@ -315,7 +315,7 @@ param
 
 --2 Transformations between parameter types
 
-  oper Agr : Type = {g : Gender ; n : Number ; p : Person} ;
+  oper Agr : PType = {g : Gender ; n : Number ; p : Person} ;
 
   oper
     agrP3 : Number -> Agr = agrgP3 Neutr ;

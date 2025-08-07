@@ -19,7 +19,7 @@ param
 
 oper
 --  AGRE = {g : Gender ; n : Number  ; p : Person} ;
-  Agre : Type = {g : Gender ; n : Number ;  p : Person} ;
+  Agre : PType = {g : Gender ; n : Number ;  p : Person} ;
   agre : Gender -> Number -> Person -> Agre = \g,n,p -> {g = g ; n = n ; p = p} ;
 
   agrFeatures : Agr -> Agre = \a -> case a of {Ag g n p => {g = g ; n = n ; p = p}} ;
