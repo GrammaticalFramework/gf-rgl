@@ -513,7 +513,7 @@ param
   -- IL2018-02: a whole lot of times we only need number and person, not gender
   -- maybe switch to PersAgr at some point and halve the number of fields
   oper PersAgr : PType = {n : Number ; p : Person} ;
-  oper Agr : PType = PersAgr ** {g : Gender} ;
+  oper Agr : PType = {n : Number ; p : Person ; g : Gender} ;
 
   oper
     pagr : Agr -> PersAgr = \agr -> { p = agr.p ; n = agr.n } ;
