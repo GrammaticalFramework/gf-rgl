@@ -117,7 +117,7 @@ concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
     N,
     N2,
     N3 = ResHun.Noun ;
-    PN = ResHun.NounPhrase ;
+    PN,LN,GN,SN = ResHun.NounPhrase ;
 
     Adv = {s : Str ; isPre : Bool} ;
 
