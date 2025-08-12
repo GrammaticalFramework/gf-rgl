@@ -8,19 +8,26 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-24.04
     env:
-      GF_VERSION: 3.10-1
+      GF_VERSION: 3.12
       DEST: gf-rgl-${{ github.event.inputs.tag  }}
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Download GF
+      uses: dsaltares/fetch-gh-release-asset@1.1.1
+      with:
+        repo: 'GrammaticalFramework/gf-core'
+        version: 'tags/${{ env.GF_VERSION }}'
+        file: 'gf-${{ env.GF_VERSION }}-ubuntu-24.04.deb'
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Install GF
       run: |
-        curl -s https://www.grammaticalframework.org/download/gf_${GF_VERSION}_amd64.deb -o gf.deb
-        sudo dpkg -i gf.deb
+        sudo dpkg -i gf-${GF_VERSION}-ubuntu-24.04.deb
 
     - name: Build RGL
       run: |
