@@ -101,7 +101,7 @@ lin CompoundN a b = lin N {
                    NRelPrep p => prepCase (CPrep p) ;  -- tasa de suicidio
                    NRelNoPrep => []                    -- connessione internet = internet connection
                  } ++
-                 a.s ! Sg ;
+                 a.s ! n ;
       g = b.g ;
       relType = b.relType
       } ;
