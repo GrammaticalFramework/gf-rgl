@@ -98,10 +98,9 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
 lin CompoundN a b = lin N {
       s = \\n => b.s ! n ++
                  case b.relType of {
-                   NRelPrep p => prepCase (CPrep p) ;  -- tasa de suicidio
-                   NRelNoPrep => []                    -- connessione internet = internet connection
-                 } ++
-                 a.s ! n ;
+                   NRelPrep p => prepCase (CPrep p) ++ a.s ! Sg ;  -- tasa de suicidio
+                   NRelNoPrep => a.s ! n               -- connessione internet = internet connection
+                 } ;
       g = b.g ;
       relType = b.relType
       } ;
