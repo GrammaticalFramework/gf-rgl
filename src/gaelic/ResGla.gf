@@ -40,26 +40,25 @@ param
 
 oper
   LinN : Type = {
-    base,                -- tunnag     fuil      loch
-    lenited,             -- thunnag    fhuil     loch
-    palatalised,         -- tunnaig    fuil      loch
-    lenited_palatalised, -- thunnaig   fhuil     loch
-    suffixE,             -- tunnaige    fuile     loche
-    lenited_suffixA,     -- thunnaga   fala      locha
-    suffixAn             -- tunnagan  nonExist  lochan
+    base,                -- tunnag     fuil      loch      fear    litir
+    gen,                 -- tunnaige   fala      locha     fir     litreach ("de-palatalised")
+    pl,                  -- tunnagan             lochan    fir     litrichean
+    -- TODO: for nouns that only use suffixes, should these just show theoretical forms?
+    lenited,             -- thunnag    fhuil     loch      fhear
+    palatalised,         -- tunnaig    fuil      loch      fir
+    lenited_palatalised  -- thunnaig   fhuil     loch      fhir
     : Str ;
     g : Gender
     } ;
 
   smartN = overload {
     smartN : (nom,gen,pl : Str) -> Gender -> LinN = \loch,locha,lochan,g -> {
+      gen = locha ;
+      pl = lochan ;
       base,
       lenited,
       palatalised,
-      lenited_palatalised,
-      suffixE = loch ;
-      lenited_suffixA = lochan ;
-      suffixAn = lochan ;
+      lenited_palatalised = loch ;
       g = g
       }
 --      ;
@@ -146,15 +145,13 @@ oper
   } ;
 
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
-  mkNoun : (b,l,p,lp,se,sa,lsa,san : Str) -> Gender -> LinN = \b,l,p,lp,se,sa,lsa,san,g -> {
-    base = b ;                 -- tunnag     fuil      loch
-    lenited = l ;              -- thunnag    fhuil     loch
-    palatalised = p ;          -- tunnaig    fuil      loch
-    lenited_palatalised = lp ; -- thunnaig   fhuil     loch
-    suffixE = se ;             -- tunnaige   fuile     loch
-    suffixA = sa ;             -- tunnaga    fala      locha
-    lenited_suffixA = lsa ;    -- thunnaga   fala      locha
-    suffixAn = san ;           -- tunnagan
+  mkNoun : (b,g,pl,l,p,lp : Str) -> Gender -> LinN = \b,gen,pl,l,p,lp,g -> {
+    base = b ;                 -- tunnag     fuil      loch      fear    litir
+    gen = gen ;                  -- tunnaige   fala      locha     fir     litreach
+    pl  = pl ;                 -- tunnagan             lochan    fir     litrichean
+    lenited = l ;              -- thunnag    fhuil     loch      fhear   litir ?
+    palatalised = p ;          -- tunnaig    fuil      loch      fir     litir ?
+    lenited_palatalised = lp ; -- thunnaig   fhuil     loch      fhir    litir ?
     g = g ;
     } ;
 
@@ -164,23 +161,23 @@ oper
     s = table {
           Pl => table {
                   Indef => table {
-                    Nom|Dat => fm n.suffixAn n.palatalised ;
-                    Gen => n.lenited ;
-                    Voc => n.lenited_suffixA } ;
+                    Nom|Dat => n.pl ;
+                    Gen => n.gen ;
+                    Voc => glue n.lenited "a" } ;
                   Def => table {
-                    Nom|Dat => fm n.suffixAn n.palatalised ;
+                    Nom|Dat => n.pl ;
                     Gen => n.base ;
                     Voc => fm n.lenited n.lenited_palatalised }
                   } ;
           _ => table { -- Sg and Dl
                   Indef => table {
                     Nom => n.base ;
-                    Gen => fm n.suffixE n.palatalised ;
+                    Gen => n.gen ;
                     Dat => fm n.palatalised n.base ;
                     Voc => fm n.lenited n.lenited_palatalised } ;
                   Def => table {
                     Nom => n.base ;
-                    Gen => fm n.suffixE n.lenited_palatalised ;
+                    Gen => n.gen ;
                     Dat => fm n.palatalised n.lenited ;
                     Voc => fm n.lenited n.lenited_palatalised }
                 }
@@ -209,25 +206,21 @@ oper
 -- some test nouns — TODO: do smart paradigms
 tunnag_N : LinN = {
     base = "tunnag" ;
+    gen = "tunnaige" ;
+    pl = "tunnagan" ;
     lenited = "thunnag" ;
     palatalised = "tunnaig" ;
     lenited_palatalised = "thunnaig" ;
-    suffixE = "tunnaige" ;
-    suffixA = "tunnaga" ;
-    lenited_suffixA = "thunnaga" ;
-    suffixAn = "tunnagan" ;
+
     g = Fem ;
     } ;
 
 boireannach_N : LinN = {
     base = "boireannach" ;
+    pl,gen = "boireannaich" ;
     lenited = "bhoireannach" ;
     palatalised = "boireannaich" ;
     lenited_palatalised = "bhoireannaich" ;
-    suffixE = "bhoireannaiche" ;
-    suffixA = "boireannacha" ;
-    lenited_suffixA = "bhoireannacha" ;
-    suffixAn = "boireannachan" ;
     g = Masc ;
     } ;
 
