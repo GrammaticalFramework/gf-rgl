@@ -55,8 +55,8 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     Det = ResGla.LinDet ; -- s : Str , n : Number
     Predet = SS ;
     Quant = ResGla.LinQuant ; -- s : Number => Str
-    Num = ResGla.LinDet ;
-    Card = ResGla.LinDet ;
+    Num = ResGla.LinNum ;
+    Card = ResGla.LinNum ;
     ACard = SS ;
     Ord = SS ;
     DAP = SS ;

@@ -10,7 +10,7 @@ lin
 
   -- : NP -> VP -> Cl
   PredVP np vp = {
-    subj = np.s ; -- ! Nom, if there are cases
+    subj = np.s ! Nom ;
     pred =
      -- table {something with tense+polarity =>
             vp.s ! TODOVF np.n np.p

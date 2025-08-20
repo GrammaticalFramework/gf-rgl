@@ -117,7 +117,7 @@ oper
   -- https://inariksit.github.io/gf/2018/05/25/subtyping-gf.html#lock-fields
 
   mkN = overload {
-    mkN : Str -> N = \s -> lin N (ResGla.mkNoun s) ;
+    mkN : Str -> N = \s -> lin N (ResGla.smartN s (s+"a") (s+"an") Masc) ;
     -- TODO: more overload instances
   } ;
 

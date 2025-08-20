@@ -51,6 +51,21 @@ oper
     g : Gender
     } ;
 
+  smartN = overload {
+    smartN : (nom,gen,pl : Str) -> Gender -> LinN = \loch,locha,lochan,g -> {
+      base,
+      lenited,
+      palatalised,
+      lenited_palatalised,
+      suffixE = loch ;
+      lenited_suffixA = lochan ;
+      suffixAn = lochan ;
+      g = g
+      }
+--      ;
+--    smartN : (…,…,…,… : Str)
+  } ;
+
 
 {-
 
@@ -123,7 +138,7 @@ class 3
 
 
 -}
-
+oper
   LinPN : Type = {
     s : Str ;
     n : Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
@@ -299,25 +314,34 @@ oper
     s,  -- quantifier in a context, e.g. 'this (cat) (is nice)'
     sp  -- quantifier as standalone, e.g. 'this (is nice)'
      : Number => Str ;
+    d : Definiteness ;
     } ;
 
   LinDet : Type = {
     s,s2 : Str ;
     n : Number ;
+    d : Definiteness ;
+    } ;
+
+  LinNum : Type = {
+    s : Str ;
+    n : Number ;
     } ;
 
   -- Can you reuse your mkNoun? Do nouns and quantifiers inflect the same way?
-  mkQuant : Str -> Str -> LinQuant = \this, these -> {
+  mkQuant : Str -> Str -> Definiteness -> LinQuant = \this,these,d -> {
     s,
     sp = table {
       Sg => this ;
       _ => these } ;
+    d = d ;
     };
 
   mkDet : (seven, teen : Str) -> Number -> LinDet = \aon, deug, num -> {
     s = aon ;
     s2 = deug ;
-    n = num
+    n = num ;
+    d = Indef ----
   } ;
 
 --------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 concrete NumeralGla of Numeral = CatGla [Numeral,Digits] **
   open Prelude, ResGla in {
-
+{-
   lincat
     Digit = LinNumeral ;      -- 2..9
     Sub10,                    -- 1..9
@@ -112,4 +112,6 @@ concrete NumeralGla of Numeral = CatGla [Numeral,Digits] **
         } ;
       n = Pl ; -- TODO: handle number 1
       } ;
+
+      -}
 }

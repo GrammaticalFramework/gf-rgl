@@ -33,9 +33,9 @@ lin big_A = mkA "" ;
 lin bike_N = mkN "" ;
 lin bird_N = mkN "" ;
 lin bite_V2 = mkV2 "" ;
-lin black_A = mkA "" ; -}
-lin blood_N = mkN "blood" ;
-{-lin blow_V = mkV "" ;
+lin black_A = mkA "" ;
+lin blood_N = mkN "" ;
+lin blow_V = mkV "" ;
 lin blue_A = mkA "" ;
 lin boat_N = mkN "" ;
 lin bone_N = mkN "" ;
@@ -195,11 +195,12 @@ lin know_V2 = mkV2 "" ;
 lin know_VQ = mkVQ (mkV "") ;
 lin know_VS = mkV "" ;
 
-
+-}
 ----
 -- L
 
-lin lake_N = mkN "" ;
+lin lake_N = smartN "loch" "locha" "lochan" Masc ;
+{-
 lin lamp_N = mkN "" ;
 lin language_N = mkN "" ;
 lin laugh_V = mkV "" ;

@@ -8,7 +8,8 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      s = det.s ++ cn.s ! det.n
+      s = \\c => det.s ++ cn.s ! det.n ! det.d ! c ;
+      d = det.d
       } ;
 {-
   -- : PN -> NP ;
@@ -53,7 +54,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -}
   -- MassNP : CN -> NP ;
     MassNP cn = emptyNP ** {
-      s = linCN cn
+      s = cn.s ! Sg ! Indef
       } ;
 
 
@@ -65,6 +66,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
   -- : Quant -> Num -> Det ;
     DetQuant quant num = quant ** {
       s = quant.s ! num.n ++ num.s ;
+      s2 = "DUMMY" ; -- "teen" from numbers like seventeen
       n = num.n ;
       } ;
 
@@ -121,10 +123,10 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -}
 
   -- : Quant
-  DefArt = mkQuant "the" "the" ;
+  DefArt = mkQuant "an" "nan" Def ;
 
   -- : Quant
-  IndefArt = mkQuant "a" [] ;
+  IndefArt = mkQuant [] [] Indef ;
 
 {-
   -- : Pron -> Quant        -- my
@@ -136,7 +138,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 --2 Common nouns
 
   -- : N -> CN
-  UseN n = n ;
+  UseN = useN ;
 
 {-
   -- : N2 -> CN ;
