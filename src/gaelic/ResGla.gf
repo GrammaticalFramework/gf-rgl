@@ -35,23 +35,94 @@ param
          | Dual -- only after number 2
          ;
   Person = P1 | P2 | P3 ;
+  Definiteness = Def | Indef ; -- Some prepositions govern different case when definite vs. indefinite
+
 
 oper
   LinN : Type = {
-    s :
-        Number =>
-        Case =>
-        Str ;
-    g : Gender ;
+    base,                -- tunnag     fuil      loch
+    lenited,             -- thunnag    fhuil     loch
+    palatalised,         -- tunnaig    fuil      loch
+    lenited_palatalised, -- thunnaig   fhuil     loch
+    suffixE,             -- tunnaige    fuile     loche
+    lenited_suffixA,     -- thunnaga   fala      locha
+    suffixAn             -- tunnagan  nonExist  lochan
+    : Str ;
+    g : Gender
     } ;
 
-  -- Most often, the lincat for CN is the same as N, with possibly some additional fields.
-  -- However, sometimes you need more fields than just the s field, e.g. to keep word order flexible, or to add clitics and make sure they attach to the head, not modifiers.
-  -- If you don't know what the previous line means, you can get started with just a single s field.
-  -- You'll notice later whether you need such a field or not.
-  LinCN : Type = LinN
-    -- ** {postmod/premod/… : Str} -- if needed
-    ;
+
+{-
+
+PL.VOC: lenited + non-palatalized + -a
+
+class 1 masculine noun
+    boireannach   SG.*.NOM, SG.INDEF.DAT, PL.DEF.GEN
+    boireannaich  SG.INDEF.GEN, PL.*.NOM, PL.*.DAT
+    bhoireannach  PL.INDEF.GEN, SG.DEF.DAT
+    bhoireannaich SG.DEF.GEN, SG.VOC
+    bhoireannacha PL.VOC
+
+  indefinite
+                singular	plural
+      nominative	boireannach	boireannaich
+      genitive	boireannaich	bhoireannach
+      dative	boireannach	boireannaich; boireannachaibh✝
+  definite
+                  singular	    plural
+    nominative	(am) boireannach	(na) boireannaich
+    genitive	(a') bhoireannaich	(nam) boireannach
+    dative	(a') bhoireannach	(na) boireannaich; boireannachaibh✝
+    vocative	bhoireannaich	       bhoireannacha
+
+
+class 2 feminine noun
+  not affected by lenition?
+    làmh    SG.*.NOM, PL.*.GEN, SG.VOC
+           làmh (imagine there was lenition)  PL.INDEF.GEN, SG.VOC
+    làimh   SG.*.DAT
+    làimhe  SG.*.GEN
+    làmhan  PL.*.NOM, PL.*.DAT
+    làmha   PL.VOC
+
+  indefinite
+                singular	plural
+    nominative	làmh	làmhan
+    genitive	  làimhe	làmh
+    dative	   làimh	làmhan
+  definite
+                singular	  plural
+    nominative	(an) làmh	  (na) làmhan
+    genitive	(na) làimhe	  (nan) làmh
+    dative	(an) làimh	    (na) làmhan
+    vocative	   làmh	        làmha
+
+class 2a feminine noun
+    tunnag    SG.*.NOM, PL.DEF.GEN
+    thunnag   PL.INDEF.GEN, SG.VOC
+    tunnaig   SG.*.DAT, SG.*.GEN (allomorph (secondary?)),
+    tunnaige  SG.*.GEN (allomorph (primary?))
+    tunnagan  PL.*.NOM, PL.*.DAT
+    thunnaga  PL.VOC
+
+  indefinite
+                  singular	plural
+      nominative	tunnag	tunnagan
+      genitive	tunnaige, thunnag
+                tunnaig
+      dative	tunnaig	    tunnagan
+  definite
+                    singular	  plural
+      nominative	(an) tunnag	  (na) tunnagan
+      genitive	(na) tunnaige,  (nan) tunnag
+                    tunnaig
+      dative	  (an) tunnaig	  (na) tunnagan
+      vocative	  thunnag	      thunnaga
+
+class 3
+
+
+-}
 
   LinPN : Type = {
     s : Str ;
@@ -60,18 +131,90 @@ oper
   } ;
 
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
-  mkNoun : Str -> Gender -> LinN = \str,g -> {
-    s = table {
-      _ => \\_ => str -- TODO: actual morphology
-      } ;
+  mkNoun : (b,l,p,lp,se,sa,lsa,san : Str) -> Gender -> LinN = \b,l,p,lp,se,sa,lsa,san,g -> {
+    base = b ;                 -- tunnag     fuil      loch
+    lenited = l ;              -- thunnag    fhuil     loch
+    palatalised = p ;          -- tunnaig    fuil      loch
+    lenited_palatalised = lp ; -- thunnaig   fhuil     loch
+    suffixE = se ;             -- tunnaige   fuile     loch
+    suffixA = sa ;             -- tunnaga    fala      locha
+    lenited_suffixA = lsa ;    -- thunnaga   fala      locha
+    suffixAn = san ;           -- tunnagan
     g = g ;
-      -- If your nouns have gender, it should come here as inherent field.
-      -- Usually you need to give the gender as an argument to mkNoun.
     } ;
 
-  linCN : LinCN -> Str = \cn -> cn.s ! Sg ! Nom
+  -- TODO: no idea if this is even remotely correct
+  -- can always replace morphology with Katya's automated tool
+  useN : LinN -> LinCN = \n -> n ** {
+    s = table {
+          Pl => table {
+                  Indef => table {
+                    Nom|Dat => fm n.suffixAn n.palatalised ;
+                    Gen => n.lenited ;
+                    Voc => n.lenited_suffixA } ;
+                  Def => table {
+                    Nom|Dat => fm n.suffixAn n.palatalised ;
+                    Gen => n.base ;
+                    Voc => fm n.lenited n.lenited_palatalised }
+                  } ;
+          _ => table { -- Sg and Dl
+                  Indef => table {
+                    Nom => n.base ;
+                    Gen => fm n.suffixE n.palatalised ;
+                    Dat => fm n.palatalised n.base ;
+                    Voc => fm n.lenited n.lenited_palatalised } ;
+                  Def => table {
+                    Nom => n.base ;
+                    Gen => fm n.suffixE n.lenited_palatalised ;
+                    Dat => fm n.palatalised n.lenited ;
+                    Voc => fm n.lenited n.lenited_palatalised }
+                }
+              }
+    } where {
+      fm : Str -> Str -> Str = \fem,masc -> case n.g of {
+          Fem => fem ;
+          Masc => masc
+        }
+      };
+
+  LinCN : Type = {
+    s : Number =>
+        Definiteness => -- ???? is this needed ??????
+        Case =>
+        Str ;
+    g : Gender ;
+    -- ** postmod/premod/… : Str -- if needed? determiners can put stuff after head but it only comes at NP
+  } ;
+
+  linCN : LinCN -> Str = \cn -> cn.s ! Sg ! Indef ! Nom
                      --      ++ cn.postmod   -- If there is another field, use here
                                 ;
+
+
+-- some test nouns — TODO: do smart paradigms
+tunnag_N : LinN = {
+    base = "tunnag" ;
+    lenited = "thunnag" ;
+    palatalised = "tunnaig" ;
+    lenited_palatalised = "thunnaig" ;
+    suffixE = "tunnaige" ;
+    suffixA = "tunnaga" ;
+    lenited_suffixA = "thunnaga" ;
+    suffixAn = "tunnagan" ;
+    g = Fem ;
+    } ;
+
+boireannach_N : LinN = {
+    base = "boireannach" ;
+    lenited = "bhoireannach" ;
+    palatalised = "boireannaich" ;
+    lenited_palatalised = "bhoireannaich" ;
+    suffixE = "bhoireannaiche" ;
+    suffixA = "boireannacha" ;
+    lenited_suffixA = "bhoireannacha" ;
+    suffixAn = "boireannachan" ;
+    g = Masc ;
+    } ;
 
 ---------------------------------------------
 -- Numeral
@@ -121,9 +264,6 @@ NB. for later, when you want to make Pron into possessives, you may need more fi
 That's why I'm copying over the definition below, instead of the neater `LinNP : Type = LinPron`.
 -}
 
-param
-  Definiteness = Definite | Indefinite ;
-  -- Some prepositions govern different case when definite vs. indefinite
 
 oper
   LinNP : Type = {
@@ -146,7 +286,7 @@ oper
     s = \\_ => [] ;
     n = Sg ;
     p = P3 ;
-    d = Indefinite ;
+    d = Indef ;
   } ;
 
 --------------------------------------------------------------------------------
