@@ -29,16 +29,28 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 
 param
   Gender = Masc | Fem ;
-  Case = Nom | Gen | Dat | Voc ;
+  CoreCase = Nom | Gen | Dat ;
+  Case = CC CoreCase | Voc ;
   Number = Sg
          | Pl
-         | Dual -- only after number 2
          ;
   Person = P1 | P2 | P3 ;
-  Definiteness = Def | Indef ; -- Some prepositions govern different case when definite vs. indefinite
+  Definiteness = Definite | Indefinite ; -- Some prepositions govern different case when definite vs. indefinite
 
+  NForm =
+      Indef Number CoreCase
+    | Def Number Case
+    | Dual -- only after number 2, only for a handful of nouns. TODO: does it have different cases?
+    ;
 
 oper
+  getNForm : Number -> Definiteness -> Case -> NForm = \n,d,c ->
+     case <d,c> of {
+      <Indefinite,Voc>  => Indef n Nom ; ---- ???
+      <Indefinite,CC c> => Indef n c ;
+      <Definite,c>      => Def n c
+    } ;
+
   LinN : Type = {
     base,                -- tunnag     fuil      loch      fear    litir
     gen,                 -- tunnaige   fala      locha     fir     litreach ("de-palatalised")
@@ -65,85 +77,6 @@ oper
 --    smartN : (…,…,…,… : Str)
   } ;
 
-
-{-
-
-PL.VOC: lenited + non-palatalized + -a
-
-class 1 masculine noun
-    boireannach   SG.*.NOM, SG.INDEF.DAT, PL.DEF.GEN
-    boireannaich  SG.INDEF.GEN, PL.*.NOM, PL.*.DAT
-    bhoireannach  PL.INDEF.GEN, SG.DEF.DAT
-    bhoireannaich SG.DEF.GEN, SG.VOC
-    bhoireannacha PL.VOC
-
-  indefinite
-                singular	plural
-      nominative	boireannach	boireannaich
-      genitive	boireannaich	bhoireannach
-      dative	boireannach	boireannaich; boireannachaibh✝
-  definite
-                  singular	    plural
-    nominative	(am) boireannach	(na) boireannaich
-    genitive	(a') bhoireannaich	(nam) boireannach
-    dative	(a') bhoireannach	(na) boireannaich; boireannachaibh✝
-    vocative	bhoireannaich	       bhoireannacha
-
-
-class 2 feminine noun
-  not affected by lenition?
-    làmh    SG.*.NOM, PL.*.GEN, SG.VOC
-           làmh (imagine there was lenition)  PL.INDEF.GEN, SG.VOC
-    làimh   SG.*.DAT
-    làimhe  SG.*.GEN
-    làmhan  PL.*.NOM, PL.*.DAT
-    làmha   PL.VOC
-
-  indefinite
-                singular	plural
-    nominative	làmh	làmhan
-    genitive	  làimhe	làmh
-    dative	   làimh	làmhan
-  definite
-                singular	  plural
-    nominative	(an) làmh	  (na) làmhan
-    genitive	(na) làimhe	  (nan) làmh
-    dative	(an) làimh	    (na) làmhan
-    vocative	   làmh	        làmha
-
-class 2a feminine noun
-    tunnag    SG.*.NOM, PL.DEF.GEN
-    thunnag   PL.INDEF.GEN, SG.VOC
-    tunnaig   SG.*.DAT, SG.*.GEN (allomorph (secondary?)),
-    tunnaige  SG.*.GEN (allomorph (primary?))
-    tunnagan  PL.*.NOM, PL.*.DAT
-    thunnaga  PL.VOC
-
-  indefinite
-                  singular	plural
-      nominative	tunnag	tunnagan
-      genitive	tunnaige, thunnag
-                tunnaig
-      dative	tunnaig	    tunnagan
-  definite
-                    singular	  plural
-      nominative	(an) tunnag	  (na) tunnagan
-      genitive	(na) tunnaige,  (nan) tunnag
-                    tunnaig
-      dative	  (an) tunnaig	  (na) tunnagan
-      vocative	  thunnag	      thunnaga
-
-class 3
-
-
--}
-oper
-  LinPN : Type = {
-    s : Str ;
-    n : Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
-    g : Gender ; -- inherent gender/noun class, if your language has that
-  } ;
-
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
   mkNoun : (b,g,pl,l,p,lp : Str) -> Gender -> LinN = \b,gen,pl,l,p,lp,g -> {
     base = b ;                 -- tunnag     fuil      loch      fear    litir
@@ -159,29 +92,21 @@ oper
   -- can always replace morphology with Katya's automated tool
   useN : LinN -> LinCN = \n -> n ** {
     s = table {
-          Pl => table {
-                  Indef => table {
-                    Nom|Dat => n.pl ;
-                    Gen => n.gen ;
-                    Voc => glue n.lenited "a" } ;
-                  Def => table {
-                    Nom|Dat => n.pl ;
-                    Gen => n.base ;
-                    Voc => fm n.lenited n.lenited_palatalised }
-                  } ;
-          _ => table { -- Sg and Dl
-                  Indef => table {
-                    Nom => n.base ;
-                    Gen => n.gen ;
-                    Dat => fm n.palatalised n.base ;
-                    Voc => fm n.lenited n.lenited_palatalised } ;
-                  Def => table {
-                    Nom => n.base ;
-                    Gen => n.gen ;
-                    Dat => fm n.palatalised n.lenited ;
-                    Voc => fm n.lenited n.lenited_palatalised }
-                }
-              }
+          Indef Sg Nom => n.base ;
+          Indef Sg Gen => n.gen ;
+          Indef Sg Dat => fm n.palatalised n.base ;
+          Def Sg (CC Nom) => n.base ;
+          Def Sg (CC Gen) => fm n.gen n.lenited_palatalised ;
+          Def Sg (CC Dat) => fm n.palatalised n.lenited ;
+          Def Sg Voc => n.lenited ;
+          Indef Pl Nom => n.pl ;
+          Indef Pl Gen => n.base ;
+          Indef Pl Dat => n.palatalised ;
+          Def Pl (CC Nom) => n.pl ;
+          Def Pl (CC Gen) => n.base ;
+          Def Pl (CC Dat) => n.pl ;
+          Def Pl Voc => glue n.lenited "a" ;
+          Dual => "TODO FIXME I AM DUAL"}
     } where {
       fm : Str -> Str -> Str = \fem,masc -> case n.g of {
           Fem => fem ;
@@ -190,15 +115,13 @@ oper
       };
 
   LinCN : Type = {
-    s : Number =>
-        Definiteness => -- ???? is this needed ??????
-        Case =>
+    s : NForm =>
         Str ;
     g : Gender ;
     -- ** postmod/premod/… : Str -- if needed? determiners can put stuff after head but it only comes at NP
   } ;
 
-  linCN : LinCN -> Str = \cn -> cn.s ! Sg ! Indef ! Nom
+  linCN : LinCN -> Str = \cn -> cn.s ! Indef Sg Nom
                      --      ++ cn.postmod   -- If there is another field, use here
                                 ;
 
@@ -223,6 +146,16 @@ boireannach_N : LinN = {
     lenited_palatalised = "bhoireannaich" ;
     g = Masc ;
     } ;
+
+---------------------------------------------
+-- Proper noun
+
+oper
+  LinPN : Type = {
+    s : Str ;
+    n : Number ; -- Proper nouns often have already an inherent number; you don't usually say "a Paris / many Parises"
+    g : Gender ; -- inherent gender/noun class, if your language has that
+  } ;
 
 ---------------------------------------------
 -- Numeral
@@ -288,13 +221,13 @@ oper
     d : Definiteness ;
     } ;
 
-  linNP : LinNP -> Str = \np -> np.s ! Nom ;
+  linNP : LinNP -> Str = \np -> np.s ! (CC Nom) ;
 
   emptyNP : LinNP = {
     s = \\_ => [] ;
     n = Sg ;
     p = P3 ;
-    d = Indef ;
+    d = Indefinite ;
   } ;
 
 --------------------------------------------------------------------------------
@@ -334,7 +267,7 @@ oper
     s = aon ;
     s2 = deug ;
     n = num ;
-    d = Indef ----
+    d = Indefinite -- TODO fix
   } ;
 
 --------------------------------------------------------------------------------
