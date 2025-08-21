@@ -30,8 +30,8 @@ lin beer_N = mkN "" ;
 lin beg_V2V = mkV2V (mkV "") ;
 lin belly_N = mkN "" ;
 lin big_A = mkA "" ;
-lin bike_N = mkN "" ;
-lin bird_N = mkN "" ;
+lin bike_N = mkN "" ;-}
+lin bird_N = smartN "tunnag" Fem ;{-
 lin bite_V2 = mkV2 "" ;
 lin black_A = mkA "" ;
 lin blood_N = mkN "" ;
@@ -160,8 +160,8 @@ lin green_A = mkA "" ;
 ----
 -- H
 
-lin hair_N = mkN "" ;
-lin hand_N = mkN "" ;
+lin hair_N = mkN "" ;-}
+lin hand_N = smartN "làmh" Fem ;{-
 lin harbour_N = mkN "" ;
 lin hat_N = mkN "" ;
 lin hate_V2 = mkV2 "" ;
@@ -223,7 +223,7 @@ lin love_V2 = mkV2 "" ;
 ----
 -- M
 
-lin man_N = mkN "" ;
+-}lin man_N = smartN "fear" Masc ;{-
 lin married_A2 = mkA2 (mkA "") ;
 lin meat_N = mkN "" ;
 lin milk_N = mkN "" ;
@@ -407,8 +407,8 @@ lin wind_N = mkN "" ;
 lin window_N = mkN "" ;
 lin wine_N = mkN "" ;
 lin wing_N = mkN "" ;
-lin wipe_V2 = mkV2 "" ;
-lin woman_N = mkN "" ;
+lin wipe_V2 = mkV2 "" ;-}
+lin woman_N = smartN "boireannach" Masc ;{-
 lin wonder_VQ = mkVQ (mkV "") ;
 lin wood_N = mkN "" ;
 lin worm_N = mkN "" ;
