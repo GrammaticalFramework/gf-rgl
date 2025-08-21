@@ -93,9 +93,10 @@ oper
   vowel : pattern Str = #("a"|"à"|"e"|"i"|"ì"|"o"|"u") ; -- more accents?
   diphthong : pattern Str = #("ea"|"oi") ;
   lenitable : pattern Str = #("b"|"c"|"f"|"g"|"m"|"p"|"d"|"t"|"s") ;
+  labial : pattern Str = #("b"|"f"|"m"|"p") ;
 
   palatalise : Str -> Str = \lamh -> case lamh of {
-   -- f + "ea" + r      => f + "i" + r ; -- TODO is this irregular?
+    f@? + "ea" + r      => f + "i" + r ; -- TODO is this irregular?
     boireann@(_ + (#vowel|#diphthong) + ? + _ + (#vowel|#diphthong) + ? + _)
       + a@#vowel + ch => boireann + a + "i" + ch ;
     tunn@(_ + (#vowel|#diphthong) + ? + _)
@@ -113,7 +114,7 @@ oper
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
   mkNoun : (b,g,pl,l,p,lp : Str) -> Gender -> LinN = \b,gen,pl,l,p,lp,g -> {
     base = b ;                 -- tunnag     fuil      loch      fear    litir
-    gen = gen ;                  -- tunnaige   fala      locha     fir     litreach
+    gen = gen ;                -- tunnaige   fala      locha     fir     litreach
     pl  = pl ;                 -- tunnagan             lochan    fir     litrichean
     lenited = l ;              -- thunnag    fhuil     loch      fhear   litir ?
     palatalised = p ;          -- tunnaig    fuil      loch      fir     litir ?
@@ -267,18 +268,32 @@ oper
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
-  -- If your language has a number, it is very very very likely that
-  -- Quant has a variable number and Det has inherent number.
+param
+  QForm = QSg Gender CoreCase | QPl CoreCase ;
+
+oper
+  getQForm : Number -> Gender -> Case -> QForm = \n,g,c -> case <n,c> of {
+    <Sg,CC c> => QSg g c ;
+    <Sg,Voc>  => QSg g Nom ; --- ??????
+    <Pl,CC c> => QPl c ;
+    <Pl,Voc>  => QPl Nom  --- ??????
+  } ;
+
+  getArt : LinQuant -> Number -> Gender -> Case -> Str = \quant,n,g,c -> case c of {
+    Voc => "" ; -- TODO: add empty field to article to not get metavariables
+    _   => quant.s ! getQForm n g c
+  } ;
 
   LinQuant : Type = {
-    s,  -- quantifier in a context, e.g. 'this (cat) (is nice)'
-    sp  -- quantifier as standalone, e.g. 'this (is nice)'
-     : Number => Str ;
+    s  -- quantifier in a context, e.g. 'this (cat) (is nice)'
+     : QForm => Str ;
+    sp : Str ;  -- quantifier as standalone, e.g. 'this (is nice)'
     d : Definiteness ;
     } ;
 
   LinDet : Type = {
-    s,s2 : Str ;
+    s,s2 : Gender => Case => Str ;
+    sp : Str ;
     n : Number ;
     d : Definiteness ;
     } ;
@@ -289,21 +304,55 @@ oper
     } ;
 
   -- Can you reuse your mkNoun? Do nouns and quantifiers inflect the same way?
-  mkQuant : Str -> Str -> Definiteness -> LinQuant = \this,these,d -> {
-    s,
-    sp = table {
-      Sg => this ;
-      _ => these } ;
+  mkQuant : Str -> Definiteness -> LinQuant = \this,d -> {
+    s = \\_ => this ;
+    sp = this ;
     d = d ;
-    };
+    } ;
 
   mkDet : (seven, teen : Str) -> Number -> LinDet = \aon, deug, num -> {
-    s = aon ;
-    s2 = deug ;
+    s = \\_,_ => aon ;
+    s2 = \\_,_ => deug ;
+    sp = aon ;
     n = num ;
-    d = Indefinite -- TODO fix
+    d = Indefinite -- TODO add as param
   } ;
 
+-- Allomorphs of the definite article
+
+  AN, AN_L, NA, NAN : Str ;
+  AN = pre {
+        #vowel  => "an t-" ++ BIND ;
+        #labial => "am" ;
+        _       => "an" } ;
+
+  -- N.B. lenition comes from a different param, this is just a shorthand
+  AN_L = pre {
+          "b"|"m"|"p"|"c"|"g" => "a'" ;
+          "f"                 => "an" ;
+          "sl"|"sn"|"sr"|
+          "sa"|"sà"|"si"|"sì"|
+          "se"|"so"|"su"      => "an t-" ++ BIND ;
+          _                   => "an" } ;
+  NA = pre {
+        #vowel  => "na h-" ++ BIND ;
+        _       => "na" } ;
+  NAN = pre {
+        #labial => "nam" ;
+        _       => "nan" } ;
+
+  defArt : LinQuant = {
+    s = table {
+          QSg Masc Nom => AN ;
+          QSg Masc _   => AN_L ;
+          QSg Fem Gen  => NA ;
+          QSg Fem _    => AN_L ;
+          QPl Gen => NAN ;
+          QPl _   => NA
+        } ;
+    sp = "an" ; --- meaningless for DefArt
+    d = Definite ;
+    } ;
 --------------------------------------------------------------------------------
 -- Adpositions
 

@@ -8,7 +8,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      s = \\c => det.s ++ cn.s ! getNForm det.n det.d c ;
+      s = \\c => det.s ! cn.g ! c ++ cn.s ! getNForm det.n det.d c ;
       d = det.d
       } ;
 {-
@@ -65,8 +65,8 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
   -- : Quant -> Num -> Det ;
     DetQuant quant num = quant ** {
-      s = quant.s ! num.n ++ num.s ;
-      s2 = "DUMMY" ; -- "teen" from numbers like seventeen
+      s = \\g,c => getArt quant num.n g c ++ num.s ;
+      s2 = \\g,c => "DUMMY" ; -- "teen" from numbers like seventeen
       n = num.n ;
       } ;
 
@@ -123,10 +123,10 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -}
 
   -- : Quant
-  DefArt = mkQuant "an" "nan" Definite ;
+  DefArt = ResGla.defArt ;
 
   -- : Quant
-  IndefArt = mkQuant [] [] Indefinite ;
+  IndefArt = mkQuant [] Indefinite ;
 
 {-
   -- : Pron -> Quant        -- my
