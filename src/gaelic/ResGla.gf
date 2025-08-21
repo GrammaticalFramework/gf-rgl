@@ -46,7 +46,7 @@ param
 oper
   getNForm : Number -> Definiteness -> Case -> NForm = \n,d,c ->
      case <d,c> of {
-      <Indefinite,Voc>  => Indef n Nom ; ---- ???
+      <Indefinite,Voc>  => Def n Voc ;
       <Indefinite,CC c> => Indef n c ;
       <Definite,c>      => Def n c
     } ;
@@ -72,10 +72,43 @@ oper
       palatalised,
       lenited_palatalised = loch ;
       g = g
-      }
---      ;
---    smartN : (…,…,…,… : Str)
+      } ;
+    smartN : (base : Str) -> Gender -> LinN = \tunnag,g -> {
+      base = tunnag ;
+      gen = fm (tunnaig + "e") tunnaig ;
+      pl = fm (tunnag + "an") tunnaig ; -- for other allomorphs, use 4-argument paradigm
+      lenited = thunnag ;
+      palatalised = tunnaig ;
+      lenited_palatalised = thunnaig ;
+      g = g
+      } where {
+          tunnaig : Str = palatalise tunnag ;
+          thunnag : Str = lenite tunnag ;
+          thunnaig : Str = lenite tunnaig ;
+          fm : Str -> Str -> Str = \fem,masc -> case g of {
+            Fem => fem ; Masc => masc }
+        }
   } ;
+
+  vowel : pattern Str = #("a"|"à"|"e"|"i"|"ì"|"o"|"u") ; -- more accents?
+  diphthong : pattern Str = #("ea"|"oi") ;
+  lenitable : pattern Str = #("b"|"c"|"f"|"g"|"m"|"p"|"d"|"t"|"s") ;
+
+  palatalise : Str -> Str = \lamh -> case lamh of {
+   -- f + "ea" + r      => f + "i" + r ; -- TODO is this irregular?
+    boireann@(_ + (#vowel|#diphthong) + ? + _ + (#vowel|#diphthong) + ? + _)
+      + a@#vowel + ch => boireann + a + "i" + ch ;
+    tunn@(_ + (#vowel|#diphthong) + ? + _)
+      + a@#vowel + g  => tunn + a + "i" + g ;
+    l + a@#vowel + mh => l + a + "i" + mh ;
+    _                 => lamh } ;
+
+  lenite : Str -> Str = \tunnag -> case tunnag of {
+    "s" + ("p"|"g"|"m"|"t") + _ => tunnag ; -- sp, sg, sm, st don't lenite
+    t@#lenitable + "h" + _ => tunnag ; -- don't lenite twice
+    t@#lenitable + unnag   => t + "h" + unnag ;
+    _                      => tunnag } ;
+
 
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
   mkNoun : (b,g,pl,l,p,lp : Str) -> Gender -> LinN = \b,gen,pl,l,p,lp,g -> {
@@ -98,15 +131,16 @@ oper
           Def Sg (CC Nom) => n.base ;
           Def Sg (CC Gen) => fm n.gen n.lenited_palatalised ;
           Def Sg (CC Dat) => fm n.palatalised n.lenited ;
-          Def Sg Voc => n.lenited ;
-          Indef Pl Nom => n.pl ;
-          Indef Pl Gen => n.base ;
-          Indef Pl Dat => n.palatalised ;
+          Def Sg Voc => fm n.lenited n.lenited_palatalised ;
+          Indef Pl Nom => fm n.pl n.palatalised ;
+          Indef Pl Gen => n.lenited ;
+          Indef Pl Dat => fm n.pl n.palatalised ; -- TODO: is this correct?
           Def Pl (CC Nom) => n.pl ;
           Def Pl (CC Gen) => n.base ;
           Def Pl (CC Dat) => n.pl ;
           Def Pl Voc => glue n.lenited "a" ;
-          Dual => "TODO FIXME I AM DUAL"}
+          Dual => fm n.palatalised n.base  -- TODO: is this correct? only for 1-syllable feminine nouns?
+          }
     } where {
       fm : Str -> Str -> Str = \fem,masc -> case n.g of {
           Fem => fem ;
