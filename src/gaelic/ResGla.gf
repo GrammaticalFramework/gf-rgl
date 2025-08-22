@@ -249,10 +249,11 @@ oper
                 -- or do we have an exhaustive list of prepositions that merge, and we can make that into a param and put on a LHS here?
 
     s : Case => Str ; -- TODO: is lenition a separate dimension from case?
-
+    empty : Str ; -- to avoid metavariables
     -- TODO can we make this combo of inherent params leaner?
-    n : Number ;
-    p : Person ;
+    a : Agr ;
+    -- n : Number ;
+    -- p : Person ;
     d : Definiteness ;
     } ;
 
@@ -260,8 +261,10 @@ oper
 
   emptyNP : LinNP = {
     s = \\_ => [] ;
-    n = Sg ;
-    p = P3 ;
+    a = NotPron Sg ;
+    empty = [] ;
+    -- n = Sg ;
+    -- p = P3 ;
     d = Indefinite ;
   } ;
 
@@ -371,12 +374,15 @@ oper
 
 -- more on preps: Lamb, p.224
 
+param
+  Agr = Sg1 | Sg2 | Sg3 Gender | Pl1 | Pl2 | Pl3 | NotPron Number ;
+
 oper
   LinPrep : Type = {
-    s : Str ;
+    s : Agr => Str ; -- bare: aig 'on', inflected: agam 'on me', agad 'on you', …
 
-    c2 : Definiteness => Case ; -- most often dative
-
+    c2 : Definiteness => CoreCase ; -- most often dative
+    replacesPron : Bool ; -- NP has to keep track of if it comes from a Pron
 
     -- If your language has both pre- and postpositions, you need an inherent parameter in Prep to record which one a given Prep is.
     -- position : PreOrPost ;
@@ -384,7 +390,38 @@ oper
     -- Some cause lenition—is that separate from case?
     } ;
 
+  mkPrep : (replacesPron : Bool)
+        -> (indef,defi : CoreCase)
+        -> (aig,agam,agad,aige,aice,againn,agaibh,aca : Str)
+        -> LinPrep =
+      \replaces,casIndef,casDef,aig,agam,agad,aige,aice,againn,agaibh,aca -> {
+        s = table {
+              NotPron _ => aig ; Sg1 => agam ; Sg2 => agad ;
+              Sg3 Masc => aige ; Sg3 Fem => aice ;
+              Pl1 => againn ; Pl2 => agaibh ; Pl3 => aca } ;
+        c2 = table {Indefinite => casIndef ; Definite => casDef} ;
+        replacesPron = replaces
+        } ;
 
+  smartPrep : (aig,agam,agad,aige,aice,againn,agaibh,aca : Str) -> LinPrep =
+    mkPrep True Dat Dat ;
+
+  emptyPrep : LinPrep = {
+    s = \\_ => [] ;
+    c2 = \\_ => Dat ;
+    replacesPron = False
+  } ;
+
+  aigPrep : LinPrep = smartPrep "aig" "agam"  "agad"  "aige"     "aice"    "againn"  "agaibh"  "aca" ;
+  airPrep : LinPrep = smartPrep "air" "orm"   "ort"   "air"      "oirre"   "oirrn"   "oirbh"   "orra" ;
+  annPrep : LinPrep = smartPrep "ann" "annam" "annad" "ann"      "innte"   "annainn" "annaibh" "annta" ;
+  àsPrep  : LinPrep = smartPrep "às"  "asam"  "asad"  "às"       "aiste"   "asainn"  "asaibh"  "asda" ;
+  bhoPrep : LinPrep = smartPrep "bho" "bhuam" "bhuat" "bhuaithe" "bhuaipe" "bhuainn" "buaibh"  "bhuapa" ;
+{-  dePrep  : LinPrep = …-}
+  doPrep  : LinPrep = smartPrep "do"  "dhomh" "dhut"   "dha"     "dhi"     "dhuinn"  "dhuibh"  "dhiubh" ;
+{-  eadarPrep : LinPrep = …-}
+{-  foPrep  : LinPrep = …-}
+  guPrep  : LinPrep = smartPrep "gu" "ugam"  "ugad"  "uige"     "uice"    "ugainn"  "ugaibh"  "uca" ;
 --------------------------------------------------------------------------------
 -- Adjectives
 -- Lamb p. 220 basic morphology, degree
@@ -400,7 +437,7 @@ oper
 -- Verbs
 
 param
-  VForm = TODOVF Number Person ;
+  VForm = TODOVF Agr;
 
 oper
   LinV : Type = {
@@ -432,7 +469,7 @@ oper
     c2 : LinPrep ;
     } ;
 
-  linVP : LinVP -> Str = \vp -> vp.s ! TODOVF Sg P3 ;
+  linVP : LinVP -> Str = \vp -> vp.s ! TODOVF (NotPron Sg) ;
 
 --------------------------------------------------------------------------------
 -- Cl, S

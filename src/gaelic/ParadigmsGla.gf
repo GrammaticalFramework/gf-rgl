@@ -109,7 +109,7 @@ oper
 -- hidden from the document.
 
   Prep = CatGla.Prep ;
-  noPrep = mkPrep [] ;
+  noPrep = lin Prep ResGla.emptyPrep ;
 
   -- Add more overload instances if needed for all categories!
 
@@ -178,12 +178,12 @@ oper
 
   -----
 -}
-
+{-
   -- If prepositions take case, add that as argument to mkPrep
   mkPrep = overload {
     mkPrep : Str -> Prep = \s -> lin Prep {s = s} ;
     } ;
-{-
+
   mkConj = overload {
     mkConj : (and : Str) -> Conj = \s -> …
     mkConj : (either : Str) -> (or : Str) -> Conj = \s -> …

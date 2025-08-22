@@ -90,35 +90,35 @@ lin nothing_NP =
 lin somebody_NP =
 lin something_NP =
 
--------
+-------}
 -- Prep
 
-lin above_Prep = mkPrep "" ;
-lin after_Prep = mkPrep "" ;
-lin before_Prep = mkPrep "" ;
-lin behind_Prep = mkPrep ""  ;
-lin between_Prep = = mkPrep "" ;
-lin by8agent_Prep = mkPrep "" ;
-lin by8means_Prep = mkPrep "" ;
-lin during_Prep = mkPrep "" ;
-lin except_Prep = mkPrep "" ;
-lin for_Prep = mkPrep "" ;
-lin from_Prep = mkPrep "" ;
-lin in8front_Prep = mkPrep "" ;
-lin in_Prep = mkPrep "" ;
-lin on_Prep = mkPrep "" ;
-lin part_Prep = mkPrep ;
-lin possess_Prep = mkPrep "" ;
-lin through_Prep = mkPrep "" ;
-lin to_Prep = mkPrep "k" ;
-lin under_Prep = mkPrep "" ;
-lin with_Prep = mkPrep "" ;
-lin without_Prep = mkPrep "" ;
+-- lin above_Prep = mkPrep "" ;
+-- lin after_Prep = mkPrep "" ;
+-- lin before_Prep = mkPrep "" ;
+-- lin behind_Prep = mkPrep ""  ;
+-- lin between_Prep = = mkPrep "" ;
+-- lin by8agent_Prep = mkPrep "" ;
+-- lin by8means_Prep = mkPrep "" ;
+-- lin during_Prep = mkPrep "" ;
+-- lin except_Prep = mkPrep "" ;
+lin for_Prep = ResGla.doPrep ;
+lin from_Prep = ResGla.bhoPrep ;
+-- lin in8front_Prep = mkPrep "" ;
+lin in_Prep = ResGla.annPrep ;
+lin on_Prep = ResGla.airPrep ;
+-- lin part_Prep = mkPrep "" ;
+-- lin possess_Prep = mkPrep "" ;
+-- lin through_Prep = mkPrep "" ;
+lin to_Prep = ResGla.guPrep ;
+-- lin under_Prep = mkPrep "" ;
+-- lin with_Prep = mkPrep "" ;
+-- lin without_Prep = mkPrep "" ;
 
 -------
 -- Pron
 
--- Pronouns are closed class, no constructor in ParadigmsGla.
+{-- Pronouns are closed class, no constructor in ParadigmsGla.
 lin it_Pron =
 lin i_Pron =
 lin youPol_Pron =

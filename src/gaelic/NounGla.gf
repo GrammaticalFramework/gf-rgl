@@ -9,6 +9,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
       s = \\c => det.s ! cn.g ! c ++ cn.s ! getNForm det.n det.d c ;
+      a = NotPron det.n ;
       d = det.d
       } ;
 {-

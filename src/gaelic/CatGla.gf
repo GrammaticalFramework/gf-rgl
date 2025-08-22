@@ -77,7 +77,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
                    -- coordinating a list of NPs with that Conj.
         } ;        -- "[Ann and Bob] are children" → and_Conj.n = Pl
     Subj = SS ;
-    Prep = SS ;
+    Prep = ResGla.LinPrep ;
 
 
 
