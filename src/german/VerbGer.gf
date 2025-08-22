@@ -113,12 +113,18 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
     CompNP np = {s = \\_ => np.s ! False ! Nom ++ np.rc ; ext = np.ext} ;
     CompAdv a = {s = \\_ => a.s ; ext = []} ;
 
-    CompCN cn = {s = \\a => case numberAgr a of {
-        Sg => "ein" + pronEnding ! GSg cn.g ! Nom ++ cn.s ! Strong ! Sg ! Nom ++ cn.rc ! Sg ; ---
-        Pl => cn.s ! Strong ! Pl ! Nom ++ cn.rc ! Pl ---
-        } ;
-		ext = cn.adv ++ cn.ext
-      } ;
+    CompCN cn = {
+      s = let
+            sg : Str = "ein" + pronEnding ! GSg cn.g ! Nom ++ cn.s ! Strong ! Sg ! Nom ++ cn.rc ! Sg ; ---
+            pl : Str = cn.s ! Strong ! Pl ! Nom ++ cn.rc ! Pl
+        in table {
+            AgPlPol => sg ;
+            a => case numberAgr a of {
+                  Sg => sg ;
+                  Pl => pl }
+           } ;
+      ext = cn.adv ++ cn.ext
+    } ;
 
     AdvVP vp adv = insertAdv adv.s vp ;
     ExtAdvVP vp adv = insertAdv (embedInCommas adv.s) vp ;
