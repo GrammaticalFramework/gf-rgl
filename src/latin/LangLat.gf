@@ -5,6 +5,7 @@ concrete LangLat of Lang =
   ParadigmsLat,
   LexiconLat
 --  ConstructionLat
+  ,DocumentationLat --# notpresent
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;
