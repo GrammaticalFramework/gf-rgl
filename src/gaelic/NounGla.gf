@@ -12,15 +12,15 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
       a = NotPron det.n ;
       d = det.d
       } ;
-{-
+
   -- : PN -> NP ;
   -- Assuming that lincat PN = lincat NP
-  UsePN pn = pn ;
+  -- UsePN pn = pn ;
 
   -- : Pron -> NP ;
   -- Assuming that lincat Pron = lincat NP
-  UsePron pron = pron ;
-
+  UsePron pron = emptyNP ** pron ;
+{-
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np =
 

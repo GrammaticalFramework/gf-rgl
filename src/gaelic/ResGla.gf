@@ -215,17 +215,22 @@ oper
 
 
 oper
+-- TODO: possessive ??????
   LinPron : Type = {
     s : Case => Str ;
-    n : Number ;
-    p : Person ;
-    -- g : Gender ; ?? -- we have already he_Pron and she_Pron in abstract syntax, does this affect inflection?
+    a : Agr  ;
+    empty : Str ; -- to prevent metavariables
     } ;
 
-  mkPron : (_ : Str) -> Person -> Number -> LinPron = \str,per,num -> {
-    s = \\_ => str ; -- Pronoun inflection is often irregular, so possibly this constructor requires several forms as argument, even if mkNoun is nice and regular
-    p = per ;
-    n = num ;
+  -- TODO: nicer API where you can give Person, Number, Gender etc.
+  -- not this weird unintuitive Agr param
+  mkPron : (_ : Str) -> Agr -> LinPron = \str,agr -> {
+    s = table {
+          CC Nom => str ;
+          _      => "gam"  -- TODO fix this
+        } ;
+    a = agr ;
+    empty = []
     } ;
 
 ---------------------------------------------
@@ -265,7 +270,7 @@ oper
     empty = [] ;
     -- n = Sg ;
     -- p = P3 ;
-    d = Indefinite ;
+    d = Definite ;
   } ;
 
 --------------------------------------------------------------------------------
@@ -378,9 +383,10 @@ param
   Agr = Sg1 | Sg2 | Sg3 Gender | Pl1 | Pl2 | Pl3 | NotPron Number ;
 
 oper
+
   LinPrep : Type = {
     s : Agr => Str ; -- bare: aig 'on', inflected: agam 'on me', agad 'on you', …
-
+    -- TODO: possessive forms
     c2 : Definiteness => CoreCase ; -- most often dative
     replacesPron : Bool ; -- NP has to keep track of if it comes from a Pron
 

@@ -51,7 +51,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
 
     CN = ResGla.LinCN ;
     NP = ResGla.LinNP ;
-    Pron = SS ; -- NB. Pronouns need enough info to become NP or Quant.
+    Pron = LinPron ;
     Det = ResGla.LinDet ; -- s : Str , n : Number
     Predet = SS ;
     Quant = ResGla.LinQuant ; -- s : Number => Str
