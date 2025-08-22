@@ -99,7 +99,7 @@ resource ParadigmsAra = open
   mkLN = overload {
     mkLN : Str -> LN  -- Predictable LN from a Str: fem hum if ends in ة, otherwise masc hum.
      = \s -> lin LN (N.UsePN (smartPN s)) ;
-    mkLN : Str -> Gender -> LN  
+    mkLN : Str -> Gender -> LN
      = \s, g -> lin LN (N.UsePN (smartPN s ** {g = g})) ;
     mkLN : N -> LN    -- Make a LN out of N. The LN is in construct state.
      = \n -> lin LN (N.MassNP (N.UseN n)) ;
@@ -153,7 +153,7 @@ resource ParadigmsAra = open
 
   nisbaA : Str -> Adj ; -- Forms relative adjectives with the suffix ِيّ. Takes either the stem and adds يّ, or the whole word ending in يّ and just adds declension.
 
-  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ طَيِّبٍ 'not good'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
+  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ لَذيذٍ 'not tasty'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
 
   degrA : (masc,fem,plur : Str) -> A ; -- Adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
 
@@ -202,6 +202,7 @@ resource ParadigmsAra = open
 
   liPrep : Prep ; -- The preposition لِ, binding to its head. Vowel assimilation and def. article elision implemented.
   biPrep : Prep ; -- The preposition بِ, binding to its head.
+  kaPrep : Prep ; -- The preposition كَ, binding to its head.
   noPrep : Prep ; -- No preposition at all, "complement case" is nominative.
 
 --2 Conjunctions
@@ -375,6 +376,7 @@ resource ParadigmsAra = open
   noPrep = lin Prep ResAra.noPrep ;
   biPrep = lin Prep ResAra.biPrep ;
   liPrep = lin Prep ResAra.liPrep ;
+  kaPrep = lin Prep ResAra.kaPrep ;
 
   casePrep : Case -> Prep = \c -> lin Prep {s=[]; c=c; binds=False} ;
 
@@ -914,7 +916,7 @@ oper
     wmkN : {sg, pl : Str ; g : Gender} -> N
       = \r -> mkN r.sg r.pl r.g nohum ;  --- hum/nohum not in Wikt
     wmkN : {sg : Str} -> N
-      = \r -> smartN r.sg ; 
+      = \r -> smartN r.sg ;
     wmkN : {sg : Str ; g : Gender ; root : Str} -> N
       = \r -> smartN r.sg ** {g = r.g} ; ----
     wmkN : {sg : Str; g : Gender} -> N
@@ -924,8 +926,8 @@ oper
     wmkN : {sg : Str; pl : Str} -> N
       = \r -> mkN r.sg r.pl masc nohum ; ---- ** {g = (smartN r.sg).g} ;
     wmkN : {sg, pl : Str ; root : Str} -> N
-      = \r -> mkN r.sg r.pl masc nohum ;  ---- 
-    wmkN : {sg : Str; root : Str} -> N 
+      = \r -> mkN r.sg r.pl masc nohum ;  ----
+    wmkN : {sg : Str; root : Str} -> N
       = \r -> smartN r.sg ;
     } ;
 

@@ -70,6 +70,8 @@ oper
           _                 => "لِ"
         }) Dat ;
   biPrep : Preposition = mkPrefix "بِ" ;
+  kaPrep : Preposition = mkPrefix "كَ" ;
+
   accPrep : Preposition = mkPreposition [] Acc ; -- default object case in VP
   genPrep : Preposition = mkPreposition [] Gen ; -- default object case in N2
 
@@ -502,17 +504,17 @@ oper
       AComp d c => comp ! Sg ! d ! c
       }
    } ;
-	
+
   mascFemCompAdj : (kabir, kabira, akbar : Str) -> Adj =
     \kabir, kabira, akbar ->
     ntablesAdj (positAdj kabir ! Masc) (positAdj kabir ! Fem) (positAdj akbar ! Masc) ;
-  
+
   mascFemAdj : (kabir, kabira : Str) -> Adj = \kabir, kabira ->
     mascFemCompAdj kabir kabira kabir ; ---- comp
 
   mascAdj : (kabir : Str) -> Adj = \kabir ->
     mascFemAdj kabir (kabir + "َة") ;
-    
+
 
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------
