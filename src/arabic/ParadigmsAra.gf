@@ -153,7 +153,7 @@ resource ParadigmsAra = open
 
   nisbaA : Str -> Adj ; -- Forms relative adjectives with the suffix ِيّ. Takes either the stem and adds يّ, or the whole word ending in يّ and just adds declension.
 
-  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ طَيِّبٍ 'not good'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
+  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ لَذيذٍ 'not tasty'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
 
   degrA : (masc,fem,plur : Str) -> A ; -- Adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
 
