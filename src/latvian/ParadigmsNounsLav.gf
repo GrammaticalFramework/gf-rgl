@@ -80,7 +80,8 @@ oper
   mkNounByDeclPal : Str -> Declension -> Bool -> Noun = \lemma,decl,pal ->
     case decl of {
       D0|D1|D2|D3 => mkNounByGendDeclPal lemma Masc decl pal ;
-      D4|D5|D6|DR => mkNounByGendDeclPal lemma Fem  decl pal
+      D4|D5|D6|DR => mkNounByGendDeclPal lemma Fem  decl pal ;
+      DG => mkNounByGendDeclPal nonExist Fem  decl pal  -- FIX ME REMAKE
     } ;
 
   -- Specified gender and declension; default palatalization
@@ -97,7 +98,8 @@ oper
       D4 => mkNoun_D4 lemma gend     ;
       D5 => mkNoun_D5 lemma gend pal ;
       D6 => mkNoun_D6 lemma gend pal ;
-      DR => mkNoun_DR lemma
+      DR => mkNoun_DR lemma ;
+      DG => mkNoun_DR nonExist -- FIX ME REMAKE
     } ;
 
   -- Indeclinable noun

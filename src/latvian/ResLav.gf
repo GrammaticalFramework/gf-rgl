@@ -13,12 +13,12 @@ param
 
   Case = Nom | Gen | Dat | Acc | Loc | Voc ;
   Gender = Masc | Fem ;
-  Declension = D0 | D1 | D2 | D3 | D4 | D5 | D6 | DR ;
+  Declension = D0 | D1 | D2 | D3 | D4 | D5 | D6 | DR | DG; -- ammended for Tēzaurs.
 
   -- Adjectives
 
   Definiteness = Indef | Def ;
-  AType = AQual | ARel | AIndecl ;
+  AType = AQual | ARel | AIndecl ; -- Doesn't exactly fit with Tēzaurs system - AIndecl is not needed.
 
   AForm =
       AAdj Degree Definiteness Gender Number Case
@@ -27,7 +27,7 @@ param
   -- Verbs
 
   Voice = Act | Pass ;
-  Conjugation = C2 | C3 ;  -- C1 - "irregular" verbs
+  Conjugation = C2 | C3 | C1 | CI ;  -- C1 - "irregular" verbs ; ammended for Tēzaurs.
 
   -- Verb moods:
   --   Ind - indicative
