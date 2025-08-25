@@ -18,7 +18,7 @@ lin
 
   ImpVP vp = { s = \\pol,num => vp.v.s ! pol ! (VImp num) ++ vp.compl ! (AgrP2 num Masc) } ;
 
-  -- SlashVP np vp = mkClause np vp ** { prep = vp.rightVal } ;
+  SlashVP np vp = mkClause np vp ** { prep = vp.rightVal } ;
   -- FIX ME tmp comment
 
   AdvSlash slash adv = {

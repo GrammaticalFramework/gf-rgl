@@ -182,7 +182,7 @@ lin
 
   -- VPSlash -> NP -> VP
   -- e.g. 'love it'
-{-  ComplSlash vpslash np =
+  ComplSlash vpslash np =
     let agr : Agreement = np.agr in {
       v        = vpslash.v ;
       -- compl    = \\agr => case vpslash.voice of {
@@ -202,7 +202,7 @@ lin
       rightPol = np.pol ;
       objPron  = np.isPron ;
       rightVal = vpslash.rightVal
-    } ; -} -- FIX ME tmp comment
+    } ;  -- FIX ME tmp comment
 
   -- VV -> VPSlash -> VPSlash
   -- e.g. 'want to buy'
@@ -219,7 +219,7 @@ lin
 
   -- V2V -> NP -> VPSlash -> VPSlash
   -- e.g. '-- beg me to buy'
-{-  SlashV2VNP v2v np vpslash = insertObjSlash
+  SlashV2VNP v2v np vpslash = insertObjSlash
     (\\_ => v2v.rightVal.s ++ np.s ! (v2v.rightVal.c ! (fromAgr np.agr).num))
     {
       v        = v2v ;
@@ -230,7 +230,7 @@ lin
       rightPol = np.pol ;
       objPron  = np.isPron ;
       rightVal = v2v.rightVal
-    } ; -} -- FIX ME tmp comment
+    } ; -- FIX ME tmp comment
 
   -- Other ways of forming verb phrases
 
