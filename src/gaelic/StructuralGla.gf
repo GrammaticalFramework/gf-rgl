@@ -120,14 +120,14 @@ lin to_Prep = ResGla.guPrep ;
 
 -- Pronouns are closed class, no constructor in ParadigmsGla.
 --lin it_Pron =
-lin i_Pron = mkPron "mi" Sg1 ;
-lin youPol_Pron = mkPron"sibh" Pl2 ;
-lin youSg_Pron = mkPron "tu" Sg2 ;
-lin he_Pron = mkPron "e" (Sg3 Masc) ;
-lin she_Pron = mkPron "i" (Sg3 Fem) ;
-lin we_Pron = mkPron "sinn" Pl1 ;
-lin youPl_Pron = mkPron "sibh" Pl2 ;
-lin they_Pron = mkPron "iad" Pl3 ;
+lin i_Pron = mkPron "mi" "mo^L" Sg1 ;
+lin youPol_Pron = youPl_Pron ;
+lin youSg_Pron = mkPron "tu" "do^L" Sg2 ;
+lin he_Pron = mkPron "e" "a^L" (Sg3 Masc) ;
+lin she_Pron = mkPron "i" "a^H" (Sg3 Fem) ;
+lin we_Pron = mkPron "sinn" "àr^N" Pl1 ;
+lin youPl_Pron = mkPron"sibh" "ùr^N" Pl2 ;
+lin they_Pron = mkPron "iad" AN Pl3 ;
 {-
 lin whatPl_IP =
 lin whatSg_IP =

@@ -44,11 +44,13 @@ param
     ;
 
 oper
-  getNForm : Number -> Definiteness -> Case -> NForm = \n,d,c ->
+  getNForm : DType -> Case -> NForm = \d,c ->
      case <d,c> of {
-      <Indefinite,Voc>  => Def n Voc ;
-      <Indefinite,CC c> => Indef n c ;
-      <Definite,c>      => Def n c
+      <DDef n Indefinite,Voc>  => Def n Voc ;
+      <DDef n Indefinite,CC c> => Indef n c ;
+      <DDef n Definite,c>      => Def n c ;
+      <DPoss n _,Voc>          => Indef n Nom ; -- as per Michal on Discord https://discord.com/channels/865093807343140874/865094084683366400/1409838154550087711 . TODO: Def or Indef nom ????
+      <DPoss n _,c>            => Def n c -- ????????????????
     } ;
 
   LinN : Type = {
@@ -215,20 +217,21 @@ oper
 
 
 oper
--- TODO: possessive ??????
   LinPron : Type = {
     s : Case => Str ;
-    a : Agr  ;
+    a : PronAgr ;
+    poss : Str ; -- if a case is needed, it comes from the Prep! TODO verify this (do we ever need a dative for poss pron without a prep present? some preps merge, others not, but the pronoun is present in all the preps. why this way—I counted on there being fewer pronouns than prepositions.)
     empty : Str ; -- to prevent metavariables
     } ;
 
   -- TODO: nicer API where you can give Person, Number, Gender etc.
   -- not this weird unintuitive Agr param
-  mkPron : (_ : Str) -> Agr -> LinPron = \str,agr -> {
+  mkPron : (subj,poss : Str) -> PronAgr -> LinPron = \subj,poss,agr -> {
     s = table {
-          CC Nom => str ;
+          CC Nom => subj ;
           _      => "gam"  -- TODO fix this
         } ;
+    poss = poss ;
     a = agr ;
     empty = []
     } ;
@@ -248,39 +251,44 @@ That's why I'm copying over the definition below, instead of the neater `LinNP :
 
 oper
   LinNP : Type = {
---  art : Str ; -- to be replaced with a combo coming from Prep, if argument of PrepNP? see Lamb p. 225
+    art,        -- to be replaced with a combo coming from Prep, if argument of PrepNP? see Lamb p. 225
                 -- TODO: is that an issue when the allomorph has been chosen by an inherent param in CN?
                 -- does that param need to be kept in LinNP, and Prep need an inflection table from that param?
                 -- or do we have an exhaustive list of prepositions that merge, and we can make that into a param and put on a LHS here?
 
     s : Case => Str ; -- TODO: is lenition a separate dimension from case?
     empty : Str ; -- to avoid metavariables
-    -- TODO can we make this combo of inherent params leaner?
-    a : Agr ;
-    -- n : Number ;
-    -- p : Person ;
-    d : Definiteness ;
+    a : Agr ; -- includes whether it's pron and whether it's definite. TODO: probably can make even leaner (wasn't a prio so far).
     } ;
 
-  linNP : LinNP -> Str = \np -> np.s ! (CC Nom) ;
+  linNP : LinNP -> Str = \np -> np.art ! (CC Nom) ++ np.s ! (CC Nom) ;
 
   emptyNP : LinNP = {
-    s = \\_ => [] ;
-    a = NotPron Sg ;
+    s,art = \\_ => [] ;
+    a = NotPron (DDef Sg Indefinite) ; -- we assume pronouns are definite by default. also it just matters for PrepNP.
     empty = [] ;
-    -- n = Sg ;
-    -- p = P3 ;
-    d = Definite ;
   } ;
 
 --------------------------------------------------------------------------------
 -- Det, Quant, Card, Ord
 
 param
-  QForm = QSg Gender CoreCase | QPl CoreCase ;
+  QuantForm = QSg Gender CoreCase | QPl CoreCase ;
+  QType = QDef Definiteness | QPoss PronAgr ;
+  DType = DDef Number Definiteness | DPoss Number PronAgr ;
+
+  -- The minimum forms that preposition merges with
+  PrepAgr = PrepBase | PrepDefiniteArticle Number | PrepObjectPron PronAgr | PrepPossPron PronAgr ;
 
 oper
-  getQForm : Number -> Gender -> Case -> QForm = \n,g,c -> case <n,c> of {
+  agr2pagr : Agr -> PrepAgr = \a -> case a of {
+    NotPron (DDef n Definite) => PrepDefiniteArticle n ;
+    NotPron (DPoss n agr)     => PrepPossPron agr ;
+    IsPron agr                => PrepObjectPron agr ;
+    NotPron _                 => PrepBase
+  } ;
+
+  getQuantForm : Number -> Gender -> Case -> QuantForm = \n,g,c -> case <n,c> of {
     <Sg,CC c> => QSg g c ;
     <Sg,Voc>  => QSg g Nom ; --- ??????
     <Pl,CC c> => QPl c ;
@@ -289,21 +297,20 @@ oper
 
   getArt : LinQuant -> Number -> Gender -> Case -> Str = \quant,n,g,c -> case c of {
     Voc => "" ; -- TODO: add empty field to article to not get metavariables
-    _   => quant.s ! getQForm n g c
+    _   => quant.s ! getQuantForm n g c
   } ;
 
   LinQuant : Type = {
     s  -- quantifier in a context, e.g. 'this (cat) (is nice)'
-     : QForm => Str ;
+     : QuantForm => Str ;
     sp : Str ;  -- quantifier as standalone, e.g. 'this (is nice)'
-    d : Definiteness ;
+    qt : QType ; -- Definite, Indefinite or Possessive
     } ;
 
   LinDet : Type = {
     s,s2 : Gender => Case => Str ;
     sp : Str ;
-    n : Number ;
-    d : Definiteness ;
+    dt : DType ; -- includes number
     } ;
 
   LinNum : Type = {
@@ -312,18 +319,17 @@ oper
     } ;
 
   -- Can you reuse your mkNoun? Do nouns and quantifiers inflect the same way?
-  mkQuant : Str -> Definiteness -> LinQuant = \this,d -> {
+  mkQuant : Str -> QType -> LinQuant = \this,qt -> {
     s = \\_ => this ;
     sp = this ;
-    d = d ;
+    qt = qt ;
     } ;
 
-  mkDet : (seven, teen : Str) -> Number -> LinDet = \aon, deug, num -> {
+  mkDet : (seven, teen : Str) -> Definiteness -> Number -> LinDet = \aon, deug, defi, num -> {
     s = \\_,_ => aon ;
     s2 = \\_,_ => deug ;
     sp = aon ;
-    n = num ;
-    d = Indefinite -- TODO add as param
+    dt = DDef num defi
   } ;
 
 -- Allomorphs of the definite article
@@ -359,7 +365,7 @@ oper
           QPl _   => NA
         } ;
     sp = "an" ; --- meaningless for DefArt
-    d = Definite ;
+    qt = QDef Definite ;
     } ;
 --------------------------------------------------------------------------------
 -- Adpositions
@@ -380,15 +386,20 @@ oper
 -- more on preps: Lamb, p.224
 
 param
-  Agr = Sg1 | Sg2 | Sg3 Gender | Pl1 | Pl2 | Pl3 | NotPron Number ;
+  PronAgr = Sg1 | Sg2 | Sg3 Gender | Pl1 | Pl2 | Pl3 ;
+  -- PronType = Object | Possessive ;
+  Agr      = NotPron DType | IsPron PronAgr ;
 
 oper
+  getDefi : Agr -> Definiteness = \a -> case a of {
+    NotPron (DDef n d) => d ;
+    _                  => Definite
+  } ;
 
   LinPrep : Type = {
-    s : Agr => Str ; -- bare: aig 'on', inflected: agam 'on me', agad 'on you', …
-    -- TODO: possessive forms
+    s : PrepAgr => Str ; -- bare: aig 'on', inflected: agam 'on me', agad 'on you', …
     c2 : Definiteness => CoreCase ; -- most often dative
-    replacesPron : Bool ; -- NP has to keep track of if it comes from a Pron
+    replacesObjPron : Bool ; -- NP has to keep track of if it comes from a Pron
 
     -- If your language has both pre- and postpositions, you need an inherent parameter in Prep to record which one a given Prep is.
     -- position : PreOrPost ;
@@ -396,38 +407,93 @@ oper
     -- Some cause lenition—is that separate from case?
     } ;
 
-  mkPrep : (replacesPron : Bool)
+  PrepForms : Type = {base, sg1, sg2, sg3M, sg3F, pl1, pl2, pl3 : Str} ;
+
+  invarPrepForms : Str -> PrepForms = \str ->
+    {base=str ; sg1=str+"mo^L"; sg2=str+"do^L"; sg3M=str+"a^L";
+     sg3F=str+"a^H";  pl1=str+"àr^N";  pl2=str+"ùr^N"; pl3=str+AN} ; -- AN is defined as an allomorph to def art, TODO does the possessive add t- before vowel?
+
+  mkPrep : (replacesObjPron : Bool)
         -> (indef,defi : CoreCase)
-        -> (aig,agam,agad,aige,aice,againn,agaibh,aca : Str)
+        -> (objForms, possForms : PrepForms)
         -> LinPrep =
-      \replaces,casIndef,casDef,aig,agam,agad,aige,aice,againn,agaibh,aca -> {
+      \replaces,casIndef,casDef,objForms,possForms -> {
         s = table {
-              NotPron _ => aig ; Sg1 => agam ; Sg2 => agad ;
-              Sg3 Masc => aige ; Sg3 Fem => aice ;
-              Pl1 => againn ; Pl2 => agaibh ; Pl3 => aca } ;
+              PrepBase => aig ;
+              PrepDefiniteArticle Sg => aig + "✨" ++ BIND ++ AN ;  -- TODO: merge with article!!!!!!
+              PrepDefiniteArticle Pl => aig + "✨" ++ BIND ++ NA ;  -- TODO: merge with article!!!!!!
+              PrepObjectPron Sg1 => agam ;
+              PrepObjectPron Sg2 => agad ;
+              PrepObjectPron (Sg3 Masc) => aige ;
+              PrepObjectPron (Sg3 Fem) => aice ;
+              PrepObjectPron Pl1 => againn ;
+              PrepObjectPron Pl2 => agaibh ;
+              PrepObjectPron Pl3 => aca ;
+              PrepPossPron Sg1 => gam ;
+              PrepPossPron Sg2 => gad ;
+              PrepPossPron (Sg3 Masc) => ga_L ;
+              PrepPossPron (Sg3 Fem) => ga_H ;
+              PrepPossPron Pl1 => gar ;
+              PrepPossPron Pl2 => gur ;
+              PrepPossPron Pl3 => gan } ;
         c2 = table {Indefinite => casIndef ; Definite => casDef} ;
-        replacesPron = replaces
+        replacesObjPron = replaces
+        } where {
+            aig = objForms.base ; agam = objForms.sg1 ; agad = objForms.sg2 ;
+            aige = objForms.sg3M ; aice = objForms.sg3F ;
+            againn = objForms.pl1 ; agaibh = objForms.pl2 ; aca = objForms.pl3 ;
+            gam = possForms.sg1 ; gad = possForms.sg2 ;
+            ga_L = possForms.sg3M ; ga_H = possForms.sg3F ;
+            gar = possForms.pl1 ; gur = possForms.pl2 ; gan = possForms.pl3 ;
         } ;
 
-  smartPrep : (aig,agam,agad,aige,aice,againn,agaibh,aca : Str) -> LinPrep =
+  smartPrep : (objForms, possForms : PrepForms) -> LinPrep =
     mkPrep True Dat Dat ;
 
   emptyPrep : LinPrep = {
     s = \\_ => [] ;
+    poss = \\_ => [] ;
     c2 = \\_ => Dat ;
-    replacesPron = False
+    replacesObjPron = False
   } ;
 
-  aigPrep : LinPrep = smartPrep "aig" "agam"  "agad"  "aige"     "aice"    "againn"  "agaibh"  "aca" ;
-  airPrep : LinPrep = smartPrep "air" "orm"   "ort"   "air"      "oirre"   "oirrn"   "oirbh"   "orra" ;
-  annPrep : LinPrep = smartPrep "ann" "annam" "annad" "ann"      "innte"   "annainn" "annaibh" "annta" ;
-  àsPrep  : LinPrep = smartPrep "às"  "asam"  "asad"  "às"       "aiste"   "asainn"  "asaibh"  "asda" ;
-  bhoPrep : LinPrep = smartPrep "bho" "bhuam" "bhuat" "bhuaithe" "bhuaipe" "bhuainn" "buaibh"  "bhuapa" ;
+  aigPrep : LinPrep =
+    smartPrep
+      {base="aig"; sg1="agam"; sg2="agad"; sg3M="aige"; sg3F="aice";  pl1="againn";  pl2="agaibh"; pl3="aca"}
+      {base="aig"; sg1="'gam^L"; sg2="'gad^L"; sg3M="'ga^L"; sg3F="'ga^H";  pl1="'gar^N";  pl2="'gur^N"; pl3="'gan"} ;
+  airPrep : LinPrep =
+    smartPrep
+      {base="air"; sg1="orm"; sg2="ort"; sg3M="air"; sg3F="oirre";  pl1="oirrn";  pl2="oirbh"; pl3="orra"}
+      (invarPrepForms "air") ;
+
+  annPrep : LinPrep =
+    smartPrep
+      {base="ann"; sg1="annam"; sg2="annad"; sg3M="ann"; sg3F="innte";  pl1="annainn";  pl2="annaibh"; pl3="annta"}
+      {base="ann"; sg1="'nam^L"; sg2="'nad^L"; sg3M="'na^L"; sg3F="'na^H";  pl1="'nar^N";  pl2="'nur^N"; pl3="'nan"} ;
+
+  àsPrep  : LinPrep =
+    smartPrep
+      {base="às"; sg1="asam"; sg2="asad"; sg3M="às"; sg3F="aiste";  pl1="asainn";  pl2="asaibh"; pl3="asda"}
+      (invarPrepForms "às") ;
+
+  bhoPrep : LinPrep =
+    smartPrep
+      {base="bho"; sg1="bhuam"; sg2="bhuat"; sg3M="bhuaithe"; sg3F="bhuaipe";  pl1="bhuainn";  pl2="buaibh"; pl3="bhuapa"}
+      {base="bho"; sg1="bhom^L"; sg2="bhod^L"; sg3M="bho a^L"; sg3F="bho a^H";  pl1="bhor^N";  pl2="bhu^N"; pl3="bhon"} ;
 {-  dePrep  : LinPrep = …-}
-  doPrep  : LinPrep = smartPrep "do"  "dhomh" "dhut"   "dha"     "dhi"     "dhuinn"  "dhuibh"  "dhiubh" ;
+
+  doPrep  : LinPrep =
+    smartPrep
+      {base="do"; sg1="dhomh"; sg2="dhut"; sg3M="dha"; sg3F="dhi";  pl1="dhuinn";  pl2="dhuibh"; pl3="dhiubh"}
+      {base="bho"; sg1="dom^L"; sg2="dod^L"; sg3M="dhaL^"; sg3F="dha^H";  pl1="dor^N";  pl2="dhur^N"; pl3="don"} ;
+
 {-  eadarPrep : LinPrep = …-}
 {-  foPrep  : LinPrep = …-}
-  guPrep  : LinPrep = smartPrep "gu" "ugam"  "ugad"  "uige"     "uice"    "ugainn"  "ugaibh"  "uca" ;
+  guPrep  : LinPrep =
+    smartPrep
+      {base="gu"; sg1="ugam"; sg2="ugad"; sg3M="uige"; sg3F="uice";  pl1="ugainn";  pl2="ugaibh"; pl3="uca"}
+      {base="gu"; sg1="gum^L"; sg2="gud^L"; sg3M="gu a^L"; sg3F="gu a^H";  pl1="gar^N";  pl2="gur^N"; pl3="gun"} ;
+
 --------------------------------------------------------------------------------
 -- Adjectives
 -- Lamb p. 220 basic morphology, degree
@@ -443,9 +509,27 @@ oper
 -- Verbs
 
 param
-  VForm = TODOVF Agr;
+  VAgr = VSg1 | VSg2 | VSg3 | VPl1 | VPl2 | VPl3 ;
+  VForm = VInf | VPres VAgr | VPast VAgr ; -- TODO
 
 oper
+  nagr2vagr : Agr -> VAgr = \a -> case a of {
+    NotPron (DDef Sg _) => VSg3 ;
+    NotPron (DDef Pl _) => VPl3 ;
+
+    -- this is the number of the possessee—number of possessor only matters for PrepNP!
+    NotPron (DPoss Sg _)     => VSg3 ;
+    NotPron (DPoss Pl _)     => VPl3 ;
+
+    -- this is subject pronoun, which agrees with verb
+    IsPron Sg1     => VSg1 ;
+    IsPron Sg2     => VSg2 ;
+    IsPron (Sg3 _) => VSg3 ;
+    IsPron Pl1     => VPl1 ;
+    IsPron Pl2     => VPl2 ;
+    IsPron Pl3     => VPl3
+  } ;
+
   LinV : Type = {
     s : VForm => Str
     } ;
@@ -475,7 +559,7 @@ oper
     c2 : LinPrep ;
     } ;
 
-  linVP : LinVP -> Str = \vp -> vp.s ! TODOVF (NotPron Sg) ;
+  linVP : LinVP -> Str = \vp -> vp.s ! VInf ;
 
 --------------------------------------------------------------------------------
 -- Cl, S

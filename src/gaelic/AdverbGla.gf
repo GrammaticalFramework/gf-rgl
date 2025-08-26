@@ -13,13 +13,20 @@ lin
 -}
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = {
-    s = prep.s ! np.a ++
-          case <prep.replacesPron, np.a> of {
-            <_, NotPron _> | <False, _>
-              => np.s ! CC (prep.c2 ! np.d) ;
-            _ => np.empty -- empty string to avoid metavariables
-          }
-    } ;
+    s = prepAndArt ++ noun
+    } where {
+      complCase : Case = CC (prep.c2 ! getDefi np.a) ;
+      prepStr : Str = prep.s ! agr2pagr np.a ; -- can be Prep or Prep+Pron merged
+      artStr : Str = np.art ! complCase ;
+      prepAndArt : Str = case np.a of {
+        NotPron (DDef _ Indefinite) => prepStr ++ artStr ;
+        _                           => prepStr } ;
+      noun : Str = case <prep.replacesObjPron, np.a> of {
+        <_, NotPron _> | <False, _>
+          => np.s ! complCase ;
+        _ => np.empty -- empty string to avoid metavariables
+      }
+    };
 {-
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 

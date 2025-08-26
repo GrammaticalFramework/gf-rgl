@@ -13,7 +13,7 @@ lin
     subj = np.s ! CC Nom ;
     pred =
      -- table {something with tense+polarity =>
-            vp.s ! TODOVF np.a
+            vp.s ! VPres (nagr2vagr np.a)
             -- TODO: all of the VP's tense and polarity should be open here!
             -- PredVP only decides the subject.
      -- }

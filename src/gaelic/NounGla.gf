@@ -8,9 +8,9 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      s = \\c => det.s ! cn.g ! c ++ cn.s ! getNForm det.n det.d c ;
-      a = NotPron det.n ;
-      d = det.d
+      art = \\c => det.s ! cn.g ! c ;
+      s = \\c => cn.s ! getNForm det.dt c ;
+      a = NotPron det.dt ;
       } ;
 
   -- : PN -> NP ;
@@ -19,7 +19,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
   -- : Pron -> NP ;
   -- Assuming that lincat Pron = lincat NP
-  UsePron pron = emptyNP ** pron ;
+  UsePron pron = emptyNP ** pron ** {a = IsPron pron.a} ;
 {-
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np =
@@ -55,7 +55,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -}
   -- MassNP : CN -> NP ;
     MassNP cn = emptyNP ** {
-      s = \\c => cn.s ! getNForm Sg Indefinite c
+      s = \\c => cn.s ! getNForm (DDef Sg Indefinite) c ---- ??????
       } ;
 
 
@@ -68,7 +68,9 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
     DetQuant quant num = quant ** {
       s = \\g,c => getArt quant num.n g c ++ num.s ;
       s2 = \\g,c => "DUMMY" ; -- "teen" from numbers like seventeen
-      n = num.n ;
+      dt = case quant.qt of {
+              QDef defi => DDef num.n defi ;
+              QPoss agr => DPoss num.n agr } ;
       } ;
 
   -- : Quant -> Num -> Ord -> Det ;
@@ -127,14 +129,11 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
   DefArt = ResGla.defArt ;
 
   -- : Quant
-  IndefArt = mkQuant [] Indefinite ;
+  IndefArt = mkQuant [] (QDef Indefinite) ;
 
-{-
+
   -- : Pron -> Quant        -- my
-  PossPron pron = mkQuant pron.s ** {
-
-    } ;
--}
+  PossPron pron = mkQuant pron.poss (QPoss pron.a) ;
 
 --2 Common nouns
 
