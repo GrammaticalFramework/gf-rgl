@@ -151,4 +151,24 @@ linref
   RCl = \s -> s.subj ! GSg Neut ! Inanimate ! Nom ++ s.adv ! Ag (GSg Neut) P3 ++ (verbInf s.verb) ++ s.dep ++ s.compl ! Pos ! Ag (GSg Neut) P3  ;
   IP = \s -> s.nom ;
   RP = \s -> s.s!GSg Neut!Inanimate!Nom ;
+
+lindef
+  VP = \s -> {
+    adv = \\_ => "" ;
+    verb = {
+      inf,infrefl,
+      prsg1,prsg2,prsg3,
+      prpl1,prpl2,prpl3,
+      psgm,psgs,
+      isg2,isg2refl,ipl1,
+      ppps,pppss,prtr,ptr=s;
+      asp=Imperfective ;
+      fut=NullFuture ;
+      refltran = Trans
+    } ;
+    dep = "" ;
+    compl = \\_,_ => "" ;
+    p = Pos
+    } ;
+
 }
