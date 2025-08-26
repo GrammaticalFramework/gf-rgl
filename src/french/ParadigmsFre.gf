@@ -200,7 +200,7 @@ oper
     mkA : (banal,banale,banaux,banalement : Str) -> A ; -- almost worst-case adjective
 
 -- This is the worst-case paradigm for the positive forms, used for "vieux/vieil".
-    mkA : (vieux,vieil,vieille,vieuxs,vieuxment : Str) -> A ; -- worst-case adjetive
+    mkA : (vieux,vieil,vieille,vieux,vieillement : Str) -> A ; -- worst-case adjetive
 
 -- If comparison forms are irregular (i.e. not formed by "plus", e.g.
 -- "bon-meilleur"), the positive and comparative can be given as separate
@@ -467,6 +467,17 @@ oper
   };
 
   prefixA = prefA ;
+
+  invarA : (sud : Str) -> A = \sud -> compADeg {
+    s = table {
+          AF _ _ => sud;
+          AAttrMasc => sud;
+          AA     => case sud of {
+	                  _ + "ée" => init sud + "ment" ;
+	                  _ => sud + "ment"
+	                }
+        } ;
+  } ;
 
   mkAdv x = ss x ** {lock_Adv = <>} ;
   mkAdV x = ss x ** {lock_AdV = <>} ;
