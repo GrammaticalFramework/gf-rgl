@@ -15,7 +15,9 @@ lin
   PrepNP prep np = {
     s = prepAndArt ++ noun
     } where {
-      complCase : Case = CC (prep.c2 ! getDefi np.a) ;
+      complCase : NPCase = case np.a of {
+        NotPron (DPoss _ (Sg1|Sg2|Sg3 Masc)) => NPLenited ;
+        _                                  => NPC (prep.c2 ! getDefi np.a) } ;
       prepStr : Str = prep.s ! agr2pagr np.a ; -- can be Prep or Prep+Pron merged
       artStr : Str = np.art ! complCase ;
       prepAndArt : Str = case np.a of {

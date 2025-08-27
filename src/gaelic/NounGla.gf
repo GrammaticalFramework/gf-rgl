@@ -8,7 +8,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      art = \\c => det.s ! cn.g ! c ;
+      art = \\c => det.s ! cn.g ! npc2c c ;
       s = \\c => cn.s ! getNForm det.dt c ;
       a = NotPron det.dt ;
       } ;
@@ -19,7 +19,10 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
   -- : Pron -> NP ;
   -- Assuming that lincat Pron = lincat NP
-  UsePron pron = emptyNP ** pron ** {a = IsPron pron.a} ;
+  UsePron pron = emptyNP ** pron ** {
+    s = \\c => pron.s ! npc2cc c ;
+    a = IsPron pron.a
+    } ;
 {-
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np =

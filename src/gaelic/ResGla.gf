@@ -31,26 +31,47 @@ param
   Gender = Masc | Fem ;
   CoreCase = Nom | Gen | Dat ;
   Case = CC CoreCase | Voc ;
+  NPCase = NPC CoreCase | NPVoc | NPLenited ;
   Number = Sg
          | Pl
          ;
   Person = P1 | P2 | P3 ;
   Definiteness = Definite | Indefinite ; -- Some prepositions govern different case when definite vs. indefinite
 
+oper
+  npc2cc : NPCase -> CoreCase = \npc -> case npc of {
+    NPC c => c ;
+    _     => Nom ------ TODO check? NPVoc and NPLenited (which is not a case but this is cheaper)
+  } ;
+  npc2c : NPCase -> Case = \npc -> case npc of {
+    NPC c => CC c ;
+    NPVoc => Voc ;
+    _     => CC Nom ---- this is just lenited TODO does this make any sense
+  } ;
+
+param
   NForm =
       Indef Number CoreCase
     | Def Number Case
+    | Lenited -- keep this separate from case, because some prepositions' requirement of lenited form overrides the usual case requirement
     | Dual -- only after number 2, only for a handful of nouns. TODO: does it have different cases?
     ;
 
+  {-
+  * The 1st person singular, 2nd person singular and 3rd person singular masculine forms here trigger lenition (indicated with a superscript L).
+  * 1st and 2nd person plurals trigger the prefixation of n- onto words beginning with vowels (nasalization), This is indicated with a superscript N. the pronunciation of the a consonant following these and the 3rd person plural is also frequently voiced or nasalized.
+  * Finally the 3rd person feminine forms prefix an <h> onto words beginning with a vowel. This is indicated with H.
+  -}
+
 oper
-  getNForm : DType -> Case -> NForm = \d,c ->
+  getNForm : DType -> NPCase -> NForm = \d,c ->
      case <d,c> of {
-      <DDef n Indefinite,Voc>  => Def n Voc ;
-      <DDef n Indefinite,CC c> => Indef n c ;
-      <DDef n Definite,c>      => Def n c ;
-      <DPoss n _,Voc>          => Indef n Nom ; -- as per Michal on Discord https://discord.com/channels/865093807343140874/865094084683366400/1409838154550087711 . TODO: Def or Indef nom ????
-      <DPoss n _,c>            => Def n c -- ????????????????
+      <_, NPLenited>             => Lenited ; -- bit of a hack
+      <DDef n Indefinite,NPVoc>  => Def n Voc ;
+      <DDef n Indefinite,NPC c>  => Indef n c ;
+      <DDef n Definite,npc>     => Def n (npc2c npc) ;
+      <DPoss n _,NPVoc>          => Indef n Nom ; -- as per Michal on Discord https://discord.com/channels/865093807343140874/865094084683366400/1409838154550087711 . TODO: Def or Indef nom ????
+      <DPoss n _,npc>            => Def n (npc2c npc) -- ????????????????
     } ;
 
   LinN : Type = {
@@ -142,7 +163,8 @@ oper
           Def Pl (CC Gen) => n.base ;
           Def Pl (CC Dat) => n.pl ;
           Def Pl Voc => glue n.lenited "a" ;
-          Dual => fm n.palatalised n.base  -- TODO: is this correct? only for 1-syllable feminine nouns?
+          Dual => fm n.palatalised n.base ; -- TODO: is this correct? only for 1-syllable feminine nouns?
+          Lenited => n.lenited
           }
     } where {
       fm : Str -> Str -> Str = \fem,masc -> case n.g of {
@@ -218,7 +240,7 @@ oper
 
 oper
   LinPron : Type = {
-    s : Case => Str ;
+    s : CoreCase => Str ;
     a : PronAgr ;
     poss : Str ; -- if a case is needed, it comes from the Prep! TODO verify this (do we ever need a dative for poss pron without a prep present? some preps merge, others not, but the pronoun is present in all the preps. why this way—I counted on there being fewer pronouns than prepositions.)
     empty : Str ; -- to prevent metavariables
@@ -228,8 +250,8 @@ oper
   -- not this weird unintuitive Agr param
   mkPron : (subj,poss : Str) -> PronAgr -> LinPron = \subj,poss,agr -> {
     s = table {
-          CC Nom => subj ;
-          _      => "gam"  -- TODO fix this
+          Nom => subj ;
+          _   => "gam"  -- TODO fix this
         } ;
     poss = poss ;
     a = agr ;
@@ -256,12 +278,12 @@ oper
                 -- does that param need to be kept in LinNP, and Prep need an inflection table from that param?
                 -- or do we have an exhaustive list of prepositions that merge, and we can make that into a param and put on a LHS here?
 
-    s : Case => Str ; -- TODO: is lenition a separate dimension from case?
+    s : NPCase => Str ; -- TODO: is lenition a separate dimension from case?
     empty : Str ; -- to avoid metavariables
     a : Agr ; -- includes whether it's pron and whether it's definite. TODO: probably can make even leaner (wasn't a prio so far).
     } ;
 
-  linNP : LinNP -> Str = \np -> np.art ! (CC Nom) ++ np.s ! (CC Nom) ;
+  linNP : LinNP -> Str = \np -> np.art ! (NPC Nom) ++ np.s ! (NPC Nom) ;
 
   emptyNP : LinNP = {
     s,art = \\_ => [] ;
@@ -290,9 +312,9 @@ oper
 
   getQuantForm : Number -> Gender -> Case -> QuantForm = \n,g,c -> case <n,c> of {
     <Sg,CC c> => QSg g c ;
-    <Sg,Voc>  => QSg g Nom ; --- ??????
+    <Sg,_>  => QSg g Nom ; --- ??????
     <Pl,CC c> => QPl c ;
-    <Pl,Voc>  => QPl Nom  --- ??????
+    <Pl,_>  => QPl Nom  --- ??????
   } ;
 
   getArt : LinQuant -> Number -> Gender -> Case -> Str = \quant,n,g,c -> case c of {
@@ -409,9 +431,14 @@ oper
 
   PrepForms : Type = {base, sg1, sg2, sg3M, sg3F, pl1, pl2, pl3 : Str} ;
 
+  H, N : Str ;
+  H = pre {#vowel  => "h"  ++ BIND ; _ => []} ;
+  N = pre {#vowel  => "n-" ++ BIND ; _ => []} ;
+
+
   invarPrepForms : Str -> PrepForms = \str ->
-    {base=str ; sg1=str+"mo^L"; sg2=str+"do^L"; sg3M=str+"a^L";
-     sg3F=str+"a^H";  pl1=str+"àr^N";  pl2=str+"ùr^N"; pl3=str+AN} ; -- AN is defined as an allomorph to def art, TODO does the possessive add t- before vowel?
+    {base=str ; sg1=str++"mo^L"; sg2=str++"do^L"; sg3M=str++"a^L";
+     sg3F=str++"a"++H;  pl1=str++"àr"++N;  pl2=str++"ùr"++N; pl3=str++AN} ; -- AN is defined as an allomorph to def art, TODO does the possessive add t- before vowel?
 
   mkPrep : (replacesObjPron : Bool)
         -> (indef,defi : CoreCase)
@@ -460,7 +487,7 @@ oper
   aigPrep : LinPrep =
     smartPrep
       {base="aig"; sg1="agam"; sg2="agad"; sg3M="aige"; sg3F="aice";  pl1="againn";  pl2="agaibh"; pl3="aca"}
-      {base="aig"; sg1="'gam^L"; sg2="'gad^L"; sg3M="'ga^L"; sg3F="'ga^H";  pl1="'gar^N";  pl2="'gur^N"; pl3="'gan"} ;
+      {base="aig"; sg1="'gam^L"; sg2="'gad^L"; sg3M="'ga^L"; sg3F="'ga"++H;  pl1="'gar"++N;  pl2="'gur"++N; pl3="'gan"} ;
   airPrep : LinPrep =
     smartPrep
       {base="air"; sg1="orm"; sg2="ort"; sg3M="air"; sg3F="oirre";  pl1="oirrn";  pl2="oirbh"; pl3="orra"}
@@ -469,7 +496,7 @@ oper
   annPrep : LinPrep =
     smartPrep
       {base="ann"; sg1="annam"; sg2="annad"; sg3M="ann"; sg3F="innte";  pl1="annainn";  pl2="annaibh"; pl3="annta"}
-      {base="ann"; sg1="'nam^L"; sg2="'nad^L"; sg3M="'na^L"; sg3F="'na^H";  pl1="'nar^N";  pl2="'nur^N"; pl3="'nan"} ;
+      {base="ann"; sg1="'nam^L"; sg2="'nad^L"; sg3M="'na^L"; sg3F="'na"++H;  pl1="'nar"++N;  pl2="'nur"++N; pl3="'nan"} ;
 
   àsPrep  : LinPrep =
     smartPrep
@@ -479,20 +506,20 @@ oper
   bhoPrep : LinPrep =
     smartPrep
       {base="bho"; sg1="bhuam"; sg2="bhuat"; sg3M="bhuaithe"; sg3F="bhuaipe";  pl1="bhuainn";  pl2="buaibh"; pl3="bhuapa"}
-      {base="bho"; sg1="bhom^L"; sg2="bhod^L"; sg3M="bho a^L"; sg3F="bho a^H";  pl1="bhor^N";  pl2="bhu^N"; pl3="bhon"} ;
+      {base="bho"; sg1="bhom^L"; sg2="bhod^L"; sg3M="bho a^L"; sg3F="bho a"++H;  pl1="bhor"++N;  pl2="bhu"++N; pl3="bhon"} ;
 {-  dePrep  : LinPrep = …-}
 
   doPrep  : LinPrep =
     smartPrep
       {base="do"; sg1="dhomh"; sg2="dhut"; sg3M="dha"; sg3F="dhi";  pl1="dhuinn";  pl2="dhuibh"; pl3="dhiubh"}
-      {base="bho"; sg1="dom^L"; sg2="dod^L"; sg3M="dhaL^"; sg3F="dha^H";  pl1="dor^N";  pl2="dhur^N"; pl3="don"} ;
+      {base="bho"; sg1="dom^L"; sg2="dod^L"; sg3M="dha^L"; sg3F="dha"++H;  pl1="dor"++N;  pl2="dhur"++N; pl3="don"} ;
 
 {-  eadarPrep : LinPrep = …-}
 {-  foPrep  : LinPrep = …-}
   guPrep  : LinPrep =
     smartPrep
       {base="gu"; sg1="ugam"; sg2="ugad"; sg3M="uige"; sg3F="uice";  pl1="ugainn";  pl2="ugaibh"; pl3="uca"}
-      {base="gu"; sg1="gum^L"; sg2="gud^L"; sg3M="gu a^L"; sg3F="gu a^H";  pl1="gar^N";  pl2="gur^N"; pl3="gun"} ;
+      {base="gu"; sg1="gum^L"; sg2="gud^L"; sg3M="gu a^L"; sg3F="gu a"++H;  pl1="gar"++N;  pl2="gur"++N; pl3="gun"} ;
 
 --------------------------------------------------------------------------------
 -- Adjectives

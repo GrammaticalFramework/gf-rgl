@@ -10,7 +10,7 @@ lin
 
   -- : NP -> VP -> Cl
   PredVP np vp = {
-    subj = np.s ! CC Nom ;
+    subj = np.s ! NPC Nom ;
     pred =
      -- table {something with tense+polarity =>
             vp.s ! VPres (nagr2vagr np.a)
