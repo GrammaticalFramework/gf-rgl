@@ -330,7 +330,7 @@ oper
       Ind Anter tense => (mkV "būt").s ! finalPol ! (VInd agr.pers agr.num tense) ++ part ;  --# notpresent
 
       -- FIXME(?): Rel _ Past => ...
-      Rel _     Past  => NON_EXISTENT ;  --# notpresent
+      Rel _     Past  => nonExist ;  --# notpresent
       Rel Simul tense => v.s ! finalPol ! (VRel tense) ;  --# notpresent
       Rel Anter tense => (mkV "būt").s ! finalPol ! (VRel tense) ++ part ;  --# notpresent
 

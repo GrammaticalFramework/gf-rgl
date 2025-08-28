@@ -43,7 +43,7 @@ lin
   AdnCAdv cadv = {
     s = case cadv.deg of {
       Posit => cadv.s ++ cadv.prep ;
-      _     => NON_EXISTENT
+      _     => nonExist
     }
   } ;
 

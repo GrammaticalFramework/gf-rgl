@@ -57,7 +57,7 @@ lin
   } ;
 
   -- FIXME: placeholder
-  CleftNP np rs = { s = \\_,_ => NON_EXISTENT } ;
-  CleftAdv ad s = { s = \\_,_ => NON_EXISTENT } ;
+  CleftNP np rs = { s = \\_,_ => nonExist } ;
+  CleftAdv ad s = { s = \\_,_ => nonExist } ;
 
 }

@@ -257,7 +257,7 @@ oper
     in {
       s = table {
         Sg => case stem of {
-          #exception_D6 => \\_ => NON_EXISTENT ;
+          #exception_D6 => \\_ => nonExist ;
           _ => table {
             Nom => stem + "s" ;
             Gen => stem + "s" ;
@@ -288,17 +288,17 @@ oper
         Sg => table {
           Nom => stem + "šanās" ;
           Gen => stem + "šanās" ;
-          Dat => NON_EXISTENT ;
+          Dat => nonExist ;
           Acc => stem + "šanos" ;
-          Loc => NON_EXISTENT ;
+          Loc => nonExist ;
           Voc => stem + "šanās"
         } ;
         Pl => table {
           Nom => stem + "šanās" ;
           Gen => stem + "šanos" ;
-          Dat => NON_EXISTENT ;
+          Dat => nonExist ;
           Acc => stem + "šanās" ;
-          Loc => NON_EXISTENT ;
+          Loc => nonExist ;
           Voc => stem + "šanās"
         }
       } ;
