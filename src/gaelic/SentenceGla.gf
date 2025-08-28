@@ -10,7 +10,7 @@ lin
 
   -- : NP -> VP -> Cl
   PredVP np vp = {
-    subj = np.s ! NPC Nom ;
+    subj = linNP np ; -- article and CN are discontinuous in NP! linNP just picks nominative unmutated.
     pred =
      -- table {something with tense+polarity =>
             vp.s ! VPres (nagr2vagr np.a)

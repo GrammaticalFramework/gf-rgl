@@ -15,9 +15,13 @@ lin
   PrepNP prep np = {
     s = prepAndArt ++ noun
     } where {
-      complCase : NPCase = case np.a of {
-        NotPron (DPoss _ (Sg1|Sg2|Sg3 Masc)) => NPLenited ;
-        _                                  => NPC (prep.c2 ! getDefi np.a) } ;
+      defaultCase : CoreCase = prep.c2 ! getDefi np.a ;
+      complCase : Case = case <defaultCase, np.a> of {
+        <Dat NoMutation, NotPron (DPoss _ (Sg1|Sg2|Sg3 Masc))>
+          => CC (Dat Lenited) ; -- force lenition if possessive triggers it
+        <Nom NoMutation, NotPron (DPoss _ (Sg1|Sg2|Sg3 Masc))>
+          => CC (Nom Lenited) ; -- force lenition if possessive triggers it
+        _ => CC defaultCase } ;
       prepStr : Str = prep.s ! agr2pagr np.a ; -- can be Prep or Prep+Pron merged
       artStr : Str = np.art ! complCase ;
       prepAndArt : Str = case np.a of {

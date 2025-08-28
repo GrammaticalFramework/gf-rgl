@@ -8,7 +8,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
 -- : Det -> CN -> NP
     DetCN det cn = emptyNP ** {
-      art = \\c => det.s ! cn.g ! npc2c c ;
+      art = det.s ! cn.g ;
       s = \\c => cn.s ! getNForm det.dt c ;
       a = NotPron det.dt ;
       } ;
@@ -58,7 +58,7 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 -}
   -- MassNP : CN -> NP ;
     MassNP cn = emptyNP ** {
-      s = \\c => cn.s ! getNForm (DDef Sg Indefinite) c ---- ??????
+      s = \\c => cn.s ! getNForm (DDef Sg Indefinite) c -- no article, singular indefinite forms, open for cases+mutations
       } ;
 
 
