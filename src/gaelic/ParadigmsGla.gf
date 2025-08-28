@@ -77,9 +77,11 @@ oper
 --2 Structural categories
 
   -- If prepositions take case, add that as argument to mkPrep
-  mkPrep : overload {
-    mkPrep : Str -> Prep ;
-    } ;
+  -- mkPrep : overload {
+  --   mkPrep : Str -> Prep ;
+  --   } ;
+  -- TODO: should export the whole set of morphologically complex prepositions here and not let users construct them alone
+  -- but should include funs like "override complement case for existing preps"
 
   mkConj : overload {
     mkConj : (and : Str) -> Conj ; -- (coffee) and (tea)
