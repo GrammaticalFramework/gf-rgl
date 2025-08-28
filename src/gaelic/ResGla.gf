@@ -65,9 +65,12 @@ oper
     } ;
 
   LinN : Type = {
-    base,                -- tunnag     fuil      loch      fear    litir
-    gen,                 -- tunnaige   fala      locha     fir     litreach ("de-palatalised")
-    pl,                  -- tunnagan             lochan    fir     litrichean
+    base,                -- tunnag     fuil      loch      fear    litir                            bròg
+    dat,                 --                   -"-                                                   bròig (1B)
+    gen,                 -- tunnaige   fala      locha     fir     litreach ("de-palatalised")      bròige
+    pl,                  -- tunnagan             lochan    fir     litrichean                       brògan
+--    pldat, -- Krasimir's and Katya's automatic extraction suggests there's a difference, but I don't see it
+             -- add this form if we turn out to need it
     -- TODO: for nouns that only use suffixes, should these just show theoretical forms?
     lenited,             -- thunnag    fhuil     loch      fhear
     palatalised,         -- tunnaig    fuil      loch      fir
@@ -77,34 +80,30 @@ oper
     g : Gender
     } ;
 
+  mk5N : (nom,gen,dat,pl : Str) -> Gender -> LinN = \brog,broige,broig,brogan,g -> {
+    base = brog ;
+    gen = broige ;
+    dat = broig ;
+    pl = brogan ;
+    lenited_plural = lenite brogan ;
+    lenited = bhrog ;
+    palatalised = broig ;
+    lenited_palatalised = bhroig ;
+    g = g
+    } where {
+      bhrog : Str = lenite brog ;
+      bhroig : Str = lenite broig } ;
+
   smartN = overload {
-    smartN : (nom,gen,pl : Str) -> Gender -> LinN = \loch,locha,lochan,g -> {
-      gen = locha ;
-      pl = lochan ;
-      lenited_plural = lenite lochan ;
-      base,
-      lenited,
-      palatalised,
-      lenited_palatalised = loch ;
-      g = g
-      } ;
-    smartN : (base : Str) -> Gender -> LinN = \tunnag,g -> {
-      base = tunnag ;
-      gen = fm (tunnaig + "e") tunnaig ;
-      pl = plural ; -- for other allomorphs, use 4-argument paradigm
-      lenited_plural = lenite plural ;
-      lenited = thunnag ;
-      palatalised = tunnaig ;
-      lenited_palatalised = thunnaig ;
-      g = g
-      } where {
-          fm : Str -> Str -> Str = \fem,masc -> case g of {
+    smartN : (nom,gen,pl : Str) -> Gender -> LinN = \loch,locha,lochan,g ->
+      mk5N loch locha loch lochan g ;
+    smartN : (base : Str) -> Gender -> LinN = \tunnag,g ->
+      let fm : Str -> Str -> Str = \fem,masc -> case g of {
             Fem => fem ; Masc => masc } ;
           tunnaig : Str = palatalise tunnag ;
-          thunnag : Str = lenite tunnag ;
-          thunnaig : Str = lenite tunnaig ;
-          plural : Str = fm (tunnag + "an") tunnaig ;
-        }
+          tunnaige : Str = fm (tunnaig + "e") tunnaig ;
+          tunnagan : Str = fm (tunnag + "an") tunnaig ;
+       in mk5N tunnag tunnaige tunnag tunnagan g
   } ;
 
   vowel : pattern Str = #("a"|"à"|"e"|"i"|"ì"|"o"|"u") ; -- more accents?
@@ -129,9 +128,10 @@ oper
 
 
   -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
-  mkNoun : (b,g,pl,l,p,lp,lpl : Str) -> Gender -> LinN = \b,gen,pl,l,p,lp,lpl,g -> {
+  mkNoun : (b,g,d,pl,l,p,lp,lpl : Str) -> Gender -> LinN = \b,gen,dat,pl,l,p,lp,lpl,g -> {
     base = b ;                 -- tunnag     fuil      loch      fear    litir
     gen = gen ;                -- tunnaige   fala      locha     fir     litreach
+    dat = dat ;                -- tunnaige   fala      locha     fir     litreach
     pl  = pl ;                 -- tunnagan             lochan    fir     litrichean
     lenited = l ;              -- thunnag    fhuil     loch      fhear   litir ?
     palatalised = p ;          -- tunnaig    fuil      loch      fir     litir ?
@@ -147,8 +147,8 @@ oper
           Indef Sg (Nom NoMutation) => n.base ;
           Indef Sg (Nom Lenited) => n.lenited ;
           Indef Sg Gen => n.gen ;
-          Indef Sg (Dat NoMutation) => fm n.palatalised n.base ;
-          Indef Sg (Dat Lenited) => fm n.lenited_palatalised n.lenited ;
+          Indef Sg (Dat NoMutation) => n.dat ;
+          Indef Sg (Dat Lenited) => fm n.lenited_palatalised n.lenited ; ------- FIXME later
           Def Sg (CC (Nom NoMutation)) => n.base ;
           Def Sg (CC (Nom Lenited)) => n.lenited ;
           Def Sg (CC Gen) => fm n.gen n.lenited_palatalised ;
@@ -158,8 +158,8 @@ oper
           Indef Pl (Nom NoMutation) => fm n.pl n.palatalised ;
           Indef Pl (Nom Lenited) => fm n.lenited_plural n.lenited_palatalised ;
           Indef Pl Gen => n.lenited ;
-          Indef Pl (Dat NoMutation) => fm n.pl n.palatalised ; -- TODO: is this correct?
-          Indef Pl (Dat Lenited) => fm n.lenited_plural n.lenited_palatalised ; -- TODO: ????
+          Indef Pl (Dat NoMutation) => fm n.pl n.palatalised ; -- TODO: is this overfitting based on the 5 nouns i know? probably!
+          Indef Pl (Dat Lenited) => fm n.lenited_plural n.lenited_palatalised ; -- TODO: see above
           Def Pl (CC (Nom NoMutation)) => n.pl ;
           Def Pl (CC (Nom Lenited)) => n.lenited_plural ;
           Def Pl (CC Gen) => n.base ;
@@ -189,7 +189,7 @@ oper
 
 -- some test nouns — TODO: do smart paradigms
 tunnag_N : LinN = {
-    base = "tunnag" ;
+    base,dat = "tunnag" ;
     gen = "tunnaige" ;
     pl = "tunnagan" ;
     lenited_plural = "thunnagan" ;
@@ -200,7 +200,7 @@ tunnag_N : LinN = {
     } ;
 
 boireannach_N : LinN = {
-    base = "boireannach" ;
+    base,dat = "boireannach" ;
     pl,gen = "boireannaich" ;
     lenited = "bhoireannach" ;
     palatalised = "boireannaich" ;
