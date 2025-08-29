@@ -65,8 +65,8 @@ oper
   mkSN = overload {
     mkSN : Str -> SN = \s -> lin SN {s = \\_ => (mkProperNoun s Sg).s; pl = (mkProperNoun s Sg).s};   -- default gender utrum
     mkSN : Str -> Str -> Str -> SN = 
-      \male,female,pl -> lin SN {s  = table {Male => (mkProperNoun male Sg).s;
-                                             Female => (mkProperNoun female Sg).s} ;
+      \male,female,pl -> lin SN {s  = table {Masc => (mkProperNoun male Sg).s;
+                                             Fem => (mkProperNoun female Sg).s} ;
                                  pl = (mkProperNoun pl Sg).s
                                 } ;
     } ;
