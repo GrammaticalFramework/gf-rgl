@@ -61,8 +61,7 @@ lin
 
   UseSlash t p slash = { s = t.s ++ p.s ++ slash.s ! (Ind t.a t.t) ! p.p ; prep = slash.prep } ;
 
-  -- FIXME: placeholder
-  AdvS a s = { s = nonExist } ;
+  AdvS a s = { s = a.s ++ s.s } ;
 
 oper
   -- TODO: PassV2 verbs jāsaskaņo ar objektu, nevis subjektu (by8means_Prep: AgP3 Sg Masc)
