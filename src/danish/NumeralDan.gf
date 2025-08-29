@@ -7,7 +7,7 @@ concrete NumeralDan of Numeral = CatDan [Numeral,Digits,Decimal] ** open MorphoD
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100, Sub1000, Sub1000000 = 
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 =
           {s :          CardOrd => Str ; n : Number} ;
 
 lin num x = x ;
@@ -44,6 +44,9 @@ lin n9 = mkTal "ni"   "nitten"  "halvfems"   "niende" "halvfemsindstyvende" ;
   pot2as3 n = n ;
   pot3 n = numPl (\\g => n.s ! invNum ++ cardOrd "tusind" "tusinde" ! g) ;
   pot3plus n m = {s = \\g => n.s ! invNum ++ "tusind" ++ "og" ++ m.s ! g ; n =Pl} ;
+
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
   lincat 
     Dig = TDigit ;

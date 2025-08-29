@@ -4,7 +4,7 @@ concrete NumeralNor of Numeral = CatNor [Numeral,Digits,Decimal] ** open MorphoN
 lincat 
   Digit = {s : DForm => CardOrd => Str} ;
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
-  Sub100, Sub1000, Sub1000000 = 
+  Sub100, Sub1000, Sub1000000, Sub1000000000, Sub1000000000000 =
           {s :          CardOrd => Str ; n : Number} ;
 
 lin 
@@ -43,6 +43,9 @@ lin
     numPl (\\g => n.s ! invNum ++ cardOrd "tusen" "tusende" ! g) ;
   pot3plus n m = 
     {s = \\g => n.s ! invNum ++ "tusen" ++ "og" ++ m.s ! g ; n = Pl} ;
+
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
 -- Numerals from sequences of digits.
 
