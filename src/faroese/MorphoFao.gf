@@ -8618,10 +8618,10 @@ mkV001 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"aður"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"aður"
+                     }
       };
     _ => error "Can't apply paradigm mkV001"
   } ;
@@ -8650,10 +8650,10 @@ mkV002 base =
                                }
                      } ;
         Nonfinite = "ei"+base_1+"a" ;
-        Particle = table {
-                     Pres => "ei"+base_1+"andi" ;
-                     Past => "hi"+base_1+"in"
-                   }
+        Participle = table {
+                       Pres => "ei"+base_1+"andi" ;
+                       Past => "hi"+base_1+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV002"
   } ;
@@ -8682,10 +8682,10 @@ mkV003 base =
                                }
                      } ;
         Nonfinite = "a"+base_1+"a" ;
-        Particle = table {
-                     Pres => "a"+base_1+"andi" ;
-                     Past => "i"+base_1+"in"
-                   }
+        Participle = table {
+                       Pres => "a"+base_1+"andi" ;
+                       Past => "i"+base_1+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -8714,10 +8714,10 @@ mkV004 base =
                                }
                      } ;
         Nonfinite = "a"+base_1+"a" ;
-        Particle = table {
-                     Pres => "a"+base_1+"andi" ;
-                     Past => "a"+base_1+"in"
-                   }
+        Participle = table {
+                       Pres => "a"+base_1+"andi" ;
+                       Past => "a"+base_1+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -8746,10 +8746,10 @@ mkV005 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2 ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -8778,10 +8778,10 @@ mkV006 base =
                                }
                      } ;
         Nonfinite = base_1+"ða" ;
-        Particle = table {
-                     Pres => base_1+"ðandi" ;
-                     Past => base_1+"ddur"
-                   }
+        Participle = table {
+                       Pres => base_1+"ðandi" ;
+                       Past => base_1+"ddur"
+                     }
       };
     _ => error "Can't apply paradigm mkV006"
   } ;
@@ -8810,10 +8810,10 @@ mkV007 base =
                                }
                      } ;
         Nonfinite = "eiga" ;
-        Particle = table {
-                     Pres => "eigandi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => "eigandi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV007"
   } ;
@@ -8842,10 +8842,10 @@ mkV008 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV008"
   } ;
@@ -8874,10 +8874,10 @@ mkV009 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV009"
   } ;
@@ -8906,10 +8906,10 @@ mkV010 base =
                                }
                      } ;
         Nonfinite = base_1+"da" ;
-        Particle = table {
-                     Pres => base_1+"dandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"dandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -8938,10 +8938,10 @@ mkV011 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"jandi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"jandi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -8970,10 +8970,10 @@ mkV012 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"jandi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"jandi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -9002,10 +9002,10 @@ mkV013 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"da" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"dandi" ;
-                     Past => base_1+"u"+base_2+"din"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"dandi" ;
+                       Past => base_1+"u"+base_2+"din"
+                     }
       };
     _ => error "Can't apply paradigm mkV013"
   } ;
@@ -9034,10 +9034,10 @@ mkV014 base =
                                }
                      } ;
         Nonfinite = base_1+"í"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"í"+base_2+"andi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"í"+base_2+"andi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV014"
   } ;
@@ -9066,10 +9066,10 @@ mkV015 base =
                                }
                      } ;
         Nonfinite = base_1+"jó"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"jó"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"jó"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -9098,10 +9098,10 @@ mkV016 base =
                                }
                      } ;
         Nonfinite = base_1+"gja" ;
-        Particle = table {
-                     Pres => base_1+"gjandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"gjandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -9130,10 +9130,10 @@ mkV017 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"na" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"nandi" ;
-                     Past => base_1+"u"+base_2+"nin"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"nandi" ;
+                       Past => base_1+"u"+base_2+"nin"
+                     }
       };
     _ => error "Can't apply paradigm mkV017"
   } ;
@@ -9162,10 +9162,10 @@ mkV018 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV018"
   } ;
@@ -9194,10 +9194,10 @@ mkV019 base =
                                }
                      } ;
         Nonfinite = base_1+"ó"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"ó"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ó"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -9226,10 +9226,10 @@ mkV020 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -9258,10 +9258,10 @@ mkV021 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -9290,10 +9290,10 @@ mkV022 base =
                                }
                      } ;
         Nonfinite = base_1+"úgva" ;
-        Particle = table {
-                     Pres => base_1+"úgvandi" ;
-                     Past => base_1+"úgvin"
-                   }
+        Participle = table {
+                       Pres => base_1+"úgvandi" ;
+                       Past => base_1+"úgvin"
+                     }
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -9322,10 +9322,10 @@ mkV023 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -9354,10 +9354,10 @@ mkV024 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+base_3+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+base_3+"andi" ;
-                     Past => base_1+"o"+base_2+base_3+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+base_3+"andi" ;
+                       Past => base_1+"o"+base_2+base_3+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -9386,10 +9386,10 @@ mkV025 base =
                                }
                      } ;
         Nonfinite = base_1+"ggja" ;
-        Particle = table {
-                     Pres => base_1+"ggjandi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => base_1+"ggjandi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -9418,10 +9418,10 @@ mkV026 base =
                                }
                      } ;
         Nonfinite = base_1+"aga" ;
-        Particle = table {
-                     Pres => base_1+"agandi" ;
-                     Past => base_1+"igin"
-                   }
+        Participle = table {
+                       Pres => base_1+"agandi" ;
+                       Past => base_1+"igin"
+                     }
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -9450,10 +9450,10 @@ mkV027 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"ka" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"kandi" ;
-                     Past => base_1+"u"+base_2+"kin"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"kandi" ;
+                       Past => base_1+"u"+base_2+"kin"
+                     }
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -9482,10 +9482,10 @@ mkV028 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -9514,10 +9514,10 @@ mkV029 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"aður"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"aður"
+                     }
       };
     _ => error "Can't apply paradigm mkV029"
   } ;
@@ -9546,10 +9546,10 @@ mkV030 base =
                                }
                      } ;
         Nonfinite = "ve"+base_1+"a" ;
-        Particle = table {
-                     Pres => "ve"+base_1+"andi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => "ve"+base_1+"andi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -9578,10 +9578,10 @@ mkV031 base =
                                }
                      } ;
         Nonfinite = base_1+"na" ;
-        Particle = table {
-                     Pres => base_1+"nandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"nandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -9610,10 +9610,10 @@ mkV032 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -9642,10 +9642,10 @@ mkV033 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV033"
   } ;
@@ -9674,10 +9674,10 @@ mkV034 base =
                                }
                      } ;
         Nonfinite = base_1+"áa" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => base_1+"ingin"
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => base_1+"ingin"
+                     }
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -9706,10 +9706,10 @@ mkV035 base =
                                }
                      } ;
         Nonfinite = base_1+"la" ;
-        Particle = table {
-                     Pres => base_1+"landi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"landi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -9738,10 +9738,10 @@ mkV036 base =
                                }
                      } ;
         Nonfinite = base_1+"ða"+base_2 ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -9770,10 +9770,10 @@ mkV037 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"ur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"ur"
+                     }
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -9802,10 +9802,10 @@ mkV038 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"jandi" ;
-                     Past => base_1+"a"+base_2+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"jandi" ;
+                       Past => base_1+"a"+base_2+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -9834,10 +9834,10 @@ mkV039 base =
                                }
                      } ;
         Nonfinite = base_1+"na" ;
-        Particle = table {
-                     Pres => base_1+"nandi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"nandi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -9866,10 +9866,10 @@ mkV040 base =
                                }
                      } ;
         Nonfinite = base_1+"ú"+base_2+"va" ;
-        Particle = table {
-                     Pres => base_1+"ú"+base_2+"vandi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ú"+base_2+"vandi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -9898,10 +9898,10 @@ mkV041 base =
                                }
                      } ;
         Nonfinite = base_1+"y"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"y"+base_2+"andi" ;
-                     Past => base_1+"u"+base_2+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"y"+base_2+"andi" ;
+                       Past => base_1+"u"+base_2+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -9930,10 +9930,10 @@ mkV042 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"jandi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"jandi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -9962,10 +9962,10 @@ mkV043 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"ddur"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"ddur"
+                     }
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -9994,10 +9994,10 @@ mkV044 base =
                                }
                      } ;
         Nonfinite = base_1+"ú"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"ú"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ú"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV044"
   } ;
@@ -10026,10 +10026,10 @@ mkV045 base =
                                }
                      } ;
         Nonfinite = base_1+"la" ;
-        Particle = table {
-                     Pres => base_1+"landi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"landi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -10058,10 +10058,10 @@ mkV046 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -10090,10 +10090,10 @@ mkV047 base =
                                }
                      } ;
         Nonfinite = base_1+"anga" ;
-        Particle = table {
-                     Pres => base_1+"angandi" ;
-                     Past => base_1+"ingin"
-                   }
+        Participle = table {
+                       Pres => base_1+"angandi" ;
+                       Past => base_1+"ingin"
+                     }
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -10122,10 +10122,10 @@ mkV048 base =
                                }
                      } ;
         Nonfinite = base_1+"ja"+base_2+"da" ;
-        Particle = table {
-                     Pres => base_1+"ja"+base_2+"dandi" ;
-                     Past => base_1+"o"+base_2+"din"
-                   }
+        Participle = table {
+                       Pres => base_1+"ja"+base_2+"dandi" ;
+                       Past => base_1+"o"+base_2+"din"
+                     }
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -10154,10 +10154,10 @@ mkV049 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"jø"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"jø"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -10186,10 +10186,10 @@ mkV050 base =
                                }
                      } ;
         Nonfinite = base_1+"jó"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"jó"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"jó"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -10218,10 +10218,10 @@ mkV051 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"pa" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"pandi" ;
-                     Past => base_1+"o"+base_2+"pin"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"pandi" ;
+                       Past => base_1+"o"+base_2+"pin"
+                     }
       };
     _ => error "Can't apply paradigm mkV051"
   } ;
@@ -10250,10 +10250,10 @@ mkV052 base =
                                }
                      } ;
         Nonfinite = base_1+"y"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"y"+base_2+"jandi" ;
-                     Past => base_1+"u"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"y"+base_2+"jandi" ;
+                       Past => base_1+"u"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -10282,10 +10282,10 @@ mkV053 base =
                                }
                      } ;
         Nonfinite = base_1+"á"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"á"+base_2+"andi" ;
-                     Past => base_1+"á"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"á"+base_2+"andi" ;
+                       Past => base_1+"á"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -10314,10 +10314,10 @@ mkV054 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -10346,10 +10346,10 @@ mkV055 base =
                                }
                      } ;
         Nonfinite = base_1+"ógva" ;
-        Particle = table {
-                     Pres => base_1+"ógvandi" ;
-                     Past => base_1+"ógvin"
-                   }
+        Participle = table {
+                       Pres => base_1+"ógvandi" ;
+                       Past => base_1+"ógvin"
+                     }
       };
     _ => error "Can't apply paradigm mkV055"
   } ;
@@ -10378,10 +10378,10 @@ mkV056 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"da" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"dandi" ;
-                     Past => base_1+"i"+base_2+"din"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"dandi" ;
+                       Past => base_1+"i"+base_2+"din"
+                     }
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -10410,10 +10410,10 @@ mkV057 base =
                                }
                      } ;
         Nonfinite = base_1+"anga" ;
-        Particle = table {
-                     Pres => base_1+"angandi" ;
-                     Past => base_1+"ingin"
-                   }
+        Participle = table {
+                       Pres => base_1+"angandi" ;
+                       Past => base_1+"ingin"
+                     }
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -10442,10 +10442,10 @@ mkV058 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -10474,10 +10474,10 @@ mkV059 base =
                                }
                      } ;
         Nonfinite = base_1+"ei"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"ei"+base_2+"jandi" ;
-                     Past => base_1+"o"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"ei"+base_2+"jandi" ;
+                       Past => base_1+"o"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV059"
   } ;
@@ -10506,10 +10506,10 @@ mkV060 base =
                                }
                      } ;
         Nonfinite = base_1+"vø"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"vø"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"vø"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -10538,10 +10538,10 @@ mkV061 base =
                                }
                      } ;
         Nonfinite = base_1+"y"+base_2+"gja" ;
-        Particle = table {
-                     Pres => base_1+"y"+base_2+"gjandi" ;
-                     Past => base_1+"u"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"y"+base_2+"gjandi" ;
+                       Past => base_1+"u"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -10570,10 +10570,10 @@ mkV062 base =
                                }
                      } ;
         Nonfinite = base_1+"o"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"o"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"o"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV062"
   } ;
@@ -10602,10 +10602,10 @@ mkV063 base =
                                }
                      } ;
         Nonfinite = base_1+"pa" ;
-        Particle = table {
-                     Pres => base_1+"pandi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"pandi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -10634,10 +10634,10 @@ mkV064 base =
                                }
                      } ;
         Nonfinite = base_1+"úgva" ;
-        Particle = table {
-                     Pres => base_1+"úgvandi" ;
-                     Past => base_1+"ovin"
-                   }
+        Participle = table {
+                       Pres => base_1+"úgvandi" ;
+                       Past => base_1+"ovin"
+                     }
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -10666,10 +10666,10 @@ mkV065 base =
                                }
                      } ;
         Nonfinite = base_1+"u"+base_2+"na" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -10698,10 +10698,10 @@ mkV066 base =
                                }
                      } ;
         Nonfinite = base_1+"ø"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"ø"+base_2+"andi" ;
-                     Past => base_1+"ø"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ø"+base_2+"andi" ;
+                       Past => base_1+"ø"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -10730,10 +10730,10 @@ mkV067 base =
                                }
                      } ;
         Nonfinite = base_1+"sa" ;
-        Particle = table {
-                     Pres => base_1+"sandi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"sandi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -10762,10 +10762,10 @@ mkV068 base =
                                }
                      } ;
         Nonfinite = base_1+"a" ;
-        Particle = table {
-                     Pres => base_1+"andi" ;
-                     Past => base_1+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"andi" ;
+                       Past => base_1+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -10794,10 +10794,10 @@ mkV069 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"gja" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"gjandi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"gjandi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -10826,10 +10826,10 @@ mkV070 base =
                                }
                      } ;
         Nonfinite = base_1+"iggja" ;
-        Particle = table {
-                     Pres => base_1+"iggjandi" ;
-                     Past => base_1+"igin"
-                   }
+        Participle = table {
+                       Pres => base_1+"iggjandi" ;
+                       Past => base_1+"igin"
+                     }
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -10858,10 +10858,10 @@ mkV071 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -10890,10 +10890,10 @@ mkV072 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -10922,10 +10922,10 @@ mkV073 base =
                                }
                      } ;
         Nonfinite = base_1+"á"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"á"+base_2+"andi" ;
-                     Past => base_1+"á"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"á"+base_2+"andi" ;
+                       Past => base_1+"á"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -10954,10 +10954,10 @@ mkV074 base =
                                }
                      } ;
         Nonfinite = base_1+"ey"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"ey"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ey"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -10986,10 +10986,10 @@ mkV075 base =
                                }
                      } ;
         Nonfinite = base_1+"ega" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -11018,10 +11018,10 @@ mkV076 base =
                                }
                      } ;
         Nonfinite = base_1+"u"+base_2+"na" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -11050,10 +11050,10 @@ mkV077 base =
                                }
                      } ;
         Nonfinite = base_1+"ja" ;
-        Particle = table {
-                     Pres => base_1+"jandi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"jandi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -11082,10 +11082,10 @@ mkV078 base =
                                }
                      } ;
         Nonfinite = base_1+"ja" ;
-        Particle = table {
-                     Pres => base_1+"jandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"jandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -11114,10 +11114,10 @@ mkV079 base =
                                }
                      } ;
         Nonfinite = base_1+"ða" ;
-        Particle = table {
-                     Pres => base_1+"ðandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"ðandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -11146,10 +11146,10 @@ mkV080 base =
                                }
                      } ;
         Nonfinite = base_1+"áa" ;
-        Particle = table {
-                     Pres => base_1+"áandi" ;
-                     Past => base_1+"áddur"
-                   }
+        Participle = table {
+                       Pres => base_1+"áandi" ;
+                       Past => base_1+"áddur"
+                     }
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -11178,10 +11178,10 @@ mkV081 base =
                                }
                      } ;
         Nonfinite = base_1+"áða" ;
-        Particle = table {
-                     Pres => base_1+"áðandi" ;
-                     Past => base_1+"áðin"
-                   }
+        Participle = table {
+                       Pres => base_1+"áðandi" ;
+                       Past => base_1+"áðin"
+                     }
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -11210,10 +11210,10 @@ mkV082 base =
                                }
                      } ;
         Nonfinite = base_1+"ða"+base_2 ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -11242,10 +11242,10 @@ mkV083 base =
                                }
                      } ;
         Nonfinite = base_1+"ø"+base_2+"ka" ;
-        Particle = table {
-                     Pres => base_1+"ø"+base_2+"kandi" ;
-                     Past => base_1+"o"+base_2+"kin"
-                   }
+        Participle = table {
+                       Pres => base_1+"ø"+base_2+"kandi" ;
+                       Past => base_1+"o"+base_2+"kin"
+                     }
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -11274,10 +11274,10 @@ mkV084 base =
                                }
                      } ;
         Nonfinite = base_1+"íggja" ;
-        Particle = table {
-                     Pres => base_1+"íggjandi" ;
-                     Past => base_1+"æddur"
-                   }
+        Participle = table {
+                       Pres => base_1+"íggjandi" ;
+                       Past => base_1+"æddur"
+                     }
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -11306,10 +11306,10 @@ mkV085 base =
                                }
                      } ;
         Nonfinite = base_1+"kja" ;
-        Particle = table {
-                     Pres => base_1+"kjandi" ;
-                     Past => base_1+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"kjandi" ;
+                       Past => base_1+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -11338,10 +11338,10 @@ mkV086 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -11370,10 +11370,10 @@ mkV087 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"andi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"andi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV087"
   } ;
@@ -11402,10 +11402,10 @@ mkV088 base =
                                }
                      } ;
         Nonfinite = base_1+"u"+base_2+"a" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV088"
   } ;
@@ -11434,10 +11434,10 @@ mkV089 base =
                                }
                      } ;
         Nonfinite = base_1+"ei"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"ei"+base_2+"jandi" ;
-                     Past => base_1+"o"+base_2+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"ei"+base_2+"jandi" ;
+                       Past => base_1+"o"+base_2+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -11466,10 +11466,10 @@ mkV090 base =
                                }
                      } ;
         Nonfinite = base_1+"ja" ;
-        Particle = table {
-                     Pres => base_1+"jandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"jandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV090"
   } ;
@@ -11498,10 +11498,10 @@ mkV091 base =
                                }
                      } ;
         Nonfinite = base_1+"jó"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"jó"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"jó"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV091"
   } ;
@@ -11530,10 +11530,10 @@ mkV092 base =
                                }
                      } ;
         Nonfinite = base_1+"áa" ;
-        Particle = table {
-                     Pres => base_1+"áandi" ;
-                     Past => base_1+"igin"
-                   }
+        Participle = table {
+                       Pres => base_1+"áandi" ;
+                       Past => base_1+"igin"
+                     }
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -11562,10 +11562,10 @@ mkV093 base =
                                }
                      } ;
         Nonfinite = base_1+"y"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"y"+base_2+"jandi" ;
-                     Past => base_1+"u"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"y"+base_2+"jandi" ;
+                       Past => base_1+"u"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -11594,10 +11594,10 @@ mkV094 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"na" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"nandi" ;
-                     Past => base_1+"u"+base_2+"nin"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"nandi" ;
+                       Past => base_1+"u"+base_2+"nin"
+                     }
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -11626,10 +11626,10 @@ mkV095 base =
                                }
                      } ;
         Nonfinite = base_1+"anda" ;
-        Particle = table {
-                     Pres => base_1+"andandi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => base_1+"andandi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV095"
   } ;
@@ -11658,10 +11658,10 @@ mkV096 base =
                                }
                      } ;
         Nonfinite = base_1+"ei"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"ei"+base_2+"jandi" ;
-                     Past => base_1+"o"+base_2+"tur"
-                   }
+        Participle = table {
+                       Pres => base_1+"ei"+base_2+"jandi" ;
+                       Past => base_1+"o"+base_2+"tur"
+                     }
       };
     _ => error "Can't apply paradigm mkV096"
   } ;
@@ -11690,10 +11690,10 @@ mkV097 base =
                                }
                      } ;
         Nonfinite = base_1+"inga" ;
-        Particle = table {
-                     Pres => base_1+"ingandi" ;
-                     Past => base_1+"ungin"
-                   }
+        Participle = table {
+                       Pres => base_1+"ingandi" ;
+                       Past => base_1+"ungin"
+                     }
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -11722,10 +11722,10 @@ mkV098 base =
                                }
                      } ;
         Nonfinite = base_1+"ja"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"ja"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ja"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -11754,10 +11754,10 @@ mkV099 base =
                                }
                      } ;
         Nonfinite = base_1+"o"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"o"+base_2+"andi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => base_1+"o"+base_2+"andi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -11786,10 +11786,10 @@ mkV100 base =
                                }
                      } ;
         Nonfinite = base_1+"í"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"í"+base_2+"jandi" ;
-                     Past => base_1+"i"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"í"+base_2+"jandi" ;
+                       Past => base_1+"i"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV100"
   } ;
@@ -11818,10 +11818,10 @@ mkV101 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"jandi" ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"jandi" ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV101"
   } ;
@@ -11850,10 +11850,10 @@ mkV102 base =
                                }
                      } ;
         Nonfinite = base_1+"ja" ;
-        Particle = table {
-                     Pres => base_1+"jandi" ;
-                     Past => base_1+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"jandi" ;
+                       Past => base_1+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV102"
   } ;
@@ -11882,10 +11882,10 @@ mkV103 base =
                                }
                      } ;
         Nonfinite = base_1+"ø"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"ø"+base_2+"jandi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"ø"+base_2+"jandi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV103"
   } ;
@@ -11914,10 +11914,10 @@ mkV104 base =
                                }
                      } ;
         Nonfinite = base_1+"y"+base_2+"ja" ;
-        Particle = table {
-                     Pres => base_1+"y"+base_2+"jandi" ;
-                     Past => base_1+"u"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"y"+base_2+"jandi" ;
+                       Past => base_1+"u"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV104"
   } ;
@@ -11946,10 +11946,10 @@ mkV105 base =
                                }
                      } ;
         Nonfinite = base_1+"i"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"i"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"dur"
-                   }
+        Participle = table {
+                       Pres => base_1+"i"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"dur"
+                     }
       };
     _ => error "Can't apply paradigm mkV105"
   } ;
@@ -11978,10 +11978,10 @@ mkV106 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"fa" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"fandi" ;
-                     Past => base_1+"o"+base_2+"fin"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"fandi" ;
+                       Past => base_1+"o"+base_2+"fin"
+                     }
       };
     _ => error "Can't apply paradigm mkV106"
   } ;
@@ -12010,10 +12010,10 @@ mkV107 base =
                                }
                      } ;
         Nonfinite = base_1+"a"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"a"+base_2+"andi" ;
-                     Past => base_1+"a"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"a"+base_2+"andi" ;
+                       Past => base_1+"a"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV107"
   } ;
@@ -12042,10 +12042,10 @@ mkV108 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV108"
   } ;
@@ -12074,10 +12074,10 @@ mkV109 base =
                                }
                      } ;
         Nonfinite = base_1+base_2+base_3+"a" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV109"
   } ;
@@ -12106,10 +12106,10 @@ mkV110 base =
                                }
                      } ;
         Nonfinite = "d"+base_1+"finite" ;
-        Particle = table {
-                     Pres => "v"+base_1+"rð" ;
-                     Past => "v"+base_1+"rð"
-                   }
+        Participle = table {
+                       Pres => "v"+base_1+"rð" ;
+                       Past => "v"+base_1+"rð"
+                     }
       };
     _ => error "Can't apply paradigm mkV110"
   } ;
@@ -12138,10 +12138,10 @@ mkV111 base =
                                }
                      } ;
         Nonfinite = base_1+"e"+base_2+"a" ;
-        Particle = table {
-                     Pres => base_1+"e"+base_2+"andi" ;
-                     Past => base_1+"o"+base_2+"in"
-                   }
+        Participle = table {
+                       Pres => base_1+"e"+base_2+"andi" ;
+                       Past => base_1+"o"+base_2+"in"
+                     }
       };
     _ => error "Can't apply paradigm mkV111"
   } ;
@@ -12170,10 +12170,10 @@ mkV112 base =
                                }
                      } ;
         Nonfinite = base_1+"ja" ;
-        Particle = table {
-                     Pres => nonExist ;
-                     Past => nonExist
-                   }
+        Participle = table {
+                       Pres => nonExist ;
+                       Past => nonExist
+                     }
       };
     _ => error "Can't apply paradigm mkV112"
   } ;
