@@ -65,10 +65,10 @@ lin
            tr (th "Pl" ++ td (x.Indicative ! Past ! PPl))) ++
          heading2 "Nonfinite" ++
          paragraph x.Nonfinite ++
-         heading2 "Particle" ++
+         heading2 "Participle" ++
          frameTable (
-           tr (th "Pres" ++ td (x.Particle ! Pres)) ++
-           tr (th "Past" ++ td (x.Particle ! Past))) ;
+           tr (th "Pres" ++ td (x.Participle ! Pres)) ++
+           tr (th "Past" ++ td (x.Participle ! Past))) ;
       s3=[]
     } ;
 lin
