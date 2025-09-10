@@ -148,7 +148,7 @@ lin
     s1= heading1 ("Прилагателно") ;
     s2= frameTable (
           tr (intagAttr "th" "rowspan=\"7\"" "ед.ч." ++ 
-              intagAttr "th" "rowspan=\"3\"" "мн.ч." ++ 
+              intagAttr "th" "rowspan=\"3\"" "м.р." ++
               th "нечленувано" ++ 
               td (a.s ! (ASg Masc Indef))) ++
           tr (th "непълен член" ++ td (a.s ! (ASg Masc Def))) ++
