@@ -1,13 +1,15 @@
 resource ParadigmsSco = ParadigmsEng - [regV, reg2V, regDuplV, irregV, irreg4V, irregDuplV, mkV, mkV2, mkV3, mkV2V, mkV2Q] ** open Prelude, ResSco, CatSco in {
 
 oper
+  regV : Str -> V ;
   regV cry =
     let
       cries = (regN cry).s ! Pl ! Nom ; -- !
-      cried : Str = case cries of {
-        _ + "es" => init cries + "d" ;
-        _ + "ers" => init cries + "ed" ;
-        _        => duplFinal cry + "ed"
+      criet : Str = case cry of {
+        rax@(_ + ("x"|"sh"|"ch")) => rax+"t";
+        hurt@(_ + ("t"|"p"|"d")) => hurt + "it" ;
+        traivel@(_ + ("l"|"n"|"r"|"ie"|"y")) => traivel + "t" ;
+        clean        => clean + "ed"
         } ;
       cryin : Str = case cry of {
         _  + "ee" => cry + "in" ;
@@ -16,30 +18,35 @@ oper
         ent + "er" => ent + "erin" ;
         _         => duplFinal cry + "in"
         }
-    in mk5V cry cries cried cried cryin ;
+    in mk5V cry cries criet criet cryin ;
 
-  reg2V fit fitted =
-   let fitt = Predef.tk 2 fitted ;
+  reg2V : Str -> Str -> V ;
+  reg2V fit fittet =
+   let fitt = Predef.tk 2 fittet ;
    in
      if_then_else V (pbool2bool (Predef.eqStr (last fit) (last fitt)))
-       (mk5V fit (fit + "s") (fitt + "ed") (fitt + "ed") (fitt + "in"))
+       (mk5V fit (fit + "s") (fitt + "et") (fitt + "et") (fitt + "in"))
        (regV fit) ;
 
+  regDuplV : Str -> V ;
   regDuplV fit =
     case last fit of {
       ("a" | "e" | "i" | "o" | "u" | "y") =>
         Predef.error (["final duplication makes no sense for"] ++ fit) ;
       t =>
        let fitt = fit + t in
-       mk5V fit (fit + "s") (fitt + "ed") (fitt + "ed") (fitt + "in")
+       mk5V fit (fit + "s") (fitt + "et") (fitt + "et") (fitt + "in")
       } ;
 
+  irregV : Str -> Str -> Str -> V ;
   irregV x y z = let reg = (regV x).s in
     mk5V x (reg ! VPres) y z (reg ! VPresPart) ** {s1 = []} ;
 
+  irreg4V : Str -> Str -> Str -> Str -> V ;
   irreg4V x y z w = let reg = (regV x).s in
     mk5V x (reg ! VPres) y z w ** {s1 = []} ;
 
+  irregDuplV : Str -> Str -> Str -> V ;
   irregDuplV fit y z =
     let
       fitting = (regDuplV fit).s ! VPresPart
