@@ -96,13 +96,13 @@ in {
   lin laden_V =  irregV "laden" "lädt" "lud" "lüde" "geladen" ;
   lin lassen_V =  irregV "lassen" "lässt" "ließ" "ließe" "gelassen" ;
   lin laufen_V =  irregV "laufen" "läuft" "lief" "liefe" "gelaufen" ;
-  lin leiden_V =  irregV "leiden" "leidt" "litt" "litte" "gelitten" ;
+  lin leiden_V =  irregV "leiden" "leidet" "litt" "litte" "gelitten" ;
   lin leihen_V =  irregV "leihen" "leiht" "lieh" "liehe" "geliehen" ;
   lin lesen_V =  irregV "lesen" "liest" "las" "läse" "gelesen" ;
   lin liegen_V =  irregV "liegen" "liegt" "lag" "läge" "gelegen" ;
   lin lügen_V =  irregV "lügen" "lügt" "log" "löge" "gelogen" ;
   lin mahlen_V =  irregV "mahlen" "mahlt" "mahlte" "mahlte" "gemahlen" ;
-  lin meiden_V =  irregV "meiden" "meidt" "mied" "miede" "gemieden" ;
+  lin meiden_V =  irregV "meiden" "meidet" "mied" "miede" "gemieden" ;
   lin melken_V =  irregV "melken" "milkt" "molk" "mölke" "gemolken" ;
   lin messen_V =  irregV "messen" "misst" "maß" "mäße" "gemessen" ;
   lin mißlingen_V =  irregV "misslingen" "misslingt" "misslang" "misslungen" "misslänge" ;  -- old spelling
@@ -131,14 +131,14 @@ in {
   lin saufen_V =  irregV "saufen" "säuft" "soff" "söffe" "gesoffen" ;
   lin saugen_V =  irregV "saugen" "saugt" "sog" "soge" "gesogen" ;
   lin schaffen_V =  irregV "schaffen" "schafft" "schuf" "schüfe" "geschaffen" ;
-  lin scheiden_V =  irregV "scheiden" "scheidt" "schied" "schiede" "geschieden" ;
+  lin scheiden_V =  irregV "scheiden" "scheidet" "schied" "schiede" "geschieden" ;
   lin scheinen_V =  irregV "scheinen" "scheint" "schien" "schiene" "geschienen" ;
   lin scheißen_V =  irregV "scheißen" "scheißt" "schiss" "schisse" "geschissen" ;
   lin schelten_V =  irregV "schelten" "schilt" "schalt" "schölte" "gescholten" ;
   lin scheren_V =  irregV "scheren" "schert" "schor" "schöre" "geschoren" ;
   lin schieben_V =  irregV "schieben" "schiebt" "schob" "schöbe" "geschoben" ;
   lin schießen_V =  irregV "schießen" "schießt" "schoss" "schösse" "geschossen" ;
-  lin schinden_V =  irregV "schinden" "schindt" "schund" "schunde" "geschunden" ;
+  lin schinden_V =  irregV "schinden" "schindet" "schund" "schunde" "geschunden" ;
   lin schlafen_V =  irregV "schlafen" "schläft" "schlief" "schliefe" "geschlafen" ;
   lin schlagen_V =  irregV "schlagen" "schlägt" "schlug" "schlüge" "geschlagen" ;
   lin schleichen_V =  irregV "schleichen" "schleicht" "schlich" "schliche" "geschlichen" ;
@@ -156,7 +156,7 @@ in {
   lin schwellen_V =  irregV "schwellen" "schwillt" "schwoll" "schwölle" "geschwollen" ;
   lin schwimmen_V =  irregV "schwimmen" "schwimmt" "schwamm" "schwämme" "geschwommen" ;
   lin schwimmen_o_V =  irregV "schwimmen" "schwimmt" "schwamm" "schwömme" "geschwommen" ;
-  lin schwinden_V =  irregV "schwinden" "schwindt" "schwand" "schwände" "geschwunden" ;
+  lin schwinden_V =  irregV "schwinden" "schwindet" "schwand" "schwände" "geschwunden" ;
   lin schwingen_V =  irregV "schwingen" "schwingt" "schwang" "schwänge" "geschwungen" ;
   lin schwören_V =  irregV "schwören" "schwört" "schwor" "schwüre" "geschworen" ;
   lin sehen_V =  irregV "sehen" "sieht" "sah" "sähe" "gesehen" ;
@@ -200,7 +200,7 @@ in {
                        "tun" "tue" "tust" "tut" "tut" "tue" 
                        "tat" "tatest" "taten" "tatet"
                        "täte" "getan" [] M.VHaben) ;
-  lin verderben_V =  irregV "verderben" "verdirbt" "verdarb" "verdarbe" "verdorben" ;
+  lin verderben_V =  irregV "verderben" "verdirbt" "verdarb" "verdürbe" "verdorben" ;
   lin vergessen_V =  irregV "vergessen" "vergisst" "vergaß" "vergäße" "vergessen" ;
   lin verlieren_V =  irregV "verlieren" "verliert" "verlor" "verlöre" "verloren" ;
   lin wachsen_V =  irregV "wachsen" "wächst" "wuchs" "wüchse" "gewachsen" ;
@@ -209,14 +209,14 @@ in {
   lin weben_V =  irregV "weben" "webt" "wob" "wöbe" "gewoben" ;
   lin weichen_V =  irregV "weichen" "weicht" "wich" "wiche" "gewichen" ;
   lin weisen_V =  irregV "weisen" "weist" "wies" "wiese" "gewiesen" ;
-  lin wenden_V =  irregV "wenden" "wendt" "wandte" "wandte" "gewandt" ;
+  lin wenden_V =  irregV "wenden" "wendet" "wandte" "wandte" "gewandt" ;
   lin werben_V =  irregV "werben" "wirbt" "warb" "würbe" "geworben" ;
   lin werden_V = lin V (M.mkV "werden" "werde" "wirst" "wird" "werdet" "werd" 
                           "wurde" "wurdest" "wurden" "wurdet"
                           "würde" "geworden" [] M.VSein) ;
   lin werfen_V =  irregV "werfen" "wirft" "warf" "würfe" "geworfen" ;
   lin wiegen_V =  irregV "wiegen" "wiegt" "wog" "wöge" "gewogen" ;
-  lin winden_V =  irregV "winden" "windt" "wand" "wände" "gewunden" ;
+  lin winden_V =  irregV "winden" "windet" "wand" "wände" "gewunden" ;
   lin wissen_V =  lin V (M.mkV "wissen" "weiß" "weißt" "weiß" "wisst" "wisse" 
                            "wusste" "wusstest" "wussten" "wusstet"
                            "wüsste" "gewusst" [] M.VHaben) ;

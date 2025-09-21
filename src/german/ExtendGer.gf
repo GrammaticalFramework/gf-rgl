@@ -10,7 +10,7 @@ concrete ExtendGer of Extend =
       PastPartAP, PastPartAgentAP,
       PassVPSlash, PassAgentVPSlash,
       AdvIsNP,
-      RNP, RNPList, Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP, Conj_RNP,
+      RNP, RNPList, Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP, ConjRNP,
       ReflRNP, ReflPron, ReflPoss, PredetRNP, AdvRNP, ReflA2RNP, PossPronRNP,
       CompoundN, DetNPMasc, DetNPFem, UseDAP, UseDAPMasc, UseDAPFem,
       CardCNCard,

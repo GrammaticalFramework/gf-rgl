@@ -8,7 +8,7 @@ oper
   mkSubj : Str -> Subj = \x -> 
     {s = x ; lock_Subj = <>} ;
   mkIQuant : Str -> IQuant = \s ->
-    {s = \\_,_ => s ; lock_IQuant = <>} ;
+    {s = \\_,_ => s ; a = Strong ; lock_IQuant = <>} ;
 
   mkPredet = overload {
     mkPredet : A -> Predet = \a ->

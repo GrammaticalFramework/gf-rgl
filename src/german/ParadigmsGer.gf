@@ -1,4 +1,4 @@
---# -path=.:../common:../abstract:../../prelude
+--# -path=.:../common:../abstract:../prelude:
 
 --1 German Lexical Paradigms
 --
@@ -174,15 +174,15 @@ mkN : overload {
     mkLN : (nom,acc,dat,gen : Str) -> Gender -> LN = \nom,acc,dat,gen,g ->
       lin LN {s = \\a => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
               g = g ; n = Sg ;
-              hasArt = False}
+              hasDefArt = False}
 
     } ;
 
-  defLN : LN -> LN = \n -> n ** {hasArt = True} ;
+  defLN : LN -> LN = \n -> n ** {hasDefArt = True} ;
 
   mk2LN  : (karolus, karoli : Str) -> Gender -> LN = \karolus, karoli, g -> 
     lin LN {s = \\a => table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ;
-            hasArt = False} ;
+            hasDefArt = False} ;
   regLN : (horst : Str) -> Gender -> LN = \horst, g -> 
     mk2LN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
 
@@ -224,7 +224,7 @@ mkN : overload {
 -- Adverbs are formed from strings.
 
   mkAdv : Str -> Adv ; -- adverbs have just one form anyway
-
+  mkIAdv : Str -> IAdv ;
 
 --2 Prepositions
 
@@ -576,6 +576,7 @@ mkV2 : overload {
   mkA2 = \a,p -> a ** {c2 = p ; lock_A2 = <>} ;
 
   mkAdv s = {s = s ; lock_Adv = <>} ;
+  mkIAdv s = {s = s ; lock_IAdv = <>} ;
 
   mkPrep = overload {
     mkPrep : Str -> Case -> Prep = \s,c ->
@@ -633,7 +634,7 @@ mkV2 : overload {
 
   irregV singen singt sang saenge gesungen = 
     let
-      sing = stemVerb singen ;
+      sing = stemVerbImpSg singen singt  -- geben gibt => gib, HL 7/17
     in
     mk6V singen singt sing sang saenge gesungen ;
 
