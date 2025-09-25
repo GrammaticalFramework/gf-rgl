@@ -103,27 +103,27 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
      insertObj' obj b w c vps ;
 
     UseComp comp =
-       insertExtrapos comp.ext (insertObj comp.s (predV sein_V)) ; -- agr not used
+       insertExtrapos (comp.ext ! Sg) (insertObj comp.s (predV sein_V)) ; -- agr not used ---- TODO: comp.ext depends on number if CompCN
     -- SS: adj slot not used here for e.g. "ich bin alt" but same behaviour as NPs?
     --     "ich bin nicht alt" "ich bin nicht Doris"
 
     UseCopula = predV sein_V ;
 
-    CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = ap.s2 ! Nom ++ ap.ext} ;
-    CompNP np = {s = \\_ => np.s ! False ! Nom ++ np.rc ; ext = np.ext} ;
-    CompAdv a = {s = \\_ => a.s ; ext = []} ;
+    CompAP ap = {s = \\_ => ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ; ext = \\_ => ap.s2 ! Nom ++ ap.ext} ;
+    CompNP np = {s = \\_ => np.s ! False ! Nom ; ext = \\_ => np.rc ++ np.ext} ;
+    CompAdv a = {s = \\_ => a.s ; ext = \\_ => []} ;
 
     CompCN cn = {
       s = let
-            sg : Str = "ein" + pronEnding ! GSg cn.g ! Nom ++ cn.s ! Strong ! Sg ! Nom ++ cn.rc ! Sg ; ---
-            pl : Str = cn.s ! Strong ! Pl ! Nom ++ cn.rc ! Pl
+            sg : Str = "ein" + pronEnding ! GSg cn.g ! Nom ++ cn.s ! Strong ! Sg ! Nom ++ cn.adv ; ---
+            pl : Str = cn.s ! Strong ! Pl ! Nom ++ cn.adv
         in table {
             AgPlPol => sg ;
             a => case numberAgr a of {
                   Sg => sg ;
                   Pl => pl }
            } ;
-      ext = cn.adv ++ cn.ext
+      ext = \\n => cn.rc ! n ++ cn.ext
     } ;
 
     AdvVP vp adv = insertAdv adv.s vp ;
