@@ -18,8 +18,7 @@ lin
            tr (th "Dat"   ++ td (x.s ! Dat ! Sg) ++ td (x.s ! Dat ! Pl)) ++
            tr (th "Gen"   ++ td (x.s ! Gen ! Sg) ++ td (x.s ! Gen ! Pl)) ++
            tr (th "Loc"   ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl)) ++
-           tr (th "Instr" ++ td (x.s ! Instr ! Sg) ++ td (x.s ! Instr ! Pl)) ++
-           tr (th "Voc"   ++ td (x.Voc ! Sg) ++ td (x.Voc ! Pl))) ;
+           tr (th "Instr" ++ td (x.s ! Instr ! Sg) ++ td (x.s ! Instr ! Pl))) ;
       s3=[]
     } ;
 lin

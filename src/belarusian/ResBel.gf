@@ -3,9 +3,9 @@ resource ResBel = {
 param Case = Nom | Acc | Dat | Gen | Loc | Instr ;
 param Number = Sg | Pl ;
 param Gender = Masc | Fem | Neuter ;
-oper N = {s: Case => Number => Str; Voc: Number => Str; g: Gender} ; -- 2696
-oper mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> N =
-       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,g ->
+oper Noun = {s: Case => Number => Str; voc: Str; g: Gender} ; -- 2696
+oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,g ->
           { s = table {
                   Nom => table {
                            Sg => f1 ;
@@ -32,10 +32,7 @@ oper mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> N =
                              Pl => f12
                            }
                 } ;
-            Voc = table {
-                    Sg => f13 ;
-                    Pl => f14
-                  } ;
+            voc = f13 ;
             g = g
           } ;
 

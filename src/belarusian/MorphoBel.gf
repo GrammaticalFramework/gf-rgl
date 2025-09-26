@@ -32,10 +32,7 @@ mkN001 base =
                          Pl => base_1+"атамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN001"
@@ -71,10 +68,7 @@ mkN002 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN002"
@@ -110,10 +104,7 @@ mkN003 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN003"
@@ -149,10 +140,7 @@ mkN004 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN004"
@@ -160,159 +148,135 @@ mkN004 base =
 
 mkN005 : Str -> N ;
 mkN005 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN005"
-  } ;
+      } ;
 
 mkN006 : Str -> N ;
 mkN006 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN006"
-  } ;
 
 mkN007 : Str -> N ;
 mkN007 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"у" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN007"
-  } ;
+      } ;
 
 mkN008 : Str -> N ;
 mkN008 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN008"
-  } ;
 
 mkN009 : Str -> N ;
 mkN009 base =
@@ -344,10 +308,7 @@ mkN009 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN009"
@@ -383,10 +344,7 @@ mkN010 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN010"
@@ -394,41 +352,35 @@ mkN010 base =
 
 mkN011 : Str -> N ;
 mkN011 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"у" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN011"
   } ;
 
 mkN012 : Str -> N ;
@@ -461,10 +413,7 @@ mkN012 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN012"
@@ -472,41 +421,35 @@ mkN012 base =
 
 mkN013 : Str -> N ;
 mkN013 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN013"
   } ;
 
 mkN014 : Str -> N ;
@@ -539,10 +482,7 @@ mkN014 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN014"
@@ -578,10 +518,7 @@ mkN015 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN015"
@@ -617,10 +554,7 @@ mkN016 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN016"
@@ -656,10 +590,7 @@ mkN017 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN017"
@@ -695,10 +626,7 @@ mkN018 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN018"
@@ -706,42 +634,36 @@ mkN018 base =
 
 mkN019 : Str -> N ;
 mkN019 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"у" ;
-                Pl => nonExist
-              } ;
+        voc = base+"у" ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN019"
-  } ;
 
 mkN020 : Str -> N ;
 mkN020 base =
@@ -773,10 +695,7 @@ mkN020 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN020"
@@ -812,10 +731,7 @@ mkN021 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN021"
@@ -851,10 +767,7 @@ mkN022 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN022"
@@ -890,10 +803,7 @@ mkN023 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN023"
@@ -929,10 +839,7 @@ mkN024 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN024"
@@ -968,10 +875,7 @@ mkN025 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"це" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"це" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN025"
@@ -1007,10 +911,7 @@ mkN026 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN026"
@@ -1018,42 +919,36 @@ mkN026 base =
 
 mkN027 : Str -> N ;
 mkN027 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"у" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN027"
-  } ;
 
 mkN028 : Str -> N ;
 mkN028 base =
@@ -1085,10 +980,7 @@ mkN028 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN028"
@@ -1124,10 +1016,7 @@ mkN029 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN029"
@@ -1163,10 +1052,7 @@ mkN030 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN030"
@@ -1174,42 +1060,36 @@ mkN030 base =
 
 mkN031 : Str -> N ;
 mkN031 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN031"
-  } ;
 
 mkN032 : Str -> N ;
 mkN032 base =
@@ -1241,10 +1121,7 @@ mkN032 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN032"
@@ -1280,10 +1157,7 @@ mkN033 base =
                          Pl => base_1+"агамі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"ожа" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"ожа" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN033"
@@ -1291,42 +1165,36 @@ mkN033 base =
 
 mkN034 : Str -> N ;
 mkN034 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN034"
-  } ;
 
 mkN035 : Str -> N ;
 mkN035 base =
@@ -1358,10 +1226,7 @@ mkN035 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN035"
@@ -1397,10 +1262,7 @@ mkN036 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN036"
@@ -1408,81 +1270,69 @@ mkN036 base =
 
 mkN037 : Str -> N ;
 mkN037 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"зе" ;
-                Pl => nonExist
-              } ;
+        voc = base+"зе" ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN037"
-  } ;
+      } ;
 
 mkN038 : Str -> N ;
 mkN038 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"е" ;
-                Pl => nonExist
-              } ;
+        voc = base+"е" ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN038"
-  } ;
 
 mkN039 : Str -> N ;
 mkN039 base =
@@ -1514,10 +1364,7 @@ mkN039 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN039"
@@ -1553,10 +1400,7 @@ mkN040 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN040"
@@ -1592,10 +1436,7 @@ mkN041 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN041"
@@ -1603,81 +1444,69 @@ mkN041 base =
 
 mkN042 : Str -> N ;
 mkN042 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"у" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN042"
-  } ;
 
 mkN043 : Str -> N ;
 mkN043 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"у" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
-      };
-    _ => error "Can't apply paradigm mkN043"
-  } ;
+      } ;
 
 mkN044 : Str -> N ;
 mkN044 base =
@@ -1709,10 +1538,7 @@ mkN044 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN044"
@@ -1720,81 +1546,69 @@ mkN044 base =
 
 mkN045 : Str -> N ;
 mkN045 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"у" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN045"
-  } ;
 
 mkN046 : Str -> N ;
 mkN046 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN046"
-  } ;
 
 mkN047 : Str -> N ;
 mkN047 base =
@@ -1826,10 +1640,7 @@ mkN047 base =
                          Pl => base_1+"а"+base_2+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN047"
@@ -1865,10 +1676,7 @@ mkN048 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN048"
@@ -1904,10 +1712,7 @@ mkN049 base =
                          Pl => base_1+"зьямі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"жа" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"жа" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN049"
@@ -1915,42 +1720,36 @@ mkN049 base =
 
 mkN050 : Str -> N ;
 mkN050 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN050"
-  } ;
 
 mkN051 : Str -> N ;
 mkN051 base =
@@ -1982,10 +1781,7 @@ mkN051 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN051"
@@ -2021,10 +1817,7 @@ mkN052 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN052"
@@ -2060,10 +1853,7 @@ mkN053 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN053"
@@ -2099,10 +1889,7 @@ mkN054 base =
                          Pl => base_1+"а"+base_2+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN054"
@@ -2138,10 +1925,7 @@ mkN055 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN055"
@@ -2177,10 +1961,7 @@ mkN056 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN056"
@@ -2216,10 +1997,7 @@ mkN057 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN057"
@@ -2255,10 +2033,7 @@ mkN058 base =
                          Pl => "і"+base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN058"
@@ -2294,10 +2069,7 @@ mkN059 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN059"
@@ -2333,10 +2105,7 @@ mkN060 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN060"
@@ -2344,120 +2113,102 @@ mkN060 base =
 
 mkN061 : Str -> N ;
 mkN061 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і" --guessed
+                       Sg => base ;
+                       Pl => base+"і" --guessed
                      } ;
               Acc => table {
-                       Sg => base_1 ; --guessed
-                       Pl => base_1+"і" --guessed
+                       Sg => base ; --guessed
+                       Pl => base+"і" --guessed
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ; --guessed
-                       Pl => base_1+"ам" --guessed
+                       Sg => base+"у" ; --guessed
+                       Pl => base+"ам" --guessed
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ; --guessed
-                       Pl => base_1+"оў" --guessed
+                       Sg => base+"а" ; --guessed
+                       Pl => base+"оў" --guessed
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ; --guessed
-                       Pl => base_1+"ах" --guessed
+                       Sg => base+"у" ; --guessed
+                       Pl => base+"ах" --guessed
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ; --guessed
-                         Pl => base_1+"амі" --guessed
+                         Sg => base+"ом" ; --guessed
+                         Pl => base+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"у" ; --guessed
-                Pl => nonExist
-              } ;
+        voc = base+"у" ; --guessed ;
         g = Neuter
       };
-    _ => error "Can't apply paradigm mkN061"
-  } ;
 
 mkN062 : Str -> N ;
 mkN062 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN062"
-  } ;
 
 mkN063 : Str -> N ;
 mkN063 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN063"
-  } ;
 
 mkN064 : Str -> N ;
 mkN064 base =
@@ -2489,10 +2240,7 @@ mkN064 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN064"
@@ -2528,10 +2276,7 @@ mkN065 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN065"
@@ -2567,10 +2312,7 @@ mkN066 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN066"
@@ -2606,10 +2348,7 @@ mkN067 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN067"
@@ -2645,10 +2384,7 @@ mkN068 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN068"
@@ -2684,10 +2420,7 @@ mkN069 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN069"
@@ -2723,10 +2456,7 @@ mkN070 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN070"
@@ -2734,42 +2464,36 @@ mkN070 base =
 
 mkN071 : Str -> N ;
 mkN071 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Acc => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
+                       Sg => base+"у" ;
                        Pl => nonExist
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
+                       Sg => base+"у" ;
                        Pl => nonExist
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
+                         Sg => base+"ом" ;
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN071"
-  } ;
 
 mkN072 : Str -> N ;
 mkN072 base =
@@ -2801,10 +2525,7 @@ mkN072 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN072"
@@ -2840,10 +2561,7 @@ mkN073 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN073"
@@ -2879,10 +2597,7 @@ mkN074 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN074"
@@ -2918,10 +2633,7 @@ mkN075 base =
                          Pl => base_1+base_2+"нямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN075"
@@ -2957,10 +2669,7 @@ mkN076 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN076"
@@ -2996,10 +2705,7 @@ mkN077 base =
                          Pl => base_1+"ягамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN077"
@@ -3035,10 +2741,7 @@ mkN078 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN078"
@@ -3074,10 +2777,7 @@ mkN079 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN079"
@@ -3113,10 +2813,7 @@ mkN080 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN080"
@@ -3124,81 +2821,69 @@ mkN080 base =
 
 mkN081 : Str -> N ;
 mkN081 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN081"
-  } ;
 
 mkN082 : Str -> N ;
 mkN082 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"у" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN082"
-  } ;
 
 mkN083 : Str -> N ;
 mkN083 base =
@@ -3230,10 +2915,7 @@ mkN083 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN083"
@@ -3241,81 +2923,69 @@ mkN083 base =
 
 mkN084 : Str -> N ;
 mkN084 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN084"
-  } ;
 
 mkN085 : Str -> N ;
 mkN085 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN085"
-  } ;
 
 mkN086 : Str -> N ;
 mkN086 base =
@@ -3347,10 +3017,7 @@ mkN086 base =
                          Pl => base_1+"атамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN086"
@@ -3386,10 +3053,7 @@ mkN087 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN087"
@@ -3397,42 +3061,36 @@ mkN087 base =
 
 mkN088 : Str -> N ;
 mkN088 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і" --guessed
+                       Sg => base ;
+                       Pl => base+"і" --guessed
                      } ;
               Acc => table {
-                       Sg => base_1 ; --guessed
-                       Pl => base_1+"і" --guessed
+                       Sg => base ; --guessed
+                       Pl => base+"і" --guessed
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ; --guessed
-                       Pl => base_1+"ам" --guessed
+                       Sg => base+"у" ; --guessed
+                       Pl => base+"ам" --guessed
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ; --guessed
-                       Pl => base_1+"оў" --guessed
+                       Sg => base+"а" ; --guessed
+                       Pl => base+"оў" --guessed
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ; --guessed
-                       Pl => base_1+"ах" --guessed
+                       Sg => base+"у" ; --guessed
+                       Pl => base+"ах" --guessed
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ; --guessed
-                         Pl => base_1+"амі" --guessed
+                         Sg => base+"ом" ; --guessed
+                         Pl => base+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"у" ; --guessed
-                Pl => nonExist
-              } ;
+        voc = base+"у" ; --guessed
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN088"
-  } ;
 
 mkN089 : Str -> N ;
 mkN089 base =
@@ -3464,10 +3122,7 @@ mkN089 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN089"
@@ -3475,42 +3130,36 @@ mkN089 base =
 
 mkN090 : Str -> N ;
 mkN090 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN090"
-  } ;
 
 mkN091 : Str -> N ;
 mkN091 base =
@@ -3542,10 +3191,7 @@ mkN091 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN091"
@@ -3581,10 +3227,7 @@ mkN092 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN092"
@@ -3620,10 +3263,7 @@ mkN093 base =
                          Pl => base_1+"я"+base_2+"ёнамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN093"
@@ -3659,10 +3299,7 @@ mkN094 base =
                          Pl => base_1+"ая"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN094"
@@ -3670,42 +3307,36 @@ mkN094 base =
 
 mkN095 : Str -> N ;
 mkN095 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Acc => table {
-                       Sg => base_1 ; --guessed
-                       Pl => base_1 --guessed
+                       Sg => base ; --guessed
+                       Pl => base --guessed
                      } ;
               Dat => table {
-                       Sg => base_1 ; --guessed
-                       Pl => base_1 --guessed
+                       Sg => base ; --guessed
+                       Pl => base --guessed
                      } ;
               Gen => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Loc => table {
-                       Sg => base_1 ; --guessed
-                       Pl => base_1 --guessed
+                       Sg => base ; --guessed
+                       Pl => base --guessed
                      } ;
               Instr => table {
-                         Sg => base_1 ; --guessed
-                         Pl => base_1 --guessed
+                         Sg => base ; --guessed
+                         Pl => base --guessed
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
-    _ => error "Can't apply paradigm mkN095"
-  } ;
 
 mkN096 : Str -> N ;
 mkN096 base =
@@ -3737,10 +3368,7 @@ mkN096 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN096"
@@ -3776,10 +3404,7 @@ mkN097 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN097"
@@ -3815,10 +3440,7 @@ mkN098 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN098"
@@ -3826,42 +3448,36 @@ mkN098 base =
 
 mkN099 : Str -> N ;
 mkN099 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і" --guessed
+                       Sg => base ;
+                       Pl => base+"і" --guessed
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і" --guessed
+                       Sg => base ;
+                       Pl => base+"і" --guessed
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам" --guessed
+                       Sg => base+"у" ;
+                       Pl => base+"ам" --guessed
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў" --guessed
+                       Sg => base+"а" ;
+                       Pl => base+"оў" --guessed
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах" --guessed
+                       Sg => base+"у" ;
+                       Pl => base+"ах" --guessed
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі" --guessed
+                         Sg => base+"ом" ;
+                         Pl => base+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"у" ; --guessed
-                Pl => nonExist
-              } ;
+        voc = base+"у" ; --guessed
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN099"
-  } ;
 
 mkN100 : Str -> N ;
 mkN100 base =
@@ -3893,10 +3509,7 @@ mkN100 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN100"
@@ -3932,10 +3545,7 @@ mkN101 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN101"
@@ -3971,10 +3581,7 @@ mkN102 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN102"
@@ -4010,10 +3617,7 @@ mkN103 base =
                          Pl => base_1+"а"+base_2+"цямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN103"
@@ -4049,10 +3653,7 @@ mkN104 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN104"
@@ -4088,10 +3689,7 @@ mkN105 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN105"
@@ -4127,10 +3725,7 @@ mkN106 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN106"
@@ -4166,10 +3761,7 @@ mkN107 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN107"
@@ -4205,10 +3797,7 @@ mkN108 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN108"
@@ -4244,10 +3833,7 @@ mkN109 base =
                          Pl => "і"+base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN109"
@@ -4283,10 +3869,7 @@ mkN110 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN110"
@@ -4322,10 +3905,7 @@ mkN111 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN111"
@@ -4361,10 +3941,7 @@ mkN112 base =
                          Pl => base_1+"о"+base_2+"ьмі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN112"
@@ -4372,42 +3949,36 @@ mkN112 base =
 
 mkN113 : Str -> N ;
 mkN113 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"у" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN113"
-  } ;
 
 mkN114 : Str -> N ;
 mkN114 base =
@@ -4439,10 +4010,7 @@ mkN114 base =
                          Pl => base_1+"хамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN114"
@@ -4478,10 +4046,7 @@ mkN115 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN115"
@@ -4517,10 +4082,7 @@ mkN116 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN116"
@@ -4556,10 +4118,7 @@ mkN117 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN117"
@@ -4595,10 +4154,7 @@ mkN118 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN118"
@@ -4634,10 +4190,7 @@ mkN119 base =
                          Pl => base_1+"атамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN119"
@@ -4645,42 +4198,36 @@ mkN119 base =
 
 mkN120 : Str -> N ;
 mkN120 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ; --guessed
-                       Pl => base_1+"аў" --guessed
+                       Sg => base+"а" ; --guessed
+                       Pl => base+"аў" --guessed
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ; --guessed
-                       Pl => base_1+"ам" --guessed
+                       Sg => base+"у" ; --guessed
+                       Pl => base+"ам" --guessed
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ; --guessed
-                       Pl => base_1+"ах" --guessed
+                       Sg => base+"е" ; --guessed
+                       Pl => base+"ах" --guessed
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ; --guessed
-                         Pl => base_1+"амі" --guessed
+                         Sg => base+"ам" ; --guessed
+                         Pl => base+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"зе" ; --guessed
-                Pl => nonExist
-              } ;
+        voc = base+"зе" ; --guessed
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN120"
-  } ;
 
 mkN121 : Str -> N ;
 mkN121 base =
@@ -4712,10 +4259,7 @@ mkN121 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN121"
@@ -4751,10 +4295,7 @@ mkN122 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN122"
@@ -4790,10 +4331,7 @@ mkN123 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN123"
@@ -4829,10 +4367,7 @@ mkN124 base =
                          Pl => base_1+"йкамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN124"
@@ -4868,10 +4403,7 @@ mkN125 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN125"
@@ -4907,10 +4439,7 @@ mkN126 base =
                          Pl => base_1+"экамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN126"
@@ -4946,10 +4475,7 @@ mkN127 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN127"
@@ -4985,10 +4511,7 @@ mkN128 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN128"
@@ -5024,10 +4547,7 @@ mkN129 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN129"
@@ -5063,10 +4583,7 @@ mkN130 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN130"
@@ -5102,10 +4619,7 @@ mkN131 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN131"
@@ -5141,10 +4655,7 @@ mkN132 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN132"
@@ -5180,10 +4691,7 @@ mkN133 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN133"
@@ -5219,10 +4727,7 @@ mkN134 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN134"
@@ -5258,10 +4763,7 @@ mkN135 base =
                          Pl => base_1+"ё"+base_2+"т"+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN135"
@@ -5297,10 +4799,7 @@ mkN136 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN136"
@@ -5336,10 +4835,7 @@ mkN137 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN137"
@@ -5375,10 +4871,7 @@ mkN138 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN138"
@@ -5414,10 +4907,7 @@ mkN139 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN139"
@@ -5453,10 +4943,7 @@ mkN140 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN140"
@@ -5492,10 +4979,7 @@ mkN141 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN141"
@@ -5503,42 +4987,36 @@ mkN141 base =
 
 mkN142 : Str -> N ;
 mkN142 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"зі"
+                       Sg => base ;
+                       Pl => base+"зі"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"зяў"
+                       Sg => base+"а" ;
+                       Pl => base+"зяў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"зям"
+                       Sg => base+"у" ;
+                       Pl => base+"зям"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"зяў"
+                       Sg => base+"а" ;
+                       Pl => base+"зяў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"зях"
+                       Sg => base+"зе" ;
+                       Pl => base+"зях"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"зямі"
+                         Sg => base+"ам" ;
+                         Pl => base+"зямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN142"
-  } ;
 
 mkN143 : Str -> N ;
 mkN143 base =
@@ -5570,10 +5048,7 @@ mkN143 base =
                          Pl => base_1+"ачамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN143"
@@ -5609,10 +5084,7 @@ mkN144 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN144"
@@ -5648,10 +5120,7 @@ mkN145 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN145"
@@ -5687,10 +5156,7 @@ mkN146 base =
                          Pl => base_1+"овамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN146"
@@ -5726,10 +5192,7 @@ mkN147 base =
                          Pl => base_1+"я"+base_2+"ёсамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN147"
@@ -5765,10 +5228,7 @@ mkN148 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN148"
@@ -5804,10 +5264,7 @@ mkN149 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN149"
@@ -5843,10 +5300,7 @@ mkN150 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN150"
@@ -5882,10 +5336,7 @@ mkN151 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN151"
@@ -5921,10 +5372,7 @@ mkN152 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN152"
@@ -5960,10 +5408,7 @@ mkN153 base =
                          Pl => base_1+"ятамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN153"
@@ -5999,10 +5444,7 @@ mkN154 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN154"
@@ -6038,10 +5480,7 @@ mkN155 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN155"
@@ -6077,10 +5516,7 @@ mkN156 base =
                          Pl => base_1+"овамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN156"
@@ -6116,10 +5552,7 @@ mkN157 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN157"
@@ -6155,10 +5588,7 @@ mkN158 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN158"
@@ -6194,10 +5624,7 @@ mkN159 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN159"
@@ -6233,10 +5660,7 @@ mkN160 base =
                          Pl => base_1+"йкамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN160"
@@ -6272,10 +5696,7 @@ mkN161 base =
                          Pl => base_1+"ўкамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN161"
@@ -6311,10 +5732,7 @@ mkN162 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN162"
@@ -6350,10 +5768,7 @@ mkN163 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN163"
@@ -6389,10 +5804,7 @@ mkN164 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN164"
@@ -6428,10 +5840,7 @@ mkN165 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN165"
@@ -6467,10 +5876,7 @@ mkN166 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN166"
@@ -6506,10 +5912,7 @@ mkN167 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN167"
@@ -6517,42 +5920,36 @@ mkN167 base =
 
 mkN168 : Str -> N ;
 mkN168 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN168"
-  } ;
 
 mkN169 : Str -> N ;
 mkN169 base =
@@ -6584,10 +5981,7 @@ mkN169 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN169"
@@ -6623,10 +6017,7 @@ mkN170 base =
                          Pl => base_1+"е"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN170"
@@ -6662,10 +6053,7 @@ mkN171 base =
                          Pl => base_1+"юдзьмі"
                        }
             } ;
-        Voc = table {
-                Sg => "ча"+base_1+"авеча" ;
-                Pl => nonExist
-              } ;
+        voc = "ча"+base_1+"авеча" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN171"
@@ -6701,10 +6089,7 @@ mkN172 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN172"
@@ -6740,10 +6125,7 @@ mkN173 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN173"
@@ -6779,10 +6161,7 @@ mkN174 base =
                          Pl => base_1+"я"+base_2+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN174"
@@ -6818,10 +6197,7 @@ mkN175 base =
                          Pl => base_1+"ў"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN175"
@@ -6857,10 +6233,7 @@ mkN176 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN176"
@@ -6896,10 +6269,7 @@ mkN177 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN177"
@@ -6935,10 +6305,7 @@ mkN178 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN178"
@@ -6974,10 +6341,7 @@ mkN179 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN179"
@@ -7013,10 +6377,7 @@ mkN180 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN180"
@@ -7052,10 +6413,7 @@ mkN181 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN181"
@@ -7091,10 +6449,7 @@ mkN182 base =
                          Pl => base_1+"э"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN182"
@@ -7130,10 +6485,7 @@ mkN183 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN183"
@@ -7141,42 +6493,36 @@ mkN183 base =
 
 mkN184 : Str -> N ;
 mkN184 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"ы" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"ы" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"чу" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"чу" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN184"
-  } ;
 
 mkN185 : Str -> N ;
 mkN185 base =
@@ -7208,10 +6554,7 @@ mkN185 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN185"
@@ -7247,10 +6590,7 @@ mkN186 base =
                          Pl => base_1+"ят"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN186"
@@ -7286,10 +6626,7 @@ mkN187 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN187"
@@ -7325,10 +6662,7 @@ mkN188 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN188"
@@ -7364,10 +6698,7 @@ mkN189 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN189"
@@ -7403,10 +6734,7 @@ mkN190 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN190"
@@ -7442,10 +6770,7 @@ mkN191 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"ча" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"ча" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN191"
@@ -7481,10 +6806,7 @@ mkN192 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN192"
@@ -7492,42 +6814,36 @@ mkN192 base =
 
 mkN193 : Str -> N ;
 mkN193 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN193"
-  } ;
 
 mkN194 : Str -> N ;
 mkN194 base =
@@ -7559,10 +6875,7 @@ mkN194 base =
                          Pl => base_1+"агамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN194"
@@ -7570,42 +6883,36 @@ mkN194 base =
 
 mkN195 : Str -> N ;
 mkN195 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN195"
-  } ;
 
 mkN196 : Str -> N ;
 mkN196 base =
@@ -7637,10 +6944,7 @@ mkN196 base =
                          Pl => base_1+"ькамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN196"
@@ -7676,10 +6980,7 @@ mkN197 base =
                          Pl => base_1+"ькамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN197"
@@ -7715,10 +7016,7 @@ mkN198 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN198"
@@ -7754,10 +7052,7 @@ mkN199 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN199"
@@ -7793,10 +7088,7 @@ mkN200 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN200"
@@ -7832,10 +7124,7 @@ mkN201 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN201"
@@ -7871,10 +7160,7 @@ mkN202 base =
                          Pl => base_1+"я"+base_2+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN202"
@@ -7910,10 +7196,7 @@ mkN203 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN203"
@@ -7949,10 +7232,7 @@ mkN204 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN204"
@@ -7988,10 +7268,7 @@ mkN205 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN205"
@@ -8027,10 +7304,7 @@ mkN206 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN206"
@@ -8066,10 +7340,7 @@ mkN207 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN207"
@@ -8105,10 +7376,7 @@ mkN208 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN208"
@@ -8144,10 +7412,7 @@ mkN209 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN209"
@@ -8183,10 +7448,7 @@ mkN210 base =
                          Pl => base_1+"імі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN210"
@@ -8222,10 +7484,7 @@ mkN211 base =
                          Pl => base_1+"агамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN211"
@@ -8261,10 +7520,7 @@ mkN212 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN212"
@@ -8300,10 +7556,7 @@ mkN213 base =
                          Pl => base_1+"ё"+base_2+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN213"
@@ -8311,42 +7564,36 @@ mkN213 base =
 
 mkN214 : Str -> N ;
 mkN214 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN214"
-  } ;
 
 mkN215 : Str -> N ;
 mkN215 base =
@@ -8378,10 +7625,7 @@ mkN215 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN215"
@@ -8417,10 +7661,7 @@ mkN216 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN216"
@@ -8456,10 +7697,7 @@ mkN217 base =
                          Pl => base_1+"ўкамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN217"
@@ -8495,10 +7733,7 @@ mkN218 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN218"
@@ -8534,10 +7769,7 @@ mkN219 base =
                          Pl => base_1+"цамі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"ча" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"ча" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN219"
@@ -8573,10 +7805,7 @@ mkN220 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN220"
@@ -8612,10 +7841,7 @@ mkN221 base =
                          Pl => base_1+"охамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN221"
@@ -8651,10 +7877,7 @@ mkN222 base =
                          Pl => "во"+base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN222"
@@ -8690,10 +7913,7 @@ mkN223 base =
                          Pl => "а"+base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN223"
@@ -8729,10 +7949,7 @@ mkN224 base =
                          Pl => base_1+"ё"+base_2+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN224"
@@ -8768,10 +7985,7 @@ mkN225 base =
                          Pl => base_1+"е"+base_2+"ьмі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN225"
@@ -8807,10 +8021,7 @@ mkN226 base =
                          Pl => base_1+"е"+base_2+"'ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN226"
@@ -8818,42 +8029,36 @@ mkN226 base =
 
 mkN227 : Str -> N ;
 mkN227 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Acc => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Dat => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Gen => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Instr => table {
-                         Sg => base_1+"'ю" ;
+                         Sg => base+"'ю" ;
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN227"
-  } ;
 
 mkN228 : Str -> N ;
 mkN228 base =
@@ -8885,10 +8090,7 @@ mkN228 base =
                          Pl => base_1+"шамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN228"
@@ -8924,10 +8126,7 @@ mkN229 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN229"
@@ -8963,10 +8162,7 @@ mkN230 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN230"
@@ -9002,10 +8198,7 @@ mkN231 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN231"
@@ -9041,10 +8234,7 @@ mkN232 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN232"
@@ -9080,10 +8270,7 @@ mkN233 base =
                          Pl => "а"+base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN233"
@@ -9091,42 +8278,36 @@ mkN233 base =
 
 mkN234 : Str -> N ;
 mkN234 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Dat => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Gen => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Loc => table {
-                       Sg => base_1 ;
-                       Pl => base_1
+                       Sg => base ;
+                       Pl => base
                      } ;
               Instr => table {
-                         Sg => base_1 ;
-                         Pl => base_1
+                         Sg => base ;
+                         Pl => base
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN234"
-  } ;
 
 mkN235 : Str -> N ;
 mkN235 base =
@@ -9158,10 +8339,7 @@ mkN235 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN235"
@@ -9197,10 +8375,7 @@ mkN236 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN236"
@@ -9236,10 +8411,7 @@ mkN237 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN237"
@@ -9275,10 +8447,7 @@ mkN238 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN238"
@@ -9314,10 +8483,7 @@ mkN239 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN239"
@@ -9353,10 +8519,7 @@ mkN240 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN240"
@@ -9392,10 +8555,7 @@ mkN241 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN241"
@@ -9431,10 +8591,7 @@ mkN242 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN242"
@@ -9470,10 +8627,7 @@ mkN243 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN243"
@@ -9509,10 +8663,7 @@ mkN244 base =
                          Pl => base_1+"ьмі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN244"
@@ -9548,10 +8699,7 @@ mkN245 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN245"
@@ -9587,10 +8735,7 @@ mkN246 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN246"
@@ -9626,10 +8771,7 @@ mkN247 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN247"
@@ -9665,10 +8807,7 @@ mkN248 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN248"
@@ -9704,10 +8843,7 @@ mkN249 base =
                          Pl => base_1+"о"+base_2+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN249"
@@ -9743,10 +8879,7 @@ mkN250 base =
                          Pl => base_1+"йцамі"
                        }
             } ;
-        Voc = table {
-                Sg => "войч"+base_1 ;
-                Pl => nonExist
-              } ;
+        voc = "войч"+base_1 ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN250"
@@ -9782,10 +8915,7 @@ mkN251 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN251"
@@ -9821,10 +8951,7 @@ mkN252 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN252"
@@ -9860,10 +8987,7 @@ mkN253 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"е"+base_2+"у" ;
-                Pl => nonExist
-              } ;
+        voc = base_1+"е"+base_2+"у" ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN253"
@@ -9899,10 +9023,7 @@ mkN254 base =
                          Pl => base_1+"ё"+base_2+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN254"
@@ -9938,10 +9059,7 @@ mkN255 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN255"
@@ -9977,10 +9095,7 @@ mkN256 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN256"
@@ -10016,10 +9131,7 @@ mkN257 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN257"
@@ -10055,10 +9167,7 @@ mkN258 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN258"
@@ -10094,10 +9203,7 @@ mkN259 base =
                          Pl => base_1+"атамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN259"
@@ -10133,10 +9239,7 @@ mkN260 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN260"
@@ -10172,10 +9275,7 @@ mkN261 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN261"
@@ -10211,10 +9311,7 @@ mkN262 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN262"
@@ -10250,10 +9347,7 @@ mkN263 base =
                          Pl => base_1+"еямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN263"
@@ -10289,10 +9383,7 @@ mkN264 base =
                          Pl => "і"+base_1+"ьвамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN264"
@@ -10328,10 +9419,7 @@ mkN265 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN265"
@@ -10367,10 +9455,7 @@ mkN266 base =
                          Pl => base_1+"э"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN266"
@@ -10406,10 +9491,7 @@ mkN267 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN267"
@@ -10445,10 +9527,7 @@ mkN268 base =
                          Pl => "а"+base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN268"
@@ -10484,10 +9563,7 @@ mkN269 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN269"
@@ -10523,10 +9599,7 @@ mkN270 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN270"
@@ -10562,10 +9635,7 @@ mkN271 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN271"
@@ -10601,10 +9671,7 @@ mkN272 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN272"
@@ -10640,10 +9707,7 @@ mkN273 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN273"
@@ -10679,10 +9743,7 @@ mkN274 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN274"
@@ -10718,10 +9779,7 @@ mkN275 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN275"
@@ -10757,10 +9815,7 @@ mkN276 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN276"
@@ -10796,10 +9851,7 @@ mkN277 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN277"
@@ -10835,10 +9887,7 @@ mkN278 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN278"
@@ -10874,10 +9923,7 @@ mkN279 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN279"
@@ -10913,10 +9959,7 @@ mkN280 base =
                          Pl => base_1+"лямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN280"
@@ -10952,10 +9995,7 @@ mkN281 base =
                          Pl => base_1+"'ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN281"
@@ -10991,10 +10031,7 @@ mkN282 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN282"
@@ -11030,10 +10067,7 @@ mkN283 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN283"
@@ -11069,10 +10103,7 @@ mkN284 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN284"
@@ -11108,10 +10139,7 @@ mkN285 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN285"
@@ -11147,10 +10175,7 @@ mkN286 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN286"
@@ -11158,42 +10183,36 @@ mkN286 base =
 
 mkN287 : Str -> N ;
 mkN287 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1
+                       Sg => base+"а" ;
+                       Pl => base
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1
+                       Sg => base+"а" ;
+                       Pl => base
                      } ;
               Loc => table {
-                       Sg => base_1+"е" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"е" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN287"
-  } ;
 
 mkN288 : Str -> N ;
 mkN288 base =
@@ -11225,10 +10244,7 @@ mkN288 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN288"
@@ -11264,10 +10280,7 @@ mkN289 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN289"
@@ -11303,10 +10316,7 @@ mkN290 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN290"
@@ -11342,10 +10352,7 @@ mkN291 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN291"
@@ -11381,10 +10388,7 @@ mkN292 base =
                          Pl => base_1+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN292"
@@ -11420,10 +10424,7 @@ mkN293 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN293"
@@ -11459,10 +10460,7 @@ mkN294 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN294"
@@ -11498,10 +10496,7 @@ mkN295 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN295"
@@ -11537,10 +10532,7 @@ mkN296 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN296"
@@ -11576,10 +10568,7 @@ mkN297 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN297"
@@ -11615,10 +10604,7 @@ mkN298 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN298"
@@ -11654,10 +10640,7 @@ mkN299 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN299"
@@ -11693,10 +10676,7 @@ mkN300 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN300"
@@ -11732,10 +10712,7 @@ mkN301 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN301"
@@ -11771,10 +10748,7 @@ mkN302 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN302"
@@ -11810,10 +10784,7 @@ mkN303 base =
                          Pl => "во"+base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN303"
@@ -11849,10 +10820,7 @@ mkN304 base =
                          Pl => base_1+"хамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN304"
@@ -11888,10 +10856,7 @@ mkN305 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN305"
@@ -11899,42 +10864,36 @@ mkN305 base =
 
 mkN306 : Str -> N ;
 mkN306 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"эй"
+                       Sg => base ;
+                       Pl => base+"эй"
                      } ;
               Dat => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"ы" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"эй"
+                       Sg => base+"ы" ;
+                       Pl => base+"эй"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"шу" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"шу" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN306"
-  } ;
 
 mkN307 : Str -> N ;
 mkN307 base =
@@ -11966,10 +10925,7 @@ mkN307 base =
                          Pl => base_1+"ўямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN307"
@@ -12005,10 +10961,7 @@ mkN308 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN308"
@@ -12044,10 +10997,7 @@ mkN309 base =
                          Pl => base_1+"хамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN309"
@@ -12083,10 +11033,7 @@ mkN310 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN310"
@@ -12122,10 +11069,7 @@ mkN311 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN311"
@@ -12161,10 +11105,7 @@ mkN312 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN312"
@@ -12172,42 +11113,36 @@ mkN312 base =
 
 mkN313 : Str -> N ;
 mkN313 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ай"
+                       Sg => base ;
+                       Pl => base+"ай"
                      } ;
               Dat => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"ы" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ай"
+                       Sg => base+"ы" ;
+                       Pl => base+"ай"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"шу" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"шу" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN313"
-  } ;
 
 mkN314 : Str -> N ;
 mkN314 base =
@@ -12239,10 +11174,7 @@ mkN314 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN314"
@@ -12278,10 +11210,7 @@ mkN315 base =
                          Pl => base_1+"о"+base_2+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN315"
@@ -12317,10 +11246,7 @@ mkN316 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN316"
@@ -12356,10 +11282,7 @@ mkN317 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN317"
@@ -12395,10 +11318,7 @@ mkN318 base =
                          Pl => base_1+"а"+base_2+"а"+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN318"
@@ -12434,10 +11354,7 @@ mkN319 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN319"
@@ -12473,10 +11390,7 @@ mkN320 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN320"
@@ -12512,10 +11426,7 @@ mkN321 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN321"
@@ -12551,10 +11462,7 @@ mkN322 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN322"
@@ -12590,10 +11498,7 @@ mkN323 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN323"
@@ -12629,10 +11534,7 @@ mkN324 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN324"
@@ -12668,10 +11570,7 @@ mkN325 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN325"
@@ -12707,10 +11606,7 @@ mkN326 base =
                          Pl => base_1+"аў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN326"
@@ -12746,10 +11642,7 @@ mkN327 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN327"
@@ -12785,10 +11678,7 @@ mkN328 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN328"
@@ -12824,10 +11714,7 @@ mkN329 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN329"
@@ -12863,10 +11750,7 @@ mkN330 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN330"
@@ -12902,10 +11786,7 @@ mkN331 base =
                          Pl => base_1+"д"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN331"
@@ -12941,10 +11822,7 @@ mkN332 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN332"
@@ -12952,81 +11830,69 @@ mkN332 base =
 
 mkN333 : Str -> N ;
 mkN333 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN333"
-  } ;
 
 mkN334 : Str -> N ;
 mkN334 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"аў"
+                       Sg => base+"а" ;
+                       Pl => base+"аў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN334"
-  } ;
 
 mkN335 : Str -> N ;
 mkN335 base =
@@ -13058,10 +11924,7 @@ mkN335 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN335"
@@ -13097,10 +11960,7 @@ mkN336 base =
                          Pl => base_1+"о"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN336"
@@ -13136,10 +11996,7 @@ mkN337 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN337"
@@ -13175,10 +12032,7 @@ mkN338 base =
                          Pl => base_1+base_2+"шотамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN338"
@@ -13214,10 +12068,7 @@ mkN339 base =
                          Pl => base_1+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN339"
@@ -13253,10 +12104,7 @@ mkN340 base =
                          Pl => base_1+"ё"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN340"
@@ -13292,10 +12140,7 @@ mkN341 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN341"
@@ -13331,10 +12176,7 @@ mkN342 base =
                          Pl => base_1+"а"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN342"
@@ -13370,10 +12212,7 @@ mkN343 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN343"
@@ -13409,10 +12248,7 @@ mkN344 base =
                          Pl => base_1+"э"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN344"
@@ -13448,10 +12284,7 @@ mkN345 base =
                          Pl => base_1+"окамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN345"
@@ -13459,42 +12292,36 @@ mkN345 base =
 
 mkN346 : Str -> N ;
 mkN346 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"ы" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN346"
-  } ;
 
 mkN347 : Str -> N ;
 mkN347 base =
@@ -13526,10 +12353,7 @@ mkN347 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN347"
@@ -13565,10 +12389,7 @@ mkN348 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN348"
@@ -13604,10 +12425,7 @@ mkN349 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN349"
@@ -13643,10 +12461,7 @@ mkN350 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN350"
@@ -13682,10 +12497,7 @@ mkN351 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN351"
@@ -13721,10 +12533,7 @@ mkN352 base =
                          Pl => base_1+"а"+base_2+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN352"
@@ -13760,10 +12569,7 @@ mkN353 base =
                          Pl => base_1+"авамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN353"
@@ -13799,10 +12605,7 @@ mkN354 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN354"
@@ -13838,10 +12641,7 @@ mkN355 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN355"
@@ -13877,10 +12677,7 @@ mkN356 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN356"
@@ -13916,10 +12713,7 @@ mkN357 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN357"
@@ -13955,10 +12749,7 @@ mkN358 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN358"
@@ -13994,10 +12785,7 @@ mkN359 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN359"
@@ -14033,10 +12821,7 @@ mkN360 base =
                          Pl => base_1+"ёт"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN360"
@@ -14072,10 +12857,7 @@ mkN361 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN361"
@@ -14083,42 +12865,36 @@ mkN361 base =
 
 mkN362 : Str -> N ;
 mkN362 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Acc => table {
-                       Sg => base_1 ;
+                       Sg => base ;
                        Pl => nonExist
                      } ;
               Dat => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Gen => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Loc => table {
-                       Sg => base_1+"ы" ;
+                       Sg => base+"ы" ;
                        Pl => nonExist
                      } ;
               Instr => table {
-                         Sg => base_1+"ай" ;
+                         Sg => base+"ай" ;
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
-    _ => error "Can't apply paradigm mkN362"
-  } ;
 
 mkN363 : Str -> N ;
 mkN363 base =
@@ -14150,10 +12926,7 @@ mkN363 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN363"
@@ -14189,10 +12962,7 @@ mkN364 base =
                          Pl => base_1+"амі"+base_2+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN364"
@@ -14228,10 +12998,7 @@ mkN365 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN365"
@@ -14267,10 +13034,7 @@ mkN366 base =
                          Pl => base_1+"ямі"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN366"
@@ -14306,10 +13070,7 @@ mkN367 base =
                          Pl => base_1+"т"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN367"
@@ -14345,10 +13106,7 @@ mkN368 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN368"
@@ -14384,10 +13142,7 @@ mkN369 base =
                          Pl => base_1+"а"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN369"
@@ -14423,10 +13178,7 @@ mkN370 base =
                          Pl => base_1+"я"+base_2+"ё"+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN370"
@@ -14462,10 +13214,7 @@ mkN371 base =
                          Pl => base_1+"т"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN371"
@@ -14501,10 +13250,7 @@ mkN372 base =
                          Pl => base_1+"т"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN372"
@@ -14540,10 +13286,7 @@ mkN373 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN373"
@@ -14579,10 +13322,7 @@ mkN374 base =
                          Pl => base_1+"отамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN374"
@@ -14618,10 +13358,7 @@ mkN375 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN375"
@@ -14657,10 +13394,7 @@ mkN376 base =
                          Pl => base_1+"т"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN376"
@@ -14696,10 +13430,7 @@ mkN377 base =
                          Pl => base_1+"ў"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN377"
@@ -14735,10 +13466,7 @@ mkN378 base =
                          Pl => base_1+"е"+base_2+"ывямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN378"
@@ -14774,10 +13502,7 @@ mkN379 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN379"
@@ -14813,10 +13538,7 @@ mkN380 base =
                          Pl => base_1+"а"+base_2+base_3+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN380"
@@ -14852,10 +13574,7 @@ mkN381 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN381"
@@ -14891,10 +13610,7 @@ mkN382 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN382"
@@ -14930,10 +13646,7 @@ mkN383 base =
                          Pl => base_1+"атамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN383"
@@ -14969,10 +13682,7 @@ mkN384 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN384"
@@ -15008,10 +13718,7 @@ mkN385 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN385"
@@ -15047,10 +13754,7 @@ mkN386 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN386"
@@ -15086,10 +13790,7 @@ mkN387 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN387"
@@ -15125,10 +13826,7 @@ mkN388 base =
                          Pl => base_1+"о"+base_2+base_3+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN388"
@@ -15164,10 +13862,7 @@ mkN389 base =
                          Pl => base_1+"явамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN389"
@@ -15203,10 +13898,7 @@ mkN390 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN390"
@@ -15242,10 +13934,7 @@ mkN391 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN391"
@@ -15281,10 +13970,7 @@ mkN392 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN392"
@@ -15320,10 +14006,7 @@ mkN393 base =
                          Pl => base_1+"а"+base_2+"ёнамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN393"
@@ -15359,10 +14042,7 @@ mkN394 base =
                          Pl => base_1+"хамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN394"
@@ -15398,10 +14078,7 @@ mkN395 base =
                          Pl => "воў"+base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN395"
@@ -15437,10 +14114,7 @@ mkN396 base =
                          Pl => base_1+"хамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN396"
@@ -15476,10 +14150,7 @@ mkN397 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN397"
@@ -15515,10 +14186,7 @@ mkN398 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN398"
@@ -15554,10 +14222,7 @@ mkN399 base =
                          Pl => base_1+"э"+base_2+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN399"
@@ -15593,10 +14258,7 @@ mkN400 base =
                          Pl => base_1+"а"+base_2+"я"+base_3+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN400"
@@ -15632,10 +14294,7 @@ mkN401 base =
                          Pl => "дзецьмі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN401"
@@ -15671,10 +14330,7 @@ mkN402 base =
                          Pl => base_1+"ў"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN402"
@@ -15710,10 +14366,7 @@ mkN403 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN403"
@@ -15721,42 +14374,36 @@ mkN403 base =
 
 mkN404 : Str -> N ;
 mkN404 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ы"
+                       Sg => base ;
+                       Pl => base+"ы"
                      } ;
               Acc => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"а" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"а" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"зе" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"зе" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ам" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ам" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => base_1+"зе" ;
-                Pl => nonExist
-              } ;
+        voc = base+"зе" ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN404"
-  } ;
 
 mkN405 : Str -> N ;
 mkN405 base =
@@ -15788,10 +14435,7 @@ mkN405 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN405"
@@ -15827,10 +14471,7 @@ mkN406 base =
                          Pl => base_1+"э"+base_2+"гамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN406"
@@ -15866,10 +14507,7 @@ mkN407 base =
                          Pl => base_1+"ь"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN407"
@@ -15905,10 +14543,7 @@ mkN408 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN408"
@@ -15944,10 +14579,7 @@ mkN409 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN409"
@@ -15983,10 +14615,7 @@ mkN410 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN410"
@@ -16022,10 +14651,7 @@ mkN411 base =
                          Pl => base_1+"нямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN411"
@@ -16061,10 +14687,7 @@ mkN412 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN412"
@@ -16100,10 +14723,7 @@ mkN413 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN413"
@@ -16139,10 +14759,7 @@ mkN414 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN414"
@@ -16178,10 +14795,7 @@ mkN415 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN415"
@@ -16217,10 +14831,7 @@ mkN416 base =
                          Pl => base_1+"е"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN416"
@@ -16256,10 +14867,7 @@ mkN417 base =
                          Pl => base_1+"э"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN417"
@@ -16295,10 +14903,7 @@ mkN418 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN418"
@@ -16334,10 +14939,7 @@ mkN419 base =
                          Pl => base_1+"аткамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN419"
@@ -16373,10 +14975,7 @@ mkN420 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN420"
@@ -16412,10 +15011,7 @@ mkN421 base =
                          Pl => base_1+"я"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN421"
@@ -16451,10 +15047,7 @@ mkN422 base =
                          Pl => base_1+"я"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN422"
@@ -16490,10 +15083,7 @@ mkN423 base =
                          Pl => base_1+"вамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN423"
@@ -16529,10 +15119,7 @@ mkN424 base =
                          Pl => base_1+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN424"
@@ -16568,10 +15155,7 @@ mkN425 base =
                          Pl => base_1+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN425"
@@ -16607,10 +15191,7 @@ mkN426 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN426"
@@ -16646,10 +15227,7 @@ mkN427 base =
                          Pl => base_1+"ымі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN427"
@@ -16685,10 +15263,7 @@ mkN428 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN428"
@@ -16724,10 +15299,7 @@ mkN429 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN429"
@@ -16763,10 +15335,7 @@ mkN430 base =
                          Pl => base_1+"й"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN430"
@@ -16774,42 +15343,36 @@ mkN430 base =
 
 mkN431 : Str -> N ;
 mkN431 base =
-  case base of {
-    base_1 => lin N
+  lin N
       { s = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Acc => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"і"
+                       Sg => base ;
+                       Pl => base+"і"
                      } ;
               Dat => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ам"
+                       Sg => base+"у" ;
+                       Pl => base+"ам"
                      } ;
               Gen => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"оў"
+                       Sg => base+"у" ;
+                       Pl => base+"оў"
                      } ;
               Loc => table {
-                       Sg => base_1+"у" ;
-                       Pl => base_1+"ах"
+                       Sg => base+"у" ;
+                       Pl => base+"ах"
                      } ;
               Instr => table {
-                         Sg => base_1+"ом" ;
-                         Pl => base_1+"амі"
+                         Sg => base+"ом" ;
+                         Pl => base+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
-    _ => error "Can't apply paradigm mkN431"
-  } ;
 
 mkN432 : Str -> N ;
 mkN432 base =
@@ -16841,10 +15404,7 @@ mkN432 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN432"
@@ -16880,10 +15440,7 @@ mkN433 base =
                          Pl => base_1+"ятамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN433"
@@ -16919,10 +15476,7 @@ mkN434 base =
                          Pl => base_1+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN434"
@@ -16958,10 +15512,7 @@ mkN435 base =
                          Pl => base_1+"ў"+base_2+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN435"
@@ -16997,10 +15548,7 @@ mkN436 base =
                          Pl => base_1+"еямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN436"
@@ -17036,10 +15584,7 @@ mkN437 base =
                          Pl => base_1+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN437"
@@ -17075,10 +15620,7 @@ mkN438 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN438"
@@ -17114,10 +15656,7 @@ mkN439 base =
                          Pl => base_1+"тамі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN439"
@@ -17153,10 +15692,7 @@ mkN440 base =
                          Pl => base_1+"камі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN440"
@@ -17192,10 +15728,7 @@ mkN441 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN441"
@@ -17231,10 +15764,7 @@ mkN442 base =
                          Pl => base_1+"о"+base_2+"ямі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN442"
@@ -17270,10 +15800,7 @@ mkN443 base =
                          Pl => base_1+"амі" --guessed
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN443"
@@ -17309,10 +15836,7 @@ mkN444 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN444"
@@ -17348,10 +15872,7 @@ mkN445 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN445"
@@ -17387,10 +15908,7 @@ mkN446 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Neuter
       };
     _ => error "Can't apply paradigm mkN446"
@@ -17426,10 +15944,7 @@ mkN447 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Fem
       };
     _ => error "Can't apply paradigm mkN447"
@@ -17465,10 +15980,7 @@ mkN448 base =
                          Pl => base_1+"амі"
                        }
             } ;
-        Voc = table {
-                Sg => nonExist ;
-                Pl => nonExist
-              } ;
+        voc = base ;
         g = Masc
       };
     _ => error "Can't apply paradigm mkN448"
