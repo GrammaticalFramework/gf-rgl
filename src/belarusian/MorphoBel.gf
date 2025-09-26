@@ -30698,27 +30698,23 @@ mkA001 base =
                        GPl => base_1+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"аму" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"аму" ;
                        GPl => base_1+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"ага" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ага" ;
                        GPl => base_1+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ым" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ым" ;
                        GPl => base_1+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ым" ;
                          GSg Fem => base_1+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ым" ;
                          GPl => base_1+"ымі"
                        }
             }
@@ -30744,27 +30740,23 @@ mkA002 base =
                        GPl => base_1+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"ому" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ому" ;
                        GPl => base_1+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"ога" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ога" ;
                        GPl => base_1+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ым" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ым" ;
                        GPl => base_1+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ым" ;
                          GSg Fem => base_1+"ой" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ым" ;
                          GPl => base_1+"ымі"
                        }
             }
@@ -30790,27 +30782,23 @@ mkA003 base =
                        GPl => base_1+"іх"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"аму" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"аму" ;
                        GPl => base_1+"ім"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"ага" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ага" ;
                        GPl => base_1+"іх"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ім" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ім" ;
                        GPl => base_1+"іх"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ім" ;
                          GSg Fem => base_1+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ім" ;
                          GPl => base_1+"імі"
                        }
             }
@@ -30836,27 +30824,23 @@ mkA004 base =
                        GPl => base_1+"іх"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"яму" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"яму" ;
                        GPl => base_1+"ім"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"яга" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"яга" ;
                        GPl => base_1+"іх"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ім" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ім" ;
                        GPl => base_1+"іх"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ім" ;
                          GSg Fem => base_1+"яй" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ім" ;
                          GPl => base_1+"імі"
                        }
             }
@@ -30882,27 +30866,23 @@ mkA005 base =
                        GPl => base_1+"іх"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"яму" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"яму" ;
                        GPl => base_1+"ім"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"яга" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"яга" ;
                        GPl => base_1+"іх"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ім" ;
                        GSg Fem => base_1+"яй" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ім" ;
                        GPl => base_1+"іх"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ім" ;
                          GSg Fem => base_1+"яй" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ім" ;
                          GPl => base_1+"імі"
                        }
             }
@@ -30928,27 +30908,23 @@ mkA006 base =
                        GPl => base_1+"іх"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"ому" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ому" ;
                        GPl => base_1+"ім"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"ога" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ога" ;
                        GPl => base_1+"іх"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ім" ;
                        GSg Fem => base_1+"ой" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ім" ;
                        GPl => base_1+"іх"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ім" ;
                          GSg Fem => base_1+"ой" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ім" ;
                          GPl => base_1+"імі"
                        }
             }
@@ -30974,27 +30950,23 @@ mkA007 base =
                        GPl => base_1+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"аму" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"аму" ;
                        GPl => base_1+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"ага" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ага" ;
                        GPl => base_1+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"ым" ;
                        GSg Fem => base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"ым" ;
                        GPl => base_1+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"ым" ;
                          GSg Fem => base_1+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"ым" ;
                          GPl => base_1+"ымі"
                        }
             }
@@ -31020,27 +30992,23 @@ mkA008 base =
                        GPl => "гав"+base_1+"р"+base_2+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => "гав"+base_1+"р"+base_2+"аму" ;
                        GSg Fem => "гав"+base_1+"р"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "гав"+base_1+"р"+base_2+"аму" ;
                        GPl => "гав"+base_1+"р"+base_2+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => "гав"+base_1+"р"+base_2+"ага" ;
                        GSg Fem => "гав"+base_1+"р"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "гав"+base_1+"р"+base_2+"ага" ;
                        GPl => "гав"+base_1+"р"+base_2+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => "гав"+base_1+"р"+base_2+"ым" ;
                        GSg Fem => "гав"+base_1+"р"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "гав"+base_1+"р"+base_2+"ым" ;
                        GPl => "гав"+base_1+"р"+base_2+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => "гав"+base_1+"р"+base_2+"ым" ;
                          GSg Fem => "гав"+base_1+"р"+base_2+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => "гав"+base_1+"р"+base_2+"ым" ;
                          GPl => "гав"+base_1+"р"+base_2+"ымі"
                        }
             }
@@ -31066,27 +31034,23 @@ mkA009 base =
                        GPl => "ах"+base_1+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => "ах"+base_1+"аму" ;
                        GSg Fem => "ах"+base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "ах"+base_1+"аму" ;
                        GPl => "ах"+base_1+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => "ах"+base_1+"ага" ;
                        GSg Fem => "ах"+base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "ах"+base_1+"ага" ;
                        GPl => "ах"+base_1+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => "ах"+base_1+"ым" ;
                        GSg Fem => "ах"+base_1+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => "ах"+base_1+"ым" ;
                        GPl => "ах"+base_1+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => "ах"+base_1+"ым" ;
                          GSg Fem => "ах"+base_1+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => "ах"+base_1+"ым" ;
                          GPl => "ах"+base_1+"ымі"
                        }
             }
@@ -31112,123 +31076,27 @@ mkA010 base =
                        GPl => base_1+"я"+base_2+"ых"
                      } ;
               Dat => table {
-                       GSg Masc => base_1+"я"+base_2+"аму" ;
                        GSg Fem => base_1+"я"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"я"+base_2+"аму" ;
                        GPl => base_1+"я"+base_2+"ым"
                      } ;
               Gen => table {
-                       GSg Masc => base_1+"я"+base_2+"ага" ;
                        GSg Fem => base_1+"я"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"я"+base_2+"ага" ;
                        GPl => base_1+"я"+base_2+"ых"
                      } ;
               Loc => table {
-                       GSg Masc => base_1+"я"+base_2+"ым" ;
                        GSg Fem => base_1+"я"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
+                       GSg _ => base_1+"я"+base_2+"ым" ;
                        GPl => base_1+"я"+base_2+"ых"
                      } ;
               Instr => table {
-                         GSg Masc => base_1+"я"+base_2+"ым" ;
                          GSg Fem => base_1+"я"+base_2+"ай" ;
-                         GSg Neuter => nonExist ;
+                         GSg _ => base_1+"я"+base_2+"ым" ;
                          GPl => base_1+"я"+base_2+"ымі"
                        }
             }
       };
     _ => error "Can't apply paradigm mkA010"
-  } ;
-
-mkA011 : Str -> A ;
-mkA011 base =
-  case base of {
-    base_1+base_2@(?+?+?+?+?+?)+"і" => lin A
-      { s = table {
-              Nom => table {
-                       GSg Masc => base_1+base_2+"і" ;
-                       GSg Fem => base_1+"̀"+base_2+"ая" ;
-                       GSg Neuter => base_1+"̀"+base_2+"ае" ;
-                       GPl => base_1+"̀"+base_2+"ія"
-                     } ;
-              Acc => table {
-                       GSg Masc => base_1+"̀"+base_2+"ага" ;
-                       GSg Fem => base_1+"̀"+base_2+"ую" ;
-                       GSg Neuter => base_1+"̀"+base_2+"ае" ;
-                       GPl => base_1+"̀"+base_2+"іх"
-                     } ;
-              Dat => table {
-                       GSg Masc => base_1+"̀"+base_2+"аму" ;
-                       GSg Fem => base_1+"̀"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"̀"+base_2+"ім"
-                     } ;
-              Gen => table {
-                       GSg Masc => base_1+"̀"+base_2+"ага" ;
-                       GSg Fem => base_1+"̀"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"̀"+base_2+"іх"
-                     } ;
-              Loc => table {
-                       GSg Masc => base_1+"̀"+base_2+"ім" ;
-                       GSg Fem => base_1+"̀"+base_2+"ай" ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"̀"+base_2+"іх"
-                     } ;
-              Instr => table {
-                         GSg Masc => base_1+"̀"+base_2+"ім" ;
-                         GSg Fem => base_1+"̀"+base_2+"ай" ;
-                         GSg Neuter => nonExist ;
-                         GPl => base_1+"̀"+base_2+"імі"
-                       }
-            }
-      };
-    _ => error "Can't apply paradigm mkA011"
-  } ;
-
-mkA012 : Str -> A ;
-mkA012 base =
-  case base of {
-    base_1+"ь" => lin A
-      { s = table {
-              Nom => table {
-                       GSg Masc => base_1+"ь" ;
-                       GSg Fem => nonExist ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"і"
-                     } ;
-              Acc => table {
-                       GSg Masc => nonExist ;
-                       GSg Fem => nonExist ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"і"
-                     } ;
-              Dat => table {
-                       GSg Masc => nonExist ;
-                       GSg Fem => nonExist ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"ям"
-                     } ;
-              Gen => table {
-                       GSg Masc => nonExist ;
-                       GSg Fem => nonExist ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"ей"
-                     } ;
-              Loc => table {
-                       GSg Masc => nonExist ;
-                       GSg Fem => nonExist ;
-                       GSg Neuter => nonExist ;
-                       GPl => base_1+"ях"
-                     } ;
-              Instr => table {
-                         GSg Masc => nonExist ;
-                         GSg Fem => nonExist ;
-                         GSg Neuter => nonExist ;
-                         GPl => base_1+"ямі"
-                       }
-            }
-      };
-    _ => error "Can't apply paradigm mkA012"
   } ;
 }
