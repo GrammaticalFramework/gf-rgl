@@ -14,4 +14,8 @@ lincat CN = CommonNoun ;
 lincat AP = AdjPhrase ;
 lincat S = {s : Str} ;
 
+lincat LN,SN,GN,PN = {s : Str} ;
+
+linref V,VV,V2,V3,V2A,V2S,V2Q,V2V = \v -> v.infinitive ;
+
 }
