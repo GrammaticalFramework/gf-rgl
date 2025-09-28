@@ -18,9 +18,10 @@ concrete RelativeGer of Relative = CatGer ** open ResGer, Prelude in {
 	    } ;
           agr = case rp.a of {
             RNoAg => agrP3 (numGenNum gn) ;
-            RAg n p => case n of {Sg => AgSgP3 Neutr ; Pl => AgPl p}
-            } ;
-          cl = mkClause (rp.s ! rgn ! Nom) agr vp
+            RAg Sg p  => AgSgP3 Neutr ;
+            RAg Pl p  => AgPl p
+          } ;  -- subject may be non-nom, e.g. an dem gezweifelt wird
+          cl = mkClause (appPrep vp.c1 (rp.s ! rgn)) agr vp
         in
         cl.s ! m ! t ! ant ! b ! Sub ;
       c = Nom

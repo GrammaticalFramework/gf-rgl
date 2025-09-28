@@ -77,6 +77,18 @@ oper
     _ => Predef.tk 2 v
     } ;
 
+  stemVerbImpSg : Str -> Str -> Str = \inf,pres3Sg ->
+    let stem = stemVerb inf ;  -- vergeb.en, piss.en
+        stemI = init pres3Sg   -- vergib.t , piß.t
+    in case <stem,stemI> of {
+      <_ + ("e"|"i") + #nonvowels,
+        _ + ("i"|"ie") + #nonvowels> => stemI ; -- vergib , piß
+      _ => stem } ;            -- HL 7/17 (always the final vowel?)
+
+  nonvowels : pattern Str =
+    #(("p"|"b"|"f"|"t"|"d"|"v"|"k"|"g"|"c"|"h"|"j"
+         |"l"|"r"|"m"|"n"|"s"|"x"|"q"|"z"|"s"|"ß")*) ;
+
 -- For $Numeral$.
 
   LinDigit = {s : DForm => CardOrd => Str} ;

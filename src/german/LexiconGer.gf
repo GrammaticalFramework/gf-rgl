@@ -2,25 +2,26 @@
 
 -- work by Aarne Ranta, Andreas Priesnitz, and Henning Thielemann.
 -- a few corrections by Hans Leiß, and using the better IrregGer 
+-- sg/pl t = singulare/plurale tantum
 
 concrete LexiconGer of Lexicon = CatGer ** 
   open Prelude, ParadigmsGer, (Mo = MorphoGer), (Irreg = IrregGer) in {
 
 flags 
-    coding=utf8 ;
+  coding=utf8 ;
   optimize=all_subs ;
 
 lin
   add_V3 = dirV3 (prefixV "hinzu" (regV "fügen")) zu_Prep ;
   airplane_N = mkN "Flugzeug" "Flugzeuge" neuter ;
-  alas_Interj = {s = "ach"} ;
+  alas_Interj = ss "leider" ; -- {s = "ach"} ;
   already_Adv = mkAdv "schon" ;
   answer_V2S = mkV2S (regV "antworten") datPrep ;
   apartment_N = mkN "Wohnung" ;
   apple_N = reg2N "Apfel" "Äpfel" masculine  ;
   art_N = reg2N "Kunst" "Künste" feminine ;
   ask_V2Q = mkV2Q (regV "fragen") accPrep ;
-  baby_N = reg2N "Baby" "Babies" neuter ; ----
+  baby_N = reg2N "Baby" "Babies" neuter ; ---- "Kleinkind"
   bad_A = regA "schlecht" ;
   bank_N = reg2N "Bank" "Banken" feminine ;
   beautiful_A = regA "schön" ;
@@ -35,21 +36,21 @@ lin
   boat_N = reg2N "Boot" "Boote" neuter ;
   book_N = reg2N "Buch" "Bücher" neuter ;
   boot_N = reg2N "Stiefel" "Stiefel" masculine ;
-  boss_N = reg2N "Chef" "Chefs" masculine ; ----
+  boss_N = reg2N "Chef" "Chefs" masculine ; ---- "Vorgesetzte"
   boy_N = reg2N "Junge" "Jungen" masculine ;
   bread_N = reg2N "Brot" "Brote" neuter ;
   break_V2 = dirV2 (fixprefixV "zer" Irreg.schlagen_V) ;
   broad_A = regA "breit" ;
   brother_N2 = mkN2 (reg2N "Bruder" "Brüder" masculine)  von_Prep ;
   brown_A = regA "braun" ;
-  butter_N = reg2N "Butter" "Butter" feminine ; ---- infl
+  butter_N = reg2N "Butter" "Butter" feminine ; ---- sg t
   buy_V2 = dirV2 (regV "kaufen") ;
   camera_N = reg2N "Kamera" "Kameras" feminine ;
   cap_N = mkN "Mütze" ;
   car_N = mkN "Auto" "Autos" neuter | mkN "Wagen" "Wagen" masculine ;
   carpet_N = mkN "Teppich" ;
   cat_N = mkN "Katze" ;
-  ceiling_N = reg2N "Dach" "Dächer" neuter ;
+  ceiling_N = mkN "Zimmerdecke" ;
   chair_N = reg2N "Stuhl" "Stühle" masculine ;
   cheese_N = mkN "Käse" "Käse" masculine ;
   child_N = reg2N "Kind" "Kinder" neuter ;
@@ -58,12 +59,12 @@ lin
   clean_A = regA "rein" ;
   clever_A = mk3A "klug" "klüger" "klügste" ;
   close_V2 = dirV2 Irreg.schließen_V ;
-  coat_N = mkN "Jacke" | mkN "Mantel" "Mantel" masculine;
+  coat_N = mkN "Jacke" | mkN "Mantel" "Mäntel" masculine;
   cold_A = mk3A "kalt" "kälter" "kälteste" ;
   come_V = seinV (mk6V "kommen" "kommt" "komm" "kam" "käme" "gekommen") ;
   computer_N = reg2N "Rechner" "Rechner" masculine ;
   country_N = reg2N "Land" "Länder" neuter ;
-  cousin_N = reg2N "Vetter" "Vetter" masculine ; --- Kusine
+  cousin_N = reg2N "Vetter" "Vettern" masculine ; --- "Kusine" feminine
   cow_N = reg2N "Kuh" "Kühe" feminine ;
   die_V = seinV Irreg.sterben_V | seinV (prefixV "um" Irreg.kommen_V);
   distance_N3 = mkN3 (mkN "Entfernung") von_Prep zu_Prep ;
@@ -91,7 +92,7 @@ lin
   garden_N = reg2N "Garten" "Gärten" masculine ;
   girl_N = reg2N "Mädchen" "Mädchen" neuter ;
   glove_N = mkN "Handschuh" ;
-  gold_N = reg2N "Gold" "Golde" neuter ; ---- infl
+  gold_N = reg2N "Gold" "Golde" neuter ; ---- sg t
   good_A = mk3A "gut" "besser" "beste" ;
   go_V = seinV Irreg.gehen_V ;
   green_A = regA "grün" ;
@@ -112,7 +113,7 @@ lin
   know_V2 = dirV2 Irreg.kennen_V ; 
   know_VQ = mkVQ Irreg.wissen_V ;
   know_VS = mkVS Irreg.wissen_V ;
-  lake_N = reg2N "See" "Seen" masculine ; --- infl
+  lake_N = mkN "See" "See" "See" "Sees" "Seen" "Seen" masculine ;
   lamp_N = mkN "Lampe";
   learn_V2 = dirV2 (regV "lernen") ;
   leather_N = reg2N "Leder" "Leder" neuter ;
@@ -126,8 +127,8 @@ lin
   love_V2 = dirV2 (regV "lieben") ;
   man_N = reg2N "Mann" "Männer" masculine ;
   married_A2 = mkA2 (regA "verheiratet") (mkPrep "mit" dative) ;
-  meat_N = reg2N "Fleisch" "Fleische" neuter ; ---- infl
-  milk_N = reg2N "Milch" "Milche" feminine ; ---- infl
+  meat_N = reg2N "Fleisch" "Fleische" neuter ; ---- sg t
+  milk_N = reg2N "Milch" "Milche" feminine ; ---- sg t
   moon_N = mkN "Mond" ;
   mother_N2 = mkN2 (reg2N "Mutter" "Mütter" feminine) von_Prep ;
   mountain_N = mkN "Berg" ;
@@ -144,9 +145,10 @@ lin
   paper_N = reg2N "Papier" "Papiere" neuter ;
   paris_PN = mkPN "Paris" neuter ;
   peace_N = mk6N "Friede" "Frieden" "Frieden" "Friedens" "Frieden" "Frieden" masculine ;
-  pen_N = mkN "Bleistift" ; ----
+  pen_N = mkN "Bleistift" ;
   planet_N = reg2N "Planet" "Planeten" masculine ;
-  plastic_N = reg2N "Plastik" "Plastiken" feminine ; ----
+  -- plastic_N = reg2N "Plastik" "Plastiken" feminine ; ----
+  plastic_N = regN "Kunststoff" ;
   play_V2 = dirV2 (regV "spielen") ;
   policeman_N = reg2N "Polizist" "Polizisten" masculine ;
   priest_N = mkN "Priester" ;
@@ -160,7 +162,8 @@ lin
   religion_N = mkN "Religion" ;
   restaurant_N = reg2N "Restaurant" "Restaurants" neuter ;
   river_N = reg2N "Fluß" "Flüsse" masculine ;
-  rock_N = mkN "Stein" ;
+  -- rock_N = mkN "Stein" ; -- cf. stone_N = mkN "Stein" ;
+  rock_N = mkN "Felsen" ; -- "Felsbrocken"; infl "Fels" ; HL 6/17
   roof_N = reg2N "Dach" "Dächer" neuter ;
   rubber_N = reg2N "Gummi" "Gummis" neuter ;
   run_V = seinV Irreg.laufen_V ;
@@ -174,11 +177,11 @@ lin
   send_V3 = mkV3 (regV "schicken") ; -- Ger mkV3 v = Ger: mkV3 v accPrep datPrep
   sheep_N = reg2N "Schaf" "Schafe" neuter ;
   ship_N = reg2N "Schiff" "Schiffe" neuter ;
-  shirt_N = reg2N "Hemd" "Hemden" neuter ; ---- infl
+  shirt_N = mkN "Hemd" "Hemd" "Hemd" "Hemds" "Hemden" "Hemden" neuter ;
   shoe_N = mkN "Schuh" ;
   shop_N = reg2N "Laden" "Läden" masculine ;
   short_A =  mk3A "kurz" "kürzer" "kürzeste" ;
-  silver_N = reg2N "Silber" "Silber" neuter ; ---- infl
+  silver_N = reg2N "Silber" "Silber" neuter ; ---- sg t
   sister_N = reg2N "Schwester" "Schwestern" feminine ;
   sleep_V = Irreg.schlafen_V ;
   small_A = regA "klein" ;
@@ -200,7 +203,7 @@ lin
   talk_V3 = mkV3 (regV "reden") (mkPrep "mit" dative) (mkPrep "über" accusative) ; -- 6/2019
   teacher_N = reg2N "Lehrer" "Lehrer" masculine ;
   teach_V2 = dirV2 (no_geV (regV "unterrichten")) ;
-  television_N = reg2N "Fernsehen" "Fernsehen" neuter;
+  television_N = reg2N "Fernsehen" "Fernsehen" neuter; ---- sg t
   thick_A = regA "dick" ;
   thin_A = regA "dünn" ;
   train_N = reg2N "Zug" "Züge" masculine  ;
@@ -251,7 +254,7 @@ lin
   back_N = reg2N "Rücken" "Rücken" masculine ;
   bark_N = mkN "Rinde" ;
   belly_N = reg2N "Bauch" "Bäuche" masculine ;
-  blood_N = mkN "Blut" "Blute" neuter ;
+  blood_N = mkN "Blut" "Blute" neuter ; ---- sg t
   bone_N = reg2N "Knochen" "Knochen" masculine ;
   breast_N = reg2N "Brust" "Brüste" feminine ;
   cloud_N = mkN "Wolke" ;
@@ -261,7 +264,7 @@ lin
   earth_N = mkN "Erde" ;
   egg_N = mkN "Ei" "Eier" neuter ;
   eye_N = mkN "Auge" "Augen" neuter;
-  fat_N = mkN "Fett" "Fetter" neuter ;
+  fat_N = mkN "Fett" "Fette" neuter ;
   feather_N = mkN "Feder" "Federn" feminine ;
   fingernail_N = reg2N "Fingernagel" "Fingernägel" masculine ;
   fire_N = mkN "Feuer" "Feuer" neuter ;
@@ -270,7 +273,7 @@ lin
   foot_N = reg2N "Fuß" "Füße" masculine ;
   forest_N = reg2N "Wald" "Wälder" masculine ;
   grass_N = mkN "Gras" "Gräser" neuter ;
-  guts_N = mkN "Eingeweide" ;
+  guts_N = mkN "Eingeweide" "Eingeweide" neuter ; ---- pl t ?
   hair_N = mkN "Haar" "Haare" neuter ;
   hand_N = mkN "Hand" "Hände" feminine ;
   head_N = mkN "Kopf" "Köpfe" masculine ;
@@ -295,11 +298,11 @@ lin
   rope_N = mkN "Seil" "Seile" neuter ;
   salt_N = mkN "Salz" "Salze" neuter ;
   sand_N = mkN "Sand" ;
-  seed_N = mkN "Same" ;
+  seed_N = mkN "Same" "Samen" masculine ;
   skin_N = mkN "Haut" "Häute" feminine ;
   sky_N = mkN "Himmel" ;
   smoke_N = mkN "Rauch" ;
-  snow_N = mkN "Schnee" "Schneen" masculine ; ---- pl
+  snow_N = mkN "Schnee" "Schneen" masculine ; ---- sg t
   stick_N = mkN "Stock" "Stöcke" masculine ;
   tail_N = mkN "Schwanz" "Schwänze" masculine ;
   tongue_N = mkN "Zunge" ;
