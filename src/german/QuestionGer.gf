@@ -105,5 +105,36 @@ concrete QuestionGer of Question = CatGer ** open ResGer, Prelude in {
 
     CompIP ip = {s = \\_ => ip.s ! Nom ; ext = "" } ;
 
+    -- QVP (added 9/2025, HL)
+  lincat
+    QVP = ResGer.VP ;
+
+  linref
+    QVP = \vp -> useInfVP False vp ;
+
+  lin
+    ComplSlashIP vps ip = -- just as ComplSlash : VPSlash -> NP -> VP
+      let np = lin NP {s = table Bool {_ => ip.s} ;
+                       a = agrGenNum ip.a ;
+                       w = WLight ;            -- guessed
+                       rc,ext = []} ;
+          vp = case vps.objCtrl of { True => objAgr np vps ; _  => vps }
+               ** { c2 = vps.c2 ; objCtrl = vps.objCtrl } ;
+      in insertObjNP np vps.c2 vp ;
+
+    AdvQVP vp iadv = insertAdv iadv.s vp ;
+    AddAdvQVP qvp iadv = insertAdv iadv.s qvp ;
+
+    QuestQVP ip qvp = { -- just as QuestVP, with qvp as vp
+      s = \\m,t,a,p =>
+        let
+          who = appPrep qvp.c1 ip.s ;
+          cl = (mkClause who (agrGenNum ip.a) qvp).s ! m ! t ! a ! p
+        in table {
+          QDir   => cl ! Main ;
+          QIndir => cl ! Sub
+        }
+      } ;
+
 }
 

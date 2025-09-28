@@ -3,7 +3,7 @@
 concrete ExtendGer of Extend =
   CatGer ** ExtendFunctor
   - [ -- remove the default implementations of:
-      GenNP, GenRP, EmptyRelSlash,
+      GenNP, GenRP, EmptyRelSlash, GenIP, GenModIP,
       VPS, ListVPS, MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
       VPI, ListVPI, MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
       ICompAP, IAdvAdv, CompIQuant, PrepCN,
@@ -37,11 +37,12 @@ concrete ExtendGer of Extend =
       } ;
 
     GenRP nu cn = {
-      s = \\gn,c => relPron ! gn ! Gen ++ cn.s ! Weak ! nu.n ! c ;
+      s = \\gn,c => relPron ! gn ! Gen ++ cn.s ! Strong ! nu.n ! c ;
       a = RAg nu.n P3
       } ;
 
-
+    GenIP ip = {s = \\gn,c => ip.s!Gen ; a = Strong} ;
+    GenModIP num ip cn = IdetCN (IdetQuant (GenIP ip) num) cn ;
 
     EmptyRelSlash slash = {
       s = \\m,t,a,p,gn =>

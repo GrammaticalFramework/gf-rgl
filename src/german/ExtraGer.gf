@@ -385,6 +385,4 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 		
 		-- this function is not entirely satisfactory as largely 
 		-- though not entirely duplicating mkClause in ResGer
-
-
 } 
