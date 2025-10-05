@@ -1,4 +1,4 @@
 concrete NounUkr of Noun = CatUkr ** {
---lin
---  UseN n = n ;
+lin
+  UseN n = n ;
 }

@@ -1,4 +1,4 @@
 concrete AdjectiveUkr of Adjective = CatUkr ** {
---lin
---  PositA a = a ;
+lin
+  PositA a = a ;
 }

@@ -1,4 +1,4 @@
 concrete NounBel of Noun = CatBel ** {
---lin
---  UseN n = n ;
+lin
+  UseN n = n ;
 }
