@@ -41,7 +41,7 @@ concrete CatGer of Cat =
 
     VP = ResGer.VP ;
     VPSlash = ResGer.VPSlash ;
-    Comp = {s : Agr => Str ; ext : Str} ; 
+    Comp = {s : Agr => Str ; ext : Number => Str} ; 
 
 -- Adjective  (HL 7/23: we need c : Agr => Str * Str to handle reflexive objects, cf ReflA2)
 

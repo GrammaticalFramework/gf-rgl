@@ -2,6 +2,7 @@ Code,Name,Directory,Functor,Unlexer,Present,All,Try,Symbolic,Compatibility,Synop
 Afr,Afrikaans,afrikaans,,,,,,n,,y,n
 Amh,Amharic,amharic,,,,,n,n,,n,n
 Ara,Arabic,arabic,,,,,,y,,y,y
+Bel,Belarusian,belarusian,,,,y,n,n,n,y,n
 Bul,Bulgarian,bulgarian,,,y,,,,,y,n
 Cat,Catalan,catalan,Romance,,y,,,,y,y,n
 Cgg,Rukiga,rukiga,,,y,y,n,n,y,y,n
@@ -22,6 +23,7 @@ Heb,Hebrew,hebrew,,,,,n,n,,n,n
 Hin,Hindi,hindi,Hindustani,to_devanagari,y,,,,,y,n
 Hrv,Croatian,croatian,,,,,,y,,n,n
 Hun,Hungarian,hungarian,,,n,y,y,y,n,n,n
+Hye,Armenian,armenian,,,,y,n,n,n,y,n
 Ice,Icelandic,icelandic,,,,,,n,,y,n
 Ina,Interlingua,interlingua,,,y,,n,n,,n,n
 Ita,Italian,italian,Romance,,y,,,,y,y,y
@@ -55,6 +57,7 @@ Tam,Tamil,tamil,n,n,n,n,n,n,n,n,n
 Tel,Telugu,telugu,,,y,n,n,n,,n,n
 Tha,Thai,thai,,to_thai,,,,,,y,n
 Tur,Turkish,turkish,,,y,,,n,,n,n
+Ukr,Ukrainian,ukrainian,,,,y,n,n,n,y,n
 Urd,Urdu,urdu,Hindustani,,,,,,,y,n
 Som,Somali,somali,,,,,n,n,,n,n
 Zul,Zulu,zulu,,,,,n,n,,n,n
