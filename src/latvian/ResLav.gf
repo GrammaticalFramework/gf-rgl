@@ -160,6 +160,4 @@ oper
 
   prefix : pattern Str = #("aiz"|"ap"|"at"|"ie"|"iz"|"no"|"pa"|"pār"|"pie"|"sa"|"uz") ;
 
-  NON_EXISTENT : Str = "NON_EXISTENT" ;
-
 }

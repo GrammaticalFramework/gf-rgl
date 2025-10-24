@@ -2,5 +2,5 @@
 
 concrete AllLat of AllLatAbs = 
   LangLat,
-  ExtraLat
-  ** {} ;
+  ExtendLat
+  ** open ExtraLat in {} ;

@@ -63,7 +63,7 @@ lin
       Dat => "kam" ;
       Acc => "ko" ;
       Loc => "kur" ;
-      ResLav.Voc => NON_EXISTENT
+      ResLav.Voc => nonExist
     }
   } ;
 
