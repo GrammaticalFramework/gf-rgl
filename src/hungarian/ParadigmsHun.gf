@@ -31,6 +31,14 @@ oper
     -- mkPN : N -> Number -> PN ;
     } ;
 
+  mkLN : overload {
+    mkLN : Str -> PN ; -- Singular PN out of a string
+    mkLN : Str -> Number -> PN -- PN with a given number
+    } ;
+
+  mkGN : Str -> PN ; -- GN out of a string
+  mkSN : Str -> SN ; -- SN out of a string
+
 --2 Adjectives
 
   mkA : overload {
@@ -110,6 +118,9 @@ oper
   mkAdA : Str -> AdA
     = \s -> lin AdA {s = s} ;
 
+  mkAdN : Str -> AdN
+    = \s -> lin AdN {s = s} ;
+
 
 --.
 -------------------------------------------------------------------------------
@@ -184,6 +195,14 @@ oper
     -- mkPN : N -> Number -> PN ;
     } ;
 
+  mkLN = overload {
+    mkLN : Str -> LN = \s -> lin LN (defNP s Sg) ;
+    mkLN : Str -> Number -> LN = \s,n -> lin LN (defNP s n) ;
+    } ;
+
+  mkGN s = lin GN (defNP s Sg) ;
+  mkSN s = lin SN (defNP s Sg) ;
+
   mkA = overload {
     mkA : (sgnom : Str) -> A = \s -> lin A (mkAdj s) ;
     mkA : (sgnom,sgacc : Str) -> A = \nom,acc ->
@@ -213,17 +232,54 @@ oper
 
   copula = ResHun.copula ;
 
+  mkVS = overload {
+    mkVS : Str -> VS = \v -> lin VS (mkVerb v) ;
+    mkVS : V -> VS = \v -> lin VS v ;
+    } ;
+
+  mkVQ = overload {
+    mkVQ : Str -> VQ = \v -> lin VQ (mkVerb v) ;
+    mkVQ : V -> VQ = \v -> lin VQ v ;
+    } ;
+
+  mkVA = overload {
+    mkVA : Str -> VA = \v -> lin VA (mkVerb v) ;
+    mkVA : V -> VA = \v -> lin VA v ;
+    } ;
+
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
     mkV2 : V -> V2 = vtov2 ;
     } ;
 
+  mkVV = overload {
+    mkVV : Str -> VV = \v -> lin VV (mkVerb2 v) ;
+    mkVV : V -> VV = \v -> lin VV (vtov2 v) ;
+    } ;
+
+  mkV2A = overload {
+    mkV2A : Str -> V2A = \v -> lin V2A (mkVerb2 v) ;
+    mkV2A : V -> V2A = \v -> lin V2A (vtov2 v) ;
+    } ;
+
+  mkV2V = overload {
+    mkV2V : Str -> V2V = \v -> lin V2V (mkVerb2 v) ;
+    mkV2V : V -> V2V = \v -> lin V2V (vtov2 v) ;
+    } ;
+
+  mkV2S = overload {
+    mkV2S : Str -> V2S = \v -> lin V2S (mkVerb2 v) ;
+    mkV2S : V -> V2S = \v -> lin V2S (vtov2 v) ;
+    } ;
+
+  mkV2Q = overload {
+    mkV2Q : Str -> V2Q = \v -> lin V2Q (mkVerb2 v) ;
+    mkV2Q : V -> V2Q = \v -> lin V2Q (vtov2 v) ;
+    } ;
+
   mkV3 = overload {
     mkV3 : (plain : Str) -> V3 = \v3 -> lin V3 (mkVerb3 v3) ;
     } ;
-  --
-  -- mkVV = overload {
-  --  } ;
 
   mkPrep = overload {
     mkPrep : (e : Str) -> Prep
@@ -234,6 +290,8 @@ oper
 
   casePrep : Case -> Prep
     = \c -> lin Prep (ResHun.caseAdp c) ;
+
+  mkInterj : Str -> Interj = \s -> lin Interj {s = s} ;
 --------------------------------------------------------------------------------
 
 }

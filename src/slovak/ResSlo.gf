@@ -894,7 +894,6 @@ oper
     msloc,
     msins, fsins,
     ampnom, fpnom, -- mpacc = fpacc = fpnom
-    pgen,
     pdat,  -- NOT msins like AdjForms
     pins : Str
     } ;

@@ -8,7 +8,7 @@ oper
 
 -- ADJECTIVES
 
-  -- TODO: Parameters and paradigms should be redesigned due to the many NON_EXISTENT forms..?
+  -- TODO: Parameters and paradigms should be redesigned due to the many nonExist forms..?
 
   -- To keep the code and user interface (parameters) simple, Masc lemmas are expected.
 
@@ -56,7 +56,7 @@ oper
         s + "ais" => mkAdjective_Pos lemma Def ! g ! n ! c ;
         _         => mkAdjective_Pos lemma Indef ! g ! n ! c
       } ;
-      AAdj _ _ _ _ _ => NON_EXISTENT ;
+      AAdj _ _ _ _ _ => nonExist ;
       AAdv d => mkAdjective_Adverb lemma ! d
     }
   };
@@ -69,7 +69,7 @@ oper
   mkAdjective_Participle : Verb -> Voice -> Adjective = \v,p -> {
     s = table {
       AAdj Posit Indef g n c => v.s ! Pos ! (VPart p g n c) ;
-      _ => NON_EXISTENT
+      _ => nonExist
     }
   };
 

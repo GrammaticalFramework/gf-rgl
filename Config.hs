@@ -25,6 +25,7 @@ data LangInfo = LangInfo
   , langSymbolic :: Bool
   , langCompatibility :: Bool
   , langSynopsis :: Bool -- ^ include in RGL synopsis
+  , langMorphodict :: Bool
   } deriving (Show,Eq)
 
 -- | Load language information from default config file
@@ -55,6 +56,7 @@ loadLangsFrom configFile = do
             , langSymbolic = boolBit bits 8 True
             , langCompatibility = boolBit bits 9 False
             , langSynopsis = boolBit bits 10 False
+            , langMorphodict = boolBit bits 11 False
             }
 
 -- | Separate a string on a character

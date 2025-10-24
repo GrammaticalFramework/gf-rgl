@@ -19,6 +19,7 @@ default: build copy
 build: src/*/*.gf
 ifneq (, $(RUNGHC))
 	$(RUNGHC) build
+	$(RUNGHC) build morphodict
 else
 	./Setup.sh
 endif
@@ -26,6 +27,7 @@ endif
 copy:
 ifneq (, $(RUNGHC))
 	$(RUNGHC) copy
+	$(RUNGHC) copy morphodict
 endif
 
 install: build copy

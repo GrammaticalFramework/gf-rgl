@@ -9,7 +9,7 @@ resource ParadigmsSwa = open
   in {
 
 oper
-  Gender : Type ; 
+  Gender : PType ;
   a_wa   : Gender ; --m-wa
   u_i    : Gender ; --m-mi
   li_ya  : Gender ; --ji-ma
@@ -26,14 +26,14 @@ oper
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ; 
+  Number : PType ;
 
   singular : Number ; 
   plural   : Number ;
 
 -- To abstract over case names, we define the following.
 
-  Case : Type ; --%
+  Case : PType ; --%
 
   nominative : Case ; --%
   locative   : Case ; --%

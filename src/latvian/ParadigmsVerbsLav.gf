@@ -56,8 +56,8 @@ oper
 
   filter_Neg : Verb_TMP -> Verb_TMP = \full -> {
     s = table {
-      VDeb => NON_EXISTENT ;
-      VDebRel => NON_EXISTENT ;
+      VDeb => nonExist ;
+      VDebRel => nonExist ;
       x => full.s ! x
     }
   } ;
@@ -98,8 +98,8 @@ oper
 
         VRel Pres => stem2 + "ot" ;
         VRel Fut  => pal_C1_1 stem3 stem1 + "šot" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => "jā" + stem2 ;
         VDebRel => "jā" + stem2 + "ot" ;
@@ -144,8 +144,8 @@ oper
 
         VRel Pres => stem + "jot" ;
         VRel Fut  => stem + "šot" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => "jā" + stem ;
         VDebRel => "jā" + stem + "jot" ;
@@ -190,8 +190,8 @@ oper
 
         VRel Pres => pal_C3_1 stem + "ot" ;
         VRel Fut  => stem + "šot" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => pal_C3_3 stem ;
         VDebRel => pal_C3_3 stem + "ot" ;
@@ -240,8 +240,8 @@ oper
 
         VRel Pres => stem2 + "oties" ;
         VRel Fut  => pal_C1_1 stem3 stem1 + "šoties" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => "jā" + stem2 + "as" ;
         VDebRel => "jā" + stem2 + "oties" ;
@@ -286,8 +286,8 @@ oper
 
         VRel Pres => stem + "joties" ;
         VRel Fut  => stem + "šoties" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => "jā" + stem + "jas" ;
         VDebRel => "jā" + stem + "joties" ;
@@ -332,8 +332,8 @@ oper
 
         VRel Pres => pal_C3_1 stem + "oties" ;
         VRel Fut  => stem + "šoties" ;
-        VRel Past => NON_EXISTENT ;
-        VRel Cond => NON_EXISTENT ;
+        VRel Past => nonExist ;
+        VRel Cond => nonExist ;
 
         VDeb    => pal_C3_6 stem + "s" ;
         VDebRel => pal_C3_6 stem + "oties" ;
@@ -374,8 +374,8 @@ oper
         VInd P2 Sg Pres => "neesi" ;
         VInd P3 _  Pres => "nav" ;
 
-        VDeb    => NON_EXISTENT ;
-        VDebRel => NON_EXISTENT ;
+        VDeb    => nonExist ;
+        VDebRel => nonExist ;
 
         x => (mkVerb_C1 "nebūt" "neesu" "nebiju").s ! x -- the incorrect 'neesu' will be overriden
       }
@@ -394,8 +394,8 @@ oper
       } ;
       Neg => table {
         VInd P3 _ Pres => "ne" + pref + "iet" ;
-        VDeb => NON_EXISTENT ;
-        VDebRel => NON_EXISTENT ;
+        VDeb => nonExist ;
+        VDebRel => nonExist ;
         x => (mkVerb_C1 ("ne" + pref + "iet") ("ne" + pref + "eju") ("ne" + pref + "gāju")).s ! x
       }
     } ;
@@ -424,9 +424,9 @@ oper
 
         VRel Pres => (mkVerb_C3 "neguļēt").s ! VRel Pres ;
 
-        VDeb => NON_EXISTENT ;
+        VDeb => nonExist ;
 
-        VDebRel => NON_EXISTENT ;
+        VDebRel => nonExist ;
 
         x => (mkVerb_C3 "negulēt").s ! x
       }
@@ -559,7 +559,7 @@ oper
           Dat => stem + "ušam" ;
           Acc => stem + "ušu" ;
           Loc => stem + "ušā" ;
-          Voc => NON_EXISTENT
+          Voc => nonExist
         } ;
         Pl => case c of {
           Nom => stem + "uši" ;
@@ -567,7 +567,7 @@ oper
           Dat => stem + "ušiem" ;
           Acc => stem + "ušus" ;
           Loc => stem + "ušos" ;
-          Voc => NON_EXISTENT
+          Voc => nonExist
         }
       } ;
       Fem => case n of {
@@ -577,7 +577,7 @@ oper
           Dat => stem + "ušai" ;
           Acc => stem + "ušu" ;
           Loc => stem + "ušā" ;
-          Voc => NON_EXISTENT
+          Voc => nonExist
         } ;
         Pl => case c of {
           Nom => stem + "ušas" ;
@@ -585,7 +585,7 @@ oper
           Dat => stem + "ušām" ;
           Acc => stem + "ušas" ;
           Loc => stem + "ušās" ;
-          Voc => NON_EXISTENT
+          Voc => nonExist
         }
       }
     } ;
@@ -599,7 +599,7 @@ oper
           Dat => stem + "tam" ;
           Acc => stem + "tu" ;
           Loc => stem + "tā" ;
-          Voc => NON_EXISTENT     -- FIXME: -tais ?
+          Voc => nonExist     -- FIXME: -tais ?
         } ;
         Pl => case c of {
           Nom => stem + "ti" ;
@@ -607,7 +607,7 @@ oper
           Dat => stem + "tiem" ;
           Acc => stem + "tus" ;
           Loc => stem + "tos" ;
-          Voc => NON_EXISTENT     -- FIXME: -tie ?
+          Voc => nonExist     -- FIXME: -tie ?
         }
       } ;
       Fem => case n of {
@@ -617,7 +617,7 @@ oper
           Dat => stem + "tai" ;
           Acc => stem + "tu" ;
           Loc => stem + "tā" ;
-          Voc => NON_EXISTENT     -- FIXME: -tā ?
+          Voc => nonExist     -- FIXME: -tā ?
         } ;
         Pl => case c of {
           Nom => stem + "tas" ;
@@ -625,7 +625,7 @@ oper
           Dat => stem + "tām" ;
           Acc => stem + "tas" ;
           Loc => stem + "tās" ;
-          Voc => NON_EXISTENT     -- FIXME: -tās ?
+          Voc => nonExist     -- FIXME: -tās ?
         }
       }
     } ;
@@ -635,37 +635,37 @@ oper
       Masc => case n of {
         Sg => case c of {
           Nom => stem + "ies" ;
-          Gen => NON_EXISTENT ;
-          Dat => NON_EXISTENT ;
+          Gen => nonExist ;
+          Dat => nonExist ;
           Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          Loc => nonExist ;
+          Voc => nonExist
         } ;
         Pl => case c of {
           Nom => stem + "ušies" ;
           Gen => stem + "ušos" ;
-          Dat => NON_EXISTENT ;
+          Dat => nonExist ;
           Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          Loc => nonExist ;
+          Voc => nonExist
         }
       } ;
       Fem => case n of {
         Sg => case c of {
           Nom => stem + "usies" ;
           Gen => stem + "ušās" ;
-          Dat => NON_EXISTENT ;
+          Dat => nonExist ;
           Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          Loc => nonExist ;
+          Voc => nonExist
         } ;
         Pl => case c of {
           Nom => stem + "ušās" ;
           Gen => stem + "ušos" ;
-          Dat => NON_EXISTENT ;
+          Dat => nonExist ;
           Acc => stem + "ušos" ;
-          Loc => NON_EXISTENT ;
-          Voc => NON_EXISTENT
+          Loc => nonExist ;
+          Voc => nonExist
         }
       }
     } ;

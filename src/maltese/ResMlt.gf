@@ -33,7 +33,7 @@ resource ResMlt = ParamX ** open Prelude, Predef, Maybe in {
       if_then_else Definiteness b Definite Indefinite ;
 
     -- Agreement system corrected based on comments by [AZ]
-    Agr : Type = { n : Number ; p : Person ; g : Gender } ;
+    Agr : PType = { n : Number ; p : Person ; g : Gender } ;
 
     -- Make Agr from raw ingredients
     mkAgr : Number -> Person -> Gender -> Agr = \n,p,g -> {n = n ; p = p ; g = g} ;

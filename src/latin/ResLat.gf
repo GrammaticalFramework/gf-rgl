@@ -1323,19 +1323,17 @@ oper
     compl = vp.compl ;
     adv = vp.adv ++ (a.s ! Posit)
     } ;
-  
+
   -- clauses
   Sentence =
     {
       s,o,neg : AdvPos => Str ; -- Subject, verbphrase, object and negation particle plus potential adverb
       v : AdvPos => Str ;
-      t : C.Tense ; -- tense marker
-      p : C.Pol ; -- polarity marker
       sadv : Str ; -- sentence adverb¡
       det : { s , sp : Case => Str }  ;
       compl : Str -- verb complement
     } ;
-  
+
   Clause =
     {s : AdvPos => Str ;
      o : AdvPos => Str ;
@@ -1344,7 +1342,7 @@ oper
      compl : Str ;
      neg : Polarity => AdvPos => Str ;
      adv : Str } ;
-  QClause = {s : C.Tense => Anteriority => C.Pol => QForm => Str} ;
+  QClause = {s : Tense => Anteriority => Polarity => QForm => Str} ;
 
   mkClause : NounPhrase -> VerbPhrase -> Clause = \np,vp ->
     let
@@ -1390,14 +1388,12 @@ oper
       adv = ""
     } ;
   
-  combineClause : Clause -> C.Tense -> Anteriority -> C.Pol -> VQForm -> Sentence = \cl,tense,anter,pol,vqf ->
+  combineClause : Str -> Clause -> Tense -> Anteriority -> Polarity -> VQForm -> Sentence = \params,cl,tense,anter,pol,vqf ->
     cl **
     {
-      v =  \\advpos => cl.v ! tense.t ! anter ! vqf ! advpos ;
-      neg = cl.neg ! pol.p ;
-      sadv = cl.adv ;
-      t = tense ;
-      p = pol ;
+      v =  \\advpos => params ++ cl.v ! tense ! anter ! vqf ! advpos ;
+      neg = cl.neg ! pol ;
+      sadv = cl.adv
     } ;
 
   combineSentence : Sentence -> ( SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str ) = \s ->
@@ -1420,37 +1416,31 @@ oper
     -- complosp is the position of the verb complement
     \\sadvpos,advpos,detpos,verbpos,complpos,order  => case order of {
       SVO =>
-	s.t.s ++ s.p.s ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
 	advpreneg sadvpos ++ s.neg ! advpos ++
 	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
 	advpreo sadvpos   ++ s.o ! advpos;
       VSO =>
-	s.t.s ++ s.p.s ++
 	advpreneg sadvpos ++ s.neg ! advpos ++
 	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
 	advpreo sadvpos   ++ s.o ! advpos;
       VOS =>
-	s.t.s ++ s.p.s ++
 	advpreneg sadvpos ++ s.neg ! advpos ++
 	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
 	advpreo sadvpos   ++ s.o ! advpos ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
       OSV =>
-	s.t.s ++ s.p.s ++
 	advpreo sadvpos   ++ s.o ! advpos ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom++
 	advpreneg sadvpos ++ s.neg ! advpos ++
 	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ;
       OVS =>
-	s.t.s ++ s.p.s ++
 	advpreo sadvpos   ++ s.o ! advpos ++
 	advpreneg sadvpos ++ s.neg ! advpos ++
 	advprev sadvpos   ++ (complprev complpos) ++ (verbreg verbpos) ! advpos ++ (complpostv complpos) ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ;
       SOV =>
-	s.t.s ++ s.p.s ++
 	advpres sadvpos   ++ (detpren detpos).s ! Nom ++ s.s ! advpos ++ (verbins verbpos) ! advpos ++ (detpostn detpos).s ! Nom ++ (detpren detpos).sp ! Nom ++
 	advpreo sadvpos   ++ s.o ! advpos ++
 	advpreneg sadvpos ++ s.neg ! advpos ++
@@ -1458,15 +1448,7 @@ oper
       } ;
 
   defaultSentence : Sentence -> Order => Str = \s -> combineSentence s ! SAPreS ! APreV ! DPreN ! VReg ! CPreV ;
-  
-  -- questions
-  mkQuestion : SS -> Clause -> QClause = \ss,cl -> {
-     s = \\tense,anter,pol,form => case form of {
-       QDir => ss.s ++ (defaultSentence (combineClause cl tense anter pol VQFalse)) ! OVS  ;
-       QIndir => ss.s ++ (combineSentence (combineClause cl tense anter pol VQFalse)) ! SAPreO ! APreO ! DPreN ! VReg ! CPreV ! OSV
-       }
-    };
-  
+
   negation : Polarity -> Str = \p -> case p of {
     Pos => [] ;   
     Neg => "non"

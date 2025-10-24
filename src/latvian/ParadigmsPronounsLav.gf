@@ -17,7 +17,7 @@ oper
       Dat => "man" ;
       Acc => "mani" ;
       Loc => "manī" ;
-      Voc => NON_EXISTENT
+      Voc => nonExist
     } ;
     agr = AgrP1 Sg gend ;
     poss = table {
@@ -68,7 +68,7 @@ oper
       Dat => "mums" ;
       Acc => "mūs" ;
       Loc => "mūsos" ;
-      Voc => NON_EXISTENT
+      Voc => nonExist
     } ;
     agr = AgrP1 Pl gend ;
     poss = \\_,_,_ => "mūsu" ;
@@ -188,7 +188,7 @@ oper
             Dat => stem + "am" ;
             Acc => stem + "u" ;
             Loc => stem + "ā" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           } ;
           Pl => table {
             Nom => stem + "i" ;
@@ -196,7 +196,7 @@ oper
             Dat => stem + "iem" ;
             Acc => stem + "us" ;
             Loc => stem + "os" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           }
         } ;
         Fem => table {
@@ -206,7 +206,7 @@ oper
             Dat => stem + "ai" ;
             Acc => stem + "u" ;
             Loc => stem + "ā" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           } ;
           Pl => table {
             Nom => stem + "as" ;
@@ -214,7 +214,7 @@ oper
             Dat => stem + "ām" ;
             Acc => stem + "as" ;
             Loc => stem + "ās" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           }
         }
       } ;
@@ -236,7 +236,7 @@ oper
             Dat => stem + suff1 + "m" ;
             Acc => stem + "o" ;
             Loc => stem + "ajā" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           } ;
           Pl => table {
             Nom => stem + "ie" ;
@@ -244,7 +244,7 @@ oper
             Dat => stem + "iem" ;
             Acc => stem + "os" ;
             Loc => stem + "ajos" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           }
         } ;
         Fem => table {
@@ -254,7 +254,7 @@ oper
             Dat => stem + "ai" ;
             Acc => stem + "o" ;
             Loc => stem + "ajā" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           } ;
           Pl => table {
             Nom => stem + suff2 + "s" ;
@@ -262,7 +262,7 @@ oper
             Dat => stem + suff2 + "m" ;
             Acc => stem + suff2 + "s" ;
             Loc => stem + "ajās" ;
-            Voc => NON_EXISTENT
+            Voc => nonExist
           }
         }
       } ;
@@ -278,7 +278,7 @@ oper
         Dat => case stem of { "kaut" => stem ++ "kam" ; _ => stem + "kam" } ;
         Acc => case stem of { "kaut" => stem ++ "ko" ; _ => stem + "ko" } ;
         Loc => case stem of { "kaut" => stem ++ "kur" ; _ => stem + "kur" } ;
-        Voc => NON_EXISTENT
+        Voc => nonExist
       } ! c ;
       agr = AgrP3 Sg Masc ;
       poss = \\_,_,_ => case stem of { "kaut" => stem ++ "kā" ; _ => stem + "kā" } ;
