@@ -1,4 +1,4 @@
-concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
+concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -85,7 +85,9 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
     N = Noun ;
     N2 = Noun ** { c : Prep } ;
     N3 = Noun ** { c : Prep ; c2 : Prep } ;
-    PN = { s : Case => Str ; n : Number ; g : Gender } ;
+    PN, LN = { s : Case => Str ; n : Number ; g : Gender } ;
+    GN = { s : Str ; g : Sex } ;
+    SN = { s : Sex => Str ; pl : Str } ;
     A2 = Adjective ** { c : Prep} ;
 
   linref

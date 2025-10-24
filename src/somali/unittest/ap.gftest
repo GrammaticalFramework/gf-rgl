@@ -23,6 +23,10 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQ
 LangSom: bisad BIND daasi bisad BIND dan waa ka weyn tahay
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (UseComp (CompAP (ComparA big_A (DetCN (DetQuant this_Quant NumSg) (UseN cat_N)))))))) NoVoc
 
+-- LangEng: house bigger than car
+LangSom: guri ka weyn baabuur
+Lang: PhrUtt NoPConj (UttNP (AdjCN (ComparA big_A (MassNP (UseN car_N))) (UseN house_N))) NoVoc
+
 -- LangEng: that cat is biggest
 LangSom: bisad BIND daasi waa ugu weyn tahay
 Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant that_Quant NumSg) (UseN cat_N)) (UseComp (CompAP (AdjOrd (OrdSuperl big_A))))))) NoVoc

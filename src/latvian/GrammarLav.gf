@@ -14,7 +14,9 @@ concrete GrammarLav of Grammar =
   TextX - [Adv,CAdv],
   StructuralLav,
   IdiomLav,
-  TenseX - [Adv,CAdv]
+  TenseX - [Adv,CAdv],
+  NamesLav
+
   ** {
 
 flags

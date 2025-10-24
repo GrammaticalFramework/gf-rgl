@@ -62,7 +62,7 @@ oper
 -- Adjectives --- could be made more compact by pressing comparison forms down to a few
 
 oper
-  SAForm : Type = AForm ;
+  SAForm : PType = AForm ;
 
 oper
   SAdj = {s : SAForm => Str ; h : Harmony} ;
@@ -112,7 +112,7 @@ oper
 -- verbs
 
 oper
-  SVForm : Type = VForm ;
+  SVForm : PType = VForm ;
   SVerb : Type = {s : SVForm => Str ; h : Harmony} ;
 
   ollaSVerbForms : SVForm => Str = verbOlla.s ;

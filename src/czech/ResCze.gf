@@ -726,7 +726,6 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       
       Ag _ Pl P1   => jarniAdjForms "naše" ** {
         msnom = "náš" ;
-	msins = "naším" ;
 	fsgen,mpnom = "naši" ;
 	fsins = "naší" ;
 	pdat, msins = "našim" ;
@@ -735,7 +734,6 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 	} ;
       Ag _ Pl P2   => jarniAdjForms "vaše" ** {
         msnom = "váš" ;
-	msins = "vaším" ;
 	fsgen,mpnom = "vaši" ;
 	fsins = "vaší" ;
 	pdat, msins = "vašim" ;

@@ -226,7 +226,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UseN,UseN2 = ResSom.useN ;
 
   -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
-  ComplN2 n2 np = genModCN (useN n2) np ;
+  ComplN2 n2 np = genModCN (lin CN (useN n2)) np ;
 
 {-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
@@ -250,7 +250,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c =>
             cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
          ++ andConj st cn.modtype -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
-         ++ ap.s ! AF n c ;
+         ++ ap.s ! AF n c ++ " " ++ ap.compar ;
     modtype = AMod
     } ;
 

@@ -259,4 +259,6 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 --   UttDatIP : IP -> Utt ; -- whom (dative)
 
 
+   TPastSimple = {s = []} ** {t = Past} ;   --# notpresent
+
 }

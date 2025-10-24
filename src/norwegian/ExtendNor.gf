@@ -19,8 +19,14 @@ concrete ExtendNor of Extend = CatNor **
     GenRP
   ]
   with (Grammar = GrammarNor)
-    ** {
+    ** open Prelude in {
 
   flags coding=utf8 ;
+
+lin CompoundN n1 n2 = {
+      s  = \\n,s,c => n1.co ++ BIND ++ n2.s ! n ! s ! c ;
+      co = n1.co ++ BIND ++ n2.co ;
+      g  = n2.g
+    } ;
 
 }

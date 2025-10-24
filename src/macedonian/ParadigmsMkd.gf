@@ -1051,7 +1051,9 @@ mkV = overload {
   mkV : Str -> Str -> Str -> V = reg3V   -- present;Sg;P3  participle;adverbial  participle;adjectival
 } ;
 
-reflV : V -> V = \v -> v ** {isRefl=True} ;
+accusative : Case = Acc ;
+dative : Case = Dat ;
+medialV : V -> Case -> V = \v,c -> v ** {vtype=VMedial c} ;
 
 dualV : V -> V -> V = \impf,perf -> lin V
   { present = table {
@@ -1063,15 +1065,18 @@ dualV : V -> V -> V = \impf,perf -> lin V
                   Imperfective => impf.imperfect ! Imperfective ;
                   Perfective   => perf.imperfect ! Perfective
                 } ;
-    Imperative = table {
-                   Imperfective => impf.Imperative ! Imperfective ;
-                   Perfective   => perf.Imperative ! Perfective
+    imperative = table {
+                   Imperfective => impf.imperative ! Imperfective ;
+                   Perfective   => perf.imperative ! Perfective
                  } ;
     participle = { aorist = table {
                               Imperfective => impf.participle.aorist ! Imperfective ;
                               Perfective   => perf.participle.aorist ! Perfective
                             } ;
-                   imperfect = impf.participle.imperfect ;
+                   imperfect = table {
+                                 Imperfective => impf.participle.imperfect ! Imperfective ;
+                                 Perfective   => perf.participle.imperfect ! Perfective
+                               } ;
                    perfect = table {
                                Imperfective => impf.participle.perfect ! Imperfective ;
                                Perfective   => perf.participle.perfect ! Perfective
@@ -1083,8 +1088,25 @@ dualV : V -> V -> V = \impf,perf -> lin V
                    adverbial = impf.participle.adverbial
                  } ;
     noun_from_verb = impf.noun_from_verb ;
-    isRefl = impf.isRefl
+    vtype = impf.vtype
   } ;
+
+compoundV = overload {
+  compoundV : V -> Str -> V = \v,s -> lin V {
+    present = \\a,n,p => v.present ! a ! n ! p ++ s ;
+    aorist = \\n,p => v.aorist ! n ! p ++ s ;
+    imperfect = \\a,n,p => v.imperfect ! a ! n ! p ++ s ;
+    imperative = \\a,n => v.imperative ! a ! n ++ s ;
+    participle = { aorist = \\a,gn => v.participle.aorist ! a ! gn ++ s ;
+                   imperfect = \\a,gn => v.participle.imperfect ! a ! gn ++ s ;
+                   perfect = \\a => v.participle.perfect ! a ++ s ;
+                   adjectival = \\a => v.participle.adjectival ! a ++ s ;
+                   adverbial = v.participle.adverbial
+                 } ;
+    noun_from_verb = v.noun_from_verb ++ s ;
+    vtype = v.vtype
+  }
+} ;
 
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
@@ -1102,13 +1124,13 @@ mkV2V = overload {
 } ;
 
 mkV2S = overload {
-  mkV2S : V -> V2S = \v -> lin V2S v ** {c2,c3=noPrep} ;
-  mkV2S : V -> Prep -> Prep -> V2S = \v,p2,p3 -> lin V2S v ** {c2=p2; c3=p3} ;
+  mkV2S : V -> V2S = \v -> lin V2S v ** {c2=noPrep} ;
+  mkV2S : V -> Prep -> V2S = \v,p2 -> lin V2S v ** {c2=p2} ;
 } ;
 
 mkV2Q = overload {
-  mkV2Q : V -> V2Q = \v -> lin V2Q v ** {c2,c3=noPrep} ;
-  mkV2Q : V -> Prep -> Prep -> V2Q = \v,p2,p3 -> lin V2Q v ** {c2=p2; c3=p3} ;
+  mkV2Q : V -> V2Q = \v -> lin V2Q v ** {c2=noPrep} ;
+  mkV2Q : V -> Prep -> V2Q = \v,p2 -> lin V2Q v ** {c2=p2} ;
 } ;
 
 mkV2A = overload {
@@ -1139,7 +1161,70 @@ mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 
 mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 
-mkPrep : Str -> Prep = \s -> lin Prep {s=s} ;
-noPrep : Prep = lin Prep {s=""} ;
+mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+noPrep : Prep = lin Prep {s=""; c=Acc} ;
+
+mkIP : Str -> GenNum -> IP = \s,g -> lin IP {s=s; g=g} ;
+mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
+
+mkIQuant : Str -> Str -> Str -> Str -> IQuant = \m,f,n,pl ->
+  lin IQuant {
+    s=table {
+        GSg Masc   => m;
+        GSg Fem    => f;
+        GSg Neuter => n;
+        GPl        => pl
+      }
+  } ;
+
+mkIDet = overload {
+  mkIDet : Str -> IDet = \s -> lin IDet {s=\\_=>s; n=Pl} ;
+  mkIDet : Str -> Str -> Str -> IDet = \m,f,n ->
+    lin IDet {
+      s=table {
+          Masc => m ;
+          Fem  => f ;
+          Neuter => n
+        } ;
+      n=Sg;
+    } ;
+} ;
+
+mkMU : Str -> MU = \s -> lin MU {s=s; isPre = False} ;
+mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
+
+mkQuant : Str -> Str -> Str -> Str -> Quant = \m,f,n,pl ->
+  lin Quant {
+    s=table {
+        GSg Masc   => m;
+        GSg Fem    => f;
+        GSg Neuter => n;
+        GPl        => pl
+      } ;
+    sp=Indef
+  } ;
+
+mkDet = overload {
+  mkDet : Str -> Det = \s -> lin Det {s=\\_=>s; n=NNum Pl; sp=Indef} ;
+  mkDet : Str -> Str -> Str -> Det = \m,f,n ->
+    lin Det {
+      s=table {
+          Masc => m ;
+          Fem  => f ;
+          Neuter => n
+        } ;
+      n=NNum Sg;
+      sp=Indef
+    } ;
+} ;
+
+mkConj : Str -> Number -> Conj = 
+  \s,n -> lin Conj {s = s; sep = 3; n = n} ;
+
+mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
+mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
+mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=""} ;
+mkCard : Str -> Card = \s -> lin Card {s=s} ;
+mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
 
 }

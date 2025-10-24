@@ -340,7 +340,7 @@ incomplete concrete ExtendRomanceFunctor of Extend =
     passVPSlash vps agent = let
       auxvp = predV auxPassive
       in
-      vps ** {
+      lin VP vps ** {
         s = auxvp.s ;
         agr = auxvp.agr ;
         comp  = \\a => (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ vps.comp ! a ++ agent ;

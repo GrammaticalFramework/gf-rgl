@@ -93,12 +93,12 @@ lin InflectionSN = \pn -> {
       t  = "ln" ;
       s1 = heading1 "Family Name" ;
       s2 = frameTable (
-             tr (th "Nom" ++ td (pn.s ! Male ! Nom)) ++
-             tr (th "Acc" ++ td (pn.s ! Male ! Acc)) ++
-             tr (th "Dat" ++ td (pn.s ! Male ! Dat)) ++
-             tr (th "Gen" ++ td (pn.s ! Male ! Gen)) ++
-             tr (th "Loc" ++ td (pn.s ! Male ! Loc)) ++
-             tr (th "Voc" ++ td (pn.s ! Male ! Voc))) ;
+             tr (th "Nom" ++ td (pn.s ! Masc ! Nom)) ++
+             tr (th "Acc" ++ td (pn.s ! Masc ! Acc)) ++
+             tr (th "Dat" ++ td (pn.s ! Masc ! Dat)) ++
+             tr (th "Gen" ++ td (pn.s ! Masc ! Gen)) ++
+             tr (th "Loc" ++ td (pn.s ! Masc ! Loc)) ++
+             tr (th "Voc" ++ td (pn.s ! Masc ! Voc))) ;
       s3=[]
     } ;
 

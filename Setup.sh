@@ -59,6 +59,7 @@ gfc="${gf} --batch --quiet --gf-lib-path=${dist}"
 mkdir -p "${dist}/prelude"
 mkdir -p "${dist}/present"
 mkdir -p "${dist}/alltenses"
+mkdir -p "${dist}/morphodict"
 
 # Build: prelude
 echo "Building [prelude]"
@@ -68,6 +69,7 @@ ${gfc} --gfo-dir="${dist}"/prelude "${src}"/prelude/*.gf
 # Gather all language modules for building
 modules_present=
 modules_alltenses=
+modules_morphodict=
 for lang in $langs; do
   for mod in $modules_langs $modules_api; do
     if [ $mod == "Compatibility" ] && [[ "$langs_compat" != *"$lang"* ]]; then continue; fi
@@ -80,7 +82,11 @@ for lang in $langs; do
       modules_alltenses="${modules_alltenses} ${file}"
     done
   done
+  file="${src}/morphodict/MorphoDict${lang}.gf"
+  if [ ! -f "$file" ]; then continue; fi
+  modules_morphodict="${modules_morphodict} ${file}"
 done
+
 
 # Build: present
 echo "Building [present]"
@@ -94,6 +100,13 @@ echo "Building [alltenses]"
 if [ $verbose = true ]; then echo $modules_alltenses; fi
 for module in $modules_alltenses; do
   ${gfc} --no-pmcfg --gfo-dir="${dist}"/alltenses "${module}"
+done
+
+# Build: morphodict
+echo "Building [morphodict]"
+if [ $verbose = true ]; then echo $modules_morphodict; fi
+for module in $modules_morphodict; do
+  ${gfc} --no-pmcfg --gfo-dir="${dist}"/morphodict "${module}"
 done
 
 # Copy

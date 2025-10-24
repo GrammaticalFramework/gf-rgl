@@ -10,6 +10,22 @@ oper
 -- defined in $ResSom$.
 
   noPrep : Prep = mkPrep "" ;
+  emptyPrep : Prep = lin Prep {
+    s = [] ;
+    obj = \\_ => [] ;
+    prepType = EmptyPrep ;
+    } ;
+  datPrep : Prep = mkPrep "kepada" ;
+
+  -- direct object: "hits him" -> "memukul+nya"
+  dirPrep : Prep = lin Prep {
+    s = [] ;
+    obj = table {
+      P1 => BIND ++ "ku" ;
+      P2 => BIND ++ "mu" ;
+      P3 => BIND ++ "nya" } ;
+    prepType = DirObj ;
+    } ;
 
 --2 Nouns
 
@@ -192,8 +208,15 @@ oper
 
   mkV2S = overload {
     mkV2S : Str -> V2S = \v -> lin V2S (mkVerb2 (regVerb v Meng) dirPrep) ;
-    mkV2S : V -> Prep -> V2S = \v,p -> lin V22 (mkVerb2 v p)
+    mkV2S : V -> Prep -> V2S = \v,p -> lin V2S (mkVerb2 v p)
   } ;
+
+
+  mkPrep : Str -> Prep = \dengan -> lin Prep {
+    s = dengan ;
+    obj = \\p => dengan + poss2str (Poss p) ;
+    prepType = OtherPrep ;
+    } ;
 
 --   lin like_V2 = let like' : V2 = mkV2 "suka" in like' ** {
 --   s = table {Passive => "disukai" ; _ => "suka"} ;

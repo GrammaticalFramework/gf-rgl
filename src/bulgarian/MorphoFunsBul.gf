@@ -168,7 +168,7 @@ oper
 --
 
   prepN2 : N -> Prep -> N2 ;
-  prepN2 n p = n ** {c2 = p} ;
+  prepN2 n p = lin N2 (n ** {c2 = p}) ;
   
   dirN2 : N -> N2 ;
   dirN2 n = prepN2 n noPrep ;
@@ -178,7 +178,7 @@ oper
 --
 
   prepN3 : N -> Prep -> Prep -> N3 ;
-  prepN3 n p q = n ** {c2 = p; c3 = q} ;
+  prepN3 n p q = lin N3 (n ** {c2 = p; c3 = q}) ;
   
   dirN3 : N -> Prep -> N3 ;
   dirN3 n p = prepN3 n noPrep p ;

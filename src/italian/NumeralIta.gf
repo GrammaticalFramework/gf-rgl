@@ -159,12 +159,6 @@ param Pred = pred | indip ;
       _  => BIND
       } ;
 
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-      } ;
-
   oper
     mkDig : Str -> TDigit = \c -> mk2Dig c Pl ;
     

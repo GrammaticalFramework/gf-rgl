@@ -26,10 +26,10 @@ oper
   mkN2 n = mkFun n nullPrep ;
 
   mkFun  : N -> Complement -> N2;
-  mkFun f c = f ** { c = c } ;
+  mkFun f c = lin N2 (f ** { c = c }) ;
 
   mkN3 : N -> Complement -> Complement -> N3;
-  mkN3 f c1 c2 = f ** { c1 = c1 ; c2 = c2 }; 
+  mkN3 f c1 c2 = lin N3 (f ** { c1 = c1 ; c2 = c2}) ; 
 
 -- Prepositions   
 

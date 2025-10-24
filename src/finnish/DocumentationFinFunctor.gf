@@ -161,14 +161,14 @@ oper
   verbExample : CatFin.Cl -> Str = \cl -> (S.mkUtt cl).s ;
 {-
 -} --# notpresent
-  inflVerb : CatFin.V -> Str = \verb0 ->
+  inflVerb : SVerb1 -> Str = \verb0 ->
      let
        verb = sverb2verbSep verb0 ;
        vfin : ResFin.VForm -> Str = \f ->
          verb.s ! f ;
 
        nounNounHeading : Parameter -> Parameter -> Str = \n1,n2 ->
-         (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP (snoun2nounSep n2)))).s ;
+         (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP (lin N (snoun2nounSep n2))))).s ;
      in
        heading3 (nounNounHeading present_Parameter indicative_Parameter) ++
        frameTable (

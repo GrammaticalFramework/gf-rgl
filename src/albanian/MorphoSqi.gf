@@ -27570,7 +27570,7 @@ mkA036 base =
 mkV001 : Str -> V ;
 mkV001 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -27620,7 +27620,7 @@ mkV001 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -27679,7 +27679,7 @@ mkV002 : Str -> V ;
 mkV002 base =
   case base of {
     base_1+"ta" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ta" ;
@@ -27729,7 +27729,7 @@ mkV002 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -27790,7 +27790,7 @@ mkV003 : Str -> V ;
 mkV003 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -27840,7 +27840,7 @@ mkV003 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -27901,7 +27901,7 @@ mkV004 : Str -> V ;
 mkV004 base =
   case base of {
     base_1+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"s" ;
@@ -27951,7 +27951,7 @@ mkV004 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28012,7 +28012,7 @@ mkV005 : Str -> V ;
 mkV005 base =
   case base of {
     base_1+base_2@?+"l" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"l" ;
@@ -28062,7 +28062,7 @@ mkV005 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28122,7 +28122,7 @@ mkV005 base =
 mkV006 : Str -> V ;
 mkV006 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -28172,7 +28172,7 @@ mkV006 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -28230,7 +28230,7 @@ mkV006 base_1 =
 mkV007 : Str -> V ;
 mkV007 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -28280,7 +28280,7 @@ mkV007 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -28338,7 +28338,7 @@ mkV007 base_1 =
 mkV008 : Str -> V ;
 mkV008 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -28388,7 +28388,7 @@ mkV008 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -28447,7 +28447,7 @@ mkV009 : Str -> V ;
 mkV009 base =
   case base of {
     base_1+"n" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"n" ;
@@ -28497,7 +28497,7 @@ mkV009 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28558,7 +28558,7 @@ mkV010 : Str -> V ;
 mkV010 base =
   case base of {
     base_1+"i"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2 ;
@@ -28608,7 +28608,7 @@ mkV010 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28669,7 +28669,7 @@ mkV011 : Str -> V ;
 mkV011 base =
   case base of {
     base_1+"e" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"e" ;
@@ -28719,7 +28719,7 @@ mkV011 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28780,7 +28780,7 @@ mkV012 : Str -> V ;
 mkV012 base =
   case base of {
     "t"+base_1 => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "t"+base_1 ;
@@ -28830,7 +28830,7 @@ mkV012 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -28890,7 +28890,7 @@ mkV012 base =
 mkV013 : Str -> V ;
 mkV013 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -28940,7 +28940,7 @@ mkV013 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -28998,7 +28998,7 @@ mkV013 base_1 =
 mkV014 : Str -> V ;
 mkV014 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -29048,7 +29048,7 @@ mkV014 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -29107,7 +29107,7 @@ mkV015 : Str -> V ;
 mkV015 base =
   case base of {
     base_1+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"s" ;
@@ -29157,7 +29157,7 @@ mkV015 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29218,7 +29218,7 @@ mkV016 : Str -> V ;
 mkV016 base =
   case base of {
     base_1+"o"+base_2@?+"a" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"o"+base_2+"a" ;
@@ -29268,7 +29268,7 @@ mkV016 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29328,7 +29328,7 @@ mkV016 base =
 mkV017 : Str -> V ;
 mkV017 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -29378,7 +29378,7 @@ mkV017 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -29436,7 +29436,7 @@ mkV017 base_1 =
 mkV018 : Str -> V ;
 mkV018 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -29486,7 +29486,7 @@ mkV018 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -29545,7 +29545,7 @@ mkV019 : Str -> V ;
 mkV019 base =
   case base of {
     base_1+"e"+base_2@?+"r" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"e"+base_2+"r" ;
@@ -29595,7 +29595,7 @@ mkV019 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29656,7 +29656,7 @@ mkV020 : Str -> V ;
 mkV020 base =
   case base of {
     base_1+"e"+base_2@?+"e" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"e"+base_2+"e" ;
@@ -29706,7 +29706,7 @@ mkV020 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29767,7 +29767,7 @@ mkV021 : Str -> V ;
 mkV021 base =
   case base of {
     base_1+"ie"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ie"+base_2 ;
@@ -29817,7 +29817,7 @@ mkV021 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29878,7 +29878,7 @@ mkV022 : Str -> V ;
 mkV022 base =
   case base of {
     base_1+"es" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"es" ;
@@ -29928,7 +29928,7 @@ mkV022 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -29989,7 +29989,7 @@ mkV023 : Str -> V ;
 mkV023 base =
   case base of {
     base_1+"as" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"as" ;
@@ -30039,7 +30039,7 @@ mkV023 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30100,7 +30100,7 @@ mkV024 : Str -> V ;
 mkV024 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -30150,7 +30150,7 @@ mkV024 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30211,7 +30211,7 @@ mkV025 : Str -> V ;
 mkV025 base =
   case base of {
     base_1+"y"+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"y"+base_2+"j" ;
@@ -30261,7 +30261,7 @@ mkV025 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30322,7 +30322,7 @@ mkV026 : Str -> V ;
 mkV026 base =
   case base of {
     base_1+"e"+base_2@(?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"e"+base_2 ;
@@ -30372,7 +30372,7 @@ mkV026 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30433,7 +30433,7 @@ mkV027 : Str -> V ;
 mkV027 base =
   case base of {
     base_1+"on" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"on" ;
@@ -30483,7 +30483,7 @@ mkV027 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30544,7 +30544,7 @@ mkV028 : Str -> V ;
 mkV028 base =
   case base of {
     base_1+"oj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"oj" ;
@@ -30594,7 +30594,7 @@ mkV028 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30654,7 +30654,7 @@ mkV028 base =
 mkV029 : Str -> V ;
 mkV029 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -30704,7 +30704,7 @@ mkV029 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -30763,7 +30763,7 @@ mkV030 : Str -> V ;
 mkV030 base =
   case base of {
     base_1+"i" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i" ;
@@ -30813,7 +30813,7 @@ mkV030 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30874,7 +30874,7 @@ mkV031 : Str -> V ;
 mkV031 base =
   case base of {
     base_1+"i"+base_2@(?+?)+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"em" ;
@@ -30924,7 +30924,7 @@ mkV031 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -30985,7 +30985,7 @@ mkV032 : Str -> V ;
 mkV032 base =
   case base of {
     base_1+"u"+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"u"+base_2+"j" ;
@@ -31035,7 +31035,7 @@ mkV032 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31095,7 +31095,7 @@ mkV032 base =
 mkV033 : Str -> V ;
 mkV033 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -31145,7 +31145,7 @@ mkV033 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -31204,7 +31204,7 @@ mkV034 : Str -> V ;
 mkV034 base =
   case base of {
     base_1+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"s" ;
@@ -31254,7 +31254,7 @@ mkV034 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31315,7 +31315,7 @@ mkV035 : Str -> V ;
 mkV035 base =
   case base of {
     base_1+"ie" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ie" ;
@@ -31365,7 +31365,7 @@ mkV035 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31426,7 +31426,7 @@ mkV036 : Str -> V ;
 mkV036 base =
   case base of {
     base_1+"je"+base_2@("p"|"rdh"|(?+?)) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"je"+base_2 ;
@@ -31476,7 +31476,7 @@ mkV036 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31537,7 +31537,7 @@ mkV037 : Str -> V ;
 mkV037 base =
   case base of {
     base_1+"sem" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"sem" ;
@@ -31587,7 +31587,7 @@ mkV037 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31648,7 +31648,7 @@ mkV038 : Str -> V ;
 mkV038 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -31698,7 +31698,7 @@ mkV038 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31759,7 +31759,7 @@ mkV039 : Str -> V ;
 mkV039 base =
   case base of {
     base_1+"i"+base_2@(?+?)+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"em" ;
@@ -31809,7 +31809,7 @@ mkV039 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31870,7 +31870,7 @@ mkV040 : Str -> V ;
 mkV040 base =
   case base of {
     base_1+"hem" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"hem" ;
@@ -31920,7 +31920,7 @@ mkV040 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -31981,7 +31981,7 @@ mkV041 : Str -> V ;
 mkV041 base =
   case base of {
     base_1+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"em" ;
@@ -32031,7 +32031,7 @@ mkV041 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32092,7 +32092,7 @@ mkV042 : Str -> V ;
 mkV042 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -32142,7 +32142,7 @@ mkV042 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32203,7 +32203,7 @@ mkV043 : Str -> V ;
 mkV043 base =
   case base of {
     base_1+"l"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"l"+base_2 ;
@@ -32253,7 +32253,7 @@ mkV043 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32314,7 +32314,7 @@ mkV044 : Str -> V ;
 mkV044 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -32364,7 +32364,7 @@ mkV044 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32425,7 +32425,7 @@ mkV045 : Str -> V ;
 mkV045 base =
   case base of {
     base_1+"jek" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"jek" ;
@@ -32475,7 +32475,7 @@ mkV045 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32536,7 +32536,7 @@ mkV046 : Str -> V ;
 mkV046 base =
   case base of {
     base_1+"i"+base_2@?+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"em" ;
@@ -32586,7 +32586,7 @@ mkV046 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32647,7 +32647,7 @@ mkV047 : Str -> V ;
 mkV047 base =
   case base of {
     base_1+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"j" ;
@@ -32697,7 +32697,7 @@ mkV047 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32758,7 +32758,7 @@ mkV048 : Str -> V ;
 mkV048 base =
   case base of {
     base_1+"ë"+base_2@(?+?)+"as" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë"+base_2+"as" ;
@@ -32808,7 +32808,7 @@ mkV048 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32869,7 +32869,7 @@ mkV049 : Str -> V ;
 mkV049 base =
   case base of {
     base_1+"je"+base_2@("l"|(?+?)) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"je"+base_2 ;
@@ -32919,7 +32919,7 @@ mkV049 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -32980,7 +32980,7 @@ mkV050 : Str -> V ;
 mkV050 base =
   case base of {
     base_1+"o"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"o"+base_2 ;
@@ -33030,7 +33030,7 @@ mkV050 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33091,7 +33091,7 @@ mkV051 : Str -> V ;
 mkV051 base =
   case base of {
     base_1+"je"+base_2@?+"r" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"je"+base_2+"r" ;
@@ -33141,7 +33141,7 @@ mkV051 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33202,7 +33202,7 @@ mkV052 : Str -> V ;
 mkV052 base =
   case base of {
     base_1+"r"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"r"+base_2 ;
@@ -33252,7 +33252,7 @@ mkV052 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33313,7 +33313,7 @@ mkV053 : Str -> V ;
 mkV053 base =
   case base of {
     base_1+"i"+base_2@(?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2 ;
@@ -33363,7 +33363,7 @@ mkV053 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33424,7 +33424,7 @@ mkV054 : Str -> V ;
 mkV054 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -33474,7 +33474,7 @@ mkV054 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33535,7 +33535,7 @@ mkV055 : Str -> V ;
 mkV055 base =
   case base of {
     base_1+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"em" ;
@@ -33585,7 +33585,7 @@ mkV055 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33646,7 +33646,7 @@ mkV056 : Str -> V ;
 mkV056 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -33696,7 +33696,7 @@ mkV056 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33757,7 +33757,7 @@ mkV057 : Str -> V ;
 mkV057 base =
   case base of {
     base_1+"n" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"n" ;
@@ -33807,7 +33807,7 @@ mkV057 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33868,7 +33868,7 @@ mkV058 : Str -> V ;
 mkV058 base =
   case base of {
     base_1+"sh"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"sh"+base_2 ;
@@ -33918,7 +33918,7 @@ mkV058 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -33978,7 +33978,7 @@ mkV058 base =
 mkV059 : Str -> V ;
 mkV059 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -34028,7 +34028,7 @@ mkV059 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -34087,7 +34087,7 @@ mkV060 : Str -> V ;
 mkV060 base =
   case base of {
     base_1+"je"+base_2@(?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"je"+base_2 ;
@@ -34137,7 +34137,7 @@ mkV060 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34198,7 +34198,7 @@ mkV061 : Str -> V ;
 mkV061 base =
   case base of {
     base_1+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"em" ;
@@ -34248,7 +34248,7 @@ mkV061 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34308,7 +34308,7 @@ mkV061 base =
 mkV062 : Str -> V ;
 mkV062 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -34358,7 +34358,7 @@ mkV062 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -34417,7 +34417,7 @@ mkV063 : Str -> V ;
 mkV063 base =
   case base of {
     base_1+"i"+base_2@?+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"em" ;
@@ -34467,7 +34467,7 @@ mkV063 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34528,7 +34528,7 @@ mkV064 : Str -> V ;
 mkV064 base =
   case base of {
     base_1+"a"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"a"+base_2 ;
@@ -34578,7 +34578,7 @@ mkV064 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34639,7 +34639,7 @@ mkV065 : Str -> V ;
 mkV065 base =
   case base of {
     base_1+"sh"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"sh"+base_2 ;
@@ -34689,7 +34689,7 @@ mkV065 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34750,7 +34750,7 @@ mkV066 : Str -> V ;
 mkV066 base =
   case base of {
     "hë"+base_1+"a" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "hë"+base_1+"a" ;
@@ -34800,7 +34800,7 @@ mkV066 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34861,7 +34861,7 @@ mkV067 : Str -> V ;
 mkV067 base =
   case base of {
     base_1+"ë"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë"+base_2 ;
@@ -34911,7 +34911,7 @@ mkV067 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -34972,7 +34972,7 @@ mkV068 : Str -> V ;
 mkV068 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -35022,7 +35022,7 @@ mkV068 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35083,7 +35083,7 @@ mkV069 : Str -> V ;
 mkV069 base =
   case base of {
     base_1+"n" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"n" ;
@@ -35133,7 +35133,7 @@ mkV069 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35194,7 +35194,7 @@ mkV070 : Str -> V ;
 mkV070 base =
   case base of {
     base_1+"on" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"on" ;
@@ -35244,7 +35244,7 @@ mkV070 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35305,7 +35305,7 @@ mkV071 : Str -> V ;
 mkV071 base =
   case base of {
     base_1+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"j" ;
@@ -35355,7 +35355,7 @@ mkV071 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35416,7 +35416,7 @@ mkV072 : Str -> V ;
 mkV072 base =
   case base of {
     base_1+base_2@?+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"s" ;
@@ -35466,7 +35466,7 @@ mkV072 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35527,7 +35527,7 @@ mkV073 : Str -> V ;
 mkV073 base =
   case base of {
     base_1+"i"+base_2@?+"em" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"em" ;
@@ -35577,7 +35577,7 @@ mkV073 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35638,7 +35638,7 @@ mkV074 : Str -> V ;
 mkV074 base =
   case base of {
     base_1+"in" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"in" ;
@@ -35688,7 +35688,7 @@ mkV074 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35749,7 +35749,7 @@ mkV075 : Str -> V ;
 mkV075 base =
   case base of {
     base_1+"ë" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë" ;
@@ -35799,7 +35799,7 @@ mkV075 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35860,7 +35860,7 @@ mkV076 : Str -> V ;
 mkV076 base =
   case base of {
     base_1+"y"+base_2@(?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"y"+base_2 ;
@@ -35910,7 +35910,7 @@ mkV076 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -35971,7 +35971,7 @@ mkV077 : Str -> V ;
 mkV077 base =
   case base of {
     base_1+"y"+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"y"+base_2+"j" ;
@@ -36021,7 +36021,7 @@ mkV077 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36082,7 +36082,7 @@ mkV078 : Str -> V ;
 mkV078 base =
   case base of {
     base_1+"et" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"et" ;
@@ -36132,7 +36132,7 @@ mkV078 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36193,7 +36193,7 @@ mkV079 : Str -> V ;
 mkV079 base =
   case base of {
     base_1+"y"+base_2@?+"b" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"y"+base_2+"b" ;
@@ -36243,7 +36243,7 @@ mkV079 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36304,7 +36304,7 @@ mkV080 : Str -> V ;
 mkV080 base =
   case base of {
     base_1+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"s" ;
@@ -36354,7 +36354,7 @@ mkV080 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36415,7 +36415,7 @@ mkV081 : Str -> V ;
 mkV081 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -36465,7 +36465,7 @@ mkV081 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36526,7 +36526,7 @@ mkV082 : Str -> V ;
 mkV082 base =
   case base of {
     base_1+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"j" ;
@@ -36576,7 +36576,7 @@ mkV082 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36637,7 +36637,7 @@ mkV083 : Str -> V ;
 mkV083 base =
   case base of {
     base_1+"e" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"e" ;
@@ -36687,7 +36687,7 @@ mkV083 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36748,7 +36748,7 @@ mkV084 : Str -> V ;
 mkV084 base =
   case base of {
     "e"+base_1+"a" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "e"+base_1+"a" ;
@@ -36798,7 +36798,7 @@ mkV084 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36859,7 +36859,7 @@ mkV085 : Str -> V ;
 mkV085 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -36909,7 +36909,7 @@ mkV085 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -36970,7 +36970,7 @@ mkV086 : Str -> V ;
 mkV086 base =
   case base of {
     base_1+"ej" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ej" ;
@@ -37020,7 +37020,7 @@ mkV086 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37081,7 +37081,7 @@ mkV087 : Str -> V ;
 mkV087 base =
   case base of {
     base_1+"h"+base_2@?+"ë"+base_3@(?+?)+"as" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"h"+base_2+"ë"+base_3+"as" ;
@@ -37131,7 +37131,7 @@ mkV087 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37192,7 +37192,7 @@ mkV088 : Str -> V ;
 mkV088 base =
   case base of {
     "vrokth" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "vrokth" ;
@@ -37242,7 +37242,7 @@ mkV088 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => "-" ;
                        Pl => "-"
                      } ;
@@ -37303,7 +37303,7 @@ mkV089 : Str -> V ;
 mkV089 base =
   case base of {
     base_1+"ë"+base_2@(?+?)+"as" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë"+base_2+"as" ;
@@ -37353,7 +37353,7 @@ mkV089 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37414,7 +37414,7 @@ mkV090 : Str -> V ;
 mkV090 base =
   case base of {
     base_1+base_2@?+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"j" ;
@@ -37464,7 +37464,7 @@ mkV090 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37525,7 +37525,7 @@ mkV091 : Str -> V ;
 mkV091 base =
   case base of {
     base_1+"ie"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ie"+base_2 ;
@@ -37575,7 +37575,7 @@ mkV091 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37636,7 +37636,7 @@ mkV092 : Str -> V ;
 mkV092 base =
   case base of {
     base_1+"ij" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ij" ;
@@ -37686,7 +37686,7 @@ mkV092 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37747,7 +37747,7 @@ mkV093 : Str -> V ;
 mkV093 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -37797,7 +37797,7 @@ mkV093 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37858,7 +37858,7 @@ mkV094 : Str -> V ;
 mkV094 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -37908,7 +37908,7 @@ mkV094 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -37969,7 +37969,7 @@ mkV095 : Str -> V ;
 mkV095 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -38019,7 +38019,7 @@ mkV095 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38080,7 +38080,7 @@ mkV096 : Str -> V ;
 mkV096 base =
   case base of {
     base_1+"ohem" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ohem" ;
@@ -38130,7 +38130,7 @@ mkV096 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38191,7 +38191,7 @@ mkV097 : Str -> V ;
 mkV097 base =
   case base of {
     base_1+base_2@?+"hem" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"hem" ;
@@ -38241,7 +38241,7 @@ mkV097 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38302,7 +38302,7 @@ mkV098 : Str -> V ;
 mkV098 base =
   case base of {
     base_1+"at"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"at"+base_2 ;
@@ -38352,7 +38352,7 @@ mkV098 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38413,7 +38413,7 @@ mkV099 : Str -> V ;
 mkV099 base =
   case base of {
     base_1+"r"+base_2@(?+?+?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"r"+base_2 ;
@@ -38463,7 +38463,7 @@ mkV099 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38524,7 +38524,7 @@ mkV100 : Str -> V ;
 mkV100 base =
   case base of {
     base_1+"s" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"s" ;
@@ -38574,7 +38574,7 @@ mkV100 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38635,7 +38635,7 @@ mkV101 : Str -> V ;
 mkV101 base =
   case base of {
     base_1+"ua"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ua"+base_2 ;
@@ -38685,7 +38685,7 @@ mkV101 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38746,7 +38746,7 @@ mkV102 : Str -> V ;
 mkV102 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -38796,7 +38796,7 @@ mkV102 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38857,7 +38857,7 @@ mkV103 : Str -> V ;
 mkV103 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -38907,7 +38907,7 @@ mkV103 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -38968,7 +38968,7 @@ mkV104 : Str -> V ;
 mkV104 base =
   case base of {
     base_1+"on" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"on" ;
@@ -39018,7 +39018,7 @@ mkV104 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39079,7 +39079,7 @@ mkV105 : Str -> V ;
 mkV105 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -39129,7 +39129,7 @@ mkV105 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39190,7 +39190,7 @@ mkV106 : Str -> V ;
 mkV106 base =
   case base of {
     base_1+"ë" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë" ;
@@ -39240,7 +39240,7 @@ mkV106 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39301,7 +39301,7 @@ mkV107 : Str -> V ;
 mkV107 base =
   case base of {
     "n"+base_1 => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "n"+base_1 ;
@@ -39351,7 +39351,7 @@ mkV107 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39412,7 +39412,7 @@ mkV108 : Str -> V ;
 mkV108 base =
   case base of {
     base_1+"oj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"oj" ;
@@ -39462,7 +39462,7 @@ mkV108 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39523,7 +39523,7 @@ mkV109 : Str -> V ;
 mkV109 base =
   case base of {
     base_1+"oj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"oj" ;
@@ -39573,7 +39573,7 @@ mkV109 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39634,7 +39634,7 @@ mkV110 : Str -> V ;
 mkV110 base =
   case base of {
     base_1+"ih"+base_2@?+"m" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ih"+base_2+"m" ;
@@ -39684,7 +39684,7 @@ mkV110 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39744,7 +39744,7 @@ mkV110 base =
 mkV111 : Str -> V ;
 mkV111 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -39794,7 +39794,7 @@ mkV111 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -39853,7 +39853,7 @@ mkV112 : Str -> V ;
 mkV112 base =
   case base of {
     base_1+"a"+base_2@(?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"a"+base_2 ;
@@ -39903,7 +39903,7 @@ mkV112 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -39964,7 +39964,7 @@ mkV113 : Str -> V ;
 mkV113 base =
   case base of {
     base_1+"ij" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ij" ;
@@ -40014,7 +40014,7 @@ mkV113 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40074,7 +40074,7 @@ mkV113 base =
 mkV114 : Str -> V ;
 mkV114 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -40124,7 +40124,7 @@ mkV114 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -40182,7 +40182,7 @@ mkV114 base_1 =
 mkV115 : Str -> V ;
 mkV115 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -40232,7 +40232,7 @@ mkV115 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -40291,7 +40291,7 @@ mkV116 : Str -> V ;
 mkV116 base =
   case base of {
     base_1+"hem" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"hem" ;
@@ -40341,7 +40341,7 @@ mkV116 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40402,7 +40402,7 @@ mkV117 : Str -> V ;
 mkV117 base =
   case base of {
     base_1+base_2@(?+?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2 ;
@@ -40452,7 +40452,7 @@ mkV117 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40513,7 +40513,7 @@ mkV118 : Str -> V ;
 mkV118 base =
   case base of {
     base_1+"ë" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ë" ;
@@ -40563,7 +40563,7 @@ mkV118 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40624,7 +40624,7 @@ mkV119 : Str -> V ;
 mkV119 base =
   case base of {
     base_1+"ej" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ej" ;
@@ -40674,7 +40674,7 @@ mkV119 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40735,7 +40735,7 @@ mkV120 : Str -> V ;
 mkV120 base =
   case base of {
     base_1+"h"+base_2@(?+?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"h"+base_2 ;
@@ -40785,7 +40785,7 @@ mkV120 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40846,7 +40846,7 @@ mkV121 : Str -> V ;
 mkV121 base =
   case base of {
     base_1+"oj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"oj" ;
@@ -40896,7 +40896,7 @@ mkV121 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -40957,7 +40957,7 @@ mkV122 : Str -> V ;
 mkV122 base =
   case base of {
     base_1+"âj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"âj" ;
@@ -41007,7 +41007,7 @@ mkV122 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41068,7 +41068,7 @@ mkV123 : Str -> V ;
 mkV123 base =
   case base of {
     base_1+"i"+base_2@?+"et" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"i"+base_2+"et" ;
@@ -41118,7 +41118,7 @@ mkV123 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41179,7 +41179,7 @@ mkV124 : Str -> V ;
 mkV124 base =
   case base of {
     base_1+"et" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"et" ;
@@ -41229,7 +41229,7 @@ mkV124 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41290,7 +41290,7 @@ mkV125 : Str -> V ;
 mkV125 base =
   case base of {
     base_1+base_2@?+"rrtë" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+base_2+"rrtë" ;
@@ -41340,7 +41340,7 @@ mkV125 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41401,7 +41401,7 @@ mkV126 : Str -> V ;
 mkV126 base =
   case base of {
     base_1+"ash"+base_2@? => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"ash"+base_2 ;
@@ -41451,7 +41451,7 @@ mkV126 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41511,7 +41511,7 @@ mkV126 base =
 mkV127 : Str -> V ;
 mkV127 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -41561,7 +41561,7 @@ mkV127 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -41620,7 +41620,7 @@ mkV128 : Str -> V ;
 mkV128 base =
   case base of {
     "venj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => "venj" ;
@@ -41670,7 +41670,7 @@ mkV128 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => "-" ;
                        Pl => "-"
                      } ;
@@ -41731,7 +41731,7 @@ mkV129 : Str -> V ;
 mkV129 base =
   case base of {
     base_1+"n" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"n" ;
@@ -41781,7 +41781,7 @@ mkV129 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41842,7 +41842,7 @@ mkV130 : Str -> V ;
 mkV130 base =
   case base of {
     base_1+"nj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"nj" ;
@@ -41892,7 +41892,7 @@ mkV130 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -41953,7 +41953,7 @@ mkV131 : Str -> V ;
 mkV131 base =
   case base of {
     base_1+"oj" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"oj" ;
@@ -42003,7 +42003,7 @@ mkV131 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -42063,7 +42063,7 @@ mkV131 base =
 mkV132 : Str -> V ;
 mkV132 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -42113,7 +42113,7 @@ mkV132 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -42172,7 +42172,7 @@ mkV133 : Str -> V ;
 mkV133 base =
   case base of {
     base_1+"j" => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"j" ;
@@ -42222,7 +42222,7 @@ mkV133 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;
@@ -42282,7 +42282,7 @@ mkV133 base =
 mkV134 : Str -> V ;
 mkV134 base_1 =
   lin V
-  { Indicative = table {
+  { indicative = table {
                    Pres => table {
                              Sg => table {
                                      P1 => base_1 ;
@@ -42332,7 +42332,7 @@ mkV134 base_1 =
                                         }
                                 }
                  } ;
-    Imperative = table {
+    imperative = table {
                    Sg => nonExist ;
                    Pl => nonExist
                  } ;
@@ -42391,7 +42391,7 @@ mkV135 : Str -> V ;
 mkV135 base =
   case base of {
     base_1+"r"+base_2@(?+?+?) => lin V
-      { Indicative = table {
+      { indicative = table {
                        Pres => table {
                                  Sg => table {
                                          P1 => base_1+"r"+base_2 ;
@@ -42441,7 +42441,7 @@ mkV135 base =
                                             }
                                     }
                      } ;
-        Imperative = table {
+        imperative = table {
                        Sg => nonExist ;
                        Pl => nonExist
                      } ;

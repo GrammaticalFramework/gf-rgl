@@ -74,9 +74,9 @@ concrete QuestionNep of Question = CatNep ** open ResNep, Prelude in {
     CompIAdv a = a ;
     CompIP p = ss (p.s ! Nom) ;
     AdvIAdv i a = {s = i.s ++ a.s} ;
-    AdvQVP vp iadv = insertObj (\\_ => iadv.s) vp ;
-    AddAdvQVP qvp iadv = insertObj (\\_ => iadv.s) qvp ;
-    ComplSlashIP vpslash ip = insertObj (\\_ => ip.s ! Nom) vpslash ;
+    AdvQVP vp iadv = lin VP (insertObj (\\_ => iadv.s) vp) ;
+    AddAdvQVP qvp iadv = lin VP (insertObj (\\_ => iadv.s) qvp) ;
+    ComplSlashIP vpslash ip = lin VP (insertObj (\\_ => ip.s ! Nom) vpslash) ;
     
    --QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
    QuestQVP ip qvp = 
