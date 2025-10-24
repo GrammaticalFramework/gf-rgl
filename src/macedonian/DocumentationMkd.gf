@@ -117,11 +117,11 @@ lin
         heading4 ("Минато несвршено време (имперфект)") ++
         finite (v.imperfect ! Imperfective) ++
         heading3 ("Повелително наклонение") ++
-        imperative (v.Imperative ! Imperfective) ++
+        imperative (v.imperative ! Imperfective) ++
         heading3 ("Партицип") ++
         adjForms (v.participle.aorist ! Imperfective) ++
         tag "br" ++
-        adjForms v.participle.imperfect ++
+        adjForms (v.participle.imperfect ! Imperfective) ++
         heading2 ("Свършен вид") ++
         heading3 ("Изявително наклонение") ++
         heading4 ("Сегашно време") ++
@@ -131,9 +131,11 @@ lin
         heading4 ("Минато несвршено време (имперфект)") ++
         finite (v.imperfect ! Perfective) ++
         heading3 ("Повелително наклонение") ++
-        imperative (v.Imperative ! Perfective) ++
+        imperative (v.imperative ! Perfective) ++
         heading3 ("Партицип") ++
         adjForms (v.participle.aorist ! Perfective) ++
+        tag "br" ++
+        adjForms (v.participle.imperfect ! Perfective) ++
         heading1 ("Именка") ++
         v.noun_from_verb ;
     s3= ""

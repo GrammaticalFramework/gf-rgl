@@ -260,7 +260,7 @@ useVerb : Verb -> VerbPhrase =\verb ->
     nrClit = verb.nrClit;
     isFemSg = False ; pReflClit = verb.pReflClit ;
     neg    = table {Pos => ""; Neg => "nu"} ;
-    clAcc  = RNoAg ;  nrClit = verb.nrClit; 
+    clAcc  = RNoAg ; 
     clDat  = RNoAg ; 
     comp   = \\a => [] ;
     ext    = \\p => [] ; 
@@ -502,13 +502,13 @@ oper
    
 -- Agreements :
 
--- for relatives 
-  
- AAgr : Type = {g : Gender ; n : Number} ;
-  
+-- for relatives
+
+ AAgr : PType = {g : Gender ; n : Number} ;
+
 -- for agreement between subject and predicate
-  
- Agr  : Type = AAgr ** {p : Person} ;
+
+ Agr  : PType = {g : Gender ; n : Number ; p : Person} ;
 
 
 -- clause building function :

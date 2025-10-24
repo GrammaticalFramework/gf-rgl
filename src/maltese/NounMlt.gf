@@ -310,6 +310,13 @@ concrete NounMlt of Noun = CatMlt ** open ResMlt, Prelude, Maybe in {
       isDefn = np.isDefn ;
       } ;
 
+    QuantityNP n m = {   -- quessed
+      s = \\c => preOrPost m.isPre m.s (n.s ! NumNom) ;
+      a = agrP3 (numform2num n.n) Masc ;
+      isPron = False ;
+      isDefn = False ;
+    } ;
+
   oper
     -- Overwrite the s field in an NP
     overwriteNPs : NounPhrase -> (NPCase => Str) -> NounPhrase = \np,tbl -> {

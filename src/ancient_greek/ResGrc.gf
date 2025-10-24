@@ -18,7 +18,7 @@
 -- Author: Hans Leiß, LMU Munich, CIS
 
 
-resource ResGrc = ParamX - [Number,Sg,Pl,ImpForm,numImp,Tense,ImpF] 
+resource ResGrc = ParamX - [Number,Sg,Pl,ImpForm,numImp,Tense,ImpF,inc,DTail]
                   ** open Prelude, PhonoGrc, Predef in {
 flags 
   optimize = noexpand ;  -- optimize=all is impossible with addAccent

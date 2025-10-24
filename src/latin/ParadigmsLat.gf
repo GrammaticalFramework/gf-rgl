@@ -86,8 +86,8 @@ oper
 
   V0 : Type = V;
   mkV0 = overload {
-    mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
-    mkV0 : Str -> V0 = \v -> lin V0 (impersonalVerb v) ;
+    mkV0 : V -> V0 = \v -> lin V v ; -- Same as in english, don't know if it's working
+    mkV0 : Str -> V0 = \v -> lin V (impersonalVerb v) ;
     } ;
   
   mkV2 = overload {
@@ -110,6 +110,12 @@ oper
       = \p,c -> lin Adv (mkFullAdverb p c nonExist);
     };
   
+  mkAdV : Str -> AdV
+    = \s -> lin AdV {s=s} ;
+  mkAdA : Str -> AdA
+    = \s -> lin AdA {s=s} ;
+  mkAdN : Str -> AdN
+    = \s -> lin AdN {s=s} ;
 
 
   mkConj = overload {
@@ -118,7 +124,7 @@ oper
     mkConj : Str -> Coordinator -> Conjunction = \s,c -> mkConjunction [] s [] Sg c ;
   } ;
 
-  mkPrep : Str -> Case -> Preposition  = mkPreposition ;
+  mkPrep : Str -> Case -> Prep  = \s,c -> lin Prep (mkPreposition s c) ;
 
   mkPron = mkPronoun ;
 
@@ -147,4 +153,24 @@ oper
   mkA2V : A -> Prep -> A2V = \a,p -> lin A2V ( lin A2 ( a ** { c = p } ) ) ;
   AV : Type = A ;
   mkAV : A -> AV = \a -> lin AV a ;
+
+  mkLN : N -> Number -> LN = \noun,num -> lin LN (noun ** { s = noun.s ! num ; n = num } ) ;
+
+  mkGN = overload {
+    mkGN : Str -> GN = \s -> lin GN {s = s ; g = Male};   -- default gender male
+    mkGN : Str -> Sex -> GN = \s,g -> lin GN {s = s ; g = g} ; -- set other gender
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN = \s -> lin SN {s = \\_=>s; pl = s};   -- default gender utrum
+    mkSN : Str -> Str -> Str -> SN =
+      \male,female,pl -> lin SN {s  = table {Male => male;
+                                             Female => female} ;
+                                 pl = pl
+                                } ;
+    } ;
+
+  mkInterj : Str -> Interj
+    = \s -> lin Interj {s=s} ;
+
 }

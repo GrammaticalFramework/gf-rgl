@@ -10,5 +10,5 @@ abstract AllMltAbs =
   Lang,
   DictMltAbs,
   IrregMltAbs,
-  ExtraMltAbs
+  Extend
   ** {} ;

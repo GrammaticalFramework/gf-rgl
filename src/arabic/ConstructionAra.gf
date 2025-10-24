@@ -31,15 +31,15 @@ lin
 
   monthAdv january =
     let january_CN : CN = mkCN month_Timeunit (mkNP (mkPN january)) ;
-        january_NP : NP = R.emptyNP **
+        january_NP : NP = lin NP R.emptyNP **
            {s = \\c => R.cn2str january_CN R.Sg R.Const c ;
             a = {pgn = R.Per3 january_CN.g R.Sg ; isPron = False}} ;
-     in SyntaxAra.mkAdv R.biPrep january_NP ;
+     in SyntaxAra.mkAdv ParadigmsAra.biPrep january_NP ;
 
   yearAdv y = SyntaxAra.mkAdv in_Prep y ;
 
   -- dummy
-  dayMonthAdv d m  = SyntaxAra.mkAdv on_Prep (mkNP d) ; -- on 17 May
+  dayMonthAdv d m  = SyntaxAra.mkAdv on_Prep (mkNP m) ; -- on 17 May
   monthYearAdv m y = SyntaxAra.mkAdv on_Prep (mkNP m) ; -- in May 2012
   dayMonthYearAdv d m y = SyntaxAra.mkAdv on_Prep y ; -- on 17 May 2013
 
@@ -51,7 +51,7 @@ lin
     let ap = mkAP a in ap ** {
       s = \\s,g,n,d,c =>
            ap.s ! s ! g ! n ! d ! c
-        ++ (mkAdv R.biPrep (mkNP amount_N)).s
+        ++ (mkAdv ParadigmsAra.biPrep (mkNP amount_N)).s
         ++ (mkNP card cn).s ! R.Bare ---- ? /IL
       } ;
 
@@ -60,26 +60,26 @@ oper
   amount_N : N = mkN "مِقْدَار" "مَقَادِير" masc nohum ;
 
   -- hack used in the name constructions
-  toNP : Bool -> NP -> NP = \b -> if_then_else NP b R.emptyNP ;
+  toNP : Bool -> NP -> NP = \b -> if_then_else NP b (lin NP R.emptyNP) ;
 
 lin
   -- : NP -> NP -> Cl
   have_name_Cl np nm =
-    let subjPron : Pron = R.np2pron np ;
+    let subjPron : Pron = lin Pron (R.np2pron np) ;
         me : NP = toNP np.a.isPron np ;
         myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
      in mkCl myName nm ;
 
   -- : NP -> QCl
   what_name_QCl np =
-    let subjPron : Pron = R.np2pron np ;
+    let subjPron : Pron = lin Pron (R.np2pron np) ;
         me : R.NP = toNP np.a.isPron np ;
         myName : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;
-        what_IP : R.IP = R.mkIP "مَا هُوَ" R.Sg ;
+        what_IP : IP = lin IP (R.mkIP "مَا هُوَ" R.Sg) ;
      in mkQCl what_IP myName ;
 
   how_old_QCl np =
-    let subjPron : Pron = R.np2pron np ;
+    let subjPron : Pron = lin Pron (R.np2pron np) ;
         me : R.NP = toNP np.a.isPron np ;
         age_N = mkN "عُمر" ;
         myAge : NP = E.ApposNP me (mkNP (mkDet subjPron) L.name_N) ;

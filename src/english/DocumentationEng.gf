@@ -191,7 +191,7 @@ lin
                      VVPresPart => pp "verb+ing"
                    }) ;
     s2= frameTable (
-          tr (th "infitive"      ++ td (v.s ! VVF VInf)) ++
+          tr (th "infinitive"    ++ td (v.s ! VVF VInf)) ++
           tr (th "present"       ++ td (v.s ! VVF VPres ++ "&#160;" ++ v.s ! VVPresNeg)) ++
           tr (th "past"          ++ td (v.s ! VVF VPast ++ "&#160;" ++ v.s ! VVPastNeg)) ++ --# notpresent
           tr (th "past part."    ++ td (v.s ! VVF VPPart)) ++
@@ -229,7 +229,7 @@ lin
 oper
   inflVerb : Verb -> Str = \verb ->
     frameTable (
-      tr (th "infitive"      ++ td (verb.s ! VInf)) ++
+      tr (th "infinitive"    ++ td (verb.s ! VInf)) ++
       tr (th "present"       ++ td (verb.s ! VPres)) ++
       tr (th "past"          ++ td (verb.s ! VPast)) ++ --# notpresent
       tr (th "past part."    ++ td (verb.s ! VPPart)) ++

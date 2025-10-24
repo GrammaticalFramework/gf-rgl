@@ -39,7 +39,7 @@ resource ResGre = ParamX  **  open Prelude in {
 
   oper
 
-  AAgr : Type = {g : Gender ; n : Number} ;
+  AAgr : PType = {g : Gender ; n : Number} ;
 
   VP = { v : Verb ;  clit,clit2 : Str ; comp : Agr => Str ; isNeg : Bool ; voice : Voice ; aspect :Aspect} ;
 

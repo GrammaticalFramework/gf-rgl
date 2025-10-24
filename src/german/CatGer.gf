@@ -26,10 +26,11 @@ concrete CatGer of Cat =
 -- Question
 
     QCl = {s : Mood => ResGer.Tense => Anteriority => Polarity => QForm => Str} ;
-    IP = {s : Case => Str ; n : Number} ;
+
+    IP = {s : Case => Str ; a : GenNum ; isPron : Bool} ;
     IComp = {s : Agr => Str ; ext : Str} ; 
-    IDet = {s : Gender => Case => Str ; n : Number} ;
-    IQuant = {s : GenNum => Case => Str} ;
+    IDet = {s : Gender => Case => Str ; n : Number ; a : Adjf} ;
+    IQuant = {s : GenNum => Case => Str ; a : Adjf} ;
 
 -- Relative
 
@@ -40,7 +41,7 @@ concrete CatGer of Cat =
 
     VP = ResGer.VP ;
     VPSlash = ResGer.VPSlash ;
-    Comp = {s : Agr => Str ; ext : Str} ; 
+    Comp = {s : Agr => Str ; ext : Number => Str} ; 
 
 -- Adjective  (HL 7/23: we need c : Agr => Str * Str to handle reflexive objects, cf ReflA2)
 
@@ -114,7 +115,7 @@ concrete CatGer of Cat =
     GN = {s : Case => Str; g : Sex} ;
     SN = {s : Sex => Case => Str} ;
     PN = {s : Case => Str; g : Gender; n : Number} ;
-    LN = {s : Adjf => Case => Str; hasArt : Bool; g : Gender; n : Number} ;
+    LN = {s : Adjf => Case => Str; hasDefArt : Bool; g : Gender; n : Number} ;
 
 -- tense with possibility to choose conjunctive forms
 

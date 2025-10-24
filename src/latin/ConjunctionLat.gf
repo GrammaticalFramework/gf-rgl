@@ -72,9 +72,7 @@ concrete ConjunctionLat of Conjunction =
 
     -- BaseS : S -> S -> ListS
    BaseS x y = {
-     s = \\c => { init = combineSentence x ; last = combineSentence y } ;
-     p = y.p ;
-     t = y.t 
+     s = \\c => { init = combineSentence x ; last = combineSentence y }
      } ;
     
     -- ConsS : S -> ListS -> ListS
@@ -83,11 +81,9 @@ concrete ConjunctionLat of Conjunction =
     ConsS s ss = {
       s = \\co =>
     	{ init = \\s,a,d,v,c,o => coord co { init = (ss.s ! co).init ! s ! a ! d ! v ! c ! o ; last = (ss.s ! co).last ! s ! a ! d ! v ! c ! o } ;
-    	  last = combineSentence s } ;
-      p = s.p ;
-      t = s.t 
+          last = combineSentence s }
       } ;
-    
+
     -- BaseAdv : Adv -> Adv -> ListAdv
    BaseAdv x y =
      {
@@ -137,7 +133,7 @@ concrete ConjunctionLat of Conjunction =
 
 --
   lincat
-    [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str} ; p : Pol ; t : Tense } ; -- TO FIX
+    [S] = { s : Coordinator => {init,last : SAdvPos => AdvPos => DetPos => VPos => ComplPos => Order => Str} } ; -- TO FIX
     [Adv] = { s: Coordinator => {init,last : Str}} ;
     [NP] = { s : Coordinator => {init,last : PronDropForm => AdvPos => DetPos => Case => Str} ; g : Gender ; n : Number ; p : Person ; isBase : Bool } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;

@@ -224,10 +224,4 @@ flags coding = utf8 ;
       T3 => "," ;
       _ => []
       } ;
-
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-      } ;
 }

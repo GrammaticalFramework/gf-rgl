@@ -6,7 +6,10 @@ lincat
   Sub10 = LinDigit ;
   Sub100,
   Sub1000,
-  Sub1000000 = ResHun.Numeral ;
+  Sub1000000,
+  Sub1000000000,
+  Sub1000000000000 = ResHun.Numeral ;
+
 lin
   -- TODO: Add case inflection and ordinal forms to all numerals
 
@@ -71,6 +74,9 @@ lin
   pot3plus n m =
       {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p} ;
        n = numNumber ; numtype = IsNum} ;
+
+  pot3as4 n = n ;
+  pot4as5 n = n ;
 
 oper
   LinDigit : Type = {s : DForm*Place => Str ; n : Number} ;

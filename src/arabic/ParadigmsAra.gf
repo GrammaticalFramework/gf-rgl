@@ -99,7 +99,7 @@ resource ParadigmsAra = open
   mkLN = overload {
     mkLN : Str -> LN  -- Predictable LN from a Str: fem hum if ends in ة, otherwise masc hum.
      = \s -> lin LN (N.UsePN (smartPN s)) ;
-    mkLN : Str -> Gender -> LN  
+    mkLN : Str -> Gender -> LN
      = \s, g -> lin LN (N.UsePN (smartPN s ** {g = g})) ;
     mkLN : N -> LN    -- Make a LN out of N. The LN is in construct state.
      = \n -> lin LN (N.MassNP (N.UseN n)) ;
@@ -108,7 +108,7 @@ resource ParadigmsAra = open
              ----     ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
 ----        }))) ;
     mkLN : NP -> LN
-      = \np -> np ;
+      = \np -> lin LN np ;
   } ;
 
 --3 Relational nouns
@@ -153,7 +153,7 @@ resource ParadigmsAra = open
 
   nisbaA : Str -> Adj ; -- Forms relative adjectives with the suffix ِيّ. Takes either the stem and adds يّ, or the whole word ending in يّ and just adds declension.
 
-  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ طَيِّبٍ 'not good'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
+  idaafaA : N -> A -> A ; -- Forms adjectives of type غَيْرُ لَذيذٍ 'not tasty'. Noun is in construct state but inflects in case. Adjective is in genitive, but inflects in gender, number and state.
 
   degrA : (masc,fem,plur : Str) -> A ; -- Adjective where masculine singular is also the comparative form. Indeclinable singular, basic triptote declension for dual and plural.
 
@@ -202,6 +202,7 @@ resource ParadigmsAra = open
 
   liPrep : Prep ; -- The preposition لِ, binding to its head. Vowel assimilation and def. article elision implemented.
   biPrep : Prep ; -- The preposition بِ, binding to its head.
+  kaPrep : Prep ; -- The preposition كَ, binding to its head.
   noPrep : Prep ; -- No preposition at all, "complement case" is nominative.
 
 --2 Conjunctions
@@ -375,6 +376,7 @@ resource ParadigmsAra = open
   noPrep = lin Prep ResAra.noPrep ;
   biPrep = lin Prep ResAra.biPrep ;
   liPrep = lin Prep ResAra.liPrep ;
+  kaPrep = lin Prep ResAra.kaPrep ;
 
   casePrep : Case -> Prep = \c -> lin Prep {s=[]; c=c; binds=False} ;
 
@@ -812,7 +814,7 @@ resource ParadigmsAra = open
 
   dirV3 = overload {
     dirV3 : V -> Prep -> V3 = \v,p -> mkV3 v (casePrep acc) p ;
-    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPreposition s)
+    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPrep s)
     } ;
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
@@ -873,7 +875,7 @@ resource ParadigmsAra = open
   mkAS,
   mkAV = \a -> a ;
   mkA2S,
-  mkA2V = \a,p -> prepA2 a (mkPreposition p) ;
+  mkA2V = \a,p -> lin A (prepA2 a (mkPreposition p)) ;
 
 
 
@@ -914,7 +916,7 @@ oper
     wmkN : {sg, pl : Str ; g : Gender} -> N
       = \r -> mkN r.sg r.pl r.g nohum ;  --- hum/nohum not in Wikt
     wmkN : {sg : Str} -> N
-      = \r -> smartN r.sg ; 
+      = \r -> smartN r.sg ;
     wmkN : {sg : Str ; g : Gender ; root : Str} -> N
       = \r -> smartN r.sg ** {g = r.g} ; ----
     wmkN : {sg : Str; g : Gender} -> N
@@ -924,8 +926,8 @@ oper
     wmkN : {sg : Str; pl : Str} -> N
       = \r -> mkN r.sg r.pl masc nohum ; ---- ** {g = (smartN r.sg).g} ;
     wmkN : {sg, pl : Str ; root : Str} -> N
-      = \r -> mkN r.sg r.pl masc nohum ;  ---- 
-    wmkN : {sg : Str; root : Str} -> N 
+      = \r -> mkN r.sg r.pl masc nohum ;  ----
+    wmkN : {sg : Str; root : Str} -> N
       = \r -> smartN r.sg ;
     } ;
 
@@ -949,25 +951,25 @@ oper
     wmkA : {masc_sg, masc_pl, root, sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root, pl_patt : Str} -> A
-      = \r -> mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, root : Str} -> A
       = \r -> mkA r.root ; ----
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, pl_patt : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; root : Str ; sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg : Str; fem_sg : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl, pl_patt : Str; root : Str} -> A

@@ -181,6 +181,9 @@ resource ResGer = ParamX ** open Prelude in {
     genGenNum : GenNum -> Gender = \gn ->
       case gn of {GSg g => g ; GPl => Masc} ;
 
+    agrGenNum : GenNum -> Agr = \gn ->
+      case gn of {GSg g => AgSgP3 g ; _ => AgPl P3} ;
+    
 -- Used in $NounGer$.
 
     agrAdj : Adjf -> GenNum -> Case -> AForm = \a,gn,c ->

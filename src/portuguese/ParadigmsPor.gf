@@ -46,7 +46,7 @@ resource ParadigmsPor =
 -- To abstract over gender names, we define the following identifiers.
 
 oper
-  Gender : Type ;
+  Gender : PType ;
   Gender = MorphoPor.Gender ;
 
   masculine, male : Gender ;
@@ -57,7 +57,7 @@ oper
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ;
+  Number : PType ;
   Number = MorphoPor.Number ;
 
   singular : Number ;

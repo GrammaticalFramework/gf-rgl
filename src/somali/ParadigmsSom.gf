@@ -219,7 +219,7 @@ oper
     mkV : Str -> V -> V = \s,v -> lin V (prefixV s v)
   } ;
 
-  copula = ResSom.copula ;
+  copula = lin V (ResSom.copula) ;
 
   regV : Str -> Verb = \s -> case s of {
     _ + #c + #c + "o" => mkVerb (cJoogso s) ;
@@ -243,7 +243,7 @@ oper
   mkV3 = overload {
     mkV3 : (sug : Str) -> V3 = \s -> lin V3 (regV s ** {c2,c3 = noPrep}) ;
     mkV3 : (sug : Str) -> (_,_ : Adposition) -> V3 = \s,p,q -> lin V3 (regV s ** {c2 = p ; c3 = q}) ;
-    mkV3 : V -> (_,_ : Adposition) -> V2 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
+    mkV3 : V -> (_,_ : Adposition) -> V3 = \v,p,q -> lin V3 (v ** {c2 = p ; c3 = q}) ;
     } ;
 
   mkVV = overload {

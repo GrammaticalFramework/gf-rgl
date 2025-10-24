@@ -1,9 +1,8 @@
-resource ResJpn = open Prelude in {
+resource ResJpn = ParamX [Number,Sg,Pl,DTail,T1,T2,T3,inc] ** open Prelude in {
 
 flags coding = utf8 ;
 
 param
-  Number      = Sg | Pl ;
   Style       = Plain | Resp ;
   Animateness = Anim | Inanim ;
   Mood        = Ind | Con ;
@@ -15,7 +14,6 @@ param
   Particle    = Wa | Ga ;
   Anteriority = Simul | Anter ;
   NumeralType = EndZero | EndNotZero | SingleDigit ;
-  DTail       = T1 | T2 | T3 ;
   ConjType    = And | Or | Both | IfConj ;
   SubjType    = That | If | OtherSubj ;
   VocType     = VocPres | Please | VocAbs ;

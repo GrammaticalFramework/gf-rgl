@@ -4,5 +4,6 @@ concrete LangSwa of Lang =
   GrammarSwa,
   LexiconSwa
 --  ,ConstructionSwa
+  ,DocumentationSwa --# notpresent
     ** {
 } ;

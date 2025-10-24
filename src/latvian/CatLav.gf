@@ -112,7 +112,7 @@ lincat
 
   PN,LN = ProperNoun ;
   GN = {s : Case => Str ; gend : Gender} ;
-  SN = {s : Sex => Case => Str; pl : Case => Str} ;
+  SN = {s : Gender => Case => Str; pl : Case => Str} ;
 
   -- Overriden from CommonX
 

@@ -163,7 +163,7 @@ lin
 oper
 {-
 -} --# notpresent
-  inflVerb : CatRus.V -> Str = \v ->
+  inflVerb : VerbForms -> Str = \v ->
     let fut : Agr=>Str = \\a => verbFutAgree v a in
     let pres : Agr=>Str = \\a => verbPresAgree v a in
     let past : Agr=>Str = \\a => verbPastAgree v a "" in

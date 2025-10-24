@@ -8,7 +8,7 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi in {
       a = agrgP3 cn.g det.n
       } ;
 
-    UsePron p = p ;
+    -- UsePron p = p ;
 
     DetQuant quant num = {
       s  = \\c,g => quant.s ! c ! g ! num.n ++ num.s ;
@@ -30,7 +30,6 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi in {
       } ;
 
     UseN n = n ;
-    UseN2 n = n ;
 
     AdjCN ap cn = {
       s = \\spec,c,n => cn.s ! spec ! c ! n ++ ap.s ! spec ! c ! cn.g ! n ;

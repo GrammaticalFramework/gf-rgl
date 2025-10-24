@@ -89,4 +89,17 @@ concrete CatAfr of Cat =
     SN = {s : Sex => NPCase => Str; pl : NPCase => Str} ;
     LN = {s : Adjf => NPCase => Str ; hasArt : Bool ; n : Number} ;
 
+lindef
+    VPSlash = \s -> {
+      s  = {s = \\_ => s; prefix = ""; aux = VHebben; vtype = VAct} ;
+      a1 = \\_ => "" ;
+      n0 = \\_ => "" ;
+      n2 = \\_ => "" ;
+      a2 = "" ;
+      isAux = False ;
+      inf = <"",False> ;
+      ext = "" ;
+      c2 = ""
+      } ;
+
 }

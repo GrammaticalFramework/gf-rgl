@@ -105,12 +105,6 @@ lin pot3plus n m = {
       _  => BIND
       } ;
 
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-      } ;
-
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o Pl ;
     mkDig : Str -> TDigit = \c -> mk2Dig c (c + "م") ;
 

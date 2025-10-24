@@ -970,9 +970,9 @@ oper
   mkV2Q v p = lin V2Q (mk2V2 v p) ;
 
   mkAS  a = a ;
-  mkA2S a p = mkA2 a p ;
+  mkA2S a p = lin A (mkA2 a p) ;
   mkAV  a = a ;
-  mkA2V a p = mkA2 a p ;
+  mkA2V a p = lin A (mkA2 a p) ;
 
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 

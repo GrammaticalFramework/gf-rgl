@@ -37,7 +37,7 @@ lin FullName gn sn = {
 
 -- UseLN : LN -> NP ;
 lin UseLN ln = {
-      s = \\b,c => case ln.hasArt of {
+      s = \\b,c => case ln.hasDefArt of {
                      True  => case b of {
                                 True  => [] ; -- defart dropped
                                 False => artDef ! (gennum ln.g ln.n) ! c
@@ -61,7 +61,7 @@ lin PlainLN ln = {
 -- InLN : LN -> Adv ;
 lin InLN ln = {
       s = appPrepNP P.inDat_Prep {
-             s = \\b,c => case ln.hasArt of {
+             s = \\b,c => case ln.hasDefArt of {
                             True  => case b of {
                                        True  => [] ; -- defart dropped
                                        False => artDef ! (gennum ln.g ln.n) ! c

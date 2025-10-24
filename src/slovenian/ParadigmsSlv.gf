@@ -38,7 +38,7 @@ oper
     compoundN : N -> Str -> N = \noun,adv -> noun ** {s = \\c,n => noun.s ! c ! n ++ adv} ;
   } ;
 
-  mkN2 : N -> Prep -> N2 = \n,c -> n ** {c=c} ;
+  mkN2 : N -> Prep -> N2 = \n,c -> lin N2 (n ** {c=c}) ;
 
 --All masculine forms (except those with long pluralstem) are formed here. 
 --Takes the baseform + the genitive singular form + animacy. 
@@ -398,11 +398,11 @@ oper
   } ;
 
   mkV3 = overload {
-    mkV3 : V -> V3 = \v -> lin V2 (v ** {c2 = lin Prep {s=""; c=Acc}; c3 = lin Prep {s=""; c=Acc}}) ;
-    mkV3 : V -> Case -> Case -> V3 = \v,c2,c3 -> lin V2 (v ** {c2 = lin Prep {s=""; c=c2}; c3 = lin Prep {s=""; c=c3}}) ;
-    mkV3 : V -> Case -> Prep -> V3 = \v,c2,p3 -> lin V2 (v ** {c2 = lin Prep {s=""; c=c2}; c3 = p3}) ;
-    mkV3 : V -> Prep -> Case -> V3 = \v,p2,c3 -> lin V2 (v ** {c2 = p2 ; c3 = lin Prep {s=""; c=c3}}) ;
-    mkV3 : V -> Prep -> Prep -> V3 = \v,p2,p3 -> lin V2 (v ** {c2 = p2 ; c3 = p3}) ;
+    mkV3 : V -> V3 = \v -> lin V3 (v ** {c2 = lin Prep {s=""; c=Acc}; c3 = lin Prep {s=""; c=Acc}}) ;
+    mkV3 : V -> Case -> Case -> V3 = \v,c2,c3 -> lin V3 (v ** {c2 = lin Prep {s=""; c=c2}; c3 = lin Prep {s=""; c=c3}}) ;
+    mkV3 : V -> Case -> Prep -> V3 = \v,c2,p3 -> lin V3 (v ** {c2 = lin Prep {s=""; c=c2}; c3 = p3}) ;
+    mkV3 : V -> Prep -> Case -> V3 = \v,p2,c3 -> lin V3 (v ** {c2 = p2 ; c3 = lin Prep {s=""; c=c3}}) ;
+    mkV3 : V -> Prep -> Prep -> V3 = \v,p2,p3 -> lin V3 (v ** {c2 = p2 ; c3 = p3}) ;
   } ; 
 
   mkVA : V -> VA ;
@@ -442,7 +442,7 @@ oper
     mkA : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,x166 : Str) -> A = worstA ;
     } ;
     
-  mkA2 : A -> Prep -> A2 = \a,c -> a ** {c=c} ;
+  mkA2 : A -> Prep -> A2 = \a,c -> lin A2 (a ** {c=c}) ;
 
   irregA : (_,_,_,_,_,_ :Str) -> A = \masc,fem,neut,mascC,femC,neutC -> lin A {
     s = table {

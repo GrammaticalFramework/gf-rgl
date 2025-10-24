@@ -6852,7 +6852,7 @@ mkV001 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -6864,18 +6864,19 @@ mkV001 base_1 =
                               GSg Neuter => base_1+"ло" ; --guessed
                               GPl => base_1+"ле" --guessed
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
                                  GPl => base_1+"ле"
                                } ;
-                   perfect = \\_ => nonExist ;
+                   perfect = \\_ => base_1+"но" ;
                    adjectival = \\_ => base_1+"н" ;
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV002 : Str -> V ;
@@ -6919,7 +6920,7 @@ mkV002 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -6931,7 +6932,8 @@ mkV002 base_1 =
                               GSg Neuter => base_1+"ло" ; --guessed
                               GPl => base_1+"ле" --guessed
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -6942,7 +6944,7 @@ mkV002 base_1 =
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV003 : Str -> V ;
@@ -6987,7 +6989,7 @@ mkV003 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -6999,7 +7001,8 @@ mkV003 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7010,7 +7013,7 @@ mkV003 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -7057,7 +7060,7 @@ mkV004 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7069,7 +7072,8 @@ mkV004 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7080,7 +7084,7 @@ mkV004 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -7127,7 +7131,7 @@ mkV005 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7139,18 +7143,19 @@ mkV005 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
                                      GPl => base_1+"еле"
                                    } ;
-                       perfect = \\_ => nonExist ;
+                       perfect = \\_ => base_1+"ено" ;
                        adjectival = \\_ => base_1+"ен" ;
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -7197,7 +7202,7 @@ mkV006 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7209,7 +7214,8 @@ mkV006 base =
                                   GSg Neuter => base_1+"ело" ; --guessed
                                   GPl => base_1+"еле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7220,7 +7226,7 @@ mkV006 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV006"
   } ;
@@ -7267,7 +7273,7 @@ mkV007 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7279,7 +7285,8 @@ mkV007 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7290,7 +7297,7 @@ mkV007 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV007"
   } ;
@@ -7337,7 +7344,7 @@ mkV008 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ => 
+        imperative = \\_ => 
                      table {
                        Sg => base_1+"и" ; --guessed
                        Pl => base_1+"ете" --guessed
@@ -7349,7 +7356,8 @@ mkV008 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -7360,7 +7368,7 @@ mkV008 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV008"
   } ;
@@ -7406,7 +7414,7 @@ mkV009 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -7418,7 +7426,8 @@ mkV009 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => base_1+"ле"
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -7429,7 +7438,7 @@ mkV009 base_1 =
                    adverbial = base_1+"јќи" --guessed
                  } ;
     noun_from_verb = base_1+"ње" ; --guessed
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV010 : Str -> V ;
@@ -7474,7 +7483,7 @@ mkV010 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7486,7 +7495,8 @@ mkV010 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7497,7 +7507,7 @@ mkV010 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -7544,7 +7554,7 @@ mkV011 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7556,7 +7566,8 @@ mkV011 base =
                                   GSg Neuter => base_1+"ло" ; --guessed
                                   GPl => base_1+"ле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7567,7 +7578,7 @@ mkV011 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -7614,7 +7625,7 @@ mkV012 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7626,7 +7637,8 @@ mkV012 base =
                                   GSg Neuter => base_1+"ло" ; --guessed
                                   GPl => base_1+"ле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7637,7 +7649,7 @@ mkV012 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -7683,7 +7695,7 @@ mkV013 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -7695,18 +7707,19 @@ mkV013 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => base_1+"ле"
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
                                  GPl => base_1+"ле"
                                } ;
-                   perfect = \\_ => nonExist ;
+                   perfect = \\_ => base_1+"но" ;
                    adjectival = \\_ => base_1+"н" ;
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV014 : Str -> V ;
@@ -7751,7 +7764,7 @@ mkV014 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7763,7 +7776,8 @@ mkV014 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7774,7 +7788,7 @@ mkV014 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV014"
   } ;
@@ -7821,7 +7835,7 @@ mkV015 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7833,7 +7847,8 @@ mkV015 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7844,7 +7859,7 @@ mkV015 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -7891,7 +7906,7 @@ mkV016 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7903,7 +7918,8 @@ mkV016 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -7914,7 +7930,7 @@ mkV016 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -7960,7 +7976,7 @@ mkV017 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -7972,7 +7988,8 @@ mkV017 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => base_1+"ле"
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -7983,7 +8000,7 @@ mkV017 base_1 =
                    adverbial = base_1+"јќи" --guessed
                  } ;
     noun_from_verb = base_1+"ње" ; --guessed
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV018 : Str -> V ;
@@ -8028,7 +8045,7 @@ mkV018 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -8040,7 +8057,8 @@ mkV018 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"дел" ;
                                      GSg Fem => base_1+"дела" ;
                                      GSg Neuter => base_1+"дело" ;
@@ -8051,7 +8069,7 @@ mkV018 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV018"
   } ;
@@ -8098,7 +8116,7 @@ mkV019 base =
                               P3 => base_1+"зеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"зи" ;
                        Pl => base_1+"зете"
@@ -8110,7 +8128,8 @@ mkV019 base =
                                   GSg Neuter => base_1+"гло" ;
                                   GPl => base_1+"гле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"зел" ;
                                      GSg Fem => base_1+"зела" ;
                                      GSg Neuter => base_1+"зело" ;
@@ -8121,7 +8140,7 @@ mkV019 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -8168,7 +8187,7 @@ mkV020 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8180,7 +8199,8 @@ mkV020 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8191,7 +8211,7 @@ mkV020 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -8238,7 +8258,7 @@ mkV021 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8250,7 +8270,8 @@ mkV021 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8261,7 +8282,7 @@ mkV021 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -8308,7 +8329,7 @@ mkV022 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -8320,7 +8341,8 @@ mkV022 base =
                                   GSg Neuter => base_1+"ло" ; --guessed
                                   GPl => base_1+"ле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8331,7 +8353,7 @@ mkV022 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -8378,7 +8400,7 @@ mkV023 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8390,7 +8412,8 @@ mkV023 base =
                                   GSg Neuter => base_1+"ало" ; --guessed
                                   GPl => base_1+"але" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8401,7 +8424,7 @@ mkV023 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -8448,7 +8471,7 @@ mkV024 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8460,7 +8483,8 @@ mkV024 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8471,7 +8495,7 @@ mkV024 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -8518,7 +8542,7 @@ mkV025 base =
                               P3 => base_1+"сеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"си" ;
                        Pl => base_1+"сете"
@@ -8530,7 +8554,8 @@ mkV025 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"сел" ;
                                      GSg Fem => base_1+"села" ;
                                      GSg Neuter => base_1+"село" ;
@@ -8541,7 +8566,7 @@ mkV025 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -8588,7 +8613,7 @@ mkV026 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -8600,7 +8625,8 @@ mkV026 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"дел" ;
                                      GSg Fem => base_1+"дела" ;
                                      GSg Neuter => base_1+"дело" ;
@@ -8611,7 +8637,7 @@ mkV026 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -8658,7 +8684,7 @@ mkV027 base =
                               P3 => base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ти" ;
                        Pl => base_1+"тете"
@@ -8670,7 +8696,8 @@ mkV027 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"тел" ;
                                      GSg Fem => base_1+"тела" ;
                                      GSg Neuter => base_1+"тело" ;
@@ -8681,7 +8708,7 @@ mkV027 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -8728,7 +8755,7 @@ mkV028 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8740,7 +8767,8 @@ mkV028 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8751,7 +8779,7 @@ mkV028 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -8798,7 +8826,7 @@ mkV029 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -8810,7 +8838,8 @@ mkV029 base =
                                   GSg Neuter => base_1+"кло" ;
                                   GPl => base_1+"кле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"чел" ;
                                      GSg Fem => base_1+"чела" ;
                                      GSg Neuter => base_1+"чело" ;
@@ -8821,7 +8850,7 @@ mkV029 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV029"
   } ;
@@ -8868,7 +8897,7 @@ mkV030 base =
                               P3 => base_1+"чееа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чеи" ;
                        Pl => base_1+"чеете"
@@ -8880,7 +8909,8 @@ mkV030 base =
                                   GSg Neuter => base_1+"кло" ;
                                   GPl => base_1+"кле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"чеел" ;
                                      GSg Fem => base_1+"чеела" ;
                                      GSg Neuter => base_1+"чеело" ;
@@ -8891,7 +8921,7 @@ mkV030 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -8938,7 +8968,7 @@ mkV031 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8950,7 +8980,8 @@ mkV031 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -8961,7 +8992,7 @@ mkV031 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -9008,7 +9039,7 @@ mkV032 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9020,7 +9051,8 @@ mkV032 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9031,7 +9063,7 @@ mkV032 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -9078,7 +9110,7 @@ mkV033 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9090,7 +9122,8 @@ mkV033 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9101,7 +9134,7 @@ mkV033 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV033"
   } ;
@@ -9148,7 +9181,7 @@ mkV034 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9160,7 +9193,8 @@ mkV034 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9171,7 +9205,7 @@ mkV034 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -9218,7 +9252,7 @@ mkV035 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9230,7 +9264,8 @@ mkV035 base =
                                   GSg Neuter => base_1+"ало" ; --guessed
                                   GPl => base_1+"але" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9241,7 +9276,7 @@ mkV035 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -9288,7 +9323,7 @@ mkV036 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9300,7 +9335,8 @@ mkV036 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9311,7 +9347,7 @@ mkV036 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -9358,7 +9394,7 @@ mkV037 base =
                               P3 => base_1+"е"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"е"+base_2+"и" ;
                        Pl => base_1+"е"+base_2+"ете"
@@ -9370,7 +9406,8 @@ mkV037 base =
                                   GSg Neuter => base_1+base_2+"ало" ;
                                   GPl => base_1+base_2+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"е"+base_2+"ел" ;
                                      GSg Fem => base_1+"е"+base_2+"ела" ;
                                      GSg Neuter => base_1+"е"+base_2+"ело" ;
@@ -9381,7 +9418,7 @@ mkV037 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -9428,7 +9465,7 @@ mkV038 base =
                               P3 => base_1+"зеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"зи" ;
                        Pl => base_1+"зете"
@@ -9440,7 +9477,8 @@ mkV038 base =
                                   GSg Neuter => base_1+"гло" ;
                                   GPl => base_1+"гле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"зел" ;
                                      GSg Fem => base_1+"зела" ;
                                      GSg Neuter => base_1+"зело" ;
@@ -9451,7 +9489,7 @@ mkV038 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -9498,7 +9536,7 @@ mkV039 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9510,7 +9548,8 @@ mkV039 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9521,7 +9560,7 @@ mkV039 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -9568,7 +9607,7 @@ mkV040 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9580,7 +9619,8 @@ mkV040 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9591,7 +9631,7 @@ mkV040 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -9638,7 +9678,7 @@ mkV041 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9650,7 +9690,8 @@ mkV041 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -9661,7 +9702,7 @@ mkV041 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -9708,7 +9749,7 @@ mkV042 base =
                               P3 => base_1+"о"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"о"+base_2+"и" ;
                        Pl => base_1+"о"+base_2+"ете"
@@ -9720,7 +9761,8 @@ mkV042 base =
                                   GSg Neuter => base_1+base_2+"ало" ;
                                   GPl => base_1+base_2+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"о"+base_2+"ел" ;
                                      GSg Fem => base_1+"о"+base_2+"ела" ;
                                      GSg Neuter => base_1+"о"+base_2+"ело" ;
@@ -9731,7 +9773,7 @@ mkV042 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -9778,7 +9820,7 @@ mkV043 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -9790,7 +9832,8 @@ mkV043 base =
                                   GSg Neuter => base_1+"ало" ; --guessed
                                   GPl => base_1+"але" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -9801,7 +9844,7 @@ mkV043 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -9847,7 +9890,7 @@ mkV044 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -9859,7 +9902,8 @@ mkV044 base_1 =
                               GSg Neuter => base_1+"ло" ; --guessed
                               GPl => base_1+"ле" --guessed
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -9870,7 +9914,7 @@ mkV044 base_1 =
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV045 : Str -> V ;
@@ -9915,7 +9959,7 @@ mkV045 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -9927,7 +9971,8 @@ mkV045 base =
                                   GSg Neuter => base_1+"шло" ;
                                   GPl => base_1+"шле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"дел" ;
                                      GSg Fem => base_1+"дела" ;
                                      GSg Neuter => base_1+"дело" ;
@@ -9938,7 +9983,7 @@ mkV045 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -9985,7 +10030,7 @@ mkV046 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9997,7 +10042,8 @@ mkV046 base =
                                   GSg Neuter => nonExist ;
                                   GPl => nonExist
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10008,7 +10054,7 @@ mkV046 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -10055,7 +10101,7 @@ mkV047 base =
                               P3 => base_1+"еа" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете" --guessed
@@ -10067,7 +10113,8 @@ mkV047 base =
                                   GSg Neuter => base_1+"ало" ; --guessed
                                   GPl => base_1+"але" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -10078,7 +10125,7 @@ mkV047 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -10125,7 +10172,7 @@ mkV048 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10137,7 +10184,8 @@ mkV048 base =
                                   GSg Neuter => base_1+"ло" ; --guessed
                                   GPl => base_1+"ле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10148,7 +10196,7 @@ mkV048 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -10195,7 +10243,7 @@ mkV049 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10207,7 +10255,8 @@ mkV049 base =
                                   GSg Neuter => base_1+"јало" ; --guessed
                                   GPl => base_1+"јале" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10218,7 +10267,7 @@ mkV049 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -10265,7 +10314,7 @@ mkV050 base =
                               P3 => base_1+base_2+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"ј" ;
                        Pl => base_1+base_2+"јте"
@@ -10277,7 +10326,8 @@ mkV050 base =
                                   GSg Neuter => base_1+base_2+"ло" ;
                                   GPl => base_1+base_2+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+base_2+"л" ;
                                      GSg Fem => base_1+base_2+"ла" ;
                                      GSg Neuter => base_1+base_2+"ло" ;
@@ -10288,7 +10338,7 @@ mkV050 base =
                        adverbial = base_1+"и"+base_2+"јќи"
                      } ;
         noun_from_verb = base_1+"и"+base_2+"ње" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -10334,7 +10384,7 @@ mkV051 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -10346,7 +10396,8 @@ mkV051 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => base_1+"ле"
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -10357,7 +10408,7 @@ mkV051 base_1 =
                    adverbial = base_1+"јќи"
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV052 : Str -> V ;
@@ -10402,7 +10453,7 @@ mkV052 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10414,7 +10465,8 @@ mkV052 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10425,7 +10477,7 @@ mkV052 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -10472,7 +10524,7 @@ mkV053 base =
                               P3 => base_1+"еа" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ; --guessed
                        Pl => base_1+"ете" --guessed
@@ -10484,7 +10536,8 @@ mkV053 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -10495,7 +10548,7 @@ mkV053 base =
                        adverbial = base_1+"ејќи" --guessed
                      } ;
         noun_from_verb = base_1+"ење" ; --guessed
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -10542,7 +10595,7 @@ mkV054 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10554,7 +10607,8 @@ mkV054 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10565,7 +10619,7 @@ mkV054 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -10611,7 +10665,7 @@ mkV055 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -10623,7 +10677,8 @@ mkV055 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => base_1+"ле"
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => base_1+"л" ;
                                  GSg Fem => base_1+"ла" ;
                                  GSg Neuter => base_1+"ло" ;
@@ -10634,7 +10689,7 @@ mkV055 base_1 =
                    adverbial = nonExist
                  } ;
     noun_from_verb = base_1+"ње" ; --guessed
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV056 : Str -> V ;
@@ -10679,7 +10734,7 @@ mkV056 base =
                               P3 => base_1+"јдеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"јди" ;
                        Pl => base_1+"јдете"
@@ -10691,7 +10746,8 @@ mkV056 base =
                                   GSg Neuter => base_1+"шло" ;
                                   GPl => base_1+"шле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"јдел" ;
                                      GSg Fem => base_1+"јдела" ;
                                      GSg Neuter => base_1+"јдело" ;
@@ -10702,7 +10758,7 @@ mkV056 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -10749,7 +10805,7 @@ mkV057 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10761,7 +10817,8 @@ mkV057 base =
                                   GSg Neuter => base_1+"ило" ; --guessed
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10772,7 +10829,7 @@ mkV057 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -10819,7 +10876,7 @@ mkV058 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10831,7 +10888,8 @@ mkV058 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10842,7 +10900,7 @@ mkV058 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -10889,7 +10947,7 @@ mkV059 base =
                               P3 => base_1+"меа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ми" ;
                        Pl => base_1+"мете"
@@ -10901,7 +10959,8 @@ mkV059 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"мел" ;
                                      GSg Fem => base_1+"мела" ;
                                      GSg Neuter => base_1+"мело" ;
@@ -10912,7 +10971,7 @@ mkV059 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV059"
   } ;
@@ -10959,7 +11018,7 @@ mkV060 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10971,7 +11030,8 @@ mkV060 base =
                                   GSg Neuter => base_1+"јало" ;
                                   GPl => base_1+"јале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -10982,7 +11042,7 @@ mkV060 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -11029,7 +11089,7 @@ mkV061 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -11041,7 +11101,8 @@ mkV061 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -11052,7 +11113,7 @@ mkV061 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -11099,7 +11160,7 @@ mkV062 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11111,7 +11172,8 @@ mkV062 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11122,7 +11184,7 @@ mkV062 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV062"
   } ;
@@ -11169,7 +11231,7 @@ mkV063 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11181,7 +11243,8 @@ mkV063 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11192,7 +11255,7 @@ mkV063 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -11239,7 +11302,7 @@ mkV064 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11251,7 +11314,8 @@ mkV064 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11262,7 +11326,7 @@ mkV064 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -11309,7 +11373,7 @@ mkV065 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11321,7 +11385,8 @@ mkV065 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11332,7 +11397,7 @@ mkV065 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -11379,7 +11444,7 @@ mkV066 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11391,7 +11456,8 @@ mkV066 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11402,7 +11468,7 @@ mkV066 base =
                        adverbial = base_1+"ејќи"
                      } ;
         noun_from_verb = base_1+"ење" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -11449,7 +11515,7 @@ mkV067 base =
                               P3 => base_1+"те"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"те"+base_2+"и" ;
                        Pl => base_1+"те"+base_2+"ете"
@@ -11461,7 +11527,8 @@ mkV067 base =
                                   GSg Neuter => base_1+base_2+"ало" ;
                                   GPl => base_1+base_2+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"те"+base_2+"ел" ;
                                      GSg Fem => base_1+"те"+base_2+"ела" ;
                                      GSg Neuter => base_1+"те"+base_2+"ело" ;
@@ -11472,7 +11539,7 @@ mkV067 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -11519,7 +11586,7 @@ mkV068 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11531,7 +11598,8 @@ mkV068 base =
                                   GSg Neuter => base_1+"јало" ;
                                   GPl => base_1+"јале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11542,7 +11610,7 @@ mkV068 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -11589,7 +11657,7 @@ mkV069 base =
                               P3 => base_1+"јдеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"јди" ;
                        Pl => base_1+"јдете"
@@ -11601,7 +11669,8 @@ mkV069 base =
                                   GSg Neuter => base_1+"шло" ;
                                   GPl => base_1+"шле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"јдел" ;
                                      GSg Fem => base_1+"јдела" ;
                                      GSg Neuter => base_1+"јдело" ;
@@ -11612,7 +11681,7 @@ mkV069 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -11659,7 +11728,7 @@ mkV070 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11671,7 +11740,8 @@ mkV070 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -11682,7 +11752,7 @@ mkV070 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -11729,7 +11799,7 @@ mkV071 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -11741,7 +11811,8 @@ mkV071 base =
                                   GSg Neuter => base_1+"кало" ;
                                   GPl => base_1+"кале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"чел" ;
                                      GSg Fem => base_1+"чела" ;
                                      GSg Neuter => base_1+"чело" ;
@@ -11752,7 +11823,7 @@ mkV071 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -11799,7 +11870,7 @@ mkV072 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -11811,7 +11882,8 @@ mkV072 base =
                                   GSg Neuter => base_1+"кало" ;
                                   GPl => base_1+"кале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"чел" ;
                                      GSg Fem => base_1+"чела" ;
                                      GSg Neuter => base_1+"чело" ;
@@ -11822,7 +11894,7 @@ mkV072 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -11869,7 +11941,7 @@ mkV073 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -11881,7 +11953,8 @@ mkV073 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"иел" ;
                                      GSg Fem => base_1+"иела" ;
                                      GSg Neuter => base_1+"иело" ;
@@ -11892,7 +11965,7 @@ mkV073 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -11939,7 +12012,7 @@ mkV074 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -11951,7 +12024,8 @@ mkV074 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => base_1+"але"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"иел" ;
                                      GSg Fem => base_1+"иела" ;
                                      GSg Neuter => base_1+"иело" ;
@@ -11962,7 +12036,7 @@ mkV074 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -12009,7 +12083,7 @@ mkV075 base =
                               P3 => nonExist
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => nonExist
@@ -12021,7 +12095,8 @@ mkV075 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => nonExist
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => nonExist ;
                                      GSg Fem => nonExist ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12032,7 +12107,7 @@ mkV075 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -12079,7 +12154,7 @@ mkV076 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12091,7 +12166,8 @@ mkV076 base =
                                   GSg Neuter => base_1+"јало" ;
                                   GPl => base_1+"јале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12102,7 +12178,7 @@ mkV076 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -12149,7 +12225,7 @@ mkV077 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12161,7 +12237,8 @@ mkV077 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12172,7 +12249,7 @@ mkV077 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -12219,7 +12296,7 @@ mkV078 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -12231,7 +12308,8 @@ mkV078 base =
                                   GSg Neuter => base_1+"ело" ;
                                   GPl => base_1+"еле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"иел" ;
                                      GSg Fem => base_1+"иела" ;
                                      GSg Neuter => base_1+"иело" ;
@@ -12242,7 +12320,7 @@ mkV078 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -12289,7 +12367,7 @@ mkV079 base =
                               P3 => base_1+base_2+"леа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"ли" ;
                        Pl => base_1+base_2+"лете"
@@ -12301,7 +12379,8 @@ mkV079 base =
                                   GSg Neuter => base_1+"л"+base_2+"ло" ;
                                   GPl => base_1+"л"+base_2+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+base_2+"лел" ;
                                      GSg Fem => base_1+base_2+"лела" ;
                                      GSg Neuter => base_1+base_2+"лело" ;
@@ -12312,7 +12391,7 @@ mkV079 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -12359,7 +12438,7 @@ mkV080 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12371,7 +12450,8 @@ mkV080 base =
                                   GSg Neuter => base_1+"јало" ;
                                   GPl => base_1+"јале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12382,7 +12462,7 @@ mkV080 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -12429,7 +12509,7 @@ mkV081 base =
                               P3 => nonExist
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => nonExist
@@ -12441,7 +12521,8 @@ mkV081 base =
                                   GSg Neuter => base_1+"ало" ;
                                   GPl => nonExist
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => nonExist ;
                                      GSg Fem => nonExist ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12452,7 +12533,7 @@ mkV081 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -12499,7 +12580,7 @@ mkV082 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -12511,7 +12592,8 @@ mkV082 base =
                                   GSg Neuter => base_1+"гло" ;
                                   GPl => base_1+"гле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"жел" ;
                                      GSg Fem => base_1+"жела" ;
                                      GSg Neuter => base_1+"жело" ;
@@ -12522,7 +12604,7 @@ mkV082 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -12569,7 +12651,7 @@ mkV083 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -12581,7 +12663,8 @@ mkV083 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле" --guessed
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ; --guessed
                                      GSg Fem => base_1+"ела" ; --guessed
                                      GSg Neuter => base_1+"ело" ;
@@ -12592,7 +12675,7 @@ mkV083 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -12639,7 +12722,7 @@ mkV084 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12651,7 +12734,8 @@ mkV084 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12662,7 +12746,7 @@ mkV084 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -12709,7 +12793,7 @@ mkV085 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12721,7 +12805,8 @@ mkV085 base =
                                   GSg Neuter => base_1+"ило" ;
                                   GPl => base_1+"иле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -12732,7 +12817,7 @@ mkV085 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -12779,7 +12864,7 @@ mkV086 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -12791,7 +12876,8 @@ mkV086 base =
                                   GSg Neuter => base_1+"гло" ;
                                   GPl => base_1+"гле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"жел" ;
                                      GSg Fem => base_1+"жела" ;
                                      GSg Neuter => base_1+"жело" ;
@@ -12802,7 +12888,7 @@ mkV086 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -12849,7 +12935,7 @@ mkV087 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -12861,7 +12947,8 @@ mkV087 base =
                                   GSg Neuter => base_1+"шло" ;
                                   GPl => base_1+"шле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"дел" ;
                                      GSg Fem => base_1+"дела" ;
                                      GSg Neuter => base_1+"дело" ;
@@ -12872,7 +12959,7 @@ mkV087 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV087"
   } ;
@@ -12919,7 +13006,7 @@ mkV088 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -12931,7 +13018,8 @@ mkV088 base =
                                   GSg Neuter => base_1+"кло" ;
                                   GPl => base_1+"кле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"чел" ;
                                      GSg Fem => base_1+"чела" ;
                                      GSg Neuter => base_1+"чело" ;
@@ -12942,7 +13030,7 @@ mkV088 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV088"
   } ;
@@ -12989,7 +13077,7 @@ mkV089 base =
                               P3 => base_1+base_2+"фи"+base_3+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"фи"+base_3+"ј" ;
                        Pl => base_1+base_2+"фи"+base_3+"јте"
@@ -13001,7 +13089,8 @@ mkV089 base =
                                   GSg Neuter => base_1+base_2+"фи"+base_3+"ло" ;
                                   GPl => base_1+base_2+"фи"+base_3+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+base_2+"фи"+base_3+"л" ;
                                      GSg Fem => base_1+base_2+"фи"+base_3+"ла" ;
                                      GSg Neuter => base_1+base_2+"фи"+base_3+"ло" ;
@@ -13012,7 +13101,7 @@ mkV089 base =
                        adverbial = base_1+"фи"+base_2+base_3+"јќи"
                      } ;
         noun_from_verb = base_1+"фи"+base_2+base_3+"ње" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -13058,7 +13147,7 @@ mkV090 base_1 =
                           P3 => base_1+"а" --guessed
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
@@ -13070,7 +13159,8 @@ mkV090 base_1 =
                               GSg Neuter => base_1+"ло" ; --guessed
                               GPl => nonExist
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => nonExist ;
                                  GSg Fem => nonExist ;
                                  GSg Neuter => base_1+"ло" ;
@@ -13081,7 +13171,7 @@ mkV090 base_1 =
                    adverbial = nonExist
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV091 : Str -> V ;
@@ -13125,7 +13215,7 @@ mkV091 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
@@ -13137,7 +13227,8 @@ mkV091 base_1 =
                               GSg Neuter => base_1+"ло" ; --guessed
                               GPl => nonExist
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => nonExist ;
                                  GSg Fem => nonExist ;
                                  GSg Neuter => base_1+"ло" ;
@@ -13148,7 +13239,7 @@ mkV091 base_1 =
                    adverbial = nonExist
                  } ;
     noun_from_verb = base_1+"ње" ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkV092 : Str -> V ;
@@ -13193,7 +13284,7 @@ mkV092 base =
                               P3 => base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ти" ;
                        Pl => base_1+"тете"
@@ -13205,7 +13296,8 @@ mkV092 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"тел" ;
                                      GSg Fem => base_1+"тела" ;
                                      GSg Neuter => base_1+"тело" ;
@@ -13216,7 +13308,7 @@ mkV092 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -13263,7 +13355,7 @@ mkV093 base =
                               P3 => "и"+base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => "и"+base_1+"ти" ;
                        Pl => "и"+base_1+"тете"
@@ -13275,7 +13367,8 @@ mkV093 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => "и"+base_1+"тел" ;
                                      GSg Fem => "и"+base_1+"тела" ;
                                      GSg Neuter => "и"+base_1+"тело" ;
@@ -13286,7 +13379,7 @@ mkV093 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -13333,7 +13426,7 @@ mkV094 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -13345,7 +13438,8 @@ mkV094 base =
                                   GSg Neuter => base_1+"ло" ;
                                   GPl => base_1+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -13356,7 +13450,7 @@ mkV094 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -13403,7 +13497,7 @@ mkV097 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -13415,7 +13509,8 @@ mkV097 base =
                                   GSg Neuter => base_1+"гало" ;
                                   GPl => base_1+"гале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"жел" ;
                                      GSg Fem => base_1+"жела" ;
                                      GSg Neuter => base_1+"жело" ;
@@ -13426,7 +13521,7 @@ mkV097 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -13473,7 +13568,7 @@ mkV098 base =
                               P3 => base_1+"и"+base_2+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и"+base_2+"ј" ;
                        Pl => base_1+"и"+base_2+"јте"
@@ -13485,7 +13580,8 @@ mkV098 base =
                                   GSg Neuter => base_1+"и"+base_2+"ло" ;
                                   GPl => base_1+"и"+base_2+"ле"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"и"+base_2+"л" ;
                                      GSg Fem => base_1+"и"+base_2+"ла" ;
                                      GSg Neuter => base_1+"и"+base_2+"ло" ;
@@ -13496,7 +13592,7 @@ mkV098 base =
                        adverbial = base_1+base_2+"јќи"
                      } ;
         noun_from_verb = base_1+base_2+"ње" ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -13543,7 +13639,7 @@ mkV099 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -13555,7 +13651,8 @@ mkV099 base =
                                   GSg Neuter => base_1+"јало" ;
                                   GPl => base_1+"јале"
                                 } ;
-                       imperfect = table {
+                       imperfect = \\_ =>
+                                   table {
                                      GSg Masc => base_1+"ел" ;
                                      GSg Fem => base_1+"ела" ;
                                      GSg Neuter => base_1+"ело" ;
@@ -13566,7 +13663,7 @@ mkV099 base =
                        adverbial = nonExist
                      } ;
         noun_from_verb = nonExist ;
-        isRefl = False
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -13612,7 +13709,7 @@ mkV101 base_1 =
                           P3 => nonExist
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
@@ -13624,7 +13721,8 @@ mkV101 base_1 =
                               GSg Neuter => base_1+"ло" ;
                               GPl => nonExist
                             } ;
-                   imperfect = table {
+                   imperfect = \\_ =>
+                               table {
                                  GSg Masc => nonExist ;
                                  GSg Fem => nonExist ;
                                  GSg Neuter => base_1+"ло" ;
@@ -13635,7 +13733,7 @@ mkV101 base_1 =
                    adverbial = nonExist
                  } ;
     noun_from_verb = nonExist ;
-    isRefl = False
+    vtype = VNormal
   } ;
 
 mkA001 : Str -> A ;
@@ -15371,13 +15469,10 @@ mkA050 base =
   } ;
 
 mkAdv : Str -> Adv ;
-mkAdv base_1 =
-  lin Adv
-  { s = base_1
-  } ;
+mkAdv s = {s=s} ;
 
-mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
-  \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15 ->
+mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> GenNum -> Person -> Pronoun =
+  \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,g,p ->
       { s = table {
               RSubj => f1 ;
               RObj Acc => f2 ;
@@ -15404,7 +15499,8 @@ mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
                          GPl        => f14
                        }
             } ;
-        poss_clitic = f15
+        poss_clitic = f15 ;
+        a = {g = g; p = p} ;
       } ;
 
 }

@@ -33,6 +33,6 @@ lin
     {s = "بگذارید" ++ np2str np ++ showVPH (VSubj Pos np.a) np.a vp};
 
 oper
-  existVerb : V2 = mkV2 (mkV "وجود" haveVerb) noPrep ;
+  existVerb : V2 = mkV2 (mkV "وجود" (lin V haveVerb)) noPrep ;
 
 }

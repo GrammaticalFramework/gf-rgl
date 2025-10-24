@@ -91,7 +91,7 @@ oper
 
   -- Use linCNIndef so that words with FinalA get the -a at the end
   baseCN : CN -> CN -> [CN] = \x,y ->  
-    y ** --choose all the other fields from second argument
+    lin ListCN y ** --choose all the other fields from second argument
     { s1 = \\agr => linCNIndef x ;
       s2 = y.s } ;
 
