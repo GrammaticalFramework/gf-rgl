@@ -29,6 +29,8 @@ lincat Sub10 = LinDigit ;
 lincat Sub100 = {s : Str ; n : Number } ;
 lincat Sub1000 = {s : Str ; n : Number ; isHundred : Bool } ;
 lincat Sub1000000 = {s : Str ; n : Number } ;
+lincat Sub1000000000 = {s : Str ; n : Number } ;
+lincat Sub1000000000000 = {s : Str ; n : Number } ;
 
 
 ----------------------------------------------------------------------------
