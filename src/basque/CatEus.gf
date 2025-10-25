@@ -121,7 +121,7 @@ concrete CatEus of Cat = CommonX ** open ResEus, Prelude in {
     N = ResEus.Noun ;
     N2 = ResEus.Noun2 ;
     N3 = ResEus.Noun3 ;
-    PN = ResEus.PNoun ; 
+    PN,LN,GN,SN = ResEus.PNoun ;
 
 
 linref

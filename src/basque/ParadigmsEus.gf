@@ -42,7 +42,10 @@ oper
   } ;
 
   mkPN : Str -> PN = \s -> lin PN (mkPNoun s) ;
-  
+  mkLN : Str -> LN = \s -> lin LN (mkPNoun s) ;
+  mkGN : Str -> GN = \s -> lin GN (mkPNoun s) ;
+  mkSN : Str -> SN = \s -> lin SN (mkPNoun s) ;
+
   mkN2 = overload {
     mkN2 : Str -> N2 = \s -> lin N2 (mkNoun2 s genitive) ; 
     mkN2 : Str -> Case -> N2 = \s,cas -> lin N2 (mkNoun2 s cas) ;
@@ -101,7 +104,7 @@ oper
   mkV2A : Str -> V2A = \s -> lin V2A (mkVerbDu s) ;  -- Nor-nork   
   mkVQ : Str -> VQ = \s -> lin VQ (mkVerbDu s) ;  -- Nor-nork 
   mkVS : Str -> VS = \s -> lin VS (mkVerbDu s) ;  -- Nor-nork
-
+  mkVV : V -> VV = \v -> v ;
 
   mkV2V : Str -> V2V = \s -> lin V2V (mkVerbDio s) ; -- ??? TODO check valency
   mkV2S : Str -> V2S = \s -> lin V2S (mkVerbDio s) ; -- Nor-nori-nork: (mutilari) (neska datorrela) erantzun diot
@@ -154,6 +157,10 @@ oper
 
   mkAdA : Str -> AdA = \s -> lin AdA {s = s} ;
 
+  oper mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
+
+  oper mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
+  oper mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 
 --.
 -------------------------------------------------------------------------------
