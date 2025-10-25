@@ -27,6 +27,32 @@ lin
           ) ;
     } ;
 
+  InflectionA, InflectionA2, InflectionA3 = \a -> {
+    t  = "a" ;
+    s1 = heading1 "Adjective" ;
+    s2 = frameTable (
+          tr (th ""            ++ th "Sg"                            ++ th "Pl") ++
+          tr (th "absolutive"  ++ td (a.s ! AF Posit++artDef ! Sg ! Abs ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Abs ! a.ph)) ++
+          tr (th "ergative"    ++ td (a.s ! AF Posit++artDef ! Sg ! Erg ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Erg ! a.ph)) ++
+          tr (th "dative"      ++ td (a.s ! AF Posit++artDef ! Sg ! Dat ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Dat ! a.ph)) ++
+          tr (th "genitive"    ++ td (a.s ! AF Posit++artDef ! Sg ! Gen ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Gen ! a.ph)) ++
+          tr (th "commitative" ++ td (a.s ! AF Posit++artDef ! Sg ! Soc ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Soc ! a.ph)) ++
+          tr (th "instrumental"++ td (a.s ! AF Posit++artDef ! Sg ! Ins ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Ins ! a.ph)) ++
+          tr (th "inessive"    ++ td (a.s ! AF Posit++artDef ! Sg ! Ine ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Ine ! a.ph)) ++
+          tr (th "partitive"   ++ td (a.s ! AF Posit++artDef ! Sg ! Par ! a.ph) ++ td (a.s ! AF Posit++artDef ! Pl ! Par ! a.ph))
+          ) ;
+    } ;
+
+  InflectionV, InflectionV2, InflectionV3, InflectionVA, InflectionVS, InflectionVQ, InflectionV2A, InflectionV2S, InflectionV2Q = \v -> {
+    t  = "v" ;
+    s1 = heading1 "Verb" ;
+    s2 = frameTable (
+          tr (th "present" ++ td (v.prc ! Pres)) ++
+          tr (th "past"    ++ td (v.prc ! Past)) ++
+          tr (th "future"  ++ td (v.prc ! Fut))
+          ) ;
+    } ;
+
 lin
   NoDefinition   t     = {s=t.s};
   MkDefinition   t d   = {s="<p><b>Definition:</b>"++t.s++d.s++"</p>"};
