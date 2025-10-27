@@ -33370,7 +33370,7 @@ mkA008 base =
                      } ;
               Instr => table {
                          GSg Fem => base_1+"ою"+base_2+"ою" ;
-                         GSg Neuter => base_1+"им"+base_2+"им" ;
+                         GSg _ => base_1+"им"+base_2+"им" ;
                          GPl => base_1+"ими"+base_2+"ими"
                        }
             }
