@@ -1258,7 +1258,10 @@ oper
     mkV : Str -> Str -> V = reg2V   -- Active;Imperf;Pres;P1;Sg  imperative1
   } ;
 
-  mkVV,mkVS,mkVQ,mkVA = \v -> v ;
+  mkVV : V -> VV = \v -> v ;
+  mkVS : V -> VS = \v -> v ;
+  mkVQ : V -> VQ = \v -> v ;
+  mkVA : V -> VA = \v -> v ;
 
   mkV2 = overload {
      mkV2 : V -> V2 = \v -> v ** {c2 = noPrep} ;
