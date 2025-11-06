@@ -15,16 +15,16 @@ concrete PhraseGla of Phrase = CatGla ** open Prelude, ResGla in {
     UttImpSg pol imp = { s = pol.s ++ imp.s ! Sg ! pol.p } ;
     UttImpPl pol imp =
     UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
-    UttVP vp = {s = linVP vp} ;
-    UttAP ap = { s = ap.s } ;
-    UttAdv adv = {s = } ;
-    UttCN n = {s = } ;
-    UttCard n = {s = } ; -}
+    UttVP vp = {s = linVP vp} ; -}
+    UttAP ap = { s = ap.s ! ASg NOM Masc } ;
+    UttAdv adv = {s = adv.s} ;
+    UttCN n = {s = n.s ! NOM ! Indef ! Sg} ;
+--    UttCard n = {s = } ;
     UttInterj i = i ;
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 
     NoVoc = {s = []} ;
---    VocNP np = { s = "," ++ np.s ! … } ;
+    VocNP np = {s = "," ++ np.art ! NOM ++ np.voc} ;  --guessed
 
 }

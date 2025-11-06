@@ -169,6 +169,7 @@ oper
                 -- or do we have an exhaustive list of prepositions that merge, and we can make that into a param and put on a LHS here?
 
     s : Case => Str ; -- TODO: is lenition a separate dimension from case?
+    voc : Str ;
     empty : Str ; -- to avoid metavariables
     a : Agr ; -- includes whether it's pron and whether it's definite. TODO: probably can make even leaner (wasn't a prio so far).
     } ;
@@ -177,6 +178,7 @@ oper
 
   emptyNP : LinNP = {
     s,art = \\_ => [] ;
+    voc = [] ;
     a = NotPron (DDef Sg Indef) ; -- we assume pronouns are definite by default. also it just matters for PrepNP.
     empty = [] ;
   } ;
