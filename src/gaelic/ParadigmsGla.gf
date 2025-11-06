@@ -2136,10 +2136,10 @@ mkV3 = overload {
   mkV3 : V -> Prep -> Prep -> V3 = \v,p2,p3 -> lin V3 v ** {c2=p2; c3=p3} ;
 } ;
 
-oper mkLN = \s -> lin LN {s=s} ;
-oper mkGN = \s -> lin GN {s=s} ;
-oper mkSN = \s -> lin SN {s=s} ;
-oper mkPN = \s -> lin PN {s=s} ;
+oper mkLN : Str -> LN = \s -> lin LN {s=s} ;
+oper mkGN : Str -> GN = \s -> lin GN {s=s} ;
+oper mkSN : Str -> SN = \s -> lin SN {s=s} ;
+oper mkPN : Str -> PN = \s -> lin PN {s=s} ;
 
 mkAdv : Str -> Adv = \s -> lin Adv {s=s} ;
 mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
