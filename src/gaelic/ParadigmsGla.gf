@@ -2081,7 +2081,7 @@ mkA2 : A -> A2 = \n -> lin A2 n ** {c2=noPrep} ;
 
 mkN = overload {
   mkN : Str -> N = \s -> lin N (regN s) ;   -- nom;indef;sg
-  mkN : (nom,gen : Str) -> N = reg2N;   -- nom;indef;sg  gen;indef;sg
+  mkN : (nom,gen : Str) -> N = \nom,gen -> lin N (reg2N nom gen) ;   -- nom;indef;sg  gen;indef;sg
 
   mkN : (nom,gen,pl : Str) -> Gender -> N = \loch,locha,lochan,g ->
       mk5N loch loch locha lochan (palatalise loch) g ;
