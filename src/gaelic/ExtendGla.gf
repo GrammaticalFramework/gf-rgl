@@ -31,5 +31,6 @@ concrete ExtendGla of Extend = CatGla
     , UseComp_ser, UseComp_estar
     , iFem_Pron, weFem_Pron, youFem_Pron, youPlFem_Pron, youPolFem_Pron, youPolPlFem_Pron, youPolPl_Pron, theyFem_Pron, theyNeutr_Pron
     , GenModNP
+    , PiedPipingQuestSlash, PiedPipingRelSlash, SubjunctRelCN
 
   ] with (Grammar=GrammarGla) ;

@@ -10,14 +10,14 @@ concrete AdjectiveGla of Adjective = CatGla ** open ResGla, Prelude in {
   } ;
 
   -- : A  -> AP ;
-  PositA a = a ** {
-    compar = [] ;
-    } ;
+  --PositA a = a ** {
+  --  compar = [] ;
+  --  } ;
 
   -- : A  -> NP -> AP ;
-  ComparA a np = a ** {
-    compar = np.s
-    } ;
+  --ComparA a np = a ** {
+  --  compar = np.s
+  --  } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
   -- ComplA2 a2 np = a2 ** { } ;
@@ -26,7 +26,7 @@ concrete AdjectiveGla of Adjective = CatGla ** open ResGla, Prelude in {
   -- ReflA2 a2 = a2 ** { } ;
 
   -- : A2 -> AP ;        -- married
-  UseA2 = PositA ;
+  -- UseA2 = PositA ;
 
   -- : A  -> AP ;     -- warmer
   -- UseComparA a = a ** {

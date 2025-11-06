@@ -13,7 +13,7 @@ lin
     subj = linNP np ; -- article and CN are discontinuous in NP! linNP just picks nominative unmutated.
     pred =
      -- table {something with tense+polarity =>
-            vp.s ! VPres (nagr2vagr np.a)
+            vp.s
             -- TODO: all of the VP's tense and polarity should be open here!
             -- PredVP only decides the subject.
      -- }

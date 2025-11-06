@@ -4,6 +4,7 @@ concrete PhraseGla of Phrase = CatGla ** open Prelude, ResGla in {
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
     UttS s = s ;
+
 {-
     UttQS qs = qs ;
     UttIAdv iadv = iadv ;
@@ -16,8 +17,8 @@ concrete PhraseGla of Phrase = CatGla ** open Prelude, ResGla in {
     UttAP ap = { s = ap.s } ;
     UttAdv adv = {s = } ;
     UttCN n = {s = } ;
-    UttCard n = {s = } ;
-    UttInterj i = i ; -}
+    UttCard n = {s = } ; -}
+    UttInterj i = i ;
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 

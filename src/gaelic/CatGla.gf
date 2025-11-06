@@ -49,7 +49,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
 -- Many atomic noun phrases e.g. "everybody"
 -- are constructed in StructuralGla.
 
-    CN = ResGla.LinCN ;
+    CN = ResGla.LinN ;
     NP = ResGla.LinNP ;
     Pron = LinPron ;
     Det = ResGla.LinDet ; -- s : Str , n : Number
@@ -93,17 +93,17 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     V = ResGla.LinV ;
 
     VV     -- verb-phrase-complement verb         e.g. "want"
-      = SS ;
+      = ResGla.LinV ;
 
     V2A,   -- verb with NP and AP complement      e.g. "paint"
     V2V,   -- verb with NP and V complement       e.g. "cause"
     V2S,   -- verb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
-    V2 = SS ;
-    V3 = SS ;
+    V2 = LinV ** {c2 : LinPrep} ;
+    V3 = LinV ** {c2,c3 : LinPrep} ;
 
-    A = SS ;
-    A2  = SS ;
+    A = LinA ;
+    A2 = LinA ** {c2 : LinPrep} ;
 
     N = ResGla.LinN ;
     N2 = ResGla.LinN ;
@@ -116,6 +116,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     LN = SS ; -- Location name, e.g. "Sweden"
 
   linref
+    NP = linNP ;
     Cl = linCl ;
 
 }

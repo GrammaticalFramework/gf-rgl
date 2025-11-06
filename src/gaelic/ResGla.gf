@@ -1,5 +1,6 @@
 resource ResGla = open Prelude, Predef in {
 
+
 --------------------------------------------------------------------------------
 -- General notes
 
@@ -29,82 +30,65 @@ https://inariksit.github.io/gf/2018/08/28/gf-gotchas.html#my-naming-scheme-for-l
 
 param
   Gender = Masc | Fem ;
-  CoreCase = Nom Mutation | Gen | Dat Mutation ;
-  Case = CC CoreCase | Voc ;
---  NPCase = NPC CoreCase | NPVoc ;
+  Case = Nom Mutation | Dat Mutation | Gen ;
   Mutation = Lenited | NoMutation ;
   Number = Sg
          | Pl
          ;
   Person = P1 | P2 | P3 ;
-  Definiteness = Definite | Indefinite ; -- Some prepositions govern different case when definite vs. indefinite
+  Species = Indef | Def ; -- Some prepositions govern different case when definite vs. indefinite
 
 oper
-  NOM : CoreCase = Nom NoMutation ; -- shorthand
-
-  npc2cc : Case -> CoreCase = \npc -> case npc of {
-    CC c => c ;
-    _    => NOM
-  } ;
-
-param
-  NForm =
-      Indef Number CoreCase
-    | Def Number Case
-    | Dual -- only after number 2, only for a handful of nouns. TODO: does it have different cases?
-    ;
+  NOM : Case = Nom NoMutation ; -- shorthand
 
 oper
-  getNForm : DType -> Case -> NForm = \d,c ->
-     case <d,c> of {
-      <DDef n Indefinite,Voc>  => Def n Voc ;
-      <DDef n Indefinite,CC c> => Indef n c ;
-      <DDef n Definite,c>      => Def n c ;
-      <DPoss n _,Voc>          => Indef n NOM ; -- as per Michal on Discord https://discord.com/channels/865093807343140874/865094084683366400/1409838154550087711 . TODO: Def or Indef nom ????
-      <DPoss n _,c>            => Def n c -- ????????????????
-    } ;
+  LinN : Type = {s: Case => Species => Number => Str; voc: Number => Str; g: Gender} ;
 
-  LinN : Type = {
-    base,                -- tunnag     fuil      loch      fear    litir                            bròg
-    dat,                 --                   -"-                                                   bròig (1B)
-    gen,                 -- tunnaige   fala      locha     fir     litreach ("de-palatalised")      bròige
-    pl,                  -- tunnagan             lochan    fir     litrichean                       brògan
---    pldat, -- Krasimir's and Katya's automatic extraction suggests there's a difference, but I don't see it
-             -- add this form if we turn out to need it
-    -- TODO: for nouns that only use suffixes, should these just show theoretical forms?
-    lenited,             -- thunnag    fhuil     loch      fhear
-    palatalised,         -- tunnaig    fuil      loch      fir
-    lenited_palatalised, -- thunnaig   fhuil     loch      fhir
-    lenited_plural
-    : Str ;
-    g : Gender
-    } ;
-
-  mk5N : (nom,gen,dat,pl : Str) -> Gender -> LinN = \brog,broige,broig,brogan,g -> {
-    base = brog ;
-    gen = broige ;
-    dat = broig ;
-    pl = brogan ;
-    lenited_plural = lenite brogan ;
-    lenited = bhrog ;
-    palatalised = broig ;
-    lenited_palatalised = bhroig ;
-    g = g
-    } where {
-      bhrog : Str = lenite brog ;
-      bhroig : Str = lenite broig } ;
-
-  smartN = overload {
-    smartN : (nom,gen,pl : Str) -> Gender -> LinN = \loch,locha,lochan,g ->
-      mk5N loch locha loch lochan g ;
-    smartN : (base : Str) -> Gender -> LinN = \tunnag,g ->
-      let fm : Str -> Str -> Str = \fem,masc -> case g of {
-            Fem => fem ; Masc => masc } ;
-          tunnaig : Str = palatalise tunnag ;
-          tunnaige : Str = fm (tunnaig + "e") tunnaig ;
-          tunnagan : Str = fm (tunnag + "an") tunnaig ;
-       in mk5N tunnag tunnaige tunnag tunnagan g
-  } ;
+  mk5N nom dat gen pl pal g =
+      { s = table {
+              Nom _ => table {
+                       Indef => table {
+                                  Sg => nom ;
+                                  Pl => pl
+                                } ;
+                       Def => table {
+                                Sg => nom ;
+                                Pl => fm pl pal
+                              }
+                     } ;
+              Dat _ => table {
+                       Indef => table {
+                                  Sg => dat ;
+                                  Pl => pl
+                                } ;
+                       Def => table {
+                                Sg => fm pal (lenite nom) ;
+                                Pl => pl
+                              }
+                     } ;
+              Gen => table {
+                       Indef => table {
+                                  Sg => gen ;
+                                  Pl => lenite nom
+                                } ;
+                       Def => table {
+                                Sg => fm pal (lenite pal) ;
+                                Pl => nom
+                              }
+                     }
+            } ;
+        voc = table {
+                Sg => fm (lenite nom) (lenite pal) ;
+                Pl => lenite nom+"a"
+              } ;
+        g = g
+      }
+  where {
+    fm : Str -> Str -> Str = \fem,masc -> case g of {
+           Fem => fem ;
+           Masc => masc
+        }
+  };
 
   vowel : pattern Str = #("a"|"à"|"e"|"i"|"ì"|"o"|"u") ; -- more accents?
   diphthong : pattern Str = #("ea"|"oi") ;
@@ -112,12 +96,8 @@ oper
   labial : pattern Str = #("b"|"f"|"m"|"p") ;
 
   palatalise : Str -> Str = \lamh -> case lamh of {
-    f@? + "ea" + r      => f + "i" + r ; -- TODO is this irregular?
-    boireann@(_ + (#vowel|#diphthong) + ? + _ + (#vowel|#diphthong) + ? + _)
-      + a@#vowel + ch => boireann + a + "i" + ch ;
-    tunn@(_ + (#vowel|#diphthong) + ? + _)
-      + a@#vowel + g  => tunn + a + "i" + g ;
-    l + a@#vowel + mh => l + a + "i" + mh ;
+    gr+"ea"+nn@("c"|"d"|"l"|"n"|"p"|"r"|"s"|"m"|"ch"|"dh"|"ll"|"mh"|"nn"|"sg") => gr+"i"+nn ;
+    boireann + a@#vowel + ch@("b"|"c"|"d"|"g"|"l"|"p"|"r"|"s"|"t"|"m"|"n"|"bh"|"ch"|"cs"|"dh"|"gh"|"ll"|"lm"|"lt"|"mh"|"nc"|"ng"|"nn"|"nt"|"nnd"|"rc"|"rd"|"rm"|"rn"|"rs"|"rt"|"sg"|"th"|"ths"|"rbh") => boireann + a + "i" + ch ;
     _                 => lamh } ;
 
   lenite : Str -> Str = \tunnag -> case tunnag of {
@@ -126,88 +106,6 @@ oper
     t@#lenitable + unnag   => t + "h" + unnag ;
     _                      => tunnag } ;
 
-
-  -- For inflection paradigms, see http://www.grammaticalframework.org/doc/tutorial/gf-tutorial.html#toc56
-  mkNoun : (b,g,d,pl,l,p,lp,lpl : Str) -> Gender -> LinN = \b,gen,dat,pl,l,p,lp,lpl,g -> {
-    base = b ;                 -- tunnag     fuil      loch      fear    litir
-    gen = gen ;                -- tunnaige   fala      locha     fir     litreach
-    dat = dat ;                -- tunnaige   fala      locha     fir     litreach
-    pl  = pl ;                 -- tunnagan             lochan    fir     litrichean
-    lenited = l ;              -- thunnag    fhuil     loch      fhear   litir ?
-    palatalised = p ;          -- tunnaig    fuil      loch      fir     litir ?
-    lenited_palatalised = lp ; -- thunnaig   fhuil     loch      fhir    litir ?
-    lenited_plural = lpl ;     -- thunnagan            lochan    fhir    litrichean ?
-    g = g ;
-    } ;
-
-  -- TODO: no idea if this is even remotely correct
-  -- can always replace morphology with Katya's automated tool
-  useN : LinN -> LinCN = \n -> n ** {
-    s = table {
-          Indef Sg (Nom NoMutation) => n.base ;
-          Indef Sg (Nom Lenited) => n.lenited ;
-          Indef Sg Gen => n.gen ;
-          Indef Sg (Dat NoMutation) => n.dat ;
-          Indef Sg (Dat Lenited) => fm n.lenited_palatalised n.lenited ; ------- FIXME later
-          Def Sg (CC (Nom NoMutation)) => n.base ;
-          Def Sg (CC (Nom Lenited)) => n.lenited ;
-          Def Sg (CC Gen) => fm n.gen n.lenited_palatalised ;
-          Def Sg (CC (Dat NoMutation)) => fm n.palatalised n.lenited ;
-          Def Sg (CC (Dat Lenited)) => fm n.lenited_palatalised n.lenited ;
-          Def Sg Voc => fm n.lenited n.lenited_palatalised ;
-          Indef Pl (Nom NoMutation) => fm n.pl n.palatalised ;
-          Indef Pl (Nom Lenited) => fm n.lenited_plural n.lenited_palatalised ;
-          Indef Pl Gen => n.lenited ;
-          Indef Pl (Dat NoMutation) => fm n.pl n.palatalised ; -- TODO: is this overfitting based on the 5 nouns i know? probably!
-          Indef Pl (Dat Lenited) => fm n.lenited_plural n.lenited_palatalised ; -- TODO: see above
-          Def Pl (CC (Nom NoMutation)) => n.pl ;
-          Def Pl (CC (Nom Lenited)) => n.lenited_plural ;
-          Def Pl (CC Gen) => n.base ;
-          Def Pl (CC (Dat NoMutation)) => n.pl ;
-          Def Pl (CC (Dat Lenited)) => n.lenited_plural ;
-          Def Pl Voc => glue n.lenited "a" ;
-          Dual => fm n.palatalised n.base -- TODO: is this correct? only for 1-syllable feminine nouns?
-          }
-    } where {
-      fm : Str -> Str -> Str = \fem,masc -> case n.g of {
-          Fem => fem ;
-          Masc => masc
-        }
-      };
-
-  LinCN : Type = {
-    s : NForm =>
-        Str ;
-    g : Gender ;
-    -- ** postmod/premod/… : Str -- if needed? determiners can put stuff after head but it only comes at NP
-  } ;
-
-  linCN : LinCN -> Str = \cn -> cn.s ! Indef Sg NOM
-                     --      ++ cn.postmod   -- If there is another field, use here
-                                ;
-
-
--- some test nouns — TODO: do smart paradigms
-tunnag_N : LinN = {
-    base,dat = "tunnag" ;
-    gen = "tunnaige" ;
-    pl = "tunnagan" ;
-    lenited_plural = "thunnagan" ;
-    lenited = "thunnag" ;
-    palatalised = "tunnaig" ;
-    lenited_palatalised = "thunnaig" ;
-    g = Fem ;
-    } ;
-
-boireannach_N : LinN = {
-    base,dat = "boireannach" ;
-    pl,gen = "boireannaich" ;
-    lenited = "bhoireannach" ;
-    palatalised = "boireannaich" ;
-    lenited_palatalised,
-    lenited_plural = "bhoireannaich" ;
-    g = Masc ;
-    } ;
 
 ---------------------------------------------
 -- Proper noun
@@ -243,22 +141,10 @@ oper
 
 oper
   LinPron : Type = {
-    s : CoreCase => Str ;
+    s : Case => Str ;
     a : PronAgr ;
     poss : Str ; -- if a case is needed, it comes from the Prep! TODO verify this (do we ever need a dative for poss pron without a prep present? some preps merge, others not, but the pronoun is present in all the preps. why this way—I counted on there being fewer pronouns than prepositions.)
     empty : Str ; -- to prevent metavariables
-    } ;
-
-  -- TODO: nicer API where you can give Person, Number, Gender etc.
-  -- not this weird unintuitive Agr param
-  mkPron : (subj,poss : Str) -> PronAgr -> LinPron = \subj,poss,agr -> {
-    s = table {
-          Nom _ => subj ;
-          _   => "gam"  -- TODO fix this
-        } ;
-    poss = poss ;
-    a = agr ;
-    empty = []
     } ;
 
 ---------------------------------------------
@@ -286,11 +172,11 @@ oper
     a : Agr ; -- includes whether it's pron and whether it's definite. TODO: probably can make even leaner (wasn't a prio so far).
     } ;
 
-  linNP : LinNP -> Str = \np -> np.art ! CC NOM ++ np.s ! CC NOM ;
+  linNP : LinNP -> Str = \np -> np.art ! NOM ++ np.s ! NOM ;
 
   emptyNP : LinNP = {
     s,art = \\_ => [] ;
-    a = NotPron (DDef Sg Indefinite) ; -- we assume pronouns are definite by default. also it just matters for PrepNP.
+    a = NotPron (DDef Sg Indef) ; -- we assume pronouns are definite by default. also it just matters for PrepNP.
     empty = [] ;
   } ;
 
@@ -298,9 +184,9 @@ oper
 -- Det, Quant, Card, Ord
 
 param
-  QuantForm = QSg Gender CoreCase | QPl CoreCase ;
-  QType = QDef Definiteness | QPoss PronAgr ;
-  DType = DDef Number Definiteness | DPoss Number PronAgr ;
+  QuantForm = QSg Gender Case | QPl Case ;
+  QType = QDef Species | QPoss PronAgr ;
+  DType = DDef Number Species | DPoss Number PronAgr ;
 
   -- The minimum forms that preposition merges with
   PrepAgr = PrepBase | PrepDefiniteArticle Number | PrepObjectPron PronAgr | PrepPossPron PronAgr ;
@@ -314,16 +200,12 @@ oper
   } ;
 
   getQuantForm : Number -> Gender -> Case -> QuantForm = \n,g,c -> case <n,c> of {
-    <Sg,CC c> => QSg g c ;
-    <Sg,_>  => QSg g NOM ; --- ??????
-    <Pl,CC c> => QPl c ;
-    <Pl,_>  => QPl NOM --- ??????
+    <Sg,c> => QSg g c ;
+    <Pl,c> => QPl c
   } ;
 
-  getArt : LinQuant -> Number -> Gender -> Case -> Str = \quant,n,g,c -> case c of {
-    Voc => "" ; -- TODO: add empty field to article to not get metavariables
-    _   => quant.s ! getQuantForm n g c
-  } ;
+  getArt : LinQuant -> Number -> Gender -> Case -> Str = \quant,n,g,c ->
+    quant.s ! getQuantForm n g c ;
 
   LinQuant : Type = {
     s  -- quantifier in a context, e.g. 'this (cat) (is nice)'
@@ -343,14 +225,7 @@ oper
     n : Number ;
     } ;
 
-  -- Can you reuse your mkNoun? Do nouns and quantifiers inflect the same way?
-  mkQuant : Str -> QType -> LinQuant = \this,qt -> {
-    s = \\_ => this ;
-    sp = this ;
-    qt = qt ;
-    } ;
-
-  mkDet : (seven, teen : Str) -> Definiteness -> Number -> LinDet = \aon, deug, defi, num -> {
+  mkDet : (seven, teen : Str) -> Species -> Number -> LinDet = \aon, deug, defi, num -> {
     s = \\_,_ => aon ;
     s2 = \\_,_ => deug ;
     sp = aon ;
@@ -390,7 +265,7 @@ oper
           QPl _   => NA
         } ;
     sp = "an" ; --- meaningless for DefArt
-    qt = QDef Definite ;
+    qt = QDef Def ;
     } ;
 --------------------------------------------------------------------------------
 -- Adpositions
@@ -416,14 +291,14 @@ param
   Agr      = NotPron DType | IsPron PronAgr ;
 
 oper
-  getDefi : Agr -> Definiteness = \a -> case a of {
+  getDefi : Agr -> Species = \a -> case a of {
     NotPron (DDef n d) => d ;
-    _                  => Definite
+    _                  => Def
   } ;
 
   LinPrep : Type = {
     s : PrepAgr => Str ; -- bare: aig 'on', inflected: agam 'on me', agad 'on you', …
-    c2 : Definiteness => CoreCase ; -- most often dative
+    c2 : Species => Case ; -- most often dative
     replacesObjPron : Bool ; -- NP has to keep track of if it comes from a Pron
 
     -- If your language has both pre- and postpositions, you need an inherent parameter in Prep to record which one a given Prep is.
@@ -434,18 +309,18 @@ oper
 
   PrepForms : Type = {base, sg1, sg2, sg3M, sg3F, pl1, pl2, pl3 : Str} ;
 
-  H, N, LENITION_DEBUG : Str ;
-  H = pre {#vowel  => "h"  ++ BIND ; _ => []} ;
-  N = pre {#vowel  => "n-" ++ BIND ; _ => []} ;
+  h, n, LENITION_DEBUG : Str ;
+  h = pre {#vowel  => "h"  ++ BIND ; _ => []} ;
+  n = pre {#vowel  => "n-" ++ BIND ; _ => []} ;
   LENITION_DEBUG = "^L" ; -- Only for debugging purposes—replace with empty string for production
 
 
   invarPrepForms : Str -> PrepForms = \str ->
     {base=str ; sg1=str++"mo" + LENITION_DEBUG; sg2=str++"do" + LENITION_DEBUG; sg3M=str++"a" + LENITION_DEBUG;
-     sg3F=str++"a"++H;  pl1=str++"àr"++N;  pl2=str++"ùr"++N; pl3=str++AN} ; -- AN is defined as an allomorph to def art, TODO does the possessive add t- before vowel?
+     sg3F=str++"a"++h;  pl1=str++"àr"++n;  pl2=str++"ùr"++n; pl3=str++AN} ; -- AN is defined as an allomorph to def art, TODO does the possessive add t- before vowel?
 
   mkLinPrep : (replacesObjPron : Bool)
-        -> (indef,defi : CoreCase)
+        -> (indef,defi : Case)
         -> (objForms, possForms : PrepForms)
         -> LinPrep =
       \replaces,casIndef,casDef,objForms,possForms -> {
@@ -485,13 +360,12 @@ oper
     mkPrep : (objForms, possForms : PrepForms) -> LinPrep = smartPrep ;
     mkPrep : (objForms, possForms : PrepForms) -> Mutation -> LinPrep =
       \obj,poss,mutation -> mkLinPrep True (Dat mutation) (Dat mutation) obj poss ;
-    mkPrep : (replacesObjPron : Bool) -> (indef,defi : CoreCase)
+    mkPrep : (replacesObjPron : Bool) -> (indef,defi : Case)
           -> (objForms, possForms : PrepForms) -> LinPrep = mkLinPrep
   } ;
 
   emptyPrep : LinPrep = {
     s = \\_ => [] ;
-    poss = \\_ => [] ;
     c2 = \\_ => Dat Lenited ;
     replacesObjPron = False
   } ;
@@ -499,7 +373,7 @@ oper
   aigPrep : LinPrep =
     mkPrep
       {base="aig"; sg1="agam"; sg2="agad"; sg3M="aige"; sg3F="aice";  pl1="againn";  pl2="agaibh"; pl3="aca"}
-      {base="aig"; sg1="'gam" + LENITION_DEBUG; sg2="'gad" + LENITION_DEBUG; sg3M="'ga" + LENITION_DEBUG; sg3F="'ga"++H;  pl1="'gar"++N;  pl2="'gur"++N; pl3="'gan"}
+      {base="aig"; sg1="'gam" + LENITION_DEBUG; sg2="'gad" + LENITION_DEBUG; sg3M="'ga" + LENITION_DEBUG; sg3F="'ga"++h;  pl1="'gar"++n;  pl2="'gur"++n; pl3="'gan"}
       NoMutation ;
 
   airPrep : LinPrep =
@@ -511,7 +385,7 @@ oper
   annPrep : LinPrep =
     mkPrep
       {base="ann"; sg1="annam"; sg2="annad"; sg3M="ann"; sg3F="innte";  pl1="annainn";  pl2="annaibh"; pl3="annta"}
-      {base="ann"; sg1="'nam" + LENITION_DEBUG; sg2="'nad" + LENITION_DEBUG; sg3M="'na" + LENITION_DEBUG; sg3F="'na"++H;  pl1="'nar"++N;  pl2="'nur"++N; pl3="'nan"}
+      {base="ann"; sg1="'nam" + LENITION_DEBUG; sg2="'nad" + LENITION_DEBUG; sg3M="'na" + LENITION_DEBUG; sg3F="'na"++h;  pl1="'nar"++n;  pl2="'nur"++n; pl3="'nan"}
       NoMutation ;
 
   àsPrep  : LinPrep =
@@ -523,14 +397,14 @@ oper
   bhoPrep : LinPrep =
     mkPrep
       {base="bho"; sg1="bhuam"; sg2="bhuat"; sg3M="bhuaithe"; sg3F="bhuaipe";  pl1="bhuainn";  pl2="buaibh"; pl3="bhuapa"}
-      {base="bho"; sg1="bhom" + LENITION_DEBUG; sg2="bhod" + LENITION_DEBUG; sg3M="bho a" + LENITION_DEBUG; sg3F="bho a"++H;  pl1="bhor"++N;  pl2="bhu"++N; pl3="bhon"}
+      {base="bho"; sg1="bhom" + LENITION_DEBUG; sg2="bhod" + LENITION_DEBUG; sg3M="bho a" + LENITION_DEBUG; sg3F="bho a"++h;  pl1="bhor"++n;  pl2="bhu"++n; pl3="bhon"}
       Lenited ;
 {-  dePrep  : LinPrep = …-}
 
   doPrep  : LinPrep =
     mkPrep
       {base="do"; sg1="dhomh"; sg2="dhut"; sg3M="dha"; sg3F="dhi";  pl1="dhuinn";  pl2="dhuibh"; pl3="dhiubh"}
-      {base="bho"; sg1="dom" + LENITION_DEBUG; sg2="dod" + LENITION_DEBUG; sg3M="dha" + LENITION_DEBUG; sg3F="dha"++H;  pl1="dor"++N;  pl2="dhur"++N; pl3="don"}
+      {base="bho"; sg1="dom" + LENITION_DEBUG; sg2="dod" + LENITION_DEBUG; sg3M="dha" + LENITION_DEBUG; sg3F="dha"++h;  pl1="dor"++n;  pl2="dhur"++n; pl3="don"}
       Lenited ;
 
 {-  eadarPrep : LinPrep = …-}
@@ -541,7 +415,7 @@ oper
       (Dat NoMutation) {-governs dative when indefinite, no mutation-}
       Gen              {-governs genitive when definite-}
       {base="gu"; sg1="ugam"; sg2="ugad"; sg3M="uige"; sg3F="uice";  pl1="ugainn";  pl2="ugaibh"; pl3="uca"}
-      {base="gu"; sg1="gum" + LENITION_DEBUG; sg2="gud" + LENITION_DEBUG; sg3M="gu a" + LENITION_DEBUG; sg3F="gu a"++H;  pl1="gar"++N;  pl2="gur"++N; pl3="gun"}
+      {base="gu"; sg1="gum" + LENITION_DEBUG; sg2="gud" + LENITION_DEBUG; sg3M="gu a" + LENITION_DEBUG; sg3F="gu a"++h;  pl1="gar"++n;  pl2="gur"++n; pl3="gun"}
       ;
 
 --------------------------------------------------------------------------------
@@ -549,67 +423,88 @@ oper
 -- Lamb p. 220 basic morphology, degree
 -- Lamb p. 246: predicative adjectives
 
-  LinA : Type = SS ;
+param
+  AForm = ASg Case Gender | APl ;
+
+oper
+  LinA : Type = {s: AForm => Str; voc: Gender => Str; compar: Str} ; -- 686
+  oper mkAdj : (_,_,_,_,_,_,_,_,_,_ : Str) -> LinA =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10 ->
+          { s = table {
+                  ASg (Nom _) Masc => f1 ;
+                  ASg (Nom _) Fem => f2 ;
+                  ASg (Dat _) Masc => f3 ;
+                  ASg (Dat _) Fem => f4 ;
+                  ASg Gen Masc => f5 ;
+                  ASg Gen Fem => f6 ;
+                  APl => f7
+                } ;
+            voc = table {
+                    Masc => f8 ;
+                    Fem => f9
+                  } ;
+            compar = f10 ;
+          } ;
+
   LinA2 : Type = LinA ;
 
-  mkAdj : Str -> LinA = \str -> {s = str} ;
-
-  AdjPhrase : Type = LinA ; -- ** {compar : Str} ;
+  LinAP : Type = LinA ; -- ** {compar : Str} ;
 --------------------------------------------------------------------------------
 -- Verbs
 
 param
-  VAgr = VSg1 | VSg2 | VSg3 | VPl1 | VPl2 | VPl3 ;
-  VForm = VInf | VPres VAgr | VPast VAgr ; -- TODO
-
+  VForm = Indep | Dep ;
+  
 oper
-  nagr2vagr : Agr -> VAgr = \a -> case a of {
-    NotPron (DDef Sg _) => VSg3 ;
-    NotPron (DDef Pl _) => VPl3 ;
-
-    -- this is the number of the possessee—number of possessor only matters for PrepNP!
-    NotPron (DPoss Sg _)     => VSg3 ;
-    NotPron (DPoss Pl _)     => VPl3 ;
-
-    -- this is subject pronoun, which agrees with verb
-    IsPron Sg1     => VSg1 ;
-    IsPron Sg2     => VSg2 ;
-    IsPron (Sg3 _) => VSg3 ;
-    IsPron Pl1     => VPl1 ;
-    IsPron Pl2     => VPl2 ;
-    IsPron Pl3     => VPl3
-  } ;
-
-  LinV : Type = {
-    s : VForm => Str
-    } ;
+  LinV = {s: Str; conditional: Number => Str; imperative: Person => Number => Str; future, past : VForm => Str; noun, participle: Str} ;
 
   LinV2 : Type = LinV ** {
     c2 : LinPrep ;
     } ;
 
-  mkVerb : Str -> LinV = \str -> {
-    s = table {
-      _ => str
-      }
-    } ;
-
-  copula : LinV = {s = \\_ => "TODO: copula"} ; -- often useful
+  mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> LinV =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15 ->
+          { s = f1 ;
+            conditional = table {
+                            Sg => f2 ;
+                            Pl => f3
+                          } ;
+            imperative = table {
+                           P1 => table {
+                                   Sg => f4 ;
+                                   Pl => f5
+                                 } ;
+                           P2 => table {
+                                   Sg => f6 ;
+                                   Pl => f7
+                                 } ;
+                           P3 => table {
+                                   Sg => f8 ;
+                                   Pl => f9
+                                 }
+                         } ;
+            future = table {
+                       Indep => f10 ;
+                       Dep   => f11
+                     } ;
+            past   = table {
+                       Indep => f12 ;
+                       Dep   => f13
+                     } ;
+            noun = f14 ;
+            participle = f15
+          } ;
 
 ------------------
 -- VP
 -- Lamb p. 229
 -- "tense, aspect, modality, voice, person and number. There are contrasts to be seen, as above, between inflected and periphrastic forms and, as a whole, periphrasis is more productive."
 
-  LinVP : Type = {
-    s : VForm => Str ;
-    } ;
+  LinVP : Type = LinV ;
 
   LinVPSlash : Type = LinVP ** {
     c2 : LinPrep ;
     } ;
-
-  linVP : LinVP -> Str = \vp -> vp.s ! VInf ;
 
 --------------------------------------------------------------------------------
 -- Cl, S
@@ -621,5 +516,47 @@ oper
   } ;
 
   linCl : LinCl -> Str = \cl -> cl.subj ++ cl.pred ;
+
+
+oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> LinN =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,g ->
+          { s = table {
+                  Nom _ => table {
+                           Indef => table {
+                                      Sg => f1 ;
+                                      Pl => f2
+                                    } ;
+                           Def => table {
+                                    Sg => f3 ;
+                                    Pl => f4
+                                  }
+                         } ;
+                  Dat _ => table {
+                           Indef => table {
+                                      Sg => f5 ;
+                                      Pl => f6
+                                    } ;
+                           Def => table {
+                                    Sg => f7 ;
+                                    Pl => f8
+                                  }
+                         } ;
+                  Gen => table {
+                           Indef => table {
+                                      Sg => f9 ;
+                                      Pl => f10
+                                    } ;
+                           Def => table {
+                                    Sg => f11 ;
+                                    Pl => f12
+                                  }
+                         }
+                } ;
+            voc = table {
+                    Sg => f13 ;
+                    Pl => f14
+                  } ;
+            g = g
+          } ;
 
 }
