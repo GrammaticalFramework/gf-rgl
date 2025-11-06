@@ -2026,6 +2026,7 @@ mkA092 base =
     _ => error "Can't apply paradigm mkA092"
   } ;
 
+reg4N' : (_,_,_,_ : Str) -> Gender -> LinN ;
 reg4N' nom pl gen pal g =
   lin N
       { s = table {
