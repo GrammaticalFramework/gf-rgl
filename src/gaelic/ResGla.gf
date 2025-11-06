@@ -44,6 +44,7 @@ oper
 oper
   LinN : Type = {s: Case => Species => Number => Str; voc: Number => Str; g: Gender} ;
 
+  mk5N : (_,_,_,_,_ : Str) -> Gender -> LinN ;
   mk5N nom dat gen pl pal g =
       { s = table {
               Nom _ => table {
@@ -427,6 +428,13 @@ param
   AForm = ASg Case Gender | APl ;
 
 oper
+  aform : Case -> Number -> Gender -> AForm =
+    \c,n,g -> case n of {
+                Sg => ASg c g ;
+                Pl => APl
+              } ;
+
+oper
   LinA : Type = {s: AForm => Str; voc: Gender => Str; compar: Str} ; -- 686
   oper mkAdj : (_,_,_,_,_,_,_,_,_,_ : Str) -> LinA =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10 ->
@@ -448,7 +456,8 @@ oper
 
   LinA2 : Type = LinA ;
 
-  LinAP : Type = LinA ; -- ** {compar : Str} ;
+  LinAP : Type = {s: AForm => Str; voc: Gender => Str} ; -- 686
+
 --------------------------------------------------------------------------------
 -- Verbs
 

@@ -41,7 +41,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
 --2 Adjectival phrases
 
 -- Constructed in AdjectiveGla.
-    AP = SS ;
+    AP = LinAP ;
 
 --2 Nouns and noun phrases
 

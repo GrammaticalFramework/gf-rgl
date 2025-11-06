@@ -168,10 +168,14 @@ concrete NounGla of Noun = CatGla ** open ResGla, Prelude in {
 
   -- : N3 -> N2 ;          -- distance (to Paris)
   Use3N3 n3 = lin N2 n3 ;
-
+-}
   -- : AP -> CN -> CN
-  AdjCN ap cn =
-
+  AdjCN ap cn = {
+    s = \\c,s,n => cn.s ! c ! s ! n ++ ap.s ! aform c n cn.g ;
+    voc = \\n => cn.voc ! n ++ ap.voc ! cn.g ;
+    g = cn.g
+  } ;
+{-
   -- : CN -> RS -> CN ;
   RelCN cn rs =
 
