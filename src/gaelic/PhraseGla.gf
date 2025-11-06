@@ -7,9 +7,11 @@ concrete PhraseGla of Phrase = CatGla ** open Prelude, ResGla in {
 
 {-
     UttQS qs = qs ;
-    UttIAdv iadv = iadv ;
-    UttNP np =
-    UttIP ip =
+    UttIAdv iadv = iadv ; -}
+
+    UttNP np = {s = linNP np} ;
+
+{-    UttIP ip =
     UttImpSg pol imp = { s = pol.s ++ imp.s ! Sg ! pol.p } ;
     UttImpPl pol imp =
     UttImpPol pol imp = {s = pol.s ++ imp.s ! Sg ! pol.p} ;
