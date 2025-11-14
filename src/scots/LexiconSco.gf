@@ -7,11 +7,11 @@ flags
   optimize=values ;
 
 lin
-  airplane_N = regN "airplane" ;
+  airplane_N = mkN "airieplane" ;
   alas_Interj = ss "alas" ;
   answer_V2S = mkV2S (mkV "answer" "answered") toP ;
   apartment_N = regN "apartment" ;
-  apple_N = regN "apple" ;
+  apple_N = mkN "aiple" ;
   art_N = regN "art" ;
   ask_V2Q = mkV2Q (regV "ask") noPrep ;
   baby_N = regN "baby" ;
@@ -48,13 +48,13 @@ lin
   ceiling_N = regN "ceiling" ;
   chair_N = regN "chair" ;
   cheese_N = regN "cheese" ;
-  child_N = mk2N "child" "children" ;
-  church_N = regN "church" ;
-  city_N = regN "city" ;
+  child_N = mkN "bairn" ;
+  church_N = mkN "kirk" ;
+  city_N = mkN "ceety" ;
   clean_A = regADeg "clean" ;
   clever_A = mkA "clever" "cleverer" ;
   close_V2 = dirV2 (regV "close") ;
-  coat_N = regN "coat" ;
+  coat_N = mkN "sark" ;
   cold_A = regADeg "cold" ;
   come_V = (irregV "come" "came" "come") ;
   computer_N = regN "computer" ;
@@ -139,7 +139,7 @@ lin
   pen_N = regN "pen" ;
   planet_N = regN "planet" ;
   plastic_N = regN "plastic" ;
-  play_V2 = dirV2 (regV "play") ;
+  play_V2 = dirV2 (regV "spiel") ;
   policeman_N = mkN masculine (mkN "policeman" "policemen") ;
   priest_N = mkN human (regN "priest") ;
   probable_AS = mkAS (regA "probable") ;
@@ -154,7 +154,7 @@ lin
   rock_N = regN "rock" ;
   roof_N = regN "roof" ;
   rubber_N = regN "rubber" ;
-  run_V = (irregDuplV "run" "ran" "run") ;
+  run_V = (irregDuplV "rin" "ran" "run") ;
   say_VS = mkVS (irregV "say" "said" "said") ;
   school_N = regN "school" ;
   science_N = regN "science" ;
