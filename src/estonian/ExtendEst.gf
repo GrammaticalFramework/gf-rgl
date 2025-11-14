@@ -353,7 +353,7 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> AP ;    -- täna leitud
     PastPartAP vp = {
-      s = \\_,_ => vp2adv (lin VP vp) <True : Bool> <PastPart Pass : VForm> ;
+      s = \\_,_ => vp2adv <lin VP vp : VP> True (PastPart Pass) ;
       infl = Invariable
       } ;
 
@@ -366,7 +366,7 @@ concrete ExtendEst of Extend =
     -- : VPSlash -> NP -> AP    -- hobisukeldujate poolt leitud (süvaveepomm)
     PastPartAgentAP vp np = {
       s = \\_,_ => appCompl True Pos by8agent_Prep np
-                ++ vp2adv (lin VP vp) <True : Bool> <PastPart Pass : VForm> ;
+                ++ vp2adv <lin VP vp : VP> True (PastPart Pass) ;
       infl = Invariable
       } ;
 
