@@ -291,7 +291,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 	
   lin 
     FocObj np cl =
-      let n = appPrepNP cl.c2 np in mkFoc n cl ;
+      let n = appPrepNP cl.c2 np in mkFoc n (lin Cl cl) ;
 
     FocAdv adv cl = mkFoc adv.s cl ;
 
@@ -304,7 +304,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                -- "froh ist sie dass er da ist"
                -- "stolz ist sie auf ihn"
           subj = mkSubject np vp.c1 ;
-          cl = mkClause subj.s subj.a vp
+          cl = lin Cl (mkClause subj.s subj.a vp)
       in mkFoc adj cl ;
 
     UseFoc t p f = {s = t.s ++ p.s ++ f.s ! t.m ! t.t ! t.a ! p.p} ;

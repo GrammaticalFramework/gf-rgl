@@ -81,7 +81,7 @@ oper
 	  
     } ;
   
-  mkIrregA : Str -> A = \str -> makeIrregA str ;
+  mkIrregA : Str -> A = \str -> lin A (makeIrregA str) ;
   mkA2 : A -> Str -> A2 ;
   mkA2 a str = a ** {c2=str ; lock_A2 = <>} ;
 
@@ -169,7 +169,7 @@ oper
 
 --  mkV0  : V -> V0 ;
   mkVS  : V -> VS; -- e.g drna
-  mkVS v = v ;
+  mkVS v = lin VS v ;
 --  mkV2S : V -> Prep -> V2S ;
   mkVV  : V -> VV = -- e.g cahna
      \v ->  lin VV (v ** {isAux = False});
@@ -184,7 +184,7 @@ oper
 --  mkVA  : V -> VA ;
 --  mkV2A : V -> Prep -> V2A ;
   mkVQ  : V -> VQ ; -- e.g janna
-  mkVQ v = v ;
+  mkVQ v = lin VQ v ;
 --  mkV2Q : V -> Prep -> V2Q ;
 --
 --  mkAS  : A -> AS ;

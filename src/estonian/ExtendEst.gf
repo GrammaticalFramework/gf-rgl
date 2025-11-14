@@ -353,7 +353,7 @@ concrete ExtendEst of Extend =
 
     -- : VPSlash -> AP ;    -- täna leitud
     PastPartAP vp = {
-      s = \\_,_ => vp2adv <vp : VP> <True : Bool> <PastPart Pass : VForm> ;
+      s = \\_,_ => vp2adv (lin VP vp) <True : Bool> <PastPart Pass : VForm> ;
       infl = Invariable
       } ;
 
@@ -366,7 +366,7 @@ concrete ExtendEst of Extend =
     -- : VPSlash -> NP -> AP    -- hobisukeldujate poolt leitud (süvaveepomm)
     PastPartAgentAP vp np = {
       s = \\_,_ => appCompl True Pos by8agent_Prep np
-                ++ vp2adv <vp : VP> <True : Bool> <PastPart Pass : VForm> ;
+                ++ vp2adv (lin VP vp) <True : Bool> <PastPart Pass : VForm> ;
       infl = Invariable
       } ;
 
@@ -374,7 +374,7 @@ concrete ExtendEst of Extend =
 
     -- : AP -> VP -> Cl ;   -- it is good to walk / on hea kõndida
     PredAPVP ap vp =
-      let heaOllaVP : VP = insertObj (\\_,_,_ => ap.s ! True ! NCase Sg Nom) vp ; -- puts AP into the s2 field
+      let heaOllaVP : VP = lin VP (insertObj (\\_,_,_ => ap.s ! True ! NCase Sg Nom) vp) ; -- puts AP into the s2 field
           heaOllaComp : Comp = CompVP ASimul PPos heaOllaVP ; -- chooses InfDa, fixes word order
           heaOlla : VP = UseComp heaOllaComp -- looks silly, but I want to reuse the abstract syntax funs :-P
        in existClause noSubj (agrP3 Sg) heaOlla ;

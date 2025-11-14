@@ -183,7 +183,7 @@ oper
   mkInterj : Str -> Interj
     = \s -> lin Interj {s = word s} ;
 
-  emptyPrep : Preposition = mkPrep [] ;
+  emptyPrep : Prep = mkPrep [] ;
 
   mkpNP : Str -> CatChi.NP
     = \s -> lin NP {s = word s ; det = []} ;

@@ -36,7 +36,7 @@ oper
     mkLN : Str -> Number -> PN -- PN with a given number
     } ;
 
-  mkGN : Str -> PN ; -- GN out of a string
+  mkGN : Str -> GN ; -- GN out of a string
   mkSN : Str -> SN ; -- SN out of a string
 
 --2 Adjectives
@@ -213,7 +213,7 @@ oper
     } ;
 
   mkA2 = overload {
-    mkA2 : A -> A2 = \a -> a ** {c2 = casePrep Nom ; isPost = False} ;
+    mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = casePrep Nom ; isPost = False}) ;
     mkA2 : Str -> Prep -> A2 = \s,p ->
       lin A2 ((mkAdj s) ** {c2 = p ; isPost = False}) ;
     mkA2 : Str -> Case -> A2 = \s,c ->
@@ -230,7 +230,7 @@ oper
       lin V (mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf) ;
   } ;
 
-  copula = ResHun.copula ;
+  copula = lin V ResHun.copula ;
 
   mkVS = overload {
     mkVS : Str -> VS = \v -> lin VS (mkVerb v) ;
@@ -249,7 +249,7 @@ oper
 
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
-    mkV2 : V -> V2 = vtov2 ;
+    mkV2 : V -> V2 = \v -> lin V2 (vtov2 v) ;
     } ;
 
   mkVV = overload {

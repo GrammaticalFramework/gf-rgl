@@ -167,31 +167,6 @@ oper
     prepType : PrepType ; -- TODO rename, the name is confusing
     } ;
 
-  mkPrep : Str -> Preposition = \dengan -> {
-    s = dengan ;
-    obj = \\p => dengan + poss2str (Poss p) ;
-    prepType = OtherPrep ;
-    } ;
-
-  -- direct object: "hits him" -> "memukul+nya"
-  dirPrep : Preposition = {
-    s = [] ;
-    obj = table {
-      P1 => BIND ++ "ku" ;
-      P2 => BIND ++ "mu" ;
-      P3 => BIND ++ "nya" } ;
-    prepType = DirObj ;
-    } ;
-
-  -- truly empty
-  emptyPrep : Preposition = {
-    s = [] ;
-    obj = \\_ => [] ;
-    prepType = EmptyPrep ;
-    } ;
-
-  datPrep : Preposition = mkPrep "kepada" ;
-
   applyPrep : Preposition -> NounPhrase -> Str = \prep,np ->
     case <np.a, prep.prepType> of {
       <IsPron p,OtherPrep> => prep.obj ! p ++ np.empty ;

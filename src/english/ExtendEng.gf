@@ -182,7 +182,7 @@ concrete ExtendEng of Extend =
 
     BaseVPS2 x y =
       let baseX : OneFinVPS = baseVPS2 x ;
-          baseY : OneFinVPS = baseVPS y ;
+          baseY : OneFinVPS = baseVPS (lin VPS y) ;
        in twoTable2 Order Agr baseX baseY ** {fin = baseX.fin ; c2 = y.c2} ;
     ConsVPS2 x xs =
       let baseX : OneFinVPS = baseVPS2 x ;
@@ -323,8 +323,8 @@ lin BaseImp = twoTable2 CPolarity ImpForm ;
     } ;
 
   lin
-    PassVPSlash vps = passVPSlash (lin VPS vps) [] ;
-    PassAgentVPSlash vps np = passVPSlash (lin VPS vps) ("by" ++ np.s ! NPAcc) ;
+    PassVPSlash vps = passVPSlash (lin VPSlash vps) [] ;
+    PassAgentVPSlash vps np = passVPSlash (lin VPSlash vps) ("by" ++ np.s ! NPAcc) ;
     ProgrVPSlash vp = insertObjc (\\a => vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a)
       (predAux auxBe ** {c2 = vp.c2; gapInMiddle = vp.gapInMiddle; missingAdv = vp.missingAdv});
 

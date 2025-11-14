@@ -403,7 +403,7 @@ resource ParadigmsIce = open
 
 		addAdv : A -> Str -> A = \a,adv -> a ** {adv = adv} ;
 
-  		mkA2 : A -> Prep -> A2 = \adj,prep -> adj ** {c2 = prep} ;
+  		mkA2 : A -> Prep -> A2 = \adj,prep -> lin A2 (adj ** {c2 = prep}) ;
 
 		--2 Verbs
 
@@ -744,9 +744,9 @@ resource ParadigmsIce = open
 		-- Two-place verbs need a preposition, except the special case with direct object.
 		-- (transitive verbs).
 
-		prepV2 : V -> Preposition -> V2 = \v,prep -> v  ** {c2 = prep} ;
+		prepV2 : V -> Preposition -> V2 = \v,prep -> lin V2 (v  ** {c2 = prep}) ;
 
-		prepV3 : V -> Preposition -> Preposition -> V3 = \v,p1,p2 -> v ** {c2 = p1 ; c3 = p2} ;
+		prepV3 : V -> Preposition -> Preposition -> V3 = \v,p1,p2 -> lin V3 (v ** {c2 = p1 ; c3 = p2}) ;
 		
 		accPrep : Preposition = {s = []; c = Acc} ;
 

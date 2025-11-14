@@ -258,7 +258,7 @@ lin PresPartAP vp = {
       hasPrefix = False
       } ;
 lin PastPartAP vps = {
-      s = \\_,nf => preCompVP <vps : VP>  (PastPartAct (AN nf)) ;
+      s = \\_,nf => preCompVP (lin VP vps) (PastPartAct (AN nf)) ;
       p = vps.c2.s.p1 ;
       hasPrefix = False
       } ;

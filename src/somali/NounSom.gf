@@ -226,7 +226,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UseN,UseN2 = ResSom.useN ;
 
   -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
-  ComplN2 n2 np = genModCN (useN n2) np ;
+  ComplN2 n2 np = genModCN (lin CN (useN n2)) np ;
 
 {-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)

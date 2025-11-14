@@ -8,7 +8,7 @@
 ---- syntax. To build a lexicon, it is better to use $ParadigmsSnd$, which
 ---- gives a higher-level access to this module.
 --
-resource MorphoSnd = ResSnd ** open Prelude,Predef in {
+resource MorphoSnd = ResSnd ** open Prelude,Predef,CatSnd in {
 
  
  flags optimize=all ;
@@ -17,8 +17,8 @@ resource MorphoSnd = ResSnd ** open Prelude,Predef in {
 ----2 Nouns
 oper
    
-    mkN : (x1,_,_,_,_,_,_,x8 : Str) -> Gender -> Noun = 
-      \sd,so,sv,sa, pd,po,pv,pa, g -> {
+    mkN : (x1,_,_,_,_,_,_,x8 : Str) -> Gender -> N = 
+      \sd,so,sv,sa, pd,po,pv,pa, g -> lin N {
       s = table {
       Sg => table {
         Dir => sd ;
@@ -39,7 +39,7 @@ oper
 
 	  
 -- 1. msculine: chokro, kuto, hat  
-	   mkN01 : Str -> Noun ;
+	   mkN01 : Str -> N ;
   mkN01 chokro = let chokr = (tk 1 chokro) 
                 in mkN (chokro)     (chokr+"y")       (chokr+"a")  (chokr+"a")    
                        (chokr+"a")   (chokr+"n")       (chokr+"a")  (chokr+"a")  
@@ -47,81 +47,81 @@ oper
 
 
 -- 2. karkhano
-  mkN02 : Str -> Noun ;
+  mkN02 : Str -> N ;
   mkN02 karkhano =let karkhan = (tk 1 karkhano) 
 					in mkN (karkhano)    (karkhan+"y")       (karkhan+"a")     (karkhano)
                    (karkhan+"a")    (karkhan+"n")  (karkhan+"W")         (karkhan+"a") 
                 Fem ;
 
 -- 3.  gher, shehar
-  mkN03 : Str -> Noun ;
+  mkN03 : Str -> N ;
   mkN03 gher = mkN (gher)    (gher)       (gher)     (gher)
                    (gher)    (gher+"n")  (gher+"W")        (gher)
                 Masc ;
 				
 -- 4. paki, mez, gah
-  mkN04 : Str -> Noun ;
+  mkN04 : Str -> N ;
   mkN04 paki = mkN (paki)    (paki)       (paki)     (paki)
                    (paki)    (paki+"n")  (paki)        (paki)
                 Fem ;
 
 -- 5. msculine: bar, hotel, pathar
-  mkN05 : Str -> Noun ;
+  mkN05 : Str -> N ;
   mkN05 bar = mkN (bar)    (bar)       (bar)     (bar)
                    (bar)    (bar+"n")  (bar+"W")      (bar) 
                 Masc ;
 				
 -- 6. pe
-  mkN06 : Str -> Noun ;
+  mkN06 : Str -> N ;
   mkN06 pe = mkN (pe)    (pe)       (pe)     (pe)
                    (pe+"e'r")    (pe+"e'rn")  (pe+"e'rW")    (pe+"e'r")
                 Masc ;
 
 -- 7. Feminine : ma
-  mkN07 : Str -> Noun ;
+  mkN07 : Str -> N ;
   mkN07 ma = mkN (ma)    (ma)       (ma)     (ma)
                    (ma+"e'r")    (ma+"e'rn")  (ma+"e'rW")    (ma+"e'r")
                 Fem ;
 				
 -- 8. msculine: topi, takre
-  mkN08 : Str -> Noun ;
+  mkN08 : Str -> N ;
   mkN08 topi = mkN (topi)    (topi)       (topi)     (topi)
                    (topi+"Wn")    (topi+"n")  (topi+"W")          (topi+"Wn")
                 Masc ;
 
 -- 9. Feminine: bere, bili, kurse
-  mkN09 : Str -> Noun ;
+  mkN09 : Str -> N ;
   mkN09 bili = mkN (bili)    (bili)       (bili)     (bili)
                    (bili+"Wn")    (bili+"n")  (bili+"n")         (bili+"Wn") 
                 Fem ;
 				
 -- 10. msculine: bha
-  mkN010 : Str -> Noun ;
+  mkN010 : Str -> N ;
   mkN010 bha = mkN (bha)    (bha)       (bha)     (bha)
                    (bha+"r")    (bha+"rn")  (bha+"rW")    (bha+"r")
                 Masc ;
 
 -- 11. Feminine: bhen
-  mkN11 : Str -> Noun ;
+  mkN11 : Str -> N ;
   mkN11 bhen = let bhe= (tk 1 bhen) 
 					in mkN (bhen)    (bhen)       (bhen)     (bhen)
                    (bhe+"nr")    (bhe+"nrn")  (bhen+"Wn")    (bhe+"nr")
                 Fem ;
 				
 --12. msculine: raja, darya
-  mkN12 : Str -> Noun ;
+  mkN12 : Str -> N ;
   mkN12 raja = mkN (raja)    (raja)       (raja)     (raja)
                    (raja)    (raja+"e'n")  (raja+"e'W")          (raja)
                 Masc ;
 
 -- 13. msculine: fan, son, kher,
-  mkN13 : Str -> Noun ;
+  mkN13 : Str -> N ;
   mkN13 son = mkN (son)    (son)       (son)     (son)
                    (son)    (son)      (son)     (son)
                 Masc ;
 				
 -- 14. Feminine: pen, samand
-  mkN14 : Str -> Noun ;
+  mkN14 : Str -> N ;
   mkN14 pen = mkN (pen)    (pen)       (pen)     (pen)
                    (pen)    (pen) 	pen      ""
                 Fem ;

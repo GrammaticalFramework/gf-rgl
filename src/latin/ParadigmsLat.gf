@@ -86,8 +86,8 @@ oper
 
   V0 : Type = V;
   mkV0 = overload {
-    mkV0 : V -> V0 = \v -> lin V0 v ; -- Same as in english, don't know if it's working
-    mkV0 : Str -> V0 = \v -> lin V0 (impersonalVerb v) ;
+    mkV0 : V -> V0 = \v -> lin V v ; -- Same as in english, don't know if it's working
+    mkV0 : Str -> V0 = \v -> lin V (impersonalVerb v) ;
     } ;
   
   mkV2 = overload {
@@ -154,7 +154,7 @@ oper
   AV : Type = A ;
   mkAV : A -> AV = \a -> lin AV a ;
 
-  mkLN : N -> Number -> LN = \noun,num -> lin PN (noun ** { s = noun.s ! num ; n = num } ) ;
+  mkLN : N -> Number -> LN = \noun,num -> lin LN (noun ** { s = noun.s ! num ; n = num } ) ;
 
   mkGN = overload {
     mkGN : Str -> GN = \s -> lin GN {s = s ; g = Male};   -- default gender male

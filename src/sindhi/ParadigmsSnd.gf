@@ -60,7 +60,7 @@ mkPN = overload {
    \s1,s2,s3,s4,n,g -> let p = mkIntPronForm s1 s2 s3 s4 in { s = p.s ; n = n ; g = g ;  lock_IP = <>}; 
 
 -- AdN
-  mkAdN : Str -> AdN = \s -> ss s ;
+  mkAdN : Str -> AdN = \s -> lin AdN (ss s) ;
   
 --2 Adjectives
 

@@ -415,7 +415,7 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
   dirV3 : V -> V3; -- a typical case ie. "zabrać", "dać"
   dirV3 v = mkV3 v "" "" Acc Dat; 
 	   
-    indicative_form : V -> Bool -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
+    indicative_form : Verb -> Bool -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
     indicative_form verb imienne pol = 
         case imienne of {True => imienne_form verb pol; False => 
             let nie = case pol of { Pos => "" ; Neg => "nie" }; in
@@ -433,7 +433,7 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
             }
         };
         
-    imienne_form : V -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
+    imienne_form : Verb -> Polarity -> Tense * Anteriority * GenNum * Person => Str;
     imienne_form verb pol =
         let byc    = (case verb.asp of { Perfective   => conj3 "zostać"; _ => conj1 "być"    }).s; in
         let zostac = (case verb.asp of { Imperfective => conj1 "być";    _ => conj3 "zostać" }).s; in
@@ -461,7 +461,7 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
         <Pl, P3> => "będą"
     };
     
-    imperative_form : V -> Bool -> Polarity ->  GenNum -> Person -> Str;
+    imperative_form : Verb -> Bool -> Polarity ->  GenNum -> Person -> Str;
     imperative_form verb imienne pol gn p = 
         case imienne of {
             True =>
@@ -493,7 +493,7 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
                 }
         };
         
-    infinitive_form : V -> Bool -> Polarity -> GenNum -> Str;
+    infinitive_form : Verb -> Bool -> Polarity -> GenNum -> Str;
     infinitive_form verb imienne pol gn = 
         case imienne of {
             True =>

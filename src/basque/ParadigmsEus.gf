@@ -67,7 +67,7 @@ oper
 
   mkA = overload {
     mkA : Str -> A = \s -> lin A (regAdj s) ;
-    mkA : Str -> A -> A = \s,a -> irregAdvAdj s a 
+    mkA : Str -> A -> A = \s,a -> lin A (irregAdvAdj s a) 
   } ;
 
   mkA2 : Str -> Prep -> A2 = \s,pp -> lin A2 (regAdj s ** { compl = pp }) ;
@@ -104,7 +104,7 @@ oper
   mkV2A : Str -> V2A = \s -> lin V2A (mkVerbDu s) ;  -- Nor-nork   
   mkVQ : Str -> VQ = \s -> lin VQ (mkVerbDu s) ;  -- Nor-nork 
   mkVS : Str -> VS = \s -> lin VS (mkVerbDu s) ;  -- Nor-nork
-  mkVV : V -> VV = \v -> v ;
+  mkVV : V -> VV = \v -> lin VV v ;
 
   mkV2V : Str -> V2V = \s -> lin V2V (mkVerbDio s) ; -- ??? TODO check valency
   mkV2S : Str -> V2S = \s -> lin V2S (mkVerbDio s) ; -- Nor-nori-nork: (mutilari) (neska datorrela) erantzun diot

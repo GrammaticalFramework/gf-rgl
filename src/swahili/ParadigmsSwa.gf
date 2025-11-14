@@ -388,7 +388,7 @@ mkN2 = overload {
   } ;
 
   
-  regV=MorphoSwa.regV ;
+  regV=\v -> lin V (MorphoSwa.regV v) ;
 
   mkV = overload {
     mkV : Str -> V = \v ->lin V(regV v) ;

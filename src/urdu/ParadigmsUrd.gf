@@ -83,7 +83,7 @@ oper
   
 -- compound Adjectives
   mkCompoundA : Str -> Str -> A ; -- e.g dra hwa
-  mkCompoundA s1 s2 = compoundAdj s1 s2 ;
+  mkCompoundA s1 s2 = lin A (compoundAdj s1 s2) ;
 
 --2 Verbs
 
@@ -144,7 +144,7 @@ mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
 --    mkQuant : Pron -> Quant = \p -> {s = \\_,_,c => p.s!c ;a = p.a ; lock_Quant = <>};
 --    mkQuant : (no_sg, no_pl, none_sg, non_pl : Str) -> Quant = mkQuantifier;
 --  } ;
-  mkIQuant : Str -> IQuant = \s -> makeIQuant s ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant (makeIQuant s) ;
   
 
 --2 Conjunctions
@@ -166,7 +166,7 @@ mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
 
 --  mkV0  : V -> V0 ;
   mkVS  : V -> VS; -- e.g drna
-  mkVS v = v ;
+  mkVS v = lin VS v ;
 --  mkV2S : V -> Prep -> V2S ;
   mkVV  : V -> VV = -- e.g cahna
      \v ->  lin VV (v ** {isAux = False});
@@ -181,7 +181,7 @@ mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
 --  mkVA  : V -> VA ;
 --  mkV2A : V -> Prep -> V2A ;
   mkVQ  : V -> VQ ; -- e.g janna
-  mkVQ v = v ;
+  mkVQ v = lin VQ v ;
 --  mkV2Q : V -> Prep -> V2Q ;
 --
 --  mkAS  : A -> AS ;

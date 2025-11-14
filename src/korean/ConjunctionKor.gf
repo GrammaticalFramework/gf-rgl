@@ -143,16 +143,16 @@ oper
     \\conj => glue (np.s ! Bare) (conjTable ! NStar ! conj ! np.p) ;
     -- Versions with commas, no repeated conjunctions
 
-  baseNPcomma : NP -> NP -> ListNP = \x,y -> y ** {
+  baseNPcomma : NP -> NP -> ListNP = \x,y -> lin ListNP y ** {
     firstNP = \\conj => x.s ! Bare ++ BIND ++ "," ;
     } ;
 
-  consNPcomma : NP -> ListNP -> ListNP = \x,xs -> xs ** {
+  consNPcomma : NP -> ListNP -> ListNP = \x,xs -> lin ListNP xs ** {
     firstNP = \\conj =>
       x.s ! Bare ++ BIND ++ "," ++ xs.firstNP ! conj ;
     } ;
 
-  conjNPcomma : Conj -> ListNP -> NP = \co,xs -> xs ** {
+  conjNPcomma : Conj -> ListNP -> NP = \co,xs -> lin NP xs ** {
     s = \\nf => co.s1
              ++ xs.firstNP ! co.c
              ++ co.s2
