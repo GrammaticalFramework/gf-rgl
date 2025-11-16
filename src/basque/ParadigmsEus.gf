@@ -116,15 +116,15 @@ oper
   -- Verbs with non-inflecting participle
   -- These are just Verb, use izanV or egonV for intransitive and ukanV for transitive.
 
-  izanV : Str -> Verb = \bizi -> 
-    mkVerbDa bizi ** { prc = \\_ => bizi } ; -- Non-inflecting participle, auxtype is Da (nor): e.g. "bizi naiz", "beldur naiz"
+  izanV : Str -> V = \bizi ->
+    lin V (mkVerbDa bizi ** { prc = \\_ => bizi }) ; -- Non-inflecting participle, auxtype is Da (nor): e.g. "bizi naiz", "beldur naiz"
 
-  egonV : Str -> Verb = \zain -> 
-    mkVerbDaEgon zain ** { prc = \\_ => zain } ; -- Non-inflecting participle, auxtype is Da (nor), but with egon: e.g. "zain nago"
+  egonV : Str -> V = \zain ->
+    lin V (mkVerbDaEgon zain ** { prc = \\_ => zain }) ; -- Non-inflecting participle, auxtype is Da (nor), but with egon: e.g. "zain nago"
 
 
-  ukanV : Str -> Verb = \maite -> 
-    mkVerbDu maite ** { prc = \\_ => maite } ; -- Non-inflecting participle, auxtype is Du (nor-nork): e.g, "maite zaitut"
+  ukanV : Str -> V = \maite ->
+    lin V (mkVerbDu maite ** { prc = \\_ => maite }) ; -- Non-inflecting participle, auxtype is Du (nor-nork): e.g, "maite zaitut"
 
 
 --2 Structural categories

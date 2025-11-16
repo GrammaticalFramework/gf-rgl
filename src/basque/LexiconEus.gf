@@ -196,7 +196,7 @@ lin jump_V = mkV "jauzi" egin_V ; --Apertium
 lin kill_V2 = mkV2 "hil" ; --Apertium
 lin king_N = mkN "errege" animate ; --Apertium
 lin knee_N = mkN "belaun" ; --Apertium
-lin know_V2 = lin V2 jakin_V2 ; -- synthetic verb
+lin know_V2 = jakin_V2 ; -- synthetic verb
 lin know_VQ = lin VQ jakin_V2 ; -- synthetic verb
 
 lin know_VS = ukanV "uste" ;
@@ -426,11 +426,11 @@ oper
   egin_V : V = mkV "egin" ;
 
   -- Some synthetic verbs
-  etorri_V : R.Verb = R.syntVerbDa "etorri" R.Etorri ;
+  etorri_V : V = lin V (R.syntVerbDa "etorri" R.Etorri) ;
 
-  ibili_V : R.Verb = R.syntVerbDa "ibili" R.Ibili ;
+  ibili_V : V = lin V (R.syntVerbDa "ibili" R.Ibili) ;
 
-  jakin_V2 : R.Verb = R.syntVerbDu "jakin" R.Jakin ;
+  jakin_V2 : V2 = lin V2 (R.syntVerbDu "jakin" R.Jakin) ;
 
-  joan_V : R.Verb = R.syntVerbDa "joan" R.Joan ;
+  joan_V : V = lin V (R.syntVerbDa "joan" R.Joan) ;
 }
