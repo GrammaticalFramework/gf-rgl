@@ -124,7 +124,7 @@ oper
     mkConj : Str -> Coordinator -> Conjunction = \s,c -> mkConjunction [] s [] Sg c ;
   } ;
 
-  mkPrep : Str -> Case -> Preposition  = mkPreposition ;
+  mkPrep : Str -> Case -> Prep  = \s,c -> lin Prep (mkPreposition s c) ;
 
   mkPron = mkPronoun ;
 
