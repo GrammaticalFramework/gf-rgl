@@ -500,18 +500,4 @@ lin CardCNCard card cn =
 lin theyFem_Pron = mkPron "they" "them" "their" "theirs" plural P3 feminine ;
 lin theyNeutr_Pron = mkPron "they" "them" "their" "theirs" plural P3 nonhuman ;
 
-lin AnaphPron np =
-      case np.a of {
-        AgP1 Sg      => i_Pron ;
-        AgP1 Pl      => we_Pron ;
-        AgP2 Sg      => youSg_Pron ;
-        AgP2 Pl      => youPl_Pron ;
-        AgP3Sg Masc  => he_Pron ;
-        AgP3Sg Fem   => she_Pron ;
-        AgP3Sg Neutr => it_Pron ;
-        AgP3Pl Masc  => they_Pron ;
-        AgP3Pl Fem   => theyFem_Pron ;
-        AgP3Pl Neutr => theyNeutr_Pron
-    } ;
-
 }
