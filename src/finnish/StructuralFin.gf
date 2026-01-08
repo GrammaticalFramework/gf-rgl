@@ -89,13 +89,13 @@ concrete StructuralFin of Structural = CatFin **
     } ;
   somePl_Det = heavyDet {
     s1 = jokuPron ! Pl ;
-    s2 = \\_ => [] ; isNum,isPoss = False ; isNeg = False ; isDef = True ;
+    s2 = \\_ => [] ; isNum,isPoss = False ; isDef = True ;
     n = Pl ; isNeg = False
     } ;
   something_NP = {
     s = \\c => jokinPron ! Sg ! npform2case Sg c ;
     a = agrP3 Sg ;
-    isPron = False ; isNeg = False ; isNeg = False
+    isPron = False ; isNeg = False
     } ;
   somewhere_Adv = ssp "ADV" "jossain" ;
   that_Quant = heavyQuant {

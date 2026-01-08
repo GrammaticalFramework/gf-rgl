@@ -260,7 +260,7 @@ useVerb : Verb -> VerbPhrase =\verb ->
     nrClit = verb.nrClit;
     isFemSg = False ; pReflClit = verb.pReflClit ;
     neg    = table {Pos => ""; Neg => "nu"} ;
-    clAcc  = RNoAg ;  nrClit = verb.nrClit; 
+    clAcc  = RNoAg ; 
     clDat  = RNoAg ; 
     comp   = \\a => [] ;
     ext    = \\p => [] ; 
