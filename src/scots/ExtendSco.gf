@@ -1,9 +1,9 @@
 --# -path=.:../common:../abstract
 
-concrete ExtendSco of Extend = ExtendEng-[passVPSlash,PassVPSlash,PassAgentVPSlash,ProgrVPSlash] ** open ResSco in {
+concrete ExtendSco of Extend = ExtendEng-[passVPSlash,PassVPSlash,PassAgentVPSlash,ProgrVPSlash] ** open Prelude, ResSco in {
 
 oper
-  passVPSlash : VPSlash -> Str -> ResEng.VP =
+  passVPSlash : VPSlash -> Str -> ResSco.VP =
    \vps,ag ->
     let
       be = predAux auxBe ;
