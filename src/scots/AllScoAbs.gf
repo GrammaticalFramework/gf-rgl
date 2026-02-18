@@ -2,5 +2,6 @@
 
 abstract AllScoAbs =
   Lang,
+  IrregScoAbs - [burn_V, freeze_V],
   Extend
   ** {} ;
