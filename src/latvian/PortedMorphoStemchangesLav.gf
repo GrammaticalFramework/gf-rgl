@@ -1,7 +1,7 @@
 --# -path=.:abstract:common:prelude
 
 -- Here goes manually ported stemchanges from 
--- https://github.com/PeterisP/morphology/blob/master/src/main/java/lv/semti/morphology/analyzer/Mijas.java
+-- https://github.com/LUMII-AILab/Morphology/blob/master/src/main/java/lv/semti/morphology/analyzer/Mijas.java
 
 resource PortedMorphoStemchangesLav = open Prelude, Predef, ResLav in {
 
