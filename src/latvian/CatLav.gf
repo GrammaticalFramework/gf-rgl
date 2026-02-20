@@ -110,7 +110,18 @@ lincat
 
   N3 = Noun ** {prep1, prep2 : Preposition ; isPre1, isPre2 : Bool} ;
 
-  PN,LN = ProperNoun ;
+  -- TODO Make most proper nouns more similar to nouns:
+  -- (1) given names GN should have both numbers (to fit with Tēzaurs and to be
+  --     able to express that there are multiple people in the room with the
+  --     same name)
+  -- (2) family names SN being inflected on gender doesn't fit neither with
+  --     Tēzaurs, nor with the fact that for some masc surnames there are
+  --     multiple legaly valid fem variants
+  -- (3) if PN is meant to be generic proper noun, it might also be inflected
+  --     in number
+  -- In general Latvian tends to make every noun inflectable in all cases/numbers,
+  -- the plural-only placenames like "Cēsis" is the one very stable exception.
+  PN,LN = ProperNoun ; 
   GN = {s : Case => Str ; gend : Gender} ;
   SN = {s : Gender => Case => Str; pl : Case => Str} ;
 
