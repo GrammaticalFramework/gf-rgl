@@ -1,6 +1,15 @@
-resource ResSco = ResEng - [auxBe,posneg] ** {
+resource ResSco = ResEng - [getCompar,getSuperl,auxBe,posneg] ** {
 
 oper
+  getCompar : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+    True => "mair" ++ a.s ! AAdj Posit c ;
+    False => a.s ! AAdj Compar c
+    } ;
+  getSuperl : Case -> Adjective -> Str = \c,a -> case a.isMost of {
+    True => "maist" ++ a.s ! AAdj Posit c ;
+    False => a.s ! AAdj Superl c
+    } ;
+
   auxBe : Aux = {
     pres = \\b,a => case <b,a> of {
       <Pos,AgP1 Sg> => "am" ;
