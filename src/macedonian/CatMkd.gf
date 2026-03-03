@@ -11,6 +11,8 @@ lincat A = Adj ;
 lincat A2 = Adj ** {c2 : Compl} ;
 lincat Pron = Pron ;
 lincat Prep = Compl ;
+lincat Decimal = {s : Str; n : Number; hasDot : Bool} ;
+lincat Digits = {s : Str; n : Number; tail : DTail} ;
 
 linref N,N2,N3 = \n -> n.s ! Indef ! Sg ;
 linref V, VA, VV, VS, VQ, V2, V2S, V2Q, V3, V2A, V2V = 

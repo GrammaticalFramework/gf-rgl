@@ -1,4 +1,4 @@
-resource ResMkd = open Prelude in {
+resource ResMkd = ParamX [DTail,T1,T2,T3,inc] ** open Prelude in {
 
 oper Compl = {s : Str} ;
 
