@@ -228,12 +228,6 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits,Decimal] **
       _  => BIND
       } ;
 
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-      } ;
-
   oper
     mk4Dig : Str -> Str -> Str -> Number -> TDigit = \c,o,a,n -> {
       s = table {

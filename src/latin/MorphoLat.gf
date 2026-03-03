@@ -8,7 +8,7 @@
 -- syntax. To build a lexicon, it is better to use $ParadigmsLat$, which
 -- gives a higher-level access to this module.
 
-resource MorphoLat = ParamX, ResLat ** open Prelude, Predef in {
+resource MorphoLat = ResLat ** open Prelude, Predef in {
 --
 --  flags optimize=all ;
 --

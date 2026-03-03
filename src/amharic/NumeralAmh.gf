@@ -109,11 +109,6 @@ lin pot3plus n m = {
       _  => BIND
       } ;
 
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-      } ;
 ------------------ :) what a releif 
 
     mk2Dig : Str -> Str -> TDigit = \c,o -> mk3Dig c o  ;

@@ -388,11 +388,6 @@ concrete NumeralMlt of Numeral = CatMlt [Numeral,Digits,Decimal] ** open Prelude
       T3 => BIND++","++BIND ;
       _  => BIND
     } ;
-    inc : DTail -> DTail = \t -> case t of {
-      T1 => T2 ;
-      T2 => T3 ;
-      T3 => T1
-    } ;
 
   lin
     -- Dig

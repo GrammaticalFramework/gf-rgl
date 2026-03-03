@@ -1,4 +1,4 @@
-concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, ParamX, Prelude in {
+concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, Prelude in {
 
   flags optimize=all_subs ;
 
