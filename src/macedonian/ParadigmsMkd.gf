@@ -1063,9 +1063,9 @@ dualV : V -> V -> V = \impf,perf -> lin V
                   Imperfective => impf.imperfect ! Imperfective ;
                   Perfective   => perf.imperfect ! Perfective
                 } ;
-    Imperative = table {
-                   Imperfective => impf.Imperative ! Imperfective ;
-                   Perfective   => perf.Imperative ! Perfective
+    imperative = table {
+                   Imperfective => impf.imperative ! Imperfective ;
+                   Perfective   => perf.imperative ! Perfective
                  } ;
     participle = { aorist = table {
                               Imperfective => impf.participle.aorist ! Imperfective ;

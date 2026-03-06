@@ -117,7 +117,7 @@ lin
         heading4 ("Минато несвршено време (имперфект)") ++
         finite (v.imperfect ! Imperfective) ++
         heading3 ("Повелително наклонение") ++
-        imperative (v.Imperative ! Imperfective) ++
+        imperative (v.imperative ! Imperfective) ++
         heading3 ("Партицип") ++
         adjForms (v.participle.aorist ! Imperfective) ++
         tag "br" ++
@@ -131,7 +131,7 @@ lin
         heading4 ("Минато несвршено време (имперфект)") ++
         finite (v.imperfect ! Perfective) ++
         heading3 ("Повелително наклонение") ++
-        imperative (v.Imperative ! Perfective) ++
+        imperative (v.imperative ! Perfective) ++
         heading3 ("Партицип") ++
         adjForms (v.participle.aorist ! Perfective) ++
         heading1 ("Именка") ++

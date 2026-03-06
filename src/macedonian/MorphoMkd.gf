@@ -6852,7 +6852,7 @@ mkV001 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -6919,7 +6919,7 @@ mkV002 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -6987,7 +6987,7 @@ mkV003 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7057,7 +7057,7 @@ mkV004 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7127,7 +7127,7 @@ mkV005 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7197,7 +7197,7 @@ mkV006 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7267,7 +7267,7 @@ mkV007 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7337,7 +7337,7 @@ mkV008 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ => 
+        imperative = \\_ => 
                      table {
                        Sg => base_1+"и" ; --guessed
                        Pl => base_1+"ете" --guessed
@@ -7406,7 +7406,7 @@ mkV009 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -7474,7 +7474,7 @@ mkV010 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7544,7 +7544,7 @@ mkV011 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7614,7 +7614,7 @@ mkV012 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7683,7 +7683,7 @@ mkV013 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -7751,7 +7751,7 @@ mkV014 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7821,7 +7821,7 @@ mkV015 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -7891,7 +7891,7 @@ mkV016 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -7960,7 +7960,7 @@ mkV017 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -8028,7 +8028,7 @@ mkV018 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -8098,7 +8098,7 @@ mkV019 base =
                               P3 => base_1+"зеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"зи" ;
                        Pl => base_1+"зете"
@@ -8168,7 +8168,7 @@ mkV020 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8238,7 +8238,7 @@ mkV021 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8308,7 +8308,7 @@ mkV022 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -8378,7 +8378,7 @@ mkV023 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8448,7 +8448,7 @@ mkV024 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8518,7 +8518,7 @@ mkV025 base =
                               P3 => base_1+"сеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"си" ;
                        Pl => base_1+"сете"
@@ -8588,7 +8588,7 @@ mkV026 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -8658,7 +8658,7 @@ mkV027 base =
                               P3 => base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ти" ;
                        Pl => base_1+"тете"
@@ -8728,7 +8728,7 @@ mkV028 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -8798,7 +8798,7 @@ mkV029 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -8868,7 +8868,7 @@ mkV030 base =
                               P3 => base_1+"чееа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чеи" ;
                        Pl => base_1+"чеете"
@@ -8938,7 +8938,7 @@ mkV031 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9008,7 +9008,7 @@ mkV032 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9078,7 +9078,7 @@ mkV033 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9148,7 +9148,7 @@ mkV034 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9218,7 +9218,7 @@ mkV035 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9288,7 +9288,7 @@ mkV036 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9358,7 +9358,7 @@ mkV037 base =
                               P3 => base_1+"е"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"е"+base_2+"и" ;
                        Pl => base_1+"е"+base_2+"ете"
@@ -9428,7 +9428,7 @@ mkV038 base =
                               P3 => base_1+"зеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"зи" ;
                        Pl => base_1+"зете"
@@ -9498,7 +9498,7 @@ mkV039 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9568,7 +9568,7 @@ mkV040 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -9638,7 +9638,7 @@ mkV041 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -9708,7 +9708,7 @@ mkV042 base =
                               P3 => base_1+"о"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"о"+base_2+"и" ;
                        Pl => base_1+"о"+base_2+"ете"
@@ -9778,7 +9778,7 @@ mkV043 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -9847,7 +9847,7 @@ mkV044 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -9915,7 +9915,7 @@ mkV045 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -9985,7 +9985,7 @@ mkV046 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10055,7 +10055,7 @@ mkV047 base =
                               P3 => base_1+"еа" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете" --guessed
@@ -10125,7 +10125,7 @@ mkV048 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10195,7 +10195,7 @@ mkV049 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10265,7 +10265,7 @@ mkV050 base =
                               P3 => base_1+base_2+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"ј" ;
                        Pl => base_1+base_2+"јте"
@@ -10334,7 +10334,7 @@ mkV051 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -10402,7 +10402,7 @@ mkV052 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10472,7 +10472,7 @@ mkV053 base =
                               P3 => base_1+"еа" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ; --guessed
                        Pl => base_1+"ете" --guessed
@@ -10542,7 +10542,7 @@ mkV054 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10611,7 +10611,7 @@ mkV055 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => base_1+"јте"
@@ -10679,7 +10679,7 @@ mkV056 base =
                               P3 => base_1+"јдеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"јди" ;
                        Pl => base_1+"јдете"
@@ -10749,7 +10749,7 @@ mkV057 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -10819,7 +10819,7 @@ mkV058 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -10889,7 +10889,7 @@ mkV059 base =
                               P3 => base_1+"меа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ми" ;
                        Pl => base_1+"мете"
@@ -10959,7 +10959,7 @@ mkV060 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11029,7 +11029,7 @@ mkV061 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -11099,7 +11099,7 @@ mkV062 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11169,7 +11169,7 @@ mkV063 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11239,7 +11239,7 @@ mkV064 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11309,7 +11309,7 @@ mkV065 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11379,7 +11379,7 @@ mkV066 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11449,7 +11449,7 @@ mkV067 base =
                               P3 => base_1+"те"+base_2+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"те"+base_2+"и" ;
                        Pl => base_1+"те"+base_2+"ете"
@@ -11519,7 +11519,7 @@ mkV068 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -11589,7 +11589,7 @@ mkV069 base =
                               P3 => base_1+"јдеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"јди" ;
                        Pl => base_1+"јдете"
@@ -11659,7 +11659,7 @@ mkV070 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -11729,7 +11729,7 @@ mkV071 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -11799,7 +11799,7 @@ mkV072 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -11869,7 +11869,7 @@ mkV073 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -11939,7 +11939,7 @@ mkV074 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -12009,7 +12009,7 @@ mkV075 base =
                               P3 => nonExist
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => nonExist
@@ -12079,7 +12079,7 @@ mkV076 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12149,7 +12149,7 @@ mkV077 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12219,7 +12219,7 @@ mkV078 base =
                               P3 => base_1+"иеја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"иј" ;
                        Pl => base_1+"ијте"
@@ -12289,7 +12289,7 @@ mkV079 base =
                               P3 => base_1+base_2+"леа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"ли" ;
                        Pl => base_1+base_2+"лете"
@@ -12359,7 +12359,7 @@ mkV080 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12429,7 +12429,7 @@ mkV081 base =
                               P3 => nonExist
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => nonExist
@@ -12499,7 +12499,7 @@ mkV082 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -12569,7 +12569,7 @@ mkV083 base =
                               P3 => base_1+"еја" --guessed
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ; --guessed
                        Pl => base_1+"јте" --guessed
@@ -12639,7 +12639,7 @@ mkV084 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12709,7 +12709,7 @@ mkV085 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -12779,7 +12779,7 @@ mkV086 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -12849,7 +12849,7 @@ mkV087 base =
                               P3 => base_1+"деа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ди" ;
                        Pl => base_1+"дете"
@@ -12919,7 +12919,7 @@ mkV088 base =
                               P3 => base_1+"чеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"чи" ;
                        Pl => base_1+"чете"
@@ -12989,7 +12989,7 @@ mkV089 base =
                               P3 => base_1+base_2+"фи"+base_3+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+base_2+"фи"+base_3+"ј" ;
                        Pl => base_1+base_2+"фи"+base_3+"јте"
@@ -13058,7 +13058,7 @@ mkV090 base_1 =
                           P3 => base_1+"а" --guessed
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
@@ -13125,7 +13125,7 @@ mkV091 base_1 =
                           P3 => base_1+"а"
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
@@ -13193,7 +13193,7 @@ mkV092 base =
                               P3 => base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ти" ;
                        Pl => base_1+"тете"
@@ -13263,7 +13263,7 @@ mkV093 base =
                               P3 => "и"+base_1+"теа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => "и"+base_1+"ти" ;
                        Pl => "и"+base_1+"тете"
@@ -13333,7 +13333,7 @@ mkV094 base =
                               P3 => base_1+"еа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и" ;
                        Pl => base_1+"ете"
@@ -13403,7 +13403,7 @@ mkV097 base =
                               P3 => base_1+"жеа"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"жи" ;
                        Pl => base_1+"жете"
@@ -13473,7 +13473,7 @@ mkV098 base =
                               P3 => base_1+"и"+base_2+"а"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"и"+base_2+"ј" ;
                        Pl => base_1+"и"+base_2+"јте"
@@ -13543,7 +13543,7 @@ mkV099 base =
                               P3 => base_1+"еја"
                             }
                     } ;
-        Imperative = \\_ =>
+        imperative = \\_ =>
                      table {
                        Sg => base_1+"ј" ;
                        Pl => base_1+"јте"
@@ -13612,7 +13612,7 @@ mkV101 base_1 =
                           P3 => nonExist
                         }
                 } ;
-    Imperative = \\_ =>
+    imperative = \\_ =>
                  table {
                    Sg => base_1+"ј" ;
                    Pl => nonExist
