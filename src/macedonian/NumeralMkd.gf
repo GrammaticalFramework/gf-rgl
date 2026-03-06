@@ -1,6 +1,5 @@
 concrete NumeralMkd of Numeral = CatMkd [Numeral,Digits,Decimal] ** open Prelude,ResMkd in {
-  flags
-    coding = "UTF-8" ;
+
   lin D_0 = mkDig "0" Pl ;
   lin D_1 = mkDig "1" Sg ;
   lin D_2 = mkDig "2" Pl ;
