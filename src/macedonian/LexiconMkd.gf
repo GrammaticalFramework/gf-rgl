@@ -3,9 +3,9 @@ concrete LexiconMkd of Lexicon = CatMkd **
   
 lin
   airplane_N = mkN001 "авион" ;
-  apple_N = mkN013 "јаболко" ;
+  apple_N = mkN012 "јаболко" ;
   bad_A = mkA004 "лош" ;
-  good_A = mkA005 "добар" ;
-  die_V = mkV001 "умира" ;
+  good_A = mkA021 "добар" ;
+  die_V = dualV (mkV002 "умира") (mkV021 "умре") ;
 
 }
