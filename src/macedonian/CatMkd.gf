@@ -23,4 +23,27 @@ linref V, VA, VV, VS, VQ, V2, V2S, V2Q, V3, V2A, V2V =
         } ;
 linref A, A2 = \a -> a.s ! Indef ! GSg Masc ;
 
+lincat AP = {s : Species => GenNum => Str; isPre : Bool} ;
+lincat NP = {s : Str; vocative: Str; n : Number; p : Person; g : Gender} ;
+lincat Num = {s : Str; n : Number} ;
+lincat Quant = {s : Str; sp : Species} ;
+lincat Det = {s : Str; n : Number; sp : Species} ;
+
+lincat VP = {present : Aspect => Number => Person => Str;
+             aorist : Number => Person => Str;
+             imperfect : Aspect => Number => Person => Str;
+             imperative : Aspect => Number => Str;
+             participle : {aorist : Aspect => GenNum => Str; perfect : Aspect => Str}} ;
+lincat VPSlash = {present : Aspect => Number => Person => Str;
+                  aorist : Number => Person => Str;
+                  imperfect : Aspect => Number => Person => Str;
+                  imperative : Aspect => Number => Str;
+                  participle : {aorist : Aspect => GenNum => Str;
+                                imperfect : GenNum => Str; perfect : Aspect => Str;
+                                adjectival : Aspect => Str; adverbial : Str};
+                  noun_from_verb : Str; isRefl : Bool; c2 : Compl} ;
+lincat Cl = {present : Aspect => Str;
+             aorist : Str;
+             participle : {aorist : Aspect => Str; perfect : Aspect => Str}} ;
+
 }
