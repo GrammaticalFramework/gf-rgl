@@ -1,6 +1,4 @@
 concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
-  flags
-    coding = "UTF-8" ;
   lin AdjCN ap cn = {
        s = case ap.isPre of {
              True  => \\s,n => ap.s ! s

@@ -1,6 +1,5 @@
 concrete VerbMkd of Verb = CatMkd ** open Prelude,ResMkd in {
-  flags
-    coding = "UTF-8" ;
+
   lin ComplSlash vps np = {present = \\a,n,p => vps.present ! a ! n
                                                   ! p
                                                   ++ np.s;
