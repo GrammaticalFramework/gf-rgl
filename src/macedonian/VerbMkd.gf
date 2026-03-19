@@ -8,4 +8,6 @@ concrete VerbMkd of Verb = CatMkd ** open Prelude,ResMkd in {
                            imperative = \\a,n => vps.imperative ! a ! n ++ np.s;
                            participle = {aorist = \\a,gn => vps.participle.aorist ! a ! gn ++ np.s;
                                          perfect = \\a => vps.participle.perfect ! a ++ np.s}} ;
+  lin SlashV2a v = v ;
+
 }
