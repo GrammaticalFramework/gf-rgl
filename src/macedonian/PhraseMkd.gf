@@ -9,5 +9,6 @@ concrete PhraseMkd of Phrase = CatMkd ** open Prelude, ResMkd in {
     NoPConj = {s = []} ;
 
     NoVoc = {s = []} ;
+    VocNP np = {s = SOFT_BIND++"," ++ np.vocative} ;
 
 }
