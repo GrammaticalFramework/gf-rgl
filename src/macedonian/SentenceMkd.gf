@@ -1,11 +1,13 @@
 concrete SentenceMkd of Sentence = CatMkd ** open Prelude,ResMkd in {
 
-  lin PredVP np vp = {present = \\a => np.s ++ vp.present ! a ! np.n ! np.p ;
-                      aorist = np.s ++ vp.aorist ! np.n ! np.p ;
-                      participle = {aorist = \\a => np.s ++ vp.participle.aorist ! a ! 
-                                                             case np.n of {
-                                                               Sg => GSg np.g;
-                                                               Pl => GPl
-                                                             };
-                                    perfect = \\a => np.s ++ vp.participle.perfect ! a}} ;
+  lin PredVP np vp =
+        let n = case np.g of {
+                  GSg _ => Sg ;
+                  GPl   => Pl
+                }
+        in {present = \\a => np.s ++ vp.present ! a ! n ! np.p ;
+            aorist = np.s ++ vp.aorist ! n ! np.p ;
+            participle = {aorist = \\a => np.s ++ vp.participle.aorist ! a ! np.g;
+                          perfect = \\a => np.s ++ vp.participle.perfect ! a}} ;
+
 }

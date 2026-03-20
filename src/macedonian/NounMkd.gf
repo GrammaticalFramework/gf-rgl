@@ -31,9 +31,11 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
   lin DetCN det cn = {
         s = det.s ++ cn.s ! det.sp ! det.n;
         vocative = det.s ++ cn.vocative ! det.n;
-        n = det.n;
+        g = case det.n of {
+              Sg => GSg cn.g;
+              Pl => GPl
+            } ;
         p = P3;
-        g = cn.g
       } ;
   lin DetQuant det num = {s = det.s ++ num.s; n = num.n;
                           sp = det.sp} ;
