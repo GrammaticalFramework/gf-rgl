@@ -5,9 +5,9 @@ concrete SentenceMkd of Sentence = CatMkd ** open Prelude,ResMkd in {
                   GSg _ => Sg ;
                   GPl   => Pl
                 }
-        in {present = \\a => np.s ++ vp.present ! a ! n ! np.p ;
-            aorist = np.s ++ vp.aorist ! n ! np.p ;
-            participle = {aorist = \\a => np.s ++ vp.participle.aorist ! a ! np.g;
-                          perfect = \\a => np.s ++ vp.participle.perfect ! a}} ;
+        in {present = \\a => np.s ! RSubj ++ vp.present ! a ! n ! np.p ;
+            aorist = np.s ! RSubj ++ vp.aorist ! n ! np.p ;
+            participle = {aorist = \\a => np.s ! RSubj ++ vp.participle.aorist ! a ! np.g;
+                          perfect = \\a => np.s ! RSubj ++ vp.participle.perfect ! a}} ;
 
 }

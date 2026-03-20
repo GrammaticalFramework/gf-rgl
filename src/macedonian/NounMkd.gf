@@ -29,7 +29,7 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
       } ;
   lin DefArt = {s = []; sp = Def Unspecified} ;
   lin DetCN det cn = {
-        s = det.s ++ cn.s ! det.sp ! det.n;
+        s = \\r => det.s ++ cn.s ! det.sp ! det.n;
         vocative = det.s ++ cn.vocative ! det.n;
         g = case det.n of {
               Sg => GSg cn.g;
@@ -43,4 +43,5 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
   lin NumPl = {s = []; n = Pl} ;
   lin NumSg = {s = []; n = Sg} ;
   lin UseN s = s ;
+  lin UsePron p = p ** {vocative=p.s ! RSubj} ;
 }

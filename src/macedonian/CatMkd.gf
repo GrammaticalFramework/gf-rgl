@@ -24,7 +24,7 @@ linref V, VA, VV, VS, VQ, V2, V2S, V2Q, V3, V2A, V2V =
 linref A, A2 = \a -> a.s ! Indef ! GSg Masc ;
 
 lincat AP = {s : Species => GenNum => Str; isPre : Bool} ;
-lincat NP = {s : Str; vocative: Str; g : GenNum; p : Person} ;
+lincat NP = {s : Role => Str; vocative: Str; g : GenNum; p : Person} ;
 lincat Num = {s : Str; n : Number} ;
 lincat Quant = {s : Str; sp : Species} ;
 lincat Det = {s : Str; n : Number; sp : Species} ;
