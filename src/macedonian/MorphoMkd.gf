@@ -15376,8 +15376,8 @@ mkAdv base_1 =
   { s = base_1
   } ;
 
-mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
-  \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15 ->
+mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> GenNum -> Person -> Pron =
+  \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,g,p ->
       { s = table {
               RSubj => f1 ;
               RObj Acc => f2 ;
@@ -15404,7 +15404,9 @@ mkPron : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Pron =
                          GPl        => f14
                        }
             } ;
-        poss_clitic = f15
+        poss_clitic = f15 ;
+        g = g ;
+        p = p ;
       } ;
 
 }
