@@ -810,7 +810,7 @@ resource ParadigmsIce = open
 
 		regPN : Str -> Gender -> PN = \name,g -> case <name,g> of {
 				<base + "i",Masc>	=> lin PN {s = caseList name (base + "a") (base + "a") (base + "a") ; g = Masc} ;
-				<base + "a",Masc>	=> lin PN {s = caseList name (base + "u") (base + "u") (base + "u") ; g = Masc} ;
+				<base + "a",g>	=> lin PN {s = caseList name (base + "u") (base + "u") (base + "u") ; g = g} ;
 				<base + "ur",Masc>	=> lin PN {s = caseList name base (base + "i") (base + "s") ; g = Masc} ;
 				<base + "l",Masc>	=> lin PN {s = caseList name name name (name + "s") ; g = Masc} ;
 				<base + "s",Masc>	=> lin PN {s = caseList name name (name + "i") (name + "ar") ; g = Masc} ;
