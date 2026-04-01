@@ -249,11 +249,23 @@ resource ParadigmsIce = open
 			in lin N (nForms2Noun nfs (nForms2Suffix nfs gend) gend) ;
 
 		mkPN = overload {
-
 			-- this should be merged or swithced with N -> Gender
-			mkPN : Str -> Gender -> PN = 
-				\name,g	-> regPN name g ;	
+			mkPN : Str -> Gender -> PN 
+				= \name,g	-> case name of {
+						head + " " + suf => suffixPN (regPN head g) suf ; -- fallback: use explicit constructors for more precision
+						_ => regPN name g } ;
+      mkPN : PN -> Str -> PN -- mkPN (mkPN "Annar" ) "í jólum"
+			  = suffixPN ;
+      mkPN : Str -> PN -> PN -- mkPN "Sameinuðu" (mkPN "þjóðirnar")
+			  = prefixPN
+		} ;
 
+		foreignPN : Str -> PN = \name -> lin PN {s = \\_ => name ; g = Masc} ;
+		prefixPN : Str -> PN -> PN = \prefix,pn -> pn ** {
+			s = \\c => prefix ++ pn.s ! c
+			} ;
+		suffixPN : PN -> Str -> PN = \pn,suffix -> pn ** {
+			s = \\c => pn.s ! c ++ suffix
 		} ;
 
         oper mkLN : Str -> LN = \s -> lin LN {s=s} ;
