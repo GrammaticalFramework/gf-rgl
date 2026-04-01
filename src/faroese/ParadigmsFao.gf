@@ -501,7 +501,9 @@ oper
 
   mkV = overload {
     mkV : Str -> V = regV;   -- Nonfinite
-    mkV : Str -> Str -> V = reg2V   -- Nonfinite  Indicative;Pres;('PSg', P2)
+    mkV : Str -> Str -> V = reg2V ;  -- Nonfinite  Indicative;Pres;('PSg', P2)
+		mkV : V -> Str -> V -- particle verb
+  		= \v,p -> v ** {particle = p}
   } ;
 
   mkVV : V -> VV = \v -> lin VV v ;

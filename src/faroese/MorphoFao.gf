@@ -8621,7 +8621,8 @@ mkV001 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"aður"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV001"
   } ;
@@ -8653,7 +8654,8 @@ mkV002 base =
         Participle = table {
                        Pres => "ei"+base_1+"andi" ;
                        Past => "hi"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV002"
   } ;
@@ -8685,7 +8687,8 @@ mkV003 base =
         Participle = table {
                        Pres => "a"+base_1+"andi" ;
                        Past => "i"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -8717,7 +8720,8 @@ mkV004 base =
         Participle = table {
                        Pres => "a"+base_1+"andi" ;
                        Past => "a"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -8749,7 +8753,8 @@ mkV005 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -8781,7 +8786,8 @@ mkV006 base =
         Participle = table {
                        Pres => base_1+"ðandi" ;
                        Past => base_1+"ddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV006"
   } ;
@@ -8813,7 +8819,8 @@ mkV007 base =
         Participle = table {
                        Pres => "eigandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV007"
   } ;
@@ -8845,7 +8852,8 @@ mkV008 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV008"
   } ;
@@ -8877,7 +8885,8 @@ mkV009 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV009"
   } ;
@@ -8909,7 +8918,8 @@ mkV010 base =
         Participle = table {
                        Pres => base_1+"dandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -8941,7 +8951,8 @@ mkV011 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -8973,7 +8984,8 @@ mkV012 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"jandi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -9005,7 +9017,8 @@ mkV013 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"dandi" ;
                        Past => base_1+"u"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV013"
   } ;
@@ -9037,7 +9050,8 @@ mkV014 base =
         Participle = table {
                        Pres => base_1+"í"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV014"
   } ;
@@ -9069,7 +9083,8 @@ mkV015 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -9101,7 +9116,8 @@ mkV016 base =
         Participle = table {
                        Pres => base_1+"gjandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -9133,7 +9149,8 @@ mkV017 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"nandi" ;
                        Past => base_1+"u"+base_2+"nin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV017"
   } ;
@@ -9165,7 +9182,8 @@ mkV018 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV018"
   } ;
@@ -9197,7 +9215,8 @@ mkV019 base =
         Participle = table {
                        Pres => base_1+"ó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -9229,7 +9248,8 @@ mkV020 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -9261,7 +9281,8 @@ mkV021 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -9293,7 +9314,8 @@ mkV022 base =
         Participle = table {
                        Pres => base_1+"úgvandi" ;
                        Past => base_1+"úgvin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -9325,7 +9347,8 @@ mkV023 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -9357,7 +9380,8 @@ mkV024 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+base_3+"andi" ;
                        Past => base_1+"o"+base_2+base_3+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -9389,7 +9413,8 @@ mkV025 base =
         Participle = table {
                        Pres => base_1+"ggjandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -9421,7 +9446,8 @@ mkV026 base =
         Participle = table {
                        Pres => base_1+"agandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -9453,7 +9479,8 @@ mkV027 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"kandi" ;
                        Past => base_1+"u"+base_2+"kin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -9485,7 +9512,8 @@ mkV028 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -9517,7 +9545,8 @@ mkV029 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"aður"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV029"
   } ;
@@ -9549,7 +9578,8 @@ mkV030 base =
         Participle = table {
                        Pres => "ve"+base_1+"andi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -9581,7 +9611,8 @@ mkV031 base =
         Participle = table {
                        Pres => base_1+"nandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -9613,7 +9644,8 @@ mkV032 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -9645,7 +9677,8 @@ mkV033 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV033"
   } ;
@@ -9677,7 +9710,8 @@ mkV034 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -9709,7 +9743,8 @@ mkV035 base =
         Participle = table {
                        Pres => base_1+"landi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -9741,7 +9776,8 @@ mkV036 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -9773,7 +9809,8 @@ mkV037 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"ur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -9805,7 +9842,8 @@ mkV038 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -9837,7 +9875,8 @@ mkV039 base =
         Participle = table {
                        Pres => base_1+"nandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -9869,7 +9908,8 @@ mkV040 base =
         Participle = table {
                        Pres => base_1+"ú"+base_2+"vandi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -9901,7 +9941,8 @@ mkV041 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"andi" ;
                        Past => base_1+"u"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -9933,7 +9974,8 @@ mkV042 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -9965,7 +10007,8 @@ mkV043 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"ddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -9997,7 +10040,8 @@ mkV044 base =
         Participle = table {
                        Pres => base_1+"ú"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV044"
   } ;
@@ -10029,7 +10073,8 @@ mkV045 base =
         Participle = table {
                        Pres => base_1+"landi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -10061,7 +10106,8 @@ mkV046 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -10093,7 +10139,8 @@ mkV047 base =
         Participle = table {
                        Pres => base_1+"angandi" ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -10125,7 +10172,8 @@ mkV048 base =
         Participle = table {
                        Pres => base_1+"ja"+base_2+"dandi" ;
                        Past => base_1+"o"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -10157,7 +10205,8 @@ mkV049 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"jø"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -10189,7 +10238,8 @@ mkV050 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -10221,7 +10271,8 @@ mkV051 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"pandi" ;
                        Past => base_1+"o"+base_2+"pin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV051"
   } ;
@@ -10253,7 +10304,8 @@ mkV052 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -10285,7 +10337,8 @@ mkV053 base =
         Participle = table {
                        Pres => base_1+"á"+base_2+"andi" ;
                        Past => base_1+"á"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -10317,7 +10370,8 @@ mkV054 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -10349,7 +10403,8 @@ mkV055 base =
         Participle = table {
                        Pres => base_1+"ógvandi" ;
                        Past => base_1+"ógvin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV055"
   } ;
@@ -10381,7 +10436,8 @@ mkV056 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"dandi" ;
                        Past => base_1+"i"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -10413,7 +10469,8 @@ mkV057 base =
         Participle = table {
                        Pres => base_1+"angandi" ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -10445,7 +10502,8 @@ mkV058 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -10477,7 +10535,8 @@ mkV059 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV059"
   } ;
@@ -10509,7 +10568,8 @@ mkV060 base =
         Participle = table {
                        Pres => base_1+"vø"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -10541,7 +10601,8 @@ mkV061 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"gjandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -10573,7 +10634,8 @@ mkV062 base =
         Participle = table {
                        Pres => base_1+"o"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV062"
   } ;
@@ -10605,7 +10667,8 @@ mkV063 base =
         Participle = table {
                        Pres => base_1+"pandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -10637,7 +10700,8 @@ mkV064 base =
         Participle = table {
                        Pres => base_1+"úgvandi" ;
                        Past => base_1+"ovin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -10669,7 +10733,8 @@ mkV065 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -10701,7 +10766,8 @@ mkV066 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"andi" ;
                        Past => base_1+"ø"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -10733,7 +10799,8 @@ mkV067 base =
         Participle = table {
                        Pres => base_1+"sandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -10765,7 +10832,8 @@ mkV068 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -10797,7 +10865,8 @@ mkV069 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"gjandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -10829,7 +10898,8 @@ mkV070 base =
         Participle = table {
                        Pres => base_1+"iggjandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -10861,7 +10931,8 @@ mkV071 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -10893,7 +10964,8 @@ mkV072 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -10925,7 +10997,8 @@ mkV073 base =
         Participle = table {
                        Pres => base_1+"á"+base_2+"andi" ;
                        Past => base_1+"á"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -10957,7 +11030,8 @@ mkV074 base =
         Participle = table {
                        Pres => base_1+"ey"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -10989,7 +11063,8 @@ mkV075 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -11021,7 +11096,8 @@ mkV076 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -11053,7 +11129,8 @@ mkV077 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -11085,7 +11162,8 @@ mkV078 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -11117,7 +11195,8 @@ mkV079 base =
         Participle = table {
                        Pres => base_1+"ðandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -11149,7 +11228,8 @@ mkV080 base =
         Participle = table {
                        Pres => base_1+"áandi" ;
                        Past => base_1+"áddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -11181,7 +11261,8 @@ mkV081 base =
         Participle = table {
                        Pres => base_1+"áðandi" ;
                        Past => base_1+"áðin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -11213,7 +11294,8 @@ mkV082 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -11245,7 +11327,8 @@ mkV083 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"kandi" ;
                        Past => base_1+"o"+base_2+"kin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -11277,7 +11360,8 @@ mkV084 base =
         Participle = table {
                        Pres => base_1+"íggjandi" ;
                        Past => base_1+"æddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -11309,7 +11393,8 @@ mkV085 base =
         Participle = table {
                        Pres => base_1+"kjandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -11341,7 +11426,8 @@ mkV086 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -11373,7 +11459,8 @@ mkV087 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV087"
   } ;
@@ -11405,7 +11492,8 @@ mkV088 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV088"
   } ;
@@ -11437,7 +11525,8 @@ mkV089 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -11469,7 +11558,8 @@ mkV090 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV090"
   } ;
@@ -11501,7 +11591,8 @@ mkV091 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV091"
   } ;
@@ -11533,7 +11624,8 @@ mkV092 base =
         Participle = table {
                        Pres => base_1+"áandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -11565,7 +11657,8 @@ mkV093 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -11597,7 +11690,8 @@ mkV094 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"nandi" ;
                        Past => base_1+"u"+base_2+"nin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -11629,7 +11723,8 @@ mkV095 base =
         Participle = table {
                        Pres => base_1+"andandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV095"
   } ;
@@ -11661,7 +11756,8 @@ mkV096 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV096"
   } ;
@@ -11693,7 +11789,8 @@ mkV097 base =
         Participle = table {
                        Pres => base_1+"ingandi" ;
                        Past => base_1+"ungin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -11725,7 +11822,8 @@ mkV098 base =
         Participle = table {
                        Pres => base_1+"ja"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -11757,7 +11855,8 @@ mkV099 base =
         Participle = table {
                        Pres => base_1+"o"+base_2+"andi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -11789,7 +11888,8 @@ mkV100 base =
         Participle = table {
                        Pres => base_1+"í"+base_2+"jandi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV100"
   } ;
@@ -11821,7 +11921,8 @@ mkV101 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"jandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV101"
   } ;
@@ -11853,7 +11954,8 @@ mkV102 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV102"
   } ;
@@ -11885,7 +11987,8 @@ mkV103 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV103"
   } ;
@@ -11917,7 +12020,8 @@ mkV104 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV104"
   } ;
@@ -11949,7 +12053,8 @@ mkV105 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV105"
   } ;
@@ -11981,7 +12086,8 @@ mkV106 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"fandi" ;
                        Past => base_1+"o"+base_2+"fin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV106"
   } ;
@@ -12013,7 +12119,8 @@ mkV107 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV107"
   } ;
@@ -12045,7 +12152,8 @@ mkV108 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV108"
   } ;
@@ -12077,7 +12185,8 @@ mkV109 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV109"
   } ;
@@ -12109,7 +12218,8 @@ mkV110 base =
         Participle = table {
                        Pres => "v"+base_1+"rð" ;
                        Past => "v"+base_1+"rð"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV110"
   } ;
@@ -12141,7 +12251,8 @@ mkV111 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV111"
   } ;
@@ -12173,7 +12284,8 @@ mkV112 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV112"
   } ;
