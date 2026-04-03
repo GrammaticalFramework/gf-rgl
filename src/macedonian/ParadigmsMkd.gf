@@ -1086,6 +1086,23 @@ dualV : V -> V -> V = \impf,perf -> lin V
     isRefl = impf.isRefl
   } ;
 
+compoundV = overload {
+  compoundV : V -> Str -> V = \v,s -> lin V {
+    present = \\a,n,p => v.present ! a ! n ! p ++ s ;
+    aorist = \\n,p => v.aorist ! n ! p ++ s ;
+    imperfect = \\a,n,p => v.imperfect ! a ! n ! p ++ s ;
+    imperative = \\a,n => v.imperative ! a ! n ++ s ;
+    participle = { aorist = \\a,gn => v.participle.aorist ! a ! gn ++ s ;
+                   imperfect = \\gn => v.participle.imperfect ! gn ++ s ;
+                   perfect = \\a => v.participle.perfect ! a ++ s ;
+                   adjectival = \\a => v.participle.adjectival ! a ++ s ;
+                   adverbial = v.participle.adverbial
+                 } ;
+    noun_from_verb = v.noun_from_verb ++ s ;
+    isRefl = v.isRefl
+  }
+} ;
+
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
   mkV2 : V -> Prep -> V2 = \v,p -> lin V2 v ** {c2=p} ;
