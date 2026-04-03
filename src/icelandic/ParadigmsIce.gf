@@ -249,11 +249,23 @@ resource ParadigmsIce = open
 			in lin N (nForms2Noun nfs (nForms2Suffix nfs gend) gend) ;
 
 		mkPN = overload {
-
 			-- this should be merged or swithced with N -> Gender
-			mkPN : Str -> Gender -> PN = 
-				\name,g	-> regPN name g ;	
+			mkPN : Str -> Gender -> PN 
+				= \name,g	-> case name of {
+						head + " " + suf => suffixPN (regPN head g) suf ; -- fallback: use explicit constructors for more precision
+						_ => regPN name g } ;
+      mkPN : PN -> Str -> PN -- mkPN (mkPN "Annar" ) "í jólum"
+			  = suffixPN ;
+      mkPN : Str -> PN -> PN -- mkPN "Sameinuðu" (mkPN "þjóðirnar")
+			  = prefixPN
+		} ;
 
+		foreignPN : Str -> PN = \name -> lin PN {s = \\_ => name ; g = Masc} ;
+		prefixPN : Str -> PN -> PN = \prefix,pn -> pn ** {
+			s = \\c => prefix ++ pn.s ! c
+			} ;
+		suffixPN : PN -> Str -> PN = \pn,suffix -> pn ** {
+			s = \\c => pn.s ! c ++ suffix
 		} ;
 
         oper mkLN : Str -> LN = \s -> lin LN {s=s} ;
@@ -810,7 +822,7 @@ resource ParadigmsIce = open
 
 		regPN : Str -> Gender -> PN = \name,g -> case <name,g> of {
 				<base + "i",Masc>	=> lin PN {s = caseList name (base + "a") (base + "a") (base + "a") ; g = Masc} ;
-				<base + "a",Masc>	=> lin PN {s = caseList name (base + "u") (base + "u") (base + "u") ; g = Masc} ;
+				<base + "a",g>	=> lin PN {s = caseList name (base + "u") (base + "u") (base + "u") ; g = g} ;
 				<base + "ur",Masc>	=> lin PN {s = caseList name base (base + "i") (base + "s") ; g = Masc} ;
 				<base + "l",Masc>	=> lin PN {s = caseList name name name (name + "s") ; g = Masc} ;
 				<base + "s",Masc>	=> lin PN {s = caseList name name (name + "i") (name + "ar") ; g = Masc} ;

@@ -16,4 +16,5 @@ lincat S = {s : Str} ;
 
 lincat LN,SN,GN,PN = {s : Str} ;
 
+linref V = \v -> v.Nonfinite ++ v.particle ;
 }

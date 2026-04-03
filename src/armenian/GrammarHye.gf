@@ -1,2 +1,6 @@
-concrete GrammarHye of Grammar = TenseX ** {
+concrete GrammarHye of Grammar = 
+  TenseX,
+  PhraseHye,
+  NounHye,
+  AdjectiveHye ** {
 }

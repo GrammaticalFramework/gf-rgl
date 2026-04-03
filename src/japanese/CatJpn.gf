@@ -83,6 +83,6 @@ flags coding = utf8 ;
                                   --  counter : Str ; counterReplace : Bool ; counterTsu : Bool} ;
     N2 = Noun ** {prep : Str; object : Style => Str} ;
     N3 = Noun ** {prep1 : Str; prep2 : Str} ;
-    PN = PropNoun ;               -- {s : Style => Str ; anim : Animateness} ;
+    PN,LN,GN,SN = PropNoun ;               -- {s : Style => Str ; anim : Animateness} ;
 
 }
