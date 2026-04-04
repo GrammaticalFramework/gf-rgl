@@ -1159,4 +1159,19 @@ mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 mkPrep : Str -> Prep = \s -> lin Prep {s=s} ;
 noPrep : Prep = lin Prep {s=""} ;
 
+mkIP : Str -> IP = \s -> lin IP {s=s} ;
+mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
+mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
+mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+mkMU : Str -> MU = \s -> lin MU {s=s; isPre = False} ;
+mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
+mkQuant : Str -> Quant = \s -> lin Quant {s=s; sp=Indef} ;
+mkDet : Str -> Det = \s -> lin Det {s=s; n=Sg; sp=Indef} ;
+mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
+mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
+mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
+mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=""} ;
+mkCard : Str -> Card = \s -> lin Card {s=s} ;
+mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
+
 }
