@@ -250,7 +250,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c =>
             cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
          ++ andConj st cn.modtype -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
-         ++ ap.s ! AF n c ;
+         ++ ap.s ! AF n c ++ " " ++ ap.compar ;
     modtype = AMod
     } ;
 
