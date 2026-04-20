@@ -28,10 +28,11 @@ concrete DocumentationSom of Documentation = CatSom ** open ResSom,Prelude,HTML 
   lin InflectionN,InflectionN2,InflectionN3 = \noun -> {
         t = "n";
         s1 = heading1 "Noun";
-        s2 = frameTable (tr (th "Def"   ++ td (noun.s ! Def Sg)   ++ td (noun.s ! Def Pl)) ++
+        s2 = frameTable (tr (td "" ++ th "Sg" ++ th "Pl") ++
+                         tr (th "Def"   ++ td (noun.s ! Def Sg)   ++ td (noun.s ! Def Pl)) ++
                          tr (th "Indef" ++ td (noun.s ! Indef Sg) ++ td (noun.s ! Indef Pl)) ++
                          tr (th "Nom"   ++ td (noun.s ! NomSg)    ++ td []) ++
-                         tr (th "Numerative" ++ td (noun.s ! Numerative)))
+                         tr (th "Numerative" ++ intagAttr "td" "colspan=2" (noun.s ! Numerative)))
        } ;
   lin InflectionPN pn = {t = "pn"; s1 = heading1 "Name";
                          s2 = frameTable (tr (th "" ++ td pn.s))} ;
@@ -149,7 +150,5 @@ concrete DocumentationSom of Documentation = CatSom ** open ResSom,Prelude,HTML 
          heading2 "Negative Conditional" ++            
          frameTable (tr (th "SgMasc" ++ td (v.s ! VNegCond SgMasc)) ++
                      tr (th "SgFem"  ++ td (v.s ! VNegCond SgFem)) ++
-                     tr (th "PlInv"  ++ td (v.s ! VNegCond PlInv))) ++
-         frameTable (tr (th "sii" ++ td v.sii) ++
-                     tr (th "dhex" ++ td v.dhex)) ;
+                     tr (th "PlInv"  ++ td (v.s ! VNegCond PlInv))) ;
 }
