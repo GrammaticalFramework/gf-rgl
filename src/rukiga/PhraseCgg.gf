@@ -30,8 +30,6 @@ lin
       }
     };
   UttImpPol = UttImpPl;
-  --UttAdv    : Adv  -> Utt ;               -- here
-  UttAdv adv = {s= adv.s};
 
   -- better but can be improved upon
   UttVP vp  = case <vp.isCompApStem,vp.containsAdv, vp.containsAdV,vp.containsComp, vp.containsComp2> of {

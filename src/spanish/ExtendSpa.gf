@@ -125,10 +125,4 @@ oper
          comp  = \\a => vps.comp ! a ++ (let agr = complAgr a in vps.s.s ! VPart agr.g agr.n) ++ agent ;
         } ;
 
-lin ExistsNP np =
-      mkClause [] True False np.a
-      (insertComplement (\\_ => (np.s ! Nom).ton)
-         (predV (mkV "existir"))) ;
-
-
 } ;

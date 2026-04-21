@@ -670,31 +670,6 @@ resource ResGre = ParamX  **  open Prelude in {
         g = g
         } ;
 
-        
-        mkNoun_anthropos : (s1,_ : Str) -> Gender -> Noun = 
-        \anthropos, anthropon,  g ->
-        let
-          anthrop = Predef.tk 2 anthropos ;
-          anthrOp = Predef.tk 2 anthropon ;
-        in {
-        s = table {
-          Sg => table {
-            Nom => anthropos ;
-            Gen|CPrep P_Dat => anthrOp + "ου" ;
-            Acc |CPrep P_se |CPrep PNul  => anthrop + "ο";
-            Vocative => anthrop + "ε" 
-            } ;
-          Pl => table {
-            Nom | Vocative=> anthrop + "οι" ;
-            Gen |CPrep P_Dat=> anthropon ;
-            Acc |CPrep P_se |CPrep PNul => anthrOp + "ους" 
-            }
-          } ;
-        g = g
-        } ;
-
-
-
        ----------------Neuter nouns in -ς , with  stress movement,syllabic augmentation,  irregular (φως, γεγονός, ημίφως) --------------
       mkNoun_fws: (s1,_ : Str) -> Gender -> Noun = 
       \fws, fwtos,  g ->

@@ -139,9 +139,6 @@ lin
 
   SubjunctRelCN cn rs = RelCN cn rs ; -- no difference from indicative
 
-lincat
-  X = {s : Str} ;
-
 lin
   UseComp_estar = UseComp ;
   UseComp_ser = UseComp ;

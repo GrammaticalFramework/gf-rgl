@@ -107,8 +107,6 @@ concrete CatPol of Cat = CommonX - [CAdv] ** open ResPol, Prelude, (R = ParamX) 
     VP = VerbPhrase;
     Comp = { s: GenNum => Str };
     
-    Ord =  { s : AForm => Str };
-
     A = Adj;
     A2 = Adj ** { c : Complement };
 

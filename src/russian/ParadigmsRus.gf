@@ -393,8 +393,6 @@ oper
       = \word, g, anim, zi, rel, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim rel AdjType (Z.parseIndex zi))) p)   ;
     } ;
 
-  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
-
   mkN3 = overload {
     mkN3 : N -> Prep -> Prep -> N3
       = \n, p2, p3 -> lin N3 (mkFun2 n p2 p3) ;

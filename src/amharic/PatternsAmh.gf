@@ -128,10 +128,8 @@ C1eC2aC3 = {C1 ="" ; C1C2="'"; C2C3 ="!"; C3="#"};
 				peC1aC2C3 = { C1 = "ä" ; C1C2="'"; C2C3 ="'"; C3=""}; 
 				penC1aC2C3e = { C1 = "än" ; C1C2="'"; C2C3 ="'"; C3=""};
 				pteC1aC2C3 = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3=""};
-				pteC1aC2C3 = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3=""};-- 3
 				pteC1aC2C3u = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3="&"};
 				pyeC1aC2C3 = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3=""};
-				pteC1aC2C3 = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3=""};
 				pyeC1aC2C3u = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3="&"};
 
 				--Passive Jus_Imperat mkV3gdl
@@ -343,7 +341,6 @@ leC1AC2aC3 = {C1 ="l" ; C1C2="!"; C2C3 ="'"; C3=""};
 enC1AC2aC3 = { C1 = "(n" ; C1C2="!"; C2C3 ="'"; C3=""};
 C1AC2aC3 = { C1 = "" ; C1C2="!"; C2C3 ="'"; C3=""}; 
 C1AC2aC3i = { C1 = "" ; C1C2="!"; C2C3 ="'"; C3="#"}; 
-C1AC2aC3u = { C1 = "" ; C1C2="!"; C2C3 ="'"; C3="&"}; 
 yC1AC2aC3 = { C1 = "y" ; C1C2="!"; C2C3 ="'"; C3=""}; 
 tC1AC2aC3 = { C1 = "t" ; C1C2="!"; C2C3 ="'"; C3=""}; 
 yC1AC2aC3u = { C1 = "y" ; C1C2="!"; C2C3 ="'"; C3="&"};
@@ -661,7 +658,7 @@ C1AC2n = { C1 = "" ; C1C2="!"; C2 ="n"};
 C1AC2k = { C1 = "" ; C1C2="!"; C2 ="k"}; 
 C1AC2sh = { C1 = "" ; C1C2="!"; C2 ="x"}; 
 C1AC2achehu = { C1 = "" ; C1C2 ="!"; C2 ="!ch&"}; 
-C1AC2a = { C1 = "" ; C1C2="!"; C2 ="'"}; 
+C1AC2a = { C1 = "" ; C1C2="!"; C2 ="'"};
 C1AC2ach = { C1 = "" ; C1C2="!"; C2 ="'c"}; 
 C1AC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
 -- Imper -- mkV2yz
@@ -701,7 +698,6 @@ C1C2ek = { C1 = "" ; C1C2=""; C2 ="'k"};
 C1C2esh = { C1 = "" ; C1C2=""; C2 ="'x"}; 
 C1C2achehu = { C1 = "" ; C1C2=""; C2 ="!ch&"}; 
 C1C2o = { C1 = "" ; C1C2=""; C2 ="/"}; 
-C1C2a = { C1 = "" ; C1C2=""; C2="!"}; 
 C1C2ew = { C1 = "" ; C1C2=""; C2="'w"};
 
 --CompPer mkV2yz  y!l'h& !l !l !l cX7l 7l l'c !l 
@@ -721,81 +717,12 @@ meC1aC2= {C1 ="m'" ; C1C2="!"; C2 =""};
 --Infinitve mkV2yz  
 C1aC2ii= {C1 ="" ; C1C2="!"; C2 ="#"};
 
-
-								--mkV2yz -- yz -- catch
-						--Perf -- 
-						C1AC2hu = {C1 ="" ; C1C2="!"; C2 ="h&"};
-						C1AC2n = { C1 = "" ; C1C2="!"; C2 ="n"};
-						C1AC2k = { C1 = "" ; C1C2="!"; C2 ="k"}; 
-						C1AC2sh = { C1 = "" ; C1C2="!"; C2 ="x"}; 
-						C1AC2achehu = { C1 = "" ; C1C2 ="!"; C2 ="!ch&"}; 
-						C1AC2a = { C1 = "" ; C1C2="!"; C2 ="'"}; 
-						C1AC2ach = { C1 = "" ; C1C2="!"; C2 ="'c"}; 
-						C1AC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
-						-- Imper -- mkV2yz
-						eC1C2alehu = { C1 = "ä" ; C1C2=""; C2 ="!l'h&"}; 
-						enC1C2alen = { C1 = "än" ; C1C2=""; C2 ="!l'n"};
-						teC1C2yaleh = { C1 = "t" ; C1C2=""; C2 ="!l'h"};
-						teC1C2aleh = { C1 = "t" ; C1C2=""; C2 ="y!l'x"};
-						teC1C2alachehu = { C1 = "t" ; C1C2=""; C2 ="!l!ch&"};
-						yeC1C2al = { C1 = "y" ; C1C2=""; C2 ="!l"};
-						teC1C2alech = { C1 = "t" ; C1C2=""; C2 ="!l'c"};
-						yeC1C2alu = { C1 = "y" ; C1C2=""; C2 ="!l&"};
-
-						-- Cont -- mkV2yz
-						eC1C2 = { C1 = "ä" ; C1C2=""; C2 =""}; 
-						enC1C2 = { C1 = "än" ; C1C2=""; C2 =""};
-						teC1C2 = { C1 = "t" ; C1C2=""; C2 =""};
-						--teC1C2 = { C1 = "t" ; C1C2=""; C2 =""};3
-						teC1C2u = { C1 = "t" ; C1C2=""; C2 ="&"};
-						yeC1C2 = { C1 = "y" ; C1C2=""; C2 =""};
-						--teC1C2 = { C1 = "t" ; C1C2=""; C2 =""};
-						yeC1C2u = { C1 = "y" ; C1C2=""; C2 ="&"};
-
-
-						--Jus_Imperat mkV2yz
-						leC1aC2a = {C1 ="l" ; C1C2="!"; C2 =""};
-						enC1aC2a = { C1 = "än" ; C1C2="!"; C2 =""};
-						C1aC2 = { C1 = "" ; C1C2="!"; C2 =""}; 
-						C1aC2i = { C1 = "" ; C1C2="!"; C2 ="#"}; 
-						C1eC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
-						yC1aC2a = { C1 = "y" ; C1C2="!"; C2 =""}; 
-						tC1aC2a = { C1 = "t" ; C1C2="!"; C2 =""}; 
-						yC1aC2u = { C1 = "y" ; C1C2="!"; C2 ="&"}; 
-						--Gerund mkV2yz
-						C1C2ie = {C1 ="" ; C1C2=""; C2 ="%"};
-						C1C2en = { C1 = "" ; C1C2=""; C2 ="'n"};
-						C1C2ek = { C1 = "" ; C1C2=""; C2 ="'k"}; 
-						C1C2esh = { C1 = "" ; C1C2=""; C2 ="'x"}; 
-						C1C2achehu = { C1 = "" ; C1C2=""; C2 ="!ch&"}; 
-						C1C2o = { C1 = "" ; C1C2=""; C2 ="/"}; 
-						C1C2a = { C1 = "" ; C1C2=""; C2="!"}; 
-						C1C2ew = { C1 = "" ; C1C2=""; C2="'w"};
-
-						--CompPer mkV2yz  y!l'h& !l !l !l cX7l 7l l'c !l 
-						C1C2iealehu = {C1 ="" ; C1C2=""; C2 ="%y!l'h&"};
-						C1C2enal = { C1 = "" ; C1C2=""; C2 ="'n!l"};
-						C1C2ekal = { C1 = "" ; C1C2=""; C2 ="'k!l"}; 
-						C1C2eshal = { C1 = "" ; C1C2=""; C2 ="'x!l"}; 
-						C1C2achehual = { C1 = "" ; C1C2=""; C2 ="!cX7l"}; 
-						C1C2oal = { C1 = "" ; C1C2=""; C2 ="7l"}; 
-						C1C2alech = { C1 = "" ; C1C2=""; C2="!l'c"}; 
-						C1C2ewal = { C1 = "" ; C1C2=""; C2="'w!l"};
-
-						 
-						--Infinitve mkV2yz  
-						meC1aC2= {C1 ="m'" ; C1C2="!"; C2 =""};
-
-						--Infinitve mkV2yz  
-						C1aC2ii= {C1 ="" ; C1C2="!"; C2 ="#"};
-
 --nore -- nr -- live
 --Perf -- 
 C1oC2hu = {C1 ="" ; C1C2="/"; C2 ="h&"};
 C1oC2n = { C1 = "" ; C1C2="/"; C2 ="n"};
 C1oC2k = { C1 = "" ; C1C2="/"; C2 ="k"}; 
 C1oC2sh = { C1 = "" ; C1C2="/"; C2 ="x"}; 
-C1oC2achehu = { C1 = "" ; C1C2 ="/"; C2 ="!ch&"}; 
 C1oC2a = { C1 = "" ; C1C2="/"; C2 ="'"}; 
 C1oC2ach = { C1 = "" ; C1C2="/"; C2 ="'c"}; 
 C1oC2u = { C1 = "" ; C1C2="/"; C2 ="&"}; 
@@ -858,87 +785,12 @@ meC1oC2= {C1 ="m'" ; C1C2="/"; C2 =""};
 C1uaC2i= {C1 ="" ; C1C2="7"; C2 ="#"};
 
 
-
-
-								--nore -- nr -- live
-						--Perf -- 
-						C1oC2hu = {C1 ="" ; C1C2="/"; C2 ="h&"};
-						C1oC2n = { C1 = "" ; C1C2="/"; C2 ="n"};
-						C1oC2k = { C1 = "" ; C1C2="/"; C2 ="k"}; 
-						C1oC2sh = { C1 = "" ; C1C2="/"; C2 ="x"}; 
-						C1oC2achehu = { C1 = "" ; C1C2 ="/"; C2 ="!ch&"}; 
-						C1oC2a = { C1 = "" ; C1C2="/"; C2 ="'"}; 
-						C1oC2ach = { C1 = "" ; C1C2="/"; C2 ="'c"}; 
-						C1oC2u = { C1 = "" ; C1C2="/"; C2 ="&"}; 
-						-- Imper -- mkV2nr
-						eC1oC2alehu = { C1 = "ä" ; C1C2="/"; C2 ="!l'h&"}; 
-						enC1oC2alen = { C1 = "än" ; C1C2="/"; C2 ="!l'n"};
-						teC1oC2yaleh = { C1 = "t" ; C1C2="/"; C2 ="!l'h"};
-						teC1oC2alesh = { C1 = "t" ; C1C2="/"; C2 ="y!l'x"};
-						teC1oC2alachehu = { C1 = "t" ; C1C2="/"; C2 ="!l!ch&"};
-						yeC1oC2al = { C1 = "y" ; C1C2="/"; C2 ="!l"};
-						teC1oC2alech = { C1 = "t" ; C1C2="/"; C2 ="!l'c"};
-						yeC1oC2alu = { C1 = "y" ; C1C2="/"; C2 ="!l&"};
-
-						-- Imper -- mkV2nr
-						eC1oC2 = { C1 = "ä" ; C1C2="/"; C2 =""}; 
-						enC1oC2 = { C1 = "än" ; C1C2="/"; C2 =""};
-						teC1oC2 = { C1 = "t" ; C1C2="/"; C2 =""};
-						teC1oC2i = { C1 = "t" ; C1C2="/"; C2 ="#"};
-						teC1oC2u = { C1 = "t" ; C1C2="/"; C2 ="&"};
-						yeC1oC2 = { C1 = "y" ; C1C2="/"; C2 =""};
-						--teC1oC2 = { C1 = "t" ; C1C2="/"; C2 ="!l'c"};
-						yeC1oC2u = { C1 = "y" ; C1C2="/"; C2 ="&"};
-
-						--Jus_Imperat mkV2nr
-						leC1uC2 = {C1 ="l" ; C1C2="&"; C2 =""};
-						enC1uC2 = { C1 = "än" ; C1C2="&"; C2 =""};
-						C1uC2 = { C1 = "" ; C1C2="&"; C2 =""}; 
-						C1uC2i = { C1 = "" ; C1C2="&"; C2 ="#"}; 
-						C1uC2u = { C1 = "" ; C1C2="&"; C2 ="&"}; 
-						yC1uC2 = { C1 = "y" ; C1C2="&"; C2 =""}; 
-						tC1uC2 = { C1 = "t" ; C1C2="&"; C2 =""}; 
-						yC1uC2u = { C1 = "y" ; C1C2="&"; C2 ="&"}; 
-
-
-
-						--Gerund mkV2nr
-						C1oC2ie = {C1 ="" ; C1C2="/"; C2 ="%"};
-						C1oC2en = { C1 = "" ; C1C2="/"; C2 ="'n"};
-						C1oC2ek = { C1 = "" ; C1C2="/"; C2 ="'k"}; 
-						C1oC2esh = { C1 = "" ; C1C2="/"; C2 ="'x"}; 
-						C1oC2achehu = { C1 = "" ; C1C2="/"; C2 ="!ch&"}; 
-						C1oC2o = { C1 = "" ; C1C2="/"; C2 ="/"}; 
-						C1oC2A = { C1 = "" ; C1C2="/"; C2="!"}; 
-						C1oC2ew = { C1 = "" ; C1C2="/"; C2="'w"}; 
-
-						--CompPer mkV2nr y!l'h& !l !l !l cX7l 7l l'c !l
-						C1oC2iealehu = {C1 ="" ; C1C2="/"; C2 ="%y!l'h& "};
-						C1oC2enal = { C1 = "" ; C1C2="/"; C2 ="'n!l"};
-						C1oC2ekal = { C1 = "" ; C1C2="/"; C2 ="'k!l"}; 
-						C1oC2eshal = { C1 = "" ; C1C2="/"; C2 ="'x!l"}; 
-						C1oC2achehual = { C1 = "" ; C1C2="/"; C2 ="!cX7l"}; 
-						C1oC2oal = { C1 = "" ; C1C2="/"; C2 ="7l"}; 
-						C1oC2Alech = { C1 = "" ; C1C2="/"; C2="!l'c"}; 
-						C1oC2ewal = { C1 = "" ; C1C2="/"; C2="'w!l"};
-
-						--Infinitve mkV2nr
-						meC1oC2= {C1 ="m'" ; C1C2="/"; C2 =""};
-
-						--Participle mkV2nr
-						C1uaC2i= {C1 ="" ; C1C2="7"; C2 ="#"};
-
-
 --mkV2wN -- wN -- swim --- Eg lie, see, say
 --Perf -- 
 C1AC2ehu = {C1 ="" ; C1C2="!"; C2 ="'h&"};
 C1AC2en = { C1 = "" ; C1C2="!"; C2 ="'n"};
 C1AC2ek = { C1 = "" ; C1C2="!"; C2 ="'k"}; 
 C1AC2esh = { C1 = "" ; C1C2="!"; C2 ="'x"}; 
---C1AC2achehu = { C1 = "" ; C1C2 ="!"; C2 ="!ch&"}; 
---C1AC2a = { C1 = "" ; C1C2="!"; C2 ="'"}; 
---C1AC2ach = { C1 = "" ; C1C2="!"; C2 ="'c"}; 
---C1AC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
 -- Imper -- mkV2wN
 eC1aC2alehu = { C1 = "ä" ; C1C2="!"; C2 ="!l'h&"}; 
 enC1aC2alen = { C1 = "än" ; C1C2="!"; C2 ="!l'n"};
@@ -992,74 +844,6 @@ C1aC2tewal = { C1 = "" ; C1C2="!"; C2="t'w!l"};
 meC1aC2et= {C1 ="m'" ; C1C2="!"; C2 ="'t"};
 --nore -- nr -- live
 
-
-		
-								--mkV2wN -- wN -- swim --- Eg lie, see, say
-					--Perf -- 
-					C1AC2ehu = {C1 ="" ; C1C2="!"; C2 ="'h&"};
-					C1AC2en = { C1 = "" ; C1C2="!"; C2 ="'n"};
-					C1AC2ek = { C1 = "" ; C1C2="!"; C2 ="'k"}; 
-					C1AC2esh = { C1 = "" ; C1C2="!"; C2 ="'x"}; 
-					--C1AC2achehu = { C1 = "" ; C1C2 ="!"; C2 ="!ch&"}; 
-					--C1AC2a = { C1 = "" ; C1C2="!"; C2 ="'"}; 
-					--C1AC2ach = { C1 = "" ; C1C2="!"; C2 ="'c"}; 
-					--C1AC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
-					-- Imper -- mkV2wN
-					eC1aC2alehu = { C1 = "ä" ; C1C2="!"; C2 ="!l'h&"}; 
-					enC1aC2alen = { C1 = "än" ; C1C2="!"; C2 ="!l'n"};
-					teC1aC2yaleh = { C1 = "t" ; C1C2="!"; C2 ="!l'h"};
-					teC1aC2alesh = { C1 = "t" ; C1C2="!"; C2 ="y!l'x"};
-					teC1aC2alachehu = { C1 = "t" ; C1C2="!"; C2 ="!l!ch&"};
-					yeC1aC2al = { C1 = "y" ; C1C2="!"; C2 ="!l"};
-					teC1aC2alech = { C1 = "t" ; C1C2="!"; C2 ="!l'c"};
-					yeC1aC2alu = { C1 = "y" ; C1C2="!"; C2 ="!l&"};
-
-					-- Cont -- mkV2wN
-					eC1aC2 = { C1 = "ä" ; C1C2="!"; C2 =""}; 
-					enC1aC2 = { C1 = "än" ; C1C2="!"; C2 =""};
-					teC1aC2 = { C1 = "t" ; C1C2="!"; C2 =""};
-					--teC1aC2 = { C1 = "t" ; C1C2="!"; C2 =""};
-					teC1aC2u = { C1 = "t" ; C1C2="!"; C2 ="&"};
-					yeC1aC2 = { C1 = "y" ; C1C2="!"; C2 =""};
-					--teC1aC2 = { C1 = "t" ; C1C2="!"; C2 =""};
-					yeC1aC2u = { C1 = "y" ; C1C2="!"; C2 ="&"};
-
-					--Jus_Imperat mkV2wN
-					--leC1aC2a = {C1 ="l" ; C1C2="!"; C2 =""};
-					--enC1aC2a = { C1 = "än" ; C1C2="!"; C2 =""};
-					--C1aC2 = { C1 = "" ; C1C2="!"; C2 =""}; 
-					--C1aC2i = { C1 = "" ; C1C2="!"; C2 ="#"}; 
-					--C1eC2u = { C1 = "" ; C1C2="!"; C2 ="&"}; 
-					--yC1aC2a = { C1 = "y" ; C1C2="!"; C2 =""}; 
-					--tC1aC2a = { C1 = "t" ; C1C2="!"; C2 =""}; 
-					--yC1aC2u = { C1 = "y" ; C1C2="!"; C2 ="&"}; 
-					--Gerund mkV2wN
-					C1aC2cie = {C1 ="" ; C1C2="!"; C2 ="c%"};
-					C1aC2ten = { C1 = "" ; C1C2="!"; C2 ="t'n"};
-					C1aC2tek = { C1 = "" ; C1C2="!"; C2 ="t'k"}; 
-					C1aC2tesh = { C1 = "" ; C1C2="!"; C2 ="t'x"}; 
-					C1aC2tachehu = { C1 = "" ; C1C2="!"; C2 ="t!ch&"}; 
-					C1aC2to = { C1 = "" ; C1C2="!"; C2 ="t/"}; 
-					C1aC2ta = { C1 = "" ; C1C2="!"; C2="t!"}; 
-					C1aC2tew = { C1 = "" ; C1C2="!"; C2="t'w"}; 
-
-					--ComPer mkV2wN  y!l'h& !l !l !l cX7l 7l l'c !l 
-					C1aC2ciealehu = {C1 ="" ; C1C2="!"; C2 ="c%y!l'h&"};
-					C1aC2tenal = { C1 = "" ; C1C2="!"; C2 ="t'n!l"};
-					C1aC2tekal = { C1 = "" ; C1C2="!"; C2 ="t'k!l"}; 
-					C1aC2teshal = { C1 = "" ; C1C2="!"; C2 ="t'x!l"}; 
-					C1aC2tachehual = { C1 = "" ; C1C2="!"; C2 ="t!cX7l"}; 
-					C1aC2toal = { C1 = "" ; C1C2="!"; C2 ="t7l"}; 
-					C1aC2talech = { C1 = "" ; C1C2="!"; C2="t!l'c"}; 
-					C1aC2tewal = { C1 = "" ; C1C2="!"; C2="t'w!l"}; 
-
-					--Infinitve mkV2wN
-					meC1aC2et= {C1 ="m'" ; C1C2="!"; C2 ="'t"};
-					--nore -- nr -- live
-	
-
-
-
 ----------- This much is enough for the duo-radicals--- 
 --There are few verbs still remaining like the case of shete, hede , --washe, aye, ale , all need unique froms for them selves. I will get --back here later!! 
 
@@ -1109,62 +893,7 @@ tC1eC2 = { C1 = "t" ; C1C2=""; C2 =""};
 meC1C2et= {C1 ="m'" ; C1C2=""; C2 ="'t"};
 
 
-
-
-
-				----------- This much is enough for the duo-radicals--- 
-				--There are few verbs still remaining like the case of shete, hede , --washe, aye, ale , all need unique froms for them selves. I will get --back here later!! 
-
-				--seTe -- st -- give
-				--Perf -- 
-				C1eC2hu = {C1 ="" ; C1C2="'"; C2 ="'h&"};
-				C1eC2n = { C1 = "" ; C1C2="'"; C2 ="'n"};
-				C1eC2k = { C1 = "" ; C1C2="'"; C2 ="'k"}; 
-				C1eC2sh = { C1 = "" ; C1C2="'"; C2 ="'x"}; 
-				C1eC2achehu = { C1 = "" ; C1C2 ="'"; C2 ="'ch&"}; 
-				C1eC2a = { C1 = "" ; C1C2="'"; C2 ="'"}; 
-				C1eC2ach = { C1 = "" ; C1C2="'"; C2 ="'c"}; 
-				--C1eC2u = { C1 = "" ; C1C2="'"; C2 ="&"}; same as C1aC2u (bela) 
-				-- Imper -- mkV2sT
-				--eC1eC2alehu = { C1 = "ä" ; C1C2="'"; C2 ="!l'h&"}; eC1aC2alehu
-				--enC1eC2alen = { C1 = "än" ; C1C2="'"; C2 ="!l'n"};enC1aC2alen
-				--teC1eC2yaleh = { C1 = "t" ; C1C2="'"; C2 ="!l'h"};teC1aC2yaleh
-				--teC1eC2aleh = { C1 = "t" ; C1C2="'"; C2 ="y!l'x"};teC1aC2aleh 
-				--teC1eC2alachehu = { C1 = "t" ; C1C2="'"; C2 ="!l!ch&"};teC1aC2alachehu
-				--yeC1eC2al = { C1 = "y" ; C1C2="'"; C2 ="!l"};yeC1aC2al 
-				--teC1eC2alech = { C1 = "t" ; C1C2="'"; C2 ="!l'c"};teC1aC2alech 
-				--yeC1eC2alu = { C1 = "y" ; C1C2="'"; C2 ="!l&"};yeC1aC2alu
-
-				--Jus_Imperat mkV2sT
-
-				leC1eC2 = {C1 ="l" ; C1C2=""; C2 =""};
-				enC1eC2 = { C1 = "än" ; C1C2=""; C2 =""};
-				C1C2 = { C1 = "" ; C1C2=""; C2 =""}; 
-				C1eC2i = { C1 = "" ; C1C2=""; C2 ="#"}; 
-				--C1eC2u = { C1 = "" ; C1C2=""; C2 ="&"}; C1C2u 
-				yC1eC2 = { C1 = "y" ; C1C2=""; C2 =""}; 
-				tC1eC2 = { C1 = "t" ; C1C2=""; C2 =""}; 
-				--yC1eC2u = { C1 = "y" ; C1C2=""; C2 ="&"};yC1C2u 
-
-
-				--Gerund mkV2sT
-
-				--C1eC2ie = {C1 ="" ; C1C2="'"; C2 ="c%"}; C1aC2cie
-				--C1eC2en = { C1 = "" ; C1C2="'"; C2 ="'n"};C1aC2ten 
-				--C1eC2ek = { C1 = "" ; C1C2="'"; C2 ="'k"}; C1aC2tek
-				--C1eC2esh = { C1 = "" ; C1C2="'"; C2 ="'x"}; C1aC2tesh
-				--C1eC2achehu = { C1 = "" ; C1C2="'"; C2 ="!ch&"};C1aC2tachehu  
-				--C1eC2o = { C1 = "" ; C1C2="'"; C2 ="/"};C1aC2to
-				--C1eC2A = { C1 = "" ; C1C2="'"; C2="!"};C1aC2ta
-				--C1eC2ew = { C1 = "" ; C1C2="'"; C2="'w"}; C1aC2tew
-				--Infinitve mkV2sT
-				meC1C2et= {C1 ="m'" ; C1C2=""; C2 ="'t"};
-
-
-
-
 ---- Quadro_Radical
-
 
 --Starting with type Tri-Radical Roots
 --	 Eg. dbdb  - fight
@@ -1238,152 +967,4 @@ meC1aC2C3aC4 = {C1 ="m'" ; C1C2="'"; C2C3 =""; C3C4="'"; C4= "" };
 --Participle mkV4dbdb 
 C1eC2C3aC4i = {C1 ="" ; C1C2="'"; C2C3 =""; C3C4="!"; C4= "#" };
 
-
-								---- Quadro_Radical
-
-
-					--Starting with type Tri-Radical Roots
-					--	 Eg. dbdb  - fight
-					--           qzqz  - freeze
-					--            wrwr  - throw 
-					--             tnfs  - breath
-
-					--Perf -- 
-					C1aC2aC3aC4hu = {C1 ="" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "h&" };
-					C1aC2aC3aC4n = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "n" };
-					C1aC2aC3aC4k = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "k" }; 
-					C1aC2aC3aC4sh = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "x" }; 
-					C1aC2aC3aC4achehu = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "!ch&" }; 
-					C1aC2aC3aC4a = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "'" }; 
-					C1aC2aC3aC4ech = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "'c" }; 
-					C1aC2aC3aC4u = { C1 = "" ; C1C2="'"; C2C3 ="'"; C3C4="'"; C4= "&" }; 
-					--Imper --mkV4dbdb 
-					eC1aC2aC3C4alehu = { C1 = "ä" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l'h&" }; 
-					enC1aC2aC3C4alen = { C1 = "än" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l'n" };
-					teC1aC2aC3C4yaleh = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l'h" };
-					teC1aC2aC3C4aleh = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "y!l'x" };
-					teC1aC2aC3C4alachehu = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l!ch&" };
-					yeC1aC2aC3C4al = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l" };
-					teC1aC2aC3C4alech = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l'c" };
-					yeC1aC2aC3C4alu = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "!l&" };
-
-					--Cont --mkV4dbdb 
-					eC1aC2aC3C4 = { C1 = "ä" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "" }; 
-					enC1aC2aC3C4 = { C1 = "än" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "" };
-					teC1aC2aC3C4 = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "" };
-					teC1aC2aC3C4i = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "#" };
-					teC1aC2aC3C4u = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "&" };
-					yeC1aC2aC3C4 = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "" };
-					--teC1aC2aC3C4 = { C1 = "t" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "" };
-					yeC1aC2aC3C4u = { C1 = "y" ; C1C2="'"; C2C3 ="'"; C3C4=""; C4= "&" };
-
-
-
-					--Jus_Imperat mkV4dbdb 
-					leC1aC2C3C4 = {C1 ="l" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "" };
-					enC1aC2C3C4 = { C1 = "än" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "" };
-					C1aC2C3C4 = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "" }; 
-					C1aC2C3C4i = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "#" }; 
-					C1aC2C3C4u = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "&" }; 
-					yC1aC2C3C4 = { C1 = "y" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "" }; 
-					tC1aC2C3C4 = { C1 = "t" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "" }; 
-					yC1aC2C3C4u = { C1 = "y" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "&" }; 
-					--Gerund mkV4dbdb 
-					C1aC2C3C4ie = {C1 ="" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "%" };
-					C1aC2C3C4en = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'n" };
-					C1aC2C3C4ek = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'k" }; 
-					C1aC2C3C4esh = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'x" }; 
-					C1aC2C3C4achehu = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "!ch&" }; 
-					C1aC2C3C4o = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "/" }; 
-					C1aC2C3C4a = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "!" }; 
-					C1aC2C3C4ew = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'w" }; 
-
-					--CompPerf mkV4dbdb y!l'h& !l !l !l cX7l 7l l'c !l  
-					C1aC2C3C4iealehu = {C1 ="" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "%y!l'h&" };
-					C1aC2C3C4enal = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'n!l" };
-					C1aC2C3C4ekal = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'k!l" }; 
-					C1aC2C3C4eshal = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'x!l" }; 
-					C1aC2C3C4achehual = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "!cX7l" }; 
-					C1aC2C3C4oal = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "7l" }; 
-					C1aC2C3C4alech = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "!l'c" }; 
-					C1aC2C3C4ewal = { C1 = "" ; C1C2="'"; C2C3 =""; C3C4=""; C4= "'w!l" }; 
-
-					--Infinitve mkV4dbdb 
-					meC1aC2C3aC4 = {C1 ="m'" ; C1C2="'"; C2C3 =""; C3C4="'"; C4= "" };
-
-					--Participle mkV4dbdb 
-					C1eC2C3aC4i = {C1 ="" ; C1C2="'"; C2C3 =""; C3C4="!"; C4= "#" };
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{-
-resource PatternsAmh =  {
-
-flags coding=utf8 ;
-
- oper
---perf
-C1aC2aC3ku = {C1 ="" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ኩ"};
-C1aC2aC3n = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ን"};
-C1aC2aC3k = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ክ"}; 
-C1aC2aC3sh = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ሽ"}; 
-C1aC2aC3achehu = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="አችሁ"}; 
-C1aC2aC3e = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ኧ"}; 
-C1aC2aC3ech = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ኧች"}; 
-C1aC2aC3u = { C1 = "" ; C1C2="ኧ"; C2C3 ="ኧ"; C3="ኡ"}; 
-
---imper
-eC1aC2C3alehu = { C1 = "እ" ; C1C2="ኧ"; C2C3 =""; C3="አለሁ"}; 
-enC1aC2C3alen = { C1 = "እን" ; C1C2="ኧ"; C2C3 =""; C3="አለን"};
-teC1aC2C3yaleh = { C1 = "ት" ; C1C2="ኧ"; C2C3 =""; C3="አለህ"};
-teC1aC2C3aleh = { C1 = "ት" ; C1C2="ኧ"; C2C3 =""; C3="ያለሽ"};
-teC1aC2C3alachehu = { C1 = "ት" ; C1C2="ኧ"; C2C3 =""; C3="አላችሁ"};
-yeC1aC2C3al = { C1 = "ይ" ; C1C2="ኧ"; C2C3 =""; C3="አል"};
-teC1aC2C3alech = { C1 = "ት" ; C1C2="ኧ"; C2C3 =""; C3="አለች"};
-yeC1aC2C3alu = { C1 = "ይ" ; C1C2="ኧ"; C2C3 =""; C3="አሉ"};
-
-
-}
--}
-
-
-
-
-

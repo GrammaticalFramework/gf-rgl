@@ -22,12 +22,9 @@ concrete PhraseAmh of Phrase = CatAmh ** open
 	UttIP ip = ip ; --- Acc also
 	UttVP vp = {s = vp.obj.s ++ vp.inf} ;
 	UttIAdv iadv = iadv ;
-	UttCN n = {s = n.s ! Sg ! Indef!Nom} ;
-    	UttCard n = {s = n.s ! Masc!Sg!Indef!Nom} ;
 	UttImpSg pol imp = {s = pol.s ++ imp.s!pol.p!Masc!Sg};
 	UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p! Masc! Pl} ; --- TO DO 
 	UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc!Pl} ; -- TO DO --- 
-	UttQS qs = {s = qs.s } ; -- TO DO 
     {-  
     
     PConjConj conj = {s = conj.s2} ; ---
