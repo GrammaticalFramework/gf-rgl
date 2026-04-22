@@ -3,7 +3,7 @@ resource ResFao = {
 param Species = Indef | Def ;
 param Number = Sg | Pl ;
 param Case = Nom | Acc | Dat | Gen ;
-param Gender = Masc | Fem | Neutr ;
+param Gender = Masc | Fem | Neuter ;
 oper Noun = {s: Species => Number => Case => Str; g : Gender} ; -- 2135
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,g ->
@@ -73,7 +73,7 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                                    Gen => f16
                                  }
                          } ;
-                  Neutr => table {
+                  Neuter=> table {
                              Sg => table {
                                      Nom => f17 ;
                                      Acc => f18 ;

@@ -11,7 +11,7 @@ lin
   InflectionN,InflectionN2,InflectionN3 = \x -> {
       t="n" ;
       s1 = heading1 ("Noun" ++ case x.g of {
-                               Neutr => "(neuter)";
+                               Neuter=> "(neuter)";
                                Masc  => "(masc)";
                                Fem   => "(fem)"
                              }) ;
@@ -34,17 +34,17 @@ lin
       t="a" ;
       s1="" ;
       s2=frameTable (
-           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Masc" ++ th "Fem" ++ th "Neutr") ++
+           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Masc" ++ th "Fem" ++ th "Neuter") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Sg" ++
-               th "Nom" ++ td (x.s ! Masc ! Sg ! Nom) ++ td (x.s ! Fem ! Sg ! Nom) ++ td (x.s ! Neutr ! Sg ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Sg ! Acc) ++ td (x.s ! Fem ! Sg ! Acc) ++ td (x.s ! Neutr ! Sg ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Sg ! Dat) ++ td (x.s ! Fem ! Sg ! Dat) ++ td (x.s ! Neutr ! Sg ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Sg ! Gen) ++ td (x.s ! Fem ! Sg ! Gen) ++ td (x.s ! Neutr ! Sg ! Gen)) ++
+               th "Nom" ++ td (x.s ! Masc ! Sg ! Nom) ++ td (x.s ! Fem ! Sg ! Nom) ++ td (x.s ! Neuter ! Sg ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Masc ! Sg ! Acc) ++ td (x.s ! Fem ! Sg ! Acc) ++ td (x.s ! Neuter ! Sg ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Masc ! Sg ! Dat) ++ td (x.s ! Fem ! Sg ! Dat) ++ td (x.s ! Neuter ! Sg ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Masc ! Sg ! Gen) ++ td (x.s ! Fem ! Sg ! Gen) ++ td (x.s ! Neuter ! Sg ! Gen)) ++
            tr (intagAttr "th" "rowspan=\"4\"" "Pl" ++
-               th "Nom" ++ td (x.s ! Masc ! Pl ! Nom) ++ td (x.s ! Fem ! Pl ! Nom) ++ td (x.s ! Neutr ! Pl ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Pl ! Acc) ++ td (x.s ! Fem ! Pl ! Acc) ++ td (x.s ! Neutr ! Pl ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Pl ! Dat) ++ td (x.s ! Fem ! Pl ! Dat) ++ td (x.s ! Neutr ! Pl ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Pl ! Gen) ++ td (x.s ! Fem ! Pl ! Gen) ++ td (x.s ! Neutr ! Pl ! Gen))) ;
+               th "Nom" ++ td (x.s ! Masc ! Pl ! Nom) ++ td (x.s ! Fem ! Pl ! Nom) ++ td (x.s ! Neuter ! Pl ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Masc ! Pl ! Acc) ++ td (x.s ! Fem ! Pl ! Acc) ++ td (x.s ! Neuter ! Pl ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Masc ! Pl ! Dat) ++ td (x.s ! Fem ! Pl ! Dat) ++ td (x.s ! Neuter ! Pl ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Masc ! Pl ! Gen) ++ td (x.s ! Fem ! Pl ! Gen) ++ td (x.s ! Neuter ! Pl ! Gen))) ;
       s3=[]
     } ;
 lin

@@ -75,7 +75,7 @@ mkN002 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN002"
   } ;
@@ -153,7 +153,7 @@ mkN004 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN004"
   } ;
@@ -309,7 +309,7 @@ mkN008 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN008"
   } ;
@@ -543,7 +543,7 @@ mkN014 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN014"
   } ;
@@ -738,7 +738,7 @@ mkN019 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN019"
   } ;
@@ -777,7 +777,7 @@ mkN020 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN020"
   } ;
@@ -855,7 +855,7 @@ mkN022 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN022"
   } ;
@@ -1011,7 +1011,7 @@ mkN026 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN026"
   } ;
@@ -1050,7 +1050,7 @@ mkN027 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN027"
   } ;
@@ -1089,7 +1089,7 @@ mkN028 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN028"
   } ;
@@ -1206,7 +1206,7 @@ mkN031 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN031"
   } ;
@@ -1323,7 +1323,7 @@ mkN034 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN034"
   } ;
@@ -1635,7 +1635,7 @@ mkN042 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN042"
   } ;
@@ -1713,7 +1713,7 @@ mkN044 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN044"
   } ;
@@ -1791,7 +1791,7 @@ mkN046 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN046"
   } ;
@@ -1908,7 +1908,7 @@ mkN049 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN049"
   } ;
@@ -2103,7 +2103,7 @@ mkN054 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN054"
   } ;
@@ -2454,7 +2454,7 @@ mkN063 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN063"
   } ;
@@ -2649,7 +2649,7 @@ mkN068 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN068"
   } ;
@@ -2844,7 +2844,7 @@ mkN073 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN073"
   } ;
@@ -2961,7 +2961,7 @@ mkN076 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN076"
   } ;
@@ -3039,7 +3039,7 @@ mkN078 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN078"
   } ;
@@ -3117,7 +3117,7 @@ mkN080 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN080"
   } ;
@@ -3195,7 +3195,7 @@ mkN082 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN082"
   } ;
@@ -3312,7 +3312,7 @@ mkN085 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN085"
   } ;
@@ -3390,7 +3390,7 @@ mkN087 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN087"
   } ;
@@ -3546,7 +3546,7 @@ mkN091 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN091"
   } ;
@@ -3702,7 +3702,7 @@ mkN095 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN095"
   } ;
@@ -3741,7 +3741,7 @@ mkN096 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN096"
   } ;
@@ -4014,7 +4014,7 @@ mkN103 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN103"
   } ;
@@ -4443,7 +4443,7 @@ mkN114 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN114"
   } ;
@@ -4482,7 +4482,7 @@ mkN115 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN115"
   } ;
@@ -4599,7 +4599,7 @@ mkN118 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN118"
   } ;
@@ -4638,7 +4638,7 @@ mkN119 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN119"
   } ;
@@ -4716,7 +4716,7 @@ mkN121 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN121"
   } ;
@@ -4755,7 +4755,7 @@ mkN122 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN122"
   } ;
@@ -4833,7 +4833,7 @@ mkN124 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN124"
   } ;
@@ -4911,7 +4911,7 @@ mkN126 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN126"
   } ;
@@ -5106,7 +5106,7 @@ mkN131 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN131"
   } ;
@@ -5223,7 +5223,7 @@ mkN134 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN134"
   } ;
@@ -5379,7 +5379,7 @@ mkN138 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN138"
   } ;
@@ -5457,7 +5457,7 @@ mkN140 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN140"
   } ;
@@ -5652,7 +5652,7 @@ mkN145 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN145"
   } ;
@@ -5769,7 +5769,7 @@ mkN148 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN148"
   } ;
@@ -6003,7 +6003,7 @@ mkN154 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN154"
   } ;
@@ -6042,7 +6042,7 @@ mkN155 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN155"
   } ;
@@ -6198,7 +6198,7 @@ mkN159 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN159"
   } ;
@@ -6354,7 +6354,7 @@ mkN163 base =
                              }
                      }
             } ;
-        g = Neutr
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN163"
   } ;
@@ -6665,7 +6665,7 @@ mkA001 base =
                                Gen => base_1+"da"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6717,7 +6717,7 @@ mkA002 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2 ;
                                  Acc => base_1+"a"+base_2 ;
@@ -6769,7 +6769,7 @@ mkA003 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1 ;
                                  Acc => base_1 ;
@@ -6821,7 +6821,7 @@ mkA004 base =
                                Gen => base_1+"a"+base_2+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"u"+base_3+"t" ;
                                  Acc => base_1+"a"+base_2+"u"+base_3+"t" ;
@@ -6873,7 +6873,7 @@ mkA005 base =
                                Gen => "a"+base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => "a"+base_1+"t" ;
                                  Acc => "a"+base_1+"t" ;
@@ -6925,7 +6925,7 @@ mkA006 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6977,7 +6977,7 @@ mkA007 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7029,7 +7029,7 @@ mkA008 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7081,7 +7081,7 @@ mkA009 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ið" ;
                                  Acc => base_1+"ið" ;
@@ -7133,7 +7133,7 @@ mkA010 base =
                                Gen => base_1+"ða"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7185,7 +7185,7 @@ mkA011 base =
                                Gen => base_1+"ta"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7237,7 +7237,7 @@ mkA012 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"gvið" ;
                                  Acc => base_1+"gvið" ;
@@ -7289,7 +7289,7 @@ mkA013 base =
                                Gen => base_1+"ga"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7341,7 +7341,7 @@ mkA014 base =
                                Gen => base_1+"dda"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7393,7 +7393,7 @@ mkA015 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7445,7 +7445,7 @@ mkA016 base =
                                Gen => base_1+"madimra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7497,7 +7497,7 @@ mkA017 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7549,7 +7549,7 @@ mkA018 base =
                                Gen => base_1+"kadøkra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7601,7 +7601,7 @@ mkA019 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tið" ;
                                  Acc => base_1+"tið" ;
@@ -7653,7 +7653,7 @@ mkA020 base =
                                Gen => base_1+"a"+base_2+"da"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7705,7 +7705,7 @@ mkA021 base =
                                Gen => base_1+"a"+base_2+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7757,7 +7757,7 @@ mkA022 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7809,7 +7809,7 @@ mkA023 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"rið" ;
                                  Acc => base_1+"rið" ;
@@ -7861,7 +7861,7 @@ mkA024 base =
                                Gen => base_1+"lafulra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7913,7 +7913,7 @@ mkA025 base =
                                Gen => base_1+"a"+base_2+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"a"+base_3+"t" ;
                                  Acc => base_1+"a"+base_2+"a"+base_3+"t" ;
@@ -7965,7 +7965,7 @@ mkA026 base =
                                Gen => base_1+"óða"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ott" ;
                                  Acc => base_1+"ott" ;
@@ -8017,7 +8017,7 @@ mkA027 base =
                                Gen => base_1+"ei"+base_2+"a"+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ei"+base_2+"a"+base_3+"t" ;
                                  Acc => base_1+"ei"+base_2+"a"+base_3+"t" ;
@@ -8069,7 +8069,7 @@ mkA028 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"pið" ;
                                  Acc => base_1+"pið" ;
@@ -8121,7 +8121,7 @@ mkA029 base =
                                Gen => base_1+"a"+base_2+"sa"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8173,7 +8173,7 @@ mkA030 base =
                                Gen => base_1+"dda"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8225,7 +8225,7 @@ mkA031 base =
                                Gen => base_1+"a"+base_2+"alatra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8277,7 +8277,7 @@ mkA032 base =
                                Gen => base_1+"dna"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ðið" ;
                                  Acc => base_1+"ðið" ;
@@ -8329,7 +8329,7 @@ mkA033 base =
                                Gen => base_1+"ggja"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8381,7 +8381,7 @@ mkA034 base =
                                Gen => base_1+"a"+base_2+"amakra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8433,7 +8433,7 @@ mkA035 base =
                                Gen => base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ið" ;
                                  Acc => base_1+"ið" ;
@@ -8485,7 +8485,7 @@ mkA036 base =
                                Gen => base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8537,7 +8537,7 @@ mkA037 base =
                                Gen => base_1+"gva"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8589,7 +8589,7 @@ mkA038 base =
                                Gen => base_1+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"u"+base_2+"t" ;
                                  Acc => base_1+"u"+base_2+"t" ;
@@ -8641,7 +8641,7 @@ mkA039 base =
                                Gen => base_1+"ra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8693,7 +8693,7 @@ mkA040 base =
                                Gen => base_1+"lavilra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8745,7 +8745,7 @@ mkA041 base =
                                Gen => base_1+"sa"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
