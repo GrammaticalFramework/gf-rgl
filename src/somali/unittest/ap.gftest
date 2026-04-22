@@ -25,7 +25,15 @@ Lang: PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQ
 
 -- LangEng: house bigger than car
 LangSom: guri ka weyn baabuur
-Lang: PhrUtt NoPConj (UttNP (AdjCN (ComparA big_A (MassNP (UseN car_N))) (UseN house_N))) NoVoc
+Lang: PhrUtt NoPConj (UttCN (AdjCN (ComparA big_A (MassNP (UseN car_N))) (UseN house_N))) NoVoc
+
+-- LangEng: house bigger than he
+Lang> l PhrUtt NoPConj (UttCN (AdjCN (ComparA big_A (UsePron he_Pron)) (UseN house_N))) NoVoc
+guri ka weyn isaga
+
+-- LangEng: house bigger than I
+Lang> l PhrUtt NoPConj (UttCN (AdjCN (ComparA big_A (UsePron i_Pron)) (UseN house_N))) NoVoc
+guri ka weyn aniga
 
 -- LangEng: that cat is biggest
 LangSom: bisad BIND daasi waa ugu weyn tahay
