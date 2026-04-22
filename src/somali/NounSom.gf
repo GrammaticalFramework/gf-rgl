@@ -64,7 +64,10 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     } ;
 
   -- : Pron -> NP ;
-  UsePron pron = pron ** {st = Definite} ;
+  UsePron pron = pron ** {
+    s = pron.sp ;
+    st = Definite
+    } ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np =
