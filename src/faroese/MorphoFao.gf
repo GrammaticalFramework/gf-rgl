@@ -35,7 +35,8 @@ mkN001 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN001"
   } ;
@@ -73,7 +74,8 @@ mkN002 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN002"
   } ;
@@ -111,7 +113,8 @@ mkN003 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN003"
   } ;
@@ -149,7 +152,8 @@ mkN004 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN004"
   } ;
@@ -187,7 +191,8 @@ mkN005 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN005"
   } ;
@@ -225,7 +230,8 @@ mkN006 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN006"
   } ;
@@ -263,7 +269,8 @@ mkN007 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN007"
   } ;
@@ -301,7 +308,8 @@ mkN008 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN008"
   } ;
@@ -339,7 +347,8 @@ mkN009 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN009"
   } ;
@@ -377,7 +386,8 @@ mkN010 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN010"
   } ;
@@ -415,7 +425,8 @@ mkN011 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN011"
   } ;
@@ -453,7 +464,8 @@ mkN012 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN012"
   } ;
@@ -491,7 +503,8 @@ mkN013 base =
                                Gen => "áanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN013"
   } ;
@@ -529,7 +542,8 @@ mkN014 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN014"
   } ;
@@ -567,7 +581,8 @@ mkN015 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN015"
   } ;
@@ -605,7 +620,8 @@ mkN016 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN016"
   } ;
@@ -643,7 +659,8 @@ mkN017 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN017"
   } ;
@@ -681,7 +698,8 @@ mkN018 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN018"
   } ;
@@ -719,7 +737,8 @@ mkN019 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN019"
   } ;
@@ -757,7 +776,8 @@ mkN020 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN020"
   } ;
@@ -795,7 +815,8 @@ mkN021 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN021"
   } ;
@@ -833,7 +854,8 @@ mkN022 base =
                                Gen => base_1+"æanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN022"
   } ;
@@ -871,7 +893,8 @@ mkN023 base =
                                Gen => "a"+base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN023"
   } ;
@@ -909,7 +932,8 @@ mkN024 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN024"
   } ;
@@ -947,7 +971,8 @@ mkN025 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN025"
   } ;
@@ -985,7 +1010,8 @@ mkN026 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN026"
   } ;
@@ -1023,7 +1049,8 @@ mkN027 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN027"
   } ;
@@ -1061,7 +1088,8 @@ mkN028 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN028"
   } ;
@@ -1099,7 +1127,8 @@ mkN029 base =
                                Gen => base_1+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN029"
   } ;
@@ -1137,7 +1166,8 @@ mkN030 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN030"
   } ;
@@ -1175,7 +1205,8 @@ mkN031 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN031"
   } ;
@@ -1213,7 +1244,8 @@ mkN032 base =
                                Gen => base_1+"annanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN032"
   } ;
@@ -1251,7 +1283,8 @@ mkN033 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN033"
   } ;
@@ -1289,7 +1322,8 @@ mkN034 base =
                                Gen => base_1+"æ"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN034"
   } ;
@@ -1327,7 +1361,8 @@ mkN035 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN035"
   } ;
@@ -1365,7 +1400,8 @@ mkN036 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN036"
   } ;
@@ -1403,7 +1439,8 @@ mkN037 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN037"
   } ;
@@ -1441,7 +1478,8 @@ mkN038 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN038"
   } ;
@@ -1479,7 +1517,8 @@ mkN039 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN039"
   } ;
@@ -1517,7 +1556,8 @@ mkN040 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN040"
   } ;
@@ -1555,7 +1595,8 @@ mkN041 base =
                                Gen => base_1+"ógvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN041"
   } ;
@@ -1593,7 +1634,8 @@ mkN042 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN042"
   } ;
@@ -1631,7 +1673,8 @@ mkN043 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN043"
   } ;
@@ -1669,7 +1712,8 @@ mkN044 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN044"
   } ;
@@ -1707,7 +1751,8 @@ mkN045 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN045"
   } ;
@@ -1745,7 +1790,8 @@ mkN046 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN046"
   } ;
@@ -1783,7 +1829,8 @@ mkN047 base =
                                Gen => base_1+"ú"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN047"
   } ;
@@ -1821,7 +1868,8 @@ mkN048 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN048"
   } ;
@@ -1859,7 +1907,8 @@ mkN049 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN049"
   } ;
@@ -1897,7 +1946,8 @@ mkN050 base =
                                Gen => base_1+"á"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN050"
   } ;
@@ -1935,7 +1985,8 @@ mkN051 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN051"
   } ;
@@ -1973,7 +2024,8 @@ mkN052 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN052"
   } ;
@@ -2011,7 +2063,8 @@ mkN053 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN053"
   } ;
@@ -2049,7 +2102,8 @@ mkN054 base =
                                Gen => base_1+"manna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN054"
   } ;
@@ -2087,7 +2141,8 @@ mkN055 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN055"
   } ;
@@ -2125,7 +2180,8 @@ mkN056 base =
                                Gen => base_1+"a"+base_2+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN056"
   } ;
@@ -2163,7 +2219,8 @@ mkN057 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN057"
   } ;
@@ -2201,7 +2258,8 @@ mkN058 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN058"
   } ;
@@ -2239,7 +2297,8 @@ mkN059 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN059"
   } ;
@@ -2277,7 +2336,8 @@ mkN060 base =
                                Gen => base_1+"o"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN060"
   } ;
@@ -2315,7 +2375,8 @@ mkN061 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN061"
   } ;
@@ -2353,7 +2414,8 @@ mkN062 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN062"
   } ;
@@ -2391,7 +2453,8 @@ mkN063 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN063"
   } ;
@@ -2429,7 +2492,8 @@ mkN064 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN064"
   } ;
@@ -2467,7 +2531,8 @@ mkN065 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN065"
   } ;
@@ -2505,7 +2570,8 @@ mkN066 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN066"
   } ;
@@ -2543,7 +2609,8 @@ mkN067 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN067"
   } ;
@@ -2581,7 +2648,8 @@ mkN068 base =
                                Gen => base_1+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN068"
   } ;
@@ -2619,7 +2687,8 @@ mkN069 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN069"
   } ;
@@ -2657,7 +2726,8 @@ mkN070 base =
                                Gen => base_1+"o"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN070"
   } ;
@@ -2695,7 +2765,8 @@ mkN071 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN071"
   } ;
@@ -2733,7 +2804,8 @@ mkN072 base =
                                Gen => base_1+"ei"+base_2+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN072"
   } ;
@@ -2771,7 +2843,8 @@ mkN073 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN073"
   } ;
@@ -2809,7 +2882,8 @@ mkN074 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN074"
   } ;
@@ -2847,7 +2921,8 @@ mkN075 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN075"
   } ;
@@ -2885,7 +2960,8 @@ mkN076 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN076"
   } ;
@@ -2923,7 +2999,8 @@ mkN077 base =
                                Gen => base_1+"fanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN077"
   } ;
@@ -2961,7 +3038,8 @@ mkN078 base =
                                Gen => base_1+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN078"
   } ;
@@ -2999,7 +3077,8 @@ mkN079 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN079"
   } ;
@@ -3037,7 +3116,8 @@ mkN080 base =
                                Gen => base_1+"ranna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN080"
   } ;
@@ -3075,7 +3155,8 @@ mkN081 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN081"
   } ;
@@ -3113,7 +3194,8 @@ mkN082 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN082"
   } ;
@@ -3151,7 +3233,8 @@ mkN083 base =
                                Gen => base_1+"ed"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN083"
   } ;
@@ -3189,7 +3272,8 @@ mkN084 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN084"
   } ;
@@ -3227,7 +3311,8 @@ mkN085 base =
                                Gen => base_1+"a"+base_2+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN085"
   } ;
@@ -3265,7 +3350,8 @@ mkN086 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN086"
   } ;
@@ -3303,7 +3389,8 @@ mkN087 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN087"
   } ;
@@ -3341,7 +3428,8 @@ mkN088 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN088"
   } ;
@@ -3379,7 +3467,8 @@ mkN089 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN089"
   } ;
@@ -3417,7 +3506,8 @@ mkN090 base =
                                Gen => base_1+"ja"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN090"
   } ;
@@ -3455,7 +3545,8 @@ mkN091 base =
                                Gen => base_1+"a"+base_2+"ganna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN091"
   } ;
@@ -3493,7 +3584,8 @@ mkN092 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN092"
   } ;
@@ -3531,7 +3623,8 @@ mkN093 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN093"
   } ;
@@ -3569,7 +3662,8 @@ mkN094 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN094"
   } ;
@@ -3607,7 +3701,8 @@ mkN095 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN095"
   } ;
@@ -3645,7 +3740,8 @@ mkN096 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN096"
   } ;
@@ -3683,7 +3779,8 @@ mkN097 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN097"
   } ;
@@ -3721,7 +3818,8 @@ mkN098 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN098"
   } ;
@@ -3759,7 +3857,8 @@ mkN099 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN099"
   } ;
@@ -3797,7 +3896,8 @@ mkN100 base =
                                Gen => base_1+"á"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN100"
   } ;
@@ -3835,7 +3935,8 @@ mkN101 base =
                                Gen => base_1+"fanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN101"
   } ;
@@ -3873,7 +3974,8 @@ mkN102 base =
                                Gen => base_1+"áanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN102"
   } ;
@@ -3911,7 +4013,8 @@ mkN103 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN103"
   } ;
@@ -3949,7 +4052,8 @@ mkN104 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN104"
   } ;
@@ -3987,7 +4091,8 @@ mkN105 base =
                                Gen => base_1+"ggjanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN105"
   } ;
@@ -4025,7 +4130,8 @@ mkN106 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN106"
   } ;
@@ -4063,7 +4169,8 @@ mkN107 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN107"
   } ;
@@ -4101,7 +4208,8 @@ mkN108 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN108"
   } ;
@@ -4139,7 +4247,8 @@ mkN109 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN109"
   } ;
@@ -4177,7 +4286,8 @@ mkN110 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN110"
   } ;
@@ -4215,7 +4325,8 @@ mkN111 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN111"
   } ;
@@ -4253,7 +4364,8 @@ mkN112 base =
                                Gen => base_1+"e"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN112"
   } ;
@@ -4291,7 +4403,8 @@ mkN113 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN113"
   } ;
@@ -4329,7 +4442,8 @@ mkN114 base =
                                Gen => base_1+"a"+base_2+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN114"
   } ;
@@ -4367,7 +4481,8 @@ mkN115 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN115"
   } ;
@@ -4405,7 +4520,8 @@ mkN116 base =
                                Gen => base_1+"g"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN116"
   } ;
@@ -4443,7 +4559,8 @@ mkN117 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN117"
   } ;
@@ -4481,7 +4598,8 @@ mkN118 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN118"
   } ;
@@ -4519,7 +4637,8 @@ mkN119 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN119"
   } ;
@@ -4557,7 +4676,8 @@ mkN120 base =
                                Gen => base_1+"ggjanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN120"
   } ;
@@ -4595,7 +4715,8 @@ mkN121 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN121"
   } ;
@@ -4633,7 +4754,8 @@ mkN122 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN122"
   } ;
@@ -4671,7 +4793,8 @@ mkN123 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN123"
   } ;
@@ -4709,7 +4832,8 @@ mkN124 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN124"
   } ;
@@ -4747,7 +4871,8 @@ mkN125 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN125"
   } ;
@@ -4785,7 +4910,8 @@ mkN126 base =
                                Gen => base_1+"a"+base_2+"a"+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN126"
   } ;
@@ -4823,7 +4949,8 @@ mkN127 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN127"
   } ;
@@ -4861,7 +4988,8 @@ mkN128 base =
                                Gen => base_1+"a"+base_2+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN128"
   } ;
@@ -4899,7 +5027,8 @@ mkN129 base =
                                Gen => base_1+"a"+base_2+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN129"
   } ;
@@ -4937,7 +5066,8 @@ mkN130 base =
                                Gen => base_1+"a"+base_2+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN130"
   } ;
@@ -4975,7 +5105,8 @@ mkN131 base =
                                Gen => base_1+"gjanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN131"
   } ;
@@ -5013,7 +5144,8 @@ mkN132 base =
                                Gen => base_1+"úgvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN132"
   } ;
@@ -5051,7 +5183,8 @@ mkN133 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN133"
   } ;
@@ -5089,7 +5222,8 @@ mkN134 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN134"
   } ;
@@ -5127,7 +5261,8 @@ mkN135 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN135"
   } ;
@@ -5165,7 +5300,8 @@ mkN136 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN136"
   } ;
@@ -5203,7 +5339,8 @@ mkN137 base =
                                Gen => base_1+"á"+base_2+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN137"
   } ;
@@ -5241,7 +5378,8 @@ mkN138 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN138"
   } ;
@@ -5279,7 +5417,8 @@ mkN139 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN139"
   } ;
@@ -5317,7 +5456,8 @@ mkN140 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN140"
   } ;
@@ -5355,7 +5495,8 @@ mkN141 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN141"
   } ;
@@ -5393,7 +5534,8 @@ mkN142 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN142"
   } ;
@@ -5431,7 +5573,8 @@ mkN143 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN143"
   } ;
@@ -5469,7 +5612,8 @@ mkN144 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN144"
   } ;
@@ -5507,7 +5651,8 @@ mkN145 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN145"
   } ;
@@ -5545,7 +5690,8 @@ mkN146 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN146"
   } ;
@@ -5583,7 +5729,8 @@ mkN147 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN147"
   } ;
@@ -5621,7 +5768,8 @@ mkN148 base =
                                Gen => base_1+"g"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN148"
   } ;
@@ -5659,7 +5807,8 @@ mkN149 base =
                                Gen => base_1+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN149"
   } ;
@@ -5697,7 +5846,8 @@ mkN150 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN150"
   } ;
@@ -5735,7 +5885,8 @@ mkN151 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN151"
   } ;
@@ -5773,7 +5924,8 @@ mkN152 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN152"
   } ;
@@ -5811,7 +5963,8 @@ mkN153 base =
                                Gen => base_1+"gvanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN153"
   } ;
@@ -5849,7 +6002,8 @@ mkN154 base =
                                Gen => base_1+"ganna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN154"
   } ;
@@ -5887,7 +6041,8 @@ mkN155 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN155"
   } ;
@@ -5925,7 +6080,8 @@ mkN156 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN156"
   } ;
@@ -5963,7 +6119,8 @@ mkN157 base =
                                Gen => base_1+"ei"+base_2+"janna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN157"
   } ;
@@ -6001,7 +6158,8 @@ mkN158 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN158"
   } ;
@@ -6039,7 +6197,8 @@ mkN159 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN159"
   } ;
@@ -6077,7 +6236,8 @@ mkN160 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN160"
   } ;
@@ -6115,7 +6275,8 @@ mkN161 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN161"
   } ;
@@ -6153,7 +6314,8 @@ mkN162 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN162"
   } ;
@@ -6191,7 +6353,8 @@ mkN163 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neutr
       };
     _ => error "Can't apply paradigm mkN163"
   } ;
@@ -6229,7 +6392,8 @@ mkN164 base =
                                Gen => base_1+"gjanna"
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN164"
   } ;
@@ -6267,7 +6431,8 @@ mkN165 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN165"
   } ;
@@ -6305,7 +6470,8 @@ mkN166 base =
                                Gen => base_1+"gvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN166"
   } ;
@@ -6343,7 +6509,8 @@ mkN167 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN167"
   } ;
@@ -6381,7 +6548,8 @@ mkN168 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN168"
   } ;
@@ -6419,7 +6587,8 @@ mkN169 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN169"
   } ;
@@ -6457,7 +6626,8 @@ mkN170 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN170"
   } ;

@@ -10,7 +10,11 @@ lincat
 lin
   InflectionN,InflectionN2,InflectionN3 = \x -> {
       t="n" ;
-      s1="" ;
+      s1 = heading1 ("Noun" ++ case x.g of {
+                               Neutr => "(neuter)";
+                               Masc  => "(masc)";
+                               Fem   => "(fem)"
+                             }) ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Indef" ++ th "Def") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Sg" ++
