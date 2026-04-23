@@ -8769,7 +8769,7 @@ mkV001 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -8802,7 +8802,7 @@ mkV002 base =
   case base of {
     "ei"+base_1+"a" => lin V
       { Converb = "hi"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "ei"+base_1 ;
                                Pl => "ei"+base_1+"ið"
                              } ;
@@ -8835,7 +8835,7 @@ mkV003 base =
   case base of {
     "a"+base_1+"a" => lin V
       { Converb = "i"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "a"+base_1 ;
                                Pl => "a"+base_1+"ið"
                              } ;
@@ -8868,7 +8868,7 @@ mkV004 base =
   case base of {
     "a"+base_1+"a" => lin V
       { Converb = "a"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "a"+base_1 ;
                                Pl => "a"+base_1+"ið"
                              } ;
@@ -8901,7 +8901,7 @@ mkV005 base =
   case base of {
     base_1+"a"+base_2@(?+?) => lin V
       { Converb = base_1+"a"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -8934,7 +8934,7 @@ mkV006 base =
   case base of {
     base_1+"ða" => lin V
       { Converb = base_1+"tt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ð" ;
                                Pl => base_1+"ðið"
                              } ;
@@ -8967,7 +8967,7 @@ mkV007 base =
   case base of {
     "eiga" => lin V
       { Converb = "átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "eig" ;
                                Pl => "eigið"
                              } ;
@@ -9000,7 +9000,7 @@ mkV008 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9033,7 +9033,7 @@ mkV009 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9066,7 +9066,7 @@ mkV010 base =
   case base of {
     base_1+"da" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"d" ;
                                Pl => base_1+"dið"
                              } ;
@@ -9099,7 +9099,7 @@ mkV011 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"j" ;
                                Pl => base_1+"e"+base_2+"jið"
                              } ;
@@ -9132,7 +9132,7 @@ mkV012 base =
   case base of {
     base_1+"i"+base_2@?+"ja" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"jið"
                              } ;
@@ -9165,7 +9165,7 @@ mkV013 base =
   case base of {
     base_1+"i"+base_2@?+"da" => lin V
       { Converb = base_1+"u"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2+"d" ;
                                Pl => base_1+"i"+base_2+"dið"
                              } ;
@@ -9198,7 +9198,7 @@ mkV014 base =
   case base of {
     base_1+"í"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"í"+base_2 ;
                                Pl => base_1+"í"+base_2+"ið"
                              } ;
@@ -9231,7 +9231,7 @@ mkV015 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -9264,7 +9264,7 @@ mkV016 base =
   case base of {
     base_1+"gja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"g" ;
                                Pl => base_1+"gið"
                              } ;
@@ -9297,7 +9297,7 @@ mkV017 base =
   case base of {
     base_1+"e"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"n" ;
                                Pl => base_1+"e"+base_2+"nið"
                              } ;
@@ -9330,7 +9330,7 @@ mkV018 base =
   case base of {
     base_1+"e"+base_2@("m"|(?+?))+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9363,7 +9363,7 @@ mkV019 base =
   case base of {
     base_1+"ó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ó"+base_2 ;
                                Pl => base_1+"ó"+base_2+"ið"
                              } ;
@@ -9396,7 +9396,7 @@ mkV020 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9429,7 +9429,7 @@ mkV021 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -9462,7 +9462,7 @@ mkV022 base =
   case base of {
     base_1+"úgva" => lin V
       { Converb = base_1+"úð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"úgv" ;
                                Pl => base_1+"úgvið"
                              } ;
@@ -9495,7 +9495,7 @@ mkV023 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9528,7 +9528,7 @@ mkV024 base =
   case base of {
     base_1+"e"+base_2@?+base_3@?+"a" => lin V
       { Converb = base_1+"o"+base_2+base_3+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+base_3 ;
                                Pl => base_1+"e"+base_2+base_3+"ið"
                              } ;
@@ -9561,7 +9561,7 @@ mkV025 base =
   case base of {
     base_1+"ggja" => lin V
       { Converb = base_1+"ð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ggj" ;
                                Pl => base_1+"ggið"
                              } ;
@@ -9594,7 +9594,7 @@ mkV026 base =
   case base of {
     base_1+"aga" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ag" ;
                                Pl => base_1+"agið"
                              } ;
@@ -9627,7 +9627,7 @@ mkV027 base =
   case base of {
     base_1+"e"+base_2@?+"ka" => lin V
       { Converb = base_1+"u"+base_2+"kið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"k" ;
                                Pl => base_1+"e"+base_2+"kið"
                              } ;
@@ -9660,7 +9660,7 @@ mkV028 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9693,7 +9693,7 @@ mkV029 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -9726,7 +9726,7 @@ mkV030 base =
   case base of {
     "ve"+base_1+"a" => lin V
       { Converb = "ve"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "ve"+base_1 ;
                                Pl => "ve"+base_1+"ið"
                              } ;
@@ -9759,7 +9759,7 @@ mkV031 base =
   case base of {
     base_1+"na" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"na" ;
                                Pl => base_1+"nið"
                              } ;
@@ -9792,7 +9792,7 @@ mkV032 base =
   case base of {
     base_1+"a"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -9825,7 +9825,7 @@ mkV033 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -9858,7 +9858,7 @@ mkV034 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -9891,7 +9891,7 @@ mkV035 base =
   case base of {
     base_1+"la" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"la" ;
                                Pl => base_1+"lið"
                              } ;
@@ -9924,7 +9924,7 @@ mkV036 base =
   case base of {
     base_1+"ða"+base_2@(?+?) => lin V
       { Converb = base_1+"da"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -9957,7 +9957,7 @@ mkV037 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9990,7 +9990,7 @@ mkV038 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -10023,7 +10023,7 @@ mkV039 base =
   case base of {
     base_1+"na" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"n" ;
                                Pl => base_1+"nið"
                              } ;
@@ -10056,7 +10056,7 @@ mkV040 base =
   case base of {
     base_1+"ú"+base_2@?+"va" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ú"+base_2 ;
                                Pl => base_1+"ú"+base_2+"ið"
                              } ;
@@ -10089,7 +10089,7 @@ mkV041 base =
   case base of {
     base_1+"y"+base_2@?+"a" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -10122,7 +10122,7 @@ mkV042 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"jið"
                              } ;
@@ -10155,7 +10155,7 @@ mkV043 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"tt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -10188,7 +10188,7 @@ mkV044 base =
   case base of {
     base_1+"ú"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ú"+base_2 ;
                                Pl => base_1+"ú"+base_2+"ið"
                              } ;
@@ -10221,7 +10221,7 @@ mkV045 base =
   case base of {
     base_1+"la" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"l" ;
                                Pl => base_1+"lið"
                              } ;
@@ -10254,7 +10254,7 @@ mkV046 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10287,7 +10287,7 @@ mkV047 base =
   case base of {
     base_1+"anga" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"akk" ;
                                Pl => base_1+"angið"
                              } ;
@@ -10320,7 +10320,7 @@ mkV048 base =
   case base of {
     base_1+"ja"+base_2@?+"da" => lin V
       { Converb = base_1+"o"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ja"+base_2+"d" ;
                                Pl => base_1+"ja"+base_2+"dið"
                              } ;
@@ -10353,7 +10353,7 @@ mkV049 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"jø"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -10386,7 +10386,7 @@ mkV050 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -10419,7 +10419,7 @@ mkV051 base =
   case base of {
     base_1+"e"+base_2@?+"pa" => lin V
       { Converb = base_1+"o"+base_2+"pið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"p" ;
                                Pl => base_1+"e"+base_2+"pið"
                              } ;
@@ -10452,7 +10452,7 @@ mkV052 base =
   case base of {
     base_1+"y"+base_2@?+"ja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -10485,7 +10485,7 @@ mkV053 base =
   case base of {
     base_1+"á"+base_2@?+"a" => lin V
       { Converb = base_1+"á"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á"+base_2 ;
                                Pl => base_1+"á"+base_2+"ið"
                              } ;
@@ -10518,7 +10518,7 @@ mkV054 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10551,7 +10551,7 @@ mkV055 base =
   case base of {
     base_1+"ógva" => lin V
       { Converb = base_1+"óð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ógv" ;
                                Pl => base_1+"ógvið"
                              } ;
@@ -10584,7 +10584,7 @@ mkV056 base =
   case base of {
     base_1+"a"+base_2@?+"da" => lin V
       { Converb = base_1+"i"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2+"d" ;
                                Pl => base_1+"a"+base_2+"dið"
                              } ;
@@ -10617,7 +10617,7 @@ mkV057 base =
   case base of {
     base_1+"anga" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ang" ;
                                Pl => base_1+"angið"
                              } ;
@@ -10650,7 +10650,7 @@ mkV058 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10683,7 +10683,7 @@ mkV059 base =
   case base of {
     base_1+"ei"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2+"j" ;
                                Pl => base_1+"ei"+base_2+"jið"
                              } ;
@@ -10716,7 +10716,7 @@ mkV060 base =
   case base of {
     base_1+"vø"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"vø"+base_2 ;
                                Pl => base_1+"vø"+base_2+"ið"
                              } ;
@@ -10749,7 +10749,7 @@ mkV061 base =
   case base of {
     base_1+"y"+base_2@?+"gja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2+"g" ;
                                Pl => base_1+"y"+base_2+"gið"
                              } ;
@@ -10782,7 +10782,7 @@ mkV062 base =
   case base of {
     base_1+"o"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"o"+base_2 ;
                                Pl => base_1+"o"+base_2+"ið"
                              } ;
@@ -10815,7 +10815,7 @@ mkV063 base =
   case base of {
     base_1+"pa" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"p" ;
                                Pl => base_1+"pið"
                              } ;
@@ -10848,7 +10848,7 @@ mkV064 base =
   case base of {
     base_1+"úgva" => lin V
       { Converb = base_1+"ovið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"úg" ;
                                Pl => base_1+"úgið"
                              } ;
@@ -10881,7 +10881,7 @@ mkV065 base =
   case base of {
     base_1+"u"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nað" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -10914,7 +10914,7 @@ mkV066 base =
   case base of {
     base_1+"ø"+base_2@?+"a" => lin V
       { Converb = base_1+"ø"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2 ;
                                Pl => base_1+"ø"+base_2+"ið"
                              } ;
@@ -10947,7 +10947,7 @@ mkV067 base =
   case base of {
     base_1+"sa" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"s" ;
                                Pl => base_1+"sið"
                              } ;
@@ -10980,7 +10980,7 @@ mkV068 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -11013,7 +11013,7 @@ mkV069 base =
   case base of {
     base_1+"e"+base_2@?+"gja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"gj" ;
                                Pl => base_1+"e"+base_2+"gjið"
                              } ;
@@ -11046,7 +11046,7 @@ mkV070 base =
   case base of {
     base_1+"iggja" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"igg" ;
                                Pl => base_1+"iggið"
                              } ;
@@ -11079,7 +11079,7 @@ mkV071 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -11112,7 +11112,7 @@ mkV072 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -11145,7 +11145,7 @@ mkV073 base =
   case base of {
     base_1+"á"+base_2@?+"a" => lin V
       { Converb = base_1+"á"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á"+base_2 ;
                                Pl => base_1+"á"+base_2+"ið"
                              } ;
@@ -11178,7 +11178,7 @@ mkV074 base =
   case base of {
     base_1+"ey"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ey"+base_2 ;
                                Pl => base_1+"ey"+base_2+"ið"
                              } ;
@@ -11211,7 +11211,7 @@ mkV075 base =
   case base of {
     base_1+"ega" => lin V
       { Converb = nonExist ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11244,7 +11244,7 @@ mkV076 base =
   case base of {
     base_1+"u"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nað" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11277,7 +11277,7 @@ mkV077 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -11310,7 +11310,7 @@ mkV078 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"jið"
                              } ;
@@ -11343,7 +11343,7 @@ mkV079 base =
   case base of {
     base_1+"ða" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ð" ;
                                Pl => base_1+"ðið"
                              } ;
@@ -11376,7 +11376,7 @@ mkV080 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -11409,7 +11409,7 @@ mkV081 base =
   case base of {
     base_1+"áða" => lin V
       { Converb = base_1+"átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"áð" ;
                                Pl => base_1+"áðið"
                              } ;
@@ -11442,7 +11442,7 @@ mkV082 base =
   case base of {
     base_1+"ða"+base_2@(?+?) => lin V
       { Converb = base_1+"ð"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11475,7 +11475,7 @@ mkV083 base =
   case base of {
     base_1+"ø"+base_2@?+"ka" => lin V
       { Converb = base_1+"o"+base_2+"kið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2+"k" ;
                                Pl => base_1+"ø"+base_2+"kið"
                              } ;
@@ -11508,7 +11508,7 @@ mkV084 base =
   case base of {
     base_1+"íggja" => lin V
       { Converb = base_1+"æð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"íggj" ;
                                Pl => base_1+"íggið"
                              } ;
@@ -11541,7 +11541,7 @@ mkV085 base =
   case base of {
     base_1+"kja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"k" ;
                                Pl => base_1+"kið"
                              } ;
@@ -11574,7 +11574,7 @@ mkV086 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -11607,7 +11607,7 @@ mkV087 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -11640,7 +11640,7 @@ mkV088 base =
   case base of {
     base_1+"u"+base_2@?+"a" => lin V
       { Converb = base_1+"u"+base_2+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11673,7 +11673,7 @@ mkV089 base =
   case base of {
     base_1+"ei"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2+"j" ;
                                Pl => base_1+"ei"+base_2+"jið"
                              } ;
@@ -11706,7 +11706,7 @@ mkV090 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"j" ;
                                Pl => base_1+"jið"
                              } ;
@@ -11739,7 +11739,7 @@ mkV091 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -11772,7 +11772,7 @@ mkV092 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -11805,7 +11805,7 @@ mkV093 base =
   case base of {
     base_1+"y"+base_2@?+"ja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -11838,7 +11838,7 @@ mkV094 base =
   case base of {
     base_1+"i"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2+"n" ;
                                Pl => base_1+"i"+base_2+"nið"
                              } ;
@@ -11871,7 +11871,7 @@ mkV095 base =
   case base of {
     base_1+"anda" => lin V
       { Converb = base_1+"aðið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"att" ;
                                Pl => base_1+"andið"
                              } ;
@@ -11904,7 +11904,7 @@ mkV096 base =
   case base of {
     base_1+"ei"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2 ;
                                Pl => base_1+"ei"+base_2+"ið"
                              } ;
@@ -11937,7 +11937,7 @@ mkV097 base =
   case base of {
     base_1+"inga" => lin V
       { Converb = base_1+"ungið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ikk" ;
                                Pl => base_1+"ingið"
                              } ;
@@ -11970,7 +11970,7 @@ mkV098 base =
   case base of {
     base_1+"ja"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ja"+base_2 ;
                                Pl => base_1+"ja"+base_2+"ið"
                              } ;
@@ -12003,7 +12003,7 @@ mkV099 base =
   case base of {
     base_1+"o"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"o"+base_2 ;
                                Pl => base_1+"o"+base_2+"ið"
                              } ;
@@ -12036,7 +12036,7 @@ mkV100 base =
   case base of {
     base_1+"í"+base_2@?+"ja" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"í"+base_2+"j" ;
                                Pl => base_1+"í"+base_2+"jið"
                              } ;
@@ -12069,7 +12069,7 @@ mkV101 base =
   case base of {
     base_1+"i"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"jið"
                              } ;
@@ -12102,7 +12102,7 @@ mkV102 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -12135,7 +12135,7 @@ mkV103 base =
   case base of {
     base_1+"ø"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2+"j" ;
                                Pl => base_1+"ø"+base_2+"jið"
                              } ;
@@ -12168,7 +12168,7 @@ mkV104 base =
   case base of {
     base_1+"y"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"u"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2+"j" ;
                                Pl => base_1+"y"+base_2+"jið"
                              } ;
@@ -12201,7 +12201,7 @@ mkV105 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -12234,7 +12234,7 @@ mkV106 base =
   case base of {
     base_1+"e"+base_2@?+"fa" => lin V
       { Converb = base_1+"o"+base_2+"fið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"f" ;
                                Pl => base_1+"e"+base_2+"fið"
                              } ;
@@ -12267,7 +12267,7 @@ mkV107 base =
   case base of {
     base_1+"a"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -12300,7 +12300,7 @@ mkV108 base =
   case base of {
     base_1+"e"+base_2@(?+?)+"a" => lin V
       { Converb = nonExist ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -12333,7 +12333,7 @@ mkV109 base =
   case base of {
     base_1+base_2@?+base_3@?+"a" => lin V
       { Converb = base_1+base_2+base_3+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -12366,7 +12366,7 @@ mkV110 base =
   case base of {
     "d"+base_1+"finite" => lin V
       { Converb = "v"+base_1+"rð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "v"+base_1+"rðsins" ;
                                Pl => "v"+base_1+"rðanna"
                              } ;
@@ -12399,7 +12399,7 @@ mkV111 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -12432,7 +12432,7 @@ mkV112 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;

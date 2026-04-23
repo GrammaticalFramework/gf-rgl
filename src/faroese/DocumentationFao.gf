@@ -55,8 +55,8 @@ lin
          paragraph x.Converb ++
          heading2 "Imperative" ++
          frameTable (
-           tr (th "Sg" ++ td (x.Imperative_Jussive ! Sg)) ++
-           tr (th "Pl" ++ td (x.Imperative_Jussive ! Pl))) ++
+           tr (th "Sg" ++ td (x.imperative ! Sg)) ++
+           tr (th "Pl" ++ td (x.imperative ! Pl))) ++
          heading2 "Indicative" ++
          frameTable (
            tr (intagAttr "th" "rowspan=\"4\"" "Pres" ++ th "Sg P1" ++ td (x.Indicative ! Pres ! PSg P1)) ++

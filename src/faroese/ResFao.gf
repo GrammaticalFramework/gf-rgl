@@ -93,14 +93,14 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
 param Tense = Past | Pres ;
 param PersNum = PSg Person | PPl ;
 param Person = P1 | P3 | P2 ;
-oper Verb = {Converb: Str; Imperative_Jussive: Number => Str; Indicative: Tense => PersNum => Str; Nonfinite: Str; Participle: Tense => Str ; particle : Str} ; -- 596
+oper Verb = {Converb: Str; imperative: Number => Str; Indicative: Tense => PersNum => Str; Nonfinite: Str; Participle: Tense => Str ; particle : Str} ; -- 596
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14 ->
           { Converb = f1 ;
-            Imperative_Jussive = table {
-                                   Sg => f2 ;
-                                   Pl => f3
-                                 } ;
+            imperative = table {
+                           Sg => f2 ;
+                           Pl => f3
+                         } ;
             Indicative = table {
                            Pres => table {
                                      PSg P1 => f4 ;
