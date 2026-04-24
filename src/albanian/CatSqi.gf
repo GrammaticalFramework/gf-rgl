@@ -15,7 +15,7 @@ concrete CatSqi of Cat = CommonX ** open ParamX,Prelude,ResSqi in {
   lincat Conj = {s : Str} ;
   lincat DAP = {s : Str} ;
   lincat Decimal = {s : Str; n : Number; hasDot : Bool} ;
-  lincat Det = {s : Case => Gender => Str; spec : Species; n : Number} ;
+  lincat Det = {s : Case => Gender => Str; sp : Species; n : Number} ;
   lincat Digits = {s : Str; n : Number; tail : DTail} ;
   lincat GN = {s : Str} ;
   lincat IComp = {s : Str} ;
@@ -38,7 +38,7 @@ concrete CatSqi of Cat = CommonX ** open ParamX,Prelude,ResSqi in {
   lincat Pron = {s: Case => Str; acc_clit, dat_clit : Str; a : Agr} ;
   lincat QCl = {s : Str} ;
   lincat QS = {s : Str} ;
-  lincat Quant = {s : Case => Gender => Number => Str; spec : Species} ;
+  lincat Quant = {s : Case => Gender => Number => Str; sp : Species} ;
   lincat RCl = {s : Str} ;
   lincat RP = {s : Str} ;
   lincat RS = {s : Str} ;
