@@ -1151,12 +1151,12 @@ oper
   compoundN = overload {
     compoundN : A -> N -> N = \a,n -> {
       s = \\c,num => a.s ! c ! genNum n.g num ++ n.s ! c ! num ;
-      Voc = \\num => a.s ! Nom ! genNum n.g num ++ n.Voc ! num ;
+      voc = \\num => a.s ! Nom ! genNum n.g num ++ n.voc ! num ;
       g = n.g
     } ;
     compoundN : N -> Str -> N = \n,adv -> {
       s = \\c,num => n.s ! c ! num ++ adv ;
-      Voc = \\num => n.Voc ! num ++ adv ;
+      voc = \\num => n.voc ! num ++ adv ;
       g = n.g
     }
   } ;
@@ -1227,8 +1227,8 @@ oper
   } ;
 
   compoundV : V -> Str -> V = \v,adv -> {
-    active = \\a => {Past=(v.active ! a).Past ++ adv ;
-                     Pres=\\p,num=>(v.active ! a).Pres ! p ! num ++ adv
+    active = \\a => {past=(v.active ! a).past ++ adv ;
+                     pres=\\p,num=>(v.active ! a).pres ! p ! num ++ adv
                     } ;
     imperative1 = v.imperative1 ++ adv ;
     imperative2 = \\num => v.imperative2 ! num ++ adv ;

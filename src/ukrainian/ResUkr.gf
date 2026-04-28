@@ -3,7 +3,7 @@ resource ResUkr = {
 param Case = Nom | Acc | Dat | Gen | Loc | Instr ;
 param Number = Sg | Pl ;
 param Gender = Masc | Neuter | Fem ;
-oper N = {s: Case => Number => Str; Voc: Number => Str; g: Gender} ; -- 11407
+oper N = {s: Case => Number => Str; voc: Number => Str; g: Gender} ; -- 11407
 oper mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> N =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,g ->
           { s = table {
@@ -32,7 +32,7 @@ oper mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> N =
                              Pl => f12
                            }
                 } ;
-            Voc = table {
+            voc = table {
                     Sg => f13 ;
                     Pl => f14
                   } ;
@@ -43,12 +43,12 @@ oper mkN : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> N =
 param Aspect = Perf | Imperf ;
 param Person = P1 | P2 | P3 ;
 param Tense = Past | Pres ;
-oper V = {active: Aspect => {Past: Str; Pres: Person => Number => Str}; imperative1: Str; imperative2: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 4822
+oper V = {active: Aspect => {past: Str; pres: Person => Number => Str}; imperative1: Str; imperative2: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 4822
 oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28 ->
           { active = table {
-                       Imperf => { Past = f1 ;
-                                   Pres = table {
+                       Imperf => { past = f1 ;
+                                   pres = table {
                                             P1 => table {
                                                     Sg => f2 ;
                                                     Pl => f3
@@ -63,8 +63,8 @@ oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V 
                                                   }
                                           }
                                  } ;
-                       Perf => { Past = f8 ;
-                                 Pres = table {
+                       Perf => { past = f8 ;
+                                 pres = table {
                                           P1 => table {
                                                   Sg => f9 ;
                                                   Pl => f10

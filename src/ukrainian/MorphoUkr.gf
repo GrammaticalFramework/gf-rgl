@@ -32,7 +32,7 @@ mkN001 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -71,7 +71,7 @@ mkN002 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -110,7 +110,7 @@ mkN003 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -149,7 +149,7 @@ mkN004 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -188,7 +188,7 @@ mkN005 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -227,7 +227,7 @@ mkN006 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -266,7 +266,7 @@ mkN007 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -305,7 +305,7 @@ mkN008 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -344,7 +344,7 @@ mkN009 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"і"
               } ;
@@ -383,7 +383,7 @@ mkN010 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -422,7 +422,7 @@ mkN011 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -461,7 +461,7 @@ mkN012 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -500,7 +500,7 @@ mkN013 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -539,7 +539,7 @@ mkN014 base =
                          Pl => base_1+"чима"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"чі"
               } ;
@@ -578,7 +578,7 @@ mkN015 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -617,7 +617,7 @@ mkN016 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -656,7 +656,7 @@ mkN017 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -695,7 +695,7 @@ mkN018 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -734,7 +734,7 @@ mkN019 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -773,7 +773,7 @@ mkN020 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -812,7 +812,7 @@ mkN021 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -851,7 +851,7 @@ mkN022 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -890,7 +890,7 @@ mkN023 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -929,7 +929,7 @@ mkN024 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -968,7 +968,7 @@ mkN025 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -1007,7 +1007,7 @@ mkN026 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -1046,7 +1046,7 @@ mkN027 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -1085,7 +1085,7 @@ mkN028 base =
                          Pl => base_1+"ерями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"и" ;
                 Pl => base_1+"ері"
               } ;
@@ -1124,7 +1124,7 @@ mkN029 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -1163,7 +1163,7 @@ mkN030 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -1202,7 +1202,7 @@ mkN031 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -1241,7 +1241,7 @@ mkN032 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => nonExist
               } ;
@@ -1280,7 +1280,7 @@ mkN033 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"го" ;
                 Pl => base_1+"ги"
               } ;
@@ -1319,7 +1319,7 @@ mkN034 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -1358,7 +1358,7 @@ mkN035 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -1397,7 +1397,7 @@ mkN036 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -1436,7 +1436,7 @@ mkN037 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -1475,7 +1475,7 @@ mkN038 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -1514,7 +1514,7 @@ mkN039 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -1553,7 +1553,7 @@ mkN040 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -1592,7 +1592,7 @@ mkN041 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"а"
               } ;
@@ -1631,7 +1631,7 @@ mkN042 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -1670,7 +1670,7 @@ mkN043 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"же" ;
                 Pl => base_1+"ги"
               } ;
@@ -1709,7 +1709,7 @@ mkN044 base =
                          Pl => base_1+"огами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ого" ;
                 Pl => base_1+"оги"
               } ;
@@ -1748,7 +1748,7 @@ mkN045 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"я"
               } ;
@@ -1787,7 +1787,7 @@ mkN046 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -1826,7 +1826,7 @@ mkN047 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"а" ;
                 Pl => base_1+"і"
               } ;
@@ -1865,7 +1865,7 @@ mkN048 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -1904,7 +1904,7 @@ mkN049 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -1943,7 +1943,7 @@ mkN050 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -1982,7 +1982,7 @@ mkN051 base =
                          Pl => base_1+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"и"
               } ;
@@ -2021,7 +2021,7 @@ mkN052 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -2060,7 +2060,7 @@ mkN053 base =
                          Pl => base_1+"зями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"же" ;
                 Pl => base_1+"зі"
               } ;
@@ -2099,7 +2099,7 @@ mkN054 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"гу" ;
                 Pl => base_1+"ги"
               } ;
@@ -2138,7 +2138,7 @@ mkN055 base =
                          Pl => base_1+"тами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1 ;
                 Pl => base_1+"та"
               } ;
@@ -2177,7 +2177,7 @@ mkN056 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -2216,7 +2216,7 @@ mkN057 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -2255,7 +2255,7 @@ mkN058 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -2294,7 +2294,7 @@ mkN059 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ху" ;
                 Pl => base_1+"хи"
               } ;
@@ -2333,7 +2333,7 @@ mkN060 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -2372,7 +2372,7 @@ mkN061 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -2411,7 +2411,7 @@ mkN062 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"хо" ;
                 Pl => base_1+"хи"
               } ;
@@ -2450,7 +2450,7 @@ mkN063 base =
                          Pl => base_1+"ами" --guessed
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ; --guessed
                 Pl => base_1+"и" --guessed
               } ;
@@ -2489,7 +2489,7 @@ mkN064 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -2528,7 +2528,7 @@ mkN065 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -2567,7 +2567,7 @@ mkN066 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -2606,7 +2606,7 @@ mkN067 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"і"
               } ;
@@ -2645,7 +2645,7 @@ mkN068 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"а"
               } ;
@@ -2684,7 +2684,7 @@ mkN069 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -2723,7 +2723,7 @@ mkN070 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -2762,7 +2762,7 @@ mkN071 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"гу" ;
                 Pl => base_1+"ги"
               } ;
@@ -2801,7 +2801,7 @@ mkN072 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -2840,7 +2840,7 @@ mkN073 base =
                          Pl => base_1+"ь"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ь"+base_2+"о" ;
                 Pl => base_1+"ь"+base_2+"и"
               } ;
@@ -2879,7 +2879,7 @@ mkN074 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ку" ;
                 Pl => base_1+"ки"
               } ;
@@ -2918,7 +2918,7 @@ mkN075 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ку" ;
                 Pl => base_1+"ки"
               } ;
@@ -2957,7 +2957,7 @@ mkN076 base =
                          Pl => base_1+base_2+"нями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"не" ;
                 Pl => base_1+base_2+"ні"
               } ;
@@ -2996,7 +2996,7 @@ mkN077 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -3035,7 +3035,7 @@ mkN078 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -3074,7 +3074,7 @@ mkN079 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -3113,7 +3113,7 @@ mkN080 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -3152,7 +3152,7 @@ mkN081 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -3191,7 +3191,7 @@ mkN082 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -3230,7 +3230,7 @@ mkN083 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -3269,7 +3269,7 @@ mkN084 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -3308,7 +3308,7 @@ mkN085 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"і"
               } ;
@@ -3347,7 +3347,7 @@ mkN086 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -3386,7 +3386,7 @@ mkN087 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -3425,7 +3425,7 @@ mkN088 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -3464,7 +3464,7 @@ mkN089 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -3503,7 +3503,7 @@ mkN090 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => nonExist
               } ;
@@ -3542,7 +3542,7 @@ mkN091 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -3581,7 +3581,7 @@ mkN092 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -3620,7 +3620,7 @@ mkN093 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -3659,7 +3659,7 @@ mkN094 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"гу" ;
                 Pl => base_1+"ги"
               } ;
@@ -3698,7 +3698,7 @@ mkN095 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -3737,7 +3737,7 @@ mkN096 base =
                          Pl => base_1+"'ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"'ю" ;
                 Pl => base_1+"'ї"
               } ;
@@ -3776,7 +3776,7 @@ mkN097 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"ї"
               } ;
@@ -3815,7 +3815,7 @@ mkN098 base =
                          Pl => base_1+"охами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"охо" ;
                 Pl => base_1+"охи"
               } ;
@@ -3854,7 +3854,7 @@ mkN099 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -3893,7 +3893,7 @@ mkN100 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -3932,7 +3932,7 @@ mkN101 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"го" ;
                 Pl => base_1+"ги"
               } ;
@@ -3971,7 +3971,7 @@ mkN102 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"же" ;
                 Pl => base_1+"ги"
               } ;
@@ -4010,7 +4010,7 @@ mkN103 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -4049,7 +4049,7 @@ mkN104 base =
                          Pl => base_1+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"и"
               } ;
@@ -4088,7 +4088,7 @@ mkN105 base =
                          Pl => base_1+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ця"
               } ;
@@ -4127,7 +4127,7 @@ mkN106 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -4166,7 +4166,7 @@ mkN107 base =
                          Pl => "ві"+base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "ві"+base_1+base_2+"е" ;
                 Pl => "ві"+base_1+base_2+"а"
               } ;
@@ -4205,7 +4205,7 @@ mkN108 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"го" ;
                 Pl => base_1+"ги"
               } ;
@@ -4244,7 +4244,7 @@ mkN109 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -4283,7 +4283,7 @@ mkN110 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"о"+base_2+"а"
               } ;
@@ -4322,7 +4322,7 @@ mkN111 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -4361,7 +4361,7 @@ mkN112 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -4400,7 +4400,7 @@ mkN113 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"о" ;
                 Pl => base_1+"е"+base_2+"а"
               } ;
@@ -4439,7 +4439,7 @@ mkN114 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -4478,7 +4478,7 @@ mkN115 base =
                          Pl => base_1+"енами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"'я" ;
                 Pl => base_1+"ена"
               } ;
@@ -4517,7 +4517,7 @@ mkN116 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -4556,7 +4556,7 @@ mkN117 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => nonExist
               } ;
@@ -4595,7 +4595,7 @@ mkN118 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -4634,7 +4634,7 @@ mkN119 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -4673,7 +4673,7 @@ mkN120 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -4712,7 +4712,7 @@ mkN121 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -4751,7 +4751,7 @@ mkN122 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"о" ;
                 Pl => base_1+"е"+base_2+"и"
               } ;
@@ -4790,7 +4790,7 @@ mkN123 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -4829,7 +4829,7 @@ mkN124 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -4868,7 +4868,7 @@ mkN125 base =
                          Pl => base_1+"есами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"еса"
               } ;
@@ -4907,7 +4907,7 @@ mkN126 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -4946,7 +4946,7 @@ mkN127 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -4985,7 +4985,7 @@ mkN128 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"о" ;
                 Pl => base_1+"о"+base_2+"а"
               } ;
@@ -5024,7 +5024,7 @@ mkN129 base =
                          Pl => base_1+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ця"
               } ;
@@ -5063,7 +5063,7 @@ mkN130 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -5102,7 +5102,7 @@ mkN131 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -5141,7 +5141,7 @@ mkN132 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -5180,7 +5180,7 @@ mkN133 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ше" ;
                 Pl => base_1+"хи"
               } ;
@@ -5219,7 +5219,7 @@ mkN134 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ху" ;
                 Pl => base_1+"хи"
               } ;
@@ -5258,7 +5258,7 @@ mkN135 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -5297,7 +5297,7 @@ mkN136 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ине" ;
                 Pl => base_1+"и"
               } ;
@@ -5336,7 +5336,7 @@ mkN137 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -5375,7 +5375,7 @@ mkN138 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ий" ;
                 Pl => base_1+"і"
               } ;
@@ -5414,7 +5414,7 @@ mkN139 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -5453,7 +5453,7 @@ mkN140 base =
                          Pl => base_1+base_2+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"цю" ;
                 Pl => base_1+base_2+"ці"
               } ;
@@ -5492,7 +5492,7 @@ mkN141 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -5531,7 +5531,7 @@ mkN142 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -5570,7 +5570,7 @@ mkN143 base =
                          Pl => base_1+"огами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"огу" ;
                 Pl => base_1+"оги"
               } ;
@@ -5609,7 +5609,7 @@ mkN144 base =
                          Pl => base_1+"огами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"огу" ;
                 Pl => base_1+"оги"
               } ;
@@ -5648,7 +5648,7 @@ mkN145 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"я"
               } ;
@@ -5687,7 +5687,7 @@ mkN146 base =
                          Pl => base_1+"има"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -5726,7 +5726,7 @@ mkN147 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -5765,7 +5765,7 @@ mkN148 base =
                          Pl => base_1+"ями" --guessed
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я" --guessed
               } ;
@@ -5804,7 +5804,7 @@ mkN149 base =
                          Pl => base_1+"'ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"'є" ;
                 Pl => base_1+"'ї"
               } ;
@@ -5843,7 +5843,7 @@ mkN150 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"ю" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -5882,7 +5882,7 @@ mkN151 base =
                          Pl => base_1+"тами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1 ;
                 Pl => base_1+"та"
               } ;
@@ -5921,7 +5921,7 @@ mkN152 base =
                          Pl => base_1+"й"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"е" ;
                 Pl => base_1+"й"+base_2+"я"
               } ;
@@ -5960,7 +5960,7 @@ mkN153 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -5999,7 +5999,7 @@ mkN154 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -6038,7 +6038,7 @@ mkN155 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"і"
               } ;
@@ -6077,7 +6077,7 @@ mkN156 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -6116,7 +6116,7 @@ mkN157 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -6155,7 +6155,7 @@ mkN158 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -6194,7 +6194,7 @@ mkN159 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -6233,7 +6233,7 @@ mkN160 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -6272,7 +6272,7 @@ mkN161 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"го" ;
                 Pl => base_1+"ги"
               } ;
@@ -6311,7 +6311,7 @@ mkN162 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -6350,7 +6350,7 @@ mkN163 base =
                          Pl => base_1+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ці"
               } ;
@@ -6389,7 +6389,7 @@ mkN164 base =
                          Pl => base_1+"й"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"ю" ;
                 Pl => base_1+"й"+base_2+"і"
               } ;
@@ -6428,7 +6428,7 @@ mkN165 base =
                          Pl => base_1+"чями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"чя" ;
                 Pl => base_1+"чя"
               } ;
@@ -6467,7 +6467,7 @@ mkN166 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -6506,7 +6506,7 @@ mkN167 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -6545,7 +6545,7 @@ mkN168 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -6584,7 +6584,7 @@ mkN169 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -6623,7 +6623,7 @@ mkN170 base =
                          Pl => base_1+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ино" ;
                 Pl => base_1+"и"
               } ;
@@ -6662,7 +6662,7 @@ mkN171 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -6701,7 +6701,7 @@ mkN172 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -6740,7 +6740,7 @@ mkN173 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"у" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -6779,7 +6779,7 @@ mkN174 base =
                          Pl => "ві"+base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "ві"+base_1+base_2+"е" ;
                 Pl => "ві"+base_1+base_2+"і"
               } ;
@@ -6818,7 +6818,7 @@ mkN175 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -6857,7 +6857,7 @@ mkN176 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -6896,7 +6896,7 @@ mkN177 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -6935,7 +6935,7 @@ mkN178 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -6974,7 +6974,7 @@ mkN179 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -7013,7 +7013,7 @@ mkN180 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -7052,7 +7052,7 @@ mkN181 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -7091,7 +7091,7 @@ mkN182 base =
                          Pl => base_1+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -7130,7 +7130,7 @@ mkN183 base =
                          Pl => base_1+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -7169,7 +7169,7 @@ mkN184 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -7208,7 +7208,7 @@ mkN185 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -7247,7 +7247,7 @@ mkN186 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -7286,7 +7286,7 @@ mkN187 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -7325,7 +7325,7 @@ mkN188 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => nonExist
               } ;
@@ -7364,7 +7364,7 @@ mkN189 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -7403,7 +7403,7 @@ mkN190 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -7442,7 +7442,7 @@ mkN191 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -7481,7 +7481,7 @@ mkN192 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -7520,7 +7520,7 @@ mkN193 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -7559,7 +7559,7 @@ mkN194 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -7598,7 +7598,7 @@ mkN195 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"и"
               } ;
@@ -7637,7 +7637,7 @@ mkN196 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -7676,7 +7676,7 @@ mkN197 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"я"
               } ;
@@ -7715,7 +7715,7 @@ mkN198 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"и"
               } ;
@@ -7754,7 +7754,7 @@ mkN199 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -7793,7 +7793,7 @@ mkN200 base =
                          Pl => base_1+"те"+base_2+base_3+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+base_3+"о" ;
                 Pl => base_1+"те"+base_2+base_3+"а"
               } ;
@@ -7832,7 +7832,7 @@ mkN201 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"и"
               } ;
@@ -7871,7 +7871,7 @@ mkN202 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -7910,7 +7910,7 @@ mkN203 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -7949,7 +7949,7 @@ mkN204 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -7988,7 +7988,7 @@ mkN205 base =
                          Pl => base_1+"нями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ня" ;
                 Pl => base_1+"ня"
               } ;
@@ -8027,7 +8027,7 @@ mkN206 base =
                          Pl => base_1+"ями" --guessed
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я" --guessed
               } ;
@@ -8066,7 +8066,7 @@ mkN207 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -8105,7 +8105,7 @@ mkN208 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -8144,7 +8144,7 @@ mkN209 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -8183,7 +8183,7 @@ mkN210 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -8222,7 +8222,7 @@ mkN211 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -8261,7 +8261,7 @@ mkN212 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -8300,7 +8300,7 @@ mkN213 base =
                          Pl => base_1+"і"+base_2+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"и"+base_2+"ино" ;
                 Pl => base_1+"і"+base_2+"и"
               } ;
@@ -8339,7 +8339,7 @@ mkN214 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -8378,7 +8378,7 @@ mkN215 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ий" ;
                 Pl => base_1+"і"
               } ;
@@ -8417,7 +8417,7 @@ mkN216 base =
                          Pl => base_1+"й"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"ю" ;
                 Pl => base_1+"й"+base_2+"і"
               } ;
@@ -8456,7 +8456,7 @@ mkN217 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"хо" ;
                 Pl => base_1+"хи"
               } ;
@@ -8495,7 +8495,7 @@ mkN218 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"ю" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -8534,7 +8534,7 @@ mkN219 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"ю" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -8573,7 +8573,7 @@ mkN220 base =
                          Pl => base_1+"ьями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьє" ;
                 Pl => base_1+"ьї"
               } ;
@@ -8612,7 +8612,7 @@ mkN221 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"ї"
               } ;
@@ -8651,7 +8651,7 @@ mkN222 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -8690,7 +8690,7 @@ mkN223 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -8729,7 +8729,7 @@ mkN224 base =
                          Pl => base_1+"і"+base_2+"ьми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"ю" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -8768,7 +8768,7 @@ mkN225 base =
                          Pl => base_1+"атами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ино" ;
                 Pl => base_1+"ата"
               } ;
@@ -8807,7 +8807,7 @@ mkN226 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => nonExist
               } ;
@@ -8846,7 +8846,7 @@ mkN227 base =
                          Pl => base_1+"ій"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ій"+base_2+"о" ;
                 Pl => base_1+"ій"+base_2+"и"
               } ;
@@ -8885,7 +8885,7 @@ mkN228 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => nonExist
               } ;
@@ -8924,7 +8924,7 @@ mkN229 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -8963,7 +8963,7 @@ mkN230 base =
                          Pl => base_1+"оями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ою" ;
                 Pl => base_1+"ої"
               } ;
@@ -9002,7 +9002,7 @@ mkN231 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -9041,7 +9041,7 @@ mkN232 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -9080,7 +9080,7 @@ mkN233 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"оче" ;
                 Pl => nonExist
               } ;
@@ -9119,7 +9119,7 @@ mkN234 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -9158,7 +9158,7 @@ mkN235 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -9197,7 +9197,7 @@ mkN236 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -9236,7 +9236,7 @@ mkN237 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"хо" ;
                 Pl => base_1+"ха"
               } ;
@@ -9275,7 +9275,7 @@ mkN238 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -9314,7 +9314,7 @@ mkN239 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -9353,7 +9353,7 @@ mkN240 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -9392,7 +9392,7 @@ mkN241 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -9431,7 +9431,7 @@ mkN242 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -9470,7 +9470,7 @@ mkN243 base =
                          Pl => base_1+"і"+base_2+base_3+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+base_3+"у" ;
                 Pl => base_1+"і"+base_2+base_3+"и"
               } ;
@@ -9509,7 +9509,7 @@ mkN244 base =
                          Pl => base_1+"тями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"тя" ;
                 Pl => base_1+"тя"
               } ;
@@ -9548,7 +9548,7 @@ mkN245 base =
                          Pl => "ві"+base_1+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "о"+base_1+"че" ;
                 Pl => "ві"+base_1+"ці"
               } ;
@@ -9587,7 +9587,7 @@ mkN246 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -9626,7 +9626,7 @@ mkN247 base =
                          Pl => base_1+"е"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і"+base_2+base_3+"е" ;
                 Pl => base_1+"е"+base_2+base_3+"і"
               } ;
@@ -9665,7 +9665,7 @@ mkN248 base =
                          Pl => base_1+"і"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і"+base_2+base_3+"ю" ;
                 Pl => base_1+"і"+base_2+base_3+"і"
               } ;
@@ -9704,7 +9704,7 @@ mkN249 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -9743,7 +9743,7 @@ mkN250 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -9782,7 +9782,7 @@ mkN251 base =
                          Pl => base_1+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ці"
               } ;
@@ -9821,7 +9821,7 @@ mkN252 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -9860,7 +9860,7 @@ mkN253 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -9899,7 +9899,7 @@ mkN254 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -9938,7 +9938,7 @@ mkN255 base =
                          Pl => base_1+"ьо"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьо"+base_2+"е" ;
                 Pl => base_1+"ьо"+base_2+"и"
               } ;
@@ -9977,7 +9977,7 @@ mkN256 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -10016,7 +10016,7 @@ mkN257 base =
                          Pl => base_1+"оками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"оку" ;
                 Pl => base_1+"оки"
               } ;
@@ -10055,7 +10055,7 @@ mkN258 base =
                          Pl => base_1+"тями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"те" ;
                 Pl => base_1+"ті"
               } ;
@@ -10094,7 +10094,7 @@ mkN259 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -10133,7 +10133,7 @@ mkN260 base =
                          Pl => base_1+"нями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ня" ;
                 Pl => base_1+"ня"
               } ;
@@ -10172,7 +10172,7 @@ mkN261 base =
                          Pl => base_1+"тями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"тя" ;
                 Pl => base_1+"тя"
               } ;
@@ -10211,7 +10211,7 @@ mkN262 base =
                          Pl => "і"+base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => "і"+base_1+base_2+"и"
               } ;
@@ -10250,7 +10250,7 @@ mkN263 base =
                          Pl => base_1+"лями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ля" ;
                 Pl => base_1+"ля"
               } ;
@@ -10289,7 +10289,7 @@ mkN264 base =
                          Pl => base_1+"й"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"о" ;
                 Pl => base_1+"й"+base_2+"а"
               } ;
@@ -10328,7 +10328,7 @@ mkN265 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"у" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -10367,7 +10367,7 @@ mkN266 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -10406,7 +10406,7 @@ mkN267 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -10445,7 +10445,7 @@ mkN268 base =
                          Pl => base_1+"ьцями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьче" ;
                 Pl => base_1+"ьца"
               } ;
@@ -10484,7 +10484,7 @@ mkN269 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -10523,7 +10523,7 @@ mkN270 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -10562,7 +10562,7 @@ mkN271 base =
                          Pl => base_1+"ьо"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьо"+base_2+"е" ;
                 Pl => base_1+"ьо"+base_2+"и"
               } ;
@@ -10601,7 +10601,7 @@ mkN272 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -10640,7 +10640,7 @@ mkN273 base =
                          Pl => base_1+"огами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"оже" ;
                 Pl => base_1+"оги"
               } ;
@@ -10679,7 +10679,7 @@ mkN274 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"у" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -10718,7 +10718,7 @@ mkN275 base =
                          Pl => base_1+"ьо"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьо"+base_2+"е" ;
                 Pl => base_1+"ьо"+base_2+"и"
               } ;
@@ -10757,7 +10757,7 @@ mkN276 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ине" ;
                 Pl => base_1+"и"
               } ;
@@ -10796,7 +10796,7 @@ mkN277 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ий" ;
                 Pl => base_1+"і"
               } ;
@@ -10835,7 +10835,7 @@ mkN278 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -10874,7 +10874,7 @@ mkN279 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"и"
               } ;
@@ -10913,7 +10913,7 @@ mkN280 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"ї"
               } ;
@@ -10952,7 +10952,7 @@ mkN281 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"а" ;
                 Pl => base_1+"і"
               } ;
@@ -10991,7 +10991,7 @@ mkN282 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -11030,7 +11030,7 @@ mkN283 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1 ;
                 Pl => base_1+"и"
               } ;
@@ -11069,7 +11069,7 @@ mkN284 base =
                          Pl => base_1+"ми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"и"
               } ;
@@ -11108,7 +11108,7 @@ mkN285 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"а"
               } ;
@@ -11147,7 +11147,7 @@ mkN286 base =
                          Pl => base_1+"има"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -11186,7 +11186,7 @@ mkN287 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -11225,7 +11225,7 @@ mkN288 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"ї"
               } ;
@@ -11264,7 +11264,7 @@ mkN289 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -11303,7 +11303,7 @@ mkN290 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -11342,7 +11342,7 @@ mkN291 base =
                          Pl => base_1+"шками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"шко" ;
                 Pl => base_1+"шки"
               } ;
@@ -11381,7 +11381,7 @@ mkN292 base =
                          Pl => base_1+"оками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"око" ;
                 Pl => base_1+"оки"
               } ;
@@ -11420,7 +11420,7 @@ mkN293 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"я"
               } ;
@@ -11459,7 +11459,7 @@ mkN294 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -11498,7 +11498,7 @@ mkN295 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => nonExist
               } ;
@@ -11537,7 +11537,7 @@ mkN296 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"ю" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -11576,7 +11576,7 @@ mkN297 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -11615,7 +11615,7 @@ mkN298 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -11654,7 +11654,7 @@ mkN299 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => nonExist
               } ;
@@ -11693,7 +11693,7 @@ mkN300 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"ю" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -11732,7 +11732,7 @@ mkN301 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -11771,7 +11771,7 @@ mkN302 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -11810,7 +11810,7 @@ mkN303 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -11849,7 +11849,7 @@ mkN304 base =
                          Pl => "о"+base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "о"+base_1+"е" ;
                 Pl => "о"+base_1+"і"
               } ;
@@ -11888,7 +11888,7 @@ mkN305 base =
                          Pl => base_1+base_2+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"че" ;
                 Pl => base_1+base_2+"ця"
               } ;
@@ -11927,7 +11927,7 @@ mkN306 base =
                          Pl => base_1+"'ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"'я" ;
                 Pl => base_1+"'я"
               } ;
@@ -11966,7 +11966,7 @@ mkN307 base =
                          Pl => base_1+"ьо"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьо"+base_2+"о" ;
                 Pl => base_1+"ьо"+base_2+"и"
               } ;
@@ -12005,7 +12005,7 @@ mkN308 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -12044,7 +12044,7 @@ mkN309 base =
                          Pl => base_1+base_2+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"че" ;
                 Pl => base_1+base_2+"ці"
               } ;
@@ -12083,7 +12083,7 @@ mkN310 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"и"
               } ;
@@ -12122,7 +12122,7 @@ mkN311 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"и"
               } ;
@@ -12161,7 +12161,7 @@ mkN312 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -12200,7 +12200,7 @@ mkN313 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -12239,7 +12239,7 @@ mkN314 base =
                          Pl => base_1+"ій"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ій"+base_2+"ю" ;
                 Pl => base_1+"ій"+base_2+"і"
               } ;
@@ -12278,7 +12278,7 @@ mkN315 base =
                          Pl => base_1+base_2+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"цю" ;
                 Pl => base_1+base_2+"ці"
               } ;
@@ -12317,7 +12317,7 @@ mkN316 base =
                          Pl => base_1+"і"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і"+base_2+base_3+"ю" ;
                 Pl => base_1+"і"+base_2+base_3+"і"
               } ;
@@ -12356,7 +12356,7 @@ mkN317 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -12395,7 +12395,7 @@ mkN318 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -12434,7 +12434,7 @@ mkN319 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -12473,7 +12473,7 @@ mkN320 base =
                          Pl => base_1+base_2+"вцями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"вче" ;
                 Pl => base_1+base_2+"вці"
               } ;
@@ -12512,7 +12512,7 @@ mkN321 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"ю" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -12551,7 +12551,7 @@ mkN322 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"у" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -12590,7 +12590,7 @@ mkN323 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -12629,7 +12629,7 @@ mkN324 base =
                          Pl => base_1+base_2+"нцями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"нче" ;
                 Pl => base_1+base_2+"нці"
               } ;
@@ -12668,7 +12668,7 @@ mkN325 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"їне" ;
                 Pl => base_1+"ї"
               } ;
@@ -12707,7 +12707,7 @@ mkN326 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"а"
               } ;
@@ -12746,7 +12746,7 @@ mkN327 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"я"
               } ;
@@ -12785,7 +12785,7 @@ mkN328 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -12824,7 +12824,7 @@ mkN329 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -12863,7 +12863,7 @@ mkN330 base =
                          Pl => base_1+"їми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"ї"
               } ;
@@ -12902,7 +12902,7 @@ mkN331 base =
                          Pl => base_1+"о"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -12941,7 +12941,7 @@ mkN332 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -12980,7 +12980,7 @@ mkN333 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -13019,7 +13019,7 @@ mkN334 base =
                          Pl => base_1+"лями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ля" ;
                 Pl => base_1+"ля"
               } ;
@@ -13058,7 +13058,7 @@ mkN335 base =
                          Pl => "по"+base_1+"лями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "по"+base_1+"ля" ;
                 Pl => "по"+base_1+"ля"
               } ;
@@ -13097,7 +13097,7 @@ mkN336 base =
                          Pl => base_1+"дями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"де" ;
                 Pl => base_1+"ді"
               } ;
@@ -13136,7 +13136,7 @@ mkN337 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -13175,7 +13175,7 @@ mkN338 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -13214,7 +13214,7 @@ mkN339 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -13253,7 +13253,7 @@ mkN340 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"я"
               } ;
@@ -13292,7 +13292,7 @@ mkN341 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"ї"
               } ;
@@ -13331,7 +13331,7 @@ mkN342 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -13370,7 +13370,7 @@ mkN343 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -13409,7 +13409,7 @@ mkN344 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -13448,7 +13448,7 @@ mkN345 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -13487,7 +13487,7 @@ mkN346 base =
                          Pl => base_1+"і"+base_2+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і"+base_2+"ко" ;
                 Pl => base_1+"і"+base_2+"ки"
               } ;
@@ -13526,7 +13526,7 @@ mkN347 base =
                          Pl => base_1+"і"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"+base_2+base_3+"я"
               } ;
@@ -13565,7 +13565,7 @@ mkN348 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"я"
               } ;
@@ -13604,7 +13604,7 @@ mkN349 base =
                          Pl => base_1+"ьями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ьє" ;
                 Pl => base_1+"ьї"
               } ;
@@ -13643,7 +13643,7 @@ mkN350 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"ї"
               } ;
@@ -13682,7 +13682,7 @@ mkN351 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -13721,7 +13721,7 @@ mkN352 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і" ;
                 Pl => base_1+"і"
               } ;
@@ -13760,7 +13760,7 @@ mkN353 base =
                          Pl => base_1+"і"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і"+base_2+base_3+"ю" ;
                 Pl => base_1+"і"+base_2+base_3+"і"
               } ;
@@ -13799,7 +13799,7 @@ mkN354 base =
                          Pl => base_1+"йо"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"йо"+base_2+"е" ;
                 Pl => base_1+"йо"+base_2+"і"
               } ;
@@ -13838,7 +13838,7 @@ mkN355 base =
                          Pl => base_1+"і"+base_2+base_3+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+base_3+"о" ;
                 Pl => base_1+"і"+base_2+base_3+"и"
               } ;
@@ -13877,7 +13877,7 @@ mkN356 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"а"
               } ;
@@ -13916,7 +13916,7 @@ mkN357 base =
                          Pl => base_1+"й"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"е" ;
                 Pl => base_1+"й"+base_2+"і"
               } ;
@@ -13955,7 +13955,7 @@ mkN358 base =
                          Pl => base_1+"ґами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ґо" ;
                 Pl => base_1+"ґи"
               } ;
@@ -13994,7 +13994,7 @@ mkN359 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"а"
               } ;
@@ -14033,7 +14033,7 @@ mkN360 base =
                          Pl => base_1+"сями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ся" ;
                 Pl => base_1+"ся"
               } ;
@@ -14072,7 +14072,7 @@ mkN361 base =
                          Pl => base_1+"зями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"зя" ;
                 Pl => base_1+"зя"
               } ;
@@ -14111,7 +14111,7 @@ mkN362 base =
                          Pl => base_1+"дями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"дя" ;
                 Pl => base_1+"дя"
               } ;
@@ -14150,7 +14150,7 @@ mkN363 base =
                          Pl => base_1+"жями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"жя" ;
                 Pl => base_1+"жя"
               } ;
@@ -14189,7 +14189,7 @@ mkN364 base =
                          Pl => base_1+"о"+base_2+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+base_3+"ю" ;
                 Pl => base_1+"о"+base_2+base_3+"і"
               } ;
@@ -14228,7 +14228,7 @@ mkN365 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -14267,7 +14267,7 @@ mkN366 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -14306,7 +14306,7 @@ mkN367 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -14345,7 +14345,7 @@ mkN368 base =
                          Pl => base_1+"шями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"шя" ;
                 Pl => base_1+"шя"
               } ;
@@ -14384,7 +14384,7 @@ mkN369 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ою" ;
                 Pl => nonExist
               } ;
@@ -14423,7 +14423,7 @@ mkN370 base =
                          Pl => base_1+"енами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"'я" ;
                 Pl => base_1+"ена"
               } ;
@@ -14462,7 +14462,7 @@ mkN371 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"у" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -14501,7 +14501,7 @@ mkN372 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -14540,7 +14540,7 @@ mkN373 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"цю" ;
                 Pl => nonExist
               } ;
@@ -14579,7 +14579,7 @@ mkN374 base =
                          Pl => base_1+"огами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"оже" ;
                 Pl => base_1+"оги"
               } ;
@@ -14618,7 +14618,7 @@ mkN375 base =
                          Pl => base_1+"гами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"го" ;
                 Pl => base_1+"ги"
               } ;
@@ -14657,7 +14657,7 @@ mkN376 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"я" ;
                 Pl => base_1+"я"
               } ;
@@ -14696,7 +14696,7 @@ mkN377 base =
                          Pl => base_1+"лями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ля" ;
                 Pl => base_1+"ля"
               } ;
@@ -14735,7 +14735,7 @@ mkN378 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю"+base_2+"ю" ;
                 Pl => nonExist
               } ;
@@ -14774,7 +14774,7 @@ mkN379 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => nonExist
               } ;
@@ -14813,7 +14813,7 @@ mkN380 base =
                          Pl => base_1+"тями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"тя" ;
                 Pl => base_1+"тя"
               } ;
@@ -14852,7 +14852,7 @@ mkN381 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"и"
               } ;
@@ -14891,7 +14891,7 @@ mkN382 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -14930,7 +14930,7 @@ mkN383 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -14969,7 +14969,7 @@ mkN384 base =
                          Pl => base_1+"е"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"ю" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -15008,7 +15008,7 @@ mkN385 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -15047,7 +15047,7 @@ mkN386 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -15086,7 +15086,7 @@ mkN387 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"и"+base_2+"е" ;
                 Pl => nonExist
               } ;
@@ -15125,7 +15125,7 @@ mkN388 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => nonExist
               } ;
@@ -15164,7 +15164,7 @@ mkN389 base =
                          Pl => base_1+"о"+base_2+"ами" --guessed
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => base_1+"о"+base_2+"і" --guessed
               } ;
@@ -15203,7 +15203,7 @@ mkN390 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"у" ;
                 Pl => base_1+"е"+base_2+"і"
               } ;
@@ -15242,7 +15242,7 @@ mkN391 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"ї"
               } ;
@@ -15281,7 +15281,7 @@ mkN392 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"ю" ;
                 Pl => base_1+base_2+"і"
               } ;
@@ -15320,7 +15320,7 @@ mkN393 base =
                          Pl => base_1+base_2+"рцями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"рче" ;
                 Pl => base_1+base_2+"рці"
               } ;
@@ -15359,7 +15359,7 @@ mkN394 base =
                          Pl => base_1+"ій"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ій"+base_2+"е" ;
                 Pl => base_1+"ій"+base_2+"і"
               } ;
@@ -15398,7 +15398,7 @@ mkN395 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"че" ;
                 Pl => base_1+"ки"
               } ;
@@ -15437,7 +15437,7 @@ mkN396 base =
                          Pl => base_1+"й"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"й"+base_2+"ю" ;
                 Pl => base_1+"й"+base_2+"і"
               } ;
@@ -15476,7 +15476,7 @@ mkN397 base =
                          Pl => base_1+"іми"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ій" ;
                 Pl => base_1+"і"
               } ;
@@ -15515,7 +15515,7 @@ mkN398 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -15554,7 +15554,7 @@ mkN399 base =
                          Pl => base_1+"о"+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"ю" ;
                 Pl => base_1+"о"+base_2+"і"
               } ;
@@ -15593,7 +15593,7 @@ mkN400 base =
                          Pl => base_1+"ими"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"і" ; --guessed
                 Pl => base_1+"і"
               } ;
@@ -15632,7 +15632,7 @@ mkN401 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -15671,7 +15671,7 @@ mkN402 base =
                          Pl => base_1+"о"+base_2+"ями" --guessed
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ; --guessed
                 Pl => base_1+"о"+base_2+"і" --guessed
               } ;
@@ -15710,7 +15710,7 @@ mkN403 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => base_1+"я"
               } ;
@@ -15749,7 +15749,7 @@ mkN404 base =
                          Pl => base_1+"ами"+base_2
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2 ;
                 Pl => base_1+"и"+base_2
               } ;
@@ -15788,7 +15788,7 @@ mkN405 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -15827,7 +15827,7 @@ mkN406 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -15866,7 +15866,7 @@ mkN407 base =
                          Pl => base_1+"ами"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"у" ;
                 Pl => base_1+"и"+base_2+"и"
               } ;
@@ -15905,7 +15905,7 @@ mkN408 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -15944,7 +15944,7 @@ mkN409 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"у" ;
                 Pl => base_1+"а"
               } ;
@@ -15983,7 +15983,7 @@ mkN410 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ю" ;
                 Pl => base_1+"і"
               } ;
@@ -16022,7 +16022,7 @@ mkN411 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"я"
               } ;
@@ -16061,7 +16061,7 @@ mkN412 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"и"
               } ;
@@ -16100,7 +16100,7 @@ mkN413 base =
                          Pl => base_1+"амами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"амо" ;
                 Pl => base_1+"ами"
               } ;
@@ -16139,7 +16139,7 @@ mkN414 base =
                          Pl => base_1+base_2+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"я" ;
                 Pl => base_1+base_2+"я"
               } ;
@@ -16178,7 +16178,7 @@ mkN415 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"о" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -16217,7 +16217,7 @@ mkN416 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -16256,7 +16256,7 @@ mkN417 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -16295,7 +16295,7 @@ mkN418 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"хо" ;
                 Pl => base_1+"хи"
               } ;
@@ -16334,7 +16334,7 @@ mkN419 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -16373,7 +16373,7 @@ mkN420 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"і"
               } ;
@@ -16412,7 +16412,7 @@ mkN421 base =
                          Pl => base_1+"е"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"е"+base_2+"и"
               } ;
@@ -16451,7 +16451,7 @@ mkN422 base =
                          Pl => base_1+"чями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"чя" ;
                 Pl => base_1+"чя"
               } ;
@@ -16490,7 +16490,7 @@ mkN423 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"а"
               } ;
@@ -16529,7 +16529,7 @@ mkN424 base =
                          Pl => base_1+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"ї"
               } ;
@@ -16568,7 +16568,7 @@ mkN425 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"і"
               } ;
@@ -16607,7 +16607,7 @@ mkN426 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ею" ;
                 Pl => nonExist
               } ;
@@ -16646,7 +16646,7 @@ mkN427 base =
                          Pl => base_1+"ш"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ш"+base_2+"у" ;
                 Pl => base_1+"ш"+base_2+"и"
               } ;
@@ -16685,7 +16685,7 @@ mkN428 base =
                          Pl => base_1+"ками"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко" ;
                 Pl => base_1+"ки"
               } ;
@@ -16724,7 +16724,7 @@ mkN429 base =
                          Pl => base_1+"ками"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ко"+base_2+"у" ;
                 Pl => base_1+"ки"+base_2+"и"
               } ;
@@ -16763,7 +16763,7 @@ mkN430 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ціє" ;
                 Pl => nonExist
               } ;
@@ -16802,7 +16802,7 @@ mkN431 base =
                          Pl => base_1+"ами"+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е"+base_2+"е" ;
                 Pl => base_1+"и"+base_2+"и"
               } ;
@@ -16841,7 +16841,7 @@ mkN432 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"е" ;
                 Pl => base_1+"и"
               } ;
@@ -16880,7 +16880,7 @@ mkN433 base =
                          Pl => base_1+"нями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+"ня"
               } ;
@@ -16919,7 +16919,7 @@ mkN434 base =
                          Pl => "причинами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => "причино" ;
                 Pl => "причини"
               } ;
@@ -16958,7 +16958,7 @@ mkN435 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"у" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -16997,7 +16997,7 @@ mkN436 base =
                          Pl => base_1+"хами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"ше" ;
                 Pl => base_1+"хи"
               } ;
@@ -17036,7 +17036,7 @@ mkN437 base =
                          Pl => base_1+base_2+"цями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => nonExist ;
                 Pl => base_1+base_2+"ця"
               } ;
@@ -17075,7 +17075,7 @@ mkN438 base =
                          Pl => base_1+base_2+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"е" ;
                 Pl => base_1+base_2+"и"
               } ;
@@ -17114,7 +17114,7 @@ mkN439 base =
                          Pl => base_1+"ами"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о" ;
                 Pl => base_1+"и"
               } ;
@@ -17153,7 +17153,7 @@ mkN440 base =
                          Pl => base_1+base_2+"р"+base_3+"ями"
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+base_2+"р"+base_3+"ю" ;
                 Pl => base_1+base_2+"р"+base_3+"і"
               } ;
@@ -17192,7 +17192,7 @@ mkN441 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"о"+base_2+"е" ;
                 Pl => nonExist
               } ;
@@ -17231,7 +17231,7 @@ mkN442 base =
                          Pl => nonExist
                        }
             } ;
-        Voc = table {
+        voc = table {
                 Sg => base_1+"є" ;
                 Pl => nonExist
               } ;
@@ -17245,8 +17245,8 @@ mkV001 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"єм"
@@ -17261,8 +17261,8 @@ mkV001 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -17317,8 +17317,8 @@ mkV002 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -17333,8 +17333,8 @@ mkV002 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -17389,8 +17389,8 @@ mkV003 base =
   case base of {
     base_1+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати" ;
                                                 Pl => base_1+"єм"
@@ -17405,8 +17405,8 @@ mkV003 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -17461,8 +17461,8 @@ mkV004 base =
   case base of {
     base_1+"с"+base_2@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"с"+base_2+"ати" ;
                                                 Pl => base_1+"ш"+base_2+"ем"
@@ -17477,8 +17477,8 @@ mkV004 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"с"+base_2+"ати" ;
                                               Pl => nonExist
@@ -17533,8 +17533,8 @@ mkV005 base =
   case base of {
     base_1+base_2@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"ати" ;
                                                 Pl => base_1+"те"+base_2+"ем"
@@ -17549,8 +17549,8 @@ mkV005 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"ати" ;
                                               Pl => nonExist
@@ -17605,8 +17605,8 @@ mkV006 base =
   case base of {
     "с"+base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "с"+base_1+"ати" ;
                                                 Pl => "ш"+base_1+"ем"
@@ -17621,8 +17621,8 @@ mkV006 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -17677,8 +17677,8 @@ mkV007 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -17693,8 +17693,8 @@ mkV007 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -17749,8 +17749,8 @@ mkV008 base =
   case base of {
     base_1+"тити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тити" ;
                                                 Pl => base_1+"тим"
@@ -17765,8 +17765,8 @@ mkV008 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"тити" ;
                                               Pl => nonExist
@@ -17821,8 +17821,8 @@ mkV009 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"'єм"
@@ -17837,8 +17837,8 @@ mkV009 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -17893,8 +17893,8 @@ mkV010 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -17909,8 +17909,8 @@ mkV010 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -17965,8 +17965,8 @@ mkV011 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -17981,8 +17981,8 @@ mkV011 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ; --guessed
                                               Pl => nonExist
@@ -18037,8 +18037,8 @@ mkV012 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -18053,8 +18053,8 @@ mkV012 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ; --guessed
                                               Pl => nonExist
@@ -18109,8 +18109,8 @@ mkV013 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"єм"
@@ -18125,8 +18125,8 @@ mkV013 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -18181,8 +18181,8 @@ mkV014 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"ем"
@@ -18197,8 +18197,8 @@ mkV014 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ;
                                               Pl => nonExist
@@ -18253,8 +18253,8 @@ mkV015 base =
   case base of {
     base_1+"ести" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ести" ;
                                                 Pl => base_1+"едем"
@@ -18269,8 +18269,8 @@ mkV015 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ести" ;
                                               Pl => nonExist
@@ -18325,8 +18325,8 @@ mkV016 base =
   case base of {
     base_1+"зати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"зати" ;
                                                 Pl => base_1+"жем"
@@ -18341,8 +18341,8 @@ mkV016 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"зати" ;
                                               Pl => nonExist
@@ -18397,8 +18397,8 @@ mkV017 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"им"
@@ -18413,8 +18413,8 @@ mkV017 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ; --guessed
                                               Pl => nonExist
@@ -18469,8 +18469,8 @@ mkV018 base =
   case base of {
     base_1+"сити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сити" ;
                                                 Pl => base_1+"сим"
@@ -18485,8 +18485,8 @@ mkV018 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сити" ;
                                               Pl => nonExist
@@ -18541,8 +18541,8 @@ mkV019 base =
   case base of {
     base_1+"сати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сати" ;
                                                 Pl => base_1+"шем"
@@ -18557,8 +18557,8 @@ mkV019 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сати" ;
                                               Pl => nonExist
@@ -18613,8 +18613,8 @@ mkV020 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -18629,8 +18629,8 @@ mkV020 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -18685,8 +18685,8 @@ mkV021 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -18701,8 +18701,8 @@ mkV021 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ; --guessed
                                               Pl => nonExist
@@ -18757,8 +18757,8 @@ mkV022 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => "будемо "+base_1+"ити"
@@ -18773,8 +18773,8 @@ mkV022 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ; --guessed
                                               Pl => nonExist
@@ -18829,8 +18829,8 @@ mkV023 base =
   case base of {
     base_1+"зати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"зати" ;
                                                 Pl => base_1+"жем"
@@ -18845,8 +18845,8 @@ mkV023 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"зати" ;
                                               Pl => nonExist
@@ -18901,8 +18901,8 @@ mkV024 base =
   case base of {
     base_1+"е"+base_2@("рз"|?)+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"е"+base_2+"ти" ;
                                                 Pl => base_1+"е"+base_2+"ем"
@@ -18917,8 +18917,8 @@ mkV024 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"е"+base_2+"ти" ;
                                               Pl => nonExist
@@ -18973,8 +18973,8 @@ mkV025 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => base_1+"дем"
@@ -18989,8 +18989,8 @@ mkV025 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -19045,8 +19045,8 @@ mkV026 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => base_1+"дем"
@@ -19061,8 +19061,8 @@ mkV026 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -19117,8 +19117,8 @@ mkV027 base =
   case base of {
     base_1+"стити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"стити" ;
                                                 Pl => base_1+"стим"
@@ -19133,8 +19133,8 @@ mkV027 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"стити" ;
                                               Pl => nonExist
@@ -19189,8 +19189,8 @@ mkV028 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"вем"
@@ -19205,8 +19205,8 @@ mkV028 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -19261,8 +19261,8 @@ mkV029 base =
   case base of {
     base_1+"ести" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ести" ;
                                                 Pl => base_1+"етем"
@@ -19277,8 +19277,8 @@ mkV029 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ести" ;
                                               Pl => nonExist
@@ -19333,8 +19333,8 @@ mkV030 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"лєм"
@@ -19349,8 +19349,8 @@ mkV030 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -19405,8 +19405,8 @@ mkV031 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -19421,8 +19421,8 @@ mkV031 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -19477,8 +19477,8 @@ mkV032 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => base_1+"мо"
@@ -19493,8 +19493,8 @@ mkV032 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -19549,8 +19549,8 @@ mkV033 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"дем"
@@ -19565,8 +19565,8 @@ mkV033 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -19621,8 +19621,8 @@ mkV034 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"ем"
@@ -19637,8 +19637,8 @@ mkV034 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -19693,8 +19693,8 @@ mkV035 base =
   case base of {
     base_1+"увати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"увати" ;
                                                 Pl => base_1+"уєм"
@@ -19709,8 +19709,8 @@ mkV035 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"увати" ;
                                               Pl => nonExist
@@ -19765,8 +19765,8 @@ mkV036 base =
   case base of {
     base_1+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати" ;
                                                 Pl => base_1+"єм"
@@ -19781,8 +19781,8 @@ mkV036 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"вати" ;
                                               Pl => nonExist
@@ -19837,8 +19837,8 @@ mkV037 base =
   case base of {
     "бути" => lin V
       { active = table {
-                   Imperf => { Past = "бувший" ;
-                               Pres = table {
+                   Imperf => { past = "бувший" ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "бути" ;
                                                 Pl => "є"
@@ -19853,8 +19853,8 @@ mkV037 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -19909,8 +19909,8 @@ mkV038 base =
   case base of {
     base_1+"ути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути" ;
                                                 Pl => base_1+"ем"
@@ -19925,8 +19925,8 @@ mkV038 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"улий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"улий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути" ;
                                               Pl => nonExist
@@ -19981,8 +19981,8 @@ mkV039 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им" --guessed
@@ -19997,8 +19997,8 @@ mkV039 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -20053,8 +20053,8 @@ mkV040 base =
   case base of {
     base_1+base_2@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"ати" ;
                                                 Pl => base_1+"е"+base_2+"ем"
@@ -20069,8 +20069,8 @@ mkV040 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"ати" ;
                                               Pl => nonExist
@@ -20125,8 +20125,8 @@ mkV041 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => base_1+"нем"
@@ -20141,8 +20141,8 @@ mkV041 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -20197,8 +20197,8 @@ mkV042 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => base_1+"нем"
@@ -20213,8 +20213,8 @@ mkV042 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -20269,8 +20269,8 @@ mkV043 base =
   case base of {
     base_1+"стити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"стити" ;
                                                 Pl => base_1+"стим"
@@ -20285,8 +20285,8 @@ mkV043 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"стити" ;
                                               Pl => nonExist
@@ -20341,8 +20341,8 @@ mkV044 base =
   case base of {
     base_1 => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1 ;
                                                 Pl => nonExist
@@ -20357,8 +20357,8 @@ mkV044 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -20413,8 +20413,8 @@ mkV045 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им" --guessed
@@ -20429,8 +20429,8 @@ mkV045 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -20485,8 +20485,8 @@ mkV046 base =
   case base of {
     base_1+"ути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути" ;
                                                 Pl => base_1+"ем"
@@ -20501,8 +20501,8 @@ mkV046 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути" ;
                                               Pl => nonExist
@@ -20557,8 +20557,8 @@ mkV047 base =
   case base of {
     base_1+"тити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тити" ;
                                                 Pl => base_1+"тим"
@@ -20573,8 +20573,8 @@ mkV047 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"тити" ;
                                               Pl => nonExist
@@ -20629,8 +20629,8 @@ mkV048 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -20645,8 +20645,8 @@ mkV048 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -20701,8 +20701,8 @@ mkV049 base =
   case base of {
     base_1+"кати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"кати" ;
                                                 Pl => base_1+"чем"
@@ -20717,8 +20717,8 @@ mkV049 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -20773,8 +20773,8 @@ mkV050 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"ем"
@@ -20789,8 +20789,8 @@ mkV050 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ; --guessed
                                               Pl => nonExist
@@ -20845,8 +20845,8 @@ mkV051 base =
   case base of {
     base_1+"сити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сити" ;
                                                 Pl => base_1+"сим"
@@ -20861,8 +20861,8 @@ mkV051 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сити" ;
                                               Pl => nonExist
@@ -20917,8 +20917,8 @@ mkV052 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"им"
@@ -20933,8 +20933,8 @@ mkV052 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ; --guessed
                                               Pl => nonExist
@@ -20989,8 +20989,8 @@ mkV053 base =
   case base of {
     base_1+"г"+base_2@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"г"+base_2+"ати" ;
                                                 Pl => nonExist
@@ -21005,8 +21005,8 @@ mkV053 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"г"+base_2+"ати" ;
                                               Pl => nonExist
@@ -21061,8 +21061,8 @@ mkV054 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => base_1+"нем" --guessed
@@ -21077,8 +21077,8 @@ mkV054 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -21133,8 +21133,8 @@ mkV055 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => base_1+"им"
@@ -21149,8 +21149,8 @@ mkV055 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити" ;
                                               Pl => nonExist
@@ -21205,8 +21205,8 @@ mkV056 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"лем"
@@ -21221,8 +21221,8 @@ mkV056 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ;
                                               Pl => nonExist
@@ -21277,8 +21277,8 @@ mkV057 base =
   case base of {
     base_1+"хати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"хати" ;
                                                 Pl => base_1+"дем"
@@ -21293,8 +21293,8 @@ mkV057 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"хати" ;
                                               Pl => nonExist
@@ -21349,8 +21349,8 @@ mkV058 base =
   case base of {
     base_1+"огти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"огти" ;
                                                 Pl => base_1+"ожем"
@@ -21365,8 +21365,8 @@ mkV058 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"ігший" ;
-                             Pres = table {
+                   Perf => { past = base_1+"ігший" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"огти" ;
                                               Pl => nonExist
@@ -21421,8 +21421,8 @@ mkV059 base =
   case base of {
     "йти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "jty" ;
                                                 Pl => "йдем"
@@ -21437,8 +21437,8 @@ mkV059 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -21493,8 +21493,8 @@ mkV060 base =
   case base of {
     base_1+"кати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"кати" ;
                                                 Pl => base_1+"чем"
@@ -21509,8 +21509,8 @@ mkV060 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"кати" ;
                                               Pl => nonExist
@@ -21565,8 +21565,8 @@ mkV061 base =
   case base of {
     base_1+"о"+base_2@?+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"о"+base_2+"ти" ;
                                                 Pl => base_1+"о"+base_2+"тем"
@@ -21581,8 +21581,8 @@ mkV061 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"о"+base_2+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"о"+base_2+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"о"+base_2+"ти" ;
                                               Pl => nonExist
@@ -21637,8 +21637,8 @@ mkV062 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"им"
@@ -21653,8 +21653,8 @@ mkV062 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"ілий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"ілий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ;
                                               Pl => nonExist
@@ -21709,8 +21709,8 @@ mkV063 base =
   case base of {
     "г"+base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "г"+base_1+"ати" ;
                                                 Pl => "же"+base_1+"ем"
@@ -21725,8 +21725,8 @@ mkV063 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -21781,8 +21781,8 @@ mkV064 base =
   case base of {
     base_1+"тіти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тіти" ;
                                                 Pl => base_1+"чем"
@@ -21797,8 +21797,8 @@ mkV064 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -21853,8 +21853,8 @@ mkV065 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -21869,8 +21869,8 @@ mkV065 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -21925,8 +21925,8 @@ mkV066 base =
   case base of {
     base_1+"о"+base_2@?+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"о"+base_2+"ити" ;
                                                 Pl => nonExist
@@ -21941,8 +21941,8 @@ mkV066 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"о"+base_2+"ити" ;
                                               Pl => nonExist
@@ -21997,8 +21997,8 @@ mkV067 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "-"+base_1+"ти" ;
                                                 Pl => "-"+base_1+"єм"
@@ -22013,8 +22013,8 @@ mkV067 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22069,8 +22069,8 @@ mkV068 base =
   case base of {
     base_1+base_2@?+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"яти" ;
                                                 Pl => nonExist
@@ -22085,8 +22085,8 @@ mkV068 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"яти" ;
                                               Pl => nonExist
@@ -22141,8 +22141,8 @@ mkV069 base =
   case base of {
     "у"+base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "у"+base_1+"яти" ;
                                                 Pl => nonExist
@@ -22157,8 +22157,8 @@ mkV069 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "у"+base_1+"яти" ;
                                               Pl => nonExist
@@ -22213,8 +22213,8 @@ mkV070 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"нем"
@@ -22229,8 +22229,8 @@ mkV070 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -22285,8 +22285,8 @@ mkV071 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => base_1+"єм"+base_2
@@ -22301,8 +22301,8 @@ mkV071 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -22357,8 +22357,8 @@ mkV072 base =
   case base of {
     base_1+"о"+base_2@?+"оти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"о"+base_2+"оти" ;
                                                 Pl => base_1+"е"+base_2+"ем"
@@ -22373,8 +22373,8 @@ mkV072 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22429,8 +22429,8 @@ mkV073 base =
   case base of {
     base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти" ;
                                                 Pl => base_1+"нем"
@@ -22445,8 +22445,8 @@ mkV073 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22501,8 +22501,8 @@ mkV074 base =
   case base of {
     base_1+"оти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"оти" ;
                                                 Pl => base_1+"ем"
@@ -22517,8 +22517,8 @@ mkV074 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"оти" ;
                                               Pl => nonExist
@@ -22573,8 +22573,8 @@ mkV075 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => "будемо "+base_1+"ити"
@@ -22589,8 +22589,8 @@ mkV075 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22645,8 +22645,8 @@ mkV076 base =
   case base of {
     base_1+"увати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"увати" ;
                                                 Pl => "будемо "+base_1+"увати"
@@ -22661,8 +22661,8 @@ mkV076 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22717,8 +22717,8 @@ mkV077 base =
   case base of {
     base_1+"е"+base_2@?+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"е"+base_2+"ти" ;
                                                 Pl => base_1+base_2+"ем"
@@ -22733,8 +22733,8 @@ mkV077 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"е"+base_2+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"е"+base_2+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"е"+base_2+"ти" ;
                                               Pl => nonExist
@@ -22789,8 +22789,8 @@ mkV078 base =
   case base of {
     base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти" ;
                                                 Pl => base_1+"яєм"
@@ -22805,8 +22805,8 @@ mkV078 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -22861,8 +22861,8 @@ mkV079 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -22877,8 +22877,8 @@ mkV079 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -22933,8 +22933,8 @@ mkV080 base =
   case base of {
     base_1+"вати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати"+base_2 ;
                                                 Pl => base_1+"єм"+base_2
@@ -22949,8 +22949,8 @@ mkV080 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"вати"+base_2 ;
                                               Pl => nonExist
@@ -23005,8 +23005,8 @@ mkV081 base =
   case base of {
     base_1+"їти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"їти" ;
                                                 Pl => base_1+"їм"
@@ -23021,8 +23021,8 @@ mkV081 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"їти" ;
                                               Pl => nonExist
@@ -23077,8 +23077,8 @@ mkV082 base =
   case base of {
     base_1+"їти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"їти" ;
                                                 Pl => base_1+"їм"
@@ -23093,8 +23093,8 @@ mkV082 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"їти" ;
                                               Pl => nonExist
@@ -23149,8 +23149,8 @@ mkV083 base =
   case base of {
     base_1+"оїти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"оїти" ;
                                                 Pl => base_1+"оїм"
@@ -23165,8 +23165,8 @@ mkV083 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"оїти" ;
                                               Pl => nonExist
@@ -23221,8 +23221,8 @@ mkV084 base =
   case base of {
     base_1+base_2@?+"е"+base_3@?+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"е"+base_3+"ти" ;
                                                 Pl => nonExist
@@ -23237,8 +23237,8 @@ mkV084 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"е"+base_3+"ти" ;
                                               Pl => nonExist
@@ -23293,8 +23293,8 @@ mkV085 base =
   case base of {
     base_1+"ювати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ювати" ;
                                                 Pl => base_1+"юєм"
@@ -23309,8 +23309,8 @@ mkV085 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ювати" ;
                                               Pl => nonExist
@@ -23365,8 +23365,8 @@ mkV086 base =
   case base of {
     base_1+"хати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"хати" ;
                                                 Pl => base_1+"шем"
@@ -23381,8 +23381,8 @@ mkV086 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"хати" ;
                                               Pl => nonExist
@@ -23437,8 +23437,8 @@ mkV087 base =
   case base of {
     base_1+"ктати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ктати" ;
                                                 Pl => base_1+"чем"
@@ -23453,8 +23453,8 @@ mkV087 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -23509,8 +23509,8 @@ mkV088 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => nonExist
@@ -23525,8 +23525,8 @@ mkV088 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -23581,8 +23581,8 @@ mkV089 base =
   case base of {
     base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти" ;
                                                 Pl => base_1+"єм"
@@ -23597,8 +23597,8 @@ mkV089 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"яти" ;
                                               Pl => nonExist
@@ -23653,8 +23653,8 @@ mkV090 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"им"
@@ -23669,8 +23669,8 @@ mkV090 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ;
                                               Pl => nonExist
@@ -23725,8 +23725,8 @@ mkV091 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -23741,8 +23741,8 @@ mkV091 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити"+base_2 ; --guessed
                                               Pl => nonExist
@@ -23797,8 +23797,8 @@ mkV092 base =
   case base of {
     base_1+"ояти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ояти"+base_2 ;
                                                 Pl => base_1+"оїм"+base_2
@@ -23813,8 +23813,8 @@ mkV092 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -23869,8 +23869,8 @@ mkV093 base =
   case base of {
     base_1+"ягти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ягти" ;
                                                 Pl => nonExist
@@ -23885,8 +23885,8 @@ mkV093 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ягти" ;
                                               Pl => nonExist
@@ -23941,8 +23941,8 @@ mkV094 base =
   case base of {
     base_1+"екти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"екти" ;
                                                 Pl => base_1+"ечем"
@@ -23957,8 +23957,8 @@ mkV094 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"еклий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"еклий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"екти" ;
                                               Pl => nonExist
@@ -24013,8 +24013,8 @@ mkV095 base =
   case base of {
     base_1+"істи" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"істи" ;
                                                 Pl => nonExist
@@ -24029,8 +24029,8 @@ mkV095 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"істи" ;
                                               Pl => nonExist
@@ -24085,8 +24085,8 @@ mkV096 base =
   case base of {
     base_1+"ути"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути"+base_2 ;
                                                 Pl => base_1+"ем"+base_2
@@ -24101,8 +24101,8 @@ mkV096 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути"+base_2 ;
                                               Pl => nonExist
@@ -24157,8 +24157,8 @@ mkV097 base =
   case base of {
     base_1+"гти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"гти" ;
                                                 Pl => base_1+"жим"
@@ -24173,8 +24173,8 @@ mkV097 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"гти" ; --guessed
                                               Pl => nonExist
@@ -24229,8 +24229,8 @@ mkV098 base =
   case base of {
     base_1+"ояти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ояти" ;
                                                 Pl => base_1+"оїм"
@@ -24245,8 +24245,8 @@ mkV098 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ояти" ;
                                               Pl => nonExist
@@ -24301,8 +24301,8 @@ mkV099 base =
   case base of {
     base_1+"яти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти"+base_2 ;
                                                 Pl => base_1+"єм"+base_2
@@ -24317,8 +24317,8 @@ mkV099 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"яти"+base_2 ;
                                               Pl => nonExist
@@ -24373,8 +24373,8 @@ mkV100 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"им"
@@ -24389,8 +24389,8 @@ mkV100 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"ілий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"ілий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ; --guessed
                                               Pl => nonExist
@@ -24445,8 +24445,8 @@ mkV101 base =
   case base of {
     base_1+"тати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тати" ;
                                                 Pl => base_1+"чем"
@@ -24461,8 +24461,8 @@ mkV101 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"тати" ;
                                               Pl => nonExist
@@ -24517,8 +24517,8 @@ mkV102 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"ем"
@@ -24533,8 +24533,8 @@ mkV102 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -24589,8 +24589,8 @@ mkV103 base =
   case base of {
     base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти" ;
                                                 Pl => nonExist
@@ -24605,8 +24605,8 @@ mkV103 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"яти" ;
                                               Pl => nonExist
@@ -24661,8 +24661,8 @@ mkV104 base =
   case base of {
     base_1+"гти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"гти" ;
                                                 Pl => base_1+"жем"
@@ -24677,8 +24677,8 @@ mkV104 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"гти" ; --guessed
                                               Pl => nonExist
@@ -24733,8 +24733,8 @@ mkV105 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => base_1+"вем"
@@ -24749,8 +24749,8 @@ mkV105 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -24805,8 +24805,8 @@ mkV106 base =
   case base of {
     base_1+"оти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"оти"+base_2 ;
                                                 Pl => base_1+"ем"+base_2
@@ -24821,8 +24821,8 @@ mkV106 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -24877,8 +24877,8 @@ mkV107 base =
   case base of {
     "і"+base_1+"ювати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "і"+base_1+"ювати" ;
                                                 Pl => "будемо й"+base_1+"ювати"
@@ -24893,8 +24893,8 @@ mkV107 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -24949,8 +24949,8 @@ mkV108 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"мем"
@@ -24965,8 +24965,8 @@ mkV108 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25021,8 +25021,8 @@ mkV109 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"нем"
@@ -25037,8 +25037,8 @@ mkV109 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ;
                                               Pl => nonExist
@@ -25093,8 +25093,8 @@ mkV110 base =
   case base of {
     base_1+"егти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"егти" ;
                                                 Pl => base_1+"ежем"
@@ -25109,8 +25109,8 @@ mkV110 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"егти" ;
                                               Pl => nonExist
@@ -25165,8 +25165,8 @@ mkV111 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"ем"
@@ -25181,8 +25181,8 @@ mkV111 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"ілий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"ілий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ; --guessed
                                               Pl => nonExist
@@ -25237,8 +25237,8 @@ mkV112 base =
   case base of {
     base_1+"вати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати"+base_2 ;
                                                 Pl => base_1+"єм"+base_2
@@ -25253,8 +25253,8 @@ mkV112 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25309,8 +25309,8 @@ mkV113 base =
   case base of {
     base_1+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати" ;
                                                 Pl => "будемо "+base_1+"вати"
@@ -25325,8 +25325,8 @@ mkV113 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"вати" ; --guessed
                                               Pl => nonExist
@@ -25381,8 +25381,8 @@ mkV114 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => "будемо "+base_1+"ити"+base_2
@@ -25397,8 +25397,8 @@ mkV114 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25453,8 +25453,8 @@ mkV115 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -25469,8 +25469,8 @@ mkV115 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -25525,8 +25525,8 @@ mkV116 base =
   case base of {
     base_1+"ути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути" ;
                                                 Pl => nonExist
@@ -25541,8 +25541,8 @@ mkV116 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути" ;
                                               Pl => nonExist
@@ -25597,8 +25597,8 @@ mkV117 base =
   case base of {
     base_1+"ути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути" ;
                                                 Pl => base_1+"мем"
@@ -25613,8 +25613,8 @@ mkV117 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути" ;
                                               Pl => nonExist
@@ -25669,8 +25669,8 @@ mkV118 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"'єм"+base_2
@@ -25685,8 +25685,8 @@ mkV118 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25741,8 +25741,8 @@ mkV119 base =
   case base of {
     base_1+"окти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"окти" ;
                                                 Pl => base_1+"очем"
@@ -25757,8 +25757,8 @@ mkV119 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25813,8 +25813,8 @@ mkV120 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => nonExist
@@ -25829,8 +25829,8 @@ mkV120 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -25885,8 +25885,8 @@ mkV121 base =
   case base of {
     base_1+"тіти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тіти" ;
                                                 Pl => base_1+"тим"
@@ -25901,8 +25901,8 @@ mkV121 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -25957,8 +25957,8 @@ mkV122 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"им"
@@ -25973,8 +25973,8 @@ mkV122 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати" ; --guessed
                                               Pl => nonExist
@@ -26029,8 +26029,8 @@ mkV123 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -26045,8 +26045,8 @@ mkV123 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -26101,8 +26101,8 @@ mkV124 base =
   case base of {
     "і"+base_1+"увати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "і"+base_1+"увати" ;
                                                 Pl => "будемо й"+base_1+"увати"
@@ -26117,8 +26117,8 @@ mkV124 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -26173,8 +26173,8 @@ mkV125 base =
   case base of {
     base_1+"ювати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ювати" ;
                                                 Pl => "будемо "+base_1+"ювати"
@@ -26189,8 +26189,8 @@ mkV125 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ювати" ;
                                               Pl => nonExist
@@ -26245,8 +26245,8 @@ mkV126 base =
   case base of {
     base_1+"няти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"няти" ;
                                                 Pl => nonExist
@@ -26261,8 +26261,8 @@ mkV126 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"няти" ;
                                               Pl => nonExist
@@ -26317,8 +26317,8 @@ mkV127 base =
   case base of {
     base_1+"зити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"зити" ;
                                                 Pl => base_1+"зим"
@@ -26333,8 +26333,8 @@ mkV127 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"зити" ;
                                               Pl => nonExist
@@ -26389,8 +26389,8 @@ mkV128 base =
   case base of {
     base_1+"зити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"зити" ;
                                                 Pl => base_1+"зим"
@@ -26405,8 +26405,8 @@ mkV128 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"зити" ;
                                               Pl => nonExist
@@ -26461,8 +26461,8 @@ mkV129 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => nonExist
@@ -26477,8 +26477,8 @@ mkV129 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -26533,8 +26533,8 @@ mkV130 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => nonExist
@@ -26549,8 +26549,8 @@ mkV130 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -26605,8 +26605,8 @@ mkV131 base =
   case base of {
     base_1+"ути"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути"+base_2 ;
                                                 Pl => nonExist
@@ -26621,8 +26621,8 @@ mkV131 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути"+base_2 ;
                                               Pl => nonExist
@@ -26677,8 +26677,8 @@ mkV132 base =
   case base of {
     base_1+"гти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"гти" ;
                                                 Pl => base_1+"жим" --guessed
@@ -26693,8 +26693,8 @@ mkV132 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"гти" ;
                                               Pl => nonExist
@@ -26749,8 +26749,8 @@ mkV133 base =
   case base of {
     base_1+"і"+base_2@?+base_3@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"і"+base_2+base_3+"ати" ;
                                                 Pl => nonExist
@@ -26765,8 +26765,8 @@ mkV133 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"і"+base_2+base_3+"ати" ;
                                               Pl => nonExist
@@ -26821,8 +26821,8 @@ mkV134 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -26837,8 +26837,8 @@ mkV134 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -26893,8 +26893,8 @@ mkV135 base =
   case base of {
     base_1+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати" ;
                                                 Pl => base_1+"єм" --guessed
@@ -26909,8 +26909,8 @@ mkV135 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"вати" ; --guessed
                                               Pl => nonExist
@@ -26965,8 +26965,8 @@ mkV136 base =
   case base of {
     base_1+"ати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати"+base_2 ;
                                                 Pl => base_1+"ем"+base_2
@@ -26981,8 +26981,8 @@ mkV136 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати"+base_2 ;
                                               Pl => nonExist
@@ -27037,8 +27037,8 @@ mkV137 base =
   case base of {
     base_1+base_2@?+"ати"+base_3@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"ати"+base_3 ;
                                                 Pl => base_1+"е"+base_2+"ем"+base_3
@@ -27053,8 +27053,8 @@ mkV137 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"ати"+base_3 ;
                                               Pl => nonExist
@@ -27109,8 +27109,8 @@ mkV138 base =
   case base of {
     base_1+"ясти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ясти" ;
                                                 Pl => base_1+"енем"
@@ -27125,8 +27125,8 @@ mkV138 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -27181,8 +27181,8 @@ mkV139 base =
   case base of {
     base_1+"ести"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ести"+base_2 ;
                                                 Pl => nonExist
@@ -27197,8 +27197,8 @@ mkV139 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -27253,8 +27253,8 @@ mkV140 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"им" --guessed
@@ -27269,8 +27269,8 @@ mkV140 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"ілий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"ілий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ; --guessed
                                               Pl => nonExist
@@ -27325,8 +27325,8 @@ mkV141 base =
   case base of {
     base_1+"няти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"няти"+base_2 ;
                                                 Pl => nonExist
@@ -27341,8 +27341,8 @@ mkV141 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"няти"+base_2 ;
                                               Pl => nonExist
@@ -27397,8 +27397,8 @@ mkV142 base =
   case base of {
     base_1+"ювати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ювати" ;
                                                 Pl => "будемо "+base_1+"ювати"
@@ -27413,8 +27413,8 @@ mkV142 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ювати" ; --guessed
                                               Pl => nonExist
@@ -27469,8 +27469,8 @@ mkV143 base =
   case base of {
     base_1+"і"+base_2@?+base_3@?+"ати"+base_4@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"і"+base_2+base_3+"ати"+base_4 ;
                                                 Pl => nonExist
@@ -27485,8 +27485,8 @@ mkV143 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"і"+base_2+base_3+"ати"+base_4 ;
                                               Pl => nonExist
@@ -27541,8 +27541,8 @@ mkV144 base =
   case base of {
     base_1+"ути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ути" ;
                                                 Pl => "будемо "+base_1+"ути"
@@ -27557,8 +27557,8 @@ mkV144 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ути" ;
                                               Pl => nonExist
@@ -27613,8 +27613,8 @@ mkV145 base =
   case base of {
     base_1+base_2@?+"іти"+base_3@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"іти"+base_3 ;
                                                 Pl => nonExist
@@ -27629,8 +27629,8 @@ mkV145 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -27685,8 +27685,8 @@ mkV146 base =
   case base of {
     base_1@?+base_2+"увати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"увати" ;
                                                 Pl => "б"+base_1+"демо в"+base_2+"увати"
@@ -27701,8 +27701,8 @@ mkV146 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -27757,8 +27757,8 @@ mkV147 base =
   case base of {
     base_1+"нути"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути"+base_2 ;
                                                 Pl => nonExist
@@ -27773,8 +27773,8 @@ mkV147 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути"+base_2 ;
                                               Pl => nonExist
@@ -27829,8 +27829,8 @@ mkV148 base =
   case base of {
     base_1+base_2@(?+?+?+?+?)+"увати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"увати" ;
                                                 Pl => base_1+"удемо б"+base_2+"увати"
@@ -27845,8 +27845,8 @@ mkV148 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -27901,8 +27901,8 @@ mkV149 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => nonExist
@@ -27917,8 +27917,8 @@ mkV149 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"блий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"блий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -27973,8 +27973,8 @@ mkV150 base =
   case base of {
     "с"+base_1+"е"+base_2@?+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "с"+base_1+"е"+base_2+"ти" ;
                                                 Pl => nonExist
@@ -27989,8 +27989,8 @@ mkV150 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "с"+base_1+"е"+base_2+"ти" ;
                                               Pl => nonExist
@@ -28045,8 +28045,8 @@ mkV151 base =
   case base of {
     base_1+"з"+base_2@?+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"з"+base_2+"ити" ;
                                                 Pl => nonExist
@@ -28061,8 +28061,8 @@ mkV151 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"з"+base_2+"ити" ;
                                               Pl => nonExist
@@ -28117,8 +28117,8 @@ mkV152 base =
   case base of {
     base_1+"іг"+base_2@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іг"+base_2+"ати" ;
                                                 Pl => nonExist
@@ -28133,8 +28133,8 @@ mkV152 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іг"+base_2+"ати" ;
                                               Pl => nonExist
@@ -28189,8 +28189,8 @@ mkV153 base =
   case base of {
     base_1+base_2@?+"атис"+base_3@? => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"атис"+base_3 ;
                                                 Pl => nonExist
@@ -28205,8 +28205,8 @@ mkV153 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"атис"+base_3 ;
                                               Pl => nonExist
@@ -28261,8 +28261,8 @@ mkV154 base =
   case base of {
     base_1+"у"+base_2@?+"ати"+base_3@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"у"+base_2+"ати"+base_3 ;
                                                 Pl => nonExist
@@ -28277,8 +28277,8 @@ mkV154 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"о"+base_2+"увати"+base_3 ;
                                               Pl => nonExist
@@ -28333,8 +28333,8 @@ mkV155 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => nonExist
@@ -28349,8 +28349,8 @@ mkV155 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -28405,8 +28405,8 @@ mkV156 base =
   case base of {
     base_1+"їти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"їти"+base_2 ;
                                                 Pl => base_1+"їм"+base_2
@@ -28421,8 +28421,8 @@ mkV156 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"їти"+base_2 ;
                                               Pl => nonExist
@@ -28477,8 +28477,8 @@ mkV157 base =
   case base of {
     base_1+"ювати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ювати" ;
                                                 Pl => base_1+"юєм"
@@ -28493,8 +28493,8 @@ mkV157 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -28549,8 +28549,8 @@ mkV158 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -28565,8 +28565,8 @@ mkV158 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ; --guessed
                                               Pl => nonExist
@@ -28621,8 +28621,8 @@ mkV159 base =
   case base of {
     base_1+"вати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати"+base_2 ;
                                                 Pl => "будемо "+base_1+"вати"+base_2
@@ -28637,8 +28637,8 @@ mkV159 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -28693,8 +28693,8 @@ mkV160 base =
   case base of {
     "с"+base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "с"+base_1+"ити"+base_2 ;
                                                 Pl => nonExist
@@ -28709,8 +28709,8 @@ mkV160 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "c"+base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -28765,8 +28765,8 @@ mkV161 base =
   case base of {
     base_1+"ікти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ікти" ;
                                                 Pl => nonExist
@@ -28781,8 +28781,8 @@ mkV161 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ікти" ;
                                               Pl => nonExist
@@ -28837,8 +28837,8 @@ mkV162 base =
   case base of {
     base_1+"огти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"огти"+base_2 ;
                                                 Pl => nonExist
@@ -28853,8 +28853,8 @@ mkV162 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"огти"+base_2 ;
                                               Pl => nonExist
@@ -28909,8 +28909,8 @@ mkV163 base =
   case base of {
     base_1+"о"+base_2@?+"ти"+base_3@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"о"+base_2+"ти"+base_3 ;
                                                 Pl => nonExist
@@ -28925,8 +28925,8 @@ mkV163 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"о"+base_2+"ти"+base_3 ;
                                               Pl => nonExist
@@ -28981,8 +28981,8 @@ mkV164 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"ем"
@@ -28997,8 +28997,8 @@ mkV164 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ; --guessed
                                               Pl => nonExist
@@ -29053,8 +29053,8 @@ mkV165 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -29069,8 +29069,8 @@ mkV165 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ; --guessed
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ; --guessed
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -29125,8 +29125,8 @@ mkV166 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -29141,8 +29141,8 @@ mkV166 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -29197,8 +29197,8 @@ mkV167 base =
   case base of {
     base_1+"огти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"огти" ;
                                                 Pl => nonExist
@@ -29213,8 +29213,8 @@ mkV167 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"огти" ;
                                               Pl => nonExist
@@ -29269,8 +29269,8 @@ mkV168 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => nonExist
@@ -29285,8 +29285,8 @@ mkV168 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -29341,8 +29341,8 @@ mkV169 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => nonExist
@@ -29357,8 +29357,8 @@ mkV169 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -29413,8 +29413,8 @@ mkV170 base =
   case base of {
     base_1+"сти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти"+base_2 ;
                                                 Pl => nonExist
@@ -29429,8 +29429,8 @@ mkV170 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти"+base_2 ;
                                               Pl => nonExist
@@ -29485,8 +29485,8 @@ mkV171 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => nonExist
@@ -29501,8 +29501,8 @@ mkV171 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -29557,8 +29557,8 @@ mkV172 base =
   case base of {
     base_1+"тіти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тіти" ;
                                                 Pl => base_1+"очем"
@@ -29573,8 +29573,8 @@ mkV172 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -29629,8 +29629,8 @@ mkV173 base =
   case base of {
     base_1+"зати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"зати"+base_2 ;
                                                 Pl => nonExist
@@ -29645,8 +29645,8 @@ mkV173 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"зати"+base_2 ;
                                               Pl => nonExist
@@ -29701,8 +29701,8 @@ mkV174 base =
   case base of {
     base_1+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати" ;
                                                 Pl => base_1+"аєм"
@@ -29717,8 +29717,8 @@ mkV174 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -29773,8 +29773,8 @@ mkV175 base =
   case base of {
     base_1+"ягти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ягти" ;
                                                 Pl => base_1+"яжем"
@@ -29789,8 +29789,8 @@ mkV175 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ягти" ;
                                               Pl => nonExist
@@ -29845,8 +29845,8 @@ mkV176 base =
   case base of {
     base_1+"і"+base_2@?+base_3@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"і"+base_2+base_3+"ати" ;
                                                 Pl => nonExist
@@ -29861,8 +29861,8 @@ mkV176 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"і"+base_2+base_3+"ати" ;
                                               Pl => nonExist
@@ -29917,8 +29917,8 @@ mkV177 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => nonExist
@@ -29933,8 +29933,8 @@ mkV177 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти" ; --guessed
                                               Pl => nonExist
@@ -29989,8 +29989,8 @@ mkV178 base =
   case base of {
     base_1+"і"+base_2@?+base_3@?+"ати"+base_4@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"і"+base_2+base_3+"ати"+base_4 ;
                                                 Pl => nonExist
@@ -30005,8 +30005,8 @@ mkV178 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"і"+base_2+base_3+"ати"+base_4 ;
                                               Pl => nonExist
@@ -30061,8 +30061,8 @@ mkV179 base =
   case base of {
     base_1+"яти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти"+base_2 ;
                                                 Pl => nonExist
@@ -30077,8 +30077,8 @@ mkV179 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"яти"+base_2 ;
                                               Pl => nonExist
@@ -30133,8 +30133,8 @@ mkV180 base =
   case base of {
     base_1+"ити"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити"+base_2 ;
                                                 Pl => base_1+"им"+base_2
@@ -30149,8 +30149,8 @@ mkV180 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "зо"+base_1+"ити"+base_2 ;
                                               Pl => nonExist
@@ -30205,8 +30205,8 @@ mkV181 base =
   case base of {
     base_1+"нути" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути" ;
                                                 Pl => base_1+"нем"
@@ -30221,8 +30221,8 @@ mkV181 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"нути" ;
                                               Pl => nonExist
@@ -30277,8 +30277,8 @@ mkV182 base =
   case base of {
     "м"+base_1+"лити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "м"+base_1+"лити" ;
                                                 Pl => "н"+base_1+"жем"
@@ -30293,8 +30293,8 @@ mkV182 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -30349,8 +30349,8 @@ mkV183 base =
   case base of {
     base_1+"е"+base_2@?+"ти"+base_3@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"е"+base_2+"ти"+base_3 ;
                                                 Pl => nonExist
@@ -30365,8 +30365,8 @@ mkV183 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"е"+base_2+"ти"+base_3 ;
                                               Pl => nonExist
@@ -30421,8 +30421,8 @@ mkV184 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => base_1+"нем"+base_2
@@ -30437,8 +30437,8 @@ mkV184 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ; --guessed
                                               Pl => nonExist
@@ -30493,8 +30493,8 @@ mkV185 base =
   case base of {
     base_1+"сти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти" ;
                                                 Pl => base_1+"тем"
@@ -30509,8 +30509,8 @@ mkV185 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти" ;
                                               Pl => nonExist
@@ -30565,8 +30565,8 @@ mkV186 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => base_1+"нем"+base_2 --guessed
@@ -30581,8 +30581,8 @@ mkV186 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти"+base_2 ;
                                               Pl => nonExist
@@ -30637,8 +30637,8 @@ mkV187 base =
   case base of {
     base_1+"ати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ати"+base_2 ;
                                                 Pl => nonExist
@@ -30653,8 +30653,8 @@ mkV187 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ати"+base_2 ;
                                               Pl => nonExist
@@ -30709,8 +30709,8 @@ mkV188 base =
   case base of {
     base_1+"тати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"тати" ;
                                                 Pl => base_1+"чем"
@@ -30725,8 +30725,8 @@ mkV188 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -30781,8 +30781,8 @@ mkV189 base =
   case base of {
     base_1+"кти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"кти" ;
                                                 Pl => base_1+"чем"
@@ -30797,8 +30797,8 @@ mkV189 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"кти" ;
                                               Pl => nonExist
@@ -30853,8 +30853,8 @@ mkV190 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"нем"
@@ -30869,8 +30869,8 @@ mkV190 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -30925,8 +30925,8 @@ mkV191 base =
   case base of {
     base_1+"ести"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ести"+base_2 ;
                                                 Pl => nonExist
@@ -30941,8 +30941,8 @@ mkV191 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ести"+base_2 ;
                                               Pl => nonExist
@@ -30997,8 +30997,8 @@ mkV192 base =
   case base of {
     base_1+"віти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ріти" ;
                                                 Pl => base_1+"рим"
@@ -31013,8 +31013,8 @@ mkV192 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31069,8 +31069,8 @@ mkV193 base =
   case base of {
     base_1+"сти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"сти"+base_2 ;
                                                 Pl => nonExist
@@ -31085,8 +31085,8 @@ mkV193 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"сти"+base_2 ;
                                               Pl => nonExist
@@ -31141,8 +31141,8 @@ mkV194 base =
   case base of {
     base_1+"ити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ити" ;
                                                 Pl => "будемо "+base_1+"ити"
@@ -31157,8 +31157,8 @@ mkV194 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31213,8 +31213,8 @@ mkV195 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => base_1+"ем"
@@ -31229,8 +31229,8 @@ mkV195 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31285,8 +31285,8 @@ mkV196 base =
   case base of {
     base_1+"іти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти" ;
                                                 Pl => base_1+"ем"
@@ -31301,8 +31301,8 @@ mkV196 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31357,8 +31357,8 @@ mkV197 base =
   case base of {
     "повилазити" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "повилазити" ;
                                                 Pl => "or collective subject representing all"
@@ -31373,8 +31373,8 @@ mkV197 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "повилазити" ;
                                               Pl => nonExist
@@ -31429,8 +31429,8 @@ mkV198 base =
   case base of {
     base_1+base_2@?+"йняти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"йняти" ;
                                                 Pl => nonExist
@@ -31445,8 +31445,8 @@ mkV198 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"йняти" ;
                                               Pl => nonExist
@@ -31501,8 +31501,8 @@ mkV199 base =
   case base of {
     base_1+"у"+base_2@(?+?)+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"у"+base_2+"ти" ;
                                                 Pl => nonExist
@@ -31517,8 +31517,8 @@ mkV199 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31573,8 +31573,8 @@ mkV200 base =
   case base of {
     base_1+"ймати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ймати"+base_2 ;
                                                 Pl => base_1+"ймаєм"+base_2
@@ -31589,8 +31589,8 @@ mkV200 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"няти"+base_2 ;
                                               Pl => nonExist
@@ -31645,8 +31645,8 @@ mkV201 base =
   case base of {
     base_1+"стати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"стати" ;
                                                 Pl => base_1+"щем"
@@ -31661,8 +31661,8 @@ mkV201 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31717,8 +31717,8 @@ mkV202 base =
   case base of {
     base_1+"ти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти"+base_2 ;
                                                 Pl => "будемо "+base_1+"ти"+base_2
@@ -31733,8 +31733,8 @@ mkV202 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31789,8 +31789,8 @@ mkV203 base =
   case base of {
     base_1+"їтися" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"їти" ;
                                                 Pl => base_1+"їмся"
@@ -31805,8 +31805,8 @@ mkV203 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -31861,8 +31861,8 @@ mkV204 base =
   case base of {
     base_1+"іти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"іти"+base_2 ;
                                                 Pl => nonExist
@@ -31877,8 +31877,8 @@ mkV204 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"іти"+base_2 ;
                                               Pl => nonExist
@@ -31933,8 +31933,8 @@ mkV205 base =
   case base of {
     "впісят"+base_1+"сь" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "впісят"+base_1+"сь" ;
                                                 Pl => nonExist
@@ -31949,8 +31949,8 @@ mkV205 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "заб"+base_1+"ти" ;
                                               Pl => nonExist
@@ -32005,8 +32005,8 @@ mkV206 base =
   case base of {
     base_1+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"яти" ;
                                                 Pl => base_1+"им"
@@ -32021,8 +32021,8 @@ mkV206 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -32077,8 +32077,8 @@ mkV207 base =
   case base of {
     "в"+base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "в"+base_1+"ти" ;
                                                 Pl => nonExist
@@ -32093,8 +32093,8 @@ mkV207 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = "у"+base_1+"лий" ;
-                             Pres = table {
+                   Perf => { past = "у"+base_1+"лий" ;
+                             pres = table {
                                       P1 => table {
                                               Sg => "в"+base_1+"ти" ;
                                               Pl => nonExist
@@ -32149,8 +32149,8 @@ mkV208 base =
   case base of {
     base_1+"хати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"хати"+base_2 ;
                                                 Pl => nonExist
@@ -32165,8 +32165,8 @@ mkV208 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"хати"+base_2 ;
                                               Pl => nonExist
@@ -32221,8 +32221,8 @@ mkV209 base =
   case base of {
     base_1+base_2@?+"яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"яти" ;
                                                 Pl => nonExist
@@ -32237,8 +32237,8 @@ mkV209 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"яти" ;
                                               Pl => nonExist
@@ -32293,8 +32293,8 @@ mkV210 base =
   case base of {
     base_1+"екти"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"екти"+base_2 ;
                                                 Pl => nonExist
@@ -32309,8 +32309,8 @@ mkV210 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"екти"+base_2 ;
                                               Pl => nonExist
@@ -32365,8 +32365,8 @@ mkV211 base =
   case base of {
     base_1+"ві"+base_2@?+base_3@?+"ати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ві"+base_2+base_3+"ати" ;
                                                 Pl => nonExist
@@ -32381,8 +32381,8 @@ mkV211 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ві"+base_2+base_3+"ати" ;
                                               Pl => nonExist
@@ -32437,8 +32437,8 @@ mkV212 base =
   case base of {
     base_1+"нути"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"нути"+base_2 ;
                                                 Pl => base_1+"нем"+base_2
@@ -32453,8 +32453,8 @@ mkV212 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -32509,8 +32509,8 @@ mkV213 base =
   case base of {
     base_1+"ід"+base_2@(?+?+?+?)+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ід"+base_2+"вати" ;
                                                 Pl => base_1+"ри"+base_2+"єм"
@@ -32525,8 +32525,8 @@ mkV213 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -32581,8 +32581,8 @@ mkV214 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -32597,8 +32597,8 @@ mkV214 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -32653,8 +32653,8 @@ mkV215 base =
   case base of {
     base_1+base_2@?+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+base_2+"ти" ;
                                                 Pl => nonExist
@@ -32669,8 +32669,8 @@ mkV215 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+base_2+"ти" ;
                                               Pl => nonExist
@@ -32725,8 +32725,8 @@ mkV216 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => nonExist
@@ -32741,8 +32741,8 @@ mkV216 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"ти" ;
                                               Pl => nonExist
@@ -32797,8 +32797,8 @@ mkV217 base =
   case base of {
     base_1+"'яти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"'яти" ;
                                                 Pl => nonExist
@@ -32813,8 +32813,8 @@ mkV217 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"'яти" ;
                                               Pl => nonExist
@@ -32869,8 +32869,8 @@ mkV218 base =
   case base of {
     base_1+"вати" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"вати • pf випростувати" ;
                                                 Pl => base_1+"єм"
@@ -32885,8 +32885,8 @@ mkV218 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => base_1+"вати" ;
                                               Pl => nonExist
@@ -32941,8 +32941,8 @@ mkV219 base =
   case base of {
     base_1+"ти" => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => base_1+"ти" ;
                                                 Pl => "будемо "+base_1+"ти"
@@ -32957,8 +32957,8 @@ mkV219 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
@@ -33013,8 +33013,8 @@ mkV220 base =
   case base of {
     "г"+base_1+"ати"+base_2@(?+?) => lin V
       { active = table {
-                   Imperf => { Past = nonExist ;
-                               Pres = table {
+                   Imperf => { past = nonExist ;
+                               pres = table {
                                         P1 => table {
                                                 Sg => "г"+base_1+"ати"+base_2 ;
                                                 Pl => "же"+base_1+"ем"+base_2
@@ -33029,8 +33029,8 @@ mkV220 base =
                                               }
                                       }
                              } ;
-                   Perf => { Past = nonExist ;
-                             Pres = table {
+                   Perf => { past = nonExist ;
+                             pres = table {
                                       P1 => table {
                                               Sg => nonExist ;
                                               Pl => nonExist
