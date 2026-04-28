@@ -1148,6 +1148,19 @@ oper
 		_ => regN form1
   } ;
 
+  compoundN = overload {
+    compoundN : A -> N -> N = \a,n -> {
+      s = \\c,num => a.s ! c ! genNum n.g num ++ n.s ! c ! num ;
+      Voc = \\num => a.s ! Nom ! genNum n.g num ++ n.Voc ! num ;
+      g = n.g
+    } ;
+    compoundN : N -> Str -> N = \n,adv -> {
+      s = \\c,num => n.s ! c ! num ++ adv ;
+      Voc = \\num => n.Voc ! num ++ adv ;
+      g = n.g
+    }
+  } ;
+
   regV : Str -> V   -- Active;Imperf;Pres;P1;Sg
     = \form -> case form of {
 		_ + "вати" => mkV036 form;
@@ -1211,6 +1224,17 @@ oper
 		<_ + "и", _ + "пім"> => mkV100 form1;
 		<_ + "и", _ + "м"> => mkV062 form1;
 		_ => regV form1
+  } ;
+
+  compoundV : V -> Str -> V = \v,adv -> {
+    active = \\a => {Past=(v.active ! a).Past ++ adv ;
+                     Pres=\\p,num=>(v.active ! a).Pres ! p ! num ++ adv
+                    } ;
+    imperative1 = v.imperative1 ++ adv ;
+    imperative2 = \\num => v.imperative2 ! num ++ adv ;
+    infinitive = v.infinitive ++ adv ;
+    participle = \\g,num => v.participle ! g ! num ++ adv ;
+    passive = \\a,t => v.passive ! a ! t ++ adv
   } ;
 
   regA : Str -> A   -- s;Nom;('GSg', Masc)
