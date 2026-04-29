@@ -3,6 +3,7 @@ concrete CatUkr of Cat = CommonX ** open ResUkr in {
 lincat N = N ;
 lincat N2 = N ** {c2 : Compl} ;
 lincat N3 = N ** {c2,c3 : Compl} ;
+lincat Pron = {s: Case => Str; g: Gender; n : Number; p: Person} ;
 lincat V = V ;
 lincat VV,VS,VQ,VA = V ;
 lincat V2 = V ** {c2 : Compl} ;

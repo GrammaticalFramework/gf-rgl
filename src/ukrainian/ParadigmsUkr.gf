@@ -1161,6 +1161,21 @@ oper
     }
   } ;
 
+  mkPron : (_,_,_,_,_,_ : Str) -> Gender -> Number -> Person -> Pron =
+    \nom,acc,dat,gen,loc,instr,g,n,p -> lin Pron {
+      s = table {
+            Nom => nom ;
+            Acc => acc ;
+            Dat => dat ;
+            Gen => gen ;
+            Loc => loc ;
+            Instr => instr
+          } ;
+      g = g ;
+      n = n ;
+      p = p
+    } ;
+
   regV : Str -> V   -- Active;Imperf;Pres;P1;Sg
     = \form -> case form of {
 		_ + "вати" => mkV036 form;
