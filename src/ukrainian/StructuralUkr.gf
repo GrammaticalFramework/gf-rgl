@@ -7,5 +7,6 @@ lin
   it_Pron = mkPron "воно" "його" "йому" "його" "ньому" "ним" Neuter Sg P3 ;  
   we_Pron = mkPron "ми" "нас" "нам" "нас" "наc" "нами" Masc Pl P1 ;
   youPl_Pron = mkPron "ви" "вас" "вам" "вас" "вас" "вами" Masc Pl P2 ;  
+  youPol_Pron = mkPron "ви" "вас" "вам" "вас" "вас" "вами" Masc Pl P2 ;  
   they_Pron = mkPron "вони" "їх" "їм" "їх" "них" "ними" Masc Pl P3 ;  
 }

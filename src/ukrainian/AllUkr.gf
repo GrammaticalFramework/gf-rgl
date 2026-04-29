@@ -1,4 +1,5 @@
 concrete AllUkr of AllUkrAbs =
-  LangUkr
+  LangUkr,
+  ExtendUkr
   **
     {} ;
