@@ -1154,9 +1154,19 @@ oper
       voc = \\num => a.s ! Nom ! genNum n.g num ++ n.voc ! num ;
       g = n.g
     } ;
+    compoundN : N -> A -> N = \n,a -> {
+      s = \\c,num => n.s ! c ! num ++ a.s ! c ! genNum n.g num ;
+      voc = \\num => n.voc ! num ++ a.s ! Nom ! genNum n.g num ;
+      g = n.g
+    } ;
     compoundN : N -> Str -> N = \n,adv -> {
       s = \\c,num => n.s ! c ! num ++ adv ;
       voc = \\num => n.voc ! num ++ adv ;
+      g = n.g
+    } ;
+    compoundN : Str -> N -> N = \adv,n -> {
+      s = \\c,num => adv ++ n.s ! c ! num ;
+      voc = \\num => adv ++ n.voc ! num ;
       g = n.g
     }
   } ;
