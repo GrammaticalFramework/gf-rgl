@@ -40,12 +40,12 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
 param Aspect = Imperf | Perf ;
 param Person = P1 | P2 | P3 ;
 param Tense = Pres | Past ;
-oper V = {active: Aspect => {Past: Str; Pres: Person => Number => Str}; imperative: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 703
-oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
+oper Verb = {active: Aspect => {past: Str; pres: Person => Number => Str}; imperative: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 703
+oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27 ->
           { active = table {
-                       Imperf => { Past = f1 ;
-                                   Pres = table {
+                       Imperf => { past = f1 ;
+                                   pres = table {
                                             P1 => table {
                                                     Sg => f2 ;
                                                     Pl => f3
@@ -60,8 +60,8 @@ oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
                                                   }
                                           }
                                  } ;
-                       Perf => { Past = f8 ;
-                                 Pres = table {
+                       Perf => { past = f8 ;
+                                 pres = table {
                                           P1 => table {
                                                   Sg => f9 ;
                                                   Pl => f10
@@ -110,8 +110,14 @@ oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
 
 
 param GenNum = GSg Gender | GPl ;
-oper A = {s: Case => GenNum => Str} ; -- 704
-oper mkA : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> A =
+oper genNum : Gender -> Number -> GenNum = \g,n ->
+       case n of {
+         Sg => GSg g ;
+         Pl => GPl
+       } ;
+
+oper Adj = {s: Case => GenNum => Str} ; -- 704
+oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24 ->
           { s = table {
                   Nom => table {
@@ -158,6 +164,6 @@ oper Compl = {s : Str; c : Case} ;
 oper noPrep : Compl = {s=""; c=Acc} ;
 
 oper CommonNoun = Noun ;
-oper AdjPhrase = A ;
+oper AdjPhrase = Adj ;
 
 }
