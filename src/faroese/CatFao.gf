@@ -10,6 +10,7 @@ lincat VV,VS,VQ,VA = Verb ;
 lincat V2 = Verb ** {c2 : Compl} ;
 lincat V3,V2A,V2S,V2Q,V2V = Verb ** {c2,c3 : Compl} ;
 lincat Prep = Compl ;
+lincat Pron = {s : Case => Str; g : Gender; n : Number; p : Person} ;
 lincat CN = CommonNoun ;
 lincat AP = AdjPhrase ;
 lincat S = {s : Str} ;

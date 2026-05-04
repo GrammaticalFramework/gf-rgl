@@ -319,6 +319,19 @@ oper
 		_ => regN form1
   } ;
 
+  mkPron : (_,_,_,_ : Str) -> Gender -> Number -> Person -> Pron =
+    \nom,acc,dat,gen,g,n,p -> lin Pron {
+      s = table {
+            Nom => nom ;
+            Acc => acc ;
+            Dat => dat ;
+            Gen => gen
+          } ;
+      g = g ;
+      n = n ;
+      p = p
+    } ;
+
   regA : Str -> A   -- s;Masc;Sg;Nom
     = \form -> case form of {
 		_ + "dur" => mkA001 form;
