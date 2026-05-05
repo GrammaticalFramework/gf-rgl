@@ -515,7 +515,7 @@ oper
   mkV = overload {
     mkV : Str -> V = regV;   -- Nonfinite
     mkV : Str -> Str -> V = reg2V ;  -- Nonfinite  Indicative;Pres;('PSg', P2)
-		mkV : V -> Str -> V -- particle verb
+	mkV : V -> Str -> V -- particle verb
   		= \v,p -> v ** {particle = p}
   } ;
 
@@ -573,6 +573,7 @@ oper
   mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
   mkDet : Str -> Det = \s -> lin Det {s=s} ;
   mkCard : Str -> Card = \s -> lin Card {s=s} ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
   mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
   mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
   mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
