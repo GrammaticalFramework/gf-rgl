@@ -128,4 +128,6 @@ linref
    V2,V3,V2S,V2Q,V2A = \v -> v.s ! Indef ! VPres P3 Sg ;
    VP = \vp -> vp.obj ++ vp.adv ++ vp.s ! VInf ;
 
+lindef
+   VP = \s -> {s = \\_=>s; obj,adv=[]; sc=SCNom; c2=Acc} ;
 }
