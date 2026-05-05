@@ -1,7 +1,6 @@
-resource ResFao = {
+resource ResFao = ParamX - [Tense,Pres,Past] ** {
 
 param Species = Indef | Def ;
-param Number = Sg | Pl ;
 param Case = Nom | Acc | Dat | Gen ;
 param Gender = Masc | Fem | Neuter ;
 oper Noun = {s: Species => Number => Case => Str; g : Gender} ; -- 2135
@@ -90,9 +89,20 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                 }
           } ;
 
-param Tense = Past | Pres ;
+param Tense = Pres | Past ;
+
 param PersNum = PSg Person | PPl ;
-param Person = P1 | P3 | P2 ;
+oper persNum : Number -> Person -> PersNum =
+       \n,p -> case n of {
+                 Sg => PSg p ;
+                 Pl => PPl
+               } ;
+oper persNumNumber : PersNum -> Number =
+       \pn -> case pn of {
+                PSg _ => Sg ;
+                PPl   => Pl
+              } ;
+
 oper Verb = {Converb: Str; imperative: Number => Str; Indicative: Tense => PersNum => Str; Nonfinite: Str; Participle: Tense => Str ; particle : Str} ; -- 596
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14 ->
@@ -129,5 +139,34 @@ oper noPrep : Compl = {s=""; c=Acc} ;
 
 oper CommonNoun = Noun ;
 oper AdjPhrase = Adj ;
+oper VerbPhrase = {
+  Converb : Str ;
+  Indicative : Tense => Polarity => Gender => PersNum => Str ;
+  Nonfinite : Str ;
+  Participle : Tense => Str ;
+} ;
+oper Clause = {
+  Converb : Str ;
+  Indicative : Tense => Polarity => Str ;
+  Nonfinite : Str ;
+  Participle : Tense => Str
+} ;
+
+oper
+  copula : Tense => PersNum => Str =
+    table {
+      Pres => table {
+                PSg P1 => "eri" ;
+                PSg P2 => "ert" ;
+                PSg P3 => "er" ;
+                PPl => "eru"
+              } ;
+      Past => table {
+                PSg P1 => "var" ;
+                PSg P2 => "vart" ;
+                PSg P3 => "var" ;
+                PPl => "vóru"
+              }
+    } ;
 
 }

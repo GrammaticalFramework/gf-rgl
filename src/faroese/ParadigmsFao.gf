@@ -569,9 +569,9 @@ oper
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
   mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=s} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_ => s; sp=Indef} ;
   mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
-  mkDet : Str -> Det = \s -> lin Det {s=s} ;
+  mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg; sp=Indef} ;
   mkCard : Str -> Card = \s -> lin Card {s=s} ;
   mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
   mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
