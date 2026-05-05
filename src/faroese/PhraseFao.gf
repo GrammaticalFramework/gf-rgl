@@ -5,6 +5,9 @@ lin
   UttS s = s ;
   UttNP np = {s = np.s ! Nom} ;
   UttVP vp = {s = vp.Nonfinite} ;
+  UttCN cn = {s = cn.s ! Indef ! Sg ! Nom} ;
+  UttAP ap = {s = ap.s ! Masc ! Sg ! Nom} ;
+  UttAdv adv = adv ;
   UttInterj i = i ;
 
   NoPConj = {s = []} ;
