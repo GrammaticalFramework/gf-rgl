@@ -428,7 +428,8 @@ oper
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Dat} ;
 
   mkVerb : (sg3 : Str) -> Verb = \sg3 ->
-    let inf = case sg3 of {
+    let inf : Str
+            = case sg3 of {
                 _ + ("ít" | (#c + #c)) => sg3 + harm3 "ani" "eni" "eni" ! getHarm sg3 ;
                 _                      => sg3 + "ni"
               }
