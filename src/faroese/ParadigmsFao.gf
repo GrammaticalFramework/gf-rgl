@@ -507,6 +507,10 @@ oper
     mkA : Str -> Str -> A = reg2A   -- s;Masc;Sg;Nom  s;Masc;Sg;Dat
   } ;
 
+  invarA : Str -> A = \s -> lin A {
+    s = \\_,_,_ => s
+  } ;
+
   mkA2 = overload {
      mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = noPrep}) ;
      mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {c2 = p}) ;
