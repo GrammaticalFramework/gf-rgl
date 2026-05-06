@@ -164,9 +164,13 @@ insertObj : ResHun.VPSlash -> NounPhrase -> VerbPhrase = \vps,np -> vps ** {
         <SCDat,Nom> =>
           let agr : Person*Number = case vf of {
                 VPres p n => <p,n> ;
+                VPast p n => <p,n> ;
                 _         => <P3,Sg> } ;
+              objvf : VForm = case vf of {
+                VPast _ _ => VPast np.agr.p1 np.agr.p2 ;
+                _         => VPres np.agr.p1 np.agr.p2 } ;
            in np.s ! Poss agr.p1 agr.p2 ! vps.c2
-           ++ vps.s ! np.objdef ! agr2vf np.agr ;
+           ++ vps.s ! np.objdef ! objvf ;
 
         -- Default case: Verb agrees in person and number with subject
         _ => vps.s ! np.objdef ! vf } ;

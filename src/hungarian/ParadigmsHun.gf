@@ -58,6 +58,7 @@ oper
   -- Verbs
   mkV : overload {
     mkV : (sg3 : Str) -> V ;    -- Predictable verb. Takes singular P3 form in present tense.
+    mkV : (x1,_,_,_,_,_,_,_,_,_,_,_,x13 : Str) -> V ; -- Full present, past, and infinitive forms.
     -- mkV : (nore : Str) -> (hada : V) -> V ; -- Add a prefix to an existing verb, e.g. 노래+하다
   } ;
 
@@ -228,6 +229,11 @@ oper
     --   s = \\vf => nore + hada.s ! vf} ;
     mkV : (x1,_,_,_,_,_,x7 : Str) -> V = \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
       lin V (mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf) ;
+    mkV : (x1,_,_,_,_,_,_,_,_,_,_,_,x13 : Str) -> V =
+      \sg1,sg2,sg3,pl1,pl2,pl3,pastSg1,pastSg2,pastSg3,pastPl1,pastPl2,pastPl3,inf ->
+        lin V (mkVerbFullPast sg1 sg2 sg3 pl1 pl2 pl3
+                              pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                              inf) ;
   } ;
 
   copula = lin V ResHun.copula ;

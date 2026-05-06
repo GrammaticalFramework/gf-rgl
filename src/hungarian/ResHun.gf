@@ -395,6 +395,24 @@ oper
     <P3,Pl> => harm "nak" "nek"  -- TODO allomorphs -anak, -enek
     } ;
 
+  endingsPastIndef : VerbEndings = table {
+    <P1,Sg> => harm3 "tam" "tem" "tem" ;
+    <P2,Sg> => harm "tál" "tél" ;
+    <P3,Sg> => harm1 "t" ;
+    <P1,Pl> => harm "tunk" "tünk" ;
+    <P2,Pl> => harm3 "tatok" "tetek" "tötök" ;
+    <P3,Pl> => harm "tak" "tek"
+    } ;
+
+  endingsPastDef : VerbEndings = table {
+    <P1,Sg> => harm3 "tam" "tem" "tem" ;
+    <P2,Sg> => harm "tad" "ted" ;
+    <P3,Sg> => harm "ta" "te" ;
+    <P1,Pl> => harm "tuk" "tük" ;
+    <P2,Pl> => harm "tátok" "tétek" ;
+    <P3,Pl> => harm "ták" "ték"
+    } ;
+
   BaseVerb : Type = {
     sc : SubjCase ; -- subject case
   } ;
@@ -420,7 +438,8 @@ oper
 
   vtov2 : Verb -> Verb2 = \v -> v ** {
     s = table {
-          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VPres P3 Sg)
+          Def => let vDef : Verb = mkVerbRegPast endingsDef endingsPastDef
+                                   (v.s ! VInf) (v.s ! VPres P3 Sg)
                   in vDef.s ;
           Indef => v.s } ;
     c2 = Acc
@@ -435,7 +454,10 @@ oper
               }
     in mkVerbReg endingsIndef inf sg3 ;
 
-  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb = \hf,inf,stem ->
+  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb =
+    \hf,inf,stem -> mkVerbRegPast hf endingsPastIndef inf stem ;
+
+  mkVerbRegPast : VerbEndings -> VerbEndings -> (inf, stem : Str) -> Verb = \hf,pastHf,inf,stem ->
     let h : Harm = getHarm stem ;
         sg1 : Str = stem + hf ! <P1,Sg> ! h ;
         sg2 : Str = stem + hf ! <P2,Sg> ! h ;
@@ -443,10 +465,31 @@ oper
         pl1 : Str = stem + hf ! <P1,Pl> ! h ;
         pl2 : Str = stem + hf ! <P2,Pl> ! h ;
         pl3 : Str = stem + hf ! <P3,Pl> ! h ;
-     in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf ;
+        pastSg1 : Str = stem + pastHf ! <P1,Sg> ! h ;
+        pastSg2 : Str = stem + pastHf ! <P2,Sg> ! h ;
+        pastSg3 : Str = stem + pastHf ! <P3,Sg> ! h ;
+        pastPl1 : Str = stem + pastHf ! <P1,Pl> ! h ;
+        pastPl2 : Str = stem + pastHf ! <P2,Pl> ! h ;
+        pastPl3 : Str = stem + pastHf ! <P3,Pl> ! h ;
+     in mkVerbFullPast sg1 sg2 sg3 pl1 pl2 pl3
+                        pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                        inf ;
 
   mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
-    \sg1,sg2,sg3,pl1,pl2,pl3,inf -> {
+    \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
+      let h : Harm = getHarm sg3 ;
+          pastSg1 : Str = sg3 + endingsPastIndef ! <P1,Sg> ! h ;
+          pastSg2 : Str = sg3 + endingsPastIndef ! <P2,Sg> ! h ;
+          pastSg3 : Str = sg3 + endingsPastIndef ! <P3,Sg> ! h ;
+          pastPl1 : Str = sg3 + endingsPastIndef ! <P1,Pl> ! h ;
+          pastPl2 : Str = sg3 + endingsPastIndef ! <P2,Pl> ! h ;
+          pastPl3 : Str = sg3 + endingsPastIndef ! <P3,Pl> ! h ;
+       in mkVerbFullPast sg1 sg2 sg3 pl1 pl2 pl3
+                          pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                          inf ;
+
+  mkVerbFullPast : (x1,_,_,_,_,_,_,_,_,_,_,_,x13 : Str) -> Verb =
+    \sg1,sg2,sg3,pl1,pl2,pl3,pastSg1,pastSg2,pastSg3,pastPl1,pastPl2,pastPl3,inf -> {
       s = table {
         VInf => inf ;
         VPres P1 Sg => sg1 ;
@@ -454,18 +497,30 @@ oper
         VPres P3 Sg => sg3 ;
         VPres P1 Pl => pl1 ;
         VPres P2 Pl => pl2 ;
-        VPres P3 Pl => pl3
+        VPres P3 Pl => pl3 ;
+        VPast P1 Sg => pastSg1 ;
+        VPast P2 Sg => pastSg2 ;
+        VPast P3 Sg => pastSg3 ;
+        VPast P1 Pl => pastPl1 ;
+        VPast P2 Pl => pastPl2 ;
+        VPast P3 Pl => pastPl3
       } ;
       sc = SCNom
     } ;
 
-  copula : Verb = mkVerbFull
+  copula : Verb = mkVerbFullPast
     "vagyok"
     "vagy"
     "van"
     "vagyunk"
     "vagytok"
     "vannak"
+    "voltam"
+    "voltál"
+    "volt"
+    "voltunk"
+    "voltatok"
+    "voltak"
     "lenni" ;
 
   megvan : Verb = copula ** {
@@ -521,7 +576,7 @@ oper
                                                SCDat => Dat }
                         in linNP' NoPoss subjcase np
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.s ! agr2vf np.agr
+                        ++ vp.s ! agr2vf t np.agr
                         ++ vp.obj -- ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
@@ -542,7 +597,7 @@ oper
                         ++ if_then_Pol p [] "nem"
                         ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
-                        ++ vp.s ! VPres rp.agr.p1 n -- variable by number
+                        ++ vp.s ! agr2vf t <rp.agr.p1,n> -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {

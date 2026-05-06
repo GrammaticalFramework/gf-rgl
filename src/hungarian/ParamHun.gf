@@ -198,13 +198,14 @@ param
 
   VForm =
       VInf
-    | VPres Person Number ;
+    | VPres Person Number
+    | VPast Person Number ;
 
 oper
-
-  agr2vf : Person*Number -> VForm = \pn ->
-    case <pn.p1,pn.p2> of {
-      <p,n> => VPres p n
+  agr2vf : Tense -> Person*Number -> VForm = \t,pn ->
+    case <t,pn.p1,pn.p2> of {
+      <Past,p,n> => VPast p n ;
+      <_,p,n>    => VPres p n
     } ;
 
 --------------------------------------------------------------------------------
