@@ -436,6 +436,22 @@ oper
   mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;
   mkVerb3 : Str -> Verb3 = \sg3 -> v2tov3 (mkVerb2 sg3) ;
 
+  futureAux : ObjDef -> Person -> Number -> Str = \od,p,n ->
+    case <od,p,n> of {
+      <Indef,P1,Sg> => "fogok" ;
+      <Indef,P2,Sg> => "fogsz" ;
+      <Indef,P3,Sg> => "fog" ;
+      <Indef,P1,Pl> => "fogunk" ;
+      <Indef,P2,Pl> => "fogtok" ;
+      <Indef,P3,Pl> => "fognak" ;
+      <Def,P1,Sg> => "fogom" ;
+      <Def,P2,Sg> => "fogod" ;
+      <Def,P3,Sg> => "fogja" ;
+      <Def,P1,Pl> => "fogjuk" ;
+      <Def,P2,Pl> => "fogjátok" ;
+      <Def,P3,Pl> => "fogják"
+    } ;
+
   vtov2 : Verb -> Verb2 = \v -> v ** {
     s = table {
           Def => let vDef : Verb = mkVerbRegPast endingsDef endingsPastDef
@@ -576,7 +592,11 @@ oper
                                                SCDat => Dat }
                         in linNP' NoPoss subjcase np
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.s ! agr2vf t np.agr
+                        ++ case <t,np.agr.p1,np.agr.p2> of {
+                             <Past,p,n> => vp.s ! VPast p n ;
+                             <Fut,p,n>  => futureAux Indef p n ++ vp.s ! VInf ;
+                             <_,p,n>    => vp.s ! VPres p n
+                           }
                         ++ vp.obj -- ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
@@ -597,7 +617,11 @@ oper
                         ++ if_then_Pol p [] "nem"
                         ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
-                        ++ vp.s ! agr2vf t <rp.agr.p1,n> -- variable by number
+                        ++ case <t,rp.agr.p1,n> of {
+                             <Past,p,n> => vp.s ! VPast p n ;
+                             <Fut,p,n>  => futureAux Indef p n ++ vp.s ! VInf ;
+                             <_,p,n>    => vp.s ! VPres p n
+                           }  -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {

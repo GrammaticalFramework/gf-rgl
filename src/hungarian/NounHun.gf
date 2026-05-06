@@ -185,7 +185,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : Pron -> Quant
   PossPron pron = pron ** {
-    s,sp = \\_ => pron.s ;
+    s,sp = \\_,_ => pre {"a" ; "az" / v} ++ pron.s ! Nom ;
     dt = DetPoss (agr2pstem pron.agr) ;
     caseagr = False ;
     } ;

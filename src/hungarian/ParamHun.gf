@@ -201,13 +201,6 @@ param
     | VPres Person Number
     | VPast Person Number ;
 
-oper
-  agr2vf : Tense -> Person*Number -> VForm = \t,pn ->
-    case <t,pn.p1,pn.p2> of {
-      <Past,p,n> => VPast p n ;
-      <_,p,n>    => VPres p n
-    } ;
-
 --------------------------------------------------------------------------------
 -- Clauses
 
