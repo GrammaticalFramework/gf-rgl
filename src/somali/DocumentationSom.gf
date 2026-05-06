@@ -29,8 +29,8 @@ concrete DocumentationSom of Documentation = CatSom ** open ResSom,Prelude,HTML 
         t = "n";
         s1 = heading1 "Noun";
         s2 = frameTable (tr (td "" ++ th "Sg" ++ th "Pl") ++
-                         tr (th "Def"   ++ td (noun.s ! Def Sg)   ++ td (noun.s ! Def Pl)) ++
                          tr (th "Indef" ++ td (noun.s ! Indef Sg) ++ td (noun.s ! Indef Pl)) ++
+                         tr (th "Def"   ++ td (noun.s ! Def Sg)   ++ td (noun.s ! Def Pl)) ++
                          tr (th "Nom"   ++ td (noun.s ! NomSg)    ++ td []) ++
                          tr (th "Numerative" ++ intagAttr "td" "colspan=2" (noun.s ! Numerative)))
        } ;
