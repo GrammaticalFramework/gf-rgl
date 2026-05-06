@@ -550,8 +550,8 @@ oper
     adv = [] ;
     } ;
 
-  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
-  insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = adv.s} ;
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = vp.adv ++ adv.s} ;
+  insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = vps.adv ++ adv.s} ;
 
 --------------------------------------------------------------------------------
 -- Cl, S
