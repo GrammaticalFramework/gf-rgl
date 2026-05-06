@@ -1,4 +1,6 @@
 concrete LangHun of Lang =
   GrammarHun,
   LexiconHun,
-  ConstructionHun ;
+  ConstructionHun,
+  DocumentationHun --# notpresent
+  ;
