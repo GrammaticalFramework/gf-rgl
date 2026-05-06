@@ -1,5 +1,5 @@
 concrete LexiconHun of Lexicon = CatHun **
-  open ParadigmsHun, ParamHun, Prelude in {
+  open ParadigmsHun, ParamHun, IrregHun, Prelude in {
 
 ----
 -- A
@@ -105,7 +105,7 @@ lin door_N = mkN "ajtó" "ajtót" ;
 
 lin ear_N = mkN "fül" "fület";
 lin earth_N = mkN "föld" "földet";
--- lin eat_V2 = mkV2 "" ;
+lin eat_V2 = mkV2 eszem_V ;
 lin egg_N = mkN "tojás" "tojást" ;
 lin empty_A = mkA "üres" ;
 lin enemy_N = mkN "ellenség" "ellenséget" ;
