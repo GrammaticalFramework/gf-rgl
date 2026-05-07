@@ -121,14 +121,14 @@ lin under_Prep = nomAdp "alatt" ;
 -- Pron
 
 -- Pronouns are closed class, no constructor in ParadigmsHun.
-  i_Pron = pronTable ! <P1,Sg> ;
+  i_Pron = pronTable ! <P1,Sg> ** {g = Human} ;
   youPol_Pron,
-  youSg_Pron = pronTable ! <P2,Sg> ;
+  youSg_Pron = pronTable ! <P2,Sg> ** {g = Human} ;
   he_Pron,
-  she_Pron,
+  she_Pron = pronTable ! <P3,Sg> ** {g = Human} ;
   it_Pron = pronTable ! <P3,Sg> ;
-  we_Pron = pronTable ! <P1,Pl> ;
-  youPl_Pron = pronTable ! <P2,Pl> ;
+  we_Pron = pronTable ! <P1,Pl> ** {g = Human} ;
+  youPl_Pron = pronTable ! <P2,Pl> ** {g = Human} ;
   they_Pron = pronTable ! <P3,Pl> ;
 
 --lin whatPl_IP = ;

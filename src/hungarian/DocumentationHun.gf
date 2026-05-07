@@ -173,7 +173,7 @@ oper
     \noun,n,c -> caseFromStem glue noun c n ;
 
   adjCase : Adjective -> Degree -> Number -> Case -> Str =
-    \adj,d,n,c -> caseFromStem glue {s = adj.s ! d ; h = adj.h} c n ;
+    \adj,d,n,c -> caseFromStem glue {s = adj.s ! d ; h = adj.h ; g = NonHuman} c n ;
 
   possForm : Noun -> Number -> Person -> Number -> Str =
     \noun,possd,person,possr ->

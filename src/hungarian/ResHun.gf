@@ -16,6 +16,7 @@ oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
     postmod : Str ;
+    g : Gender
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
@@ -75,6 +76,7 @@ oper
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
+    g : Gender ;
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -86,6 +88,7 @@ oper
     s = \\_,_ => [] ;
     agr = <P3,Sg> ;
     objdef = Indef ;
+    g = NonHuman ;
     postmod, empty = [] ;
     } ;
 
@@ -604,16 +607,16 @@ oper
 
   -- Relative
 
-  RP : Type = {s : Number => Case => Str} ;
-  RClause : Type = {s : Tense => Anteriority => Polarity => Number => Case => Str} ;
+  RP : Type = {s : Gender => Number => Case => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Gender => Number => Case => Str} ;
 
   relVP : RP -> VerbPhrase -> RClause = \rp -> relVP' (rp ** {agr=<P3,Sg>}) ;
 
   relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
-    s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
+    s = \\t,a,p,g,n,c => let subjcase : Case = case vp.sc of {
                                                SCNom => Nom ;
                                                SCDat => Dat }
-                        in rp.s ! n ! subjcase
+                        in rp.s ! g ! n ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
@@ -625,10 +628,11 @@ oper
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
-    s = \\t,a,p,n,c => let objcase : Case = case cls.c2 of {
-                                              Acc => c ;
-                                              _ => cls.c2 }
-                    in rp.s ! n ! objcase
+    s = \\t,a,p,g,n,c => let objcase : Case = case cls.c2 of {
+                                                Acc => c ;
+                                                _ => cls.c2
+                                              }
+                    in rp.s ! g ! n ! objcase
                     ++ cls.s ! t ! a ! p
    } ;
 --------------------------------------------------------------------------------

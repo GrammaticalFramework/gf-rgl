@@ -56,6 +56,7 @@ oper
 -- Nouns
 
 param
+  Gender = Human | NonHuman ;
 
   NumCaseStem =
     SgNom | SgAccStem | SgSup -- These may use 2-3 different stems

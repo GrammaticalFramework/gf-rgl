@@ -11,4 +11,8 @@ lin
     CompoundN n1 n2 =
       n2 ** {s = \\nc => n1.s ! SgNom ++ BIND ++ n2.s ! nc} ;
 
+    UseDAP = DetNP ;
+    UseDAPMasc,
+    UseDAPFem = \dap -> DetNP dap ** {g = Human} ;
+
 } ;

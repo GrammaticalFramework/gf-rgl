@@ -25,6 +25,8 @@ oper
     mkN : (unoka : Str) -> (testvér : N) -> N ; -- Compound noun. Use: `mkN "unoka" (mkN "testvér")` (would give wrong harmony with `mkN "unokatestvér"`)
   } ;
 
+  humanN : N -> N = \n -> n ** {g = Human} ;
+
   mkPN : overload {
     mkPN : Str -> PN ; -- Singular PN out of a string
     mkPN : Str -> Number -> PN -- PN with a given number

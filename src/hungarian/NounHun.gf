@@ -65,7 +65,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\p,c => np.s ! p ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
+    s = \\p,c => np.s ! p ! c ++ bindComma ++ rs.s ! np.g ! np.agr.p2 ! c ;
     } ;
 
 -- Determiners can form noun phrases directly.
@@ -159,7 +159,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : A       -> Ord ;
   OrdSuperl a = {
     s = \\n,c =>
-      let adj : Noun = (a ** {s = a.s ! Superl}) in
+      let adj : Noun = (a ** {s = a.s ! Superl; g=NonHuman}) in
       caseFromStem glue adj c n ;
     n = Sg -- ?? is this meaningful?
     } ;
@@ -220,7 +220,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    compl = \\n,c => cn.compl ! n ! c ++ rs.s ! n ! c
+    compl = \\n,c => cn.compl ! n ! c ++ rs.s ! cn.g ! n ! c
     } ;
 
   -- : CN -> Adv -> CN ;
@@ -248,29 +248,20 @@ concrete NounHun of Noun = CatHun ** open
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  -- PossNP cn np = cn ** {
-  --  compl = \\n,c => cn.compl ! n ! c ++ np.s ! Poss P3 n ! c -- TODO check
-  --  } ;
+  PossNP cn np = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Dat ++ np.postmod
+    } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   -- PartNP cn np = cn ** {
   --   } ;
 
-{-
-
--- This is different from the partitive, as shown by many languages.
-
-  -- : Det -> NP -> NP ;
-  CountNP det np = np **
-    { } ; -- Nonsense for DefArt or IndefArt
-
 --3 Conjoinable determiners and ones with adjectives
 
   -- : DAP -> AP -> DAP ;    -- the large (one)
-  AdjDAP dap ap = dap ** { } ;
+  AdjDAP dap ap = dap ;
 
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
--}
 
 }

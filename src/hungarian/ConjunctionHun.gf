@@ -52,12 +52,12 @@ lin
       in np ** {s = linTable} ;
 -- Relative sentences
 lincat
-  [RS] = {s1,s2 : Number => Case => Str} ;
+  [RS] = {s1,s2 : Gender => Number => Case => Str} ;
 
 lin
-  BaseRS = twoTable2 Number Case ;
-  ConsRS = consrTable2 Number Case comma ;
-  ConjRS = conjunctDistrTable2 Number Case ;
+  BaseRS = twoTable3 Gender Number Case ;
+  ConsRS = consrTable3 Gender Number Case comma ;
+  ConjRS = conjunctDistrTable3 Gender Number Case ;
 
 {-
 lincat

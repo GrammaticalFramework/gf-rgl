@@ -1,7 +1,7 @@
 resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
 
 oper
-  Noun = {s : NumCaseStem => Str ; h : Harm} ;
+  Noun = {s : NumCaseStem => Str ; h : Harm ; g : Gender} ;
 
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
@@ -275,6 +275,7 @@ oper
           PossdSg_PossrSg1P2 => init possdSg_PossrSg1P2 ;
           PossdPl => possdPl } ;
         h = h ;
+        g = NonHuman
       } ;
 
 
@@ -593,7 +594,7 @@ oper
 
                -- All other singular forms and stems
                c         => w + endCaseSg c ! h } ;
-
+         g = NonHuman
         } ;
 
 

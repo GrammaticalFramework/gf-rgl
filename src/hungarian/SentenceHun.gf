@@ -56,7 +56,7 @@ lin
   UseQCl t p cl = {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
   -- : Temp -> Pol -> RCl -> RS ;
-  UseRCl t p cl = {s = \\n,c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! n ! c} ;
+  UseRCl t p cl = {s = \\g,n,c => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! g ! n ! c} ;
 
   -- AdvS : Adv -> S  -> S ;            -- then I will go home
   AdvS = advS "" ;

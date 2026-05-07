@@ -19,7 +19,7 @@ lin art_N = mkN "művészet" "művészetet" ;
 ----
 -- B
 
-lin baby_N = mkN "bébi" "bébit" ;
+lin baby_N = humanN (mkN "bébi" "bébit") ;
 -- lin back_N = mkN "" ;
 lin bad_A = mkA "rossz" ;
 lin bank_N = mkN "bank" "bankot" ;
@@ -65,7 +65,7 @@ lin cat_N = mkN "macska" "macskát";
 lin ceiling_N = roof_N ;
 lin chair_N = mkN "szék" "széket";
 lin cheese_N = mkN "sajt" "sajtot" ;
-lin child_N = mkN "gyerek" "gyereket" ;
+lin child_N = humanN (mkN "gyerek" "gyereket") ;
 lin church_N = mkN "templom" "templomot" ;
 lin city_N = mkN "város" "várost" ;
 lin clean_A = mkA "tiszta" ;
@@ -92,7 +92,7 @@ lin day_N = mkN "nap" "napot" ;
 -- lin dirty_A = mkA "" ;
 -- lin distance_N3 = mkN "" ;
 -- lin do_V2 = mkV2 do_V ;
-lin doctor_N = mkN "orvos" "orvost";
+lin doctor_N = humanN (mkN "orvos" "orvost");
 lin dog_N = mkN "kutya" "kutyát";
 lin door_N = mkN "ajtó" "ajtót" ;
 -- lin drink_V2 = mkV2 "" ;
@@ -139,7 +139,7 @@ lin forest_N = mkN "erdő" "erdőt" ;
 -- lin forget_V2 = mkV2 "" ;
 -- lin freeze_V = mkV "" ;
 lin fridge_N = mkN "hűtő" "hűtőt" ;
-lin friend_N = mkN "barát" "barátot" ;
+lin friend_N = humanN (mkN "barát" "barátot") ;
 lin fruit_N = mkN "gyümölcs" "gyümölcsöt" "gyümölcsök" "gyümölcse" ; --TODO: plural PossPl2 fails "gyümölcseitek" instead of "gyümölcseitök", wovel harmony changing?
 lin full_A = mkA "tele" ;
 -- --lin fun_AV
@@ -148,7 +148,7 @@ lin full_A = mkA "tele" ;
 -- G
 
 lin garden_N = mkN "kert" "kertet" ;
-lin girl_N = mkN "lány" "lányt";
+lin girl_N = humanN (mkN "lány" "lányt");
 -- lin give_V3 = mkV3 "" ;
 lin glove_N = mkN "kesztyű" "kesztyűt" ;
 -- lin go_V = mkV "" ;
@@ -179,7 +179,7 @@ lin horse_N = mkN "ló" "lovat";
 lin hot_A = mkA "forró" ;
 lin house_N = mkN "ház" "házat" ;
 -- lin hunt_V2 = mkV2 "" ;
-lin husband_N = mkN "férj" "férjet";
+lin husband_N = humanN (mkN "férj" "férjet");
 
 --------
 -- I - K
@@ -190,7 +190,7 @@ lin iron_N = mkN "vas" "vasat" ;
 -- lin john_PN = mkPN "" ;
 -- lin jump_V = mkV "" ;
 -- lin kill_V2 = mkV2 "" ;
-lin king_N = mkN "király" "királyt" ;
+lin king_N = humanN (mkN "király" "királyt") ;
 lin knee_N = mkN "térd" "térdet";
 -- lin know_V2 = mkV2 "" ;
 -- lin know_VQ = mkVQ "" ;
@@ -223,12 +223,12 @@ lin love_N = mkN "szerelem" "szerelmet";
 ----
 -- M
 
-lin man_N = mkN "férfi" "ak" harmA ; -- force plural allomorph and a-harmony
+lin man_N = humanN (mkN "férfi" "ak" harmA) ; -- force plural allomorph and a-harmony
 lin married_A2 = mkA2 "házas" Ins ;
 lin meat_N = mkN "hús" "húst";
 lin milk_N = mkN "tej" "tejet" ;
 lin moon_N = mkN "hold" "holdat" ;
-lin mother_N2 = mkN2 (mkN "anya" "anyát") ;
+lin mother_N2 = mkN2 (humanN (mkN "anya" "anyát")) ;
 lin mountain_N = mkN "hegy" "hegyet";
 lin mouth_N = mkN "száj" "szájat" ;
 lin music_N = mkN "zene" "zenét";
@@ -259,12 +259,12 @@ lin paper_N = mkN "papír" "papírt" "papírok" "papírja" ;
 -- lin paris_PN = mkPN "Paris" ;
 lin peace_N = mkN "béke" "békét";
 lin pen_N = mkN "toll" "tollat" ;
-lin person_N = mkN "ember" "embert";
+lin person_N = humanN (mkN "ember" "embert");
 lin planet_N = mkN "bolygó" "bolygót" ;
 lin plastic_N = mkN "műanyag" "műanyagot" "műanyagok" "műanyaga" ;
 -- lin play_V = mkV "" ;
-lin policeman_N = mkN "rendőr" "rendőrt"; --the police "rendőrség"
-lin priest_N = mkN "pap" "papot" "papok" "papja" ;
+lin policeman_N = humanN (mkN "rendőr" "rendőrt"); --the police "rendőrség"
+lin priest_N = humanN (mkN "pap" "papot" "papok" "papja") ;
 -- lin pull_V2 = mkV2 "" ;
 -- lin push_V2 = mkV2 "" ;
 -- lin put_V2 = mkV2 "" ;
@@ -272,7 +272,7 @@ lin priest_N = mkN "pap" "papot" "papok" "papja" ;
 -- --------
 -- -- Q - R
 --
-lin queen_N = mkN "kírálynő" "kírálynőt" ;
+lin queen_N = humanN (mkN "kírálynő" "kírálynőt") ;
 lin question_N = mkN "kérdés" "kérdést" ;
 lin radio_N = mkN "rádió" "rádiót" ;
 lin rain_N = mkN "eső" "esőt" ;
@@ -363,7 +363,7 @@ lin table_N = mkN "asztal" "asztalt";
 lin tail_N = mkN "farok" "farkot";
 lin talk_V3 = mkV3 "beszél" ;
 -- lin teach_V2 = mkV2 "" ;
-lin teacher_N = mkN "tanár" "tanárt" ;
+lin teacher_N = humanN (mkN "tanár" "tanárt") ;
 lin television_N = mkN "tévé" "tévét" ; --also "televízió" but not used
 lin thick_A = mkA "vastag" ;
 lin thin_A = mkA "vekony" ;
@@ -401,14 +401,14 @@ lin water_N = mkN "víz" "vizet" ;
 lin wet_A = mkA "nedves" ;
 lin white_A = mkA "fehér" ;
 lin wide_A = mkA "széles" ;
-lin wife_N = mkN "feleség" "feleséget" ;
+lin wife_N = humanN (mkN "feleség" "feleséget") ;
 -- lin win_V2 = mkV2 "" ;
 lin wind_N = mkN "szél" "szelet" ;
 lin window_N = mkN "ablak" "ablakot" "ablakok" "ablaka" ;
 lin wine_N = mkN "bor" "bort";
 lin wing_N = mkN "szárny" "szárnyat";
 -- lin wipe_V2 = mkV2 "" ;
-lin woman_N = mkN "nő" "nőt" ;
+lin woman_N = humanN (mkN "nő" "nőt") ;
 -- lin wonder_VQ = mkVQ "" ;
 lin wood_N = mkN "fa" "fát"; --same as tree
 lin worm_N = mkN "féreg" "férget"; --also "kukac"

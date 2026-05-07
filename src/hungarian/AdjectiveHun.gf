@@ -7,7 +7,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> AP ;
   PositA a = emptyAP ** {
     s = \\n,c =>
-      let adj : Noun = (a ** {s = a.s ! Posit}) in
+      let adj : Noun = (a ** {s = a.s ! Posit; g = NonHuman}) in
       caseFromStem glue adj c n ;
     } ;
 
@@ -35,7 +35,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> AP ;     -- warmer
   UseComparA a = emptyAP ** {
     s = \\n,c =>
-    let adj : Noun = (a ** {s = a.s ! Compar}) in
+    let adj : Noun = (a ** {s = a.s ! Compar; g = NonHuman}) in
     caseFromStem glue adj c n ;
     } ;
 
