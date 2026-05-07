@@ -74,16 +74,16 @@ param
 
   Case =
     Nom | Acc | Dat
---  | Ill  -- Locatives
+  | Ill  -- Locatives
   | Ine
   | Ela
   | All
   | Ade
   | Abl
---  | Sub
+  | Sub
   | Sup
---  | Del
---  | Cau  -- Causal-final 'for the purpose of, for the reason that'
+  | Del
+  | Cau  -- Causal-final 'for the purpose of, for the reason that'
   | Ins  -- Instrumental
   | Tra  -- Translative
   -- | Ess | Ter | For
