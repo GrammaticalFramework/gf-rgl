@@ -129,7 +129,7 @@ lin under_Prep = nomAdp "alatt" ;
   it_Pron = pronTable ! <P3,Sg> ;
   we_Pron = pronTable ! <P1,Pl> ** {g = Human} ;
   youPl_Pron = pronTable ! <P2,Pl> ** {g = Human} ;
-  they_Pron = pronTable ! <P3,Pl> ;
+  they_Pron = pronTable ! <P3,Pl> ** {g = Human} ;
 
 --lin whatPl_IP = ;
 --lin whatSg_IP = :
