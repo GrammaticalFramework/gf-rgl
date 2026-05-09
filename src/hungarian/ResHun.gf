@@ -15,8 +15,7 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
-    postmod : Str ;
-    g : Gender
+    postmod : Str
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
