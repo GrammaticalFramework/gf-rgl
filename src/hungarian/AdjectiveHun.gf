@@ -54,7 +54,9 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 -- phrases, although the semantics is only clear for some adjectives.
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  -- SentAP ap sc = ap ** {} ;
+  SentAP ap sc = ap ** {
+    compl = \\n => ap.compl ! n ++ SOFT_BIND ++ "," ++ "hogy" ++ sc.s ;
+    } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 

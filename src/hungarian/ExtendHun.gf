@@ -11,6 +11,19 @@ lin
     CompoundN n1 n2 =
       n2 ** {s = \\nc => n1.s ! SgNom ++ BIND ++ n2.s ! nc} ;
 
+    GenModNP num np cn =
+      let det : Determiner = DetQuant DefArt num ;
+          pron : Pronoun = pronTable ! np.agr ;
+       in emptyNP ** cn ** det ** {
+            s = \\_,c =>
+              np.s ! NoPoss ! Nom
+              ++ np.postmod
+              ++ caseFromPossStem cn (DetQuant (PossPron pron) num) c
+              ++ cn.compl ! det.n ! c ;
+            agr = <P3,det.n> ;
+            objdef = Def ;
+            } ;
+
     UseDAP = DetNP ;
     UseDAPMasc,
     UseDAPFem = \dap -> DetNP dap ** {g = Human} ;

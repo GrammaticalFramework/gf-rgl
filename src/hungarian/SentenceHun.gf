@@ -47,6 +47,9 @@ lin
 -}
 --2 Sentences
 
+  -- : S  -> SC ;
+  EmbedS s = {s = s.s} ;
+
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
     s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
