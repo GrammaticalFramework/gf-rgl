@@ -68,6 +68,8 @@ oper
       mkPN = overload {
         mkPN : (anna : Str) -> PN
             = \p -> lin PN (regName p)  ;
+        mkPN : (anna : Str) -> Gender -> PN
+            = \p, g -> lin PN (regName p ** {g = g})   ;
         mkPN : (nm,gm,am,vm,pn,pa : Str)  -> Gender -> PN 
             = \ nm,gm,am,vm,pn,pa, g -> lin PN (mkName  nm  gm  am  vm pn pa g) ;
         } ; 
