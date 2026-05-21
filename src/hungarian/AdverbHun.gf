@@ -3,7 +3,11 @@ concrete AdverbHun of Adverb = CatHun ** open ResHun, ParamHun, ParadigmsHun, Pr
 lin
 
   -- : A -> Adv ;
-  --PositAdvAdj adj = { } ;
+  PositAdvAdj adj = {
+    s = let a : Str = adj.s ! Posit ! SgNom
+         in a ++ BIND ++ "an" ;
+    isPre = False ;
+    } ;
 
   -- : CAdv -> A -> NP -> Adv ; -- more warmly than John
   -- ComparAdvAdj cadv a np = { } ;
@@ -19,7 +23,7 @@ lin
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
-  -- AdAdv ada adv = adv **
+  AdAdv ada adv = adv ** {s = ada.s ++ adv.s} ;
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely
@@ -27,7 +31,10 @@ lin
 -- Subordinate clauses can function as adverbs.
 
   -- : Subj -> S -> Adv ;
-  -- SubjS subj s =
+  SubjS subj s = {
+    s = subj.s ++ s.s ;
+    isPre = False ;
+    } ;
 
 -- Comparison adverbs also work as numeral adverbs.
 

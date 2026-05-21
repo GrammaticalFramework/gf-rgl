@@ -44,4 +44,49 @@ concrete IdiomHun of Idiom = CatHun ** open Prelude, ResHun, VerbHun, NounHun, S
     SelfNP    : NP -> NP ;        -- the president himself (is at home)
 -}
 
+lin
+  ExistNP np = existNP np [] ;
+
+  ExistNPAdv np adv = existNP np adv.s ;
+
+  ExistIP ip = {
+    s = \\t,a,p =>
+      ip.s ! NoPoss ! Nom
+      ++ if_then_Pol p [] "nem"
+      ++ copula.s ! case t of {
+           Past => VPast P3 ip.agr.p2 ;
+           _    => VPres P3 ip.agr.p2
+         }
+    } ;
+
+  ExistIPAdv ip adv = {
+    s = \\t,a,p =>
+      ip.s ! NoPoss ! Nom
+      ++ adv.s
+      ++ if_then_Pol p [] "nem"
+      ++ copula.s ! case t of {
+           Past => VPast P3 ip.agr.p2 ;
+           _    => VPres P3 ip.agr.p2
+         }
+    } ;
+
+  ProgrVP vp = vp ;
+
+  ImpPl1 vp = {
+    s = "próbáljunk" ++ infVP vp
+    } ;
+
+oper
+  existNP : NounPhrase -> Str -> ResHun.ClSlash = \np,adv -> {
+    s = \\t,_,p =>
+      if_then_Pol p [] "nem"
+      ++ copula.s ! case t of {
+           Past => VPast P3 np.agr.p2 ;
+           _    => VPres P3 np.agr.p2
+         }
+      ++ linNP np
+      ++ adv ;
+    c2 = Acc
+    } ;
+
 }

@@ -16,11 +16,19 @@ lin
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
   SlashVP np vps = predVP np (vps ** {s = vps.s ! Indef ; obj = []}) ;
-{-
-  -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
-  AdvSlash cls adv = cls ** insertAdv adv cls ;
 
---    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
+  AdvSlash cls adv = cls ** {
+    s = \\t,a,p => cls.s ! t ! a ! p ++ adv.s
+    } ;
+
+  -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  SlashPrep cl prep = cl ** {
+    c2 = prep.c ;
+    s = \\t,a,p => cl.s ! t ! a ! p ++ prep.s
+    } ;
+
+{-
 
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
 --  SlashVS np vs ss = {} ;
@@ -31,20 +39,20 @@ lin
     } ;
 
 --2 Imperatives
-  -- : VP -> Imp ;
-  ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
-
---2 Embedded sentences
-
-  -- : S  -> SC ;
-  EmbedS s = {s = s.s ! True} ; -- choose subordinate
-
-  -- : QS -> SC ;
-  -- EmbedQS qs = { } ;
-
-  -- : VP -> SC ;
-  EmbedVP vp = {s = infVP vp} ;
 -}
+  -- : VP -> Imp ;
+  ImpVP vp = {
+    s = \\num,pol =>
+      if_then_Pol pol [] "ne"
+      ++ vp.s ! VPres P2 num
+      ++ vp.obj
+      ++ vp.adv
+    } ;
+
+  -- : Adv -> Imp -> Imp ;
+  AdvImp adv imp = {
+    s = \\num,pol => adv.s ++ imp.s ! num ! pol
+    } ;
 --2 Sentences
 
   -- : S  -> SC ;

@@ -58,11 +58,12 @@ lin
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
   SlashV2Q v2q qs = ;
 
+-}
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
   SlashV2A v2a ap = useVc v2a ** {
-    aComp = \\_ => (CompAP ap).aComp ! Sg3 Masc
+    adv = ap.s ! Sg ! Nom ++ ap.compl ! Sg
   } ;
--}
+
   -- : VPSlash -> NP -> VP
   ComplSlash = insertObj ;
 {-
@@ -93,15 +94,16 @@ lin
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
   ExtAdvVP vp adv = vp ** { } ;
 
+-}
   -- : AdV -> VP -> VP ;  -- always sleep
-  AdVVP adv vp = vp ** { } ;
+  AdVVP adv vp = vp ** {
+    s = \\vf => adv.s ++ vp.s ! vf
+  } ;
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
-  AdVVPSlash adv vps = vps ** { } ;
-
-  -- : VP -> Prep -> VPSlash ;  -- live in (it)
-  VPSlashPrep vp prep =
--}
+  AdVVPSlash adv vps = vps ** {
+    s = \\o,vf => adv.s ++ vps.s ! o ! vf
+  } ;
 
 --2 Complements to copula
 

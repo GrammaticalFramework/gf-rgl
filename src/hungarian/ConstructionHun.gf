@@ -1,4 +1,4 @@
-concrete ConstructionHun of Construction = CatHun ** open ParadigmsHun in {
+concrete ConstructionHun of Construction = CatHun ** open ParadigmsHun, ResHun in {
 
 lincat
   Timeunit = N ;
@@ -6,6 +6,16 @@ lincat
   Monthday = NP ;
   Month = N ;
   Year = NP ;
+
+lin
+  has_age_VP card = useV (copula ** {
+    s = \\vf => case vf of {
+      VPres P3 _ => [] ;
+      _          => copula.s ! vf
+      }
+    }) ** {
+      adv = card.s ! Indep ++ "éves"
+    } ;
 {-
 lin
 

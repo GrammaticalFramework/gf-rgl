@@ -200,7 +200,9 @@ param
   VForm =
       VInf
     | VPres Person Number
-    | VPast Person Number ;
+    | VPast Person Number
+    | VPresPart
+    | VAdvPart ;
 
 --------------------------------------------------------------------------------
 -- Clauses

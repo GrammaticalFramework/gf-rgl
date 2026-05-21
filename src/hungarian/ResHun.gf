@@ -489,11 +489,17 @@ oper
         pastPl1 : Str = stem + pastHf ! <P1,Pl> ! h ;
         pastPl2 : Str = stem + pastHf ! <P2,Pl> ! h ;
         pastPl3 : Str = stem + pastHf ! <P3,Pl> ! h ;
-     in mkVerbFullPast sg1 sg2 sg3 pl1 pl2 pl3
-                        pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
-                        inf ;
+        ppart : Str = case sg3 of {
+                          x + "o" + y@("g"|"l") => x+y+"ó" ;
+                          _ + ("ér"|"éz"|"ít")  => sg3 + "ő" ;
+                          _                     => sg3 + "ó"
+                      } ;
+        apart : Str = sg3 + harm "va" "ve" ! h
+     in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3
+                   pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                   inf ppart apart ;
 
-  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+  mkVerbPres : (x1,_,_,_,_,_,x7 : Str) -> Verb =
     \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
       let h : Harm = getHarm sg3 ;
           pastSg1 : Str = sg3 + endingsPastIndef ! <P1,Sg> ! h ;
@@ -502,12 +508,18 @@ oper
           pastPl1 : Str = sg3 + endingsPastIndef ! <P1,Pl> ! h ;
           pastPl2 : Str = sg3 + endingsPastIndef ! <P2,Pl> ! h ;
           pastPl3 : Str = sg3 + endingsPastIndef ! <P3,Pl> ! h ;
-       in mkVerbFullPast sg1 sg2 sg3 pl1 pl2 pl3
-                          pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
-                          inf ;
+          ppart : Str = case sg3 of {
+                          x + "o" + y@("g"|"l") => x+y+"ó" ;
+                          _ + ("ér"|"éz"|"ít")  => sg3 + "ő" ;
+                          _                     => sg3 + "ó"
+                        } ;
+          apart : Str = sg3 + harm "va" "ve" ! h
+       in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3
+                     pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                     inf ppart apart ;
 
-  mkVerbFullPast : (x1,_,_,_,_,_,_,_,_,_,_,_,x13 : Str) -> Verb =
-    \sg1,sg2,sg3,pl1,pl2,pl3,pastSg1,pastSg2,pastSg3,pastPl1,pastPl2,pastPl3,inf -> {
+  mkVerbFull : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Verb =
+    \sg1,sg2,sg3,pl1,pl2,pl3,pastSg1,pastSg2,pastSg3,pastPl1,pastPl2,pastPl3,inf,ppart,apart -> {
       s = table {
         VInf => inf ;
         VPres P1 Sg => sg1 ;
@@ -521,12 +533,14 @@ oper
         VPast P3 Sg => pastSg3 ;
         VPast P1 Pl => pastPl1 ;
         VPast P2 Pl => pastPl2 ;
-        VPast P3 Pl => pastPl3
+        VPast P3 Pl => pastPl3 ;
+        VPresPart => ppart ;
+        VAdvPart => apart
       } ;
       sc = SCNom
     } ;
 
-  copula : Verb = mkVerbFullPast
+  copula : Verb = mkVerbFull
     "vagyok"
     "vagy"
     "van"
@@ -539,7 +553,9 @@ oper
     "voltunk"
     "voltatok"
     "voltak"
-    "lenni" ;
+    "lenni"
+    "levő"
+    "léve" ;
 
   megvan : Verb = copula ** {
     s = \\vf => "meg" + copula.s ! vf ;
@@ -570,6 +586,20 @@ oper
 
   insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = vp.adv ++ adv.s} ;
   insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = vps.adv ++ adv.s} ;
+
+  infVP : VerbPhrase -> Str = \vp ->
+    vp.obj ++ vp.adv ++ vp.s ! VInf ;
+
+  infVPSlash : VPSlash -> Str = \vps ->
+    vps.adv ++ vps.s ! Indef ! VInf ;
+
+  verbStemFromInf : Str -> Str = \inf ->
+    case inf of {
+      stem + "ani" => stem ;
+      stem + "eni" => stem ;
+      stem + "ni"  => stem ;
+      _            => inf
+    } ;
 
 --------------------------------------------------------------------------------
 -- Cl, S

@@ -131,11 +131,44 @@ lin under_Prep = nomAdp "alatt" ;
   youPl_Pron = pronTable ! <P2,Pl> ** {g = Human} ;
   they_Pron = pronTable ! <P3,Pl> ** {g = Human} ;
 
---lin whatPl_IP = ;
---lin whatSg_IP = :
---lin whoPl_IP = ;
---lin whoSg_IP = ;
-
+lin whatPl_IP = emptyNP ** {
+      s = \\_ => caseTable "mi" "mit" "minek"
+                           "mibe" "miben" "miből"
+                           "mihez" "minél" "mitől"
+                           "mire" "min" "miről"
+                           "miért" "mivel" "mivé" ;
+      agr = <P3,Pl> ;
+      objdef = Def
+    } ;
+lin whatSg_IP = emptyNP ** {
+      s = \\_ => caseTable "mi" "mit" "minek"
+                           "mibe" "miben" "miből"
+                           "mihez" "minél" "mitől"
+                           "mire" "min" "miről"
+                           "miért" "mivel" "mivé" ;
+      agr = <P3,Sg> ;
+      objdef = Def
+    } ;
+lin whoPl_IP = emptyNP ** {
+    s = \\_ => caseTable "ki" "kit" "kinek"
+                         "kibe" "kiben" "kiből"
+                         "kihez" "kinél" "kitől"
+                         "kire" "kin" "kiről"
+                         "kiért" "kivel" "kivé" ;
+    agr = <P3,Pl> ;
+    objdef = Def ;
+    g = Human
+    } ;
+lin whoSg_IP = emptyNP ** {
+    s = \\_ => caseTable "ki" "kit" "kinek"
+                         "kibe" "kiben" "kiből"
+                         "kihez" "kinél" "kitől"
+                         "kire" "kin" "kiről"
+                         "kiért" "kivel" "kivé" ;
+    agr = <P3,Pl> ;
+    objdef = Def ;
+    g = Human
+    } ;
 -------
 -- Subj
 

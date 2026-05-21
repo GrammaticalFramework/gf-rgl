@@ -6,11 +6,11 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
     UttS s = s ;
     UttQS qs = qs ;
     UttIAdv iadv = iadv ;
-{-
     UttImpSg pol imp =
+      {s = pol.s ++ imp.s ! Sg ! pol.p} ;
     UttImpPl pol imp =
-    UttImpPol = UttImpSg ;
--}
+      {s = pol.s ++ imp.s ! Pl ! pol.p} ;
+    UttImpPol = UttImpPl ;
     UttIP,
     UttNP = \np -> {s = linNP np} ;
     UttVP vp = {s = vp.obj ++ vp.adv ++ vp.s ! VInf} ;

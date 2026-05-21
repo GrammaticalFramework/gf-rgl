@@ -144,10 +144,10 @@ concrete NounHun of Noun = CatHun ** open
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 
-{-
   -- : AdN -> Card -> Card ;
-  AdNum adn card = card ** { s = adn.s ++ card.s } ;
+  AdNum adn card = card ** { s = \\p => adn.s ++ card.s ! p } ;
 
+{-
   -- : Digits  -> Ord ;
   OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
 
@@ -200,7 +200,9 @@ concrete NounHun of Noun = CatHun ** open
     } ;
 
   -- : N2 -> NP -> CN ;
-  -- ComplN2 n2 np =
+  ComplN2 n2 np = (UseN n2) ** {
+    compl = \\n,c => np.s ! NoPoss ! Dat ++ np.postmod
+    } ;
 
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   -- ComplN3 n3 np =
@@ -234,7 +236,9 @@ concrete NounHun of Noun = CatHun ** open
 -- to decide. Sentential complements are defined in VerbHun.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  -- SentCN cn sc = cn ** { } ;
+  SentCN cn sc = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ sc.s
+    } ;
 
 --2 Apposition
 
@@ -253,8 +257,9 @@ concrete NounHun of Noun = CatHun ** open
     } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
-  -- PartNP cn np = cn ** {
-  --   } ;
+  PartNP cn np = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Nom ++ np.postmod
+    } ;
 
 --3 Conjoinable determiners and ones with adjectives
 
