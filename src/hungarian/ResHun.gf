@@ -426,7 +426,7 @@ oper
     c2 : Case   -- object case
     } ;
   Verb3 : Type = Verb2 ** {
-    -- c3 : Case   -- indirect object case
+    c3 : Case   -- indirect object case
     } ;
 
   datV2 : Verb -> Verb2 = \v -> {
@@ -469,7 +469,7 @@ oper
             = case sg3 of {
                 _ + ("ít" | (#c + #c)) => sg3 + harm3 "ani" "eni" "eni" ! getHarm sg3 ;
                 _                      => sg3 + "ni"
-              }
+            }
     in mkVerbReg endingsIndef inf sg3 ;
 
   mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb =

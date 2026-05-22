@@ -21,44 +21,54 @@ lin
   --   } ;
 
   -- : VS  -> S  -> VP ;
-  -- ComplVS vs s =
-  --   let vps = useV vs ;
-  --       subord = SubjS {s=""} s ;
-  --    in vps ** {} ;
+  ComplVS vs s = useV vs ** {
+    adv = "hogy" ++ s.s
+    } ;
 
-{-
   -- : VQ -> QS -> VP ;
-  ComplVQ vq qs = ;
+  ComplVQ vq qs = useV vq ** {
+    adv = qs.s
+    } ;
 
   -- : VA -> AP -> VP ;  -- they become red
-  ComplVA va ap = ResHun.insertObj (CompAP ap).s (useV va) ;
+  ComplVA va ap = useV va ** {
+    adv = ap.s ! Sg ! Nom ++ ap.compl ! Sg
+    } ;
 
 --------
 -- Slash
--}
+
   -- : V2 -> VPSlash
   SlashV2a = ResHun.useVc ;
 
-{-
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
+  Slash2V3 v3 np = v3 ** {
+    adv = np.s ! NoPoss ! v3.c2 ++ np.postmod ;
+    c2 = v3.c3
+    } ;
+
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash2V3,
-  Slash3V3 = \v3 -> insertObj (useVc3 v3) ;
+  Slash3V3 v3 np = v3 ** {
+    adv = np.s ! NoPoss ! v3.c3 ++ np.postmod ;
+    c2 = v3.c2
+    } ;
 
   -- : V2S -> S  -> VPSlash ;  -- answer (to him) that it is good
-  SlashV2S v2s s =
-    let vps = useVc v2s ;
-        subord = SubjS {s=""} s ;
-     in vps ** {obj = } ;
+  SlashV2S v2s s = useVc v2s ** {
+    adv = "hogy" ++ s.s
+    } ;
 
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2v vp = ;
+  SlashV2V v2v vp = useVc v2v ** {
+    adv = infVP vp
+    } ;
 
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
-  SlashV2Q v2q qs = ;
+  SlashV2Q v2q qs = useVc v2q ** {
+    adv = qs.s
+    } ;
 
--}
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
   SlashV2A v2a ap = useVc v2a ** {
     adv = ap.s ! Sg ! Nom ++ ap.compl ! Sg
@@ -90,11 +100,11 @@ lin
 
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash = insertAdvSlash ;
-{-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
-  ExtAdvVP vp adv = vp ** { } ;
+  ExtAdvVP vp adv = vp ** {
+    adv = vp.adv ++ bindComma ++ adv.s
+    } ;
 
--}
   -- : AdV -> VP -> VP ;  -- always sleep
   AdVVP adv vp = vp ** {
     s = \\vf => adv.s ++ vp.s ! vf
@@ -104,6 +114,13 @@ lin
   AdVVPSlash adv vps = vps ** {
     s = \\o,vf => adv.s ++ vps.s ! o ! vf
   } ;
+
+  -- : VP -> Prep -> VPSlash ;  -- live in (it)
+  VPSlashPrep vp prep = vp ** {
+    s = \\_ => vp.s ;
+    adv = vp.obj ++ vp.adv ++ prep.s ;
+    c2 = prep.c
+    } ;
 
 --2 Complements to copula
 

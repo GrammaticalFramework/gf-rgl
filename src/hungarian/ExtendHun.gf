@@ -7,11 +7,15 @@ concrete ExtendHun of Extend = CatHun
 
 lincat
     VPS = {s : Person => Number => Str} ;
+    [VPS] = {s1,s2 : Person => Number => Str} ;
     VPI = SS ;
+    [VPI] = {s1,s2 : Str} ;
     VPS2 = {s : ObjDef => Person => Number => Str ; c2 : Case} ;
     [VPS2] = {s1,s2 : ObjDef => Person => Number => Str ; c2 : Case} ;
     VPI2 = {s : ObjDef => Str ; c2 : Case} ;
     [VPI2] = {s1,s2 : ObjDef => Str ; c2 : Case} ;
+    [Comp] = {s1,s2 : VForm => Str} ;
+    [Imp] = {s1,s2 : Number => Polarity => Str} ;
     RNP = NounPhrase ;
     RNPList = {s1,s2 : Possessor => Case => Str ; agr : Person*Number ; g : Gender ; postmod : Str} ;
 
@@ -34,6 +38,8 @@ lin
             objdef = Def ;
             } ;
 
+    EmptyRelSlash cls = relSlash {s = \\_,_,_ => []} cls ;
+
     UseDAP = DetNP ;
     UseDAPMasc,
     UseDAPFem = \dap -> DetNP dap ** {g = Human} ;
@@ -48,11 +54,44 @@ lin
         } ++ vp.obj ++ vp.adv
       } ;
 
+    BaseVPS x y = {
+      s1 = x.s ;
+      s2 = y.s
+      } ;
+
+    ConsVPS x xs = {
+      s1 = \\p,n => x.s ! p ! n ++ bindComma ++ xs.s1 ! p ! n ;
+      s2 = xs.s2
+      } ;
+
+    ConjVPS conj xs = {
+      s = \\p,n => xs.s1 ! p ! n ++ conj.s2 ++ xs.s2 ! p ! n
+      } ;
+
     PredVPS np vps = {
       s = linNP np ++ vps.s ! np.agr.p1 ! np.agr.p2
       } ;
 
     MkVPI vp = {s = infVP vp} ;
+
+    BaseVPI x y = {
+      s1 = x.s ;
+      s2 = y.s
+      } ;
+
+    ConsVPI x xs = {
+      s1 = x.s ++ bindComma ++ xs.s1 ;
+      s2 = xs.s2
+      } ;
+
+    ConjVPI conj xs = {
+      s = xs.s1 ++ conj.s2 ++ xs.s2
+      } ;
+
+    ComplVPIVV vv vpi =
+      useV (vv ** {s = vv.s ! Indef}) ** {
+        adv = vpi.s
+      } ;
 
     MkVPS2 t pol vps = {
       s = \\od,p,n =>
@@ -116,6 +155,34 @@ lin
       c2 = xs.c2
       } ;
 
+    BaseComp x y = {
+      s1 = x.s ;
+      s2 = y.s
+      } ;
+
+    ConsComp x xs = {
+      s1 = \\vf => x.s ! vf ++ bindComma ++ xs.s1 ! vf ;
+      s2 = xs.s2
+      } ;
+
+    ConjComp conj xs = UseCopula ** {
+      s = \\vf => xs.s1 ! vf ++ conj.s2 ++ xs.s2 ! vf
+      } ;
+
+    BaseImp x y = {
+      s1 = x.s ;
+      s2 = y.s
+      } ;
+
+    ConsImp x xs = {
+      s1 = \\n,p => x.s ! n ! p ++ bindComma ++ xs.s1 ! n ! p ;
+      s2 = xs.s2
+      } ;
+
+    ConjImp conj xs = {
+      s = \\n,p => xs.s1 ! n ! p ++ conj.s2 ++ xs.s2 ! n ! p
+      } ;
+
     PresPartAP vp = emptyAP ** {
       s = \\_,_ => vp.obj ++ vp.adv ++ vp.s ! VPresPart
       } ;
@@ -151,6 +218,19 @@ lin
 
     PredetRNP predet rnp = rnp ** {
       s = \\p,c => predet.s ++ rnp.s ! p ! c
+      } ;
+
+    AdvRNP np prep rnp = np ** {
+      s = \\p,c => np.s ! p ! c ++ applyAdp prep rnp ;
+      postmod = []
+      } ;
+
+    AdvRVP vp prep rnp = insertAdv vp {
+      s = applyAdp prep rnp
+      } ;
+
+    AdvRAP ap prep rnp = ap ** {
+      compl = \\n => ap.compl ! n ++ applyAdp prep rnp
       } ;
 
     ReflA2RNP a2 rnp =
@@ -218,6 +298,10 @@ lin
       isPre = False
       } ;
 
+    CompoundAP n a = emptyAP ** {
+      s = \\_,_ => n.s ! SgNom ++ a.s ! Posit ! SgNom
+      } ;
+
     WithoutVP vp = {
       s = infVP vp ++ "nélkül" ;
       isPre = False
@@ -232,6 +316,29 @@ lin
       s = infVP vp ++ "céljából" ;
       isPre = False
       } ;
+
+    ApposNP np1 np2 = np1 ** {
+      s = \\p,c => np1.s ! p ! c ++ bindComma ++ np2.s ! NoPoss ! Nom ;
+      postmod = []
+      } ;
+
+    AdAdV ada adv = {
+      s = ada.s ++ adv.s
+      } ;
+
+    UttAdV adv = {
+      s = adv.s
+      } ;
+
+    PositAdVAdj adj = {
+      s = adj.s ! Posit ! SgNom
+      } ;
+
+    UttVPShort vp = {
+      s = infVP vp
+      } ;
+
+    ComplSlashPartLast vps np = insertObj vps np ;
 
     iFem_Pron = pronTable ! <P1,Sg> ** {g = Human} ;
     theyFem_Pron = pronTable ! <P3,Pl> ** {g = Human} ;

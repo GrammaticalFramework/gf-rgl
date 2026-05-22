@@ -59,15 +59,30 @@ lin
   ConsRS = consrTable3 Gender Number Case comma ;
   ConjRS = conjunctDistrTable3 Gender Number Case ;
 
-{-
 lincat
-  [CN] = { } ;
+  [CN] = {
+    s1,s2 : NumCaseStem => Str ;
+    h : Harm ;
+    g : Gender
+    } ;
 
 lin
-  BaseCN = {} ;
-  ConsCN = {} ;
-  ConjCN co cs = conjunctDistrTable … co cs ** cs ;
+  BaseCN x y = twoTable NumCaseStem x y ** {
+    h = y.h ;
+    g = y.g
+    } ;
+  ConsCN x xs = consrTable NumCaseStem comma x xs ** {
+    h = xs.h ;
+    g = xs.g
+    } ;
+  ConjCN co cs = conjunctDistrTable NumCaseStem co cs ** {
+    compl = \\_,_ => [] ;
+    postmod = [] ;
+    h = cs.h ;
+    g = cs.g
+    } ;
 
+{-
 lincat
   [DAP] =
 

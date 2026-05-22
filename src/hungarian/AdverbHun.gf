@@ -27,7 +27,7 @@ lin
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely
---  PositAdAAdj a = { } ;
+  PositAdAAdj a = {s = a.s ! Posit ! SgNom} ;
 -- Subordinate clauses can function as adverbs.
 
   -- : Subj -> S -> Adv ;

@@ -24,6 +24,6 @@ concrete PhraseHun of Phrase = CatHun ** open Prelude, ResHun in {
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 
     NoVoc = {s = []} ;
---    VocNP np = { s = "," ++ np.s ! … } ; -}
+    VocNP np = {s = bindComma ++ linNP np} ;
 
 }

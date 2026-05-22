@@ -11,7 +11,7 @@ lin
   PredVP = predVP ;
 
   -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
-  --PredSCVP sc vp = ;
+  PredSCVP sc vp = predVP (indeclNP sc.s) vp ;
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
@@ -58,6 +58,9 @@ lin
   -- : S  -> SC ;
   EmbedS s = {s = s.s} ;
 
+  -- : QS -> SC ;
+  EmbedQS qs = {s = qs.s} ;
+
   -- : Temp -> Pol -> Cl -> S ;
   UseCl t p cl = {
     s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p
@@ -76,7 +79,9 @@ lin
   ExtAdvS = advS (SOFT_BIND ++ ",");
 
   -- : S -> Subj -> S -> S ;
-  -- SSubjS s1 subj s2 = AdvS (AK.SubjS subj s2) s1 ;
+  SSubjS s1 subj s2 = {
+    s = s1.s ++ bindComma ++ subj.s ++ s2.s
+    } ;
 
   --  : S -> RS -> S ;              -- she sleeps, which is good
   -- RelS sent rs = advS {s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;

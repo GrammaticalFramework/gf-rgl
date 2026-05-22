@@ -572,7 +572,7 @@ oper
             <_,_ + #v> => endCaseVow ;
             <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
             |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")> => endCaseConsAcc ;
-            <True,_>  => endCaseConsAccAt ;
+            <True,_>  => endCaseCons ;
             _ => endCaseCons } ;
 
         -- Last consonant doubles before instrumental and translative

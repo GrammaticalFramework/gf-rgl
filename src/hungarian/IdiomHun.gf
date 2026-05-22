@@ -45,6 +45,8 @@ concrete IdiomHun of Idiom = CatHun ** open Prelude, ResHun, VerbHun, NounHun, S
 -}
 
 lin
+  ImpersCl vp = predVP emptyNP vp ;
+
   ExistNP np = existNP np [] ;
 
   ExistNPAdv np adv = existNP np adv.s ;

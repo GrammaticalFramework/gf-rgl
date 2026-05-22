@@ -55,6 +55,10 @@ lin
 
   -- : Sub100 -> Sub1000 ;                   -- coercion of 1..99
   pot1as2 n = n ;
+  -- : Sub1000 ;                             -- a hundred
+  pot21 =
+      {s = table {p => "száz"} ;
+       n = numNumber ; numtype = IsNum} ;
   --  : Sub10 -> Sub1000 ;                   -- m * 100
   pot2 d =
       {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz"} ;
@@ -66,6 +70,10 @@ lin
 
   -- : Sub1000 -> Sub1000000 ;               -- coercion of 1..999
   pot2as3 n = n ;
+  -- : Sub1000000 ;                          -- a thousand
+  pot31 =
+      {s = table {p => "ezer"} ;
+       n = numNumber ; numtype = IsNum} ;
   -- : Sub1000 -> Sub1000000 ;               -- m * 1000
   pot3 n =
       {s = table {p => n.s ! Attrib ++ "ezer"} ;
@@ -74,9 +82,38 @@ lin
   pot3plus n m =
       {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p} ;
        n = numNumber ; numtype = IsNum} ;
+  pot3decimal d =
+      {s = table {p => d.s ! NCard ++ "ezer"} ;
+       n = numNumber ; numtype = IsNum} ;
 
   pot3as4 n = n ;
+
+  pot41 =
+      {s = table {p => "egymillió"} ;
+       n = numNumber ; numtype = IsNum} ;
+  pot4 n =
+      {s = table {p => n.s ! Attrib ++ "millió"} ;
+       n = numNumber ; numtype = IsNum} ;
+  pot4plus n m =
+      {s = table {p => n.s ! Attrib ++ "millió" ++ m.s ! p} ;
+       n = numNumber ; numtype = IsNum} ;
   pot4as5 n = n ;
+  pot4decimal d =
+      {s = table {p => d.s ! NCard ++ "millió"} ;
+       n = numNumber ; numtype = IsNum} ;
+
+  pot51 =
+      {s = table {p => "egymilliárd"} ;
+       n = numNumber ; numtype = IsNum} ;
+  pot5 n =
+      {s = table {p => n.s ! Attrib ++ "milliárd"} ;
+       n = numNumber ; numtype = IsNum} ;
+  pot5plus n m =
+      {s = table {p => n.s ! Attrib ++ "milliárd" ++ m.s ! p} ;
+       n = numNumber ; numtype = IsNum} ;
+  pot5decimal d =
+      {s = table {p => d.s ! NCard ++ "milliárd"} ;
+       n = numNumber ; numtype = IsNum} ;
 
 oper
   LinDigit : Type = {s : DForm*Place => Str ; n : Number} ;
@@ -126,6 +163,15 @@ oper
       s = \\x => "-" ++ BIND ++ d.s ! x ;
       n = numNumber ;
       hasDot=False
+    } ;
+    IFrac d i = {
+      s = \\x => d.s ! x ++
+        case d.hasDot of {
+          True => BIND ;
+          False => BIND ++ "." ++ BIND
+        } ++ i.s ;
+      n = numNumber ;
+      hasDot=True
     } ;
 
   oper

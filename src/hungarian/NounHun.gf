@@ -3,6 +3,10 @@ concrete NounHun of Noun = CatHun ** open
 
   flags optimize=all_subs ;
 
+  oper
+    hunV : pattern Str = #("a"|"e"|"i"|"o"|"u"|"ö"|"ü"|
+                           "á"|"é"|"í"|"ó"|"ú"|"ő"|"ű") ;
+
   lin
 
 --2 Noun phrases
@@ -147,15 +151,17 @@ concrete NounHun of Noun = CatHun ** open
   -- : AdN -> Card -> Card ;
   AdNum adn card = card ** { s = \\p => adn.s ++ card.s ! p } ;
 
-{-
   -- : Digits  -> Ord ;
-  OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
+  OrdDigits digs = {
+    s = \\_,_ => digs.s ! NOrd ;
+    n = Sg
+    } ;
 
   -- : Numeral -> Ord ;
-  OrdNumeral num = num ** {
-    s = \\_ => num.ord
+  OrdNumeral num = {
+    s = \\_,_ => num.s ! Attrib ;
+    n = Sg
     } ;
--}
   -- : A       -> Ord ;
   OrdSuperl a = {
     s = \\n,c =>
@@ -172,7 +178,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Quant
   DefArt = mkQuant "a" "a" ** {
     s,
-    sp = \\_,_ => pre {"a" ; "az" / v } ;
+    sp = \\_,_ => pre {"a" ; "az" / hunV } ;
     dt = DefDet ;
     } ;
 
@@ -185,7 +191,10 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : Pron -> Quant
   PossPron pron = pron ** {
-    s,sp = \\_,_ => pre {"a" ; "az" / v} ++ pron.s ! Nom ;
+    s,sp = \\_,_ => case pron.agr of {
+      <P3,_> => "az" ++ pron.s ! Nom ;
+      _ => pre {"a" ; "az" / hunV} ++ pron.s ! Nom
+      } ;
     dt = DetPoss (agr2pstem pron.agr) ;
     caseagr = False ;
     } ;
@@ -259,6 +268,22 @@ concrete NounHun of Noun = CatHun ** open
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
   PartNP cn np = cn ** {
     compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Nom ++ np.postmod
+    } ;
+
+  -- : Det -> NP -> NP ;    -- three of them, some of the boys
+  CountNP det np = emptyNP ** det ** {
+    s = \\_,c => det.sp ! c ++ np.s ! NoPoss ! Ela ++ np.postmod ;
+    agr = <P3,det.n> ;
+    objdef = dt2objdef det.dt
+    } ;
+
+  -- : Decimal -> MU -> NP ;
+  QuantityNP dec mu = indeclNP
+    (case mu.isPre of {
+       True => mu.s ++ dec.s ! NCard ;
+       False => dec.s ! NCard ++ mu.s
+       }) ** {
+    objdef = Def
     } ;
 
 --3 Conjoinable determiners and ones with adjectives
