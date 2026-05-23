@@ -29,6 +29,10 @@ concrete NumeralMkd of Numeral = CatMkd [Numeral,Digits,Decimal] ** open Prelude
   lin PosDecimal ds = ds ** {hasDot = False} ;
   lincat Sub10 = {s : Str; hundred : Str; n : Number} ;
   lincat Sub100 = {s : Str; n : Number} ;
+  lincat Sub1000 = {s : Str; n : Number} ;
+  lincat Sub1000000 = {s : Str; n : Number} ;
+  lincat Sub1000000000 = {s : Str; n : Number} ;
+  lincat Sub1000000000000 = {s : Str; n : Number} ;
   oper mkDig : Str -> Number -> {s : Str; n : Number}
              = \s,n -> {s = s; n = n} ;
   oper mkDigit : Str -> Str -> Str -> Str -> {s : Str; teen : Str;
@@ -49,9 +53,30 @@ concrete NumeralMkd of Numeral = CatMkd [Numeral,Digits,Decimal] ** open Prelude
   lin pot1 n = {s = n.ten; n = Pl} ;
   lin pot110 = {s = "десет"; n = Pl} ;
   lin pot111 = {s = "единаесет"; n = Pl} ;
+  lin pot1to19 d = {s = d.teen; n = Pl} ;
   lin pot1as2 n = n ;
-  lin pot2 n = {s = n.hundred} ;
+  lin pot1plus d n = {s = d.ten ++ "и" ++ n.s; n = Pl} ;
+  lin pot2 n = {s = n.hundred; n = Pl} ;
+  lin pot21 = {s = "сто"; n = Pl} ;
+  lin pot2plus n m = {s = n.hundred ++ "и" ++ m.s; n = Pl} ;
   lin pot2as3 n = n ;
+  lin pot31 = {s = "илјада"; n = Pl} ;
+  lin pot3 n = {s = n.s ++ thousand ! n.n; n = Pl} ;
+  lin pot3plus n m = {s = n.s ++ thousand ! n.n ++ m.s; n = Pl} ;
+  lin pot3decimal d = {s = d.s ++ "илјади"; n = Pl} ;
   lin pot3as4 n = n ;
+  lin pot41 = {s = "милион"; n = Sg} ;
+  lin pot4 n = {s = n.s ++ million ! n.n; n = Pl} ;
+  lin pot4plus n m = {s = n.s ++ million ! n.n ++ m.s; n = Pl} ;
+  lin pot4decimal d = {s = d.s ++ "милиони"; n = Pl} ;
   lin pot4as5 n = n ;
+  lin pot51 = {s = "милијарда"; n = Sg} ;
+  lin pot5 n = {s = n.s ++ billion ! n.n; n = Pl} ;
+  lin pot5plus n m = {s = n.s ++ billion ! n.n ++ m.s; n = Pl} ;
+  lin pot5decimal d = {s = d.s ++ "милијарди"; n = Pl} ;
+
+  oper
+    thousand : Number => Str = table {Sg => "илјада"; Pl => "илјади"} ;
+    million : Number => Str = table {Sg => "милион"; Pl => "милиони"} ;
+    billion : Number => Str = table {Sg => "милијарда"; Pl => "милијарди"} ;
 }

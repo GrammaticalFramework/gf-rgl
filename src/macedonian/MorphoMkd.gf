@@ -919,7 +919,7 @@ mkN028 base =
                    } ;
         rel = \\_,_ => base_1 ;
         relType = Pref ;
-        g = Masc
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN028"
   } ;

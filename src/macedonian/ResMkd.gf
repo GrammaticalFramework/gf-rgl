@@ -319,9 +319,9 @@ mkClause : Str -> Agr -> Verb ** {compl : Agr => Str} -> Order => Tense => Anter
                             Neg => "не"
                           } ;
                     fut = case <p,o> of {
-                            <Pos,Main> => <"ке",[]> ;
+                            <Pos,Main> => <"ќе",[]> ;
                             <Neg,Main> => <"нема да",[]> ;
-                            <Pos,Quest> => <"ке","ли"> ;
+                            <Pos,Quest> => <"ќе","ли"> ;
                             <Neg,Quest> => <"нема ли да",[]>
                           } ;
                     li  = case o of {

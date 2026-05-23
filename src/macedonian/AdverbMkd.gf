@@ -6,7 +6,7 @@ concrete AdverbMkd of Adverb = CatMkd ** open Prelude,ResMkd in {
   lin ComparAdvAdjS c a s = {s = c.s
                                    ++ a.s ! Indef ! GSg Masc ++ s.s} ;
   lin PositAdAAdj a = {s = a.s ! Indef ! GSg Masc} ;
-  lin PositAdvAdj a = {s = a.s ! Indef ! GSg Masc} ;
+  lin PositAdvAdj a = {s = a.adverb} ;
   lin PrepNP p np = {s = p.s ++ np.s ! RPrep} ;
   lin SubjS s s2 = {s = s.s ++ s2.s} ;
 }
