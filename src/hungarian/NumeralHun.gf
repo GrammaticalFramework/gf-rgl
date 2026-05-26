@@ -27,96 +27,77 @@ lin
   n9 = mkNum3 "kilenc" "kilencven" "kilencedik" ;
 
   -- : Sub10 ;                               -- 1
-  pot01 = mkNum3 "egy" "tíz" "első" ** {n=Sg} ;
+  pot01 = mkNum3 "egy" "tíz" "első" ;
   -- : Digit -> Sub10 ;                      -- d * 1
   pot0 d = d ;
 
   -- : Sub100 ;                              -- 10
-  pot110 = {s = table {p => "tíz"} ; n = numNumber ; numtype = IsNum} ;
+  pot110 = {s = table {p => "tíz"}} ;
   -- : Sub100 ;                              -- 11
-  pot111 = {s = table {p => "tizenegy"} ; n = numNumber ; numtype = IsNum} ;
+  pot111 = {s = table {p => "tizenegy"}} ;
   -- : Digit -> Sub100 ;                     -- 10 + d
   pot1to19 d =
-      {s = table {p => "tizen" ++ d.s ! <Unit,p>} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => "tizen" ++ d.s ! <Unit,p>}} ;
   --  : Sub10 -> Sub100 ;                    -- coercion of 1..9
   pot0as1 n =
-      {s = table {p => n.s ! <Unit,p>} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! <Unit,p>}} ;
 
   -- : Digit -> Sub100 ;                     -- d * 10
   pot1 d =
-      {s = table {p => d.s ! <Ten,p>} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => d.s ! <Ten,p>}} ;
   -- : Digit -> Sub10 -> Sub100 ;            -- d * 10 + n
   pot1plus d e =
-      {s = table {p => (d.s ! <Ten,Attrib>) ++ e.s ! <Unit,p>} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => (d.s ! <Ten,Attrib>) ++ e.s ! <Unit,p>}} ;
 
   -- : Sub100 -> Sub1000 ;                   -- coercion of 1..99
   pot1as2 n = n ;
   -- : Sub1000 ;                             -- a hundred
   pot21 =
-      {s = table {p => "száz"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => "száz"}} ;
   --  : Sub10 -> Sub1000 ;                   -- m * 100
   pot2 d =
-      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz"}} ;
   --  : Sub10 -> Sub100 -> Sub1000 ;         -- m * 100 + n
   pot2plus d e =
-      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz" ++ e.s ! p} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => (d.s ! <Unit,Attrib>) ++ "száz" ++ e.s ! p}} ;
 
   -- : Sub1000 -> Sub1000000 ;               -- coercion of 1..999
   pot2as3 n = n ;
   -- : Sub1000000 ;                          -- a thousand
   pot31 =
-      {s = table {p => "ezer"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => "ezer"}} ;
   -- : Sub1000 -> Sub1000000 ;               -- m * 1000
   pot3 n =
-      {s = table {p => n.s ! Attrib ++ "ezer"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "ezer"}} ;
   --  : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
   pot3plus n m =
-      {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "ezer" ++ m.s ! p}} ;
   pot3decimal d =
-      {s = table {p => d.s ! NCard ++ "ezer"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => d.s ! NCard ++ "ezer"}} ;
 
   pot3as4 n = n ;
 
   pot41 =
-      {s = table {p => "egymillió"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => "egymillió"}} ;
   pot4 n =
-      {s = table {p => n.s ! Attrib ++ "millió"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "millió"}} ;
   pot4plus n m =
-      {s = table {p => n.s ! Attrib ++ "millió" ++ m.s ! p} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "millió" ++ m.s ! p}} ;
   pot4as5 n = n ;
   pot4decimal d =
-      {s = table {p => d.s ! NCard ++ "millió"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => d.s ! NCard ++ "millió"}} ;
 
   pot51 =
-      {s = table {p => "egymilliárd"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => "egymilliárd"}} ;
   pot5 n =
-      {s = table {p => n.s ! Attrib ++ "milliárd"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "milliárd"}} ;
   pot5plus n m =
-      {s = table {p => n.s ! Attrib ++ "milliárd" ++ m.s ! p} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => n.s ! Attrib ++ "milliárd" ++ m.s ! p}} ;
   pot5decimal d =
-      {s = table {p => d.s ! NCard ++ "milliárd"} ;
-       n = numNumber ; numtype = IsNum} ;
+      {s = table {p => d.s ! NCard ++ "milliárd"}} ;
 
 oper
-  LinDigit : Type = {s : DForm*Place => Str ; n : Number} ;
+  LinDigit : Type = {s : DForm*Place => Str} ;
 
   mkNum3 : (x1,_,x3 : Str) -> LinDigit = \három,harminc,harmadik ->
     mkNum5 három harminc három harminc harmadik ;
@@ -126,12 +107,7 @@ oper
                <Ten,Indep> => ti ;
                <Unit,Attrib> => ua ;
                <Ten, Attrib> => ta } ;
---    ord = ord ; -- TODO figure out where to use ordinal
-    n = numNumber ;
-    numType = IsNum ;
     } ;
-
-   numNumber = Sg ;
 
   -- numerals as sequences of digits
   lincat
@@ -143,8 +119,7 @@ oper
 
     -- : Dig -> Digits -> Digits ; -- 876
     IIDig d i = {
-      s = \\x => d.s ++ BIND ++ i.s ! x ;
-      n = numNumber
+      s = \\x => d.s ++ BIND ++ i.s ! x
     } ;
 
     D_0 = mkDig "0" ;
@@ -159,9 +134,8 @@ oper
     D_9 = mkDig "9" ;
 
     PosDecimal d = d ** {hasDot=False} ;
-    NegDecinal d = {
+    NegDecimal d = {
       s = \\x => "-" ++ BIND ++ d.s ! x ;
-      n = numNumber ;
       hasDot=False
     } ;
     IFrac d i = {
@@ -170,19 +144,16 @@ oper
           True => BIND ;
           False => BIND ++ "." ++ BIND
         } ++ i.s ;
-      n = numNumber ;
       hasDot=True
     } ;
 
   oper
     mkDig : Str -> TDigit = \s -> {
       s = s ;
-      n = numNumber
       } ;
 
     TDigit = {
       s : Str ; -- TODO add ordinals
-      n : Number
       } ;
 
 }
