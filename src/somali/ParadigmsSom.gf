@@ -65,7 +65,10 @@ oper
     mkA : (sg,pl : Str) -> A
   } ;
 
-  -- mkA2 : Str -> Prep -> A2 ;
+  mkA2 : overload {
+    mkA2 : A -> A2 ;
+    mkA2 : A -> Adposition -> A2 ;
+  } ;
 
 --2 Verbs
 
@@ -207,9 +210,29 @@ oper
     mkPN : Str -> Agr -> PN = \s,a -> lin PN (mkPNoun s a)
     } ;
 
+  mkGN = overload {
+    mkGN : Str -> GN        = \s -> lin GN (mkPNoun s sgMasc) ;
+    mkGN : Str -> Agr -> GN = \s,a -> lin GN (mkPNoun s a)
+    } ;
+
+  mkSN = overload {
+    mkSN : Str -> SN        = \s -> lin SN (mkPNoun s sgMasc) ;
+    mkSN : Str -> Agr -> SN = \s,a -> lin SN (mkPNoun s a)
+    } ;
+
+  mkLN = overload {
+    mkLN : Str -> LN        = \s -> lin LN (mkPNoun s sgMasc) ;
+    mkLN : Str -> Agr -> LN = \s,a -> lin LN (mkPNoun s a)
+    } ;
+
   mkA = overload {
     mkA : (yar : Str)   -> A = \s -> lin A (duplA s) ;
     mkA : (sg,pl : Str) -> A = \s,p -> lin A (mkAdj s p)
+    } ;
+
+  mkA2 = overload {
+    mkA2 : A -> A2 = \a -> lin A2 (a ** {c2=NoAdp}) ;
+    mkA2 : A -> Adposition -> A2 = \a,adp -> lin A2 (a ** {c2=adp}) ;
     } ;
 
   mkV = overload {
@@ -285,6 +308,48 @@ oper
     isPoss = False
   } ;
 --------------------------------------------------------------------------------
+
+  mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
+  mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
+  mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
+  mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=[]} ;
+  mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
+  mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
+
+  mkQuant : Str -> Quant = \s -> lin Quant (baseQuant ** {
+    s = \\allomorph,c => s ;
+    sp = \\gn,c => s ;
+  }) ;
+  mkCard : Str -> Card = \s -> lin Card (baseNum ** {
+    s = \\_ => s
+  }) ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
+  mkDet : Str -> Det = \s -> lin Det (baseQuant ** {
+    sp = \\gn,c => s ;
+    n = Sg ;
+    numtype = NoNum
+  }) ;
+  mkPredet : Str -> Predet = \s -> lin Predet {
+    s = s ;
+    da = F TA ;
+    isPoss = True
+  } ;
+
+  mkIQuant : Str -> IQuant = \s -> lin IQuant (baseQuant ** {
+    s = \\allomorph,c => s ;
+    sp = \\gn,c => s ;
+  }) ;
+  mkIDet : Str -> IDet = \s -> lin IDet (baseQuant ** {
+    sp = \\gn,c => s ;
+    n = Sg ;
+    numtype = NoNum
+  }) ;
+
+  mkConj : Str -> Conj = \s -> lin Conj {
+    s1 = s;
+    s2 = \\_ => s;
+    n = Sg
+  } ;
 
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 

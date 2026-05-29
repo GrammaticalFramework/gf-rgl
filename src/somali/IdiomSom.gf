@@ -26,9 +26,10 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom, NounSom, S
 
 -- 7/12/2012 generalizations of these
 
-    ExistNPAdv : NP -> Adv -> Cl ;    -- there is a house in Paris
     ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 -}
+  ExistNPAdv np adv = ExistNP (AdvNP np adv) ;
+
   -- : VP -> VP ;
   ProgrVP vp = vp ** {
     s = table {
@@ -39,9 +40,10 @@ concrete IdiomSom of Idiom = CatSom ** open Prelude, ResSom, VerbSom, NounSom, S
     } ;
 
 
-  {- TODO: Saeed p. 92 and 207, optative
   -- : VP -> Utt ;       -- let's go
-  ImpPl1 vp = { } ;
+  ImpPl1 vp = {s = "aan" ++ linVP (VImp Pl Pos) Statement vp} ;
+
+  {- TODO: Saeed p. 92 and 207, optative
 
   ImpP3     : NP -> VP -> Utt ; -- let John walk
 

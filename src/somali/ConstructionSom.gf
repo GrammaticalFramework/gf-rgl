@@ -1,4 +1,4 @@
-concrete ConstructionSom of Construction = CatSom ** open ParadigmsSom in {
+concrete ConstructionSom of Construction = CatSom ** open ParadigmsSom, GrammarSom, ResSom in {
 
 lincat
   Timeunit = N ;
@@ -6,6 +6,53 @@ lincat
   Monthday = NP ;
   Month = N ;
   Year = NP ;
+
+lin
+  ready_VP = UseComp (CompAP (PositA (mkA "diyaar"))) ;
+  has_age_VP card = UseComp (CompAdv (mkAdv (card.s ! Hal ++ "jir"))) ;
+
+  monthAdv m = mkAdv (m.s ! Indef Sg) ;
+  yearAdv y = mkAdv (y.s ! Abs) ;
+  intYear i = lin NP (indeclNP i.s) ;
+
+  weekdayPunctualAdv w = mkAdv (w.s ! Indef Sg) ;
+  weekdayHabitualAdv w = mkAdv (w.s ! Indef Pl) ;
+  weekdayNextAdv w = mkAdv ("maalinta xigta" ++ w.s ! Indef Sg) ;
+  weekdayLastAdv w = mkAdv ("maalintii hore" ++ w.s ! Indef Sg) ;
+  weekdayN w = w ;
+  monthN m = m ;
+  weekdayPN w = mkPN (w.s ! Indef Sg) ;
+  monthPN m = mkPN (m.s ! Indef Sg) ;
+
+  cup_of_CN np = PartNP (UseN (mkN "koob")) np ;
+  n_units_AP card cn a = lin AP {
+    s = \\af => card.s ! Hal ++ cn.s ! Indef Sg ++ a.s ! af ;
+    compar = []
+    } ;
+  n_units_of_NP card cn np =
+    lin NP (indeclNP (card.s ! Hal ++ cn.s ! Indef Sg ++ "oo" ++ np.s ! Abs)) ;
+
+  monday_Weekday = mkN "isniin" ;
+  tuesday_Weekday = mkN "talaado" ;
+  wednesday_Weekday = mkN "arbaco" ;
+  thursday_Weekday = mkN "khamiis" ;
+  friday_Weekday = mkN "jimce" ;
+  saturday_Weekday = mkN "sabti" ;
+  sunday_Weekday = mkN "axad" ;
+
+  january_Month = mkN "janaayo" ;
+  february_Month = mkN "febaraayo" ;
+  march_Month = mkN "maarso" ;
+  april_Month = mkN "abriil" ;
+  may_Month = mkN "maajo" ;
+  june_Month = mkN "juun" ;
+  july_Month = mkN "luuliyo" ;
+  august_Month = mkN "agoosto" ;
+  september_Month = mkN "sebtembar" ;
+  october_Month = mkN "oktoobar" ;
+  november_Month = mkN "nofembar" ;
+  december_Month = mkN "disembar" ;
+
 {-
 lin
 

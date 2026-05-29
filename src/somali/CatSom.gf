@@ -125,8 +125,12 @@ concrete CatSom of Cat = CommonX - [Adv,IAdv] ** open ResSom, Prelude in {
 
 linref
     -- Cl = linCl ;
-    V, VS, VQ, VA, VV, V2A, V2V, V2S, V2Q, V2, V3 = \v -> v.s ! VImp Sg Pos ;
-    VP = infVP ;
+    V, VS, VQ, VA, VV = \v -> v.s ! VImp Sg Pos ;
+    V2A, V2V, V2S, V2Q, V2 = \v -> (prepTable ! v.c2).s ! ZeroObj ++ v.s ! VImp Sg Pos ;
+    V3 = \v -> (prepTable ! v.c2).s ! ZeroObj ++ (prepTable ! v.c3).s ! ZeroObj ++ v.s ! VImp Sg Pos ;
+    VP = linVP (VImp Sg Pos) Statement ;
     CN = linCN ;
     Prep = \prep -> prep.s ! ZeroObj ++ prep.sii ++ prep.dhex ++ prep.hoostiisa ! Sg3 Masc ;
+    A = \a -> a.s ! AF Sg Abs ;
+    A2 = \a -> (prepTable ! a.c2).s ! ZeroObj ++ a.s ! AF Sg Abs ;
 }

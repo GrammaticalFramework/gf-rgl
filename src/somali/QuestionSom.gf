@@ -67,7 +67,7 @@ concrete QuestionSom of Question = CatSom ** open
 
 -- They can be modified with adverbs.
   -- : IP -> Adv -> IP ;        -- who in Paris
-  --AdvIP = NS.AdvNP ;
+  AdvIP ip adv = NS.AdvNP ip adv ** {contractSTM = ip.contractSTM} ;
 
 -- Interrogative quantifiers have number forms and can take number modifiers.
 
@@ -81,7 +81,7 @@ concrete QuestionSom of Question = CatSom ** open
 -- They can be modified with other adverbs.
 
   -- : IAdv -> Adv -> IAdv ;    -- where in Paris
-  --  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ adv.berri} ; -- TODO do we need AdpCombination in IAdv?
+  AdvIAdv iadv adv = iadv ** {s = iadv.s ++ linAdv adv ; berri = iadv.berri ++ linAdv adv} ;
 
 -- Interrogative complements to copulas can be both adverbs and
 -- pronouns.

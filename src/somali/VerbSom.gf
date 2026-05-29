@@ -53,9 +53,19 @@ lin
   ComplVQ vq qs = ;
 
   -- : VA -> AP -> VP ;  -- they become red
-  ComplVA va ap = ResSom.insertComp (CompAP ap).s (useV va) ;
-
 -}
+  ComplVQ vq qs =
+    let vps = useV vq
+     in vps ** {obj = {s = qs.s ; a = ZeroObj}} ;
+
+  -- : VA -> AP -> VP ;  -- they become red
+  ComplVA va ap =
+    let comp = CompAP ap
+     in useV va ** {
+          aComp = comp.aComp ;
+          nComp = comp.nComp ;
+          compar = comp.compar
+        } ;
 --------
 -- Slash
 
@@ -73,13 +83,15 @@ lin
         subord = SubjS {s="in"} s ;
      in vps ** {obj = {s = subord.berri ; a = ZeroObj}} ;
 
-{-
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
-  SlashV2V v2v vp = ;
+  SlashV2V v2v vp = useVc v2v ** {
+    vComp = {subjunc = [] ; inf = infVP vp ; subcl = \\_ => []}
+    } ;
 
   -- : V2Q -> QS -> VPSlash ;  -- ask (him) who came
-  SlashV2Q v2q qs = ;
--}
+  SlashV2Q v2q qs = useVc v2q ** {
+    miscAdv = qs.s
+    } ;
   -- : V2A -> AP -> VPSlash ;  -- paint (it) red
    -- TODO: is "red" plural in "paint them red"?
   SlashV2A v2a ap = useVc v2a ** {
@@ -89,20 +101,13 @@ lin
   -- : VPSlash -> NP -> VP
   ComplSlash = insertComp ;
 
-{-
   -- : VV  -> VPSlash -> VPSlash ;
                   -- Just like ComplVV except missing subject!
-  SlashVV vv vps = ComplVV vv vps ** { missing = vps.missing ;
-                                       post = vps.post } ;
+  SlashVV vv vps = ComplVV vv vps ;
 
   -- : V2V -> NP -> VPSlash -> VPSlash ; -- beg me to buy
   SlashV2VNP v2v np vps =
-    ComplVV v2v vps **
-      { missing = vps.missing ;
-        post = vps.post ;
-        iobj = np ** { s = np.s ! Dat } } ;
-
--}
+    insertComp (SlashV2V v2v vps) np ;
 
   -- : Comp -> VP ;
   UseComp comp = UseCopula ** comp ;
@@ -113,17 +118,15 @@ lin
   -- : VPSlash -> Adv -> VPSlash ;  -- use (it) here
   AdvVPSlash = insertAdv ;
 
-{-
   -- : VP -> Adv -> VP ;  -- sleep , even though ...
-  ExtAdvVP vp adv =  ;
+  ExtAdvVP = AdvVP ;
 
   -- : AdV -> VP -> VP ;  -- always sleep
-  AdVVP adv vp = vp ** {adv = adv} ;
+  AdVVP adv vp = vp ** {berri = vp.berri ++ adv.s} ;
 
 
   -- : AdV -> VPSlash -> VPSlash ;  -- always use (it)
-  AdVVPSlash adv vps = vps ** { adv = adv.s ++ vps.adv } ;
--}
+  AdVVPSlash adv vps = vps ** {berri = vps.berri ++ adv.s} ;
   -- : VP -> Prep -> VPSlash ;  -- live in (it)
   VPSlashPrep vp prep =
     let adv = prepNP prep emptyNP
