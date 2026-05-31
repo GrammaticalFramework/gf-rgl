@@ -4,7 +4,13 @@ concrete GrammarFao of Grammar =
   NounFao,
   VerbFao,
   AdjectiveFao,
+  AdverbFao,
+  NumeralFao,
   SentenceFao,
+  QuestionFao,
   RelativeFao,
-  StructuralFao ** {
+  ConjunctionFao,
+  StructuralFao,
+  IdiomFao,
+  NamesFao ** {
 }

@@ -169,4 +169,32 @@ oper
               }
     } ;
 
+oper
+  negStr : Polarity -> Str = \pol -> case pol of {
+    Pos => [] ;
+    Neg => "ikki"
+  } ;
+
+  mkNP : Str -> Gender -> Number -> Person -> {s : Case => Str ; g : Gender ; n : Number ; p : Person} =
+    \str,g,n,p -> {
+      s = \\_ => str ;
+      g = g ;
+      n = n ;
+      p = p
+    } ;
+
+  mkCN : Str -> Gender -> CommonNoun =
+    \str,g -> {
+      s = \\_,_,_ => str ;
+      g = g
+    } ;
+
+  mkVP : Str -> VerbPhrase =
+    \str -> {
+      Converb = str ;
+      Indicative = \\_,pol,_,_ => str ++ negStr pol ;
+      Nonfinite = str ;
+      Participle = \\_ => str
+    } ;
+
 }

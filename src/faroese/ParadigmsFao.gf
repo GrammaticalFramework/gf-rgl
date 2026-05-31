@@ -569,14 +569,14 @@ oper
   mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
 
   mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
-  mkIP : Str -> IP = \s -> lin IP {s=s} ;
+  mkIP : Str -> IP = \s -> lin IP {s=s; n=Sg} ;
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
-  mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+  mkIDet : Str -> IDet = \s -> lin IDet {s=s; n=Sg} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_ => s; sp=Indef} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_,_ => s; sp=Indef} ;
   mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
   mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg; sp=Indef} ;
-  mkCard : Str -> Card = \s -> lin Card {s=s} ;
+  mkCard : Str -> Card = \s -> lin Card {s=\\_,_ => s; n=Pl} ;
   mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
   mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
   mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;

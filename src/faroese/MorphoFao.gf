@@ -600,18 +600,18 @@ mkN016 base =
                                  Gen => base_1+"ar"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"urin" ;
-                                 Acc => base_1+"in" ;
-                                 Dat => base_1+"inum" ;
-                                 Gen => base_1+"arins"
+                                 Nom => nonExist ;
+                                 Acc => nonExist ;
+                                 Dat => nonExist ;
+                                 Gen => nonExist
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"urin" ;
+                               Acc => base_1+"in" ;
+                               Dat => base_1+"inum" ;
+                               Gen => base_1+"arins"
                              } ;
                        Pl => table {
                                Nom => nonExist ;
@@ -5670,18 +5670,18 @@ mkN146 base =
                                  Gen => base_1+"s"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"kurin" ;
-                                 Acc => base_1+"kin" ;
-                                 Dat => base_1+"kinum" ;
-                                 Gen => base_1+"sins"
+                                 Nom => nonExist ;
+                                 Acc => nonExist ;
+                                 Dat => nonExist ;
+                                 Gen => nonExist
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"kurin" ;
+                               Acc => base_1+"kin" ;
+                               Dat => base_1+"kinum" ;
+                               Gen => base_1+"sins"
                              } ;
                        Pl => table {
                                Nom => nonExist ;

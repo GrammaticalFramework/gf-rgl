@@ -1,6 +1,21 @@
 concrete ExtendFao of Extend = CatFao ** 
 	open ParadigmsFao, ResFao in {
 
+lincat
+  VPS = {s : Gender => PersNum => Str} ;
+  [VPS] = {s1,s2 : Gender => PersNum => Str} ;
+  VPI = {s : Str} ;
+  [VPI] = {s1,s2 : Str} ;
+  VPS2 = {s : Gender => PersNum => Str ; c2 : Compl ; sc : Str} ;
+  [VPS2] = {s1,s2 : Gender => PersNum => Str ; c2 : Compl ; sc : Str} ;
+  VPI2 = {s : Str ; c2 : Compl ; sc : Str} ;
+  [VPI2] = {s1,s2 : Str ; c2 : Compl ; sc : Str} ;
+  [Comp] = {s1,s2 : Gender => Number => Str} ;
+  [Imp] = {s1,s2 : Polarity => Number => Str} ;
+  RNP = {s : Case => Str ; g : Gender ; n : Number ; p : Person} ;
+  RNPList = {s1,s2 : Case => Str ; g : Gender ; n : Number ; p : Person} ;
+  X = {s : Str} ;
+
 lin
   iFem_Pron  = mkPron "eg" "meg" "mær" "mín" Masc Sg P1 ;
   youFem_Pron = mkPron "tú" "teg" "tær" "tín" Masc Sg P2 ;
