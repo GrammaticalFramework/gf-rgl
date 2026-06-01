@@ -105,7 +105,7 @@ lin
   pot0as1 n = n ;
 
   pot110 =
-    let ten =
+    let ten : Gender => Case => Str =
           table {
             Neuter => \\_ => "ti" ;
             _      => \\_ => "tíggju"
