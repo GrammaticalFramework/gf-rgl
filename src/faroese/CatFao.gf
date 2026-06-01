@@ -38,7 +38,10 @@ lincat ACard = {s : Str} ;
 lincat Ord = {s : Gender => Number => Case => Str} ;
 lincat DAP = {s : Gender => Case => Str ; n : Number ; sp : Species} ;
 lincat S = {s : Str} ;
-lincat Numeral = {s : Gender => Case => Str ; n : Number} ;
+lincat Numeral = {
+  s : CardOrd => Gender => Case => Str ;
+  n : Number
+  } ;
 lincat Digits = {s : Str ; n : Number} ;
 lincat Decimal = {s : Str ; n : Number ; hasDot : Bool} ;
 lincat Conj = {s : Str} ;

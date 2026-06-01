@@ -88,13 +88,13 @@ lin
   NumCard card = card ** {hasCard = True} ;
   NumDigits digits = {s = \\_,_ => digits.s ; n = Pl} ;
   NumDecimal dec = {s = \\_,_ => dec.s ; n = Pl} ;
-  NumNumeral numeral = numeral ;
+  NumNumeral numeral = {s=numeral.s ! NCard; n=numeral.n} ;
   AdNum adn card = {s = \\g,c => adn.s ++ card.s ! g ! c ; n = card.n} ;
-  OrdDigits digits = {s = \\_,_,_ => digits.s} ;
-  OrdNumeral numeral = {s = \\g,_,c => numeral.s ! g ! c} ;
+  OrdDigits digits = {s = \\_,_,_ => digits.s ++ BIND ++ "."} ;
+  OrdNumeral numeral = {s = \\g,n,c => numeral.s ! NOrd n ! g ! c} ;
   OrdSuperl a = {s = a.s} ;
   OrdNumeralSuperl numeral a = {
-    s = \\g,n,c => numeral.s ! g ! c ++ a.s ! g ! n ! c
+    s = \\g,n,c => numeral.s ! NOrd n ! g ! c ++ a.s ! g ! n ! c
   } ;
   MassNP cn = {
     s = \\c => cn.s ! Indef ! Sg ! c ;

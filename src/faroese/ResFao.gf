@@ -1,5 +1,8 @@
 resource ResFao = ParamX - [Tense,Pres,Past] ** {
 
+param
+  CardOrd = NCard | NOrd Number ;
+
 param Species = Indef | Def ;
 param Case = Nom | Acc | Dat | Gen ;
 param Gender = Masc | Fem | Neuter ;
