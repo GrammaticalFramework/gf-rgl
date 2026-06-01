@@ -502,6 +502,11 @@ oper
      mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 (n ** {c2 = p1; c3 = p2}) ;
   } ;
 
+  invarN : Str -> N = \s -> lin N {
+    s = \\_,_,_ => s ;
+    g = Masc
+  } ;
+
   mkA = overload {
     mkA : Str -> A = regA;   -- s;Masc;Sg;Nom
     mkA : Str -> Str -> A = reg2A   -- s;Masc;Sg;Nom  s;Masc;Sg;Dat
@@ -521,6 +526,15 @@ oper
     mkV : Str -> Str -> V = reg2V ;  -- Nonfinite  Indicative;Pres;('PSg', P2)
 	mkV : V -> Str -> V -- particle verb
   		= \v,p -> v ** {particle = p}
+  } ;
+
+  invarV : Str -> V = \s -> lin V {
+    Converb = s ;
+    imperative = \\_ => s ;
+    Indicative = \\_,_ => s ;
+    Nonfinite = s ;
+    Participle = \\_ => s ;
+    particle = []
   } ;
 
   mkVV : V -> VV = \v -> lin VV v ;
