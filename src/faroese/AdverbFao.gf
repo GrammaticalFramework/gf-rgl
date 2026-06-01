@@ -1,6 +1,4 @@
 concrete AdverbFao of Adverb = CatFao ** open Prelude,ResFao in {
-  flags
-    coding = "UTF-8" ;
   lin
     PositAdvAdj a = {s = a.s ! Neuter ! Sg ! Nom} ;
     PrepNP p np = {s = p.s ++ np.s ! p.c} ;
