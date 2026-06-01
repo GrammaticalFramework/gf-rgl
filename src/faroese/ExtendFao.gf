@@ -1,5 +1,5 @@
 concrete ExtendFao of Extend = CatFao ** 
-	open ParadigmsFao, ResFao in {
+	open ParadigmsFao, ResFao, (P = ParamX) in {
 
 lincat
   VPS = {s : Gender => PersNum => Str} ;
@@ -25,4 +25,8 @@ lin
   youPolFem_Pron = mkPron "tit" "tykkum" "tykkum" "tykkara" Masc Pl P2 ;
   youPolPl_Pron = mkPron "tit" "tykkum" "tykkum" "tykkara" Masc Pl P2 ;
   youPolPlFem_Pron = mkPron "tit" "tykkum" "tykkum" "tykkara" Masc Pl P2 ;
+
+lin
+  TPastSimple = {s = [] ; t = P.Past} ;
+
 }
