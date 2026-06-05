@@ -18,6 +18,10 @@ concrete SentenceFin of Sentence = CatFin ** open Prelude, ResFin, StemFin in {
         verb.fin ++ verb.inf ++ compl ;
     } ;
 
+    AdvImp adv imp = {
+      s = \\pol,agr => adv.s ++ imp.s ! pol ! agr
+      } ;
+
 -- The object case is formed at the use site of $c2$, in $Relative$ and $Question$.
 
     SlashVP np vp = {

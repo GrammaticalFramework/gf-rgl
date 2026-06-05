@@ -36,4 +36,8 @@ lin InLN ln =
    let c = case ln.extCase of {True => Adess ; False => Iness}
    in {s = ln.s ! c} ;
 
+lin AdjLN ap ln = ln ** {
+      s = \\c => ap.s ! True ! NCase ln.n c ++ ln.s ! c
+      } ;
+
 }

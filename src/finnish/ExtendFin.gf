@@ -3,15 +3,23 @@
 concrete ExtendFin of Extend =
   CatFin ** ExtendFunctor - [
     VPI2,VPS2,MkVPS,MkVPS2,ConjVPS2,ComplVPS2, ConsVPS, BaseVPS, ListVPS, VPS, ConjVPS,PredVPS,
+    MkVPI,BaseVPI,ConsVPI,ConjVPI,ComplVPIVV,
     MkVPI2,ConjVPI2,ComplVPI2,ComplVPIVV
+    ,ListComp, BaseComp, ConsComp, ConjComp
+    ,ListImp, BaseImp, ConsImp, ConjImp
+
     ,ExistCN, ExistMassCN, ICompAP, ByVP
-    ,CompoundN, GenNP, GenIP, GenRP, AdvIsNP, EmbedSSlash
+    ,CompoundN, CompoundAP, GenNP, GenIP, GenRP, AdvIsNP, EmbedSSlash
     ,PassVPSlash, PassAgentVPSlash
     ,CardCNCard
     ,UttAccNP
-    ,AdjAsCN, AdjAsNP
+    ,AdjAsCN, AdjAsNP, GerundCN, GerundNP, GerundAdv
     ,ApposNP
-    ,PresPartAP, PastPartAP
+    ,PresPartAP, PastPartAP, PastPartAgentAP
+    ,PositAdVAdj, ProgrVPSlash
+    ,RNP,RNPList,ReflPron,ReflPoss,ReflVPSlash,ReflVPS2,ReflA2
+    ,PredetRNP,AdvRNP,AdvRVP,AdvRAP,PossPronRNP
+    ,Base_rr_RNP,Base_nr_RNP,Base_rn_RNP,Cons_rr_RNP,Cons_nr_RNP,ConjRNP
     ]
   with
     (Grammar = GrammarFin) **
@@ -97,13 +105,24 @@ oper
       } ;
 
 
-    BaseVPI = twoTable2 VVType Agr ;
-    ConsVPI = consrTable2 VVType Agr comma ;
+    BaseVPI x y = {
+      s1 = x.s ;
+      s2 = y.s ;
+      sc = x.sc
+      } ;
 
+    ConsVPI x xs = {
+      s1 = \\vt,agr => x.s ! vt ! agr ++ comma ;
+      s2 = \\vt,agr => xs.s1 ! vt ! agr ++ xs.s2 ! vt ! agr ;
+      sc = x.sc
+      } ;
 
+    ConjVPI conj xs = {
+      s = \\vt,agr => conj.s1 ++ xs.s1 ! vt ! agr ++ conj.s2 ++ xs.s2 ! vt ! agr ;
+      sc = xs.sc
+      } ;
 
     MkVPI vp = mkVPI vp ;
-    ConjVPI c xs = conjunctDistrTable2 VVType Agr c xs ;
     ComplVPIVV vv vpi =
       S.insertObj (\\_,_,a => vpi.s ! vv.vi ! a)
                   (S.predV (vv ** {sc = case vpi.sc of {
@@ -111,6 +130,16 @@ oper
                                          c     => c }})   -- minulla täytyy olla auto
                   ) ;
 
+
+lincat [Comp] = {s1,s2 : Agr => Str} ;
+lin BaseComp = twoTable Agr ;
+    ConsComp = consrTable Agr comma ;
+    ConjComp conj xs = conjunctDistrTable Agr conj xs ;
+
+lincat [Imp] = {s1,s2 : Polarity => Agr => Str} ;
+lin BaseImp = twoTable2 Polarity Agr ;
+    ConsImp = consrTable2 Polarity Agr comma ;
+    ConjImp conj xs = conjunctDistrTable2 Polarity Agr conj xs ;
 
 -------- two-place verb conjunction
 
@@ -161,6 +190,13 @@ lin
     let ukkos_ = (S.snoun2nounBind n1).s ! NCompound in {
       s  = \\c => ukkos_ ++ BIND ++ n2.s ! c ;
       h  = n2.h
+      } ;
+
+    CompoundAP n a =
+    let prefix = (S.snoun2nounBind n).s ! NCompound in {
+      s = \\_,af => prefix ++ BIND ++ sAdjFull2nforms Posit a ! af ;
+      p = [] ;
+      hasPrefix = True
       } ;
 
 ---- copied from VerbFin.CompAP, should be shared
@@ -262,6 +298,145 @@ lin PastPartAP vps = {
       p = vps.c2.s.p1 ;
       hasPrefix = False
       } ;
+    PastPartAgentAP vps np = {
+      s = \\_,nf => np.s ! NPCase Gen ++ preCompVP (lin VP vps) (AgentPart (AN nf)) ;
+      p = vps.c2.s.p1 ;
+      hasPrefix = False
+      } ;
+
+lin GerundCN vp = {
+      s = \\nf => let infForm : InfForm =
+                        case nf of {
+                          NCase _ Part => Inf4Part ;
+                          _ => Inf4Nom
+                        }
+                  in infVP vp.s.sc Pos (agrP3 (numN nf)) vp infForm ;
+      postmod = \\_ => [] ;
+      h = Back
+      } ;
+
+    GerundNP vp =
+      MassNP {
+        s = \\nf => let infForm : InfForm =
+                        case nf of {
+                          NCase _ Part => Inf4Part ;
+                          _ => Inf4Nom
+                        }
+                    in infVP vp.s.sc Pos (agrP3 (numN nf)) vp infForm ;
+        postmod = \\_ => [] ;
+        h = Back
+        } ;
+
+    GerundAdv vp = {
+      s = infVP vp.s.sc Pos (agrP3 Sg) vp Inf3Adess
+      } ;
+
+    PositAdVAdj a = {s = a.s ! Posit ! sAAdv} ;
+
+lin ProgrVPSlash vp =
+      let
+        inf = (sverb2verbSep vp.s).s ! Inf Inf3Iness ;
+        on  = predV olla
+      in vp ** {
+        s = on.s ;
+        s2 = \\b,p,a => inf ++ vp.s2 ! b ! p ! a ;
+        } ;
+
+lincat
+  RNP = {s : Agr => NPForm => Str ; isPron : Bool ; isNeg : Bool} ;
+  RNPList = {s1,s2 : Agr => NPForm => Str ; isPron : Bool ; isNeg : Bool} ;
+
+lin ReflPron = {
+      s = \\agr,npf => (reflPron agr).s ! npf ;
+      isPron = True ;
+      isNeg = False
+      } ;
+
+    ReflPoss num cn = {
+      s = \\agr, npf =>
+        let
+          quant : Quant = lin Quant {  -- possessive pronoun with suffix only
+            s2 : Harmony => Str = \\harm => possSuffixGen harm agr ;
+	        s1,sp = \\_,_ => [] ; isNum,isNeg = False ; isPoss,isDef = True
+	      }
+        in (DetCN (DetQuant quant num) cn).s ! npf ;
+     isPron = False ;
+     isNeg = False
+     } ;
+
+    ReflVPS2 vps rnp = {
+      s = \\agr => vps.s ! agr ++ appCompl True vps.p vps.c2 (rnp2np agr rnp) ;
+      sc = vps.sc ;
+      h = vps.h
+      } ;
+
+    PredetRNP pred rnp = {
+      s = \\agr,npf => pred.s ! complNumAgr agr ! npf ++ rnp.s ! agr ! npf ;
+      isPron = False ;
+      isNeg = rnp.isNeg
+      } ;
+
+    AdvRNP np prep rnp = {
+      s = \\agr,npf => np.s ! npf ++ appCompl True Pos prep (rnp2np agr rnp) ;
+      isPron = False ;
+      isNeg = orB np.isNeg rnp.isNeg
+      } ;
+
+    AdvRVP vp prep rnp =
+      insertObj (\\_,b,agr => appCompl True b prep (rnp2np agr rnp)) vp ;
+
+    AdvRAP ap prep rnp = ap ** {
+      s = \\isMod,af => ap.s ! isMod ! af ++ appCompl True Pos prep (rnp2np (agrP3 Sg) rnp) ;
+      hasPrefix = False
+      } ;
+
+    PossPronRNP p num cn rnp =
+      let np = DetCN (DetQuant (PossPron p) num) cn in
+      np ** {
+        s = \\npf => np.s ! npf ++ rnp.s ! p.a ! NPCase Gen ;
+        isNeg = orB np.isNeg rnp.isNeg
+        } ;
+
+    Base_rr_RNP x y = {
+      s1 = x.s ;
+      s2 = y.s ;
+      isPron = False ;
+      isNeg = orB x.isNeg y.isNeg
+      } ;
+
+    Base_nr_RNP x y = {
+      s1 = \\_,npf => x.s ! npf ;
+      s2 = y.s ;
+      isPron = False ;
+      isNeg = orB x.isNeg y.isNeg
+      } ;
+
+    Base_rn_RNP x y = {
+      s1 = x.s ;
+      s2 = \\_,npf => y.s ! npf ;
+      isPron = False ;
+      isNeg = orB x.isNeg y.isNeg
+      } ;
+
+    Cons_rr_RNP x xs = {
+      s1 = \\agr,npf => x.s ! agr ! npf ++ comma ;
+      s2 = \\agr,npf => xs.s1 ! agr ! npf ++ xs.s2 ! agr ! npf ;
+      isPron = False ;
+      isNeg = orB x.isNeg xs.isNeg
+      } ;
+
+    Cons_nr_RNP x xs = {
+      s1 = \\_,npf => x.s ! npf ++ comma ;
+      s2 = \\agr,npf => xs.s1 ! agr ! npf ++ xs.s2 ! agr ! npf ;
+      isPron = False ;
+      isNeg = orB x.isNeg xs.isNeg
+      } ;
+
+    ConjRNP conj xs = {
+      s = \\agr,npf => conj.s1 ++ xs.s1 ! agr ! npf ++ conj.s2 ++ xs.s2 ! agr ! npf ;
+      isPron = xs.isPron ;
+      isNeg = xs.isNeg
+      } ;
 
 oper
   -- ruohoa syövä, Ranskassa valmistettu
@@ -270,5 +445,12 @@ oper
     vp.adv ! Pos ++
     vp.s.s ! vform ++
     vp.ext ;
+
+  rnp2np agr rnp = {
+    s = \\npf => rnp.s ! agr ! npf ;
+    a = agr ;
+    isPron = rnp.isPron ;
+    isNeg = rnp.isNeg
+    } ;
 
 }

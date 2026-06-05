@@ -294,6 +294,11 @@ concrete NounFin of Noun = CatFin ** open ResFin, MorphoFin, StemFin, Prelude in
         isPron = False ; isNeg = det.isNeg
       } ;
 
+    AdjDAP dap ap = dap ** {
+      s1 = \\c => dap.s1 ! c ++ ap.s ! True ! NCase dap.n c ;
+      sp = \\c => dap.sp ! c ++ ap.s ! False ! NCase dap.n c
+      } ;
+
     DetDAP d = d ;
 
     QuantityNP n m = {

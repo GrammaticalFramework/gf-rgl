@@ -75,10 +75,24 @@ lin
   pot3as4 n = n ;
   pot3decimal d = {n = Pl ; s = \\c => d.s ! NCard (NCase Sg Nom) ++ BIND ++ tuhattaN.s ! Pl ! c} ;
 
+  pot41 = {n = Pl ; s = miljoonaN.s} ;
+  pot4 d = {n = Pl ; s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljoonaaN.s ! d.n ! c} ;
+  pot4plus d e = {
+    n = Pl ;
+    s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljoonaaN.s ! d.n ! c ++
+               e.s ! c
+    } ;
   pot4as5 n = n ;
   pot4decimal d = {n = Pl ; s = \\c => d.s ! NCard (NCase Sg Nom) ++ "miljoonaa"} ;  -- KA: case inflection missing
 
-  pot51 = {n = Pl ; s = \\c => "miljardi"} ;  -- KA: case inflection missing
+  pot51 = {n = Pl ; s = miljardiN.s} ;
+  pot5 d = {n = Pl ; s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljardiaN.s ! d.n ! c} ;
+  pot5plus d e = {
+    n = Pl ;
+    s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljardiaN.s ! d.n ! c ++
+               e.s ! c
+    } ;
+  pot5decimal d = {n = Pl ; s = \\c => d.s ! NCard (NCase Sg Nom) ++ "miljardia"} ;  -- KA: case inflection missing
 
 oper
 --  co : (c,o : {s : NForm => Str}) -> {s : CardOrd => Str} = \c,o -> {
@@ -153,6 +167,32 @@ oper
     Pl => table {
       NCard (NCase Sg Nom) => "tuhatta" ;
       k => tuhatN.s ! k
+      }
+    }
+  } ;
+
+  miljoonaN = co
+    (snoun2nounBind (mkN "miljoona"))
+    (ordN "s" "miljoonas") ;
+
+  miljoonaaN = {s = table {
+    Sg => miljoonaN.s ;
+    Pl => table {
+      NCard (NCase Sg Nom) => "miljoonaa" ;
+      k => miljoonaN.s ! k
+      }
+    }
+  } ;
+
+  miljardiN = co
+    (snoun2nounBind (mkN "miljardi"))
+    (ordN "s" "miljardis") ;
+
+  miljardiaN = {s = table {
+    Sg => miljardiN.s ;
+    Pl => table {
+      NCard (NCase Sg Nom) => "miljardia" ;
+      k => miljardiN.s ! k
       }
     }
   } ;
