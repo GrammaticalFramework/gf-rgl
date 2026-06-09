@@ -3,5 +3,14 @@ concrete GrammarBel of Grammar =
   PhraseBel,
   NounBel,
   AdjectiveBel,
-  StructuralBel ** {
+  AdverbBel,
+  VerbBel,
+  SentenceBel,
+  QuestionBel,
+  RelativeBel,
+  ConjunctionBel,
+  NumeralBel,
+  NamesBel,
+  StructuralBel,
+  IdiomBel ** {
 }

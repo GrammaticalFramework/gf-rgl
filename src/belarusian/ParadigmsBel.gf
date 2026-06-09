@@ -669,9 +669,7 @@ oper
             Loc => loc ;
             Instr => instr
           } ;
-      g = g ;
-      n = n ;
-      p = p
+      a = {g=g; n = n; p = p}
     } ;
 
   regV : Str -> V   -- infinitive
@@ -867,24 +865,37 @@ oper
   mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
-  mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+  nominative   : Case = Nom ;
+  accusative   : Case = Acc ;
+  dative       : Case = Dat ;
+  genitive     : Case = Gen ;
+  locative     : Case = Loc ;
+  instrumental : Case = Instr ;
+
+  mkPrep = overload {
+    mkPrep : Str  -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+    mkPrep : Case -> Prep = \c -> lin Prep {s=[]; c=c} ;
+    mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {s=s; c=c}
+  } ;
 
   mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
-  mkIP : Str -> IP = \s -> lin IP {s=s} ;
-  mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
-  mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+  mkIP : Str -> IP = \s -> lin IP (mkSimpleNP s Masc Sg P3) ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_,_,_ => s} ;
+  mkIDet : Str -> IDet = \s -> lin IDet {s=\\_,_ => s; n=Sg} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=s} ;
-  mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
-  mkDet : Str -> Det = \s -> lin Det {s=s} ;
-  mkCard : Str -> Card = \s -> lin Card {s=s} ;
-  mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_ => s} ;
+  adjQuant : A -> Quant = \a -> lin Quant {s=\\c,g,n => a.s ! c ! genNum g n} ;
+  mkPredet : Str -> Predet = \s -> lin Predet {s=\\_,_,_ => s} ;
+  mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg} ;
+  mkCard : Str -> Card = \s -> lin Card {s=s; n=Pl} ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s; n=Pl} ;
+  mkConj : Str -> Conj = \s -> lin Conj {s=s; n=Pl} ;
   mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
   mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 
-  mkLN : Str -> LN = \s -> lin LN {s=s} ;
-  mkGN : Str -> GN = \s -> lin GN {s=s} ;
+  mkLN : Str -> LN = \s -> lin LN {s=caseTable s; g=Neuter; n=Sg} ;
+  mkGN : Str -> GN = \s -> lin GN {s=s; g=Masc} ;
   mkSN : Str -> SN = \s -> lin SN {s=s} ;
-  mkPN : Str -> PN = \s -> lin PN {s=s} ;
+  mkPN : Str -> PN = \s -> lin PN {s=caseTable s; g=Masc; n=Sg} ;
 
 }

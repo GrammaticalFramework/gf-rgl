@@ -1,9 +1,11 @@
 --# -path=.:../abstract
 concrete LangBel of Lang =
   GrammarBel,
-  LexiconBel
+  LexiconBel,
+  ConstructionBel
   ,DocumentationBel --# notpresent
   ** {
+  
 
 flags startcat = Phr ;
 

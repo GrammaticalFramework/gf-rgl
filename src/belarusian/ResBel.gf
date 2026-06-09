@@ -1,4 +1,4 @@
-resource ResBel = {
+resource ResBel = open (R = ParamX), Prelude in {
 
 param Case = Nom | Acc | Dat | Gen | Loc | Instr ;
 param Number = Sg | Pl ;
@@ -165,5 +165,122 @@ oper noPrep : Compl = {s=""; c=Acc} ;
 
 oper CommonNoun = Noun ;
 oper AdjPhrase = Adj ;
+
+oper Agr = {g : Gender ; n : Number ; p : Person} ;
+oper defaultAgr : Agr = {g=Masc; n=Sg; p=P3} ;
+
+oper NPhrase : Type = {s : Case => Str; a : Agr} ;
+oper mkNPhrase : (Case => Str) -> Agr -> NPhrase =
+  \s,a -> {s = s; a = a} ;
+oper caseTable : Str -> Case => Str =
+  \s -> table {Nom => s; Acc => s; Dat => s; Gen => s; Loc => s; Instr => s} ;
+oper mkSimpleNP : Str -> Gender -> Number -> Person -> NPhrase =
+  \s,g,n,p -> mkNPhrase (caseTable s) {g=g; n=n; p=p} ;
+
+oper nounFromStr : Str -> Gender -> Noun =
+  \s,g -> {
+    s = \\_,_ => s ;
+    voc = s ;
+    g = g
+  } ;
+
+oper adjFromStr : Str -> Adj =
+  \s -> {s = \\_,_ => s} ;
+
+oper prepNP : Compl -> NPhrase -> Str =
+  \prep,np -> prep.s ++ np.s ! prep.c ;
+
+oper neg : R.Polarity -> Str =
+  \p -> case p of {
+    R.Pos => [] ;
+    R.Neg => "не"
+  } ;
+
+oper futureBe : Agr -> Str =
+  \a -> case <a.p,a.n> of {
+    <P1,Sg> => "буду" ;
+    <P2,Sg> => "будзеш" ;
+    <P3,Sg> => "будзе" ;
+    <P1,Pl> => "будзем" ;
+    <P2,Pl> => "будзеце" ;
+    <P3,Pl> => "будуць"
+  } ;
+
+oper pastBe : Agr -> Str =
+  \a -> case <a.g,a.n> of {
+    <Masc,Sg> => "быў" ;
+    <Fem,Sg> => "была" ;
+    <Neuter,Sg> => "было" ;
+    <_,Pl> => "былі"
+  } ;
+
+oper copula : R.Tense -> R.Polarity -> Agr -> Str =
+  \t,p,a -> case t of {
+    R.Pres => neg p ;
+    R.Past => neg p ++ pastBe a ;
+    R.Fut => neg p ++ futureBe a ;
+    R.Cond => neg p ++ pastBe a ++ "бы"
+  } ;
+
+oper finiteVerb : Verb -> R.Tense -> R.Polarity -> Agr -> Str =
+  \v,t,p,a -> case t of {
+    R.Pres => neg p ++ (v.active ! Imperf).pres ! a.p ! a.n ;
+    R.Past => neg p ++ v.participle ! a.g ! a.n ;
+    R.Fut => neg p ++ futureBe a ++ v.infinitive ;
+    R.Cond => neg p ++ v.participle ! a.g ! a.n ++ "бы"
+  } ;
+
+oper VPhrase : Type = {
+  s : R.Tense => R.Polarity => Agr => Str ;
+  inf : Str ;
+  imp : R.Polarity => Number => Str
+} ;
+
+oper mkVPhrase : Verb -> VPhrase =
+  \v -> {
+    s = \\t,p,a => finiteVerb v t p a ;
+    inf = v.infinitive ;
+    imp = \\p,n => neg p ++ v.imperative ! n
+  } ;
+
+oper VSlash : Type = {
+  s : R.Tense => R.Polarity => Agr => Str ;
+  inf : Str ;
+  c : Compl ;
+  imp : R.Polarity => Number => Str ;
+  post : Str
+} ;
+
+oper mkVSlash : Verb -> Compl -> VSlash =
+  \v,c -> {
+    s = \\t,p,a => finiteVerb v t p a ;
+    inf = v.infinitive ;
+    c = c ;
+    imp = \\p,n => neg p ++ v.imperative ! n ;
+    post = []
+  } ;
+
+oper addAdvVP : VPhrase -> Str -> VPhrase =
+  \vp,adv -> {
+    s = \\t,p,a => vp.s ! t ! p ! a ++ adv ;
+    inf = vp.inf ++ adv ;
+    imp = \\p,n => vp.imp ! p ! n ++ adv
+  } ;
+
+oper addAdVVP : Str -> VPhrase -> VPhrase =
+  \adv,vp -> {
+    s = \\t,p,a => adv ++ vp.s ! t ! p ! a ;
+    inf = adv ++ vp.inf ;
+    imp = \\p,n => adv ++ vp.imp ! p ! n
+  } ;
+
+oper addAdvSlash : VSlash -> Str -> VSlash =
+  \vp,adv -> {
+    s = \\t,p,a => vp.s ! t ! p ! a ;
+    inf = vp.inf ++ adv ;
+    c = vp.c ;
+    imp = \\p,n => vp.imp ! p ! n ;
+    post = vp.post ++ adv
+  } ;
 
 }
