@@ -1,6 +1,4 @@
 concrete NumeralUkr of Numeral = CatUkr [Numeral,Digits,Decimal] ** open Prelude,ParamX,ResUkr in {
-  flags
-    coding = "UTF-8" ;
 
 lincat
   Digit = {s,teen,ten,hundred : Str} ;
