@@ -2,6 +2,15 @@ concrete GrammarUkr of Grammar =
   TenseX,
   PhraseUkr,
   NounUkr,
+  VerbUkr,
   AdjectiveUkr,
-  StructuralUkr ** {
+  AdverbUkr,
+  NumeralUkr,
+  SentenceUkr,
+  QuestionUkr,
+  RelativeUkr,
+  ConjunctionUkr,
+  IdiomUkr,
+  StructuralUkr,
+  NamesUkr ** {
 }

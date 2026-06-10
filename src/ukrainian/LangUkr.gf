@@ -2,6 +2,7 @@
 concrete LangUkr of Lang =
   GrammarUkr,
   LexiconUkr
+  ,ConstructionUkr
   ,DocumentationUkr --# notpresent
   ** {
 

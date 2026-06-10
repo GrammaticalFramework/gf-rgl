@@ -22072,32 +22072,32 @@ mkV068 base =
                    Imperf => { past = nonExist ;
                                pres = table {
                                         P1 => table {
-                                                Sg => base_1+base_2+"яти" ;
-                                                Pl => nonExist
+                                                Sg => base_1+"і"+base_2+"ьму" ;
+                                                Pl => base_1+"і"+base_2+"ьмемо"
                                               } ;
                                         P2 => table {
-                                                Sg => nonExist ;
-                                                Pl => nonExist
+                                                Sg => base_1+"і"+base_2+"ьмеш" ;
+                                                Pl => base_1+"і"+base_2+"ьмете"
                                               } ;
                                         P3 => table {
-                                                Sg => nonExist ;
-                                                Pl => nonExist
+                                                Sg => base_1+"і"+base_2+"ьме" ;
+                                                Pl => base_1+"і"+base_2+"ьмуть"
                                               }
                                       }
                              } ;
                    Perf => { past = nonExist ;
                              pres = table {
                                       P1 => table {
-                                              Sg => base_1+base_2+"яти" ;
-                                              Pl => nonExist
+                                              Sg => base_1+"і"+base_2+"ьму" ;
+                                              Pl => base_1+"і"+base_2+"ьмемо"
                                             } ;
                                       P2 => table {
-                                              Sg => nonExist ;
-                                              Pl => nonExist
+                                              Sg => base_1+"і"+base_2+"ьмеш" ;
+                                              Pl => base_1+"і"+base_2+"ьмете"
                                             } ;
                                       P3 => table {
-                                              Sg => nonExist ;
-                                              Pl => nonExist
+                                              Sg => base_1+"і"+base_2+"ьме" ;
+                                              Pl => base_1+"і"+base_2+"ьмуть"
                                             }
                                     }
                            }
@@ -26249,15 +26249,15 @@ mkV126 base =
                                pres = table {
                                         P1 => table {
                                                 Sg => base_1+"няти" ;
-                                                Pl => nonExist
+                                                Pl => base_1+"мемо"
                                               } ;
                                         P2 => table {
-                                                Sg => nonExist ;
-                                                Pl => nonExist
+                                                Sg => base_1+"меш" ;
+                                                Pl => base_1+"мете"
                                               } ;
                                         P3 => table {
-                                                Sg => nonExist ;
-                                                Pl => nonExist
+                                                Sg => base_1+"ме" ;
+                                                Pl => base_1+"муть"
                                               }
                                       }
                              } ;
@@ -26265,15 +26265,15 @@ mkV126 base =
                              pres = table {
                                       P1 => table {
                                               Sg => base_1+"няти" ;
-                                              Pl => nonExist
+                                              Pl => base_1+"мемо"
                                             } ;
                                       P2 => table {
-                                              Sg => nonExist ;
-                                              Pl => nonExist
+                                              Sg => base_1+"меш" ;
+                                              Pl => base_1+"мете"
                                             } ;
                                       P3 => table {
-                                              Sg => nonExist ;
-                                              Pl => nonExist
+                                              Sg => base_1+"ме" ;
+                                              Pl => base_1+"муть"
                                             }
                                     }
                            }

@@ -1,4 +1,4 @@
-resource ResUkr = {
+resource ResUkr = open (R = ParamX), Prelude in {
 
 param Case = Nom | Acc | Dat | Gen | Loc | Instr ;
 param Number = Sg | Pl ;
@@ -164,9 +164,84 @@ oper mkA : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> A =
 
 
 oper Compl = {s : Str; c : Case} ;
-oper noPrep : Compl = {s=""; c=Acc} ;
+oper noPrep : Compl = {s=""; c=Nom} ;
 
 oper CommonNoun = N ;
 oper AdjPhrase = A ;
+
+oper Agr = {g : Gender; n : Number; p : Person} ;
+oper agrP3 : Gender -> Number -> Agr = \g,n -> {g=g; n=n; p=P3} ;
+oper defaultAgr : Agr = agrP3 Masc Sg ;
+
+oper neg : R.Polarity -> Str = \p -> case p of {
+  R.Pos => [] ;
+  R.Neg => "не"
+  } ;
+
+oper auxBe : R.Tense -> Number -> Person -> Str =
+  \t,n,p -> case t of {
+    R.Pres => [] ;
+    R.Past => case n of {
+      Sg => "був" ;
+      Pl => "були"
+      } ;
+    R.Fut => case <p,n> of {
+      <P1,Sg> => "буду" ;
+      <P2,Sg> => "будеш" ;
+      <P3,Sg> => "буде" ;
+      <P1,Pl> => "будемо" ;
+      <P2,Pl> => "будете" ;
+      <P3,Pl> => "будуть"
+      } ;
+    R.Cond => case n of {
+      Sg => "був би" ;
+      Pl => "були б"
+      }
+    } ;
+
+oper finiteVerb : V -> R.Tense -> R.Polarity -> Gender -> Number -> Person -> Str =
+  \v,t,pol,g,n,p -> neg pol ++ case t of {
+    R.Pres => (v.active ! Imperf).pres ! p ! n ;
+    R.Past => (v.active ! Imperf).pres ! p ! n ;
+    R.Fut  => auxBe R.Fut n p ++ v.infinitive ;
+    R.Cond => (v.active ! Imperf).pres ! p ! n ++ "би"
+    } ;
+
+oper copula : R.Tense -> R.Polarity -> Gender -> Number -> Person -> Str =
+  \t,pol,g,n,p -> neg pol ++ auxBe t n p ;
+
+oper prepNP : Compl -> {s : Case => Str} -> Str =
+  \prep,np -> prep.s ++ np.s ! prep.c ;
+
+oper constN : Str -> Gender -> N =
+  \s,g -> {
+    s = \\_,_ => s ;
+    voc = \\_ => s ;
+    g = g
+  } ;
+
+oper possPron : Person -> Gender -> Number -> Gender -> Number -> Str =
+  \p,pg,pn,g,n -> case <p,pg,pn,g,n> of {
+    <P1,_,Sg,Masc,Sg> => "мій" ;
+    <P1,_,Sg,Fem,Sg> => "моя" ;
+    <P1,_,Sg,Neuter,Sg> => "моє" ;
+    <P1,_,Sg,_,Pl> => "мої" ;
+    <P1,_,Pl,Masc,Sg> => "наш" ;
+    <P1,_,Pl,Fem,Sg> => "наша" ;
+    <P1,_,Pl,Neuter,Sg> => "наше" ;
+    <P1,_,Pl,_,Pl> => "наші" ;
+    <P2,_,Sg,Masc,Sg> => "твій" ;
+    <P2,_,Sg,Fem,Sg> => "твоя" ;
+    <P2,_,Sg,Neuter,Sg> => "твоє" ;
+    <P2,_,Sg,_,Pl> => "твої" ;
+    <P2,_,Pl,Masc,Sg> => "ваш" ;
+    <P2,_,Pl,Fem,Sg> => "ваша" ;
+    <P2,_,Pl,Neuter,Sg> => "ваше" ;
+    <P2,_,Pl,_,Pl> => "ваші" ;
+    <P3,Masc,Sg,_,_> => "його" ;
+    <P3,Fem,Sg,_,_> => "її" ;
+    <P3,_,Pl,_,_> => "їхній" ;
+    _ => "свій"
+  } ;
 
 }
