@@ -446,8 +446,9 @@ oper
     vp.s.s ! vform ++
     vp.ext ;
 
+  rnp2np : Agr -> RNP -> NP ;
   rnp2np agr rnp = {
-    s = \\npf => rnp.s ! agr ! npf ;
+    s = rnp.s ! agr ;
     a = agr ;
     isPron = rnp.isPron ;
     isNeg = rnp.isNeg
