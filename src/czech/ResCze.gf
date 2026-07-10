@@ -28,6 +28,11 @@ oper
   softConsonant    : pattern Str = #("ť"|"ď"|"j"|"ň"|"ř"|"š"|"c"|"č"|"ž") ;
   neutralConsonant : pattern Str = #("b"|"f"|"l"|"m"|"p"|"s"|"v") ;
 
+-- neutral consonants take the hard endings by default (hrad, pán), and so do
+-- the foreign "z" and "x"; this is the class to test when choosing a paradigm
+  hardishConsonant : pattern Str =
+    #("d"|"t"|"g"|"h"|"k"|"n"|"r" | "b"|"f"|"l"|"m"|"p"|"s"|"v" | "z"|"x") ;
+
   consonant : pattern Str =
     #(
       "d" | "t" | "g" | "h" | "k" | "n" | "r" |
@@ -139,22 +144,33 @@ oper
 
   declensionNounForms : (nom,gen : Str) -> Gender -> NounForms
     = \nom,gen,g ->
-    let decl : DeclensionType = case <g, nom, gen> of {
-      <Masc Anim,   _ + #hardConsonant, _ + "a"> => declPAN ;
-      <Masc Anim,   _ + "a"           , _ + "a"> => declPREDSEDA ;
-      <Masc Inanim, _ + #hardConsonant, _ + "u"> => declHRAD ;
-      <Fem,         _ + "a"           , _ + "y"> => declZENA ;
-      <Neutr,       _ + "o"           , _ + "a"> => declMESTO ;
-      <Masc Anim,   _ + #softConsonant, _ + "e"> => declMUZ ;
-      <Masc Anim,   _ + "tel"         , _ + "e"> => declMUZ ;
+-- the oblique stem, for the paradigms that cannot derive it from the nominative
+    let stem : Str = Predef.tk 1 gen ;
+        decl : DeclensionType = case <g, nom, gen> of {
+      <Masc Anim,   _ + "tel"         , _ + "e"> => declMUZstem stem ;
       <Masc Anim,   _ + "ce"          , _ + "e"> => declSOUDCE ;
-      <Masc Inanim, _ + #softConsonant, _ + "e"> => declSTROJ ;
+      <Masc Anim,   _ + ("us"|"os")   , _ + "a"> => declLATINUSA ;
+      <Masc Anim,   _ + "a"           , _ + "a"> => declPREDSEDA ;
+      <Masc Anim,   _ + (#softConsonant|#hardishConsonant), _ + ("e"|"ě")> => declMUZstem stem ;
+      <Masc Anim,   _ + #hardishConsonant, _ + "a"> => declPAN ;
+      <Masc Inanim, _ + ("us"|"os")   , _ + "u"> => declLATINUS ;
+      <Masc Inanim, _ + "ý"           , _ + "ého"> => declADJM ;
+      <Masc Inanim, _ + (#softConsonant|#hardishConsonant), _ + ("e"|"ě")> => declSTROJ ;
+      <Masc Inanim, _ + #hardishConsonant, _ + "u"> => declHRADstem stem ;
+      <Masc Inanim, _ + #hardishConsonant, _ + "a"> => declHRADAstem stem ;
+      <Fem,         _ + "a"           , _ + "y"> => declZENA ;
+      <Fem,         _ + "á"           , _ + "é"> => declADJF ;
       <Fem,         _ + ("e"|"ě")     , _ + ("e"|"ě")> => declRUZE ;
-      <Fem,         _ + #softConsonant, _ + "e"> => declPISEN ;
-      <Fem,         _ + "ost"         , _ + "i"> => declKOST ;  --- also many other "st" 3.6.3
+      <Fem,         _ + (#softConsonant|#hardishConsonant), _ + "i"> => declKOST ;  --- also many other "st" 3.6.3
+      <Fem,         _ + (#softConsonant|#hardishConsonant), _ + ("e"|"ě")> => declPISEN ;
+      <Neutr,       _ + "um"          , _ + "a"> => declLATINUM ;
+      <Neutr,       _ + "ma"          , _ + ("matu"|"mata")> => declGREEKMA ;
+      <Neutr,       _ + "o"           , _ + "a"> => declMESTO ;
       <Neutr,       _ + "e"           , _+"ete"> => declKURE ;
-      <Neutr,       _ + "e"           , _ + "e"> => declMORE ;
       <Neutr,       _ + "í"           , _ + "í"> => declSTAVENI ;
+      <Neutr,       _ + ("e"|"ě")     , _ + ("e"|"ě")> => declMORE ;
+      <Masc Inanim, _ + ("é"|"i"|"y"|"e"), _ + ("é"|"i"|"y"|"e")> => declINVAR (Masc Inanim) ;
+      <Neutr,       _ + ("é"|"i"|"y")  , _ + ("é"|"i"|"y")> => declINVAR Neutr ;
       _ => (\s -> declSTROJ ("" + s)) -- Predef.error ("cannot infer declension type for" ++ nom ++ gen)
       }
     in decl nom ;
@@ -165,12 +181,14 @@ oper
     = \s -> case s of {
       _ + "ost"          => declKOST s ;
       _ + "tel"          => declMUZ s ;
-      _ + #hardConsonant => declHRAD s ;
+      _ + "us"           => declLATINUS s ;
+      _ + "um"           => declLATINUM s ;
+      _ + #hardishConsonant => declHRAD s ;
       _ + #softConsonant => declSTROJ s ;
       _ + "a"            => declZENA s ;
       _ + "o"            => declMESTO s ;
       _ + "ce"           => declSOUDCE s ;
-      _ + "e"            => declMORE s ;
+      _ + ("e"|"ě")      => declMORE s ;
       _ + "í"            => declSTAVENI s ;
       _ => declSTROJ ("" + s) -- Predef.error ("cannot guess declension type for" ++ s)
       } ;
@@ -216,9 +234,9 @@ oper
       g = Masc Anim
       } ;
 
-  declHRAD : DeclensionType = \hrad -> --- 3.5.2: sloc u/ě/e  extra arg, sport-u, hrad-ě ; sgen u/a
-    let hrd = dropFleetingE hrad
-    in
+-- the oblique stem is a separate argument, because it cannot always be
+-- derived from the nominative: uzel-uzlu but člen-členu
+  declHRADstem : Str -> DeclensionType = \hrd,hrad ->
     {
       snom,sacc = hrad ;
       sgen,sdat = hrd + "u" ; --- Berlín-a
@@ -232,6 +250,9 @@ oper
       ploc           = addEch hrd ;
       g = Masc Inanim
       } ;
+
+  declHRAD : DeclensionType = \hrad -> --- 3.5.2: sloc u/ě/e  extra arg, sport-u, hrad-ě ; sgen u/a
+    declHRADstem (dropFleetingE hrad) hrad ;
 
   declZENA : DeclensionType = \zena -> --- 3.6.1 sge y/i ; pgen sometimes shortening
     let zen = init zena
@@ -270,9 +291,91 @@ oper
       g = Neutr
       } ;
 
+-- Latin masculines in -us: the ending is dropped outside the nominative
+-- (algoritmus - algoritmu), otherwise they follow hrad
+  declLATINUS : DeclensionType = \algoritmus ->
+    let algoritm = Predef.tk 2 algoritmus
+    in declHRAD algoritm ** {
+      snom, sacc = algoritmus ;
+      svoc       = algoritm + "e"
+      } ;
+
+  declLATINUSA : DeclensionType = \genius ->
+    declLATINUS genius ** {g = Masc Anim} ;
+
+-- Latin neuters in -um: the ending is dropped outside the nominative
+-- (kontinuum - kontinua), otherwise they follow město
+  declLATINUM : DeclensionType = \kompaktum ->
+    let kompakt = Predef.tk 2 kompaktum
+    in declMESTO (kompakt + "o") ** {
+      snom, sacc, svoc = kompaktum
+      } ;
+
+-- Greek neuters in -ma, with the stem extended by -t- (schéma - schématu)
+  declGREEKMA : DeclensionType = \schema ->
+    let schemat = schema + "t"
+    in {
+      snom,sacc,svoc = schema ;
+      sgen,sdat,sloc = schemat + "u" ;
+      sins           = schemat + "em" ;
+
+      pnom,pacc = schemat + "a" ;
+      pgen      = schemat ;
+      pdat      = schemat + "ům" ;
+      ploc      = schemat + "ech" ;
+      pins      = schemat + "y" ;
+      g = Neutr
+      } ;
+
+-- the hrad type with genitive -a instead of -u (les - lesa, zákon - zákona)
+  declHRADAstem : Str -> DeclensionType = \les_,les ->
+    declHRADstem les_ les ** {sgen = les_ + "a"} ;
+
+  declHRADA : DeclensionType = \les ->
+    declHRADAstem (dropFleetingE les) les ;
+
+-- nouns that are adjectives in form: proměnná - proměnné, nultý - nultého
+  declADJF : DeclensionType = \promenna ->
+    let a = mladyAdjForms (init promenna + "ý")
+    in {
+      snom,svoc = a.fsnom ;
+      sgen      = a.fsgen ;
+      sdat,sloc = a.fsdat ;
+      sacc      = a.fsacc ;
+      sins      = a.fsins ;
+      pnom,pacc = a.fpnom ;
+      pgen,ploc = a.pgen ;
+      pdat      = a.msins ;
+      pins      = a.pins ;
+      g = Fem
+      } ;
+
+  declADJM : DeclensionType = \nulty ->
+    let a = mladyAdjForms nulty
+    in {
+      snom,sacc,svoc = a.msnom ;
+      sgen      = a.msgen ;
+      sdat      = a.msdat ;
+      sloc      = a.msloc ;
+      sins      = a.msins ;
+      pnom,pacc = a.fpnom ;
+      pgen,ploc = a.pgen ;
+      pdat      = a.msins ;
+      pins      = a.pins ;
+      g = Masc Inanim
+      } ;
+
+-- indeclinable loans: bombé, tamari, software
+  declINVAR : Gender -> DeclensionType = \g,s -> {
+    snom,sgen,sdat,sacc,svoc,sloc,sins = s ;
+    pnom,pgen,pdat,pacc,ploc,pins      = s ;
+    g = g
+    } ;
+
   declMUZ : DeclensionType = \muz_ -> --- 3.5.3 : sdat,sloc ; pnom
-    let muz = dropFleetingE muz_
-    in
+    declMUZstem (dropFleetingE muz_) muz_ ;
+
+  declMUZstem : Str -> DeclensionType = \muz,muz_ ->
     {
       snom      = muz_ ;
       sgen,sacc = muz + "e" ;   --- pacc
