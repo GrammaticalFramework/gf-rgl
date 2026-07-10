@@ -4,4 +4,6 @@ concrete QuestionCze of Question = CatCze **
 lin
     QuestCl cl = cl ; ----
 
+    QuestIAdv iadv cl = cl ** {clit = iadv.s ++ cl.clit} ;
+
 }

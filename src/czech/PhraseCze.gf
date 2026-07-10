@@ -8,6 +8,10 @@ lin
     UttNP np = {s = np.s ! Nom} ;
     UttVP vp = let agr = Ag Neutr Sg P3 in {s = vp.clit ! agr ++ vp.verb.inf ++ vp.compl ! agr} ; 
 
+    UttImpSg pol imp = {s = pol.s ++ imp.s} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s} ;
+
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
 

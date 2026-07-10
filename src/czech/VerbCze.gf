@@ -36,6 +36,12 @@ lin
     CompNP np = {
       s = \\a_ => np.s ! Nom ; ---- InstrC in Pol
       } ;
+
+    CompCN cn = {
+      s = \\a => case a of {
+        Ag _ n _ => cn.s ! n ! Nom ---- InstrC also possible
+        }
+      } ;
       
     CompAdv adv = {
       s = \\a_ => adv.s
@@ -43,6 +49,26 @@ lin
 
     AdvVP vp adv = vp ** {
       compl = \\a => vp.compl ! a ++ adv.s
+      } ;
+
+-- VerbForms has no passive participle yet, so the reflexive passive is used:
+-- "číslo se dělí" = "the number is divided"
+    PassV2 v = {
+      verb  = v ;
+      clit  = \\_ => "se" ;
+      compl = \\_ => []
+      } ;
+
+    ComplVV vv vp = {
+      verb  = vv ;
+      clit  = vp.clit ;
+      compl = \\a => vp.verb.inf ++ vp.compl ! a
+      } ;
+
+    ComplVS vs s = {
+      verb  = vs ;
+      clit  = \\_ => [] ;
+      compl = \\_ => SOFT_BIND ++ "," ++ "že" ++ s.s
       } ;
 
 }
