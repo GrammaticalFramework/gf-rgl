@@ -6,6 +6,7 @@ lin
     UttCN cn = {s = cn.s ! Sg ! Nom} ;
     UttAP ap = {s = ap.s ! Masc Anim ! Sg ! Nom} ;
     UttNP np = {s = np.s ! Nom} ;
+    UttVP vp = let agr = Ag Neutr Sg P3 in {s = vp.clit ! agr ++ vp.verb.inf ++ vp.compl ! agr} ; 
 
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
