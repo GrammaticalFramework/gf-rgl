@@ -28,7 +28,11 @@ lin
           vps.sufix!p!gn ++ vps.c.s ++ np.dep !(npcase !<p,vps.c.c>) ++ vps.postfix!p!gn); 
 
 --     AdvVP    : VP -> Adv -> VP ;        -- sleep here
-    AdvVP vp adv = setPrefix vp (vp.prefix ++ adv.s);
+    -- the adverbial follows the verb: Polish is neutrally SVO ("śpi tutaj",
+    -- "przecina zbiór pusty"), and putting it in the prefix topicalizes it.
+    -- This matters because an object reached through PrepNP arrives here as
+    -- an Adv, and *"π zbiór pusty przecina" is marked at best.
+    AdvVP vp adv = setSufix vp (\\p,gn => vp.sufix ! p ! gn ++ adv.s);
 
 --     AdVVP    : AdV -> VP -> VP ;        -- always sleep
     AdVVP adV vp = setPrefix vp (vp.prefix ++ adV.s);
