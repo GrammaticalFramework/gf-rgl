@@ -8,17 +8,35 @@ lin
     
     ComplSlash vps np = case <np.hasClit, vps.c.hasPrep> of {
       <True,False> => vps ** {
-        clit = \\a => vps.clit ! a ++ np.clit ! vps.c.c
+        clit = \\a => vps.clit ! a ++ np.clit ! vps.c.c ;
+        compl = \\a => vps.compl ! a ++ vps.ind ! a
         } ;
       _  => vps ** {
-        compl = \\a => vps.compl ! a ++ vps.c.s ++ np.s ! vps.c.c
+        compl = \\a => vps.compl ! a ++ vps.c.s ++ np.s ! vps.c.c ++ vps.ind ! a
         }
       } ;
 
     SlashV2a v = {
       verb = v ;
       clit,compl = \\_ => [] ;
-      c = v.c
+      c = v.c ;
+      ind = \\_ => []
+      } ;
+
+    -- three-place verbs: c = direct object case, c2 = indirect object case
+    Slash2V3 v np = {          -- fill the direct object, leave the indirect open
+      verb = v ;
+      clit = \\_ => [] ;
+      compl = \\_ => v.c.s ++ np.s ! v.c.c ;
+      c = v.c2 ;
+      ind = \\_ => []
+      } ;
+    Slash3V3 v np = {          -- fill the indirect object (rendered after the object slot)
+      verb = v ;
+      clit = \\_ => [] ;
+      compl = \\_ => [] ;
+      c = v.c ;
+      ind = \\_ => v.c2.s ++ np.s ! v.c2.c
       } ;
 
     UseComp comp = {

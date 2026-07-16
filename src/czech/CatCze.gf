@@ -21,9 +21,10 @@ concrete CatCze of Cat =
     RP  = AdjForms ;
 
     VP = {verb : VerbForms ; clit,compl : Agr => Str} ; ---- more fields probably needed
-    VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase} ; ----
+    VPSlash = {verb : VerbForms ; clit,compl : Agr => Str ; c : ComplementCase ; ind : Agr => Str} ; -- ind : incorporated indirect object, rendered after the object slot
     V  = ResCze.VerbForms ;
     V2 = ResCze.VerbForms ** {c : ComplementCase} ;
+    V3 = ResCze.VerbForms ** {c,c2 : ComplementCase} ; -- c : direct object, c2 : indirect object
     VS,VQ,VV = ResCze.VerbForms ;
 
     A  = ResCze.AdjForms ;
