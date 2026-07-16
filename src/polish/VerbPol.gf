@@ -40,7 +40,9 @@ lin
 --     CompAP   : AP  -> Comp ;            -- (be) small
     CompAP ap = { s = \\gn => ap.s ! AF gn Nom };
 
-    CompCN cn = { s = \\gn => cn.s ! numGenNum gn ! Nom }; --- AR 7/12/2010
+    -- a predicative noun goes in the instrumental in Polish, exactly as in
+    -- CompNP below: "x jest grupą", not *"x jest grupa"
+    CompCN cn = { s = \\gn => cn.s ! numGenNum gn ! Instr }; --- AR 7/12/2010
 
 --     CompNP   : NP  -> Comp ;            -- (be) a man
     CompNP np = { s = \\gn => np.dep !InstrC };

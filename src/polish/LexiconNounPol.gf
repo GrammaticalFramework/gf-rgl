@@ -205,7 +205,7 @@
   lin  paris_PN =
       { nom = (mkNTable0045 "Paryż")!SF Sg Nom; voc = (mkNTable0045 "Paryż")!SF Sg VocP;
          dep = let forms = (mkNTable0045 "Paryż") in table {
-          GenPrep|GenNoPrep=>forms!SF Sg Gen; AccPrep|AccNoPrep=>forms!SF Sg Acc;
+          NomPrep=>forms!SF Sg Nom; GenPrep|GenNoPrep=>forms!SF Sg Gen; AccPrep|AccNoPrep=>forms!SF Sg Acc;
           DatPrep|DatNoPrep=>forms!SF Sg Dat; InstrC=>forms!SF Sg Instr;
           LocPrep=>forms!SF Sg Loc};
          gn= MascInaniSg ; p=P3
@@ -213,7 +213,7 @@
   lin  john_PN =
       { nom = (mkNTable0002 "Jan")!SF Sg Nom; voc = (mkNTable0002 "Jan")!SF Sg VocP;
          dep = let forms = (mkNTable0002 "Jan") in table {
-          GenPrep|GenNoPrep=>forms!SF Sg Gen; AccPrep|AccNoPrep=>forms!SF Sg Acc;
+          NomPrep=>forms!SF Sg Nom; GenPrep|GenNoPrep=>forms!SF Sg Gen; AccPrep|AccNoPrep=>forms!SF Sg Acc;
           DatPrep|DatNoPrep=>forms!SF Sg Dat; InstrC=>forms!SF Sg Instr;
           LocPrep=>forms!SF Sg Loc};
          gn= MascPersSg ; p=P3

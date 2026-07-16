@@ -189,23 +189,23 @@
 --6 Complement definition
   
   param ComplCase = GenPrep | GenNoPrep | DatPrep | DatNoPrep |
-    AccPrep | AccNoPrep | InstrC | LocPrep ;
+    AccPrep | AccNoPrep | InstrC | LocPrep | NomPrep ;
   
   oper 
   Complement : Type = {s : Str; c : ComplCase} ;
   
   mkCompl : Str -> Case -> Complement;
-  mkCompl s c = { 
-    s=s; 
-    c = case s of { 
-      "" => case c of { Gen => GenNoPrep; Dat => DatNoPrep; Instr => InstrC; _ => AccNoPrep }; 
-      _  => case c of { Gen => GenPrep; Dat => DatPrep; Acc => AccPrep; Instr => InstrC; _ => LocPrep }
+  mkCompl s c = {
+    s=s;
+    c = case s of {
+      "" => case c of { Gen => GenNoPrep; Dat => DatNoPrep; Instr => InstrC; Nom => NomPrep; _ => AccNoPrep };
+      _  => case c of { Gen => GenPrep; Dat => DatPrep; Acc => AccPrep; Instr => InstrC; Nom => NomPrep; _ => LocPrep }
     }
   };
         
   extract_case = table {GenPrep => Gen; GenNoPrep => Gen; DatPrep => Dat;
         DatNoPrep => Dat; AccPrep => Acc; AccNoPrep => Acc; InstrC => Instr; 
-        LocPrep => Loc};
+        LocPrep => Loc; NomPrep => Nom};
 
 --7 Various types
 -- possible problem: dzieci ,ktorych piecioro bawilo sie... / okna, ktorych piec stalo opartych o sciane...

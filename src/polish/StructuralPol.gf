@@ -87,6 +87,9 @@ lin
   something_NP  = cos ;
   somewhere_Adv  = ss "gdzieś";
   that_Quant = demPronTen "tamten";
+  -- Polish always sets off a "że" clause with a comma, so the subordinator
+  -- carries it, as IdiomPol/SentencePol already do for EmbedS and SlashVS
+  that_Subj = ss [", że"];
   there_Adv = ss "tam";
   there7to_Adv = ss "tam";
   there7from_Adv = ss "stamtąd";

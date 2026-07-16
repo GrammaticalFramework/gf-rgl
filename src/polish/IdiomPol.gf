@@ -16,6 +16,20 @@ concrete IdiomPol of Idiom = CatPol ** open Prelude, ResPol, VerbMorphoPol in {
             vp.sufix !pol !NeutSg 
     };    
 
+--     ImpP3     : NP -> VP -> Utt ; -- let John walk
+-- Polish has no third-person imperative; "niech" + a finite form is the
+-- standard equivalent. The copula takes the future ("niech x będzie grupą"),
+-- every other verb the present ("niech x należy do A") -- być is the only
+-- Polish verb with a synthetic future, and imienne marks exactly the
+-- copular VPs.
+    ImpP3 np vp = let
+        tense : Tense = case vp.imienne of { True => Fut ; False => Pres }
+      in {
+        s = "niech" ++ np.nom ++ vp.prefix ++
+            ((indicative_form vp.verb vp.imienne Pos) !<tense, Simul, np.gn, np.p>) ++
+            vp.sufix !Pos !np.gn
+    };
+
 --     ImpPl1    : VP -> Utt ;       -- let's go
     ImpPl1 vp = {
         s = vp.prefix ++
