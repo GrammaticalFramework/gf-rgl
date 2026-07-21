@@ -142,7 +142,7 @@ oper
     (ordN "a" "sadas") ;
 
   tuhatN = co
-    (snoun2nounBind (mkN "tuhat" "tuhannen" "tuhatta" "ruhantena" "tuhanteen"
+    (snoun2nounBind (mkN "tuhat" "tuhannen" "tuhatta" "tuhantena" "tuhanteen"
     "tuhansien" "tuhansia" "tuhansina" "tuhansissa" "tuhansiin"))
     (ordN "a" "tuhannes")  ;
 
