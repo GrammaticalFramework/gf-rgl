@@ -173,7 +173,7 @@ oper
 
   miljoonaN = co
     (snoun2nounBind (mkN "miljoona"))
-    (ordN "s" "miljoonas") ;
+    (ordN "a" "miljoonas") ;
 
   miljoonaaN = {s = table {
     Sg => miljoonaN.s ;
@@ -186,7 +186,7 @@ oper
 
   miljardiN = co
     (snoun2nounBind (mkN "miljardi"))
-    (ordN "s" "miljardis") ;
+    (ordN "a" "miljardis") ;
 
   miljardiaN = {s = table {
     Sg => miljardiN.s ;
