@@ -1064,7 +1064,7 @@ oper
       Transl => "niiksi" ;
       Ess    => "niinä" ;
       Iness  => "niissä" ;
-      Elat   => "niitä" ;
+      Elat   => "niistä" ;
       Illat  => "niihin" ;
       Adess  => "niillä" ;
       Ablat  => "niiltä" ;
