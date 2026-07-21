@@ -148,8 +148,7 @@ lin
   play_V2 = mkV2 (mkV "pelata") cpartitive ; --- leikkiä, soittaa
   policeman_N = mkN "poliisi" ;
   priest_N = mkN "pappi" ;
-  probable_AS = mkAS --- for vowel harmony
-    (mkA (mkN "todennäköinen") "tonennäköisempi" "todennäköisin") ; ---- sta
+  probable_AS = mkAS (compoundA "toden" (mkA "näköinen")) ;
   queen_N = mkN "kuningatar" ;
   radio_N = mk2N "radio" "radioita" ;
   rain_V0 = mkV0 (mk2V "sataa" "satoi") ;

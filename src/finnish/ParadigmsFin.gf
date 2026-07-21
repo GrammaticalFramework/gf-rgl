@@ -221,7 +221,15 @@ oper
     = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
   compoundA : Str -> A -> A  -- prefix glued to adjective, e.g. "hevos"+"vetoinen"
-    = \s,a -> lin A {s = \\d,c => s + a.s ! d ! c  ; h = a.h ; p = s + a.p ; hasPrefix = a.hasPrefix} ;
+    = \s,a -> lin A {
+      s = \\d,c => s + a.s ! d ! c ;
+      h = a.h ;
+      p = case a.hasPrefix of {
+        True => s + a.p ;
+        False => []
+        } ;
+      hasPrefix = a.hasPrefix
+      } ;
 
   prefixA : Str -> A -> A -- in modifying use, an uninflected glued prefix, e.g. "sähkö" for "sähköinen"
     = \pr,a -> a ** {
