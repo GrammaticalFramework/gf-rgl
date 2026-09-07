@@ -2,7 +2,7 @@
 
 --1 German Lexical Paradigms
 --
--- Aarne Ranta, Harald Hammarström and Björn Bringert2003--2007
+-- Aarne Ranta, Harald Hammarström and Björn Bringert 2003--2007
 --
 -- This is an API for the user of the resource grammar 
 -- for adding lexical items. It gives functions for forming
@@ -45,11 +45,12 @@ oper
 -- To abstract over case names, we define the following.
 
   Case       : Type ; 
-
+  ObjCase    : Type ;
+  
   nominative : Case ;
-  accusative : Case ;
-  dative     : Case ;
-  genitive   : Case ;
+  accusative : ObjCase ;
+  dative     : ObjCase ;
+  genitive   : ObjCase ;
 
 -- To abstract over number names, we define the following.
 
@@ -172,7 +173,7 @@ mkN : overload {
 -- In the worst case, all four forms are needed.
 
     mkLN : (nom,acc,dat,gen : Str) -> Gender -> LN = \nom,acc,dat,gen,g ->
-      lin LN {s = \\a => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+      lin LN {s = \\a => table {Nom => nom ; Obj Acc => acc ; Obj Dat => dat ; Obj Gen => gen} ; 
               g = g ; n = Sg ;
               hasDefArt = False}
 
@@ -181,7 +182,7 @@ mkN : overload {
   defLN : LN -> LN = \n -> n ** {hasDefArt = True} ;
 
   mk2LN  : (karolus, karoli : Str) -> Gender -> LN = \karolus, karoli, g -> 
-    lin LN {s = \\a => table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ;
+    lin LN {s = \\a => table {Obj Gen => karoli ; _ => karolus} ; g = g ; n = Sg ;
             hasDefArt = False} ;
   regLN : (horst : Str) -> Gender -> LN = \horst, g -> 
     mk2LN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
@@ -231,13 +232,18 @@ mkN : overload {
 -- A preposition is formed from a string and a case.
 
   mkPrep : overload {
-    mkPrep : Str -> Case -> Prep ; -- e.g. "durch" + accusative
-    mkPrep : Case -> Str -> Prep ; -- postposition
-    mkPrep : Str -> Case -> Str -> Prep ; -- both sides
-    -- for prepositions glued with DefArt in singular
+    mkPrep : Case -> Prep ;               -- convert case to preposition (including Nom)
+    mkPrep : ObjCase -> Prep ;            -- convert case to preposition
+    mkPrep : Str -> ObjCase -> Prep ;     -- preposition, e.g. "durch" + accusative
+    mkPrep : ObjCase -> Str -> Prep ;     -- postposition, e.g. genitive + "wegen"
+    mkPrep : Str -> ObjCase -> Str -> Prep ; -- circumposition, e.g. "um" + accusative + "herum"
+    mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep ; -- prep contracted with defArtSg
     -- e.g. "auf" "auf den" "auf die" "aufs" + accusative
-    mkPrep : Str -> Str -> Str -> Str -> Case -> Prep ;
-    mkPrep : Case -> Prep ;        -- convert case to preposition
+    } ;
+
+  mkCPrep : overload { -- preposition contracting with relative pronoun ! RSentence
+    mkCPrep : Str -> ObjCase -> Prep ;        -- preposition contracting with IP/RP, e.g. wo-mit, wo-r-an
+    mkCPrep : Str -> ObjCase -> Str -> Prep ; -- circumposition contracting with IP, e.g. von wo-her
     } ;
 
 -- Often just a case with the empty string is enough.
@@ -304,7 +310,7 @@ mkV : overload {
 
 -- Reflexive verbs can take reflexive pronouns of different cases.
 
-  reflV  : V -> Case -> V ; -- reflexive, with case
+  reflV  : V -> ObjCase -> V ; -- reflexive, with case
 
 -- Compound verbs: verbs with a fixed particle; syntactically similar to prefix but written separately.
 
@@ -329,7 +335,7 @@ mkV2 : overload {
 
 -- Two-place verbs with object in the given case.
 
-  mkV2 : V -> Case -> V2 ; -- just case for complement
+  mkV2 : V -> ObjCase -> V2 ; -- just case for complement
 };
 
 
@@ -413,6 +419,7 @@ mkV2 : overload {
 
   Gender = MorphoGer.Gender ;
   Case = MorphoGer.Case ;
+  ObjCase = MorphoGer.ObjCase ;
   Number = MorphoGer.Number ;
 
   masculine = Masc ;
@@ -495,7 +502,7 @@ mkV2 : overload {
       } ;
 
   dative_eN : N -> N = \n -> n ** {
-      s = table {Sg => table {Dat => n.s ! Sg ! Dat + "e" ; c => n.s ! Sg ! c} ; Pl => n.s ! Pl} ;
+      s = table {Sg => table {Obj Dat => n.s ! Sg ! Obj Dat + "e" ; c => n.s ! Sg ! c} ; Pl => n.s ! Pl} ;
       } ; ---- change uncap as well?
 
   mkN2 = overload {
@@ -511,7 +518,7 @@ mkV2 : overload {
   mkN3 = \n,p,q -> n ** {c2 = p ; c3 = q ; lock_N3 = <>} ;
 
   mk2PN = \karolus, karoli, g -> 
-    {s = table {Gen => karoli ; _ => karolus} ; g = g ; n = Sg ; lock_PN = <>} ;
+    {s = table {Obj Gen => karoli ; _ => karolus} ; g = g ; n = Sg ; lock_PN = <>} ;
   regPN = \horst, g -> 
     mk2PN horst (ifTok Tok (Predef.dp 1 horst) "s" horst (horst + "s")) g ;
 
@@ -522,7 +529,7 @@ mkV2 : overload {
     mkPN : N -> PN = \n -> lin PN {s = n.s ! Sg; g = n.g; n = Sg} ;
     mkPN : (nom,gen : Str) -> Gender -> PN = mk2PN ;
     mkPN : (nom,acc,dat,gen : Str) -> Gender -> PN = \nom,acc,dat,gen,g ->
-      {s = table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+      {s = table {Nom => nom ; Obj Acc => acc ; Obj Dat => dat ; Obj Gen => gen} ; 
        g = g ; n = Sg ; lock_PN = <>} 
     } ;
 
@@ -534,7 +541,7 @@ mkV2 : overload {
     mkGN : Str -> Sex -> GN = \nom,g -> lin GN {s = (regPN nom (sex2gender g)).s; g = g} ; -- regular name with genitive in "s"
     mkGN : (nom,gen : Str) -> Sex -> GN = \nom,gen,g -> lin GN {s = (mk2PN nom gen (sex2gender g)).s; g = g} ;  -- name with other genitive
     mkGN : (nom,acc,dat,gen : Str) -> Sex -> GN = \nom,acc,dat,gen,g ->
-      {s = table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+      {s = table {Nom => nom ; Obj Acc => acc ; Obj Dat => dat ; Obj Gen => gen} ; 
        g = g ; lock_GN = <>}
     } ;
 
@@ -548,7 +555,7 @@ mkV2 : overload {
 -- In the worst case, all four forms are needed.
 
     mkSN : (nom,acc,dat,gen : Str) -> SN = \nom,acc,dat,gen ->
-      {s = \\_ => table {Nom => nom ; Acc => acc ; Dat => dat ; Gen => gen} ; 
+      {s = \\_ => table {Nom => nom ; Obj Acc => acc ; Obj Dat => dat ; Obj Gen => gen} ; 
        lock_SN = <>}
     } ;
 
@@ -576,34 +583,95 @@ mkV2 : overload {
   mkA2 = \a,p -> a ** {c2 = p ; lock_A2 = <>} ;
 
   mkAdv s = {s = s ; lock_Adv = <>} ;
+
   mkIAdv s = {s = s ; lock_IAdv = <>} ;
 
   mkPrep = overload {
-    mkPrep : Str -> Case -> Prep = \s,c ->
-      {s = \\_ => s ; s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
-    mkPrep : Case -> Str -> Prep = \c,s ->
-      {s = \\_ => [] ; s2 = s ; c = c ; t = isPrep ; lock_Prep = <>} ;
-    mkPrep : Str -> Case -> Str -> Prep = \s,c,t ->
-      {s = \\_ => s ; s2 = t ; c = c ; t = isPrep ; lock_Prep = <>} ;
-    mkPrep : Str -> Str -> Str -> Str -> Case -> Prep = \s,masc,fem,neutr,c ->
-      {s = table{GPl => s ; GSg Masc => masc ; GSg Fem => fem ; GSg Neutr => neutr} ;
-       s2 = [] ; c = c ; t = isPrepDefArt ; lock_Prep = <>} ;
-    mkPrep : Case -> Prep = \c ->
-      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>}
+    mkPrep : Case -> SubjectPrep = \c ->
+      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
+    mkPrep : ObjCase -> Prep = \c ->
+      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
+    mkPrep : Str -> ObjCase -> Prep = \p,c ->  -- TODO IPron Adv
+      {s = case c of {Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das")
+                        (p ++ artDef ! GSg Neutr ! Obj c) (p ++ "was") ;
+                      Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem")
+                        (p ++ artDef ! GSg Neutr ! Obj c) (p ++ "wem") ;
+                      _   => prepForms p (p ++ "des") (p ++ "der") (p ++ "des")
+                        (p ++ "dessen") (p ++ "wessen")} ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>
+      } ;
+    mkPrep : ObjCase -> Str -> Prep = \c,q -> -- TODO IPron AdvPron
+      {s = case c of {Acc => prepForms [] "den" "die" "das" 
+                        (artDef ! GSg Neutr ! Obj c ++ q) ("was" ++ q) ;
+                      Dat => prepForms [] "dem" "der" "dem" 
+                        (artDef ! GSg Neutr ! Obj c ++ q) ("wem" ++ q) ;
+                      _   => prepForms [] "des" "der" "des"
+                        ("dessen" ++ q) ("wessen" ++ q)} ;
+       s2 = q ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkPrep : Str -> ObjCase -> Str -> Prep = \p,c,q ->
+      {s = table{CAdvPron => p ++ artDef ! GSg Neutr ! Obj c ;
+                 CIPron => p ++ (caselist "was" "was" "wem" "wessen") ! (Obj c) ;
+                 _ => p} ;
+       s2 = q ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \s,masc,fem,neutr,c ->
+      mkCPrep s masc fem neutr c ;
     } ;
 
-  accPrep = mkPrep accusative ;
-  datPrep = mkPrep dative ;
-  genPrep = mkPrep genitive ;
+  accPrep = mkPrep Acc ; -- accusative ;
+  datPrep = mkPrep Dat ; -- dative ;
+  genPrep = mkPrep Gen ; -- genitive ;
 
-  von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
-  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
-  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" dative ;
-  inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
-  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
-  anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
-  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
-  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" accusative ;
+  von_Prep   = mkPrep "von" "vom" "von der" "vom" Dat ; -- dative ;
+  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" Dat ; -- dative ;
+  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" Dat ; -- dative ;
+  inDat_Prep = mkPrep "in" "im" "in der" "im" Dat ; -- dative ;
+  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" Acc ; -- accusative ; ;
+  anDat_Prep = mkPrep "an" "am" "an der" "am" Dat ; -- dative ;
+  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" Acc ; -- accusative ; ;
+  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" Acc ; -- accusative ; ;
+
+  mkCPrep = overload {
+    mkCPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \s,masc,fem,neutr,c ->
+      {s = pflist s masc fem neutr ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkCPrep : Str -> ObjCase -> Prep = \p,c ->
+      {s = case c of {Acc => pflist p (p ++ "den") (p ++ "die") (p ++ "das") ;
+                      Dat => pflist p (p ++ "dem") (p ++ "der") (p ++ "dem") ;
+                      _   => pflist p (p ++ "des") (p ++ "der") (p ++ "des")} ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>
+      } ;
+    mkCPrep : Str -> ObjCase -> Str -> Prep = \p,c,post ->
+      {s = let dawo = pronAdvs post ;
+               darauf = dawo.p1 ;
+               worauf = dawo.p2
+         in case c of {
+         Acc => prepForms p (p++"den") (p++"die") (p++"das") darauf worauf ;
+         Dat => prepForms p (p++"dem") (p++"der") (p++"dem") darauf worauf ;
+         _   => prepForms p (p++"des") (p++"der") (p++"des") darauf worauf} ;
+       s2 = post ; c = c ; t = isPrep ; lock_Prep = <>
+      }
+    } ;
+  pronAdvs : Str -> Str * Str = \auf ->    -- da|wo-rauf|mit, des|wes-halb|wegen
+    let
+      rauf : Str   = case auf of {("a" | "i" | "u" | "ü") + _ => "r" + auf ; _ => auf} ;
+      darauf : Str = case rauf of {("ha" | "w") + _ => "des" + rauf ; _ => "da"+ rauf} ;
+      worauf : Str = case rauf of {("ha" | "w") + _ => "wes" + rauf ; _ => "wo"+ rauf} ;
+    in
+    <darauf, worauf> ;
+
+  pflist : (x1,_,_,x4 : Str) -> PrepForm => Str = \auf,m,f,n ->
+    let
+      rauf : Str   = case auf of {("a" | "i" | "u" | "ü") + _ => "r" + auf ; _ => auf} ;
+      darauf : Str = case rauf of {("ha" | "w") + _ => "des" + rauf ; _ => "da"+ rauf} ;
+      worauf : Str = case rauf of {("ha" | "w") + _ => "wes" + rauf ; _ => "wo"+ rauf} ;
+    in
+    prepForms auf m f n darauf worauf ;
+
+  prepForms : (x1,_,_,_,_,x6 : Str) -> PrepForm => Str = \p,m,f,n,da,wo ->
+    table {CPl => p ;
+           CSg Masc => m ; CSg Fem => f ; CSg Neutr => n ;
+           CAdvPron => da ; CIPron => wo} ;
+
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let
@@ -802,7 +870,7 @@ mkV2 : overload {
     mkV2 : Str -> V2 = \s -> dirV2 (regV s) ;
     mkV2 : V -> V2 = dirV2 ;
     mkV2 : V -> Prep -> V2 = prepV2;
-    mkV2 : V -> Case -> V2 = \v,c -> prepV2 v (mkPrep c) ;
+    mkV2 : V -> ObjCase -> V2 = \v,c -> prepV2 v (mkPrep c) ;
     } ;
 
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;

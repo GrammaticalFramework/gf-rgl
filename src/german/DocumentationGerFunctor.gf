@@ -34,9 +34,9 @@ lin
     s2 = frameTable (
            tr (th "" ++ th (heading singular_Parameter)            ++ th (heading plural_Parameter)   ) ++
            tr (th (heading nominative_Parameter) ++ td (noun.s ! Sg ! Nom) ++ td (noun.s ! Pl ! Nom)) ++
-           tr (th (heading genitive_Parameter)   ++ td (noun.s ! Sg ! Gen) ++ td (noun.s ! Pl ! Gen)) ++
-           tr (th (heading dative_Parameter)     ++ td (noun.s ! Sg ! Dat) ++ td (noun.s ! Pl ! Dat)) ++
-           tr (th (heading accusative_Parameter) ++ td (noun.s ! Sg ! Acc) ++ td (noun.s ! Pl ! Acc))
+           tr (th (heading genitive_Parameter)   ++ td (noun.s ! Sg ! (Obj Gen)) ++ td (noun.s ! Pl ! (Obj Gen))) ++
+           tr (th (heading dative_Parameter)     ++ td (noun.s ! Sg ! (Obj Dat)) ++ td (noun.s ! Pl ! (Obj Dat))) ++
+           tr (th (heading accusative_Parameter) ++ td (noun.s ! Sg ! (Obj Acc)) ++ td (noun.s ! Pl ! (Obj Acc)))
            )
     } ;
 
@@ -51,9 +51,9 @@ lin
                        } ++")") ;
     s2 = frameTable (
            tr (th (heading nominative_Parameter) ++ td (pn.s ! Nom)) ++
-           tr (th (heading genitive_Parameter)   ++ td (pn.s ! Gen)) ++
-           tr (th (heading dative_Parameter)     ++ td (pn.s ! Dat)) ++
-           tr (th (heading accusative_Parameter) ++ td (pn.s ! Acc))
+           tr (th (heading genitive_Parameter)   ++ td (pn.s ! (Obj Gen))) ++
+           tr (th (heading dative_Parameter)     ++ td (pn.s ! (Obj Dat))) ++
+           tr (th (heading accusative_Parameter) ++ td (pn.s ! (Obj Acc)))
            )
     } ;
 
@@ -66,9 +66,9 @@ lin
                    }) ;
     s2 = frameTable (
            tr (th (heading nominative_Parameter) ++ td (gn.s ! Nom)) ++
-           tr (th (heading genitive_Parameter)   ++ td (gn.s ! Gen)) ++
-           tr (th (heading dative_Parameter)     ++ td (gn.s ! Dat)) ++
-           tr (th (heading accusative_Parameter) ++ td (gn.s ! Acc))
+           tr (th (heading genitive_Parameter)   ++ td (gn.s ! (Obj Gen))) ++
+           tr (th (heading dative_Parameter)     ++ td (gn.s ! (Obj Dat))) ++
+           tr (th (heading accusative_Parameter) ++ td (gn.s ! (Obj Acc)))
            ) ;
     } ;
 
@@ -77,9 +77,9 @@ lin
     s1 = heading1 ("Familienname") ;
     s2 = frameTable (
            tr (th (heading nominative_Parameter) ++ td (sn.s ! Male ! Nom)) ++
-           tr (th (heading genitive_Parameter)   ++ td (sn.s ! Male ! Gen)) ++
-           tr (th (heading dative_Parameter)     ++ td (sn.s ! Male ! Dat)) ++
-           tr (th (heading accusative_Parameter) ++ td (sn.s ! Male ! Acc))
+           tr (th (heading genitive_Parameter)   ++ td (sn.s ! Male ! (Obj Gen))) ++
+           tr (th (heading dative_Parameter)     ++ td (sn.s ! Male ! (Obj Dat))) ++
+           tr (th (heading accusative_Parameter) ++ td (sn.s ! Male ! (Obj Acc)))
            ) ;
     } ;
 
@@ -94,9 +94,9 @@ lin
                        } ++")") ;
     s2 = frameTable (
            tr (th (heading nominative_Parameter) ++ td (ln.s ! Strong ! Nom)) ++
-           tr (th (heading genitive_Parameter)   ++ td (ln.s ! Strong ! Gen)) ++
-           tr (th (heading dative_Parameter)     ++ td (ln.s ! Strong ! Dat)) ++
-           tr (th (heading accusative_Parameter) ++ td (ln.s ! Strong ! Acc))
+           tr (th (heading genitive_Parameter)   ++ td (ln.s ! Strong ! (Obj Gen))) ++
+           tr (th (heading dative_Parameter)     ++ td (ln.s ! Strong ! (Obj Dat))) ++
+           tr (th (heading accusative_Parameter) ++ td (ln.s ! Strong ! (Obj Acc)))
            )
     } ;
 
@@ -112,9 +112,9 @@ lin
           tr (th []  ++ th (heading masculine_Parameter) ++ th (heading feminine_Parameter) ++ th (heading neuter_Parameter) ++
                         th (heading plural_Parameter)) ++
           tr (th (heading nominative_Parameter) ++ gforms d Nom) ++
-          tr (th (heading genitive_Parameter)   ++ gforms d Gen) ++
-          tr (th (heading dative_Parameter)     ++ gforms d Dat) ++
-          tr (th (heading accusative_Parameter) ++ gforms d Acc) ++
+          tr (th (heading genitive_Parameter)   ++ gforms d (Obj Gen)) ++
+          tr (th (heading dative_Parameter)     ++ gforms d (Obj Dat)) ++
+          tr (th (heading accusative_Parameter) ++ gforms d (Obj Acc)) ++
           tr (th (heading predicative_Parameter) ++ intagAttr "td" "colspan=4" (adj.s ! d ! APred))
           ))
     in { t  = "a" ;

@@ -6,7 +6,7 @@ concrete ConstructionGer of Construction = CatGer **
 flags coding=utf8 ;
 
 oper
-  mkPrep : Str -> P.Case -> Prep = P.mkPrep ;
+  mkPrep : Str -> P.ObjCase -> Prep = \s,c -> P.mkPrep s c ;
   mkV2 : V -> V2 = P.mkV2 ;
   accPrep = P.accPrep ;
   datPrep = P.datPrep ;
@@ -178,9 +178,9 @@ lin
 
   monthAdv m = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det m) ;
   yearAdv y = SyntaxGer.mkAdv (mkPrep "im Jahr" dative) y ; ----
-  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17. Mai
+  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! (R.Obj R.Dat) ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17. Mai
   monthYearAdv m y = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det (mkCN m y)) ; -- im Mai 2012
-  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! True ! accusative) ; -- am 17. Mai 2013
+  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! (R.Obj R.Dat) ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! True ! (R.Obj accusative)) ; -- am 17. Mai 2013
 
   intYear = symb ;
   intMonthday = symb ;
