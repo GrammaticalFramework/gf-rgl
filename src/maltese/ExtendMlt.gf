@@ -224,7 +224,7 @@ oper
     num.s ! NumAdj ++ cn.s ! numform2nounnum num.n ++ prep_ta.enclitic ! agr ;
 
   pastPartStr : VPSlash -> GenNum -> Str = \vp,gn ->
-    let agr = toAgr gn in
+    let agr : Agr = toAgr gn in
     case exists Participle vp.v.pastPart of {
       True  => fromJust Participle vp.v.pastPart ! gn ++ vp.s2 ! agr ++ vp.c2.s ! Definite ;
       False => (vp.v.s ! VPerf (toVAgr agr)).s1 ++ vp.s2 ! agr ++ vp.c2.s ! Definite
