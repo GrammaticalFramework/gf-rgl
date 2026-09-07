@@ -111,6 +111,9 @@ lin
     s3= ""
     } ;
 
+{-
+-}  --# notpresent
+
   InflectionCl = \cl -> {
     t  = "cl" ;
     s1 = heading1 "Clause" ;
@@ -125,6 +128,9 @@ lin
            inflClauseTense "conditional" "conditional perfect" Cond cl
          )
     } ;
+
+{-  --# notpresent
+-}
 
   InflectionV v = {
     t = "v" ;
@@ -242,6 +248,10 @@ lin
     } ;
 
 oper
+
+{-
+-}  --# notpresent
+
   inflClauseTense : Str -> Str -> ResEng.Tense -> Cl -> Str = \simple,perfect,tense,cl ->
     tr (intagAttr "th" "rowspan=\"2\"" simple ++
         td (cl.s ! tense ! Simul ! CPos       ! ODir False) ++
@@ -253,6 +263,9 @@ oper
         td (cl.s ! tense ! Simul ! CNeg True  ! OQuest) ++
         td (cl.s ! tense ! Anter ! CNeg True  ! ODir False) ++
         td (cl.s ! tense ! Anter ! CNeg True  ! OQuest)) ;
+
+{-  --# notpresent
+-}
 
   inflVerb : Verb -> Str = \verb ->
     frameTable (

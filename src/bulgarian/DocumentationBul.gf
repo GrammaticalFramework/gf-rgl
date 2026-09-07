@@ -1,4 +1,3 @@
---# -path=.:../abstract:../common
 concrete DocumentationBul of Documentation = CatBul ** open 
   ResBul, Prelude, ParamX, HTML in {
 flags coding=utf8 ;
@@ -181,6 +180,8 @@ lin
     s3= ""
     } ;
 
+{-
+-} --# notpresent
   InflectionCl = \cl -> {
     t = "изр" ;
     s1 = heading1 ("Изречение") ;
@@ -285,6 +286,9 @@ lin
           td (cl.s ! (VCond Renarrative) ! Simul ! Neg ! Quest))) ;
     s3 = ""
   } ;
+
+{-  --# notpresent
+-}
 
   InflectionV v = {
     t = "гл" ;

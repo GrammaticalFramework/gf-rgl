@@ -134,6 +134,9 @@ lin
     s2 = paragraph (S.mkAdv (lin Prep p) (S.mkNP S.a_Det L.computer_N)).s
     } ;
 
+{-
+-}  --# notpresent
+
   InflectionCl = \cl -> {
     t  = "satz" ;
     s1 = heading1 "Satz" ;
@@ -156,6 +159,9 @@ lin
                            Cond cl
          )
     } ;
+
+{-  --# notpresent
+-}
 
   InflectionV v = {
     t  = "v" ;
@@ -237,6 +243,9 @@ lin
   MkTag i = ss i.t ;
 
 oper
+{-
+-}  --# notpresent
+
   inflClauseTense : Str -> Str -> ResGer.Tense -> Cl -> Str = \simple,perfect,tense,cl ->
     tr (intagAttr "th" "rowspan=2" simple ++
         td (cl.s ! MIndic ! tense ! Simul ! Pos ! Main) ++
@@ -248,6 +257,9 @@ oper
         td (cl.s ! MIndic ! tense ! Simul ! Neg ! Inv) ++
         td (cl.s ! MIndic ! tense ! Anter ! Neg ! Main) ++
         td (cl.s ! MIndic ! tense ! Anter ! Neg ! Inv)) ;
+
+{-  --# notpresent
+-}
 
   verbExample : CatGer.Cl -> Str = \cl ->
      (S.mkUtt cl).s 
