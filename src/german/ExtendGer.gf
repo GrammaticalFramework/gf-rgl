@@ -389,7 +389,7 @@ concrete ExtendGer of Extend =
       in ap ** { s = \\af => ap.s ! af ++ adv } ; -- e.g. unknown in one's youth
 
     AdvRVP vp prep rnp =
-      insertAdv (appPrep prep (\\c => rnp.s ! agrP3 Sg ! Obj c) ++ rnp.ext ++ rnp.rc) vp ;
+      insertAdv (appPrep prep (table ObjCase {c => rnp.s ! agrP3 Sg ! Obj c}) ++ rnp.ext ++ rnp.rc) vp ;
 
     ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
       let                                            -- as we have no reflexive AP,
