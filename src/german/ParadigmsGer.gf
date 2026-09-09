@@ -591,6 +591,17 @@ mkV2 : overload {
       {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
     mkPrep : ObjCase -> Prep = \c ->
       {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
+    mkPrep : Str -> Case -> Prep = \p,c ->  -- TODO IPron Adv
+      {s = case c of {Nom => prepForms p (p ++ "der") (p ++ "die") (p ++ "das")
+                        (p ++ artDef ! GSg Neutr ! Nom) (p ++ "was") ;
+                      Obj Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das")
+                        (p ++ artDef ! GSg Neutr ! c) (p ++ "was") ;
+                      Obj Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem")
+                        (p ++ artDef ! GSg Neutr ! c) (p ++ "wem") ;
+                      Obj Gen => prepForms p (p ++ "des") (p ++ "der") (p ++ "des")
+                        (p ++ "dessen") (p ++ "wessen")} ;
+       s2 = [] ; c = objCase c ; t = isPrep ; lock_Prep = <>
+      } ;
     mkPrep : Str -> ObjCase -> Prep = \p,c ->  -- TODO IPron Adv
       {s = case c of {Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das")
                         (p ++ artDef ! GSg Neutr ! Obj c) (p ++ "was") ;

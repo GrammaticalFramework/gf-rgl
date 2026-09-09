@@ -46,6 +46,11 @@ resource ResGer = ParamX ** open Prelude in {
     Agr = AgSgP1 | AgSgP2 | AgSgP3 Gender | AgPl Person | AgPlPol ;
 
   oper
+    objCase : Case -> ObjCase = \c -> case c of {
+      Nom => Acc ; --- what else could one have?
+      Obj o => o
+      } ;
+
     genderAgr : Agr -> Gender = \r -> case r of {AgSgP3 g => g ; _ => Masc} ;
 
     numberAgr = overload {
