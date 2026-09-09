@@ -148,7 +148,9 @@ concrete CatGer of Cat =
     Conj = \c -> c.s1 ++ c.s2 ;
 
     Det = \det -> det.s ! False ! Masc ! Nom ;
-    Prep = \prep -> case prep.t of {isContracting => prep.s ! CSg Masc ;
-                                    _ => prep.s ! CPl } ;
+    Prep = \prep -> case prep.t of {isPrep => prep.s ! CPl ;
+                                    _ => case prep.c of {Acc => "(just accusative)" ;
+                                                         Dat => "(just dative)" ;
+                                                         Gen => "(just genitive)"}} ;
 
 }

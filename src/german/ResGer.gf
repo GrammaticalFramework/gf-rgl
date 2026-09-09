@@ -254,14 +254,14 @@ resource ResGer = ParamX ** open Prelude in {
   caselist : (x1,_,_,x4 : Str) -> Case => Str = \n,a,d,g -> 
     table {
       Nom => n ; 
-      Obj Acc => a ; 
-      Obj Dat => d ; 
+      Obj Acc => a ;
+      Obj Dat => d ;
       Obj Gen => g
       } ;
-  objcaselist : (x1,_,x3 : Str) -> ObjCase => Str = \a,d,g -> 
+  objcaselist : (x1,_,x3 : Str) -> ObjCase => Str = \a,d,g ->
     table {
-      Acc => a ; 
-      Dat => d ; 
+      Acc => a ;
+      Dat => d ;
       Gen => g
       } ;
 
@@ -455,15 +455,15 @@ resource ResGer = ParamX ** open Prelude in {
 
 -- Prepositions indicate the case of their complement noun phrase.
 
--- There are two types: (i) object cases, (ii) pure pre-, post- and circum-positions,
--- where the pre part may contract with the definite article in singular or 
--- with demonstrative pronoun (da+für, hier+für) [= pronominal adverb] or 
+-- There are two types: (i) object cases, (ii) pre-, post- and circum-positions,
+-- where the pre part may contract with the definite article in singular or
+-- with demonstrative pronoun (da+für, hier+für) [= pronominal adverb] or
 -- with interrogative pronoun (wo+für).
 
   -- e.g. in+Dat: in dem CN => im CN ; in da => darin ; in wo => worin
   --      Gen+wegen: des CN!Gen wegen ; des(sen) wegen => deswegen ; wes(sen) wegen => weswegen
   param
-    PrepType = isCase | isPrep ; -- | isContracting ;
+    PrepType = isCase | isPrep ;
     PrepForm = CPl | CSg Gender | CAdvPron | CIPron ;
 
   oper
@@ -480,18 +480,15 @@ resource ResGer = ParamX ** open Prelude in {
   -- To apply a preposition to a noun phrase, interrogative or relative pronoun
 
     appPrep = overload {
-    appPrep : Preposition -> (ObjCase => Str) -> Str = appPrep0 ;
+      appPrep : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
+        prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
 --    appPrep : Preposition -> (Case => Str) -> Str = \p,c -> appSPrep (toSPrep p) c ; -- does not infer lintype e.g. in ExtraGer.AdvRAP
-    appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
-    appPrep : SubjectPrep -> NP -> Str = appSPrepNP ; -- e.g. in dem CN => im CN
-    appPrep : SubjectPrep -> IP -> Str = appPrepIP ; -- e.g. in was    => worin
-    appPrep : SubjectPrep -> RP -> RelGenNum => Str  -- e.g. in was    => worin
-      = appPrepRP ;
-    -- appPrep : Preposition -> DemPron -> Str = use CAdvPron ; -- e.g. in dem => darin
-    } ;
-
-    appPrep0 : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
-      prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
+      appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
+      appPrep : SubjectPrep -> NP -> Str = appSPrepNP ;             -- e.g. in dem CN => im CN
+      appPrep : SubjectPrep -> IP -> Str = appPrepIP ;              -- e.g. in was    => worin
+      appPrep : SubjectPrep -> RP -> RelGenNum => Str = appPrepRP ; -- e.g. in was    => worin
+      -- appPrep : Preposition -> DemPron -> Str = use CAdvPron ;      -- e.g. in dem => darin
+      } ;
 
     appSPrep : SubjectPrep -> (Case => Str) -> Str = \prep,arg ->
       prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
@@ -504,13 +501,13 @@ resource ResGer = ParamX ** open Prelude in {
         <isPrep,Sg,WDefArt> => True ;  -- e.g. "zum Hof|zur Tür|zum Fenster herein"
         _ => False} ;                  -- e.g. "auf dem Hof|auf der Tür|auf dem Fenster"
       f = case b of {True => CSg g ; _ => CPl} ;
-    in
-    prep.s ! f ++ np.s ! b ! prep.c ++ np.ext ++ prep.s2 ++ np.rc ;
+      in
+      prep.s ! f ++ np.s ! b ! prep.c ++ np.ext ++ prep.s2 ++ np.rc ;
 
     appPrepNP : Preposition -> NP -> Str = \prep,np ->
       appSPrepNP (toSPrep prep) np ;
 
-  appPrepIP : SubjectPrep -> IP -> Str = \prep,np ->
+    appPrepIP : SubjectPrep -> IP -> Str = \prep,np ->
     let
       g : Gender = genGenNum np.a ;
       n : Number = numGenNum np.a ;
@@ -530,22 +527,7 @@ resource ResGer = ParamX ** open Prelude in {
       _ => uncontracted
     } ;
 
-{- -- Simplify to test the effect on grammar compilation complexity (without SlashV2VNP):
-   --  contracts = False: 27096 msec, 3,2M VerbGer.gfo, 854 SentenceGer.gfo
-   --     and SlashV2VNP:102597 msec, 16 M VerbGer.gfo, 854 SentenceGer.gfo (good!)
-   appPrepNP : Preposition -> NP -> Str = \prep,np ->
-     let
-       contracts = False ;
-       nps = np.s ! contracts ! prep.c
-     in prep.s ! CPl ++ nps ++ np.ext ++ prep.s2 ++ np.rc ;
--}
-
   bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
-
--- To build a preposition from just a case.  -- HL 9/19: no longer used in RGL
-
-  noPreposition : Case -> SubjectPrep = \c -> 
-    {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase} ;
 
 -- To build a preposition from just a case.  -- HL 9/19: moved to mkPrep in ParadigmsGer
 
@@ -559,7 +541,6 @@ resource ResGer = ParamX ** open Prelude in {
     {s = prep.s ; s2 = prep.s2 ; c = Obj prep.c ; t = prep.t} ;
   fromSPrep : SubjectPrep -> Preposition = \prep ->  -- default Acc for Nom
     {s = prep.s ; s2 = prep.s2 ; c = case prep.c of {Obj d => d ; Nom => Acc} ; t = prep.t} ;
-                                              
 
 -- To build passive: accusative object -> nom subject; others -> same case or prep
 
@@ -833,7 +814,7 @@ resource ResGer = ParamX ** open Prelude in {
     let obj = appPrepNP prep np ;
         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
         w = np.w ;
-        c = prep.c -- TODO turn to ObjCase?
+        c = prep.c
     in insertObj' obj b w c vp ;
 
   insertObj' : Str -> Bool -> Weight -> ObjCase -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
@@ -1051,8 +1032,7 @@ resource ResGer = ParamX ** open Prelude in {
     in
        glue (embedInf vpi.inpl <vpi.objs, vpi.pred>) ++ vpi.extr!agr ++ vp.ext ;
 
--- Relfexive pronouns have object cases only, so nominative is omittet. -- HL 9/26
--- (The old reflPron with nominative forms is not reused to define personal pronouns.)
+-- Relfexive pronouns have forms for object cases only, so nominative is omitted. -- HL 9/26
 
   reflPron : Agr => ObjCase => Str = table {
     AgSgP1       => objcaselist "mich" "mir"  "meiner" ;
