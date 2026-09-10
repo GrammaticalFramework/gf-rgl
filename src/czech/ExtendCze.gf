@@ -12,7 +12,6 @@ concrete ExtendCze of Extend = CatCze **
     ,SlashBareV2S
     ,PredIAdvVP
     ,PredAPVP
-    ,ExistsNP
     ,ExistS
     ,ExistPluralCN
     ,ExistNPQS

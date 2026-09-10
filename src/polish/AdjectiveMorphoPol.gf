@@ -209,6 +209,6 @@ resource AdjectiveMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef) in {
   };
 
   addComplToAdj : A -> Str -> Case -> A2 ;
-  addComplToAdj a s c = a ** {c = mkCompl s c } ;
+  addComplToAdj a s c = lin A2 (a ** {c = mkCompl s c}) ;
 
 }

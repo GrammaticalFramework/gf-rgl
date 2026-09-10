@@ -8,6 +8,8 @@ lin
 
   AdAdV a adv = {s = a.s ++ adv.s; p = adv.p} ;
 
+  UttAdV adv = {s = adv.s} ;
+
   EmptyRelSlash slash = {
       s = \\t,a,p,agr => linPrep slash.c2 ++ whichRP ! agr.gn ++ slash.s ! agr ! t ! a ! p ! Main
       } ;
@@ -150,7 +152,7 @@ lin
 
   MkVPS t p vp = {
     s = \\a => 
-          let verb  = vpTenses vp ! t.t ! t.a ! p.p ! a ! False ! Perf ;
+          let verb  = vpTenses vp ! t.t ! t.a ! p.p ! a ! Main ! Perf ;
               compl = vp.compl ! a
           in t.s ++ p.s ++ verb ++ compl
     } ;
@@ -316,19 +318,6 @@ lin UseComp_estar = UseComp ;
 
 lin ProDrop pro = pro ;
 
-lin AnaphPron np =
-      case <np.gn, np.p> of {
-        <GSg _, PronP1> => i_Pron ;
-        <GSg _, PronP2> => youSg_Pron ;
-        <GSg Masc,   _> => he_Pron ;
-        <GSg Fem,    _> => she_Pron ;
-        <GSg Neutr,  _> => it_Pron ;
-        <GPl,   PronP1> => we_Pron ;
-        <GPl,   PronP2> => youPl_Pron ;
-        <GPl,        _> => they_Pron
-      } ;
-
-lin TPastSimple = {s = []} ** {t = VPastSimple} ;  --# notpresent
+lin TPastSimple = {s = []} ** {t = VPastSimple Indicative} ;  --# notpresent
 
 }
-

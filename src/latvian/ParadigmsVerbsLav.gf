@@ -43,13 +43,15 @@ oper
   mkRegVerb : Str -> Conjugation -> Verb_TMP = \lemma,conj ->
     case conj of {
       C2 => mkVerb_C2 lemma ;
-      C3 => mkVerb_C3 lemma
+      C3 => mkVerb_C3 lemma ;
+      C1|CI => mkVerb_C3 nonExist -- FIX ME REMAKE
     } ;
 
   mkReflVerb : Str -> Conjugation -> Verb_TMP = \lemma,conj ->
     case conj of {
       C2 => mkVerb_C2_Refl lemma ;
-      C3 => mkVerb_C3_Refl lemma
+      C3 => mkVerb_C3_Refl lemma ;
+      C1|CI => mkVerb_C3_Refl nonExist -- FIX ME REMAKE 
     } ;
 
   filter_Neg : Verb_TMP -> Verb_TMP = \full -> {

@@ -37,7 +37,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInf inf vps) ** {c2 = v.c2 ; objCtrl = v.objCtrl} ;
 
     SlashV2A v ap =
-      insertAdj (ap.s ! APred ++ ap.s2 ! Nom) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
+      insertAdj (ap.s ! APred ++ appSPrep (toSPrep v.c2) ap.s2) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
 
     ComplSlash vps np =
       -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of np.
@@ -94,8 +94,8 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
    --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
      let prep = v.c2 ;
-         obj = appPrep prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
-         b : Bool = case prep.t of {isPrep | isPrepDefArt => True ; _ => False} ;
+         obj = appPrep (toSPrep prep) (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
+         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
          c = prep.c ;
          w = np.w ;
          vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl})
@@ -139,31 +139,9 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
 
     PassV2 v = -- acc object -> nom subject; all others: same PCase
       let c = case <v.c2.c, v.c2.t> of {
-            <Acc, isCase> => Nom ; _ => v.c2.c}
+            <Acc, isCase> => Nom ; _ => Obj v.c2.c}
       in insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass) ** { c1 = v.c2 ** {c = c} } ;
 
-{- HL: The construction VPSlashPrep : VP -> Prep -> VPSlash does not exist
-   in German. In abstract/Verb.gf, the example
-
-    VPSlashPrep : VP -> Prep -> VPSlash ;  -- live in (it)
-
-   (with live_V:V) indicates that, here, you consider Prep=AdvSlash,
-   so to speak, for building a compact version of relative clauses:
-
-        the city we live in : NP
-
-   from  "we live (in the city : Adv) : Cl"
-
-   In German we cannot move the NP part of an Adv, we only have the
-   full relative clauses like
-
-        die Stadt, in der wir leben,
-        die Stadt, worin wir leben,    --contracted Prep+Rel
-
-   But: VPSlashPrep is used to parse "sie ist mit mir verheiratet", 
-              (ist verheiratet:VP mit:Prep):VPSlash,
-        ComplA2 is used to parse "sie ist verheiratet mit mir"
--}
     VPSlashPrep vp prep = vp ** {c2 = prep ; objCtrl = False} ;
 
 }

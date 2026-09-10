@@ -29,6 +29,9 @@ concrete ExtendTam of Extend = CatTam
 ]
   with (Grammar=GrammarTam) -}
   ** open Prelude, Coordination, ResTam, NounTam in {
+    lin
+      UttAdV adv = {s = adv.s} ;
+
 --    lincat
 --      VPS, VPI = SS ;
 --      ListVPS, ListVPI = ListX ;

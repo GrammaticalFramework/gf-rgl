@@ -19,7 +19,7 @@ lin
            tr (th "Gen"   ++ td (x.s ! Gen ! Sg) ++ td (x.s ! Gen ! Pl)) ++
            tr (th "Loc"   ++ td (x.s ! Loc ! Sg) ++ td (x.s ! Loc ! Pl)) ++
            tr (th "Instr" ++ td (x.s ! Instr ! Sg) ++ td (x.s ! Instr ! Pl)) ++
-           tr (th "Voc"   ++ td (x.Voc ! Sg) ++ td (x.Voc ! Pl))) ;
+           tr (th "Voc"   ++ td (x.voc ! Sg) ++ td (x.voc ! Pl))) ;
       s3=[]
     } ;
 lin
@@ -30,12 +30,12 @@ lin
          paragraph (x.infinitive) ++
          heading1 "Present" ++
          frameTable (
-           tr (intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P1 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P2 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P3 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P3 ! Pl))) ++
+           tr (intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P1 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P1 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P2 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P3 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P3 ! Pl))) ++
          heading1 "Imperative" ++
          paragraph (x.imperative1) ++
          frameTable (

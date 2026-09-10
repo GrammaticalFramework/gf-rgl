@@ -1,0 +1,53 @@
+concrete IrregSco of IrregScoAbs = CatSco ** open ParadigmsSco in {
+
+lin
+  acquent_V = mkV "acquent" "acquents" "acquentit" "acquent" "acquentin" ;
+  awe_V = mkV "awe" "awes" "aucht" "aucht" "awein" ;
+  beat_V = mkV "beat" "beats" "bate" "bate" "beatin" ;
+  bear_V = mkV "bear" "bears" "bure" "born" "bearin" ;
+  begin_V = mkV "begin" "begins" "begoud" "began" "beginin" ;
+  bend_V = mkV "bend" "bends" "bent" "bent" "bendin" ;
+  bid_V = mkV "bid" "bids" ("baud" | "bade") "bidden" "bidin" ;
+  bind_V = mkV "bind" "binds" "band" "bund" "bindin" ;
+  birrie_V = mkV "birrie" "birries" "birriet" "birriet" "birriein" ;
+  blaw_V = mkV "blaw" "blaws" "blew" "blawn" "blawin" ;
+  bluid_V = mkV "bluid" "bluids" "bled" "bled" "bluidin" ;
+  bide_V = mkV "bide" "bides" "bade" "bidden" "bidin" ;
+  bou_V = mkV "bou" "bous" "boud" "boud" "bouin" ;
+  burn_V = mkV "burn" "burns" "brunt" "brunt" "burnin" ;
+  buy_V = mkV "buy" "buys" "bocht" "bocht" "buyin" ;
+  byle_V = mkV "byle" "byles" "bylt" "bylt" "bylin" ;
+  can_V = mkV "can" "cans" "coud" "coud" "canin" ;
+  cast_V = mkV "cast" "casts" "cuist" "cuisten" "castin" ;
+  dee_V = mkV "dee" "dees" "dee'd" "dee'd" "deein" ;
+  ding_V = mkV "ding" "dings" "dang" "dung" "dingin" ;
+  draw_V = mkV "draw" "draws" "drew" "drawn" "drawin" ;
+  drink_V = mkV "drink" "drinks" "drank" ("drucken" | "drunken") "drinkin" ;
+  drive_V = mkV "drive" "drives" "druive" ("druive" | "driv") "drivin" ;
+  faw_V = mkV "faw" "faws" "fell" "fawn" "fawin" ;
+  fesh_V = mkV "fesh" "feshs" "fuish" "fuishen" "feshin" ;
+  find_V = mkV "find" "finds" "fand" "fund" "findin" ;
+  flee_V = mkV "flee" "flees" "flew" "flewen" "fleein" ;
+  fling_V = mkV "fling" "flings" "flang" "flung" "flingin" ;
+  forgit_V = mkV "forgit" "forgits" "forgat" "forgotten" "forgitin" ;
+  freeze_V = mkV "freeze" "freezes" "fruize" "frozen" "freezein" ;
+  gae_V = mkV "gae" "gaes" "gaed" ("gane" | "went") "gaein" ;
+  git_V = mkV "git" "gits" "gat" "gotten" "gitin" ;
+  greet_V = mkV "greet" "greets" "grat" "grutten" "greetin" ;
+  hae_V = mkV "hae" "haes" "haed" "haet" "hain" ;
+  hide_V = mkV "hide" "hides" "hade" "hidden" "hidin" | mkV "hide" "hides" "hod" "hodden" "hidin" ;
+  hit_V = mkV "hit" "hits" "hat" "hutten" "hitin" ;
+  lat_V = mkV "lat" "lats" "luit" "lutten" "latin" ;
+  leap_V = mkV "leap" "leaps" ("lap" | "lape") "luppen" "leapin" ;
+  mistak_V = mkV "mistak" "mistaks" "misteuk" "mistaen" "mistakin" ;
+  quit_V = mkV "quit" "quits" "quat" ("quat" | "quitten") "quitin" ;
+  read_V = mkV "read" "reads" "rade" ("read" | "readen") "readin" ;
+  rin_V = mkV "rin" "rins" "ran" "run" "rinin" ;
+  ride_V = mkV "ride" "rides" "rade" "ridden" "ridein" ;
+  shall_V = mkV "shall" "shalls" "shoud" "shoud" "shallin" ;
+  sweir_V = mkV "sweir" "sweirs" "swuire" "sworn" "sweirin" ;
+  tak_V = mkV "tak" "taks" "teuk" "taen" "takin" ;
+  thresh_V = mkV "thresh" "threshs" "thruish" "thruishen" "threshin" ;
+  write_V = mkV "write" "writes" "wrat" "written" "writein" ;
+
+}

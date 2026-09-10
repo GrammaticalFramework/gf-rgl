@@ -13,9 +13,11 @@ concrete ExtendRus of Extend =
     ComplDirectVQ,
     -- AdvIsNPAP, AdAdV, AdjAsNP,
     ApposNP,
-    -- BaseVPS, ConsVPS, BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
-    -- MkVPS,
-    -- ConjVPS, MkVPI, ConjVPI, ComplVPIVV,
+    BaseVPS, ConsVPS,
+    -- BaseVPI, ConsVPI, BaseVPS2, ConsVPS2, BaseVPI2, ConsVPI2,
+    MkVPS,
+    ConjVPS,
+    -- MkVPI, ConjVPI, ComplVPIVV,
     -- MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     -- Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
     -- CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
@@ -56,9 +58,12 @@ concrete ExtendRus of Extend =
     -- UttDatIP, UttDatNP, UttVPShort, WithoutVP
    ]
   with (Grammar=GrammarRus)
-  ** open Prelude, ResRus, ParadigmsRus, (M = MorphoRus) in {
+  ** open Prelude, ResRus, ParadigmsRus, TenseRus, Coordination, (M = MorphoRus) in {
 
 lincat
+  VPS     = {s : Mood => Agr => Str} ;
+  [VPS]  = {s1,s2 : Mood => Agr => Str} ;
+  [Comp] = {s1,s2 : AgrTable ; cop : CopulaType} ;
   RNP     = {s : Agr => Str} ;
   RNPList = {s1,s2 : Agr => Str} ;
 
@@ -193,7 +198,7 @@ lin
     } ;
   Imperfective => vps ** {
     verb=(passivate vps.verb);
-    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
+    compl=\\p,a => vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
   }
      };
 
@@ -318,15 +323,45 @@ lin
       a=Ag (gennum g (numSizeNumber det.size)) P3
       } ;
 
-  --PredVPS np vps = {s = np.s ! Nom ++ vps.c.s } ;
+  BaseVPS = twoTable2 Mood Agr ;
+  ConsVPS = consrTable2 Mood Agr comma ;
+  ConjVPS = conjunctDistrTable2 Mood Agr ;
 
-  -- mkVPS : Temp -> Pol -> VP -> VPS
-  --MkVPS t p vp = {
-  --  s = \\a =>
-  --        let verb  = vp.verb ;
-  --            compl = vp.compl
-  --        in verb
-  -- } ;
+  BaseComp x y = {
+    s1 = \\a => x.adv ++ x.s ! a ;
+    s2 = \\a => y.adv ++ y.s ! a ;
+    cop = x.cop
+    } ;
+
+  ConsComp x xs = {
+    s1 = \\a => x.adv ++ x.s ! a ++ comma ++ xs.s1 ! a ;
+    s2 = xs.s2 ;
+    cop = x.cop
+    } ;
+
+  ConjComp conj xs = {
+    s = \\a => conj.s1 ++ xs.s1 ! a ++ conj.s2 ++ xs.s2 ! a ;
+    adv = [] ;
+    cop = xs.cop
+    } ;
+
+  -- : NP -> VPS -> S ;
+  PredVPS np vps = {
+    s = \\m => np.s ! Nom ++ vps.s ! m ! np.a
+    } ;
+
+  -- : Temp -> Pol -> VP -> VPS ;
+  MkVPS temp pol vp = {
+    s = \\m,a =>
+      let vpol = case orPol vp.p pol.p of {
+            Neg => PNeg ;
+            Pos => PPos
+            }
+      in temp.s
+         ++ verbEnvAgr [] (vp.adv ! a) vp.verb m temp.t a vpol
+         ++ vp.dep
+         ++ vp.compl ! vpol.p ! a
+    } ;
 
 oper
   rus_quoted : Str -> Str = \s -> "«" ++ s ++ "»" ; ---- TODO bind ; move to Prelude?

@@ -221,7 +221,15 @@ oper
     = \s -> lin A {s = \\_,_ => s ; h = Back ; p = [] ; hasPrefix = False} ; ----- stemming adds bogus endings
 
   compoundA : Str -> A -> A  -- prefix glued to adjective, e.g. "hevos"+"vetoinen"
-    = \s,a -> lin A {s = \\d,c => s + a.s ! d ! c  ; h = a.h ; p = s + a.p ; hasPrefix = a.hasPrefix} ;
+    = \s,a -> lin A {
+      s = \\d,c => s + a.s ! d ! c ;
+      h = a.h ;
+      p = case a.hasPrefix of {
+        True => s + a.p ;
+        False => []
+        } ;
+      hasPrefix = a.hasPrefix
+      } ;
 
   prefixA : Str -> A -> A -- in modifying use, an uninflected glued prefix, e.g. "sähkö" for "sähköinen"
     = \pr,a -> a ** {
@@ -406,10 +414,10 @@ mkVS = overload {
 
   mkQuant = overload {
     mkQuant : N -> Quant =
-      \noun -> heavyQuant {s1 = \\n,c => (snoun2nounBind noun).s ! NCase n c ; s2 = \\_ => [] ; isNum,isPoss,isNeg,isDef = False} ;
+      \noun -> lin Quant (heavyQuant {s1 = \\n,c => (snoun2nounBind noun).s ! NCase n c ; s2 = \\_ => [] ; isNum,isPoss,isNeg,isDef = False}) ;
     mkQuant : N -> N -> Quant =
-      \sg,pl -> heavyQuant {s1 = table {Sg => \\c => (snoun2nounBind pl).s ! NCase Sg c ; Pl => \\c => (snoun2nounBind pl).s ! NCase Pl c} ;
-                            s2 = \\_ => [] ; isNum,isPoss,isNeg,isDef = False} ;
+      \sg,pl -> lin Quant (heavyQuant {s1 = table {Sg => \\c => (snoun2nounBind pl).s ! NCase Sg c ; Pl => \\c => (snoun2nounBind pl).s ! NCase Pl c} ;
+                                       s2 = \\_ => [] ; isNum,isPoss,isNeg,isDef = False}) ;
     } ;
 
   mkInterj : Str -> Interj

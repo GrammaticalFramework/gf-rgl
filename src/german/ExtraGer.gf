@@ -19,7 +19,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     PPzuAdv cn = {s = case cn.g of {
       Masc | Neutr => "zum" ;
       Fem => "zur"
-      } ++ cn.s ! adjfCase Weak Dat ! Sg ! Dat 
+      } ++ cn.s ! adjfCase Weak (Obj Dat) ! Sg ! (Obj Dat)
     } ;
 
     TImpfSubj  = {s = [] ; t = Past ; m = MConjunct} ;   --# notpresent
@@ -49,8 +49,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     EmptyRelSlash slash = {
       s = \\m,t,a,p,gn => 
-          appPrep slash.c2 (relPron ! gn) ++ slash.s ! m ! t ! a ! p ! Sub ;
-      c = slash.c2.c
+          appPrep (toSPrep slash.c2) (relPron ! gn) ++ slash.s ! m ! t ! a ! p ! Sub ;
+      c = Obj slash.c2.c
       } ;
 
     PassVPSlash vp = 
@@ -83,7 +83,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
-                  ++ vp.c2.s ! GPl                      -- junk if not TV
+                  ++ vp.c2.s ! CPl                      -- junk if not TV
                   ++ vp.ext ++ (vp.inf.extr ! a) ++ vp.s.s ! VPastPart af ;
       s2 = \\_ => [] ;
       isPre = True ;
@@ -179,14 +179,16 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     RNPList = {s1,s2 : Agr => Case => Str} ;
 
   linref
-    RNP = \rnp -> rnp.s ! AgSgP3 Masc ! Acc ++ rnp.ext ++ rnp.rc ;
+    RNP = \rnp -> rnp.s ! AgSgP3 Masc ! (Obj Acc) ++ rnp.ext ++ rnp.rc ;
 
   lin
     ReflRNP vps rnp =
       insertObjReflNP rnp vps ;
 
     ReflPron = { -- with personal pronoun nominative
-      s = ResGer.reflPron ; rc,ext = [] ; isPron = True } ;
+      s = \\a,c => case c of {Nom => ResGer.persPronNom ! a ;
+                              (Obj d) => ResGer.reflPron ! a ! d} ;
+      rc,ext = [] ; isPron = True } ;
 
     -- We might define ReflPron by the stronger reflPronSelf below, using "selbst"
     -- to distinguish personal pronoun from reflexive pronoun:
@@ -212,24 +214,24 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                        g = genderAgr a ;
                        d = case pred.c.k of {NoCase => c ; PredCase k => k} ;
         in case rnp.isPron of {
-          True => pred.s ! Pl ! Masc ! c ++ "von" ++ rnp.s ! a ! Dat ;
+          True => pred.s ! Pl ! Masc ! c ++ "von" ++ rnp.s ! a ! (Obj Dat) ;
           _ => pred.s ! n ! genderAgr a ! c ++ pred.c.p ++ rnp.s ! a ! d} ;
       ext = rnp.ext ; rc = rnp.rc ;
       isPron = False} ;
       -- ok: alle von uns; die meisten von uns ; wrong: *nur von uns =/= nur wir
 
     AdvRNP np prep rnp = {s = \\a,c => np.s ! False ! c
-                            ++ appPrep prep (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
+                            ++ appPrep (toSPrep prep) (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
                           ext = np.ext ; rc = np.rc ; isPron = False} ;
 
     AdvRAP ap prep rnp =
       let                                         -- ? adv ++ ap.s ! af
-        adv = appPrep prep (rnp.s ! agrP3 Sg) ;   -- bug: fixed agreement
+        adv = appPrep (toSPrep prep) (rnp.s ! agrP3 Sg) ;   -- bug: fixed agreement
       in ap ** { s = \\af => ap.s ! af ++ adv } ; -- e.g. unknown in one's youth
 
     ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
       let                                            -- as we have no reflexive AP,
-        compl = appPrep adj.c2 (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
+        compl = appPrep (toSPrep adj.c2) (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
         s2 = \\_ => [] ;
@@ -261,7 +263,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     Cons_nr_RNP x xs = consrTable2 Agr Case comma {s = \\_,c => x.s ! False ! c ++ x.ext ++ x.rc} xs ;
 
   oper
-    reflPronSelf : Agr => Case => Str = \\a => \\c => reflPron ! a ! c ++ "selbst" ;
+    reflPronSelf : Agr => ObjCase => Str = \\a => \\c => reflPron ! a ! c ++ "selbst" ;
 
     reflPossPron : Agr -> Number -> Gender -> Case -> Str =
       let eigen = adjForms "eigen" "eigen" in
@@ -273,7 +275,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
     insertObjRNP : RNP -> Preposition -> ResGer.VPSlash -> ResGer.VP = -- HL 5/2022
       \rnp,prep,vp ->                                           -- generalize ResGer.insertObjRefl
       let
-        obj : Agr => Str = \\a => prep.s ! GPl ++ rnp.s ! a ! prep.c ++ rnp.ext ++ rnp.rc
+        obj : Agr => Str = \\a => prep.s ! CPl ++ rnp.s ! a ! (Obj prep.c) ++ rnp.ext ++ rnp.rc
       in vp ** {
         nn = \\a =>
           let vpnn = vp.nn ! a in
@@ -291,7 +293,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 	
   lin 
     FocObj np cl =
-      let n = appPrepNP cl.c2 np in mkFoc n cl ;
+      let n = appPrepNP cl.c2 np in mkFoc n (lin Cl cl) ;
 
     FocAdv adv cl = mkFoc adv.s cl ;
 
@@ -304,7 +306,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
                -- "froh ist sie dass er da ist"
                -- "stolz ist sie auf ihn"
           subj = mkSubject np vp.c1 ;
-          cl = mkClause subj.s subj.a vp
+          cl = lin Cl (mkClause subj.s subj.a vp)
       in mkFoc adj cl ;
 
     UseFoc t p f = {s = t.s ++ p.s ++ f.s ! t.m ! t.t ! t.a ! p.p} ;

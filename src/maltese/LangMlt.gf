@@ -9,6 +9,8 @@
 concrete LangMlt of Lang =
   GrammarMlt,
   LexiconMlt
+  ,ConstructionMlt
+  ,DocumentationMlt --# notpresent
   ** {
 
   flags

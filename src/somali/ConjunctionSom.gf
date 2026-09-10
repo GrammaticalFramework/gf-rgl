@@ -28,60 +28,97 @@ concrete ConjunctionSom of Conjunction =
     --}
 
 
--- Adverb and other simple {s : Str} types.
+-- Adverbs have language-specific fields, so lists keep only their
+-- realized strings and rebuild a plain adverb at conjunction time.
 lincat
-  [Adv],[AdV],[IAdv] = {s1,s2 : Str} ;
+  [Adv],[AdV] = {s1,s2 : Str} ;
+  [IAdv] = {s1 : Str; s2 : IAdv} ;
 
 lin
-  BaseAdv, BaseAdV, BaseIAdv = twoSS ;
-  ConsAdv, ConsAdV, ConsIAdv = consrSS comma ;
-  ConjAdv, ConjAdV, ConjIAdv = conjunctDistrSS ;
+  BaseAdv x y = {s1 = linAdv x ; s2 = linAdv y} ;
+  ConsAdv x xs = xs ** {s1 = linAdv x ++ comma ++ xs.s1} ;
+  ConjAdv co xs = conjAdv (co.s1 ++ xs.s1 ++ co.s2 ! Indefinite ++ xs.s2) ;
+
+  BaseAdV x y = {s1 = x.s ; s2 = y.s} ;
+  ConsAdV x xs = xs ** {s1 = x.s ++ comma ++ xs.s1} ;
+  ConjAdV co xs = {s = co.s1 ++ xs.s1 ++ co.s2 ! Indefinite ++ xs.s2} ;
+
+  BaseIAdv x y = {s1 = x.s ; s2 = y} ;
+  ConsIAdv x xs = xs ** {s1 = x.s ++ comma ++ xs.s1} ;
+  ConjIAdv co xs = xs.s2 ** {
+    s = co.s1 ++ xs.s1 ++ co.s2 ! Indefinite ++ xs.s2.s ;
+    berri = co.s1 ++ xs.s1 ++ co.s2 ! Indefinite ++ xs.s2.s
+    } ;
 
 
 -- RS depends on state, gender and case, otherwise exactly like previous.
 -- RS can modify CNs, which are open for state, number and case, and have inherent gender.
 lincat
-  [RS] = {s1,s2 : State => Gender => Case => Str} ;
+  [RS] = {s1,s2 : State => GenNum => Case => Str} ;
 
 lin
   BaseRS = twoTable3 State GenNum Case ;
   ConsRS = consrTable3 State GenNum Case comma ;
   ConjRS = conjunctRSTable ;
 
-{-
 lincat
-  [S] = {} ;
+  [S] = {s1,s2 : Bool => Str} ;
 
 lin
-  BaseS x y = y ** { } ;
+  BaseS = twoTable Bool ;
   ConsS x xs =
-    xs ** { } ;
-  ConjS co xs = {} ;
+    consrTable Bool comma x xs ;
+  ConjS co xs = conjunctDistrTable' Bool co xs ;
 
 lincat
-  [AP] = {} ;
+  [AP] = {s1,s2 : AForm => Str ; compar : Str} ;
 
 lin
-  BaseAP x y = twoTable Agr x y ** y ; --choose all the other fields from second argument
-  ConsAP as a = consrTable Agr comma as a ** as ;
-  ConjAP co as = conjunctDistrTable Agr co as ** as ;
+  BaseAP x y = twoTable AForm x y ** {compar = y.compar} ;
+  ConsAP x xs = consrTable AForm comma x xs ** {compar = xs.compar} ;
+  ConjAP co xs = {
+    s = \\af => co.s1 ++ xs.s1 ! af ++ co.s2 ! Indefinite ++ xs.s2 ! af ;
+    compar = xs.compar
+    } ;
 
 lincat
-  [CN] = { } ;
+  [CN] = {s1,s2 : Number => Case => Str ; cn : CNoun} ;
 
 lin
-  BaseCN = {} ;
-  ConsCN = {} ;
-  ConjCN co cs = conjunctDistrTable Agr co cs ** cs ;
+  BaseCN x y = {
+    s1 = \\n,c => cn2str n c x ;
+    s2 = \\n,c => cn2str n c y ;
+    cn = y
+    } ;
+  ConsCN x xs = xs ** {
+    s1 = \\n,c => cn2str n c x ++ "," ++ xs.s1 ! n ! c
+    } ;
+  ConjCN co xs = xs.cn ** {
+    s = \\nf =>
+      let n = case nf of {
+                Def n => n ;
+                Indef n => n ;
+                _ => Sg } ;
+       in co.s1 ++ xs.s1 ! n ! Abs ++ co.s2 ! Indefinite ++ xs.s2 ! n ! Abs ;
+    mod = \\_,_,_ => [] ;
+    modtype = NoMod
+    } ;
 
 lincat
-  [DAP] = Determiner ** { pref2 : Str } ;
+  [DAP] = {s1,s2 : Gender => Case => Str ; det : Determiner} ;
 
 lin
-  BaseDAP x y = x ** { pref2 = y.pref } ;
-  ConsDAP xs x = xs ** { pref2 = x.pref } ;
-  ConjDet conj xs = xs ** { pref = conj.s1 ++ xs.pref ++ conj.s2 ++ xs.pref2 } ;
--}
+  BaseDAP x y = {
+    s1 = x.sp ;
+    s2 = y.sp ;
+    det = y
+    } ;
+  ConsDAP x xs = xs ** {
+    s1 = \\g,c => x.sp ! g ! c ++ "," ++ xs.s1 ! g ! c
+    } ;
+  ConjDAP co xs = xs.det ** {
+    sp = \\g,c => co.s1 ++ xs.s1 ! g ! c ++ co.s2 ! Indefinite ++ xs.s2 ! g ! c
+    } ;
 
 -- Noun phrases
 lincat
@@ -100,6 +137,13 @@ lin
 oper
 
   ConjDistr : Type = {s2 : State => Str ; s1 : Str} ;
+
+  conjAdv : Str -> Adverb = \s -> {
+    berri = s ;
+    c2 = NoAdp ;
+    np = {s = [] ; a = ZeroObj} ;
+    sii,dhex,miscAdv = []
+    } ;
 
   conjunctDistrSS : ConjDistr -> ListX -> SS = \or,xs ->
     ss (or.s1 ++ xs.s1 ++ or.s2 ! Indefinite ++ xs.s2) ;
@@ -132,13 +176,13 @@ oper
     } ;
 
   consNP : BaseNP -> BaseNP -> BaseNP = \x,y ->
-    x ** { agr = conjAgr x.agr (getNum y.agr) } ;
+    x ** { a = conjAgr x.a (getNum y.a) } ;
 
   conjNP : BaseNP -> Conj -> BaseNP = \xs,conj ->
-    xs ** { agr = conjAgr xs.agr conj.nbr } ;
+    xs ** { a = conjAgr xs.a conj.n } ;
 
   conjAgr : Agreement -> Number -> Agreement = \a,n ->
-    case n of { Pl => plAgr a ; _  => a } ;
+    case n of { Pl => ResSom.plAgr a ; _  => a } ;
 
   conjNbr : Number -> Number -> Number = \n,m ->
     case n of { Pl => Pl ; _ => m } ;

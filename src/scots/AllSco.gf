@@ -2,6 +2,7 @@
 
 concrete AllSco of AllScoAbs =
   LangSco,
+  IrregSco - [burn_V, freeze_V],
   ExtendSco
   **
     {} ;

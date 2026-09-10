@@ -38,6 +38,8 @@ concrete ExtendZul of Extend =
       proDrop = True
     } ;
 
+    UttAdV adv = {s = adv.s} ;
+
 
 --     GenNP np = {s = \\_,_ => np.s ! npGen ; sp = \\_,_,_,_ => np.s ! npGen ; isDef = True} ;
 --     GenIP ip = {s = \\_ => ip.s ! NCase Gen} ;

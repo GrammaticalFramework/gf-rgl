@@ -47,7 +47,7 @@ concrete CatGer of Cat =
 
     AP = {
       s : AForm => Str ; -- (strong) adjective paradigm
-      s2 : Case => Str ; -- comparison np, e.g. [s kleineres] (Tier) [s2 als den Hund] HL 1/34
+      s2 : Case => Str ; -- comparison np, e.g. [s kleineres] (Tier) [s2 als den Hund] HL 1/24
       isPre : Bool ; -- pre-nominal as attribute, e.g. False with sentential complement
       c: Str * Str ; -- np,pp-complement, e.g. (ich bin) [c1 ihm] treu ; stolz [c2 auf dich]
       ext : Str      -- s,inf-complement, (du bist) so klug (gewesen) [ext ihn zu lesen]
@@ -83,6 +83,7 @@ concrete CatGer of Cat =
 
     Num = {s,sp : AForm => Str ; n : Number ; isNum : Bool} ; -- Num,Card.s AForm HL 12/23
     Card = {s : AForm => Str ; n : Number} ; -- inflection mainly for: einer,eine,eines
+    ACard = {s : Str ; n : Number} ;
     Ord = {s : AForm => Str} ;
 
 -- Numeral
@@ -126,26 +127,29 @@ concrete CatGer of Cat =
     NP = \np -> np.s ! False ! Nom ++ np.ext ++ np.rc ; -- HL 7/2022 Bool added
     CN = \cn -> cn.s ! Strong ! Sg ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Sg ;
 
-    SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! GPl ;
-    ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ! GPl ;
+    SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! CPl ;
+    ClSlash = \cls -> cls.s ! MIndic ! Pres ! Simul ! Pos ! Main ++ cls.c2.s ! CPl ;
 
     VP = \vp -> useInfVP False vp ;
-    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ! GPl ++ vps.ext;
+    VPSlash = \vps -> useInfVP False vps ++ vps.c2.s ! CPl ++ vps.ext;
 
     AP = \ap -> ap.c.p1 ++ ap.s ! APred ++ ap.c.p2 ++ ap.s2 ! Nom ++ ap.ext ;
-    A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ! GPl ;
+    A2 = \a2 -> a2.s ! Posit ! APred ++ a2.c2.s ! CPl ;
 
     V, VS, VQ, VA = \v -> useInfVP False (predV v) ;
-    V2, V2A, V2Q, V2S = \v -> useInfVP False (predV v) ++ v.c2.s ! GPl ;
-    V3 = \v -> useInfVP False (predV v) ++ v.c2.s ! GPl ++ v.c3.s ! GPl;
+    V2, V2A, V2Q, V2S = \v -> useInfVP False (predV v) ++ v.c2.s ! CPl ;
+    V3 = \v -> useInfVP False (predV v) ++ v.c2.s ! CPl ++ v.c3.s ! CPl;
 
     VV = \v -> useInfVP v.isAux (predVGen v.isAux v) ;
-    V2V = \v -> useInfVP v.isAux (predVGen v.isAux v) ++ v.c2.s ! GPl ;
+    V2V = \v -> useInfVP v.isAux (predVGen v.isAux v) ++ v.c2.s ! CPl ;
+
+    N2 = \n -> n.s ! Sg ! Nom ++ n.c2.s ! CPl ;
+    N3 = \n -> n.s ! Sg ! Nom ++ n.c2.s ! CPl ++ n.c3.s ! CPl ;
 
     Conj = \c -> c.s1 ++ c.s2 ;
 
     Det = \det -> det.s ! False ! Masc ! Nom ;
-    Prep = \prep -> case prep.t of {isPrepDefArt => prep.s ! GSg Masc ;
-                                    _ => prep.s ! GPl } ;
+    Prep = \prep -> case prep.t of {isContracting => prep.s ! CSg Masc ;
+                                    _ => prep.s ! CPl } ;
 
 }

@@ -4,16 +4,16 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi in {
 
   lin
     DetCN det cn = {
-      s = \\c => det.s ! c ! cn.g ++ cn.s ! det.spec ! c ! det.n ;
+      s = \\c => det.s ! c ! cn.g ++ cn.s ! det.sp ! c ! det.n ;
       a = agrgP3 cn.g det.n
       } ;
 
-    UsePron p = p ;
+    -- UsePron p = p ;
 
     DetQuant quant num = {
       s  = \\c,g => quant.s ! c ! g ! num.n ++ num.s ;
       n  = num.n ;
-      spec = quant.spec
+      sp = quant.sp
       } ;
 
     NumSg = {s = []; n = Sg} ;
@@ -21,16 +21,15 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi in {
 
     DefArt = {
       s  = \\c,g,n => [] ;
-      spec = Def
+      sp = Def
       } ;
 
     IndefArt = {
       s = \\c,g => table Number ["një"; []] ;
-      spec = Indef
+      sp = Indef
       } ;
 
     UseN n = n ;
-    UseN2 n = n ;
 
     AdjCN ap cn = {
       s = \\spec,c,n => cn.s ! spec ! c ! n ++ ap.s ! spec ! c ! cn.g ! n ;

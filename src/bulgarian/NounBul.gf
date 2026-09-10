@@ -121,6 +121,7 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
 
     NumNumeral numeral = {s = \\gspec => numeral.s ! NCard gspec; nn = case numeral.n of {Sg => NNum Sg; Pl => NCountable}} ;
     OrdNumeral numeral = {s = \\aform => numeral.s ! NOrd aform} ;
+    OrdNumeralSuperl numeral a = {s = \\aform => numeral.s ! NOrd aform ++ "най" ++ hyphen ++ a.s ! indefAForm aform} ;
     
     AdNum adn num = {s = \\gspec => adn.s ++ num.s ! gspec; nn = num.nn} ;
 

@@ -2,11 +2,22 @@
 
 concrete ExtendPol of Extend =
   CatPol ** ExtendFunctor - [
-    iFem_Pron, youFem_Pron, theyFem_Pron, ProDrop, PassVPSlash
+    iFem_Pron, youFem_Pron, theyFem_Pron, ProDrop, PassVPSlash, ExistsNP
   ]
   with
     (Grammar = GrammarPol) **
-  open PronounMorphoPol, Prelude in {
+  open PronounMorphoPol, ResPol, VerbMorphoPol, Prelude in {
+
+-- ExtendFunctor defaults ExistsNP to ExistNP, which gives "jest macierz".
+-- Polish distinguishes the two: "there is" is jest/są, but "there exists" is
+-- istnieć, which is the form mathematical prose uses.
+oper
+  istniec_V : Verb = mkMonoVerb "istnieć" conj52 Imperfective ;
+
+lin ExistsNP np = {
+    s = \\pol,anter,tense =>
+      (indicative_form istniec_V False pol) ! <tense, anter, np.gn, np.p> ++ np.nom
+  } ;
 
 lin iFem_Pron = pronJa FemSg ;
 lin youFem_Pron = pronTy FemSg ;

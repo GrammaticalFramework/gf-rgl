@@ -257,15 +257,15 @@ lin
 
   
   want_VV =  {s = "yend"; pres="da"; perf = "zire"; isPresBlank = False;
-                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; inf=[]; whenUsed = VVBoth};
   can8know_VV = {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; inf=[]; whenUsed = VVBoth};--: VV ; -- can (capacity)
   can_VV =  {s = "baas"; pres="a"; perf = "ize"; isPresBlank = False;
-                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=True; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
+                        isPerfBlank = False; isRegular = True; p = []; isRefl = False; morphs=mkVerbMorphs; inf=[]; whenUsed = VVBoth};--: VV ;      -- can (possibility)
    -- must_VV used especially in the perfective mood: see dictionary entry shemerera on Pg 501 of Mpairwe
    -- must has no passive form
    must_VV = {s = "shemere"; pres="ra"; perf = "ire"; isPresBlank = False;
-                        isPerfBlank = False; isRegular = False; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
+                        isPerfBlank = False; p = []; isRefl = False; morphs=mkVerbMorphs; isRegular=False; inf=[]; whenUsed = VVPerf}; --VV 
   everybody_NP = {s = \\_=>"buri muntu" ; agr=AgP3 Sg MU_BA};
   everything_NP = {s = \\_=>"buri kintu" ; agr=AgP3 Sg KI_BI};
   somebody_NP = {s = \\_=>"somebody:omuntu omwe" ; agr=AgP3 Sg MU_BA}; --: NP ;

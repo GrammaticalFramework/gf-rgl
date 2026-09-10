@@ -7,7 +7,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> AP ;
   PositA a = emptyAP ** {
     s = \\n,c =>
-      let adj : Noun = (a ** {s = a.s ! Posit}) in
+      let adj : Noun = (a ** {s = a.s ! Posit; g = NonHuman}) in
       caseFromStem glue adj c n ;
     } ;
 
@@ -35,7 +35,7 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
   -- : A  -> AP ;     -- warmer
   UseComparA a = emptyAP ** {
     s = \\n,c =>
-    let adj : Noun = (a ** {s = a.s ! Compar}) in
+    let adj : Noun = (a ** {s = a.s ! Compar; g = NonHuman}) in
     caseFromStem glue adj c n ;
     } ;
 
@@ -54,7 +54,9 @@ concrete AdjectiveHun of Adjective = CatHun ** open ResHun, Prelude in {
 -- phrases, although the semantics is only clear for some adjectives.
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  -- SentAP ap sc = ap ** {} ;
+  SentAP ap sc = ap ** {
+    compl = \\n => ap.compl ! n ++ sc.s ;
+    } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 

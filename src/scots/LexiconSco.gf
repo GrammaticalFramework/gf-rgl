@@ -1,17 +1,17 @@
 --# -path=.:prelude
 
 concrete LexiconSco of Lexicon = CatSco **
-  open ParadigmsSco, Prelude in {
+  open ParadigmsSco, IrregSco, Prelude in {
 
 flags
   optimize=values ;
 
 lin
-  airplane_N = regN "airplane" ;
+  airplane_N = mkN "airieplane" ;
   alas_Interj = ss "alas" ;
   answer_V2S = mkV2S (mkV "answer" "answered") toP ;
   apartment_N = regN "apartment" ;
-  apple_N = regN "apple" ;
+  apple_N = mkN "aiple" ;
   art_N = regN "art" ;
   ask_V2Q = mkV2Q (regV "ask") noPrep ;
   baby_N = regN "baby" ;
@@ -39,7 +39,7 @@ lin
   brother_N2 = mkN2 (mkN masculine (mkN "brother")) (mkPrep "of") ;
   brown_A = regADeg "brown" ;
   butter_N = regN "butter" ;
-  buy_V2 = dirV2 (irregV "buy" "bought" "bought") ;
+  buy_V2 = dirV2 IrregSco.buy_V ;
   camera_N = regN "camera" ;
   cap_N = regN "cap" ;
   car_N = regN "car" ;
@@ -48,13 +48,13 @@ lin
   ceiling_N = regN "ceiling" ;
   chair_N = regN "chair" ;
   cheese_N = regN "cheese" ;
-  child_N = mk2N "child" "children" ;
-  church_N = regN "church" ;
-  city_N = regN "city" ;
+  child_N = mkN "bairn" ;
+  church_N = mkN "kirk" ;
+  city_N = mkN "ceety" ;
   clean_A = regADeg "clean" ;
   clever_A = mkA "clever" "cleverer" ;
   close_V2 = dirV2 (regV "close") ;
-  coat_N = regN "coat" ;
+  coat_N = mkN "sark" ;
   cold_A = regADeg "cold" ;
   come_V = (irregV "come" "came" "come") ;
   computer_N = regN "computer" ;
@@ -67,7 +67,7 @@ lin
   doctor_N = mkN human (regN "doctor") ;
   dog_N = regN "dog" ;
   door_N = regN "door" ;
-  drink_V2 = dirV2 (irregV "drink" "drank" "drunk") ;
+  drink_V2 = mkV2 IrregSco.drink_V ;
   easy_A2V = mkA2V (regA "easy") forP ;
   eat_V2 = dirV2 (irregV "eat" "ate" "eaten") ;
   empty_A = regADeg "empty" ;
@@ -75,7 +75,7 @@ lin
   factory_N = regN "factory" ;
   father_N2 = mkN2 (mkN masculine (mkN "father")) (mkPrep "of") ;
   fear_VS = mkVS (regV "fear") ;
-  find_V2 = dirV2 (irregV "find" "found" "found") ;
+  find_V2 = dirV2 IrregSco.find_V ;
   fish_N = mk2N "fish" "fish" ;
   floor_N = regN "floor" ;
   forget_V2 = dirV2 (irregDuplV "forget" "forgot" "forgotten") ;
@@ -139,14 +139,14 @@ lin
   pen_N = regN "pen" ;
   planet_N = regN "planet" ;
   plastic_N = regN "plastic" ;
-  play_V2 = dirV2 (regV "play") ;
+  play_V2 = dirV2 (regV "spiel") ;
   policeman_N = mkN masculine (mkN "policeman" "policemen") ;
   priest_N = mkN human (regN "priest") ;
   probable_AS = mkAS (regA "probable") ;
   queen_N = mkN feminine (regN "queen") ;
   radio_N = regN "radio" ;
   rain_V0 = mkV0 (regV "rain") ;
-  read_V2 = dirV2 (irregV "read" "read" "read") ;
+  read_V2 = dirV2 IrregSco.read_V ;
   red_A = duplADeg "red" ;
   religion_N = regN "religion" ;
   restaurant_N = regN "restaurant" ;
@@ -154,7 +154,7 @@ lin
   rock_N = regN "rock" ;
   roof_N = regN "roof" ;
   rubber_N = regN "rubber" ;
-  run_V = (irregDuplV "run" "ran" "run") ;
+  run_V = (irregDuplV "rin" "ran" "run") ;
   say_VS = mkVS (irregV "say" "said" "said") ;
   school_N = regN "school" ;
   science_N = regN "science" ;
@@ -213,7 +213,7 @@ lin
   woman_N = mkN feminine (mk2N "woman" "women") ;
   wonder_VQ = mkVQ (mkV "wonder" "wondered") ;
   wood_N = regN "wood" ;
-  write_V2 = dirV2 (irregV "write" "wrote" "written") ;
+  write_V2 = dirV2 IrregSco.write_V ;
   yellow_A = mkA "yellow" ;
   young_A = regADeg "young" ;
 
@@ -306,15 +306,15 @@ lin
   wing_N = regN "wing" ;
   worm_N = regN "worm" ;
   year_N = regN "year" ;
---   blow_V = IrregEng.blow_V ;
+--   blow_V = IrregSco.blow_V ;
   breathe_V = dirV2 (regV "breathe") ;
---   burn_V = IrregEng.burn_V ;
+  burn_V = IrregSco.burn_V ;
 --   dig_V = IrregEng.dig_V ;
 --   fall_V = IrregEng.fall_V ;
   float_V = regV "float" ;
   flow_V = regV "flow" ;
 --  fly_V = IrregEng.fly_V ;
---   freeze_V = IrregEng.freeze_V ;
+  freeze_V = IrregSco.freeze_V ;
 --  give_V3 = mkV3 give_V noPrep noPrep ;
   laugh_V = regV "laugh" ;
 --   lie_V = IrregEng.lie_V ;

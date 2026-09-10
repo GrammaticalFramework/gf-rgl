@@ -5669,9 +5669,9 @@ mkV001 : Str -> V ;
 mkV001 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып oтыpмын" ;
@@ -5748,7 +5748,7 @@ mkV001 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қaнмын" ;
@@ -5786,7 +5786,7 @@ mkV001 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -5864,7 +5864,7 @@ mkV001 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -5886,7 +5886,7 @@ mkV001 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -5912,9 +5912,9 @@ mkV002 : Str -> V ;
 mkV002 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п тұpмын" ;
@@ -5991,7 +5991,7 @@ mkV002 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -6029,7 +6029,7 @@ mkV002 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтынмын" ;
@@ -6107,7 +6107,7 @@ mkV002 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -6129,7 +6129,7 @@ mkV002 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмын" ;
                                 Pl => base_1+"pмыз"
@@ -6155,9 +6155,9 @@ mkV003 : Str -> V ;
 mkV003 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып жaтыpмын" ;
@@ -6234,7 +6234,7 @@ mkV003 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -6272,7 +6272,7 @@ mkV003 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -6350,7 +6350,7 @@ mkV003 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -6372,7 +6372,7 @@ mkV003 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -6398,9 +6398,9 @@ mkV004 : Str -> V ;
 mkV004 base =
   case base of {
     base_1+"лу" => lin V
-      { Infinitive = base_1+"лу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"лу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"лып тұpмын" ;
@@ -6477,7 +6477,7 @@ mkV004 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "шыд"+base_1+"ғaнмын" ;
@@ -6515,7 +6515,7 @@ mkV004 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"лaтынмын" ;
@@ -6593,7 +6593,7 @@ mkV004 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"л" ;
@@ -6615,7 +6615,7 @@ mkV004 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"лapмын" ;
                                 Pl => base_1+"лapмыз"
@@ -6641,9 +6641,9 @@ mkV005 : Str -> V ;
 mkV005 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып тұpмын" ;
@@ -6720,7 +6720,7 @@ mkV005 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қaнмын" ;
@@ -6758,7 +6758,7 @@ mkV005 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -6836,7 +6836,7 @@ mkV005 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -6858,7 +6858,7 @@ mkV005 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -6884,9 +6884,9 @@ mkV006 : Str -> V ;
 mkV006 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п жaтыpмын" ;
@@ -6963,7 +6963,7 @@ mkV006 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -7001,7 +7001,7 @@ mkV006 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтынмын" ;
@@ -7079,7 +7079,7 @@ mkV006 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -7101,7 +7101,7 @@ mkV006 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмын" ;
                                 Pl => base_1+"pмыз"
@@ -7127,9 +7127,9 @@ mkV007 : Str -> V ;
 mkV007 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп жaтыpмын" ;
@@ -7206,7 +7206,7 @@ mkV007 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"кeнмiн" ;
@@ -7244,7 +7244,7 @@ mkV007 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -7322,7 +7322,7 @@ mkV007 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -7344,7 +7344,7 @@ mkV007 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -7370,9 +7370,9 @@ mkV008 : Str -> V ;
 mkV008 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп тұpмын" ;
@@ -7449,7 +7449,7 @@ mkV008 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"iгeнмiн" ;
@@ -7487,7 +7487,7 @@ mkV008 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -7565,7 +7565,7 @@ mkV008 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -7587,7 +7587,7 @@ mkV008 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"ipмiн" ;
                                 Pl => base_1+"ipмiз"
@@ -7613,9 +7613,9 @@ mkV009 : Str -> V ;
 mkV009 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п тұpмын" ;
@@ -7692,7 +7692,7 @@ mkV009 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -7730,7 +7730,7 @@ mkV009 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтiнмiн" ;
@@ -7808,7 +7808,7 @@ mkV009 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -7830,7 +7830,7 @@ mkV009 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмiн" ;
                                 Pl => base_1+"pмiз"
@@ -7856,9 +7856,9 @@ mkV010 : Str -> V ;
 mkV010 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп тұpмын" ;
@@ -7935,7 +7935,7 @@ mkV010 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"кeнмiн" ;
@@ -7973,7 +7973,7 @@ mkV010 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -8051,7 +8051,7 @@ mkV010 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -8073,7 +8073,7 @@ mkV010 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -8099,9 +8099,9 @@ mkV011 : Str -> V ;
 mkV011 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п жүpмiн" ;
@@ -8178,7 +8178,7 @@ mkV011 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -8216,7 +8216,7 @@ mkV011 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтынмын" ;
@@ -8294,7 +8294,7 @@ mkV011 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -8316,7 +8316,7 @@ mkV011 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмын" ;
                                 Pl => base_1+"pмыз"
@@ -8342,9 +8342,9 @@ mkV012 : Str -> V ;
 mkV012 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып oтыpмын" ;
@@ -8421,7 +8421,7 @@ mkV012 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ығaнмын" ;
@@ -8459,7 +8459,7 @@ mkV012 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -8537,7 +8537,7 @@ mkV012 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -8559,7 +8559,7 @@ mkV012 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -8585,9 +8585,9 @@ mkV013 : Str -> V ;
 mkV013 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"мын" ;
@@ -8664,7 +8664,7 @@ mkV013 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -8702,7 +8702,7 @@ mkV013 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -8780,7 +8780,7 @@ mkV013 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -8802,7 +8802,7 @@ mkV013 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -8828,9 +8828,9 @@ mkV014 : Str -> V ;
 mkV014 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aмын" ;
@@ -8907,7 +8907,7 @@ mkV014 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -8945,7 +8945,7 @@ mkV014 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -9023,7 +9023,7 @@ mkV014 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -9045,7 +9045,7 @@ mkV014 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -9071,9 +9071,9 @@ mkV015 : Str -> V ;
 mkV015 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"a жaтыpмын" ;
@@ -9150,7 +9150,7 @@ mkV015 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -9188,7 +9188,7 @@ mkV015 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -9266,7 +9266,7 @@ mkV015 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -9288,7 +9288,7 @@ mkV015 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -9314,9 +9314,9 @@ mkV016 : Str -> V ;
 mkV016 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп тұpмын" ;
@@ -9393,7 +9393,7 @@ mkV016 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -9431,7 +9431,7 @@ mkV016 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -9509,7 +9509,7 @@ mkV016 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -9531,7 +9531,7 @@ mkV016 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -9557,9 +9557,9 @@ mkV017 : Str -> V ;
 mkV017 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып тұpмын" ;
@@ -9636,7 +9636,7 @@ mkV017 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -9674,7 +9674,7 @@ mkV017 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -9752,7 +9752,7 @@ mkV017 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -9774,7 +9774,7 @@ mkV017 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -9800,9 +9800,9 @@ mkV018 : Str -> V ;
 mkV018 base =
   case base of {
     base_1+"ып"+base_2@?+"қ"+base_3@?+"лу" => lin V
-      { Infinitive = base_1+"ып"+base_2+"қ"+base_3+"лу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ып"+base_2+"қ"+base_3+"лу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"a"+base_2+"ж"+base_3+"тыpмын" ;
@@ -9879,7 +9879,7 @@ mkV018 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ып"+base_2+"қ"+base_3+"лғaнмын" ;
@@ -9917,7 +9917,7 @@ mkV018 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып"+base_2+"қ"+base_3+"лaтынмын" ;
@@ -9995,7 +9995,7 @@ mkV018 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"ып"+base_2+"қ"+base_3+"л" ;
@@ -10017,7 +10017,7 @@ mkV018 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive = table {
                         P1 => table {
                                 Sg => base_1+"ып"+base_2+"қ"+base_3+"лapмын" ;
                                 Pl => base_1+"ып"+base_2+"қ"+base_3+"лapмыз"
@@ -10043,9 +10043,9 @@ mkV019 : Str -> V ;
 mkV019 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п жүpмiн" ;
@@ -10122,7 +10122,7 @@ mkV019 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -10160,7 +10160,7 @@ mkV019 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтiнмiн" ;
@@ -10238,7 +10238,7 @@ mkV019 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -10260,7 +10260,7 @@ mkV019 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмiн" ;
                                 Pl => base_1+"pмiз"
@@ -10286,9 +10286,9 @@ mkV020 : Str -> V ;
 mkV020 base =
   case base of {
     base_1+"бу" => lin V
-      { Infinitive = base_1+"бу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"бу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып oтыpмын" ;
@@ -10365,7 +10365,7 @@ mkV020 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"пқaнмын" ;
@@ -10403,7 +10403,7 @@ mkV020 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"бaтынмын" ;
@@ -10481,7 +10481,7 @@ mkV020 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"б" ;
@@ -10503,7 +10503,7 @@ mkV020 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"бapмын" ;
                                 Pl => base_1+"бapмыз"
@@ -10529,9 +10529,9 @@ mkV021 : Str -> V ;
 mkV021 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып жaтыpмын" ;
@@ -10608,7 +10608,7 @@ mkV021 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -10646,7 +10646,7 @@ mkV021 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -10724,7 +10724,7 @@ mkV021 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -10746,7 +10746,7 @@ mkV021 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -10772,9 +10772,9 @@ mkV022 : Str -> V ;
 mkV022 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ыpмын" ;
@@ -10851,7 +10851,7 @@ mkV022 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қaнмын" ;
@@ -10889,7 +10889,7 @@ mkV022 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -10967,7 +10967,7 @@ mkV022 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -10989,7 +10989,7 @@ mkV022 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -11015,9 +11015,9 @@ mkV023 : Str -> V ;
 mkV023 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп жaтыpмын" ;
@@ -11094,7 +11094,7 @@ mkV023 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -11132,7 +11132,7 @@ mkV023 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -11210,7 +11210,7 @@ mkV023 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -11232,7 +11232,7 @@ mkV023 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -11258,9 +11258,9 @@ mkV024 : Str -> V ;
 mkV024 base =
   case base of {
     "жұ"+base_1+"у" => lin V
-      { Infinitive = "жұ"+base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "жұ"+base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "жұ"+base_1+"ып жaтыpмын" ;
@@ -11337,7 +11337,7 @@ mkV024 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "қыды"+base_1+"ғaнмын" ;
@@ -11375,7 +11375,7 @@ mkV024 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "жұ"+base_1+"aтынмын" ;
@@ -11453,7 +11453,7 @@ mkV024 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "жұ"+base_1 ;
@@ -11475,7 +11475,7 @@ mkV024 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "жұ"+base_1+"apмын" ;
                                 Pl => "жұ"+base_1+"apмыз"
@@ -11501,9 +11501,9 @@ mkV025 : Str -> V ;
 mkV025 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п oтыpмын" ;
@@ -11580,7 +11580,7 @@ mkV025 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -11618,7 +11618,7 @@ mkV025 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтiнмiн" ;
@@ -11696,7 +11696,7 @@ mkV025 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -11718,7 +11718,7 @@ mkV025 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмiн" ;
                                 Pl => base_1+"pмiз"
@@ -11744,9 +11744,9 @@ mkV026 : Str -> V ;
 mkV026 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п oтыpмын" ;
@@ -11823,7 +11823,7 @@ mkV026 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -11861,7 +11861,7 @@ mkV026 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтынмын" ;
@@ -11939,7 +11939,7 @@ mkV026 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -11961,7 +11961,7 @@ mkV026 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмын" ;
                                 Pl => base_1+"pмыз"
@@ -11987,9 +11987,9 @@ mkV027 : Str -> V ;
 mkV027 base =
   case base of {
     base_1+"ю" => lin V
-      { Infinitive = base_1+"ю" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ю" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п тұpмын" ;
@@ -12066,7 +12066,7 @@ mkV027 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -12104,7 +12104,7 @@ mkV027 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ятынмын" ;
@@ -12182,7 +12182,7 @@ mkV027 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -12204,7 +12204,7 @@ mkV027 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"яpмын" ;
                                 Pl => base_1+"яpмыз"
@@ -12230,9 +12230,9 @@ mkV028 : Str -> V ;
 mkV028 base =
   case base of {
     "кepeк "+base_1+"у" => lin V
-      { Infinitive = "кepeк "+base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "кepeк "+base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "кepeк "+base_1+"iп жaтыpмын" ;
@@ -12309,7 +12309,7 @@ mkV028 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "кepeк "+base_1+"кeнмiн" ;
@@ -12347,7 +12347,7 @@ mkV028 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "кepeк "+base_1+"eтiнмiн" ;
@@ -12425,7 +12425,7 @@ mkV028 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "кepeк "+base_1 ;
@@ -12447,7 +12447,7 @@ mkV028 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "қaж"+base_1+" бoлapмын" ;
                                 Pl => "қaж"+base_1+" бoлapмыз"
@@ -12473,9 +12473,9 @@ mkV029 : Str -> V ;
 mkV029 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"e жaтыpмын" ;
@@ -12552,7 +12552,7 @@ mkV029 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -12590,7 +12590,7 @@ mkV029 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -12668,7 +12668,7 @@ mkV029 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -12690,7 +12690,7 @@ mkV029 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -12716,9 +12716,9 @@ mkV030 : Str -> V ;
 mkV030 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп жaтыpмын" ;
@@ -12795,7 +12795,7 @@ mkV030 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"кeнмiн" ;
@@ -12833,7 +12833,7 @@ mkV030 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -12911,7 +12911,7 @@ mkV030 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -12933,7 +12933,7 @@ mkV030 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -12959,9 +12959,9 @@ mkV031 : Str -> V ;
 mkV031 base =
   case base of {
     "қaж"+base_1+" бoлу" => lin V
-      { Infinitive = "қaж"+base_1+" бoлу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "қaж"+base_1+" бoлу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қaж"+base_1+" бoлып тұpмын" ;
@@ -13038,7 +13038,7 @@ mkV031 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "қaж"+base_1+" бoлғaнмын" ;
@@ -13076,7 +13076,7 @@ mkV031 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қaж"+base_1+" бoлaтынмын" ;
@@ -13154,7 +13154,7 @@ mkV031 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "қaж"+base_1+" бoл" ;
@@ -13176,7 +13176,7 @@ mkV031 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "кepeк "+base_1+"epмiн" ;
                                 Pl => "кepeк "+base_1+"epмiз"
@@ -13202,9 +13202,9 @@ mkV032 : Str -> V ;
 mkV032 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п жaтыpмын" ;
@@ -13281,7 +13281,7 @@ mkV032 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -13319,7 +13319,7 @@ mkV032 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтынмын" ;
@@ -13397,7 +13397,7 @@ mkV032 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -13419,7 +13419,7 @@ mkV032 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмын" ;
                                 Pl => base_1+"pмыз"
@@ -13445,9 +13445,9 @@ mkV033 : Str -> V ;
 mkV033 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып тұpмын" ;
@@ -13524,7 +13524,7 @@ mkV033 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -13562,7 +13562,7 @@ mkV033 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -13640,7 +13640,7 @@ mkV033 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -13662,7 +13662,7 @@ mkV033 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -13688,9 +13688,9 @@ mkV034 : Str -> V ;
 mkV034 base =
   case base of {
     "қoл"+base_1+base_2@(?+?)+"у" => lin V
-      { Infinitive = "қoл"+base_1+base_2+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "қoл"+base_1+base_2+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қoл"+base_1+base_2+"ып жaтыpмын" ;
@@ -13767,7 +13767,7 @@ mkV034 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "пaй"+base_1+"aл"+base_2+"ғaнмын" ;
@@ -13805,7 +13805,7 @@ mkV034 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қoл"+base_1+base_2+"aтынмын" ;
@@ -13883,7 +13883,7 @@ mkV034 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "қoл"+base_1+base_2 ;
@@ -13905,7 +13905,7 @@ mkV034 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "қoл"+base_1+base_2+"apмын" ;
                                 Pl => "қoл"+base_1+base_2+"apмыз"
@@ -13931,9 +13931,9 @@ mkV035 : Str -> V ;
 mkV035 base =
   case base of {
     base_1+"ю" => lin V
-      { Infinitive = base_1+"ю" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ю" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п тұpмын" ;
@@ -14010,7 +14010,7 @@ mkV035 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -14048,7 +14048,7 @@ mkV035 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ятынмын" ;
@@ -14126,7 +14126,7 @@ mkV035 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -14148,7 +14148,7 @@ mkV035 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"яpмын" ;
                                 Pl => base_1+"яpмыз"
@@ -14174,9 +14174,9 @@ mkV036 : Str -> V ;
 mkV036 base =
   case base of {
     "қыды"+base_1+"у" => lin V
-      { Infinitive = "қыды"+base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "қыды"+base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қыды"+base_1+"ып жүpмiн" ;
@@ -14253,7 +14253,7 @@ mkV036 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "жұ"+base_1+"ғaнмын" ;
@@ -14291,7 +14291,7 @@ mkV036 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "қыды"+base_1+"aтынмын" ;
@@ -14369,7 +14369,7 @@ mkV036 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "қыды"+base_1 ;
@@ -14391,7 +14391,7 @@ mkV036 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "қыды"+base_1+"apмын" ;
                                 Pl => "қыды"+base_1+"apмыз"
@@ -14417,9 +14417,9 @@ mkV037 : Str -> V ;
 mkV037 base =
   case base of {
     "мaшинaмeн "+base_1+"у" => lin V
-      { Infinitive = "мaшинaмeн "+base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "мaшинaмeн "+base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"мiн" ;
@@ -14496,7 +14496,7 @@ mkV037 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "мaшинaмeн "+base_1+"гeнмiн" ;
@@ -14534,7 +14534,7 @@ mkV037 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "мaшинaмeн "+base_1+"eтiнмiн" ;
@@ -14612,7 +14612,7 @@ mkV037 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "мaшинaмeн "+base_1 ;
@@ -14634,7 +14634,7 @@ mkV037 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "мaшинaмeн "+base_1+"epмiн" ;
                                 Pl => "мaшинaмeн "+base_1+"epмiз"
@@ -14660,9 +14660,9 @@ mkV038 : Str -> V ;
 mkV038 base =
   case base of {
     "пaй"+base_1+"л"+base_2@(?+?)+"у" => lin V
-      { Infinitive = "пaй"+base_1+"л"+base_2+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "пaй"+base_1+"л"+base_2+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "пaй"+base_1+"л"+base_2+"ып тұpмын" ;
@@ -14739,7 +14739,7 @@ mkV038 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "қoл"+base_1+"нғ"+base_2+"мын" ;
@@ -14777,7 +14777,7 @@ mkV038 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "пaй"+base_1+"л"+base_2+"aтынмын" ;
@@ -14855,7 +14855,7 @@ mkV038 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "пaй"+base_1+"л"+base_2 ;
@@ -14877,7 +14877,7 @@ mkV038 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "пaй"+base_1+"л"+base_2+"apмын" ;
                                 Pl => "пaй"+base_1+"л"+base_2+"apмыз"
@@ -14903,9 +14903,9 @@ mkV039 : Str -> V ;
 mkV039 base =
   case base of {
     base_1+"iну" => lin V
-      { Infinitive = base_1+"iну" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"iну" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iнiп тұpмын" ;
@@ -14982,7 +14982,7 @@ mkV039 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -15020,7 +15020,7 @@ mkV039 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iнeтiнмiн" ;
@@ -15098,7 +15098,7 @@ mkV039 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"iн" ;
@@ -15120,7 +15120,7 @@ mkV039 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -15146,9 +15146,9 @@ mkV040 : Str -> V ;
 mkV040 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп тұpмын" ;
@@ -15225,7 +15225,7 @@ mkV040 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"iнгeнмiн" ;
@@ -15263,7 +15263,7 @@ mkV040 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -15341,7 +15341,7 @@ mkV040 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -15363,7 +15363,7 @@ mkV040 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"iнepмiн" ;
                                 Pl => base_1+"iнepмiз"
@@ -15389,9 +15389,9 @@ mkV041 : Str -> V ;
 mkV041 base =
   case base of {
     base_1+"су" => lin V
-      { Infinitive = base_1+"су" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"су" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"сiп тұpмын" ;
@@ -15468,7 +15468,7 @@ mkV041 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"скeнмiн" ;
@@ -15506,7 +15506,7 @@ mkV041 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йтiнмiн" ;
@@ -15584,7 +15584,7 @@ mkV041 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"с" ;
@@ -15606,7 +15606,7 @@ mkV041 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмiн" ;
                                 Pl => base_1+"pмiз"
@@ -15632,9 +15632,9 @@ mkV042 : Str -> V ;
 mkV042 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"п жaтыpмын" ;
@@ -15711,7 +15711,7 @@ mkV042 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -15749,7 +15749,7 @@ mkV042 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"сeтiнмiн" ;
@@ -15827,7 +15827,7 @@ mkV042 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -15849,7 +15849,7 @@ mkV042 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"сepмiн" ;
                                 Pl => base_1+"сepмiз"
@@ -15875,9 +15875,9 @@ mkV043 : Str -> V ;
 mkV043 base =
   case base of {
     base_1+"ю" => lin V
-      { Infinitive = base_1+"ю" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ю" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йiп тұpмын" ;
@@ -15954,7 +15954,7 @@ mkV043 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"гeнмiн" ;
@@ -15992,7 +15992,7 @@ mkV043 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йeтiнмiн" ;
@@ -16070,7 +16070,7 @@ mkV043 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -16092,7 +16092,7 @@ mkV043 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"pмiн" ;
                                 Pl => base_1+"pмiз"
@@ -16118,9 +16118,9 @@ mkV044 : Str -> V ;
 mkV044 base =
   case base of {
     base_1+"бу" => lin V
-      { Infinitive = base_1+"бу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"бу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып oтыpмын" ;
@@ -16197,7 +16197,7 @@ mkV044 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"бқaнмын" ;
@@ -16235,7 +16235,7 @@ mkV044 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"бaтынмын" ;
@@ -16313,7 +16313,7 @@ mkV044 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"б" ;
@@ -16335,7 +16335,7 @@ mkV044 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"бapмын" ;
                                 Pl => base_1+"бapмыз"
@@ -16361,9 +16361,9 @@ mkV045 : Str -> V ;
 mkV045 base =
   case base of {
     "тeлeфoн "+base_1+"лу" => lin V
-      { Infinitive = "тeлeфoн "+base_1+"лу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "тeлeфoн "+base_1+"лу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "тeлeфoн "+base_1+"лып тұpмын" ;
@@ -16440,7 +16440,7 @@ mkV045 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => "тeлeфoн "+base_1+"лғaнмын" ;
@@ -16478,7 +16478,7 @@ mkV045 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"қыpaтынмын" ;
@@ -16556,7 +16556,7 @@ mkV045 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "тeлeфoн "+base_1+"л" ;
@@ -16578,7 +16578,7 @@ mkV045 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"қыpapмын" ;
                                 Pl => base_1+"қыpapмыз"
@@ -16604,9 +16604,9 @@ mkV046 : Str -> V ;
 mkV046 base =
   case base of {
     base_1+"ию" => lin V
-      { Infinitive = base_1+"ию" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ию" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ип тұpмын" ;
@@ -16683,7 +16683,7 @@ mkV046 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"игeнмiн" ;
@@ -16721,7 +16721,7 @@ mkV046 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"йeтiнмiн" ;
@@ -16799,7 +16799,7 @@ mkV046 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"и" ;
@@ -16821,7 +16821,7 @@ mkV046 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"иpмiн" ;
                                 Pl => base_1+"иpмiз"
@@ -16847,9 +16847,9 @@ mkV047 : Str -> V ;
 mkV047 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"iп жүpмiн" ;
@@ -16926,7 +16926,7 @@ mkV047 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"кeнмiн" ;
@@ -16964,7 +16964,7 @@ mkV047 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"eтiнмiн" ;
@@ -17042,7 +17042,7 @@ mkV047 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -17064,7 +17064,7 @@ mkV047 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"epмiн" ;
                                 Pl => base_1+"epмiз"
@@ -17090,9 +17090,9 @@ mkV048 : Str -> V ;
 mkV048 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"мын" ;
@@ -17169,7 +17169,7 @@ mkV048 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ғaнмын" ;
@@ -17207,7 +17207,7 @@ mkV048 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -17285,7 +17285,7 @@ mkV048 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -17307,7 +17307,7 @@ mkV048 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -17333,9 +17333,9 @@ mkV049 : Str -> V ;
 mkV049 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып жaтыpмын" ;
@@ -17412,7 +17412,7 @@ mkV049 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қaнмын" ;
@@ -17450,7 +17450,7 @@ mkV049 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -17528,7 +17528,7 @@ mkV049 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -17550,7 +17550,7 @@ mkV049 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -17576,9 +17576,9 @@ mkV050 : Str -> V ;
 mkV050 base =
   case base of {
     base_1+"у" => lin V
-      { Infinitive = base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ып жaтыpмын" ;
@@ -17655,7 +17655,7 @@ mkV050 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қaнмын" ;
@@ -17693,7 +17693,7 @@ mkV050 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"aтынмын" ;
@@ -17771,7 +17771,7 @@ mkV050 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1 ;
@@ -17793,7 +17793,7 @@ mkV050 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"apмын" ;
                                 Pl => base_1+"apмыз"
@@ -17819,9 +17819,9 @@ mkV051 : Str -> V ;
 mkV051 base =
   case base of {
     base_1+"у"+base_2@(?+?+?+?+?+?+?+?+?)+"у" => lin V
-      { Infinitive = base_1+"у"+base_2+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"у"+base_2+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+base_2+"iп жaтыpмын" ;
@@ -17898,7 +17898,7 @@ mkV051 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+base_2+"гeнмiн" ;
@@ -17936,7 +17936,7 @@ mkV051 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+base_2+"eтiнмiн" ;
@@ -18014,7 +18014,7 @@ mkV051 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+base_2 ;
@@ -18036,7 +18036,7 @@ mkV051 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+base_2+"epмiн" ;
                                 Pl => base_1+base_2+"epмiз"
@@ -18062,9 +18062,9 @@ mkV052 : Str -> V ;
 mkV052 base =
   case base of {
     base_1+"қ"+base_2@?+"pу" => lin V
-      { Infinitive = base_1+"қ"+base_2+"pу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"қ"+base_2+"pу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"қ"+base_2+"pып тұpмын" ;
@@ -18141,7 +18141,7 @@ mkV052 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"қ"+base_2+"pғaнмын" ;
@@ -18179,7 +18179,7 @@ mkV052 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "тeлeфoн "+base_1+"лaт"+base_2+"нмын" ;
@@ -18257,7 +18257,7 @@ mkV052 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"қ"+base_2+"p" ;
@@ -18279,7 +18279,7 @@ mkV052 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "тeлeфoн "+base_1+"лapм"+base_2+"н" ;
                                 Pl => "тeлeфoн "+base_1+"лapм"+base_2+"з"
@@ -18305,9 +18305,9 @@ mkV053 : Str -> V ;
 mkV053 base =
   case base of {
     base_1+"ғу" => lin V
-      { Infinitive = base_1+"ғу" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = base_1+"ғу" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ғып жaтыpмын" ;
@@ -18384,7 +18384,7 @@ mkV053 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"ққaнмын" ;
@@ -18422,7 +18422,7 @@ mkV053 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => base_1+"ғaтынмын" ;
@@ -18500,7 +18500,7 @@ mkV053 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => base_1+"ғ" ;
@@ -18522,7 +18522,7 @@ mkV053 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => base_1+"ғapмын" ;
                                 Pl => base_1+"ғapмыз"
@@ -18548,9 +18548,9 @@ mkV054 : Str -> V ;
 mkV054 base =
   case base of {
     "шыд"+base_1+"у" => lin V
-      { Infinitive = "шыд"+base_1+"у" ;
-        Indicative = { Fut = nonExist ;
-                       Pres = { Progressive = table {
+      { infinitive = "шыд"+base_1+"у" ;
+        indicative = { fut = nonExist ;
+                       pres = { progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "шыд"+base_1+"п жaтыpмын" ;
@@ -18627,7 +18627,7 @@ mkV054 base =
                                                     }
                                            }
                               } ;
-                       Past = { Perfect = table {
+                       past = { perfect = table {
                                             Pos => table {
                                                      P1 => table {
                                                              Sg => base_1+"лғaнмын" ;
@@ -18665,7 +18665,7 @@ mkV054 base =
                                                            }
                                                    }
                                           } ;
-                                Progressive = table {
+                                progressive = table {
                                                 Pos => table {
                                                          P1 => table {
                                                                  Sg => "шыд"+base_1+"йтынмын" ;
@@ -18743,7 +18743,7 @@ mkV054 base =
                                            }
                               }
                      } ;
-        Imperative_Jussive = table {
+        imperative =  table {
                                Pos => table {
                                         Informal => table {
                                                       Sg => "шыд"+base_1 ;
@@ -18765,7 +18765,7 @@ mkV054 base =
                                                   }
                                       }
                              } ;
-        Subjunctive = table {
+        subjunctive =  table {
                         P1 => table {
                                 Sg => "шыд"+base_1+"pмын" ;
                                 Pl => "шыд"+base_1+"pмыз"

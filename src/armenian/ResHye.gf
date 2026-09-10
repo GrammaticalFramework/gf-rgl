@@ -1,16 +1,14 @@
-resource ResHye = {
+resource ResHye = ParamX ** {
 
 param Aspect = Non_Past | Perfect ;
-param Person = P1 | P3 | P2 ;
-param Number = Sg | Pl ;
 param Case = Nom | Dat | Ablat | Instr | Loc ;
 param PartType = Resultative | Subject ;
-oper Verb = {s: Str; Causative: Str; Conditional: Aspect => Person => Number => Str; Converb: {Imperfective: Str; FutCon1: Str; FutCon2: Str; Negative: Str; Perfective: Str; Simultaneous: Str}; Imperative_Jussive: Number => Str; Passive: Str; Past: Person => Number => Str; Participle: PartType => Str; Subjunctive: Aspect => Person => Number => Str} ; -- 898
+oper Verb = {s: Str; causative: Str; conditional: Aspect => Person => Number => Str; converb: {imperfective: Str; futCon1: Str; futCon2: Str; negative: Str; perfective: Str; simultaneous: Str}; imperative: Number => Str; passive: Str; past: Person => Number => Str; participle: PartType => Str; subjunctive: Aspect => Person => Number => Str} ; -- 898
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42,f43 ->
           { s = f1 ;
-            Causative = f2 ;
-            Conditional = table {
+            causative = f2 ;
+            conditional = table {
                             Perfect => table {
                                          P1 => table {
                                                  Sg => f3 ;
@@ -40,19 +38,19 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
                                                 }
                                         }
                           } ;
-            Converb = { Imperfective = f15 ;
-                        FutCon1 = f16 ;
-                        FutCon2 = f17 ;
-                        Negative = f18 ;
-                        Perfective = f19 ;
-                        Simultaneous = f20
+            converb = { imperfective = f15 ;
+                        futCon1 = f16 ;
+                        futCon2 = f17 ;
+                        negative = f18 ;
+                        perfective = f19 ;
+                        simultaneous = f20
                       } ;
-            Imperative_Jussive = table {
+            imperative = table {
                                    Sg => f21 ;
                                    Pl => f22
                                  } ;
-            Passive = f23 ;
-            Past = table {
+            passive = f23 ;
+            past = table {
                      P1 => table {
                              Sg => f24 ;
                              Pl => f25
@@ -66,11 +64,11 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
                              Pl => f29
                            }
                    } ;
-            Participle = table {
+            participle = table {
                            Resultative => f30 ;
                            Subject => f31
                          } ;
-            Subjunctive = table {
+            subjunctive = table {
                             Perfect => table {
                                          P1 => table {
                                                  Sg => f32 ;
@@ -102,7 +100,8 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
                           }
           } ;
 
-
+param Species = Indef | Def | Poss Person ;
+oper Agr = {n : Number; p : Person} ;
 oper Noun = {s: Case => Number => Str; def_dat: Number => Str; def_nom: Number => Str; poss1: Case => Number => Str; poss2: Case => Number => Str} ; -- 4880
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34 ->

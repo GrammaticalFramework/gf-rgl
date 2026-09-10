@@ -35,7 +35,8 @@ mkN001 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN001"
   } ;
@@ -73,7 +74,8 @@ mkN002 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN002"
   } ;
@@ -111,7 +113,8 @@ mkN003 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN003"
   } ;
@@ -149,7 +152,8 @@ mkN004 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN004"
   } ;
@@ -187,7 +191,8 @@ mkN005 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN005"
   } ;
@@ -225,7 +230,8 @@ mkN006 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN006"
   } ;
@@ -263,7 +269,8 @@ mkN007 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN007"
   } ;
@@ -301,7 +308,8 @@ mkN008 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN008"
   } ;
@@ -339,7 +347,8 @@ mkN009 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN009"
   } ;
@@ -377,7 +386,8 @@ mkN010 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN010"
   } ;
@@ -415,7 +425,8 @@ mkN011 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN011"
   } ;
@@ -453,7 +464,8 @@ mkN012 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN012"
   } ;
@@ -491,7 +503,8 @@ mkN013 base =
                                Gen => "áanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN013"
   } ;
@@ -529,7 +542,8 @@ mkN014 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN014"
   } ;
@@ -567,7 +581,8 @@ mkN015 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN015"
   } ;
@@ -585,18 +600,18 @@ mkN016 base =
                                  Gen => base_1+"ar"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"urin" ;
-                                 Acc => base_1+"in" ;
-                                 Dat => base_1+"inum" ;
-                                 Gen => base_1+"arins"
+                                 Nom => nonExist ;
+                                 Acc => nonExist ;
+                                 Dat => nonExist ;
+                                 Gen => nonExist
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"urin" ;
+                               Acc => base_1+"in" ;
+                               Dat => base_1+"inum" ;
+                               Gen => base_1+"arins"
                              } ;
                        Pl => table {
                                Nom => nonExist ;
@@ -605,7 +620,8 @@ mkN016 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN016"
   } ;
@@ -643,7 +659,8 @@ mkN017 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN017"
   } ;
@@ -681,7 +698,8 @@ mkN018 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN018"
   } ;
@@ -719,7 +737,8 @@ mkN019 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN019"
   } ;
@@ -757,7 +776,8 @@ mkN020 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN020"
   } ;
@@ -795,7 +815,8 @@ mkN021 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN021"
   } ;
@@ -833,7 +854,8 @@ mkN022 base =
                                Gen => base_1+"æanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN022"
   } ;
@@ -871,7 +893,8 @@ mkN023 base =
                                Gen => "a"+base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN023"
   } ;
@@ -909,7 +932,8 @@ mkN024 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN024"
   } ;
@@ -947,7 +971,8 @@ mkN025 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN025"
   } ;
@@ -985,7 +1010,8 @@ mkN026 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN026"
   } ;
@@ -1023,7 +1049,8 @@ mkN027 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN027"
   } ;
@@ -1061,7 +1088,8 @@ mkN028 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN028"
   } ;
@@ -1099,7 +1127,8 @@ mkN029 base =
                                Gen => base_1+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN029"
   } ;
@@ -1137,7 +1166,8 @@ mkN030 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN030"
   } ;
@@ -1175,7 +1205,8 @@ mkN031 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN031"
   } ;
@@ -1213,7 +1244,8 @@ mkN032 base =
                                Gen => base_1+"annanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN032"
   } ;
@@ -1251,7 +1283,8 @@ mkN033 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN033"
   } ;
@@ -1289,7 +1322,8 @@ mkN034 base =
                                Gen => base_1+"æ"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN034"
   } ;
@@ -1327,7 +1361,8 @@ mkN035 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN035"
   } ;
@@ -1365,7 +1400,8 @@ mkN036 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN036"
   } ;
@@ -1403,7 +1439,8 @@ mkN037 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN037"
   } ;
@@ -1441,7 +1478,8 @@ mkN038 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN038"
   } ;
@@ -1479,7 +1517,8 @@ mkN039 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN039"
   } ;
@@ -1517,7 +1556,8 @@ mkN040 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN040"
   } ;
@@ -1555,7 +1595,8 @@ mkN041 base =
                                Gen => base_1+"ógvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN041"
   } ;
@@ -1593,7 +1634,8 @@ mkN042 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN042"
   } ;
@@ -1631,7 +1673,8 @@ mkN043 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN043"
   } ;
@@ -1669,7 +1712,8 @@ mkN044 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN044"
   } ;
@@ -1707,7 +1751,8 @@ mkN045 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN045"
   } ;
@@ -1745,7 +1790,8 @@ mkN046 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN046"
   } ;
@@ -1783,7 +1829,8 @@ mkN047 base =
                                Gen => base_1+"ú"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN047"
   } ;
@@ -1821,7 +1868,8 @@ mkN048 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN048"
   } ;
@@ -1859,7 +1907,8 @@ mkN049 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN049"
   } ;
@@ -1897,7 +1946,8 @@ mkN050 base =
                                Gen => base_1+"á"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN050"
   } ;
@@ -1935,7 +1985,8 @@ mkN051 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN051"
   } ;
@@ -1973,7 +2024,8 @@ mkN052 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN052"
   } ;
@@ -2011,7 +2063,8 @@ mkN053 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN053"
   } ;
@@ -2049,7 +2102,8 @@ mkN054 base =
                                Gen => base_1+"manna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN054"
   } ;
@@ -2087,7 +2141,8 @@ mkN055 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN055"
   } ;
@@ -2125,7 +2180,8 @@ mkN056 base =
                                Gen => base_1+"a"+base_2+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN056"
   } ;
@@ -2163,7 +2219,8 @@ mkN057 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN057"
   } ;
@@ -2201,7 +2258,8 @@ mkN058 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN058"
   } ;
@@ -2239,7 +2297,8 @@ mkN059 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN059"
   } ;
@@ -2277,7 +2336,8 @@ mkN060 base =
                                Gen => base_1+"o"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN060"
   } ;
@@ -2315,7 +2375,8 @@ mkN061 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN061"
   } ;
@@ -2353,7 +2414,8 @@ mkN062 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN062"
   } ;
@@ -2391,7 +2453,8 @@ mkN063 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN063"
   } ;
@@ -2429,7 +2492,8 @@ mkN064 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN064"
   } ;
@@ -2467,7 +2531,8 @@ mkN065 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN065"
   } ;
@@ -2505,7 +2570,8 @@ mkN066 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN066"
   } ;
@@ -2543,7 +2609,8 @@ mkN067 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN067"
   } ;
@@ -2581,7 +2648,8 @@ mkN068 base =
                                Gen => base_1+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN068"
   } ;
@@ -2619,7 +2687,8 @@ mkN069 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN069"
   } ;
@@ -2657,7 +2726,8 @@ mkN070 base =
                                Gen => base_1+"o"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN070"
   } ;
@@ -2695,7 +2765,8 @@ mkN071 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN071"
   } ;
@@ -2733,7 +2804,8 @@ mkN072 base =
                                Gen => base_1+"ei"+base_2+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN072"
   } ;
@@ -2771,7 +2843,8 @@ mkN073 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN073"
   } ;
@@ -2809,7 +2882,8 @@ mkN074 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN074"
   } ;
@@ -2847,7 +2921,8 @@ mkN075 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN075"
   } ;
@@ -2885,7 +2960,8 @@ mkN076 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN076"
   } ;
@@ -2923,7 +2999,8 @@ mkN077 base =
                                Gen => base_1+"fanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN077"
   } ;
@@ -2961,7 +3038,8 @@ mkN078 base =
                                Gen => base_1+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN078"
   } ;
@@ -2999,7 +3077,8 @@ mkN079 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN079"
   } ;
@@ -3037,7 +3116,8 @@ mkN080 base =
                                Gen => base_1+"ranna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN080"
   } ;
@@ -3075,7 +3155,8 @@ mkN081 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN081"
   } ;
@@ -3113,7 +3194,8 @@ mkN082 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN082"
   } ;
@@ -3151,7 +3233,8 @@ mkN083 base =
                                Gen => base_1+"ed"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN083"
   } ;
@@ -3189,7 +3272,8 @@ mkN084 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN084"
   } ;
@@ -3227,7 +3311,8 @@ mkN085 base =
                                Gen => base_1+"a"+base_2+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN085"
   } ;
@@ -3265,7 +3350,8 @@ mkN086 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN086"
   } ;
@@ -3303,7 +3389,8 @@ mkN087 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN087"
   } ;
@@ -3341,7 +3428,8 @@ mkN088 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN088"
   } ;
@@ -3379,7 +3467,8 @@ mkN089 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN089"
   } ;
@@ -3417,7 +3506,8 @@ mkN090 base =
                                Gen => base_1+"ja"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN090"
   } ;
@@ -3455,7 +3545,8 @@ mkN091 base =
                                Gen => base_1+"a"+base_2+"ganna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN091"
   } ;
@@ -3493,7 +3584,8 @@ mkN092 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN092"
   } ;
@@ -3531,7 +3623,8 @@ mkN093 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN093"
   } ;
@@ -3569,7 +3662,8 @@ mkN094 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN094"
   } ;
@@ -3607,7 +3701,8 @@ mkN095 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN095"
   } ;
@@ -3645,7 +3740,8 @@ mkN096 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN096"
   } ;
@@ -3683,7 +3779,8 @@ mkN097 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN097"
   } ;
@@ -3721,7 +3818,8 @@ mkN098 base =
                                Gen => base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN098"
   } ;
@@ -3759,7 +3857,8 @@ mkN099 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN099"
   } ;
@@ -3797,7 +3896,8 @@ mkN100 base =
                                Gen => base_1+"á"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN100"
   } ;
@@ -3835,7 +3935,8 @@ mkN101 base =
                                Gen => base_1+"fanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN101"
   } ;
@@ -3873,7 +3974,8 @@ mkN102 base =
                                Gen => base_1+"áanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN102"
   } ;
@@ -3911,7 +4013,8 @@ mkN103 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN103"
   } ;
@@ -3949,7 +4052,8 @@ mkN104 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN104"
   } ;
@@ -3987,7 +4091,8 @@ mkN105 base =
                                Gen => base_1+"ggjanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN105"
   } ;
@@ -4025,7 +4130,8 @@ mkN106 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN106"
   } ;
@@ -4063,7 +4169,8 @@ mkN107 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN107"
   } ;
@@ -4101,7 +4208,8 @@ mkN108 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN108"
   } ;
@@ -4139,7 +4247,8 @@ mkN109 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN109"
   } ;
@@ -4177,7 +4286,8 @@ mkN110 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN110"
   } ;
@@ -4215,7 +4325,8 @@ mkN111 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN111"
   } ;
@@ -4253,7 +4364,8 @@ mkN112 base =
                                Gen => base_1+"e"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN112"
   } ;
@@ -4291,7 +4403,8 @@ mkN113 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN113"
   } ;
@@ -4329,7 +4442,8 @@ mkN114 base =
                                Gen => base_1+"a"+base_2+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN114"
   } ;
@@ -4367,7 +4481,8 @@ mkN115 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN115"
   } ;
@@ -4405,7 +4520,8 @@ mkN116 base =
                                Gen => base_1+"g"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN116"
   } ;
@@ -4443,7 +4559,8 @@ mkN117 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN117"
   } ;
@@ -4481,7 +4598,8 @@ mkN118 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN118"
   } ;
@@ -4519,7 +4637,8 @@ mkN119 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN119"
   } ;
@@ -4557,7 +4676,8 @@ mkN120 base =
                                Gen => base_1+"ggjanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN120"
   } ;
@@ -4595,7 +4715,8 @@ mkN121 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN121"
   } ;
@@ -4633,7 +4754,8 @@ mkN122 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN122"
   } ;
@@ -4671,7 +4793,8 @@ mkN123 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN123"
   } ;
@@ -4709,7 +4832,8 @@ mkN124 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN124"
   } ;
@@ -4747,7 +4871,8 @@ mkN125 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN125"
   } ;
@@ -4785,7 +4910,8 @@ mkN126 base =
                                Gen => base_1+"a"+base_2+"a"+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN126"
   } ;
@@ -4823,7 +4949,8 @@ mkN127 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN127"
   } ;
@@ -4861,7 +4988,8 @@ mkN128 base =
                                Gen => base_1+"a"+base_2+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN128"
   } ;
@@ -4899,7 +5027,8 @@ mkN129 base =
                                Gen => base_1+"a"+base_2+"kanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN129"
   } ;
@@ -4937,7 +5066,8 @@ mkN130 base =
                                Gen => base_1+"a"+base_2+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN130"
   } ;
@@ -4975,7 +5105,8 @@ mkN131 base =
                                Gen => base_1+"gjanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN131"
   } ;
@@ -5013,7 +5144,8 @@ mkN132 base =
                                Gen => base_1+"úgvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN132"
   } ;
@@ -5051,7 +5183,8 @@ mkN133 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN133"
   } ;
@@ -5089,7 +5222,8 @@ mkN134 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN134"
   } ;
@@ -5127,7 +5261,8 @@ mkN135 base =
                                Gen => base_1+"ø"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN135"
   } ;
@@ -5165,7 +5300,8 @@ mkN136 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN136"
   } ;
@@ -5203,7 +5339,8 @@ mkN137 base =
                                Gen => base_1+"á"+base_2+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN137"
   } ;
@@ -5241,7 +5378,8 @@ mkN138 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN138"
   } ;
@@ -5279,7 +5417,8 @@ mkN139 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN139"
   } ;
@@ -5317,7 +5456,8 @@ mkN140 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN140"
   } ;
@@ -5355,7 +5495,8 @@ mkN141 base =
                                Gen => base_1+"danna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN141"
   } ;
@@ -5393,7 +5534,8 @@ mkN142 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN142"
   } ;
@@ -5431,7 +5573,8 @@ mkN143 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN143"
   } ;
@@ -5469,7 +5612,8 @@ mkN144 base =
                                Gen => "a"+base_1+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN144"
   } ;
@@ -5507,7 +5651,8 @@ mkN145 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN145"
   } ;
@@ -5525,18 +5670,18 @@ mkN146 base =
                                  Gen => base_1+"s"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"kurin" ;
-                                 Acc => base_1+"kin" ;
-                                 Dat => base_1+"kinum" ;
-                                 Gen => base_1+"sins"
+                                 Nom => nonExist ;
+                                 Acc => nonExist ;
+                                 Dat => nonExist ;
+                                 Gen => nonExist
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"kurin" ;
+                               Acc => base_1+"kin" ;
+                               Dat => base_1+"kinum" ;
+                               Gen => base_1+"sins"
                              } ;
                        Pl => table {
                                Nom => nonExist ;
@@ -5545,7 +5690,8 @@ mkN146 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN146"
   } ;
@@ -5583,7 +5729,8 @@ mkN147 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN147"
   } ;
@@ -5621,7 +5768,8 @@ mkN148 base =
                                Gen => base_1+"g"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN148"
   } ;
@@ -5659,7 +5807,8 @@ mkN149 base =
                                Gen => base_1+"lanna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN149"
   } ;
@@ -5697,7 +5846,8 @@ mkN150 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN150"
   } ;
@@ -5735,7 +5885,8 @@ mkN151 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN151"
   } ;
@@ -5773,7 +5924,8 @@ mkN152 base =
                                Gen => base_1+"nanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN152"
   } ;
@@ -5811,7 +5963,8 @@ mkN153 base =
                                Gen => base_1+"gvanna"
                              }
                      }
-            }
+            } ;
+        g = Masc -- guessed
       };
     _ => error "Can't apply paradigm mkN153"
   } ;
@@ -5849,7 +6002,8 @@ mkN154 base =
                                Gen => base_1+"ganna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN154"
   } ;
@@ -5887,7 +6041,8 @@ mkN155 base =
                                Gen => base_1+"tanna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN155"
   } ;
@@ -5925,7 +6080,8 @@ mkN156 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN156"
   } ;
@@ -5963,7 +6119,8 @@ mkN157 base =
                                Gen => base_1+"ei"+base_2+"janna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN157"
   } ;
@@ -6001,7 +6158,8 @@ mkN158 base =
                                Gen => base_1+"ó"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN158"
   } ;
@@ -6039,7 +6197,8 @@ mkN159 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN159"
   } ;
@@ -6077,7 +6236,8 @@ mkN160 base =
                                Gen => base_1+"panna"
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN160"
   } ;
@@ -6115,7 +6275,8 @@ mkN161 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN161"
   } ;
@@ -6153,7 +6314,8 @@ mkN162 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN162"
   } ;
@@ -6191,7 +6353,8 @@ mkN163 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Neuter
       };
     _ => error "Can't apply paradigm mkN163"
   } ;
@@ -6229,7 +6392,8 @@ mkN164 base =
                                Gen => base_1+"gjanna"
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN164"
   } ;
@@ -6267,7 +6431,8 @@ mkN165 base =
                                Gen => base_1+"a"+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN165"
   } ;
@@ -6305,7 +6470,8 @@ mkN166 base =
                                Gen => base_1+"gvanna"
                              }
                      }
-            }
+            } ;
+        g = Fem
       };
     _ => error "Can't apply paradigm mkN166"
   } ;
@@ -6343,7 +6509,8 @@ mkN167 base =
                                Gen => base_1+base_2+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN167"
   } ;
@@ -6381,7 +6548,8 @@ mkN168 base =
                                Gen => base_1+"janna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN168"
   } ;
@@ -6419,7 +6587,8 @@ mkN169 base =
                                Gen => nonExist
                              }
                      }
-            }
+            } ;
+        g = Masc --guessed
       };
     _ => error "Can't apply paradigm mkN169"
   } ;
@@ -6457,7 +6626,8 @@ mkN170 base =
                                Gen => base_1+"a"+base_2+base_3+"anna"
                              }
                      }
-            }
+            } ;
+        g = Masc
       };
     _ => error "Can't apply paradigm mkN170"
   } ;
@@ -6495,7 +6665,7 @@ mkA001 base =
                                Gen => base_1+"da"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6547,7 +6717,7 @@ mkA002 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2 ;
                                  Acc => base_1+"a"+base_2 ;
@@ -6599,7 +6769,7 @@ mkA003 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1 ;
                                  Acc => base_1 ;
@@ -6651,7 +6821,7 @@ mkA004 base =
                                Gen => base_1+"a"+base_2+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"u"+base_3+"t" ;
                                  Acc => base_1+"a"+base_2+"u"+base_3+"t" ;
@@ -6703,7 +6873,7 @@ mkA005 base =
                                Gen => "a"+base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => "a"+base_1+"t" ;
                                  Acc => "a"+base_1+"t" ;
@@ -6755,7 +6925,7 @@ mkA006 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6807,7 +6977,7 @@ mkA007 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6859,7 +7029,7 @@ mkA008 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -6911,7 +7081,7 @@ mkA009 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ið" ;
                                  Acc => base_1+"ið" ;
@@ -6963,7 +7133,7 @@ mkA010 base =
                                Gen => base_1+"ða"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7015,7 +7185,7 @@ mkA011 base =
                                Gen => base_1+"ta"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7067,7 +7237,7 @@ mkA012 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"gvið" ;
                                  Acc => base_1+"gvið" ;
@@ -7119,7 +7289,7 @@ mkA013 base =
                                Gen => base_1+"ga"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7171,7 +7341,7 @@ mkA014 base =
                                Gen => base_1+"dda"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7223,7 +7393,7 @@ mkA015 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7275,7 +7445,7 @@ mkA016 base =
                                Gen => base_1+"madimra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7327,7 +7497,7 @@ mkA017 base =
                                Gen => base_1+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -7379,7 +7549,7 @@ mkA018 base =
                                Gen => base_1+"kadøkra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7431,7 +7601,7 @@ mkA019 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tið" ;
                                  Acc => base_1+"tið" ;
@@ -7483,7 +7653,7 @@ mkA020 base =
                                Gen => base_1+"a"+base_2+"da"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7535,7 +7705,7 @@ mkA021 base =
                                Gen => base_1+"a"+base_2+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7587,7 +7757,7 @@ mkA022 base =
                                Gen => base_1+"a"+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -7639,7 +7809,7 @@ mkA023 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"rið" ;
                                  Acc => base_1+"rið" ;
@@ -7691,7 +7861,7 @@ mkA024 base =
                                Gen => base_1+"lafulra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -7743,7 +7913,7 @@ mkA025 base =
                                Gen => base_1+"a"+base_2+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"a"+base_3+"t" ;
                                  Acc => base_1+"a"+base_2+"a"+base_3+"t" ;
@@ -7795,7 +7965,7 @@ mkA026 base =
                                Gen => base_1+"óða"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ott" ;
                                  Acc => base_1+"ott" ;
@@ -7847,7 +8017,7 @@ mkA027 base =
                                Gen => base_1+"ei"+base_2+"a"+base_3+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ei"+base_2+"a"+base_3+"t" ;
                                  Acc => base_1+"ei"+base_2+"a"+base_3+"t" ;
@@ -7899,7 +8069,7 @@ mkA028 base =
                                Gen => base_1+"na"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"pið" ;
                                  Acc => base_1+"pið" ;
@@ -7951,7 +8121,7 @@ mkA029 base =
                                Gen => base_1+"a"+base_2+"sa"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8003,7 +8173,7 @@ mkA030 base =
                                Gen => base_1+"dda"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8055,7 +8225,7 @@ mkA031 base =
                                Gen => base_1+"a"+base_2+"alatra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8107,7 +8277,7 @@ mkA032 base =
                                Gen => base_1+"dna"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ðið" ;
                                  Acc => base_1+"ðið" ;
@@ -8159,7 +8329,7 @@ mkA033 base =
                                Gen => base_1+"ggja"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8211,7 +8381,7 @@ mkA034 base =
                                Gen => base_1+"a"+base_2+"amakra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"a"+base_2+"t" ;
                                  Acc => base_1+"a"+base_2+"t" ;
@@ -8263,7 +8433,7 @@ mkA035 base =
                                Gen => base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"ið" ;
                                  Acc => base_1+"ið" ;
@@ -8315,7 +8485,7 @@ mkA036 base =
                                Gen => base_1+"la"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8367,7 +8537,7 @@ mkA037 base =
                                Gen => base_1+"gva"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"tt" ;
                                  Acc => base_1+"tt" ;
@@ -8419,7 +8589,7 @@ mkA038 base =
                                Gen => base_1+base_2+"a"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"u"+base_2+"t" ;
                                  Acc => base_1+"u"+base_2+"t" ;
@@ -8471,7 +8641,7 @@ mkA039 base =
                                Gen => base_1+"ra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8523,7 +8693,7 @@ mkA040 base =
                                Gen => base_1+"lavilra"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8575,7 +8745,7 @@ mkA041 base =
                                Gen => base_1+"sa"
                              }
                      } ;
-              Neutr => table {
+              Neuter => table {
                          Sg => table {
                                  Nom => base_1+"t" ;
                                  Acc => base_1+"t" ;
@@ -8599,7 +8769,7 @@ mkV001 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -8621,7 +8791,8 @@ mkV001 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"aður"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV001"
   } ;
@@ -8631,7 +8802,7 @@ mkV002 base =
   case base of {
     "ei"+base_1+"a" => lin V
       { Converb = "hi"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "ei"+base_1 ;
                                Pl => "ei"+base_1+"ið"
                              } ;
@@ -8653,7 +8824,8 @@ mkV002 base =
         Participle = table {
                        Pres => "ei"+base_1+"andi" ;
                        Past => "hi"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV002"
   } ;
@@ -8663,7 +8835,7 @@ mkV003 base =
   case base of {
     "a"+base_1+"a" => lin V
       { Converb = "i"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "a"+base_1 ;
                                Pl => "a"+base_1+"ið"
                              } ;
@@ -8685,7 +8857,8 @@ mkV003 base =
         Participle = table {
                        Pres => "a"+base_1+"andi" ;
                        Past => "i"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -8695,7 +8868,7 @@ mkV004 base =
   case base of {
     "a"+base_1+"a" => lin V
       { Converb = "a"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "a"+base_1 ;
                                Pl => "a"+base_1+"ið"
                              } ;
@@ -8717,7 +8890,8 @@ mkV004 base =
         Participle = table {
                        Pres => "a"+base_1+"andi" ;
                        Past => "a"+base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -8727,7 +8901,7 @@ mkV005 base =
   case base of {
     base_1+"a"+base_2@(?+?) => lin V
       { Converb = base_1+"a"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -8749,7 +8923,8 @@ mkV005 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -8759,7 +8934,7 @@ mkV006 base =
   case base of {
     base_1+"ða" => lin V
       { Converb = base_1+"tt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ð" ;
                                Pl => base_1+"ðið"
                              } ;
@@ -8781,7 +8956,8 @@ mkV006 base =
         Participle = table {
                        Pres => base_1+"ðandi" ;
                        Past => base_1+"ddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV006"
   } ;
@@ -8791,7 +8967,7 @@ mkV007 base =
   case base of {
     "eiga" => lin V
       { Converb = "átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "eig" ;
                                Pl => "eigið"
                              } ;
@@ -8813,7 +8989,8 @@ mkV007 base =
         Participle = table {
                        Pres => "eigandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV007"
   } ;
@@ -8823,7 +9000,7 @@ mkV008 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -8845,7 +9022,8 @@ mkV008 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV008"
   } ;
@@ -8855,7 +9033,7 @@ mkV009 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -8877,7 +9055,8 @@ mkV009 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV009"
   } ;
@@ -8887,7 +9066,7 @@ mkV010 base =
   case base of {
     base_1+"da" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"d" ;
                                Pl => base_1+"dið"
                              } ;
@@ -8909,7 +9088,8 @@ mkV010 base =
         Participle = table {
                        Pres => base_1+"dandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -8919,7 +9099,7 @@ mkV011 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"j" ;
                                Pl => base_1+"e"+base_2+"jið"
                              } ;
@@ -8941,7 +9121,8 @@ mkV011 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -8951,7 +9132,7 @@ mkV012 base =
   case base of {
     base_1+"i"+base_2@?+"ja" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"jið"
                              } ;
@@ -8973,7 +9154,8 @@ mkV012 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"jandi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -8983,7 +9165,7 @@ mkV013 base =
   case base of {
     base_1+"i"+base_2@?+"da" => lin V
       { Converb = base_1+"u"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2+"d" ;
                                Pl => base_1+"i"+base_2+"dið"
                              } ;
@@ -9005,7 +9187,8 @@ mkV013 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"dandi" ;
                        Past => base_1+"u"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV013"
   } ;
@@ -9015,7 +9198,7 @@ mkV014 base =
   case base of {
     base_1+"í"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"í"+base_2 ;
                                Pl => base_1+"í"+base_2+"ið"
                              } ;
@@ -9037,7 +9220,8 @@ mkV014 base =
         Participle = table {
                        Pres => base_1+"í"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV014"
   } ;
@@ -9047,7 +9231,7 @@ mkV015 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -9069,7 +9253,8 @@ mkV015 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -9079,7 +9264,7 @@ mkV016 base =
   case base of {
     base_1+"gja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"g" ;
                                Pl => base_1+"gið"
                              } ;
@@ -9101,7 +9286,8 @@ mkV016 base =
         Participle = table {
                        Pres => base_1+"gjandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -9111,7 +9297,7 @@ mkV017 base =
   case base of {
     base_1+"e"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"n" ;
                                Pl => base_1+"e"+base_2+"nið"
                              } ;
@@ -9133,7 +9319,8 @@ mkV017 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"nandi" ;
                        Past => base_1+"u"+base_2+"nin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV017"
   } ;
@@ -9143,7 +9330,7 @@ mkV018 base =
   case base of {
     base_1+"e"+base_2@("m"|(?+?))+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9165,7 +9352,8 @@ mkV018 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV018"
   } ;
@@ -9175,7 +9363,7 @@ mkV019 base =
   case base of {
     base_1+"ó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ó"+base_2 ;
                                Pl => base_1+"ó"+base_2+"ið"
                              } ;
@@ -9197,7 +9385,8 @@ mkV019 base =
         Participle = table {
                        Pres => base_1+"ó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -9207,7 +9396,7 @@ mkV020 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9229,7 +9418,8 @@ mkV020 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -9239,7 +9429,7 @@ mkV021 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -9261,7 +9451,8 @@ mkV021 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -9271,7 +9462,7 @@ mkV022 base =
   case base of {
     base_1+"úgva" => lin V
       { Converb = base_1+"úð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"úgv" ;
                                Pl => base_1+"úgvið"
                              } ;
@@ -9293,7 +9484,8 @@ mkV022 base =
         Participle = table {
                        Pres => base_1+"úgvandi" ;
                        Past => base_1+"úgvin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -9303,7 +9495,7 @@ mkV023 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9325,7 +9517,8 @@ mkV023 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -9335,7 +9528,7 @@ mkV024 base =
   case base of {
     base_1+"e"+base_2@?+base_3@?+"a" => lin V
       { Converb = base_1+"o"+base_2+base_3+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+base_3 ;
                                Pl => base_1+"e"+base_2+base_3+"ið"
                              } ;
@@ -9357,7 +9550,8 @@ mkV024 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+base_3+"andi" ;
                        Past => base_1+"o"+base_2+base_3+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -9367,7 +9561,7 @@ mkV025 base =
   case base of {
     base_1+"ggja" => lin V
       { Converb = base_1+"ð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ggj" ;
                                Pl => base_1+"ggið"
                              } ;
@@ -9389,7 +9583,8 @@ mkV025 base =
         Participle = table {
                        Pres => base_1+"ggjandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -9399,7 +9594,7 @@ mkV026 base =
   case base of {
     base_1+"aga" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ag" ;
                                Pl => base_1+"agið"
                              } ;
@@ -9421,7 +9616,8 @@ mkV026 base =
         Participle = table {
                        Pres => base_1+"agandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -9431,7 +9627,7 @@ mkV027 base =
   case base of {
     base_1+"e"+base_2@?+"ka" => lin V
       { Converb = base_1+"u"+base_2+"kið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"k" ;
                                Pl => base_1+"e"+base_2+"kið"
                              } ;
@@ -9453,7 +9649,8 @@ mkV027 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"kandi" ;
                        Past => base_1+"u"+base_2+"kin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -9463,7 +9660,7 @@ mkV028 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9485,7 +9682,8 @@ mkV028 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -9495,7 +9693,7 @@ mkV029 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a" ;
                                Pl => base_1+"ið"
                              } ;
@@ -9517,7 +9715,8 @@ mkV029 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"aður"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV029"
   } ;
@@ -9527,7 +9726,7 @@ mkV030 base =
   case base of {
     "ve"+base_1+"a" => lin V
       { Converb = "ve"+base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "ve"+base_1 ;
                                Pl => "ve"+base_1+"ið"
                              } ;
@@ -9549,7 +9748,8 @@ mkV030 base =
         Participle = table {
                        Pres => "ve"+base_1+"andi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -9559,7 +9759,7 @@ mkV031 base =
   case base of {
     base_1+"na" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"na" ;
                                Pl => base_1+"nið"
                              } ;
@@ -9581,7 +9781,8 @@ mkV031 base =
         Participle = table {
                        Pres => base_1+"nandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -9591,7 +9792,7 @@ mkV032 base =
   case base of {
     base_1+"a"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -9613,7 +9814,8 @@ mkV032 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -9623,7 +9825,7 @@ mkV033 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -9645,7 +9847,8 @@ mkV033 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV033"
   } ;
@@ -9655,7 +9858,7 @@ mkV034 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -9677,7 +9880,8 @@ mkV034 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -9687,7 +9891,7 @@ mkV035 base =
   case base of {
     base_1+"la" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"la" ;
                                Pl => base_1+"lið"
                              } ;
@@ -9709,7 +9913,8 @@ mkV035 base =
         Participle = table {
                        Pres => base_1+"landi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -9719,7 +9924,7 @@ mkV036 base =
   case base of {
     base_1+"ða"+base_2@(?+?) => lin V
       { Converb = base_1+"da"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -9741,7 +9946,8 @@ mkV036 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -9751,7 +9957,7 @@ mkV037 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9773,7 +9979,8 @@ mkV037 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"ur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -9783,7 +9990,7 @@ mkV038 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -9805,7 +10012,8 @@ mkV038 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -9815,7 +10023,7 @@ mkV039 base =
   case base of {
     base_1+"na" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"n" ;
                                Pl => base_1+"nið"
                              } ;
@@ -9837,7 +10045,8 @@ mkV039 base =
         Participle = table {
                        Pres => base_1+"nandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -9847,7 +10056,7 @@ mkV040 base =
   case base of {
     base_1+"ú"+base_2@?+"va" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ú"+base_2 ;
                                Pl => base_1+"ú"+base_2+"ið"
                              } ;
@@ -9869,7 +10078,8 @@ mkV040 base =
         Participle = table {
                        Pres => base_1+"ú"+base_2+"vandi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -9879,7 +10089,7 @@ mkV041 base =
   case base of {
     base_1+"y"+base_2@?+"a" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -9901,7 +10111,8 @@ mkV041 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"andi" ;
                        Past => base_1+"u"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -9911,7 +10122,7 @@ mkV042 base =
   case base of {
     base_1+"e"+base_2@?+"ja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"jið"
                              } ;
@@ -9933,7 +10144,8 @@ mkV042 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"jandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -9943,7 +10155,7 @@ mkV043 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"tt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -9965,7 +10177,8 @@ mkV043 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"ddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -9975,7 +10188,7 @@ mkV044 base =
   case base of {
     base_1+"ú"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ú"+base_2 ;
                                Pl => base_1+"ú"+base_2+"ið"
                              } ;
@@ -9997,7 +10210,8 @@ mkV044 base =
         Participle = table {
                        Pres => base_1+"ú"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV044"
   } ;
@@ -10007,7 +10221,7 @@ mkV045 base =
   case base of {
     base_1+"la" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"l" ;
                                Pl => base_1+"lið"
                              } ;
@@ -10029,7 +10243,8 @@ mkV045 base =
         Participle = table {
                        Pres => base_1+"landi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -10039,7 +10254,7 @@ mkV046 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10061,7 +10276,8 @@ mkV046 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -10071,7 +10287,7 @@ mkV047 base =
   case base of {
     base_1+"anga" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"akk" ;
                                Pl => base_1+"angið"
                              } ;
@@ -10093,7 +10309,8 @@ mkV047 base =
         Participle = table {
                        Pres => base_1+"angandi" ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -10103,7 +10320,7 @@ mkV048 base =
   case base of {
     base_1+"ja"+base_2@?+"da" => lin V
       { Converb = base_1+"o"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ja"+base_2+"d" ;
                                Pl => base_1+"ja"+base_2+"dið"
                              } ;
@@ -10125,7 +10342,8 @@ mkV048 base =
         Participle = table {
                        Pres => base_1+"ja"+base_2+"dandi" ;
                        Past => base_1+"o"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -10135,7 +10353,7 @@ mkV049 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"jø"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -10157,7 +10375,8 @@ mkV049 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"jø"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -10167,7 +10386,7 @@ mkV050 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -10189,7 +10408,8 @@ mkV050 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -10199,7 +10419,7 @@ mkV051 base =
   case base of {
     base_1+"e"+base_2@?+"pa" => lin V
       { Converb = base_1+"o"+base_2+"pið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"p" ;
                                Pl => base_1+"e"+base_2+"pið"
                              } ;
@@ -10221,7 +10441,8 @@ mkV051 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"pandi" ;
                        Past => base_1+"o"+base_2+"pin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV051"
   } ;
@@ -10231,7 +10452,7 @@ mkV052 base =
   case base of {
     base_1+"y"+base_2@?+"ja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -10253,7 +10474,8 @@ mkV052 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -10263,7 +10485,7 @@ mkV053 base =
   case base of {
     base_1+"á"+base_2@?+"a" => lin V
       { Converb = base_1+"á"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á"+base_2 ;
                                Pl => base_1+"á"+base_2+"ið"
                              } ;
@@ -10285,7 +10507,8 @@ mkV053 base =
         Participle = table {
                        Pres => base_1+"á"+base_2+"andi" ;
                        Past => base_1+"á"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -10295,7 +10518,7 @@ mkV054 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10317,7 +10540,8 @@ mkV054 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -10327,7 +10551,7 @@ mkV055 base =
   case base of {
     base_1+"ógva" => lin V
       { Converb = base_1+"óð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ógv" ;
                                Pl => base_1+"ógvið"
                              } ;
@@ -10349,7 +10573,8 @@ mkV055 base =
         Participle = table {
                        Pres => base_1+"ógvandi" ;
                        Past => base_1+"ógvin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV055"
   } ;
@@ -10359,7 +10584,7 @@ mkV056 base =
   case base of {
     base_1+"a"+base_2@?+"da" => lin V
       { Converb = base_1+"i"+base_2+"dið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2+"d" ;
                                Pl => base_1+"a"+base_2+"dið"
                              } ;
@@ -10381,7 +10606,8 @@ mkV056 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"dandi" ;
                        Past => base_1+"i"+base_2+"din"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -10391,7 +10617,7 @@ mkV057 base =
   case base of {
     base_1+"anga" => lin V
       { Converb = base_1+"ingið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ang" ;
                                Pl => base_1+"angið"
                              } ;
@@ -10413,7 +10639,8 @@ mkV057 base =
         Participle = table {
                        Pres => base_1+"angandi" ;
                        Past => base_1+"ingin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -10423,7 +10650,7 @@ mkV058 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10445,7 +10672,8 @@ mkV058 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -10455,7 +10683,7 @@ mkV059 base =
   case base of {
     base_1+"ei"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2+"j" ;
                                Pl => base_1+"ei"+base_2+"jið"
                              } ;
@@ -10477,7 +10705,8 @@ mkV059 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV059"
   } ;
@@ -10487,7 +10716,7 @@ mkV060 base =
   case base of {
     base_1+"vø"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"vø"+base_2 ;
                                Pl => base_1+"vø"+base_2+"ið"
                              } ;
@@ -10509,7 +10738,8 @@ mkV060 base =
         Participle = table {
                        Pres => base_1+"vø"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -10519,7 +10749,7 @@ mkV061 base =
   case base of {
     base_1+"y"+base_2@?+"gja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2+"g" ;
                                Pl => base_1+"y"+base_2+"gið"
                              } ;
@@ -10541,7 +10771,8 @@ mkV061 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"gjandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -10551,7 +10782,7 @@ mkV062 base =
   case base of {
     base_1+"o"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"o"+base_2 ;
                                Pl => base_1+"o"+base_2+"ið"
                              } ;
@@ -10573,7 +10804,8 @@ mkV062 base =
         Participle = table {
                        Pres => base_1+"o"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV062"
   } ;
@@ -10583,7 +10815,7 @@ mkV063 base =
   case base of {
     base_1+"pa" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"p" ;
                                Pl => base_1+"pið"
                              } ;
@@ -10605,7 +10837,8 @@ mkV063 base =
         Participle = table {
                        Pres => base_1+"pandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -10615,7 +10848,7 @@ mkV064 base =
   case base of {
     base_1+"úgva" => lin V
       { Converb = base_1+"ovið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"úg" ;
                                Pl => base_1+"úgið"
                              } ;
@@ -10637,7 +10870,8 @@ mkV064 base =
         Participle = table {
                        Pres => base_1+"úgvandi" ;
                        Past => base_1+"ovin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -10647,7 +10881,7 @@ mkV065 base =
   case base of {
     base_1+"u"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nað" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -10669,7 +10903,8 @@ mkV065 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -10679,7 +10914,7 @@ mkV066 base =
   case base of {
     base_1+"ø"+base_2@?+"a" => lin V
       { Converb = base_1+"ø"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2 ;
                                Pl => base_1+"ø"+base_2+"ið"
                              } ;
@@ -10701,7 +10936,8 @@ mkV066 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"andi" ;
                        Past => base_1+"ø"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -10711,7 +10947,7 @@ mkV067 base =
   case base of {
     base_1+"sa" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"s" ;
                                Pl => base_1+"sið"
                              } ;
@@ -10733,7 +10969,8 @@ mkV067 base =
         Participle = table {
                        Pres => base_1+"sandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -10743,7 +10980,7 @@ mkV068 base =
   case base of {
     base_1+"a" => lin V
       { Converb = base_1+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -10765,7 +11002,8 @@ mkV068 base =
         Participle = table {
                        Pres => base_1+"andi" ;
                        Past => base_1+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -10775,7 +11013,7 @@ mkV069 base =
   case base of {
     base_1+"e"+base_2@?+"gja" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"gj" ;
                                Pl => base_1+"e"+base_2+"gjið"
                              } ;
@@ -10797,7 +11035,8 @@ mkV069 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"gjandi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -10807,7 +11046,7 @@ mkV070 base =
   case base of {
     base_1+"iggja" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"igg" ;
                                Pl => base_1+"iggið"
                              } ;
@@ -10829,7 +11068,8 @@ mkV070 base =
         Participle = table {
                        Pres => base_1+"iggjandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -10839,7 +11079,7 @@ mkV071 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -10861,7 +11101,8 @@ mkV071 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -10871,7 +11112,7 @@ mkV072 base =
   case base of {
     base_1+"a"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -10893,7 +11134,8 @@ mkV072 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -10903,7 +11145,7 @@ mkV073 base =
   case base of {
     base_1+"á"+base_2@?+"a" => lin V
       { Converb = base_1+"á"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á"+base_2 ;
                                Pl => base_1+"á"+base_2+"ið"
                              } ;
@@ -10925,7 +11167,8 @@ mkV073 base =
         Participle = table {
                        Pres => base_1+"á"+base_2+"andi" ;
                        Past => base_1+"á"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -10935,7 +11178,7 @@ mkV074 base =
   case base of {
     base_1+"ey"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ey"+base_2 ;
                                Pl => base_1+"ey"+base_2+"ið"
                              } ;
@@ -10957,7 +11200,8 @@ mkV074 base =
         Participle = table {
                        Pres => base_1+"ey"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -10967,7 +11211,7 @@ mkV075 base =
   case base of {
     base_1+"ega" => lin V
       { Converb = nonExist ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -10989,7 +11233,8 @@ mkV075 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -10999,7 +11244,7 @@ mkV076 base =
   case base of {
     base_1+"u"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nað" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11021,7 +11266,8 @@ mkV076 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -11031,7 +11277,7 @@ mkV077 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -11053,7 +11299,8 @@ mkV077 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -11063,7 +11310,7 @@ mkV078 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"jið"
                              } ;
@@ -11085,7 +11332,8 @@ mkV078 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -11095,7 +11343,7 @@ mkV079 base =
   case base of {
     base_1+"ða" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ð" ;
                                Pl => base_1+"ðið"
                              } ;
@@ -11117,7 +11365,8 @@ mkV079 base =
         Participle = table {
                        Pres => base_1+"ðandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -11127,7 +11376,7 @@ mkV080 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -11149,7 +11398,8 @@ mkV080 base =
         Participle = table {
                        Pres => base_1+"áandi" ;
                        Past => base_1+"áddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -11159,7 +11409,7 @@ mkV081 base =
   case base of {
     base_1+"áða" => lin V
       { Converb = base_1+"átt" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"áð" ;
                                Pl => base_1+"áðið"
                              } ;
@@ -11181,7 +11431,8 @@ mkV081 base =
         Participle = table {
                        Pres => base_1+"áðandi" ;
                        Past => base_1+"áðin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -11191,7 +11442,7 @@ mkV082 base =
   case base of {
     base_1+"ða"+base_2@(?+?) => lin V
       { Converb = base_1+"ð"+base_2 ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11213,7 +11464,8 @@ mkV082 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -11223,7 +11475,7 @@ mkV083 base =
   case base of {
     base_1+"ø"+base_2@?+"ka" => lin V
       { Converb = base_1+"o"+base_2+"kið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2+"k" ;
                                Pl => base_1+"ø"+base_2+"kið"
                              } ;
@@ -11245,7 +11497,8 @@ mkV083 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"kandi" ;
                        Past => base_1+"o"+base_2+"kin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -11255,7 +11508,7 @@ mkV084 base =
   case base of {
     base_1+"íggja" => lin V
       { Converb = base_1+"æð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"íggj" ;
                                Pl => base_1+"íggið"
                              } ;
@@ -11277,7 +11530,8 @@ mkV084 base =
         Participle = table {
                        Pres => base_1+"íggjandi" ;
                        Past => base_1+"æddur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -11287,7 +11541,7 @@ mkV085 base =
   case base of {
     base_1+"kja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"k" ;
                                Pl => base_1+"kið"
                              } ;
@@ -11309,7 +11563,8 @@ mkV085 base =
         Participle = table {
                        Pres => base_1+"kjandi" ;
                        Past => base_1+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -11319,7 +11574,7 @@ mkV086 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -11341,7 +11596,8 @@ mkV086 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -11351,7 +11607,7 @@ mkV087 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -11373,7 +11629,8 @@ mkV087 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV087"
   } ;
@@ -11383,7 +11640,7 @@ mkV088 base =
   case base of {
     base_1+"u"+base_2@?+"a" => lin V
       { Converb = base_1+"u"+base_2+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -11405,7 +11662,8 @@ mkV088 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV088"
   } ;
@@ -11415,7 +11673,7 @@ mkV089 base =
   case base of {
     base_1+"ei"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2+"j" ;
                                Pl => base_1+"ei"+base_2+"jið"
                              } ;
@@ -11437,7 +11695,8 @@ mkV089 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -11447,7 +11706,7 @@ mkV090 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"j" ;
                                Pl => base_1+"jið"
                              } ;
@@ -11469,7 +11728,8 @@ mkV090 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV090"
   } ;
@@ -11479,7 +11739,7 @@ mkV091 base =
   case base of {
     base_1+"jó"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"jó"+base_2 ;
                                Pl => base_1+"jó"+base_2+"ið"
                              } ;
@@ -11501,7 +11761,8 @@ mkV091 base =
         Participle = table {
                        Pres => base_1+"jó"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV091"
   } ;
@@ -11511,7 +11772,7 @@ mkV092 base =
   case base of {
     base_1+"áa" => lin V
       { Converb = base_1+"igið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"á" ;
                                Pl => base_1+"áið"
                              } ;
@@ -11533,7 +11794,8 @@ mkV092 base =
         Participle = table {
                        Pres => base_1+"áandi" ;
                        Past => base_1+"igin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -11543,7 +11805,7 @@ mkV093 base =
   case base of {
     base_1+"y"+base_2@?+"ja" => lin V
       { Converb = base_1+"u"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2 ;
                                Pl => base_1+"y"+base_2+"ið"
                              } ;
@@ -11565,7 +11827,8 @@ mkV093 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -11575,7 +11838,7 @@ mkV094 base =
   case base of {
     base_1+"i"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2+"n" ;
                                Pl => base_1+"i"+base_2+"nið"
                              } ;
@@ -11597,7 +11860,8 @@ mkV094 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"nandi" ;
                        Past => base_1+"u"+base_2+"nin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -11607,7 +11871,7 @@ mkV095 base =
   case base of {
     base_1+"anda" => lin V
       { Converb = base_1+"aðið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"att" ;
                                Pl => base_1+"andið"
                              } ;
@@ -11629,7 +11893,8 @@ mkV095 base =
         Participle = table {
                        Pres => base_1+"andandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV095"
   } ;
@@ -11639,7 +11904,7 @@ mkV096 base =
   case base of {
     base_1+"ei"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ei"+base_2 ;
                                Pl => base_1+"ei"+base_2+"ið"
                              } ;
@@ -11661,7 +11926,8 @@ mkV096 base =
         Participle = table {
                        Pres => base_1+"ei"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"tur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV096"
   } ;
@@ -11671,7 +11937,7 @@ mkV097 base =
   case base of {
     base_1+"inga" => lin V
       { Converb = base_1+"ungið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ikk" ;
                                Pl => base_1+"ingið"
                              } ;
@@ -11693,7 +11959,8 @@ mkV097 base =
         Participle = table {
                        Pres => base_1+"ingandi" ;
                        Past => base_1+"ungin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -11703,7 +11970,7 @@ mkV098 base =
   case base of {
     base_1+"ja"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ja"+base_2 ;
                                Pl => base_1+"ja"+base_2+"ið"
                              } ;
@@ -11725,7 +11992,8 @@ mkV098 base =
         Participle = table {
                        Pres => base_1+"ja"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -11735,7 +12003,7 @@ mkV099 base =
   case base of {
     base_1+"o"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"o"+base_2 ;
                                Pl => base_1+"o"+base_2+"ið"
                              } ;
@@ -11757,7 +12025,8 @@ mkV099 base =
         Participle = table {
                        Pres => base_1+"o"+base_2+"andi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -11767,7 +12036,7 @@ mkV100 base =
   case base of {
     base_1+"í"+base_2@?+"ja" => lin V
       { Converb = base_1+"i"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"í"+base_2+"j" ;
                                Pl => base_1+"í"+base_2+"jið"
                              } ;
@@ -11789,7 +12058,8 @@ mkV100 base =
         Participle = table {
                        Pres => base_1+"í"+base_2+"jandi" ;
                        Past => base_1+"i"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV100"
   } ;
@@ -11799,7 +12069,7 @@ mkV101 base =
   case base of {
     base_1+"i"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"jið"
                              } ;
@@ -11821,7 +12091,8 @@ mkV101 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"jandi" ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV101"
   } ;
@@ -11831,7 +12102,7 @@ mkV102 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1 ;
                                Pl => base_1+"ið"
                              } ;
@@ -11853,7 +12124,8 @@ mkV102 base =
         Participle = table {
                        Pres => base_1+"jandi" ;
                        Past => base_1+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV102"
   } ;
@@ -11863,7 +12135,7 @@ mkV103 base =
   case base of {
     base_1+"ø"+base_2@?+"ja" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ø"+base_2+"j" ;
                                Pl => base_1+"ø"+base_2+"jið"
                              } ;
@@ -11885,7 +12157,8 @@ mkV103 base =
         Participle = table {
                        Pres => base_1+"ø"+base_2+"jandi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV103"
   } ;
@@ -11895,7 +12168,7 @@ mkV104 base =
   case base of {
     base_1+"y"+base_2@(?+?)+"ja" => lin V
       { Converb = base_1+"u"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"y"+base_2+"j" ;
                                Pl => base_1+"y"+base_2+"jið"
                              } ;
@@ -11917,7 +12190,8 @@ mkV104 base =
         Participle = table {
                        Pres => base_1+"y"+base_2+"jandi" ;
                        Past => base_1+"u"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV104"
   } ;
@@ -11927,7 +12201,7 @@ mkV105 base =
   case base of {
     base_1+"i"+base_2@?+"a" => lin V
       { Converb = base_1+"a"+base_2+"t" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"i"+base_2 ;
                                Pl => base_1+"i"+base_2+"ið"
                              } ;
@@ -11949,7 +12223,8 @@ mkV105 base =
         Participle = table {
                        Pres => base_1+"i"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"dur"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV105"
   } ;
@@ -11959,7 +12234,7 @@ mkV106 base =
   case base of {
     base_1+"e"+base_2@?+"fa" => lin V
       { Converb = base_1+"o"+base_2+"fið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2+"f" ;
                                Pl => base_1+"e"+base_2+"fið"
                              } ;
@@ -11981,7 +12256,8 @@ mkV106 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"fandi" ;
                        Past => base_1+"o"+base_2+"fin"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV106"
   } ;
@@ -11991,7 +12267,7 @@ mkV107 base =
   case base of {
     base_1+"a"+base_2@(?+?)+"a" => lin V
       { Converb = base_1+"a"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"a"+base_2 ;
                                Pl => base_1+"a"+base_2+"ið"
                              } ;
@@ -12013,7 +12289,8 @@ mkV107 base =
         Participle = table {
                        Pres => base_1+"a"+base_2+"andi" ;
                        Past => base_1+"a"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV107"
   } ;
@@ -12023,7 +12300,7 @@ mkV108 base =
   case base of {
     base_1+"e"+base_2@(?+?)+"a" => lin V
       { Converb = nonExist ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -12045,7 +12322,8 @@ mkV108 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV108"
   } ;
@@ -12055,7 +12333,7 @@ mkV109 base =
   case base of {
     base_1+base_2@?+base_3@?+"a" => lin V
       { Converb = base_1+base_2+base_3+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -12077,7 +12355,8 @@ mkV109 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV109"
   } ;
@@ -12087,7 +12366,7 @@ mkV110 base =
   case base of {
     "d"+base_1+"finite" => lin V
       { Converb = "v"+base_1+"rð" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "v"+base_1+"rðsins" ;
                                Pl => "v"+base_1+"rðanna"
                              } ;
@@ -12109,7 +12388,8 @@ mkV110 base =
         Participle = table {
                        Pres => "v"+base_1+"rð" ;
                        Past => "v"+base_1+"rð"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV110"
   } ;
@@ -12119,7 +12399,7 @@ mkV111 base =
   case base of {
     base_1+"e"+base_2@?+"a" => lin V
       { Converb = base_1+"o"+base_2+"ið" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"e"+base_2 ;
                                Pl => base_1+"e"+base_2+"ið"
                              } ;
@@ -12141,7 +12421,8 @@ mkV111 base =
         Participle = table {
                        Pres => base_1+"e"+base_2+"andi" ;
                        Past => base_1+"o"+base_2+"in"
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV111"
   } ;
@@ -12151,7 +12432,7 @@ mkV112 base =
   case base of {
     base_1+"ja" => lin V
       { Converb = base_1+"að" ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => nonExist
                              } ;
@@ -12173,7 +12454,8 @@ mkV112 base =
         Participle = table {
                        Pres => nonExist ;
                        Past => nonExist
-                     }
+                     } ;
+      particle = []
       };
     _ => error "Can't apply paradigm mkV112"
   } ;

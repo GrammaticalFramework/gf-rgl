@@ -4,7 +4,7 @@ concrete ExtendAra of Extend =
   CatAra ** ExtendFunctor - [
     GenNP, ApposNP, ICompAP, DetNPMasc, DetNPFem,
     EmptyRelSlash, PredAPVP,
-    ComplDirectVS, ComplDirectVQ, -- because of Utt
+    ComplDirectVS, ComplDirectVQ, UttAdV, -- because of Utt
     VPS, MkVPS, PredVPS, BaseVPS, ConsVPS, ConjVPS,
     EmbedSSlash, AdjAsNP, GerundNP,
     PassVPSlash, ---- bogus implementation, see below
@@ -30,6 +30,8 @@ lin
 
   -- : NP -> NP -> NP
   ApposNP np1 np2 = np2 ** {s = \\c => np1.s ! c ++ np2.s ! c} ;
+
+  UttAdV adv = {s = \\_ => adv.s} ;
 
   -- : AP -> IComp ;   -- "how old"
   ICompAP ap = {s = \\gn => "كَمْ" ++ ap.s ! NoHum ! gn.g ! gn.n ! Indef ! Acc} ;

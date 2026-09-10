@@ -369,7 +369,7 @@ resource ResMlt = ParamX ** open Prelude, Predef, Maybe in {
         AgP3Sg Fem  => "tagħha" ;
         AgP1 Pl     => "tagħna" ;
         AgP2 Pl     => "tagħkom" ;
-        AgP2Pl      => "tagħhom"
+        AgP3Pl      => "tagħhom"
         } ;
       takesDet = True ;
       joinsVerb = False ;
@@ -387,7 +387,7 @@ resource ResMlt = ParamX ** open Prelude, Predef, Maybe in {
         AgP3Sg Fem  => "minnha" ;
         AgP1 Pl     => "minna" ;
         AgP2 Pl     => "minnkom" ;
-        AgP2Pl      => "minnhom"
+        AgP3Pl      => "minnhom"
         } ;
       takesDet = True ;
       joinsVerb = False ;
@@ -405,7 +405,7 @@ resource ResMlt = ParamX ** open Prelude, Predef, Maybe in {
         AgP3Sg Fem  => "lilha" ;
         AgP1 Pl     => "lilna" ;
         AgP2 Pl     => "lilkom" ;
-        AgP2Pl      => "lilhom"
+        AgP3Pl      => "lilhom"
         } ;
       takesDet = True ;
       joinsVerb = True ;
@@ -1311,5 +1311,12 @@ resource ResMlt = ParamX ** open Prelude, Predef, Maybe in {
         ma+"ż-" ++ BIND / strs { "ż" } ;
         ma+"z-" ++ BIND / strs { "z" }
       } ;
+
+   Adverb = {
+      s : Str ;
+      joinsVerb : Bool ; -- Adv "for us" completely integrates into verb at VP level
+      a : Agr ; -- when joinsVerb, this is important
+      } ;
+   advSS : Str -> Adverb = \s -> {s = s ; joinsVerb = False ; a = agrP3 Sg Masc} ;
 
 }

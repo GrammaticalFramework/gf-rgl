@@ -243,4 +243,9 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
       a   = np.a
     } ;
 
+    QuantityNP n m = {
+      s = \\c => preOrPost m.isPre m.s (n.s ! NCard ! Sg ! Nom) ;
+      h = mkHar I_Har SVow ; -- guessed
+      a = agrP3 n.n
+    } ;
 }

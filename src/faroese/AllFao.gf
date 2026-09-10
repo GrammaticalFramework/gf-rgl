@@ -1,4 +1,5 @@
 concrete AllFao of AllFaoAbs =
-  LangFao
+  LangFao,
+  ExtendFao
   **
     {} ;

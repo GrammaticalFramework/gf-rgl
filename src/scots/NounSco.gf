@@ -1,4 +1,4 @@
-concrete NounSco of Noun = NounEng - [IndefArt] ** open Prelude, ResSco in {
+concrete NounSco of Noun = NounEng - [IndefArt, OrdSuperl, OrdNumeralSuperl] ** open Prelude, ResSco in {
 
 lin IndefArt = {
       s = \\hasCard,n => case <n,hasCard> of {
@@ -13,4 +13,7 @@ lin IndefArt = {
       isDef = False
       } ;
 
+    OrdSuperl a = {s = \\c => getSuperl c a} ;
+
+    OrdNumeralSuperl n a = {s = \\c => n.s ! True ! NOrd ! Nom ++ getSuperl c a} ;
 }

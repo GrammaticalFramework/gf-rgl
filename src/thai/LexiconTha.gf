@@ -11,12 +11,12 @@ lin
   airplane_N = mkN (thword "เครื่อง" "บิน") "ลำ" ;
   already_Adv = mkAdv (thword "เรียบ" "ร้อย") ;
   animal_N = animalN (thword "สัตว์") ;
-  answer_V2S = mkV2S (regV "ตอบ") [] ; ---- prep
+  answer_V2S = mkV2S (mkV "ตอบ") [] ; ---- prep
   apartment_N = mkN (thword "ห้อง" "เช่า")"ห้อง"  ;
   apple_N = mkN (thbind "แอป" "เปิ้ล") "ลูก" ;
   art_N = mkN (thword "ศิล" "ปะ") ;
   ashes_N = mkN (thword "เถ้า") ;
-  ask_V2Q = regV "ถาม" ** {c2 = []} ;
+  ask_V2Q = mkV "ถาม" ** {c2 = []} ;
   at_Prep = mkPrep "ที่" ;
   baby_N = mkN (thword "เด็ก" "ทา" "รก") "คน"  ;
   back_N = mkN (thword "หลัง") ;
@@ -26,7 +26,7 @@ lin
   beautiful_A = mkA "สวย" ;
   become_VA = mkV (thword "กลาย" "เป็น") ; -- pen
   beer_N = mkN biar_s kew_s ; 
-  beg_V2V = regV "ขอ" ** {c2 = [] ; c3 = "ให้"} ; --- hay as prep of VP
+  beg_V2V = mkV "ขอ" ** {c2 = [] ; c3 = "ให้"} ; --- hay as prep of VP
   belly_N = mkN (thword "พุง") ;
   big_A = mkA (thword "ใหญ่") ;
   bike_N = mkN (thword "จักร" "ยาน") "คัน" ;
@@ -105,7 +105,7 @@ lin
   father_N2 = mkN2 (personN (thword "พ่อ")) poss ;
   fear_N = mkN (thword "ความ" "กลัว") ;
   fear_V2 = mkV2 "กลัว";
-  fear_VS = mkVS (regV "กลัว") ;
+  fear_VS = mkVS (mkV "กลัว") ;
   feather_N = mkN (thword "ขน" "นก") ;
   fight_V2 = mkV2 (thword "สู้") ;
   find_V2 = mkV2 "หา" ;
@@ -151,7 +151,7 @@ lin
   hill_N = placeN (thword "เนิน" "เขา") ;
   hit_V2 = mkV2 (thword "ตี") ;
   hold_V2 = mkV2 (thword "รั้ง") ;
-  hope_VS = mkVS (regV "หวัง") ;
+  hope_VS = mkVS (mkV "หวัง") ;
   horn_N = mkN (thword "เขา") ;
   horse_N = mkN "ม้า" " ตัว" ;
   hot_A = mkA "ร้อน" ;
@@ -168,8 +168,8 @@ lin
   king_N = mkN (thword "พระ" "รา" "ชา") (thword "พระ" "องด์") ;
   knee_N = mkN (thword "เข่า") ;
   know_V2 = mkV2 "รู้" ; ----?
-  know_VQ = lin VQ (regV "รู้") ;
-  know_VS = lin VS (regV "รู้") ;
+  know_VQ = lin VQ (mkV "รู้") ;
+  know_VS = lin VS (mkV "รู้") ;
   lake_N = mkN (thword "ทะ" "เล" "สาบ") ; ----?
   lamp_N = mkN (thword "โคม" "ไฟ") ; ----?
   language_N = mkN (thword "ภา" "ษา") ; ----?
@@ -214,7 +214,7 @@ lin
   old_A = mkA (thword "แก่") ;
   open_V2 = mkV2 (mkV "เปิด") ;
   other_A = mkA "อื่น" ;
-  paint_V2A = mkV2A (regV "ทา") [] "สี" ;
+  paint_V2A = mkV2A (mkV "ทา") [] "สี" ;
   paper_N = mkN (thword "กระ" "ดาษ") ; ----?
   paris_PN = ss "ปารีส" ;
   peace_N = mkN (thword "สัน" "ติ" "ภาพ"); ----?
@@ -255,7 +255,7 @@ lin
   run_V = mkV "วิ่ง" ;
   salt_N = mkN (thword "เกลือ") ;
   sand_N = mkN (thword "ทราย") ;
-  say_VS = mkVS (regV "พูด") ;
+  say_VS = mkVS (mkV "พูด") ;
   school_N = placeN (thword "โรง" "เรียน") ;
 ----  science_N = mkN "science" ;  ----?
   scratch_V2 = mkV2 (thword "เกา") ;
@@ -351,7 +351,7 @@ lin
   wing_N = mkN (thword "ปิก") ;
   wipe_V2 = mkV2 (thword "เช็ด") ;
   woman_N = personN (thword "หญิง") ;
-  wonder_VQ = mkVQ (regV (thword "ประ" "หลาด" "ใจ")) ; ----
+  wonder_VQ = mkVQ (mkV (thword "ประ" "หลาด" "ใจ")) ; ----
   wood_N = mkN "ไม้" ;  ----?
   worm_N = animalN (thword "หนอน") ;
   write_V2 = mkV2 "เขียน" ;

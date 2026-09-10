@@ -19,10 +19,16 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
     } ;
 
   -- : A2 -> NP -> AP ;  -- married to her
-  -- ComplA2 a2 np = a2 ** { } ;
+  ComplA2 a2 np = a2 ** {
+    s = \\af => a2.s ! af ++ (prepTable ! a2.c2).s ! (agr2objAgr np.a) ++ objpron np ! Abs ;
+    compar = []
+    } ;
 
   -- : A2 -> AP ;        -- married to itself
-  -- ReflA2 a2 = a2 ** { } ;
+  ReflA2 a2 = a2 ** {
+    s = \\af => a2.s ! af ++ (prepTable ! a2.c2).s ! ReflexiveObj ;
+    compar = []
+    } ;
 
   -- : A2 -> AP ;        -- married
   UseA2 = PositA ;
@@ -35,7 +41,9 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 
 
   -- : CAdv -> AP -> NP -> AP ; -- as cool as John
-  -- CAdvAP adv ap np = ap ** { } ;
+  CAdvAP adv ap np = ap ** {
+    s = \\af => adv.s ++ ap.s ! af ++ adv.p ++ np.s ! Abs
+    } ;
 
 -- The superlative use is covered in $Ord$.
 
@@ -49,18 +57,22 @@ concrete AdjectiveSom of Adjective = CatSom ** open ResSom, Prelude in {
 
   -- : AP -> SC -> AP ;  -- good that she is here
   SentAP  ap sc = ap ** {
-    s = \\af => ap.s ! af ++ sc.s -- TODO check
+    s = \\af => sc.s ++ ap.s ! af
     } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 
   -- : AdA -> AP -> AP ;
-  -- AdAP ada ap = ap ** { } ;
+  AdAP ada ap = ap ** {
+    s = \\af => ada.s ++ ap.s ! af
+    } ;
 
 
 -- It can also be postmodified by an adverb, typically a prepositional phrase.
 
   -- : AP -> Adv -> AP ; -- warm by nature
-  -- AdvAP  ap adv = ap ** {} ;
+  AdvAP  ap adv = ap ** {
+    s = \\af => ap.s ! af ++ linAdv adv
+    } ;
 
 }

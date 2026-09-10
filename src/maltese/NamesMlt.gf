@@ -19,5 +19,17 @@ lin UseLN pn = {
       isPron = False ;
       isDefn = False ;
       } ;
+lin PlainLN = UseLN ;
+
+lin AdjLN ap pn = {
+      s = preOrPost ap.isPre (ap.s ! toGenNum pn.a) pn.s ;
+      a = pn.a ;
+      } ;
+
+lin InLN pn = {
+      s = makePreVowel "fi" "f'" ++ pn.s ;
+      joinsVerb = False ;
+      a = pn.a ;
+      } ;
 
 }

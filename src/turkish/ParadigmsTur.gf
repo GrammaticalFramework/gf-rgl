@@ -55,10 +55,10 @@ resource ParadigmsTur = open
     mkV2V : V -> V2V = \verb -> lin V2V (verb ** {c = noPrep}) ;
     mkV2S : V -> V2S = \verb -> lin V2S (verb ** {c = noPrep}) ;
 
-    mkVA : V -> VA = \verb -> verb ;
-    mkVV : V -> VV = \verb -> verb ;
-    mkVS : V -> VS = \verb -> verb ;
-    mkVQ : V -> VQ = \verb -> verb ;
+    mkVA : V -> VA = \verb -> lin VA verb ;
+    mkVV : V -> VV = \verb -> lin VV verb ;
+    mkVS : V -> VS = \verb -> lin VS verb ;
+    mkVQ : V -> VQ = \verb -> lin VQ verb ;
 
     -- make a regular verb
     -- supply infinitive, softened infinitive, future infinitive forms and

@@ -84,6 +84,25 @@ resource ParadigmsMlt = open
       mkPN : Str -> Gender -> Number -> PN ;
     } ;
 
+    mkLN : overload {
+      mkLN : Str -> LN ;
+      mkLN : Str -> Number -> LN ;
+      mkLN : Str -> Gender -> LN ;
+      mkLN : Str -> Gender -> Number -> LN ;
+    } ;
+
+    mkGN : overload {
+      mkGN : Str -> GN ;
+      mkGN : Str -> Gender -> GN ;
+    } ;
+
+    mkSN : overload {
+      mkSN : Str -> SN ;
+      mkSN : Str -> Number -> SN ;
+      mkSN : Str -> Gender -> SN ;
+      mkSN : Str -> Gender -> Number -> SN ;
+    } ;
+
     mkN2 : overload {
       mkN2 : N -> Prep -> N2 ;
       mkN2 : N -> Str -> N2 ;
@@ -93,6 +112,11 @@ resource ParadigmsMlt = open
     mkN3 : Noun -> Prep -> Prep -> N3 ;
 
     possN : N -> N ; -- Mark a noun as taking possessive enclitic pronouns: missieri, missierek...
+
+    compoundN : overload {
+      compoundN : N -> A -> N ;   -- Noun modified by adjective: dar kbira
+      compoundN : N -> Str -> N ; -- Noun modified by adverbial string
+    } ;
 
     mkRoot : overload {
       mkRoot : Root ; -- Null root
@@ -137,6 +161,8 @@ resource ParadigmsMlt = open
 
     mkVS : V -> VS ; -- sentence-compl
 
+    compoundV : V -> Str -> V ; -- post-verbal particle/fixed object: mar lura
+
     mkV3 : overload {
       mkV3  : V -> V3 ;                   -- ditransitive: give,_,_
       mkV3  : V -> Prep -> Prep -> V3 ;   -- two prepositions: speak, with, about
@@ -144,11 +170,26 @@ resource ParadigmsMlt = open
       };
 
     mkV2V : V -> Prep -> Prep -> V2V ;  -- want (noPrep NP) (to VP)
+    dirV2V : V -> V2V ;                 -- make (NP) (VP)
 
     mkConj : overload {
       mkConj : Str -> Conj ; -- Conjunction: wieħed tnejn u tlieta
       mkConj : Str -> Str -> Conj ; -- Conjunction: wieħed , tnejn u tlieta
       } ;
+    mkPConj : Str -> PConj ;
+
+    mkDet : overload {
+      mkDet : Str -> Det ;
+      mkDet : Str -> Number -> Det ;
+    } ;
+    mkPredet : Str -> Predet ;
+
+    mkSubj : Str -> Subj ;
+    mkIQuant : Str -> IQuant ;
+    mkIDet : overload {
+      mkIDet : Str -> IDet ;
+      mkIDet : Str -> Number -> IDet ;
+    } ;
 
     mkA : overload {
       mkA : Str -> A ; -- Regular adjective with predictable feminine and plural forms: bravu
@@ -168,9 +209,19 @@ resource ParadigmsMlt = open
 
     mkAdv : Str -> Adv ; -- post-verbal adverb: illum
     mkAdV : Str -> AdV ; -- preverbal adverb: dejjem
+    mkIAdv : Str -> IAdv ;
+    mkCAdv : overload {
+      mkCAdv : Str -> CAdv ;
+      mkCAdv : Str -> Str -> CAdv ;
+    } ;
 
     mkAdA : Str -> AdA ; -- adverb modifying adjective: pjuttost
     mkAdN : Str -> AdN ; -- adverb modifying numeral: madwar
+
+    mkCard : Str -> Card ;
+    mkACard : Str -> ACard ;
+    mkInterj : Str -> Interj ;
+    mkVoc : Str -> Voc ;
 
 
 --.
@@ -334,8 +385,42 @@ resource ParadigmsMlt = open
       mkPN : Str -> Gender -> Number -> PN = \s,g,n -> regPN s g n ;
     } ;
 
+    mkLN = overload {
+      mkLN : Str -> LN = \s -> regLN s masculine singular ;
+      mkLN : Str -> Number -> LN = \s,n -> regLN s masculine n ;
+      mkLN : Str -> Gender -> LN = \s,g -> regLN s g singular ;
+      mkLN : Str -> Gender -> Number -> LN = \s,g,n -> regLN s g n ;
+    } ;
+
+    mkGN = overload {
+      mkGN : Str -> GN = \s -> regGN s masculine singular ;
+      mkGN : Str -> Gender -> GN = \s,g -> regGN s g singular ;
+    } ;
+
+    mkSN = overload {
+      mkSN : Str -> SN = \s -> regSN s masculine singular ;
+      mkSN : Str -> Number -> SN = \s,n -> regSN s masculine n ;
+      mkSN : Str -> Gender -> SN = \s,g -> regSN s g singular ;
+      mkSN : Str -> Gender -> Number -> SN = \s,g,n -> regSN s g n ;
+    } ;
+
     -- Proper noun
     regPN : Str -> Gender -> Number -> PN = \name,g,n -> lin PN {
+      s = name ;
+      a = mkAgr n P3 g ;
+      } ;
+
+    regLN : Str -> Gender -> Number -> LN = \name,g,n -> lin LN {
+      s = name ;
+      a = mkAgr n P3 g ;
+      } ;
+
+    regGN : Str -> Gender -> Number -> GN = \name,g,n -> lin GN {
+      s = name ;
+      a = mkAgr n P3 g ;
+      } ;
+
+    regSN : Str -> Gender -> Number -> SN = \name,g,n -> lin SN {
       s = name ;
       a = mkAgr n P3 g ;
       } ;
@@ -363,6 +448,23 @@ resource ParadigmsMlt = open
       takesPron = True ;
       } ;
 
+    compoundN = overload {
+      compoundN : N -> A -> N = \n,a -> lin N {
+        s = \\num => n.s ! num ++ a.s ! APosit (mkGenNum num n.g) ;
+        g = n.g ;
+        hasColl = n.hasColl ;
+        hasDual = n.hasDual ;
+        takesPron = n.takesPron ;
+        } ;
+      compoundN : N -> Str -> N = \n,adv -> lin N {
+        s = \\num => n.s ! num ++ adv ;
+        g = n.g ;
+        hasColl = n.hasColl ;
+        hasDual = n.hasDual ;
+        takesPron = n.takesPron ;
+        } ;
+    } ;
+
     {- Preposition -------------------------------------------------------- -}
 
     mkPrep = overload {
@@ -384,7 +486,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => qabilha ;
           AgP1 Pl     => qabilna ;
           AgP2 Pl     => qabilkom ;
-          AgP2Pl      => qabilhom
+          AgP3Pl      => qabilhom
           } ;
         takesDet = False ;
         joinsVerb = False ;
@@ -445,7 +547,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => biha ;
           AgP1 Pl     => bina ;
           AgP2 Pl     => bikom ;
-          AgP2Pl      => bihom
+          AgP3Pl      => bihom
           } ;
         takesDet = True ;
         joinsVerb = joinsV ;
@@ -462,7 +564,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => war+"ajha" ;
           AgP1 Pl     => war+"ajna" ;
           AgP2 Pl     => war+"ajkom" ;
-          AgP2Pl      => war+"ajhom"
+          AgP3Pl      => war+"ajhom"
           } ;
 
         f+"i" => case toVAgr agr of {
@@ -472,7 +574,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => f+"iha" ;
           AgP1 Pl     => f+"ina" ;
           AgP2 Pl     => f+"ikom" ;
-          AgP2Pl      => f+"ihom"
+          AgP3Pl      => f+"ihom"
           } ;
 
         t+"a'" => case toVAgr agr of {
@@ -482,7 +584,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => t+"agħha" ;
           AgP1 Pl     => t+"agħna" ;
           AgP2 Pl     => t+"agħkom" ;
-          AgP2Pl      => t+"agħhom"
+          AgP3Pl      => t+"agħhom"
           } ;
 
         _ => case toVAgr agr of {
@@ -492,7 +594,7 @@ resource ParadigmsMlt = open
           AgP3Sg Fem  => taht + "ha" ;
           AgP1 Pl     => case taht of {bej+"n" => bej+"na"; _ => taht+"na"} ;
           AgP2 Pl     => taht + "kom" ;
-          AgP2Pl      => taht + "hom"
+          AgP3Pl      => taht + "hom"
           }
       } ;
 
@@ -1278,6 +1380,26 @@ resource ParadigmsMlt = open
 
     mkVS v = lin VS v ;
 
+    compoundV : V -> Str -> V = \v,s -> lin V {
+      s = \\vf => postVerbStems (v.s ! vf) s ;
+      i = v.i ;
+      presPart = postParticiple v.presPart s ;
+      pastPart = postParticiple v.pastPart s ;
+    } ;
+
+    postVerbStems : VerbStems -> Str -> VerbStems = \vs,s -> {
+      s1 = vs.s1 ++ s ;
+      s2 = vs.s2 ++ s ;
+      s3 = vs.s3 ++ s ;
+    } ;
+
+    postParticiple : Maybe Participle -> Str -> Maybe Participle = \part,s ->
+      case exists Participle part of {
+        True => let part' : Participle = fromJust Participle part in
+          Just Participle (\\gn => part' ! gn ++ s) ;
+        False => noParticiple
+      } ;
+
     prepV2 : V -> Prep -> V2 ;
     prepV2 v p = lin V2 ( v ** { c2 = hasCompl p } ) ;
 
@@ -1301,6 +1423,8 @@ resource ParadigmsMlt = open
 
     mkV2V v p t = lin V2V (v ** { c2 = hasCompl p ; c3 = hasCompl t }) ;
 
+    dirV2V v = lin V2V (v ** { c2 = noCompl ; c3 = noCompl }) ;
+
     {- Conjunction -------------------------------------------------------- -}
 
     mkConj = overload {
@@ -1310,6 +1434,24 @@ resource ParadigmsMlt = open
 
     mk2Conj : Str -> Str -> Conj = \x,y ->
       lin Conj (sd2 x y) ;
+
+    mkPConj : Str -> PConj = \s -> lin PConj {s = s} ;
+
+    mkDet = overload {
+      mkDet : Str -> Det = \s -> lin Det (mkDeterminer singular s) ;
+      mkDet : Str -> Number -> Det = \s,n -> lin Det (mkDeterminer n s) ;
+    } ;
+
+    mkPredet : Str -> Predet = \s -> lin Predet {s = s} ;
+
+    mkSubj : Str -> Subj = \s -> lin Subj {s = s} ;
+
+    mkIQuant : Str -> IQuant = \s -> lin IQuant {s = s} ;
+
+    mkIDet = overload {
+      mkIDet : Str -> IDet = \s -> lin IDet {s = s ; n = singular} ;
+      mkIDet : Str -> Number -> IDet = \s,n -> lin IDet {s = s ; n = n} ;
+    } ;
 
     {- Adjective ---------------------------------------------------------- -}
 
@@ -1404,8 +1546,17 @@ resource ParadigmsMlt = open
       a = agrP3 Sg Masc ; -- ignored when joinsVerb = False
       } ;
     mkAdV x = lin AdV (ss x) ;
+    mkIAdv x = lin IAdv {s = x} ;
+    mkCAdv = overload {
+      mkCAdv : Str -> CAdv = \s -> lin CAdv {s = s ; p = []} ;
+      mkCAdv : Str -> Str -> CAdv = \s,p -> lin CAdv {s = s ; p = p} ;
+    } ;
     mkAdA x = lin AdA (ss x) ;
     mkAdN x = lin AdN (ss x) ;
+    mkCard : Str -> Card = \s -> lin Card {s = \\_ => s ; n = Num20_99} ;
+    mkACard : Str -> ACard = \s -> lin ACard {s = \\_ => s ; n = Num20_99} ;
+    mkInterj x = lin Interj {s = x} ;
+    mkVoc x = lin Voc {s = x} ;
 
     {- Quantifier, Ord ---------------------------------------------------- -}
 

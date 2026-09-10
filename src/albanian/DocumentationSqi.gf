@@ -51,32 +51,32 @@ lin InflectionV = \x -> {
       t="fl" ;
       s1=heading1 "Folje" ;
       s2=frameTable (
-           tr (intagAttr "th" "rowspan=\"24\"" "Indicative" ++ intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.Indicative ! Pres ! Sg ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Pres ! Sg ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Pres ! Sg ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.Indicative ! Pres ! Pl ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Pres ! Pl ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Pres ! Pl ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"6\"" "Past" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.Indicative ! Past ! Sg ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Past ! Sg ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Past ! Sg ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.Indicative ! Past ! Pl ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Past ! Pl ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Past ! Pl ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"6\"" "Aorist" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.Indicative ! Aorist ! Sg ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Aorist ! Sg ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Aorist ! Sg ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.Indicative ! Aorist ! Pl ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Aorist ! Pl ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Aorist ! Pl ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"6\"" "Imperfect" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.Indicative ! Imperfect ! Sg ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Imperfect ! Sg ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Imperfect ! Sg ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.Indicative ! Imperfect ! Pl ! P1)) ++
-           tr (th "P2" ++ td (x.Indicative ! Imperfect ! Pl ! P2)) ++
-           tr (th "P3" ++ td (x.Indicative ! Imperfect ! Pl ! P3)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "Imperative" ++ th "Sg" ++ td (x.Imperative ! Sg)) ++
-           tr (th "Pl" ++ td (x.Imperative ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"24\"" "Indicative" ++ intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.indicative ! Pres ! Sg ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Pres ! Sg ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Pres ! Sg ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.indicative ! Pres ! Pl ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Pres ! Pl ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Pres ! Pl ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"6\"" "Past" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.indicative ! Past ! Sg ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Past ! Sg ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Past ! Sg ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.indicative ! Past ! Pl ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Past ! Pl ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Past ! Pl ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"6\"" "Aorist" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.indicative ! Aorist ! Sg ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Aorist ! Sg ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Aorist ! Sg ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.indicative ! Aorist ! Pl ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Aorist ! Pl ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Aorist ! Pl ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"6\"" "Imperfect" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.indicative ! Imperfect ! Sg ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Imperfect ! Sg ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Imperfect ! Sg ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"3\"" "Pl" ++ th "P1" ++ td (x.indicative ! Imperfect ! Pl ! P1)) ++
+           tr (th "P2" ++ td (x.indicative ! Imperfect ! Pl ! P2)) ++
+           tr (th "P3" ++ td (x.indicative ! Imperfect ! Pl ! P3)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "Imperative" ++ th "Sg" ++ td (x.imperative ! Sg)) ++
+           tr (th "Pl" ++ td (x.imperative ! Pl)) ++
            tr (th "participle" ++ td (x.participle)) ++
            tr (intagAttr "th" "rowspan=\"6\"" "pres_optative" ++ intagAttr "th" "rowspan=\"3\"" "Sg" ++ th "P1" ++ td (x.pres_optative ! Sg ! P1)) ++
            tr (th "P2" ++ td (x.pres_optative ! Sg ! P2)) ++

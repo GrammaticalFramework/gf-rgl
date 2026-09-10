@@ -11,17 +11,18 @@ lin
   PredVP = predVP ;
 
   -- : SC -> VP -> Cl ;         -- that she goes is good (Saeed p. 94)
-  --PredSCVP sc vp = ;
+  PredSCVP sc vp = predVP (lin NP (indeclNP sc.s)) vp ;
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
   SlashVP = predVP ;
-{-
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
-  AdvSlash cls adv = cls ** insertAdv adv cls ;
+  AdvSlash cls adv = cls ** insertAdvLite cls adv ;
 
---    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  -- : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  SlashPrep cls prep = cls ** insertAdvLite cls (prepNP prep emptyNP) ;
 
+{-
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
 --  SlashVS np vs ss = {} ;
 
@@ -40,13 +41,17 @@ lin
   -- : VP -> Imp ;
   ImpVP vp = {s = \\num,pol => linVP (VImp num pol) Statement vp} ;
 
+  AdvImp adv imp = {
+    s = \\num,pol => linAdv adv ++ imp.s ! num ! pol
+    } ;
+
 --2 Embedded sentences
 
   -- : S  -> SC ;
   EmbedS s = {s = s.s ! True} ; -- choose subordinate
 
   -- : QS -> SC ;
-  -- EmbedQS qs = { } ;
+  EmbedQS qs = {s = qs.s} ;
 
   -- : VP -> SC ;
   EmbedVP vp = {s = infVP vp} ;

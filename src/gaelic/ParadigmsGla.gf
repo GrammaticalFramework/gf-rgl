@@ -2084,14 +2084,14 @@ mkN = overload {
   mkN : (nom,gen : Str) -> N = \nom,gen -> lin N (reg2N nom gen) ;   -- nom;indef;sg  gen;indef;sg
 
   mkN : (nom,gen,pl : Str) -> Gender -> N = \loch,locha,lochan,g ->
-      mk5N loch loch locha lochan (palatalise loch) g ;
+      lin N (mk5N loch loch locha lochan (palatalise loch) g) ;
   mkN : (base : Str) -> Gender -> N = \tunnag,g ->
       let fm : Str -> Str -> Str = \fem,masc -> case g of {
             Fem => fem ; Masc => masc } ;
           tunnaig : Str = palatalise tunnag ;
           tunnaige : Str = fm (tunnaig + "e") tunnaig ;
           tunnagan : Str = fm (tunnag + "an") tunnaig ;
-       in mk5N tunnag tunnag tunnaige tunnagan tunnaig g
+       in lin N (mk5N tunnag tunnag tunnaige tunnagan tunnaig g)
 } ;
 
 mkN2 : LinN -> N2 = \n -> lin N2 n ** {c2=noPrep} ;

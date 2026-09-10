@@ -1,3 +1,4 @@
 abstract AllUkrAbs =
-  Lang
+  Lang,
+  Extend
   ** {}

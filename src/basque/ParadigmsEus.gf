@@ -67,7 +67,7 @@ oper
 
   mkA = overload {
     mkA : Str -> A = \s -> lin A (regAdj s) ;
-    mkA : Str -> A -> A = \s,a -> irregAdvAdj s a 
+    mkA : Str -> A -> A = \s,a -> lin A (irregAdvAdj s a) 
   } ;
 
   mkA2 : Str -> Prep -> A2 = \s,pp -> lin A2 (regAdj s ** { compl = pp }) ;
@@ -104,7 +104,7 @@ oper
   mkV2A : Str -> V2A = \s -> lin V2A (mkVerbDu s) ;  -- Nor-nork   
   mkVQ : Str -> VQ = \s -> lin VQ (mkVerbDu s) ;  -- Nor-nork 
   mkVS : Str -> VS = \s -> lin VS (mkVerbDu s) ;  -- Nor-nork
-  mkVV : V -> VV = \v -> v ;
+  mkVV : V -> VV = \v -> lin VV v ;
 
   mkV2V : Str -> V2V = \s -> lin V2V (mkVerbDio s) ; -- ??? TODO check valency
   mkV2S : Str -> V2S = \s -> lin V2S (mkVerbDio s) ; -- Nor-nori-nork: (mutilari) (neska datorrela) erantzun diot
@@ -116,15 +116,15 @@ oper
   -- Verbs with non-inflecting participle
   -- These are just Verb, use izanV or egonV for intransitive and ukanV for transitive.
 
-  izanV : Str -> Verb = \bizi -> 
-    mkVerbDa bizi ** { prc = \\_ => bizi } ; -- Non-inflecting participle, auxtype is Da (nor): e.g. "bizi naiz", "beldur naiz"
+  izanV : Str -> V = \bizi ->
+    lin V (mkVerbDa bizi ** { prc = \\_ => bizi }) ; -- Non-inflecting participle, auxtype is Da (nor): e.g. "bizi naiz", "beldur naiz"
 
-  egonV : Str -> Verb = \zain -> 
-    mkVerbDaEgon zain ** { prc = \\_ => zain } ; -- Non-inflecting participle, auxtype is Da (nor), but with egon: e.g. "zain nago"
+  egonV : Str -> V = \zain ->
+    lin V (mkVerbDaEgon zain ** { prc = \\_ => zain }) ; -- Non-inflecting participle, auxtype is Da (nor), but with egon: e.g. "zain nago"
 
 
-  ukanV : Str -> Verb = \maite -> 
-    mkVerbDu maite ** { prc = \\_ => maite } ; -- Non-inflecting participle, auxtype is Du (nor-nork): e.g, "maite zaitut"
+  ukanV : Str -> V = \maite ->
+    lin V (mkVerbDu maite ** { prc = \\_ => maite }) ; -- Non-inflecting participle, auxtype is Du (nor-nork): e.g, "maite zaitut"
 
 
 --2 Structural categories

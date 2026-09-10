@@ -1,3 +1,4 @@
 abstract AllFaoAbs =
-  Lang
+  Lang,
+  Extend
   ** {}

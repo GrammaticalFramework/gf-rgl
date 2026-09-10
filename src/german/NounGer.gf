@@ -161,11 +161,11 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     DefArt = {
       s = \\b,gn,c => case <b,gn> of {<True,GSg _> => [] ; _ => artDef ! gn ! c} ;
       sp = \\gn,c  => case <gn,c> of {
-                            <GSg Masc,Gen> => "dessen" ;
-                            <GSg Fem, Gen> => "derer" ;
-                            <GSg Neutr,Gen> => "dessen" ;
-                            <GPl,Dat> => "denen" ; -- HL 6/2019
-                            <GPl,Gen> => "derer" ; -- HL 6/2019
+                            <GSg Masc,Obj Gen> => "dessen" ;
+                            <GSg Fem, Obj Gen> => "derer" ;
+                            <GSg Neutr,Obj Gen> => "dessen" ;
+                            <GPl,Obj Dat> => "denen" ; -- HL 6/2019
+                            <GPl,Obj Gen> => "derer" ; -- HL 6/2019
                              _ => artDef ! gn ! c } ;
       a = Weak ;
       isDefArt = True ;
@@ -252,11 +252,11 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! c ++ bigNP np } ;
 
     PossNP cn np = cn ** {
-      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep vonDat (np.s ! False) ++ bigNP np } ;
+      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep vonDat) (np.s ! False) ++ bigNP np } ;
 
     PartNP cn np = case np.w of {
-      WPron => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep vonDat (np.s ! False) ++ np.rc} ;
-      _     => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! Gen ++ np.ext ++ np.rc}
+      WPron => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep vonDat) (np.s ! False) ++ np.rc} ;
+      _     => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep genPrep) (np.s ! False) ++ np.ext ++ np.rc}
         };         -- glass of wine
 
     CountNP det np = -- drei der Kinder | drei von den Kindern -- HL 7/22, ad-hoc TODO
@@ -296,4 +296,6 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       ext = "" ;
       } ;
 
+  oper
+    genPrep : Prep = {s = \\_ => [] ; s2 = [] ; c = Gen ; t = isCase ; lock_Prep = <>} ;
 }

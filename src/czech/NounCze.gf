@@ -99,5 +99,12 @@ lin
     NumDecimal ds = ds ** {s = \\_,_ => ds.s} ;
     NumNumeral nu = nu ;
 
+    SentCN cn sc = cn ** {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
+
+    PredetNP pred np = np ** {
+      s    = \\c => pred.s ++ np.s ! c ;
+      clit = \\c => pred.s ++ np.clit ! c ;
+      prep = \\c => pred.s ++ np.prep ! c
+      } ;
 
 }

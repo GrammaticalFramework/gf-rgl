@@ -7,8 +7,8 @@ mkV001 base =
   case base of {
     base_1+"ել" => lin V
       { s = base_1+"ել" ;
-        Causative = base_1+"եցնել" ;
-        Conditional = table {
+        causative = base_1+"եցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"եի" ;
@@ -23,7 +23,7 @@ mkV001 base =
                                              Pl => "կ"+base_1+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"եմ" ;
                                               Pl => "կ"+base_1+"ենք"
@@ -38,19 +38,19 @@ mkV001 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ում" ;
-                    FutCon1 = base_1+"ելու" ;
-                    FutCon2 = base_1+"ելիք" ;
-                    Negative = base_1+"ի" ;
-                    Perfective = base_1+"ել" ;
-                    Simultaneous = base_1+"ելիս"
+        converb = { imperfective = base_1+"ում" ;
+                    futCon1 =base_1+"ելու" ;
+                    futCon2 = base_1+"ելիք" ;
+                    negative = base_1+"ի" ;
+                    perfective = base_1+"ել" ;
+                    simultaneous = base_1+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ի՛ր" ;
                                Pl => base_1+"ե՛ք"
                              } ;
-        Passive = base_1+"վել" ;
-        Past = table {
+        passive = base_1+"վել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
                          Pl => base_1+"եցինք"
@@ -64,11 +64,11 @@ mkV001 base =
                          Pl => base_1+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ած" ;
                        Subject => base_1+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"եի" ;
@@ -83,7 +83,7 @@ mkV001 base =
                                              Pl => base_1+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"եմ" ;
                                               Pl => base_1+"ենք"
@@ -107,8 +107,8 @@ mkV002 base =
   case base of {
     base_1+"ալ" => lin V
       { s = base_1+"ալ" ;
-        Causative = base_1+"ացնել" ;
-        Conditional = table {
+        causative = base_1+"ացնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"այի" ;
@@ -123,7 +123,7 @@ mkV002 base =
                                              Pl => "կ"+base_1+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"ամ" ;
                                               Pl => "կ"+base_1+"անք"
@@ -138,19 +138,19 @@ mkV002 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ում" ;
-                    FutCon1 = base_1+"ալու" ;
-                    FutCon2 = base_1+"ալիք" ;
-                    Negative = base_1+"ա" ;
-                    Perfective = base_1+"ացել" ;
-                    Simultaneous = base_1+"ալիս"
+        converb = { imperfective = base_1+"ում" ;
+                    futCon1 =base_1+"ալու" ;
+                    futCon2 = base_1+"ալիք" ;
+                    negative = base_1+"ա" ;
+                    perfective = base_1+"ացել" ;
+                    simultaneous = base_1+"ալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ա՛" ;
                                Pl => base_1+"ացե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
                          Pl => base_1+"ացինք"
@@ -164,11 +164,11 @@ mkV002 base =
                          Pl => base_1+"ացին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ացած" ;
                        Subject => base_1+"ացող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"այի" ;
@@ -183,7 +183,7 @@ mkV002 base =
                                              Pl => base_1+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"ամ" ;
                                               Pl => base_1+"անք"
@@ -207,8 +207,8 @@ mkV003 base =
   case base of {
     base_1+"նել" => lin V
       { s = base_1+"նել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նեի" ;
@@ -223,7 +223,7 @@ mkV003 base =
                                              Pl => "կ"+base_1+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նեմ" ;
                                               Pl => "կ"+base_1+"նենք"
@@ -238,19 +238,19 @@ mkV003 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նելու" ;
-                    FutCon2 = base_1+"նելիք" ;
-                    Negative = base_1+"նի" ;
-                    Perfective = base_1+"րել" ;
-                    Simultaneous = base_1+"նելիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նելու" ;
+                    futCon2 = base_1+"նելիք" ;
+                    negative = base_1+"նի" ;
+                    perfective = base_1+"րել" ;
+                    simultaneous = base_1+"նելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"րո՛ւ" ;
                                Pl => base_1+"րե՛ք"
                              } ;
-        Passive = base_1+"վել" ;
-        Past = table {
+        passive = base_1+"վել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"րի" ;
                          Pl => base_1+"րինք"
@@ -264,11 +264,11 @@ mkV003 base =
                          Pl => base_1+"րին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"րած" ;
                        Subject => base_1+"նող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նեի" ;
@@ -283,7 +283,7 @@ mkV003 base =
                                              Pl => base_1+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նեմ" ;
                                               Pl => base_1+"նենք"
@@ -307,8 +307,8 @@ mkV004 base =
   case base of {
     base_1+"նալ" => lin V
       { s = base_1+"նալ" ;
-        Causative = base_1+"ցնել" ;
-        Conditional = table {
+        causative = base_1+"ցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նայի" ;
@@ -323,7 +323,7 @@ mkV004 base =
                                              Pl => "կ"+base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նամ" ;
                                               Pl => "կ"+base_1+"նանք"
@@ -338,19 +338,19 @@ mkV004 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նալու" ;
-                    FutCon2 = base_1+"նալիք" ;
-                    Negative = base_1+"նա" ;
-                    Perfective = base_1+"ցել" ;
-                    Simultaneous = base_1+"նալիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նալու" ;
+                    futCon2 = base_1+"նալիք" ;
+                    negative = base_1+"նա" ;
+                    perfective = base_1+"ցել" ;
+                    simultaneous = base_1+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ցի՛ր" ;
                                Pl => base_1+"ցե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ցա" ;
                          Pl => base_1+"ցանք"
@@ -364,11 +364,11 @@ mkV004 base =
                          Pl => base_1+"ցան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ցած" ;
                        Subject => base_1+"ցող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նայի" ;
@@ -383,7 +383,7 @@ mkV004 base =
                                              Pl => base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նամ" ;
                                               Pl => base_1+"նանք"
@@ -407,8 +407,8 @@ mkV005 base =
   case base of {
     base_1+"ռնալ" => lin V
       { s = base_1+"ռնալ" ;
-        Causative = base_1+"րձնել" ;
-        Conditional = table {
+        causative = base_1+"րձնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"ռնայի" ;
@@ -423,7 +423,7 @@ mkV005 base =
                                              Pl => "կ"+base_1+"ռնային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"ռնամ" ;
                                               Pl => "կ"+base_1+"ռնանք"
@@ -438,19 +438,19 @@ mkV005 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ռնում" ;
-                    FutCon1 = base_1+"ռնալու" ;
-                    FutCon2 = base_1+"ռնալիք" ;
-                    Negative = base_1+"ռնա" ;
-                    Perfective = base_1+"րձել" ;
-                    Simultaneous = base_1+"ռնալիս"
+        converb = { imperfective = base_1+"ռնում" ;
+                    futCon1 =base_1+"ռնալու" ;
+                    futCon2 = base_1+"ռնալիք" ;
+                    negative = base_1+"ռնա" ;
+                    perfective = base_1+"րձել" ;
+                    simultaneous = base_1+"ռնալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"րձի՛ր" ;
                                Pl => base_1+"րձե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"րձեցի" ;
                          Pl => base_1+"րձեցինք"
@@ -464,11 +464,11 @@ mkV005 base =
                          Pl => base_1+"րձեցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"րձած" ;
                        Subject => base_1+"րձող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"ռնայի" ;
@@ -483,7 +483,7 @@ mkV005 base =
                                              Pl => base_1+"ռնային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"ռնամ" ;
                                               Pl => base_1+"ռնանք"
@@ -507,8 +507,8 @@ mkV006 base =
   case base of {
     "երթալ" => lin V
       { s = "երթալ" ;
-        Causative = "գնացնել" ;
-        Conditional = table {
+        causative = "գնացնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կերթայի" ;
@@ -523,7 +523,7 @@ mkV006 base =
                                              Pl => "կերթային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կերթամ" ;
                                               Pl => "կերթանք"
@@ -538,19 +538,19 @@ mkV006 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = "երթում" ;
-                    FutCon1 = "երթալու" ;
-                    FutCon2 = "երթալիք" ;
-                    Negative = "երթա" ;
-                    Perfective = "գնացել" ;
-                    Simultaneous = "երթալիս"
+        converb = { imperfective = "երթում" ;
+                    futCon1 ="երթալու" ;
+                    futCon2 = "երթալիք" ;
+                    negative = "երթա" ;
+                    perfective = "գնացել" ;
+                    simultaneous = "երթալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "երթա՛" ;
                                Pl => "գնացե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => "գնացի" ;
                          Pl => "գնացինք"
@@ -564,11 +564,11 @@ mkV006 base =
                          Pl => "գնացին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => "գնացած" ;
                        Subject => "գնացող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "երթայի" ;
@@ -583,7 +583,7 @@ mkV006 base =
                                              Pl => "երթային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "երթամ" ;
                                               Pl => "երթանք"
@@ -607,8 +607,8 @@ mkV007 base =
   case base of {
     "էթալ" => lin V
       { s = "էթալ" ;
-        Causative = "գնացնել" ;
-        Conditional = table {
+        causative = "գնացնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կէթայի" ;
@@ -623,7 +623,7 @@ mkV007 base =
                                              Pl => "կէթային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կէթամ" ;
                                               Pl => "կէթանք"
@@ -638,19 +638,19 @@ mkV007 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = "էթում" ;
-                    FutCon1 = "էթալու" ;
-                    FutCon2 = "էթալիք" ;
-                    Negative = "էթա" ;
-                    Perfective = "գնացել" ;
-                    Simultaneous = "էթալիս"
+        converb = { imperfective = "էթում" ;
+                    futCon1 ="էթալու" ;
+                    futCon2 = "էթալիք" ;
+                    negative = "էթա" ;
+                    perfective = "գնացել" ;
+                    simultaneous = "էթալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "էթա՛" ;
                                Pl => "գնացե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => "գնացի" ;
                          Pl => "գնացինք"
@@ -664,11 +664,11 @@ mkV007 base =
                          Pl => "գնացին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => "գնացած" ;
                        Subject => "գնացող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "էթայի" ;
@@ -683,7 +683,7 @@ mkV007 base =
                                              Pl => "էթային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "էթամ" ;
                                               Pl => "էթանք"
@@ -707,8 +707,8 @@ mkV008 base =
   case base of {
     base_1+"նել" => lin V
       { s = base_1+"նել" ;
-        Causative = base_1+"ցնել" ;
-        Conditional = table {
+        causative = base_1+"ցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նեի" ;
@@ -723,7 +723,7 @@ mkV008 base =
                                              Pl => "կ"+base_1+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նեմ" ;
                                               Pl => "կ"+base_1+"նենք"
@@ -738,19 +738,19 @@ mkV008 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նելու" ;
-                    FutCon2 = base_1+"նելիք" ;
-                    Negative = base_1+"նի" ;
-                    Perfective = base_1+"ել" ;
-                    Simultaneous = base_1+"նելիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նելու" ;
+                    futCon2 = base_1+"նելիք" ;
+                    negative = base_1+"նի" ;
+                    perfective = base_1+"ել" ;
+                    simultaneous = base_1+"նելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ի՛ր" ;
                                Pl => base_1+"ե՛ք"
                              } ;
-        Passive = base_1+"նվել" ;
-        Past = table {
+        passive = base_1+"նվել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ա" ;
                          Pl => base_1+"անք"
@@ -764,11 +764,11 @@ mkV008 base =
                          Pl => base_1+"ան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ած" ;
                        Subject => base_1+"նող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նեի" ;
@@ -783,7 +783,7 @@ mkV008 base =
                                              Pl => base_1+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նեմ" ;
                                               Pl => base_1+"նենք"
@@ -807,8 +807,8 @@ mkV009 base =
   case base of {
     "ըլնել" => lin V
       { s = "ըլնել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կըլնեի" ;
@@ -823,7 +823,7 @@ mkV009 base =
                                              Pl => "կըլնեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կըլնեմ" ;
                                               Pl => "կըլնենք"
@@ -838,19 +838,19 @@ mkV009 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = "ըլնում" ;
-                    FutCon1 = "ըլնելու" ;
-                    FutCon2 = "ըլնելիք" ;
-                    Negative = "ըլնի" ;
-                    Perfective = "էղել" ;
-                    Simultaneous = "ըլնելիս"
+        converb = { imperfective = "ըլնում" ;
+                    futCon1 ="ըլնելու" ;
+                    futCon2 = "ըլնելիք" ;
+                    negative = "ըլնի" ;
+                    perfective = "էղել" ;
+                    simultaneous = "ըլնելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => "էղի՛ր" ;
                                Pl => "էղե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => "էղա" ;
                          Pl => "էղանք"
@@ -864,11 +864,11 @@ mkV009 base =
                          Pl => "էղան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => "էղած" ;
                        Subject => "ըլնող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "ըլնեի" ;
@@ -883,7 +883,7 @@ mkV009 base =
                                              Pl => "ըլնեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "ըլնեմ" ;
                                               Pl => "ըլնենք"
@@ -907,8 +907,8 @@ mkV010 base =
   case base of {
     base_1+"նալ" => lin V
       { s = base_1+"նալ" ;
-        Causative = base_1+"ցնել" ;
-        Conditional = table {
+        causative = base_1+"ցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նայի" ;
@@ -923,7 +923,7 @@ mkV010 base =
                                              Pl => "կ"+base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նամ" ;
                                               Pl => "կ"+base_1+"նանք"
@@ -938,19 +938,19 @@ mkV010 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նալու" ;
-                    FutCon2 = base_1+"նալիք" ;
-                    Negative = base_1+"նա" ;
-                    Perfective = base_1+"ցել" ;
-                    Simultaneous = base_1+"նալիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նալու" ;
+                    futCon2 = base_1+"նալիք" ;
+                    negative = base_1+"նա" ;
+                    perfective = base_1+"ցել" ;
+                    simultaneous = base_1+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"՛" ;
                                Pl => base_1+"ցե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ցի" ;
                          Pl => base_1+"ցինք"
@@ -964,11 +964,11 @@ mkV010 base =
                          Pl => base_1+"ցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ցած" ;
                        Subject => base_1+"ցող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նայի" ;
@@ -983,7 +983,7 @@ mkV010 base =
                                              Pl => base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նամ" ;
                                               Pl => base_1+"նանք"
@@ -1007,8 +1007,8 @@ mkV011 base =
   case base of {
     base_1+"ալ" => lin V
       { s = base_1+"ալ" ;
-        Causative = base_1+"ացնել" ;
-        Conditional = table {
+        causative = base_1+"ացնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"այի" ;
@@ -1023,7 +1023,7 @@ mkV011 base =
                                              Pl => "կ"+base_1+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"ամ" ;
                                               Pl => "կ"+base_1+"անք"
@@ -1038,19 +1038,19 @@ mkV011 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ում" ;
-                    FutCon1 = base_1+"ալու" ;
-                    FutCon2 = base_1+"ալիք" ;
-                    Negative = base_1+"այ" ;
-                    Perfective = base_1+"ացել" ;
-                    Simultaneous = base_1+"ալիս"
+        converb = { imperfective = base_1+"ում" ;
+                    futCon1 =base_1+"ալու" ;
+                    futCon2 = base_1+"ալիք" ;
+                    negative = base_1+"այ" ;
+                    perfective = base_1+"ացել" ;
+                    simultaneous = base_1+"ալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ա՛" ;
                                Pl => base_1+"ացէ՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
                          Pl => base_1+"ացինք"
@@ -1064,11 +1064,11 @@ mkV011 base =
                          Pl => base_1+"ացին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ացած" ;
                        Subject => base_1+"ացող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"այի" ;
@@ -1083,7 +1083,7 @@ mkV011 base =
                                              Pl => base_1+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"ամ" ;
                                               Pl => base_1+"անք"
@@ -1107,8 +1107,8 @@ mkV012 base =
   case base of {
     base_1+"ել" => lin V
       { s = base_1+"ել" ;
-        Causative = base_1+"եցնել" ;
-        Conditional = table {
+        causative = base_1+"եցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"էի" ;
@@ -1123,7 +1123,7 @@ mkV012 base =
                                              Pl => "կ"+base_1+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"եմ" ;
                                               Pl => "կ"+base_1+"ենք"
@@ -1138,19 +1138,19 @@ mkV012 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ում" ;
-                    FutCon1 = base_1+"ելու" ;
-                    FutCon2 = base_1+"ելիք" ;
-                    Negative = base_1+"ի" ;
-                    Perfective = base_1+"ել" ;
-                    Simultaneous = base_1+"ելիս"
+        converb = { imperfective = base_1+"ում" ;
+                    futCon1 =base_1+"ելու" ;
+                    futCon2 = base_1+"ելիք" ;
+                    negative = base_1+"ի" ;
+                    perfective = base_1+"ել" ;
+                    simultaneous = base_1+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ի՛ր" ;
                                Pl => base_1+"է՛ք"
                              } ;
-        Passive = base_1+"ուել" ;
-        Past = table {
+        passive = base_1+"ուել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
                          Pl => base_1+"եցինք"
@@ -1164,11 +1164,11 @@ mkV012 base =
                          Pl => base_1+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ած" ;
                        Subject => base_1+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"էի" ;
@@ -1183,7 +1183,7 @@ mkV012 base =
                                              Pl => base_1+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"եմ" ;
                                               Pl => base_1+"ենք"
@@ -1207,8 +1207,8 @@ mkV013 base =
   case base of {
     base_1@?+base_2+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        Causative = base_1+base_2+"եցնել" ;
-        Conditional = table {
+        causative = base_1+base_2+"եցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"եի" ;
@@ -1223,7 +1223,7 @@ mkV013 base =
                                              Pl => base_1+"կ"+base_2+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"եմ" ;
                                               Pl => base_1+"կ"+base_2+"ենք"
@@ -1238,19 +1238,19 @@ mkV013 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"ում" ;
-                    FutCon1 = base_1+base_2+"ելու" ;
-                    FutCon2 = base_1+base_2+"ելիք" ;
-                    Negative = base_1+base_2+"ի" ;
-                    Perfective = base_1+base_2+"ել" ;
-                    Simultaneous = base_1+base_2+"ելիս"
+        converb = { imperfective = base_1+base_2+"ում" ;
+                    futCon1 =base_1+base_2+"ելու" ;
+                    futCon2 = base_1+base_2+"ելիք" ;
+                    negative = base_1+base_2+"ի" ;
+                    perfective = base_1+base_2+"ել" ;
+                    simultaneous = base_1+base_2+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ի՛ր" ;
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
-        Passive = base_1+base_2+"վել" ;
-        Past = table {
+        passive = base_1+base_2+"վել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
                          Pl => base_1+base_2+"եցինք"
@@ -1264,11 +1264,11 @@ mkV013 base =
                          Pl => base_1+base_2+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ած" ;
                        Subject => base_1+base_2+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"եի" ;
@@ -1283,7 +1283,7 @@ mkV013 base =
                                              Pl => base_1+base_2+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"եմ" ;
                                               Pl => base_1+base_2+"ենք"
@@ -1307,8 +1307,8 @@ mkV014 base =
   case base of {
     base_1+base_2@(?+?)+"նել" => lin V
       { s = base_1+base_2+"նել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"նեի" ;
@@ -1323,7 +1323,7 @@ mkV014 base =
                                              Pl => base_1+"կ"+base_2+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"նեմ" ;
                                               Pl => base_1+"կ"+base_2+"նենք"
@@ -1338,19 +1338,19 @@ mkV014 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"նում" ;
-                    FutCon1 = base_1+base_2+"նելու" ;
-                    FutCon2 = base_1+base_2+"նելիք" ;
-                    Negative = base_1+base_2+"նի" ;
-                    Perfective = base_1+base_2+"ել" ;
-                    Simultaneous = base_1+base_2+"նելիս"
+        converb = { imperfective = base_1+base_2+"նում" ;
+                    futCon1 =base_1+base_2+"նելու" ;
+                    futCon2 = base_1+base_2+"նելիք" ;
+                    negative = base_1+base_2+"նի" ;
+                    perfective = base_1+base_2+"ել" ;
+                    simultaneous = base_1+base_2+"նելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ի՛ր" ;
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
-        Passive = base_1+base_2+"նվել" ;
-        Past = table {
+        passive = base_1+base_2+"նվել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ա" ;
                          Pl => base_1+base_2+"անք"
@@ -1364,11 +1364,11 @@ mkV014 base =
                          Pl => base_1+base_2+"ան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ած" ;
                        Subject => base_1+base_2+"նող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"նեի" ;
@@ -1383,7 +1383,7 @@ mkV014 base =
                                              Pl => base_1+base_2+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"նեմ" ;
                                               Pl => base_1+base_2+"նենք"
@@ -1407,8 +1407,8 @@ mkV015 base =
   case base of {
     base_1@?+base_2+"նալ" => lin V
       { s = base_1+base_2+"նալ" ;
-        Causative = base_1+base_2+"ցնել" ;
-        Conditional = table {
+        causative = base_1+base_2+"ցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"նայի" ;
@@ -1423,7 +1423,7 @@ mkV015 base =
                                              Pl => base_1+"կ"+base_2+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"նամ" ;
                                               Pl => base_1+"կ"+base_2+"նանք"
@@ -1438,19 +1438,19 @@ mkV015 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"նում" ;
-                    FutCon1 = base_1+base_2+"նալու" ;
-                    FutCon2 = base_1+base_2+"նալիք" ;
-                    Negative = base_1+base_2+"նա" ;
-                    Perfective = base_1+base_2+"ցել" ;
-                    Simultaneous = base_1+base_2+"նալիս"
+        converb = { imperfective = base_1+base_2+"նում" ;
+                    futCon1 =base_1+base_2+"նալու" ;
+                    futCon2 = base_1+base_2+"նալիք" ;
+                    negative = base_1+base_2+"նա" ;
+                    perfective = base_1+base_2+"ցել" ;
+                    simultaneous = base_1+base_2+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ցի՛ր" ;
                                Pl => base_1+base_2+"ցե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ցա" ;
                          Pl => base_1+base_2+"ցանք"
@@ -1464,11 +1464,11 @@ mkV015 base =
                          Pl => base_1+base_2+"ցան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ցած" ;
                        Subject => base_1+base_2+"ցող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"նայի" ;
@@ -1483,7 +1483,7 @@ mkV015 base =
                                              Pl => base_1+base_2+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"նամ" ;
                                               Pl => base_1+base_2+"նանք"
@@ -1507,8 +1507,8 @@ mkV016 base =
   case base of {
     base_1+base_2@(?+?+?+?)+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"էի" ;
@@ -1523,7 +1523,7 @@ mkV016 base =
                                              Pl => base_1+"կ"+base_2+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"եմ" ;
                                               Pl => base_1+"կ"+base_2+"ենք"
@@ -1538,19 +1538,19 @@ mkV016 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"ում" ;
-                    FutCon1 = base_1+base_2+"ելու" ;
-                    FutCon2 = base_1+base_2+"ելիք" ;
-                    Negative = base_1+base_2+"ի" ;
-                    Perfective = base_1+base_2+"ել" ;
-                    Simultaneous = base_1+base_2+"ելիս"
+        converb = { imperfective = base_1+base_2+"ում" ;
+                    futCon1 =base_1+base_2+"ելու" ;
+                    futCon2 = base_1+base_2+"ելիք" ;
+                    negative = base_1+base_2+"ի" ;
+                    perfective = base_1+base_2+"ել" ;
+                    simultaneous = base_1+base_2+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ի՛ր" ;
                                Pl => base_1+base_2+"է՛ք"
                              } ;
-        Passive = base_1+base_2+"ուել" ;
-        Past = table {
+        passive = base_1+base_2+"ուել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
                          Pl => base_1+base_2+"եցինք"
@@ -1564,11 +1564,11 @@ mkV016 base =
                          Pl => base_1+base_2+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ած" ;
                        Subject => base_1+base_2+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"էի" ;
@@ -1583,7 +1583,7 @@ mkV016 base =
                                              Pl => base_1+base_2+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"եմ" ;
                                               Pl => base_1+base_2+"ենք"
@@ -1607,8 +1607,8 @@ mkV017 base =
   case base of {
     base_1+base_2@(?+?+?)+"նել" => lin V
       { s = base_1+base_2+"նել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"նեի" ;
@@ -1623,7 +1623,7 @@ mkV017 base =
                                              Pl => base_1+"կ"+base_2+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"նեմ" ;
                                               Pl => base_1+"կ"+base_2+"նենք"
@@ -1638,19 +1638,19 @@ mkV017 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"նում" ;
-                    FutCon1 = base_1+base_2+"նելու" ;
-                    FutCon2 = base_1+base_2+"նելիք" ;
-                    Negative = base_1+base_2+"նի" ;
-                    Perfective = base_1+base_2+"րել" ;
-                    Simultaneous = base_1+base_2+"նելիս"
+        converb = { imperfective = base_1+base_2+"նում" ;
+                    futCon1 =base_1+base_2+"նելու" ;
+                    futCon2 = base_1+base_2+"նելիք" ;
+                    negative = base_1+base_2+"նի" ;
+                    perfective = base_1+base_2+"րել" ;
+                    simultaneous = base_1+base_2+"նելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"րո՛ւ" ;
                                Pl => base_1+base_2+"րե՛ք"
                              } ;
-        Passive = base_1+base_2+"վել" ;
-        Past = table {
+        passive = base_1+base_2+"վել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"րի" ;
                          Pl => base_1+base_2+"րինք"
@@ -1664,11 +1664,11 @@ mkV017 base =
                          Pl => base_1+base_2+"րին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"րած" ;
                        Subject => base_1+base_2+"նող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"նեի" ;
@@ -1683,7 +1683,7 @@ mkV017 base =
                                              Pl => base_1+base_2+"նեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"նեմ" ;
                                               Pl => base_1+base_2+"նենք"
@@ -1707,8 +1707,8 @@ mkV018 base =
   case base of {
     base_1+"ել" => lin V
       { s = base_1+"ել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կեի" ;
@@ -1723,7 +1723,7 @@ mkV018 base =
                                              Pl => base_1+"կեին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կեմ" ;
                                               Pl => base_1+"կենք"
@@ -1738,19 +1738,19 @@ mkV018 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ում" ;
-                    FutCon1 = base_1+"ելու" ;
-                    FutCon2 = base_1+"ելիք" ;
-                    Negative = base_1+"ի" ;
-                    Perfective = base_1+"ել" ;
-                    Simultaneous = base_1+"ելիս"
+        converb = { imperfective = base_1+"ում" ;
+                    futCon1 =base_1+"ելու" ;
+                    futCon2 = base_1+"ելիք" ;
+                    negative = base_1+"ի" ;
+                    perfective = base_1+"ել" ;
+                    simultaneous = base_1+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ի՛ր" ;
                                Pl => base_1+"ե՛ք"
                              } ;
-        Passive = base_1+"վել" ;
-        Past = table {
+        passive = base_1+"վել" ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
                          Pl => base_1+"եցինք"
@@ -1764,11 +1764,11 @@ mkV018 base =
                          Pl => base_1+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ած" ;
                        Subject => base_1+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"եի" ;
@@ -1783,7 +1783,7 @@ mkV018 base =
                                              Pl => base_1+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"եմ" ;
                                               Pl => base_1+"ենք"
@@ -1807,8 +1807,8 @@ mkV019 base =
   case base of {
     base_1+base_2@(?+?+?)+"ալ" => lin V
       { s = base_1+base_2+"ալ" ;
-        Causative = base_1+base_2+"ացնել" ;
-        Conditional = table {
+        causative = base_1+base_2+"ացնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"կ"+base_2+"այի" ;
@@ -1823,7 +1823,7 @@ mkV019 base =
                                              Pl => base_1+"կ"+base_2+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"կ"+base_2+"ամ" ;
                                               Pl => base_1+"կ"+base_2+"անք"
@@ -1838,19 +1838,19 @@ mkV019 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"ում" ;
-                    FutCon1 = base_1+base_2+"ալու" ;
-                    FutCon2 = base_1+base_2+"ալիք" ;
-                    Negative = base_1+base_2+"ա" ;
-                    Perfective = base_1+base_2+"ացել" ;
-                    Simultaneous = base_1+base_2+"ալիս"
+        converb = { imperfective = base_1+base_2+"ում" ;
+                    futCon1 =base_1+base_2+"ալու" ;
+                    futCon2 = base_1+base_2+"ալիք" ;
+                    negative = base_1+base_2+"ա" ;
+                    perfective = base_1+base_2+"ացել" ;
+                    simultaneous = base_1+base_2+"ալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ա՛" ;
                                Pl => base_1+base_2+"ացե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ացի" ;
                          Pl => base_1+base_2+"ացինք"
@@ -1864,11 +1864,11 @@ mkV019 base =
                          Pl => base_1+base_2+"ացին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ացած" ;
                        Subject => base_1+base_2+"ացող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"այի" ;
@@ -1883,7 +1883,7 @@ mkV019 base =
                                              Pl => base_1+base_2+"ային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"ամ" ;
                                               Pl => base_1+base_2+"անք"
@@ -1907,8 +1907,8 @@ mkV020 base =
   case base of {
     base_1+"նալ" => lin V
       { s = base_1+"նալ" ;
-        Causative = base_1+"ցնել" ;
-        Conditional = table {
+        causative = base_1+"ցնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նայի" ;
@@ -1923,7 +1923,7 @@ mkV020 base =
                                              Pl => "կ"+base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նամ" ;
                                               Pl => "կ"+base_1+"նանք"
@@ -1938,19 +1938,19 @@ mkV020 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նալու" ;
-                    FutCon2 = base_1+"նալիք" ;
-                    Negative = base_1+"նայ" ;
-                    Perfective = base_1+"ցել" ;
-                    Simultaneous = base_1+"նալիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նալու" ;
+                    futCon2 = base_1+"նալիք" ;
+                    negative = base_1+"նայ" ;
+                    perfective = base_1+"ցել" ;
+                    simultaneous = base_1+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"ցի՛ր" ;
                                Pl => base_1+"ցէ՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ցայ" ;
                          Pl => base_1+"ցանք"
@@ -1964,11 +1964,11 @@ mkV020 base =
                          Pl => base_1+"ցան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ցած" ;
                        Subject => base_1+"ցող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նայի" ;
@@ -1983,7 +1983,7 @@ mkV020 base =
                                              Pl => base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նամ" ;
                                               Pl => base_1+"նանք"
@@ -2007,8 +2007,8 @@ mkV021 base =
   case base of {
     base_1+base_2@(?+?)+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+base_2+"էի" ;
@@ -2023,7 +2023,7 @@ mkV021 base =
                                              Pl => "կ"+base_1+base_2+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+base_2+"եմ" ;
                                               Pl => "կ"+base_1+base_2+"ենք"
@@ -2038,19 +2038,19 @@ mkV021 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ւ"+base_2+"մ" ;
-                    FutCon1 = base_1+base_2+"ելու" ;
-                    FutCon2 = base_1+base_2+"ելիք" ;
-                    Negative = base_1+base_2+"ի" ;
-                    Perfective = base_1+base_2+"ել" ;
-                    Simultaneous = base_1+base_2+"ելիս"
+        converb = { imperfective = base_1+"ւ"+base_2+"մ" ;
+                    futCon1 =base_1+base_2+"ելու" ;
+                    futCon2 = base_1+base_2+"ելիք" ;
+                    negative = base_1+base_2+"ի" ;
+                    perfective = base_1+base_2+"ել" ;
+                    simultaneous = base_1+base_2+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+base_2+"ի՛ր" ;
                                Pl => base_1+base_2+"է՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
                          Pl => base_1+base_2+"եցինք"
@@ -2064,11 +2064,11 @@ mkV021 base =
                          Pl => base_1+base_2+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ած" ;
                        Subject => base_1+base_2+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"էի" ;
@@ -2083,7 +2083,7 @@ mkV021 base =
                                              Pl => base_1+base_2+"էին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"եմ" ;
                                               Pl => base_1+base_2+"ենք"
@@ -2107,8 +2107,8 @@ mkV022 base =
   case base of {
     base_1+"ռնալ" => lin V
       { s = base_1+"ռնալ" ;
-        Causative = base_1+"րձնել" ;
-        Conditional = table {
+        causative = base_1+"րձնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"ռնայի" ;
@@ -2123,7 +2123,7 @@ mkV022 base =
                                              Pl => "կ"+base_1+"ռնային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"ռնամ" ;
                                               Pl => "կ"+base_1+"ռնանք"
@@ -2138,19 +2138,19 @@ mkV022 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"ռնում" ;
-                    FutCon1 = base_1+"ռնալու" ;
-                    FutCon2 = base_1+"ռնալիք" ;
-                    Negative = base_1+"ռնա" ;
-                    Perfective = base_1+"րձել" ;
-                    Simultaneous = base_1+"ռնալիս"
+        converb = { imperfective = base_1+"ռնում" ;
+                    futCon1 =base_1+"ռնալու" ;
+                    futCon2 = base_1+"ռնալիք" ;
+                    negative = base_1+"ռնա" ;
+                    perfective = base_1+"րձել" ;
+                    simultaneous = base_1+"ռնալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"րձի՛ր" ;
                                Pl => base_1+"րձե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"րձա" ;
                          Pl => base_1+"րձանք"
@@ -2164,11 +2164,11 @@ mkV022 base =
                          Pl => base_1+"րձան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"րձած" ;
                        Subject => base_1+"րձող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"ռնայի" ;
@@ -2183,7 +2183,7 @@ mkV022 base =
                                              Pl => base_1+"ռնային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"ռնամ" ;
                                               Pl => base_1+"ռնանք"
@@ -2207,8 +2207,8 @@ mkV023 base =
   case base of {
     base_1+"նալ" => lin V
       { s = base_1+"նալ" ;
-        Causative = base_1+"սնել" ;
-        Conditional = table {
+        causative = base_1+"սնել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նայի" ;
@@ -2223,7 +2223,7 @@ mkV023 base =
                                              Pl => "կ"+base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նամ" ;
                                               Pl => "կ"+base_1+"նանք"
@@ -2238,19 +2238,19 @@ mkV023 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նալու" ;
-                    FutCon2 = base_1+"նալիք" ;
-                    Negative = base_1+"նա" ;
-                    Perfective = base_1+"սել" ;
-                    Simultaneous = base_1+"նալիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նալու" ;
+                    futCon2 = base_1+"նալիք" ;
+                    negative = base_1+"նա" ;
+                    perfective = base_1+"սել" ;
+                    simultaneous = base_1+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => base_1+"սե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"սա" ;
                          Pl => base_1+"սանք"
@@ -2264,11 +2264,11 @@ mkV023 base =
                          Pl => base_1+"սան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"սած" ;
                        Subject => base_1+"սող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նայի" ;
@@ -2283,7 +2283,7 @@ mkV023 base =
                                              Pl => base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նամ" ;
                                               Pl => base_1+"նանք"
@@ -2307,8 +2307,8 @@ mkV024 base =
   case base of {
     base_1+"նալ" => lin V
       { s = base_1+"նալ" ;
-        Causative = base_1+"նել" ;
-        Conditional = table {
+        causative = base_1+"նել" ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+"նայի" ;
@@ -2323,7 +2323,7 @@ mkV024 base =
                                              Pl => "կ"+base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+"նամ" ;
                                               Pl => "կ"+base_1+"նանք"
@@ -2338,19 +2338,19 @@ mkV024 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+"նում" ;
-                    FutCon1 = base_1+"նալու" ;
-                    FutCon2 = base_1+"նալիք" ;
-                    Negative = base_1+"նա" ;
-                    Perfective = base_1+"ել" ;
-                    Simultaneous = base_1+"նալիս"
+        converb = { imperfective = base_1+"նում" ;
+                    futCon1 =base_1+"նալու" ;
+                    futCon2 = base_1+"նալիք" ;
+                    negative = base_1+"նա" ;
+                    perfective = base_1+"ել" ;
+                    simultaneous = base_1+"նալիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => nonExist ;
                                Pl => base_1+"ե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+"ա" ;
                          Pl => base_1+"անք"
@@ -2364,11 +2364,11 @@ mkV024 base =
                          Pl => base_1+"ան"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+"ած" ;
                        Subject => base_1+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+"նայի" ;
@@ -2383,7 +2383,7 @@ mkV024 base =
                                              Pl => base_1+"նային"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+"նամ" ;
                                               Pl => base_1+"նանք"
@@ -2407,8 +2407,8 @@ mkV025 base =
   case base of {
     base_1+base_2@?+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        Causative = nonExist ;
-        Conditional = table {
+        causative = nonExist ;
+        conditional = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => "կ"+base_1+base_2+"եի" ;
@@ -2423,7 +2423,7 @@ mkV025 base =
                                              Pl => "կ"+base_1+base_2+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => "կ"+base_1+base_2+"եմ" ;
                                               Pl => "կ"+base_1+base_2+"ենք"
@@ -2438,19 +2438,19 @@ mkV025 base =
                                             }
                                     }
                       } ;
-        Converb = { Imperfective = base_1+base_2+"ում" ;
-                    FutCon1 = base_1+base_2+"ելու" ;
-                    FutCon2 = base_1+base_2+"ելիք" ;
-                    Negative = base_1+base_2+"ի" ;
-                    Perfective = base_1+base_2+"ել" ;
-                    Simultaneous = base_1+base_2+"ելիս"
+        converb = { imperfective = base_1+base_2+"ում" ;
+                    futCon1 =base_1+base_2+"ելու" ;
+                    futCon2 = base_1+base_2+"ելիք" ;
+                    negative = base_1+base_2+"ի" ;
+                    perfective = base_1+base_2+"ել" ;
+                    simultaneous = base_1+base_2+"ելիս"
                   } ;
-        Imperative_Jussive = table {
+        imperative = table {
                                Sg => base_1+"՛"+base_2 ;
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
-        Passive = nonExist ;
-        Past = table {
+        passive = nonExist ;
+        past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
                          Pl => base_1+base_2+"եցինք"
@@ -2464,11 +2464,11 @@ mkV025 base =
                          Pl => base_1+base_2+"եցին"
                        }
                } ;
-        Participle = table {
+        participle = table {
                        Resultative => base_1+base_2+"ած" ;
                        Subject => base_1+base_2+"ող"
                      } ;
-        Subjunctive = table {
+        subjunctive = table {
                         Perfect => table {
                                      P1 => table {
                                              Sg => base_1+base_2+"եի" ;
@@ -2483,7 +2483,7 @@ mkV025 base =
                                              Pl => base_1+base_2+"եին"
                                            }
                                    } ;
-                        Non_Past => table {
+                        Non_past => table {
                                       P1 => table {
                                               Sg => base_1+base_2+"եմ" ;
                                               Pl => base_1+base_2+"ենք"

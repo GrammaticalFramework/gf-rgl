@@ -12,7 +12,8 @@ concrete GrammarHun of Grammar =
   TextX - [Adv],
   StructuralHun,
   IdiomHun,
-  TenseX - [Adv]
+  TenseX - [Adv],
+  NamesHun
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

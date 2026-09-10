@@ -221,7 +221,7 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 --   ApposNP : NP -> NP -> NP ;        -- Mr Macron, the president of France,
 
 --   AdAdV       : AdA -> AdV -> AdV ;           -- almost always
---   UttAdV      : AdV -> Utt ;                  -- always(!)
+    UttAdV adv = {s = adv.s} ;
 --   PositAdVAdj : A -> AdV ;                    -- (that she) positively (sleeps)
 
 --   CompS       : S -> Comp ;                   -- (the fact is) that she sleeps

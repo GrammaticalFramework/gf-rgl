@@ -6,7 +6,7 @@ concrete ConstructionGer of Construction = CatGer **
 flags coding=utf8 ;
 
 oper
-  mkPrep : Str -> P.Case -> Prep = P.mkPrep ;
+  mkPrep : Str -> P.ObjCase -> Prep = \s,c -> P.mkPrep s c ;
   mkV2 : V -> V2 = P.mkV2 ;
   accPrep = P.accPrep ;
   datPrep = P.datPrep ;
@@ -46,6 +46,10 @@ lin
   is_wrong_VP = mkVP have_V2 (mkNP (P.mkN "Unrecht")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_units_of_NP card cn np =
+    G.AdvNP
+      (mkNP <lin Card card : Card> (lin CN cn))
+      (SyntaxGer.mkAdv P.von_Prep (lin NP np)) ;
   n_unit_CN card unit cn = mkCN (invarA (mkUtt (mkNP <lin Card card : Card> (lin CN unit))).s) cn ;
 
   bottle_of_CN np = N.ApposCN (mkCN (P.mkN "Flasche")) np ;
@@ -174,9 +178,9 @@ lin
 
   monthAdv m = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det m) ;
   yearAdv y = SyntaxGer.mkAdv (mkPrep "im Jahr" dative) y ; ----
-  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17. Mai
+  dayMonthAdv d m = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! (R.Obj R.Dat) ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom) ; -- am 17. Mai
   monthYearAdv m y = SyntaxGer.mkAdv inDat_Prep (mkNP the_Det (mkCN m y)) ; -- im Mai 2012
-  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! dative ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! True ! accusative) ; -- am 17. Mai 2013
+  dayMonthYearAdv d m y = ParadigmsGer.mkAdv ("am" ++ d.s ! True ! (R.Obj R.Dat) ++ BIND ++ "." ++ m.s ! R.Sg ! R.Nom ++ y.s ! True ! (R.Obj accusative)) ; -- am 17. Mai 2013
 
   intYear = symb ;
   intMonthday = symb ;

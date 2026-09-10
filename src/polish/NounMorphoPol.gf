@@ -27,6 +27,7 @@ resource NounMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef) in {
       { nom = forms!SF Sg Nom;
         voc = forms!SF Sg VocP;
         dep = table {
+                NomPrep          =>forms!SF Sg Nom;
                 GenPrep|GenNoPrep=>forms!SF Sg Gen;
                 AccPrep|AccNoPrep=>forms!SF Sg Acc;
                 DatPrep|DatNoPrep=>forms!SF Sg Dat;

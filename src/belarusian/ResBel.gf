@@ -1,4 +1,4 @@
-resource ResBel = {
+resource ResBel = open (R = ParamX), Prelude in {
 
 param Case = Nom | Acc | Dat | Gen | Loc | Instr ;
 param Number = Sg | Pl ;
@@ -40,12 +40,12 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
 param Aspect = Imperf | Perf ;
 param Person = P1 | P2 | P3 ;
 param Tense = Pres | Past ;
-oper V = {active: Aspect => {Past: Str; Pres: Person => Number => Str}; imperative: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 703
-oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
+oper Verb = {active: Aspect => {past: Str; pres: Person => Number => Str}; imperative: Number => Str; infinitive: Str; participle: Gender => Number => Str; passive: Aspect => Tense => Str} ; -- 703
+oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27 ->
           { active = table {
-                       Imperf => { Past = f1 ;
-                                   Pres = table {
+                       Imperf => { past = f1 ;
+                                   pres = table {
                                             P1 => table {
                                                     Sg => f2 ;
                                                     Pl => f3
@@ -60,8 +60,8 @@ oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
                                                   }
                                           }
                                  } ;
-                       Perf => { Past = f8 ;
-                                 Pres = table {
+                       Perf => { past = f8 ;
+                                 pres = table {
                                           P1 => table {
                                                   Sg => f9 ;
                                                   Pl => f10
@@ -110,8 +110,14 @@ oper mkV : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> V =
 
 
 param GenNum = GSg Gender | GPl ;
-oper A = {s: Case => GenNum => Str} ; -- 704
-oper mkA : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> A =
+oper genNum : Gender -> Number -> GenNum = \g,n ->
+       case n of {
+         Sg => GSg g ;
+         Pl => GPl
+       } ;
+
+oper Adj = {s: Case => GenNum => Str} ; -- 704
+oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24 ->
           { s = table {
                   Nom => table {
@@ -158,6 +164,123 @@ oper Compl = {s : Str; c : Case} ;
 oper noPrep : Compl = {s=""; c=Acc} ;
 
 oper CommonNoun = Noun ;
-oper AdjPhrase = A ;
+oper AdjPhrase = Adj ;
+
+oper Agr = {g : Gender ; n : Number ; p : Person} ;
+oper defaultAgr : Agr = {g=Masc; n=Sg; p=P3} ;
+
+oper NPhrase : Type = {s : Case => Str; a : Agr} ;
+oper mkNPhrase : (Case => Str) -> Agr -> NPhrase =
+  \s,a -> {s = s; a = a} ;
+oper caseTable : Str -> Case => Str =
+  \s -> table {Nom => s; Acc => s; Dat => s; Gen => s; Loc => s; Instr => s} ;
+oper mkSimpleNP : Str -> Gender -> Number -> Person -> NPhrase =
+  \s,g,n,p -> mkNPhrase (caseTable s) {g=g; n=n; p=p} ;
+
+oper nounFromStr : Str -> Gender -> Noun =
+  \s,g -> {
+    s = \\_,_ => s ;
+    voc = s ;
+    g = g
+  } ;
+
+oper adjFromStr : Str -> Adj =
+  \s -> {s = \\_,_ => s} ;
+
+oper prepNP : Compl -> NPhrase -> Str =
+  \prep,np -> prep.s ++ np.s ! prep.c ;
+
+oper neg : R.Polarity -> Str =
+  \p -> case p of {
+    R.Pos => [] ;
+    R.Neg => "не"
+  } ;
+
+oper futureBe : Agr -> Str =
+  \a -> case <a.p,a.n> of {
+    <P1,Sg> => "буду" ;
+    <P2,Sg> => "будзеш" ;
+    <P3,Sg> => "будзе" ;
+    <P1,Pl> => "будзем" ;
+    <P2,Pl> => "будзеце" ;
+    <P3,Pl> => "будуць"
+  } ;
+
+oper pastBe : Agr -> Str =
+  \a -> case <a.g,a.n> of {
+    <Masc,Sg> => "быў" ;
+    <Fem,Sg> => "была" ;
+    <Neuter,Sg> => "было" ;
+    <_,Pl> => "былі"
+  } ;
+
+oper copula : R.Tense -> R.Polarity -> Agr -> Str =
+  \t,p,a -> case t of {
+    R.Pres => neg p ;
+    R.Past => neg p ++ pastBe a ;
+    R.Fut => neg p ++ futureBe a ;
+    R.Cond => neg p ++ pastBe a ++ "бы"
+  } ;
+
+oper finiteVerb : Verb -> R.Tense -> R.Polarity -> Agr -> Str =
+  \v,t,p,a -> case t of {
+    R.Pres => neg p ++ (v.active ! Imperf).pres ! a.p ! a.n ;
+    R.Past => neg p ++ v.participle ! a.g ! a.n ;
+    R.Fut => neg p ++ futureBe a ++ v.infinitive ;
+    R.Cond => neg p ++ v.participle ! a.g ! a.n ++ "бы"
+  } ;
+
+oper VPhrase : Type = {
+  s : R.Tense => R.Polarity => Agr => Str ;
+  inf : Str ;
+  imp : R.Polarity => Number => Str
+} ;
+
+oper mkVPhrase : Verb -> VPhrase =
+  \v -> {
+    s = \\t,p,a => finiteVerb v t p a ;
+    inf = v.infinitive ;
+    imp = \\p,n => neg p ++ v.imperative ! n
+  } ;
+
+oper VSlash : Type = {
+  s : R.Tense => R.Polarity => Agr => Str ;
+  inf : Str ;
+  c : Compl ;
+  imp : R.Polarity => Number => Str ;
+  post : Str
+} ;
+
+oper mkVSlash : Verb -> Compl -> VSlash =
+  \v,c -> {
+    s = \\t,p,a => finiteVerb v t p a ;
+    inf = v.infinitive ;
+    c = c ;
+    imp = \\p,n => neg p ++ v.imperative ! n ;
+    post = []
+  } ;
+
+oper addAdvVP : VPhrase -> Str -> VPhrase =
+  \vp,adv -> {
+    s = \\t,p,a => vp.s ! t ! p ! a ++ adv ;
+    inf = vp.inf ++ adv ;
+    imp = \\p,n => vp.imp ! p ! n ++ adv
+  } ;
+
+oper addAdVVP : Str -> VPhrase -> VPhrase =
+  \adv,vp -> {
+    s = \\t,p,a => adv ++ vp.s ! t ! p ! a ;
+    inf = adv ++ vp.inf ;
+    imp = \\p,n => adv ++ vp.imp ! p ! n
+  } ;
+
+oper addAdvSlash : VSlash -> Str -> VSlash =
+  \vp,adv -> {
+    s = \\t,p,a => vp.s ! t ! p ! a ;
+    inf = vp.inf ++ adv ;
+    c = vp.c ;
+    imp = \\p,n => vp.imp ! p ! n ;
+    post = vp.post ++ adv
+  } ;
 
 }

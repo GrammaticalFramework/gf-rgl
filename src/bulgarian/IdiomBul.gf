@@ -26,34 +26,13 @@ concrete IdiomBul of Idiom = CatBul ** open Prelude, ParadigmsBul, ResBul in {
 	                     } ;
                                  
                   agr=agrP3 (GSg Neut);
-                                 
-                  present = verb ! (VPres   (numGenNum agr.gn) agr.p) ;
-                  aorist  = verb ! (VAorist (numGenNum agr.gn) agr.p) ;
-                  imperfect = verb ! (VImperfect (numGenNum agr.gn) agr.p) ;
-                  perfect = verb ! (VPerfect (aform agr.gn Indef (RObj Acc))) ;
-                                 
-                  auxPres    = auxBe ! VPres (numGenNum agr.gn) agr.p ;
-                  auxAorist  = auxBe ! VAorist (numGenNum agr.gn) agr.p ;
-                  auxCondS   = auxCond ! numGenNum agr.gn ! agr.p ;
 
-                  v : {aux1:Str; aux2:Str; main:Str}
-                        = case <t,a> of {
-                            <VPresent,Simul> => {aux1=[]; aux2=[]; main=present} 
-               ;  --# notpresent
-                            <VPresent,Anter> => {aux1=[]; aux2=auxPres;   main=perfect} ;  --# notpresent
-                            <VPastSimple,Simul> => {aux1=[]; aux2=[]; main=aorist} ;  --# notpresent
-                            <VPastSimple,Anter> => {aux1=[]; aux2=auxAorist; main=perfect} ;  --# notpresent
-                            <VPastImperfect,Simul> => {aux1=[]; aux2=[]; main=imperfect} ;  --# notpresent
-                            <VPastImperfect,Anter> => {aux1=[]; aux2=auxAorist; main=perfect} ;  --# notpresent
-                            <VFut, Simul> => {aux1="ще"; aux2=[]; main=present} ;  --# notpresent
-                            <VFut, Anter> => {aux1="ще"++auxPres; aux2=[]; main=perfect} ;  --# notpresent
-                            <VCond,_>     => {aux1=auxCondS; aux2=[]; main=perfect}  --# notpresent
-                          } ;
+                  tenses = vpTenses (predV (singleV verb)) ! t ! a ! Pos ! agr
 
 	          in case o of {
-	               Main  => v.aux1 ++ v.main ++ v.aux2 ++ np.s ! RObj Acc ++ adv.s ;
-	               Inv   => np.s ! RObj Acc ++ v.aux1 ++ v.main ++ v.aux2 ++ adv.s  ;
-	               Quest => v.aux1 ++ v.main ++ "ли" ++ v.aux2 ++ np.s ! RObj Acc ++ adv.s 
+	               Main  => tenses ! Inv ! Perf ++ np.s ! RObj Acc ++ adv.s ;
+	               Inv   => np.s ! RObj Acc ++ tenses ! Main ! Perf ++ adv.s ;
+                   Quest => tenses ! Quest ! Perf ++ np.s ! RObj Acc ++ adv.s
 	             }
       } ;
 

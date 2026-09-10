@@ -1,4 +1,5 @@
 concrete AllBel of AllBelAbs =
-  LangBel
+  LangBel,
+  ExtendBel
   **
     {} ;

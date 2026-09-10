@@ -10,7 +10,11 @@ lincat
 lin
   InflectionN,InflectionN2,InflectionN3 = \x -> {
       t="n" ;
-      s1="" ;
+      s1 = heading1 ("Noun" ++ case x.g of {
+                               Neuter=> "(neuter)";
+                               Masc  => "(masc)";
+                               Fem   => "(fem)"
+                             }) ;
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Indef" ++ th "Def") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Sg" ++
@@ -30,17 +34,17 @@ lin
       t="a" ;
       s1="" ;
       s2=frameTable (
-           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Masc" ++ th "Fem" ++ th "Neutr") ++
+           tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Masc" ++ th "Fem" ++ th "Neuter") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Sg" ++
-               th "Nom" ++ td (x.s ! Masc ! Sg ! Nom) ++ td (x.s ! Fem ! Sg ! Nom) ++ td (x.s ! Neutr ! Sg ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Sg ! Acc) ++ td (x.s ! Fem ! Sg ! Acc) ++ td (x.s ! Neutr ! Sg ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Sg ! Dat) ++ td (x.s ! Fem ! Sg ! Dat) ++ td (x.s ! Neutr ! Sg ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Sg ! Gen) ++ td (x.s ! Fem ! Sg ! Gen) ++ td (x.s ! Neutr ! Sg ! Gen)) ++
+               th "Nom" ++ td (x.s ! Masc ! Sg ! Nom) ++ td (x.s ! Fem ! Sg ! Nom) ++ td (x.s ! Neuter ! Sg ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Masc ! Sg ! Acc) ++ td (x.s ! Fem ! Sg ! Acc) ++ td (x.s ! Neuter ! Sg ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Masc ! Sg ! Dat) ++ td (x.s ! Fem ! Sg ! Dat) ++ td (x.s ! Neuter ! Sg ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Masc ! Sg ! Gen) ++ td (x.s ! Fem ! Sg ! Gen) ++ td (x.s ! Neuter ! Sg ! Gen)) ++
            tr (intagAttr "th" "rowspan=\"4\"" "Pl" ++
-               th "Nom" ++ td (x.s ! Masc ! Pl ! Nom) ++ td (x.s ! Fem ! Pl ! Nom) ++ td (x.s ! Neutr ! Pl ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Pl ! Acc) ++ td (x.s ! Fem ! Pl ! Acc) ++ td (x.s ! Neutr ! Pl ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Pl ! Dat) ++ td (x.s ! Fem ! Pl ! Dat) ++ td (x.s ! Neutr ! Pl ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Pl ! Gen) ++ td (x.s ! Fem ! Pl ! Gen) ++ td (x.s ! Neutr ! Pl ! Gen))) ;
+               th "Nom" ++ td (x.s ! Masc ! Pl ! Nom) ++ td (x.s ! Fem ! Pl ! Nom) ++ td (x.s ! Neuter ! Pl ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Masc ! Pl ! Acc) ++ td (x.s ! Fem ! Pl ! Acc) ++ td (x.s ! Neuter ! Pl ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Masc ! Pl ! Dat) ++ td (x.s ! Fem ! Pl ! Dat) ++ td (x.s ! Neuter ! Pl ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Masc ! Pl ! Gen) ++ td (x.s ! Fem ! Pl ! Gen) ++ td (x.s ! Neuter ! Pl ! Gen))) ;
       s3=[]
     } ;
 lin
@@ -51,8 +55,8 @@ lin
          paragraph x.Converb ++
          heading2 "Imperative" ++
          frameTable (
-           tr (th "Sg" ++ td (x.Imperative_Jussive ! Sg)) ++
-           tr (th "Pl" ++ td (x.Imperative_Jussive ! Pl))) ++
+           tr (th "Sg" ++ td (x.imperative ! Sg)) ++
+           tr (th "Pl" ++ td (x.imperative ! Pl))) ++
          heading2 "Indicative" ++
          frameTable (
            tr (intagAttr "th" "rowspan=\"4\"" "Pres" ++ th "Sg P1" ++ td (x.Indicative ! Pres ! PSg P1)) ++

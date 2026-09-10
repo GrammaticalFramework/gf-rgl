@@ -66,6 +66,7 @@ concrete CatFin of Cat = CommonX ** open ResFin, StemFin, Prelude in {
     Predet = {s : Number => NPForm => Str} ;
     Quant  = {s1,sp : Number => Case => Str ; s2 : Harmony => Str ; isPoss : Bool ; isDef : Bool ; isNeg : Bool} ;
     Card   = {s : Number => Case => Str ; n : Number} ;
+    ACard  = {s : Number => Case => Str ; n : Number} ;
     Num    = {s : Number => Case => Str ; isNum : Bool ; n : Number} ;
 
 -- Numeral

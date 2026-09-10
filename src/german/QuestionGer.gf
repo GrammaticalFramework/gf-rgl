@@ -28,7 +28,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer, Prelude in {
       s = \\m,t,a,p => 
             let 
               cls = slash.s ! m ! t ! a ! p ;
-              who = appPrep slash.c2 ip.s ;
+              who = appPrep (toSPrep slash.c2) ip.s ;
             in table {
               QDir   => who ++ cls ! Inv ;
               QIndir => who ++ cls ! Sub
@@ -60,7 +60,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer, Prelude in {
       } ;
 
     PrepIP p ip = {
-      s = appPrep p ip.s -- todo: mit was => womit ; an was => woran  etc.
+      s = appPrep (toSPrep p) ip.s -- todo: mit was => womit ; an was => woran  etc.
       } ;
 
     AdvIP ip adv = {

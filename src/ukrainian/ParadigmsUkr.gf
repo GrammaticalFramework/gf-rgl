@@ -1148,6 +1148,44 @@ oper
 		_ => regN form1
   } ;
 
+  compoundN = overload {
+    compoundN : A -> N -> N = \a,n -> {
+      s = \\c,num => a.s ! c ! genNum n.g num ++ n.s ! c ! num ;
+      voc = \\num => a.s ! Nom ! genNum n.g num ++ n.voc ! num ;
+      g = n.g
+    } ;
+    compoundN : N -> A -> N = \n,a -> {
+      s = \\c,num => n.s ! c ! num ++ a.s ! c ! genNum n.g num ;
+      voc = \\num => n.voc ! num ++ a.s ! Nom ! genNum n.g num ;
+      g = n.g
+    } ;
+    compoundN : N -> Str -> N = \n,adv -> {
+      s = \\c,num => n.s ! c ! num ++ adv ;
+      voc = \\num => n.voc ! num ++ adv ;
+      g = n.g
+    } ;
+    compoundN : Str -> N -> N = \adv,n -> {
+      s = \\c,num => adv ++ n.s ! c ! num ;
+      voc = \\num => adv ++ n.voc ! num ;
+      g = n.g
+    }
+  } ;
+
+  mkPron : (_,_,_,_,_,_ : Str) -> Gender -> Number -> Person -> Pron =
+    \nom,acc,dat,gen,loc,instr,g,n,p -> lin Pron {
+      s = table {
+            Nom => nom ;
+            Acc => acc ;
+            Dat => dat ;
+            Gen => gen ;
+            Loc => loc ;
+            Instr => instr
+          } ;
+      g = g ;
+      n = n ;
+      p = p
+    } ;
+
   regV : Str -> V   -- Active;Imperf;Pres;P1;Sg
     = \form -> case form of {
 		_ + "вати" => mkV036 form;
@@ -1213,6 +1251,17 @@ oper
 		_ => regV form1
   } ;
 
+  compoundV : V -> Str -> V = \v,adv -> {
+    active = \\a => {past=(v.active ! a).past ++ adv ;
+                     pres=\\p,num=>(v.active ! a).pres ! p ! num ++ adv
+                    } ;
+    imperative1 = v.imperative1 ++ adv ;
+    imperative2 = \\num => v.imperative2 ! num ++ adv ;
+    infinitive = v.infinitive ++ adv ;
+    participle = \\g,num => v.participle ! g ! num ++ adv ;
+    passive = \\a,t => v.passive ! a ! t ++ adv
+  } ;
+
   regA : Str -> A   -- s;Nom;('GSg', Masc)
     = \form -> case form of {
 		_ + "ій" => mkA003 form;
@@ -1244,13 +1293,13 @@ oper
   } ;
 
   mkN2 = overload {
-     mkN2 : N -> N2 = \n -> n ** {c2 = noPrep} ;
-     mkN2 : N -> Prep -> N2 = \n,p -> n ** {c2 = p} ;
+     mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = noPrep}) ;
+     mkN2 : N -> Prep -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
   } ;
 
   mkN3 = overload {
-     mkN3 : N -> N3 = \n -> n ** {c2 = noPrep; c3 = noPrep} ;
-     mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> n ** {c2 = p1; c3 = p2} ;
+     mkN3 : N -> N3 = \n -> lin N3 (n ** {c2 = noPrep; c3 = noPrep}) ;
+     mkN3 : N -> Prep -> Prep -> N3 = \n,p1,p2 -> lin N3 (n ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkV = overload {
@@ -1258,39 +1307,39 @@ oper
     mkV : Str -> Str -> V = reg2V   -- Active;Imperf;Pres;P1;Sg  imperative1
   } ;
 
-  mkVV : V -> VV = \v -> v ;
-  mkVS : V -> VS = \v -> v ;
-  mkVQ : V -> VQ = \v -> v ;
-  mkVA : V -> VA = \v -> v ;
+  mkVV : V -> VV = \v -> lin VV v ;
+  mkVS : V -> VS = \v -> lin VS v ;
+  mkVQ : V -> VQ = \v -> lin VQ v ;
+  mkVA : V -> VA = \v -> lin VA v ;
 
   mkV2 = overload {
-     mkV2 : V -> V2 = \v -> v ** {c2 = noPrep} ;
-     mkV2 : V -> Prep -> V2 = \v,p -> v ** {c2 = p} ;
+     mkV2 : V -> V2 = \v -> lin V2 (v ** {c2 = noPrep}) ;
+     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p}) ;
   } ;
 
   mkV3 = overload {
-     mkV3 : V -> V3 = \v -> v ** {c2 = noPrep; c3 = noPrep} ;
-     mkV3 : V -> Prep -> Prep -> V3 = \v,p1,p2 -> v ** {c2 = p1; c3 = p2} ;
+     mkV3 : V -> V3 = \v -> lin V3 (v ** {c2 = noPrep; c3 = noPrep}) ;
+     mkV3 : V -> Prep -> Prep -> V3 = \v,p1,p2 -> lin V3 (v ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkV2A = overload {
-     mkV2A : V -> V2A = \v -> v ** {c2 = noPrep; c3 = noPrep} ;
-     mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> v ** {c2 = p1; c3 = p2} ;
+     mkV2A : V -> V2A = \v -> lin V2A (v ** {c2 = noPrep; c3 = noPrep}) ;
+     mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> lin V2A (v ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkV2S = overload {
-     mkV2S : V -> V2S = \v -> v ** {c2 = noPrep; c3 = noPrep} ;
-     mkV2S : V -> Prep -> Prep -> V2S = \v,p1,p2 -> v ** {c2 = p1; c3 = p2} ;
+     mkV2S : V -> V2S = \v -> lin V2S (v ** {c2 = noPrep; c3 = noPrep}) ;
+     mkV2S : V -> Prep -> Prep -> V2S = \v,p1,p2 -> lin V2S (v ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkV2Q = overload {
-     mkV2Q : V -> V2Q = \v -> v ** {c2 = noPrep; c3 = noPrep} ;
-     mkV2Q : V -> Prep -> Prep -> V2Q = \v,p1,p2 -> v ** {c2 = p1; c3 = p2} ;
+     mkV2Q : V -> V2Q = \v -> lin V2Q (v ** {c2 = noPrep; c3 = noPrep}) ;
+     mkV2Q : V -> Prep -> Prep -> V2Q = \v,p1,p2 -> lin V2Q (v ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkV2V = overload {
-     mkV2V : V -> V2V = \v -> v ** {c2 = noPrep; c3 = noPrep} ;
-     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> v ** {c2 = p1; c3 = p2} ;
+     mkV2V : V -> V2V = \v -> lin V2V (v ** {c2 = noPrep; c3 = noPrep}) ;
+     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (v ** {c2 = p1; c3 = p2}) ;
   } ;
 
   mkA = overload {
@@ -1299,8 +1348,27 @@ oper
   } ;
 
   mkA2 = overload {
-     mkA2 : A -> A2 = \a -> a ** {c2 = noPrep} ;
-     mkA2 : A -> Prep -> A2 = \a,p -> a ** {c2 = p} ;
+     mkA2 : A -> A2 = \a -> lin A2 (a ** {c2 = noPrep}) ;
+     mkA2 : A -> Prep -> A2 = \a,p -> lin A2 (a ** {c2 = p}) ;
+  } ;
+
+  invarN : Str -> N = \s -> lin N {s=\\_,_=>s; voc=\\_=>s; g=Masc} ;
+  invarA : Str -> A = \s -> lin A {s=\\_,_=>s} ;
+  invarV : Str -> V = \s -> lin V {
+    active = table {
+      Imperf => {past=s; pres=\\_,_=>s} ;
+      Perf => {past=s; pres=\\_,_=>s}
+    } ;
+    imperative1 = s ;
+    imperative2 = \\_=>s ;
+    infinitive = s ;
+    participle = \\_,_=>s ;
+    passive = \\_,_=>s
+  } ;
+  invarVP : Str -> VP = \s -> lin VP {
+    s = \\_,_,_,_,_=>s ;
+    inf = s ;
+    imp = \\_,_=>s
   } ;
 
   mkAdv : Str -> Adv = \s -> lin Adv {s=s} ;
@@ -1311,18 +1379,30 @@ oper
   mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
-  mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+  nominative   : Case = Nom ;
+  accusative   : Case = Acc ;
+  dative       : Case = Dat ;
+  genitive     : Case = Gen ;
+  locative     : Case = Loc ;
+  instrumental : Case = Instr ;
+
+  mkPrep = overload {
+    mkPrep : Str  -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+    mkPrep : Case -> Prep = \c -> lin Prep {s=[]; c=c} ;
+    mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {s=s; c=c}
+  } ;
 
   mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
-  mkIP : Str -> IP = \s -> lin IP {s=s} ;
-  mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
-  mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+  mkIP : Str -> IP = \s -> lin IP {s=\\_=>s; g=Masc; n=Sg; p=P3} ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_,_,_=>s} ;
+  mkIDet : Str -> IDet = \s -> lin IDet {s=\\_,_=>s; n=Sg} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=s} ;
-  mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
-  mkDet : Str -> Det = \s -> lin Det {s=s} ;
-  mkCard : Str -> Card = \s -> lin Card {s=s} ;
-  mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_=>s} ;
+  mkPredet : Str -> Predet = \s -> lin Predet {s=\\_,_,_=>s} ;
+  mkDet : Str -> Det = \s -> lin Det {s=\\_,_=>s; n=Sg} ;
+  mkCard : Str -> Card = \s -> lin Card {s=s; n=Pl} ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s; n=Pl} ;
+  mkConj : Str -> Conj = \s -> lin Conj {s1=""; s2=s; n=Pl} ;
   mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
   mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 

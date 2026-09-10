@@ -169,16 +169,16 @@ oper
      = \x1,x2,x3,x4 -> lin V (mkVerbReg x1 x2 x3 x4) ;
   } ;
 
-  copula = ResKor.copula ;
+  copula = lin V ResKor.copula ;
 
   -- regV : Str -> Verb = \s -> case s of {
   --   } ;
 
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
-    mkV2 : V -> V2 = vtov2 ;
+    mkV2 : V -> V2 = \v -> lin V2 (vtov2 v) ;
     mkV2 : V -> (subj,obj : CaseParticle) -> V2 = \v,sc,c2 ->
-      vtov2 v ** {sc = sc ; c2 = c2} ;
+      lin V2 (vtov2 v ** {sc = sc ; c2 = c2}) ;
     } ;
 
   mkV3 = overload {

@@ -67,7 +67,7 @@ concrete ExtraBul of ExtraBulAbs = CatBul **
 
     MkVPS t p vp = {
       s = \\a => 
-            let verb  = vpTenses vp ! t.t ! t.a ! p.p ! a ! False ! Perf ;
+            let verb  = vpTenses vp ! t.t ! t.a ! p.p ! a ! Main ! Perf ;
                 compl = vp.compl ! a
           in t.s ++ p.s ++ verb ++ compl
       } ;

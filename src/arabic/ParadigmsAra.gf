@@ -108,7 +108,7 @@ resource ParadigmsAra = open
              ----     ++ n.s2 ! Sg ! Def ! c -- NB this hack works for idaafa constructions (if you used mkN : N -> N -> N), but wrong for mkN : N -> A -> N. /IL
 ----        }))) ;
     mkLN : NP -> LN
-      = \np -> np ;
+      = \np -> lin LN np ;
   } ;
 
 --3 Relational nouns
@@ -814,7 +814,7 @@ resource ParadigmsAra = open
 
   dirV3 = overload {
     dirV3 : V -> Prep -> V3 = \v,p -> mkV3 v (casePrep acc) p ;
-    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPreposition s)
+    dirV3 : V -> Str -> V3 = \v,s -> mkV3 v (casePrep acc) (mkPrep s)
     } ;
 
   dirdirV3 v = dirV3 v (casePrep acc) ;
@@ -875,7 +875,7 @@ resource ParadigmsAra = open
   mkAS,
   mkAV = \a -> a ;
   mkA2S,
-  mkA2V = \a,p -> prepA2 a (mkPreposition p) ;
+  mkA2V = \a,p -> lin A (prepA2 a (mkPreposition p)) ;
 
 
 
@@ -951,25 +951,25 @@ oper
     wmkA : {masc_sg, masc_pl, root, sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root, pl_patt : Str} -> A
-      = \r -> mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, root : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg, fem_sg, root : Str} -> A
       = \r -> mkA r.root ; ----
     wmkA : {masc_sg, fem_sg, masc_pl, fem_pl, pl_patt : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; fem_sg : Str; root : Str ; sg_patt : Str} -> A
       = \r -> mkA r.root r.sg_patt ;
     wmkA : {masc_sg : Str; fem_sg : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; fem_pl : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl : Str; fem_sg : Str} -> A
-      = \r ->  mascFemAdj r.masc_sg r.fem_sg ;
+      = \r -> mascFemA r.masc_sg r.fem_sg ;
     wmkA : {masc_sg : Str; masc_pl : Str; root : Str} -> A
       = \r -> mkA r.root ;
     wmkA : {masc_sg : Str; masc_pl, pl_patt : Str; root : Str} -> A
