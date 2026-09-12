@@ -51,7 +51,7 @@ lin
   intYear = symb ;
 
   -- : Int -> Monthday ; -- 31th (March)
-  intMonthday i = symb { s = i.s ++ "日" } ; 
+  intMonthday i = symb (lin Int {s = i.s ++ "日"}) ;
 
 
 
