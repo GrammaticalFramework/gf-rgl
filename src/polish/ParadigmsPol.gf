@@ -26,9 +26,13 @@
 
     mkA2 : A -> Str -> ComplCase -> A2 ;
 
+    mkAdv : Str -> Adv ; -- an adverb from a string
+
 
 --.
 -- Definitions hidden from the public API
+
+  mkAdv s = lin Adv {s = s} ;
 
   ComplCase = ResPol.ComplCase ;
   genPrep = GenPrep ;
@@ -41,6 +45,7 @@
     { nom = (tab form)!SF Sg Nom;
       voc = (tab form)!SF Sg VocP;
       dep = let forms = (tab form) in table {
+                  NomPrep          =>forms!SF Sg Nom;
                   GenPrep|GenNoPrep=>forms!SF Sg Gen;
                   AccPrep|AccNoPrep=>forms!SF Sg Acc;
                   DatPrep|DatNoPrep=>forms!SF Sg Dat;
@@ -101,6 +106,13 @@
         let ntable : SubstForm => Str = guess_paradigm_basic sgnom
         in NM.mkN ntable gender ;
       -- 2 string
+      -- NB: sggen is deliberately NOT passed to guess_paradigm. The 2-string
+      -- guess_paradigm table is unsound: its first branch <_ + "a", _ + "">
+      -- matches every noun in -a (the suffix "" matches anything), and its
+      -- branches disagree about whether mkNTable* takes the nominative
+      -- (mkNTable0021 does Predef.tk 1) or the bare stem (mkNTable0308 does
+      -- not). Routing sggen there turns "liczba"/"liczby" into "liczbaa".
+      -- Until that table is repaired, the 1-string guesser is the sound path.
       mkNGender : Str -> Str -> Gender -> N = \sgnom,sggen,gender ->
        let ntable : SubstForm => Str = guess_paradigm sgnom
        in NM.mkN ntable gender ;
@@ -373,6 +385,9 @@
         _ + "ń" => NM.mkNTable0142 sgnom ; -- Alternatives: mkNTable0268,mkNTable0290,mkNTable0297,mkNTable0468,mkNTable0592,mkNTable0612,mkNTable0674,mkNTable0676,mkNTable0775,mkNTable0815,mkNTable0935,mkNTable1004
         _ + "ł" => NM.mkNTable0151 sgnom ; -- Alternatives: mkNTable0192,mkNTable0280,mkNTable0533,mkNTable0601
         _ + "ę" => NM.mkNTable0379 sgnom ; -- Alternatives: mkNTable0604
+        -- -ość is the productive feminine abstract-noun suffix (sprzeczność,
+        -- własność, równość); it always takes the kość declension.
+        _ + "ość" => NM.mkNTable0475 sgnom ;
         _ + "ć" => NM.mkNTable0069 sgnom ; -- Alternatives: mkNTable0475,mkNTable0567,mkNTable0573,mkNTable0649,mkNTable0734,mkNTable0792,mkNTable0793,mkNTable0794,mkNTable0814,mkNTable0838,mkNTable0922,mkNTable0923,mkNTable1014
         _ + "ź" => NM.mkNTable0316 sgnom ; -- Alternatives: mkNTable0633,mkNTable0661,mkNTable0722,mkNTable0732,mkNTable0771
         _ + "y" => NM.mkNTable0012 sgnom ; -- Alternatives: mkNTable0050,mkNTable0058,mkNTable0123,mkNTable0203,mkNTable0635,mkNTable0665,mkNTable0777,mkNTable0886,mkNTable1020

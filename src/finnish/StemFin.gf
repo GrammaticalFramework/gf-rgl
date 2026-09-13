@@ -76,7 +76,7 @@ oper
     let
       tuoree = init (tuore.s ! NCase Sg Gen) ;
       tuoreesti  = tuoree + "sti" ;
-      tuoreemmin =  init tuoree ;
+      tuoreemmin = init tuoree + "in" ;
     in {s = table {
          AN f => tuore.s ! f ;
          AAdv => if_then_Str isPos tuoreesti tuoreemmin

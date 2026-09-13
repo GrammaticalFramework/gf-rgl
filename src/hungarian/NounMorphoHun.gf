@@ -1,7 +1,7 @@
 resource NounMorphoHun = ParamHun ** open Prelude, Predef in {
 
 oper
-  Noun = {s : NumCaseStem => Str ; h : Harm} ;
+  Noun = {s : NumCaseStem => Str ; h : Harm ; g : Gender} ;
 
   -- Paradigm functions
   -- http://www.cse.chalmers.se/~aarne/articles/smart-preprint.pdf
@@ -275,6 +275,7 @@ oper
           PossdSg_PossrSg1P2 => init possdSg_PossrSg1P2 ;
           PossdPl => possdPl } ;
         h = h ;
+        g = NonHuman
       } ;
 
 
@@ -571,7 +572,7 @@ oper
             <_,_ + #v> => endCaseVow ;
             <_,_ + #v + ("sz"|"z"|"s"|"zs"|"j"|"ly"|"l"|"r"|"n"|"ny"|"ssz"
             |"zz"|"ss"|"ll"|"rr"|"nn"|"ns"|"nsz"|"nz")> => endCaseConsAcc ;
-            <True,_>  => endCaseConsAccAt ;
+            <True,_>  => endCaseCons ;
             _ => endCaseCons } ;
 
         -- Last consonant doubles before instrumental and translative
@@ -593,7 +594,7 @@ oper
 
                -- All other singular forms and stems
                c         => w + endCaseSg c ! h } ;
-
+         g = NonHuman
         } ;
 
 

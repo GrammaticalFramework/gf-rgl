@@ -4,7 +4,7 @@ concrete RelativeSom of Relative = CatSom ** open
 
 lin
   --  : Cl -> RCl ;            -- such that John loves her
-  -- RelCl cl = {s = cl.s ! Subord} ;
+  RelCl cl = {s = \\g,c,t,a,p => (cl2rcl cl).s ! t ! a ! p} ;
 
   -- : RP -> VP -> RCl ;
   {- NB. this works because vfSubord only puts different forms from vfStatement
@@ -34,7 +34,7 @@ lin
   IdRP = {s = ""} ; -- no overt relative pronoun "that, which". For "what" e.g. "tell me what you saw", use waxa. (Nilsson p. 107)
 
   -- : Prep -> NP -> RP -> RP ;  -- the mother of whom
-  --FunRP prep np rp = {} ;
+  FunRP prep np rp = {s = prep.s ! ZeroObj ++ np.s ! Abs ++ rp.s} ;
 
 oper
 

@@ -3,6 +3,7 @@
 concrete LangMkd of Lang = 
   GrammarMkd,
   LexiconMkd
+  ,ConstructionMkd
   ,DocumentationMkd --# notpresent
 
   ** {

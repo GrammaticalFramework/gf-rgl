@@ -111,6 +111,27 @@ lin
     s3= ""
     } ;
 
+{-
+-}  --# notpresent
+
+  InflectionCl = \cl -> {
+    t  = "cl" ;
+    s1 = heading1 "Clause" ;
+    s2 = frameTable (
+           tr (intagAttr "th" "colspan=\"3\"" "Simple tenses" ++
+               intagAttr "th" "colspan=\"3\"" "Perfect tenses") ++
+           tr (th "tense" ++ th "declarative" ++ th "interrogative" ++
+               th "tense" ++ th "declarative" ++ th "interrogative") ++
+           inflClauseTense "present"     "present perfect"     Pres cl ++
+           inflClauseTense "past"        "past perfect"        Past cl ++
+           inflClauseTense "future"      "future perfect"      Fut  cl ++
+           inflClauseTense "conditional" "conditional perfect" Cond cl
+         )
+    } ;
+
+{-  --# notpresent
+-}
+
   InflectionV v = {
     t = "v" ;
     s1= heading1 "Verb" ++
@@ -227,6 +248,25 @@ lin
     } ;
 
 oper
+
+{-
+-}  --# notpresent
+
+  inflClauseTense : Str -> Str -> ResEng.Tense -> Cl -> Str = \simple,perfect,tense,cl ->
+    tr (intagAttr "th" "rowspan=\"2\"" simple ++
+        td (cl.s ! tense ! Simul ! CPos       ! ODir False) ++
+        td (cl.s ! tense ! Simul ! CPos       ! OQuest) ++
+        intagAttr "th" "rowspan=\"2\"" perfect ++
+        td (cl.s ! tense ! Anter ! CPos       ! ODir False) ++
+        td (cl.s ! tense ! Anter ! CPos       ! OQuest)) ++
+    tr (td (cl.s ! tense ! Simul ! CNeg True  ! ODir False) ++
+        td (cl.s ! tense ! Simul ! CNeg True  ! OQuest) ++
+        td (cl.s ! tense ! Anter ! CNeg True  ! ODir False) ++
+        td (cl.s ! tense ! Anter ! CNeg True  ! OQuest)) ;
+
+{-  --# notpresent
+-}
+
   inflVerb : Verb -> Str = \verb ->
     frameTable (
       tr (th "infinitive"    ++ td (verb.s ! VInf)) ++

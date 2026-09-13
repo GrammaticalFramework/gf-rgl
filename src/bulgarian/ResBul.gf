@@ -77,12 +77,17 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
 
     VVType = VVInf Aspect | VVGerund ;
 
+    Mood =
+       Indicative
+     | Renarrative ;
+
     Tense =
        VPresent
-     | VPastSimple     --# notpresent
-     | VPastImperfect  --# notpresent
-     | VFut            --# notpresent
-     | VCond           --# notpresent
+     | VPastSimple    Mood --# notpresent
+     | VPastImperfect Mood --# notpresent
+     | VPastFut            --# notpresent
+     | VFut           Mood --# notpresent
+     | VCond          Mood --# notpresent
      ;
 
 -- The order of sentence is needed already in $VP$.
@@ -403,6 +408,19 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
               }
       } ;
 
+    auxWill : Number => Person => Str =
+      table {
+        Sg => table {
+                P1 => "щях" ;
+                _  => "щеше"
+              } ;
+        Pl => table {
+                P1 => "щяхме" ;
+                P2 => "щяхте" ;
+                P3 => "щяха"
+              }
+      } ;
+
     verbBe    : Verb = {s=table Aspect [auxBe; auxWould] ; vtype=VNormal} ;
 
     reflClitics : Case => Str = table {Acc => "се"; Dat => "си"; WithPrep => with_Word ++ "себе си"; CPrep => "себе си"} ;
@@ -519,18 +537,17 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
                 _         => Pos
               } ;
           agr = personAgr gn p1 ;
-          verb  : Bool => Str
-                = \\q => vpTenses vp ! t ! a ! p ! agr ! q ! Perf ;
+          verb  : Order => Str
+                = \\o => vpTenses vp ! t ! a ! p ! agr ! o ! Perf ;
           compl = vp.compl ! agr
         in case o of {
-             Main  => subj ++ verb ! False ++ compl ;
-             Inv   => verb ! False ++ compl ++ subj ;
-             Quest => subj ++ verb ! True ++ compl
+             Inv   => verb ! Inv ++ compl ++ subj ;
+             o     => subj ++ verb ! o ++ compl
            }
     } ;
 
-  vpTenses : VP -> Tense => Anteriority => Polarity => Agr => Bool => Aspect => Str =
-    \verb -> \\t,a,p,agr,q0,asp =>
+  vpTenses : VP -> Tense => Anteriority => Polarity => Agr => Order => Aspect => Str =
+    \verb -> \\t,a,p,agr,o,asp =>
       let clitic = case verb.vtype of {
                      VNormal      => {s=verb.clitics; agr=agr} ;
                      VMedial c    => {s=verb.clitics++reflClitics ! c; agr=agr} ;
@@ -543,11 +560,14 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
           aorist = verb.s ! asp ! (VAorist (numGenNum clitic.agr.gn) clitic.agr.p) ;
           imperfect = verb.s ! Imperf ! (VImperfect (numGenNum clitic.agr.gn) clitic.agr.p) ;
           perfect = verb.s ! asp ! (VPerfect (aform clitic.agr.gn Indef (RObj Acc))) ;
+          pluperfect = verb.s ! asp ! (VPluPerfect (aform clitic.agr.gn Indef (RObj Acc))) ;
 
           auxPres   = auxBe ! VPres (numGenNum clitic.agr.gn) clitic.agr.p ;
           auxAorist = auxBe ! VAorist (numGenNum clitic.agr.gn) clitic.agr.p ;
+          auxPerf   = auxBe ! VPerfect (aform clitic.agr.gn Indef (RObj Acc)) ;
           auxImperf = auxBe ! VImperfect (numGenNum clitic.agr.gn) clitic.agr.p ;
           auxCondS  = auxCond ! numGenNum clitic.agr.gn ! clitic.agr.p ;
+          auxWillS  = auxWill ! numGenNum clitic.agr.gn ! clitic.agr.p ;
 
           apc : Str -> Str = \s ->
             case <numGenNum clitic.agr.gn, clitic.agr.p> of {
@@ -555,22 +575,33 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
               _        => auxPres++s++clitic.s
             } ;
 
-          li0 = case <verb.ad.isEmpty,q0> of {<False,True> => "ли"; _ => []} ;
+          li0 = case <verb.ad.isEmpty,o> of {
+                  <False,Quest> => "ли" ;
+                  _             => []
+                } ;
 
-          q   = case verb.ad.isEmpty of {True => q0; False => False} ;
-          li  = case q of {True => "ли"; _ => []} ;
+          li  = case <verb.ad.isEmpty,o> of {
+                  <True,Quest> => "ли";
+                   _           => []
+                } ;
 
           vf1 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
-              Pos => case q of {True  => {s1=[]; s2="ли"++apc []};
-                                False => {s1=apc []; s2=[]}} ;
+              Pos => case <verb.ad.isEmpty,o> of {
+                       <True,Quest> => {s1=[]; s2="ли"++apc []};
+                       <True,Inv>   => {s1=[]; s2=apc []};
+                       _            => {s1=apc []; s2=[]}
+                     } ;
               Neg => {s1="не"++apc li; s2=[]}
             } ;
 
           vf2 : Str -> {s1 : Str; s2 : Str} = \s ->
             case p of {
-              Pos => case q of {True  => {s1=[]; s2="ли"++s};
-                                False => {s1=s;  s2=[]}} ;
+              Pos => case <verb.ad.isEmpty,o> of {
+                       <True,Quest> => {s1=[]; s2="ли"++s};
+                       <True,Inv>   => {s1=[]; s2=s};
+                       _            => {s1=s;  s2=[]}
+                     } ;
               Neg => case verb.vtype of
                        {VNormal => {s1="не"++s;     s2=li} ;
                         _       => {s1="не"++s++li; s2=[]}}
@@ -588,18 +619,63 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
               Neg => {s1="не"++s++li++clitic.s; s2=[]}
             } ;
 
+          vf5 : Str -> {s1 : Str; s2 : Str} = \s ->
+            case p of {
+              Pos => {s1=auxWillS++li++"да"++s; s2=[]} ;
+              Neg => {s1="нямаше"++li++"да"++s; s2=[]}
+            } ;
+
+          vf6 : Str -> {s1 : Str; s2 : Str} = \s ->
+            case p of {
+              Pos => let aux : Str =
+                        case numGenNum clitic.agr.gn of {
+                          Sg => "щял" ;
+                          Pl => "щели"
+                        }
+                     in case <verb.ad.isEmpty,o> of {
+                          <True,Quest> => {s1=aux++li++auxPres++"да"++s; s2=[]};
+                          <True,Inv>   => {s1=aux++auxPres++"да"++s; s2=[]};
+                          _            => {s1=auxPres++aux++li++"да"++s; s2=[]}
+                        } ;
+              Neg => {s1="нямало"++li++"да"++s; s2=[]}
+            } ;
+
+          vf7 : {s1 : Str; s2 : Str} =
+            case <a,clitic.agr.p> of {
+              <Simul,P1> => case <p,o> of {
+                              <Pos,Inv> => {s1=[]; s2=auxPres++li++clitic.s} ;
+                              <Pos,_>   => {s1=auxPres++li++clitic.s; s2=[]} ;
+                              <Neg,_>   => {s1="не"++auxPres++li++clitic.s; s2=[]}
+                            } ;
+              <Simul,P2> => vf4 auxPres ;
+              <Simul,P3> => vf2 clitic.s ;
+              <Anter,P3> => vf4 auxPerf ;
+              <Anter,_ > => case <p,o> of {
+                              <Pos,Inv> => {s1=[]; s2=auxPres++li++clitic.s++auxPerf} ;
+                              <Pos,_>   => {s1=auxPres++li++clitic.s++auxPerf; s2=[]} ;
+                              <Neg,_>   => {s1="не"++auxPres++li++clitic.s++auxPerf; s2=[]}
+                            }
+            } ;
+
           verbs : {aux:{s1:Str; s2:Str}; main:Str} =
             case <t,a> of {
               <VPresent,Simul> => {aux=vf2 clitic.s;  main=presentImperf}
-              ;                                                    --# notpresent
+              ;  --# notpresent
               <VPresent,Anter> => {aux=vf1 clitic.s;  main=perfect} ; --# notpresent
-              <VPastSimple,Simul> => {aux=vf2 clitic.s;  main=aorist} ; --# notpresent
-              <VPastSimple,Anter> => {aux=vf4 auxAorist; main=perfect} ; --# notpresent
-              <VPastImperfect,Simul> => {aux=vf2 clitic.s;  main=imperfect} ; --# notpresent
-              <VPastImperfect,Anter> => {aux=vf4 auxImperf; main=perfect} ; --# notpresent
-              <VFut, Simul> => {aux=vf3 clitic.s;  main=present} ; --# notpresent
-              <VFut, Anter> => {aux=vf3 (apc []);  main=perfect} ; --# notpresent
-              <VCond,_    > => {aux=vf4 auxCondS;  main=perfect} --# notpresent
+              <VPastSimple Indicative,Simul> => {aux=vf2 clitic.s;  main=aorist} ; --# notpresent
+              <VPastSimple Indicative,Anter> => {aux=vf4 auxAorist; main=perfect} ; --# notpresent
+              <VPastSimple Renarrative,_> => {aux=vf7;  main=pluperfect} ; --# notpresent
+              <VPastImperfect Indicative,Simul> => {aux=vf2 clitic.s;  main=imperfect} ; --# notpresent
+              <VPastImperfect Indicative,Anter> => {aux=vf4 auxImperf;  main=perfect} ; --# notpresent
+              <VPastImperfect Renarrative,_> => {aux=vf7;  main=perfect} ; --# notpresent
+              <VPastFut,Simul> => {aux=vf5 clitic.s;  main=present} ; --# notpresent
+              <VPastFut,Anter> => {aux=vf5 (apc []); main=perfect} ; --# notpresent
+              <VFut Indicative, Simul> => {aux=vf3 clitic.s;  main=present} ; --# notpresent
+              <VFut Indicative, Anter> => {aux=vf3 (apc []);  main=perfect} ; --# notpresent
+              <VFut Renarrative, Simul> => {aux=vf6 clitic.s;  main=present} ; --# notpresent
+              <VFut Renarrative, Anter> => {aux=vf6 (apc []);  main=perfect} ; --# notpresent
+              <VCond Indicative,_    > => {aux=vf4 auxCondS;  main=perfect} ; --# notpresent
+              <VCond Renarrative,_    > => {aux=vf4 (auxCondS++auxPerf); main=perfect} --# notpresent
             }
 
       in verb.ad.s ++ li0 ++ verbs.aux.s1 ++ verbs.main ++ verbs.aux.s2 ;

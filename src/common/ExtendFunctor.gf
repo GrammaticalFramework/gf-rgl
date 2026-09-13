@@ -101,7 +101,7 @@ lin
   InOrderToVP = variants {} ;     -- VP -> Adv ; -- (in order) to publish the document
   ApposNP = variants {} ;     -- NP -> NP -> NP ; -- Mr Macron, the president of France,
   AdAdV = variants {} ;     -- AdA -> AdV -> AdV ; -- almost always
-  UttAdV = variants {} ;     -- AdV -> Utt ; -- always(!)
+  UttAdV adv = {s = adv.s} ;     -- AdV -> Utt ; -- always(!)
   PositAdVAdj = variants {} ;     -- A -> AdV ; -- (that she) positively (sleeps)
   CompS = variants {} ;     -- S -> Comp ; -- (the fact is) that she sleeps
   CompQS = variants {} ;     -- QS -> Comp ; -- (the question is) who sleeps
@@ -138,9 +138,6 @@ lin
   ExistIPQS t p np = UseQCl t p (ExistIP np) ;
 
   SubjunctRelCN cn rs = RelCN cn rs ; -- no difference from indicative
-
-lincat
-  X = {s : Str} ;
 
 lin
   UseComp_estar = UseComp ;

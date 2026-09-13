@@ -40,17 +40,17 @@ oper
     };
 
   mkV = overload {
-    mkV  : Str -> Verb  
+    mkV  : Str -> V
     = \root -> lin V (smartVerb root);  --{s =root; pres =[]; perf = []; morphs= mkVerbMorphs; isRegular = True}; --only those verbs whose conjugation involves change of last letter and are done in the same way in both runyankore and rukiga
-    mkV  : Str -> Str ->Str -> Verb 
+    mkV  : Str -> Str ->Str -> V
     = \root, restPres, restPerf ->lin V (mkVerb root restPres restPerf);
-    mkV  : Str -> Str ->Str ->Str -> Bool -> Verb 
+    mkV  : Str -> Str ->Str ->Str -> Bool -> V
     = \root, restPres, restPerf, p, bool ->lin V (mkVerbV2X root restPres restPerf p bool);
   };
   
   mkV2 = overload {
-    mkV2 : Str -> V2 = \root ->dirV2 (smartVerb root); --**  {comp =[] ; isCompN2 = False};
-    mkV2 : Str -> Str ->Str -> V2 = \root, s1, s2 ->dirV2 (mkVerb root s1 s2); --**  {comp =[] ; isCompN2 = False};
+    mkV2 : Str -> V2 = \root ->dirV2 (lin V (smartVerb root)); --**  {comp =[] ; isCompN2 = False};
+    mkV2 : Str -> Str ->Str -> V2 = \root, s1, s2 ->dirV2 (lin V (mkVerb root s1 s2)); --**  {comp =[] ; isCompN2 = False};
   };
   mkV3 = overload {
     mkV3 : Str -> Verb3 = \root ->mkV2 root ** {comp2 =[]};
@@ -213,7 +213,7 @@ mkInterj : Str -> Interj
   mkV0 : V -> V;
   mkV0  v = v ;
   mkA2 : Str -> Position -> Bool -> Bool ->Bool-> A2V = \a2, pos, isProper, isPrep,isNeg -> 
-    lin A2V ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});
+    lin A2 (mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True};
   --mkA2V : A -> A2V;
   --mkA2V a = lin A2V (a * {c2 = ""; isPre = True});
   mkA2V : Str -> Position -> Bool -> Bool ->Bool-> A2 =\a2, pos, isProper, isPrep,isNeg -> lin A2 ((mkAdjective a2 pos isProper isPrep isNeg) ** {c2 = ""; isPre = True});

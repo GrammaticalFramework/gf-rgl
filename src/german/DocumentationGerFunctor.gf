@@ -134,6 +134,35 @@ lin
     s2 = paragraph (S.mkAdv (lin Prep p) (S.mkNP S.a_Det L.computer_N)).s
     } ;
 
+{-
+-}  --# notpresent
+
+  InflectionCl = \cl -> {
+    t  = "satz" ;
+    s1 = heading1 "Satz" ;
+    s2 = frameTable (
+           tr (intagAttr "th" "colspan=3" "Einfache Tempora" ++
+               intagAttr "th" "colspan=3" "Perfekte Tempora") ++
+           tr (th "Tempus" ++ th "Aussage" ++ th "Frage" ++
+               th "Tempus" ++ th "Aussage" ++ th "Frage") ++
+           inflClauseTense (heading present_Parameter)
+                           (heading present_Parameter ++ " " ++ heading perfect_Parameter)
+                           Pres cl ++
+           inflClauseTense (heading past_Parameter)
+                           (heading past_Parameter ++ " " ++ heading perfect_Parameter)
+                           Past cl ++
+           inflClauseTense (heading future_Parameter)
+                           (heading future_Parameter ++ " " ++ heading perfect_Parameter)
+                           Fut cl ++
+           inflClauseTense (heading conditional_Parameter)
+                           (heading conditional_Parameter ++ " " ++ heading perfect_Parameter)
+                           Cond cl
+         )
+    } ;
+
+{-  --# notpresent
+-}
+
   InflectionV v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++  
@@ -213,7 +242,25 @@ lin
   MkDocument d i e = ss (i.s1 ++ d.s ++ i.s2 ++ paragraph e.s) ;  -- explanation appended in a new paragraph
   MkTag i = ss i.t ;
 
-oper 
+oper
+{-
+-}  --# notpresent
+
+  inflClauseTense : Str -> Str -> ResGer.Tense -> Cl -> Str = \simple,perfect,tense,cl ->
+    tr (intagAttr "th" "rowspan=2" simple ++
+        td (cl.s ! MIndic ! tense ! Simul ! Pos ! Main) ++
+        td (cl.s ! MIndic ! tense ! Simul ! Pos ! Inv) ++
+        intagAttr "th" "rowspan=2" perfect ++
+        td (cl.s ! MIndic ! tense ! Anter ! Pos ! Main) ++
+        td (cl.s ! MIndic ! tense ! Anter ! Pos ! Inv)) ++
+    tr (td (cl.s ! MIndic ! tense ! Simul ! Neg ! Main) ++
+        td (cl.s ! MIndic ! tense ! Simul ! Neg ! Inv) ++
+        td (cl.s ! MIndic ! tense ! Anter ! Neg ! Main) ++
+        td (cl.s ! MIndic ! tense ! Anter ! Neg ! Inv)) ;
+
+{-  --# notpresent
+-}
+
   verbExample : CatGer.Cl -> Str = \cl ->
      (S.mkUtt cl).s 
      ++ ";" ++ (S.mkUtt (S.mkS S.anteriorAnt cl)).s  --# notpresent

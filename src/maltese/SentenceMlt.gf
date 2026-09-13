@@ -40,6 +40,11 @@ concrete SentenceMlt of Sentence = CatMlt ** open
         } ;
     } ;
 
+    -- Adv -> Imp -> Imp
+    AdvImp adv imp = {
+      s = \\pol,n => adv.s ++ imp.s ! pol ! n
+      } ;
+
     -- NP -> VPSlash -> ClSlash
     -- (whom) he sees
     SlashVP np vp =

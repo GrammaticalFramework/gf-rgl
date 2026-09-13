@@ -15,50 +15,50 @@ lin
          paragraph (x.s) ++
          heading1 "Converb" ++
          frameTable (
-           tr (th "Imperfective" ++ td (x.Converb.Imperfective)) ++
-           tr (th "Simultaneous" ++ td (x.Converb.Simultaneous)) ++
-           tr (th "Perfective" ++ td (x.Converb.Perfective)) ++
-           tr (th "Futute I" ++ td (x.Converb.FutCon1)) ++
-           tr (th "Futute II" ++ td (x.Converb.FutCon2)) ++
-           tr (th "Connegative" ++ td (x.Converb.Negative))) ++
+           tr (th "Imperfective" ++ td (x.converb.imperfective)) ++
+           tr (th "Simultaneous" ++ td (x.converb.simultaneous)) ++
+           tr (th "Perfective" ++ td (x.converb.perfective)) ++
+           tr (th "Futute I" ++ td (x.converb.futCon1)) ++
+           tr (th "Futute II" ++ td (x.converb.futCon2)) ++
+           tr (th "Connegative" ++ td (x.converb.negative))) ++
         heading1 "Passive" ++
-        paragraph x.Passive ++
+        paragraph x.passive ++
         heading1 "Participle" ++
         frameTable (
-           tr (th "Resultative" ++ td (x.Participle ! Resultative)) ++
-           tr (th "Subject" ++ td (x.Participle ! Subject))) ++
+           tr (th "Resultative" ++ td (x.participle ! Resultative)) ++
+           tr (th "Subject" ++ td (x.participle ! Subject))) ++
          heading1 "Past" ++
          frameTable (
            tr (th "" ++ th "Sg" ++ th "Pl") ++
-           tr (th "P1" ++ td (x.Past ! P1 ! Sg) ++ td (x.Past ! P1 ! Pl)) ++
-           tr (th "P2" ++ td (x.Past ! P2 ! Sg) ++ td (x.Past ! P2 ! Pl)) ++
-           tr (th "P3" ++ td (x.Past ! P3 ! Sg) ++ td (x.Past ! P3 ! Pl))) ++
+           tr (th "P1" ++ td (x.past ! P1 ! Sg) ++ td (x.past ! P1 ! Pl)) ++
+           tr (th "P2" ++ td (x.past ! P2 ! Sg) ++ td (x.past ! P2 ! Pl)) ++
+           tr (th "P3" ++ td (x.past ! P3 ! Sg) ++ td (x.past ! P3 ! Pl))) ++
         heading1 "Subjunctive" ++
         frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++ 
            tr (intagAttr "th" "rowspan=\"3\"" "Perfect" ++
-               th "P1" ++ td (x.Subjunctive ! Perfect ! P1 ! Sg) ++ td (x.Subjunctive ! Perfect ! P1 ! Pl)) ++
-           tr (th "P2" ++ td (x.Subjunctive ! Perfect ! P2 ! Sg) ++ td (x.Subjunctive ! Perfect ! P2 ! Pl)) ++
-           tr (th "P3" ++ td (x.Subjunctive ! Perfect ! P3 ! Sg) ++ td (x.Subjunctive ! Perfect ! P3 ! Pl)) ++
+               th "P1" ++ td (x.subjunctive ! Perfect ! P1 ! Sg) ++ td (x.subjunctive ! Perfect ! P1 ! Pl)) ++
+           tr (th "P2" ++ td (x.subjunctive ! Perfect ! P2 ! Sg) ++ td (x.subjunctive ! Perfect ! P2 ! Pl)) ++
+           tr (th "P3" ++ td (x.subjunctive ! Perfect ! P3 ! Sg) ++ td (x.subjunctive ! Perfect ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"3\"" "Non_Past" ++
-               th "P1" ++ td (x.Subjunctive ! Non_Past ! P1 ! Sg) ++ td (x.Subjunctive ! Non_Past ! P1 ! Pl)) ++
-           tr (th "P2" ++ td (x.Subjunctive ! Non_Past ! P2 ! Sg) ++ td (x.Subjunctive ! Non_Past ! P2 ! Pl)) ++
-           tr (th "P3" ++ td (x.Subjunctive ! Non_Past ! P3 ! Sg) ++ td (x.Subjunctive ! Non_Past ! P3 ! Pl))) ++
+               th "P1" ++ td (x.subjunctive ! Non_Past ! P1 ! Sg) ++ td (x.subjunctive ! Non_Past ! P1 ! Pl)) ++
+           tr (th "P2" ++ td (x.subjunctive ! Non_Past ! P2 ! Sg) ++ td (x.subjunctive ! Non_Past ! P2 ! Pl)) ++
+           tr (th "P3" ++ td (x.subjunctive ! Non_Past ! P3 ! Sg) ++ td (x.subjunctive ! Non_Past ! P3 ! Pl))) ++
          heading1 "Conditional" ++
          frameTable (           
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Sg" ++ th "Pl") ++
            tr (intagAttr "th" "rowspan=\"3\"" "Perfect" ++
-               th "P1" ++ td (x.Conditional ! Perfect ! P1 ! Sg) ++ td (x.Conditional ! Perfect ! P1 ! Pl)) ++
-           tr (th "P2" ++ td (x.Conditional ! Perfect ! P2 ! Sg) ++ td (x.Conditional ! Perfect ! P2 ! Pl)) ++
-           tr (th "P3" ++ td (x.Conditional ! Perfect ! P3 ! Sg) ++ td (x.Conditional ! Perfect ! P3 ! Pl)) ++
+               th "P1" ++ td (x.conditional ! Perfect ! P1 ! Sg) ++ td (x.conditional ! Perfect ! P1 ! Pl)) ++
+           tr (th "P2" ++ td (x.conditional ! Perfect ! P2 ! Sg) ++ td (x.conditional ! Perfect ! P2 ! Pl)) ++
+           tr (th "P3" ++ td (x.conditional ! Perfect ! P3 ! Sg) ++ td (x.conditional ! Perfect ! P3 ! Pl)) ++
            tr (intagAttr "th" "rowspan=\"4\"" "Non_Past" ++ 
-               th "P1" ++ td (x.Conditional ! Non_Past ! P1 ! Sg) ++ td (x.Conditional ! Non_Past ! P1 ! Pl)) ++
-           tr (th "P2" ++ td (x.Conditional ! Non_Past ! P2 ! Sg) ++ td (x.Conditional ! Non_Past ! P2 ! Pl)) ++
-           tr (th "P3" ++ td (x.Conditional ! Non_Past ! P3 ! Sg) ++ td (x.Conditional ! Non_Past ! P3 ! Pl))) ++
+               th "P1" ++ td (x.conditional ! Non_Past ! P1 ! Sg) ++ td (x.conditional ! Non_Past ! P1 ! Pl)) ++
+           tr (th "P2" ++ td (x.conditional ! Non_Past ! P2 ! Sg) ++ td (x.conditional ! Non_Past ! P2 ! Pl)) ++
+           tr (th "P3" ++ td (x.conditional ! Non_Past ! P3 ! Sg) ++ td (x.conditional ! Non_Past ! P3 ! Pl))) ++
          heading1 "Imperative" ++
          frameTable (
            tr (th "Sg" ++ th "Pl") ++
-           tr (td (x.Imperative_Jussive ! Sg) ++ td (x.Imperative_Jussive ! Pl))) ;
+           tr (td (x.imperative ! Sg) ++ td (x.imperative ! Pl))) ;
       s3=[]
     } ;
 lin

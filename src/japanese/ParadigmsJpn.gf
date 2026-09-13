@@ -50,6 +50,10 @@ oper
       = \jon,jonsan -> lin PN (personPN jon jonsan)
     } ;
 
+  mkGN : Str -> GN = \s -> lin GN (regPN s);
+  mkLN : Str -> LN = \s -> lin LN (regPN s);
+  mkSN : Str -> SN = \s -> lin SN (regPN s);
+
   mkPron = overload {
     mkPron : (kare : Str) -> (Pron1Sg : Bool) -> (anim : Animacy) -> Pron
       = \kare,b,a -> lin Pron (regPron kare b a) ;

@@ -1,7 +1,6 @@
 --# -path=.:prelude:alltenses
 
 concrete LexiconSnd of Lexicon = CatSnd ** 
---open ResSnd, Prelude in {
   open ParadigmsSnd,MorphoSnd, Prelude in {
 
   flags 

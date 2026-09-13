@@ -23,6 +23,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "ja";
 	   voc = "ja";
 	   dep = table {
+	     NomPrep => "ja";
 	     (GenNoPrep|GenPrep) => "mnie";
 	     DatNoPrep => "mi";
 	     DatPrep => "mnie";
@@ -114,6 +115,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	   nom = "ty" ; 
 	   voc = "ty" ;
 	   dep = table {  --  it is simplyfied to avoid variants
+	     NomPrep => "ty";
 	     GenNoPrep => "cię";
 	     GenPrep => "ciebie";
 	     DatNoPrep => "tobie";
@@ -133,6 +135,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "pan" ;
 	   voc = "panie" ;
 	   dep = table {
+	     NomPrep => "pan";
 	     GenNoPrep => "pana"; --"go"};
 	     GenPrep => "pana";
 	     DatNoPrep => "panu"; --"mu"};
@@ -152,6 +155,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "pani" ;
 	   voc = "pani" ;
 	   dep = table {
+	     NomPrep => "pani";
 	     GenNoPrep => "pani"; --"go"};
 	     GenPrep => "pani";
 	     DatNoPrep => "pani"; --"mu"};
@@ -171,6 +175,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "on" ;
 	   voc = "on" ;
 	   dep = table {
+	     NomPrep => "on";
 	     GenNoPrep => "jego"; --"go"};
 	     GenPrep => "niego";
 	     DatNoPrep => "jemu"; --"mu"};
@@ -191,6 +196,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "ona" ;
 	   voc = "ona" ;
 	   dep = table {
+	     NomPrep => "ona";
 	     GenNoPrep => "jej";
 	     GenPrep  => "niej";
 	     DatNoPrep => "jej";
@@ -247,6 +253,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	   nom = "ono" ; -- The true nom. and voc. forms will be that of the subject 
 	   voc = "ono" ; -- Here, we use the neuter pronoun as a shortcut
 	   dep = table {  
+	     NomPrep => "ono";
 	     GenNoPrep => "się";
 	     GenPrep => "siebie";
 	     DatNoPrep => "sobie";
@@ -265,6 +272,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "ono" ;
 	   voc = "ono" ;
 	   dep= table {
+	     NomPrep => "ono";
 	     GenNoPrep  => "jego"; --"go";
 	     GenPrep  => "niego";
 	     DatNoPrep  => "jemu"; --"mu";
@@ -285,6 +293,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "my"; 
 	   voc = "my";
 	   dep = table {
+	     NomPrep => "my";
 	     (GenNoPrep|GenPrep)  => "nas";
 	     (DatNoPrep|DatPrep)  => "nam"; 
 	     (AccNoPrep|AccPrep)  => "nas";
@@ -338,6 +347,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "wy" ;
 	   voc = "wy" ;
 	   dep = table {
+	     NomPrep => "wy";
 	     (GenNoPrep|GenPrep) => "was";
 	     (DatNoPrep|DatPrep) => "wam"; 
 	     (AccNoPrep|AccPrep) => "was";
@@ -391,6 +401,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "oni" ;
 	   voc = "oni" ;
 	   dep = table {
+	     NomPrep => "oni";
 	     GenNoPrep => "ich";
 	     GenPrep => "nich";
 	     DatNoPrep => "im";
@@ -411,6 +422,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "one" ;
 	   voc = "one" ;
 	   dep = table {
+	     NomPrep => "one";
 	     GenNoPrep => "ich";
 	     GenPrep => "nich";
 	     DatNoPrep => "im";
@@ -429,6 +441,7 @@ resource PronounMorphoPol = ResPol ** open Prelude, (Predef=Predef) in {
 	 { nom = "one" ;
 	   voc = "one" ;
 	   dep = table {
+	     NomPrep => "one";
 	     GenNoPrep => "ich";
 	     GenPrep => "nich";
 	     DatNoPrep => "im";

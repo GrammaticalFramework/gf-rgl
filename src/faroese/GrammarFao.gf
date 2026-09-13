@@ -2,5 +2,15 @@ concrete GrammarFao of Grammar =
   TenseX,
   PhraseFao,
   NounFao,
-  AdjectiveFao ** {
+  VerbFao,
+  AdjectiveFao,
+  AdverbFao,
+  NumeralFao,
+  SentenceFao,
+  QuestionFao,
+  RelativeFao,
+  ConjunctionFao,
+  StructuralFao,
+  IdiomFao,
+  NamesFao ** {
 }

@@ -65,7 +65,7 @@ lin
   monthPN m = ss m.s ;
 
   languageNP l = mkNP l ;
-  languageCN l = mkCN l ;
+  languageCN l = l ;
 
     monday_Weekday = mkN (R.thword "วัน" "จั" "นท" "ร์") ;
     tuesday_Weekday = mkN (R.thword "วัน" "อัง" "คาร") ;

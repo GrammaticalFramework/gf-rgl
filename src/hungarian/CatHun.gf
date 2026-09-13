@@ -76,8 +76,7 @@ concrete CatHun of Cat = CommonX - [Adv] ** open ResHun, Prelude in {
 
 -- Constructed in NumeralHun.
 
-    Card = ResHun.Numeral ;
-    Numeral = ResHun.Numeral ;
+    Card, ACard, Numeral = ResHun.Numeral ;
     Digits = {s : CardOrd => Str} ;
     Decimal = {s : CardOrd => Str; hasDot : Bool} ;
 
@@ -126,5 +125,8 @@ linref
    NP = linNP ;
    V,VS,VQ,VA = \v -> v.s ! VPres P3 Sg ;
    V2,V3,V2S,V2Q,V2A = \v -> v.s ! Indef ! VPres P3 Sg ;
+   VP = \vp -> vp.obj ++ vp.adv ++ vp.s ! VInf ;
 
+lindef
+   VP = \s -> {s = \\_=>s; obj,adv=[]; sc=SCNom; c2=Acc} ;
 }

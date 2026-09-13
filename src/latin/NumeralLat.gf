@@ -1,4 +1,4 @@
-concrete NumeralLat of Numeral = CatLat, ParamX[Number] ** open ParadigmsLat, Prelude, ResLat, Predef in {
+concrete NumeralLat of Numeral = CatLat ** open ParadigmsLat, Prelude, ResLat, Predef in {
   lincat 
     Digit      = TDigit ;
     Sub10      = TNumeral ;

@@ -1,4 +1,4 @@
-concrete NamesSom of Names = CatSom ** open ResSom, Prelude in {
+concrete NamesSom of Names = CatSom ** open ResSom, ParadigmsSom, Prelude in {
 
 lin GivenName, MaleSurname, FemaleSurname = \n -> n ** {
     s = \\c => n.s ;
@@ -20,6 +20,12 @@ lin FullName gn sn = {
     isPron = False ;
     st = Definite ;
     empty = [] ;
+    } ;
+
+  InLN ln = prepNP (mkPrep ku) (UseLN ln) ;
+
+  AdjLN ap ln = ln ** {
+    s = ap.s ! AF Sg Abs ++ ln.s
     } ;
 
 }

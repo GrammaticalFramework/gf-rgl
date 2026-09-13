@@ -115,14 +115,14 @@ lin above_Prep = mkPrep (mkPrep ka) [] [] "dul" ;
 -- lin after_Prep = mkPrep ""
 -- lin before_Prep = mkPrep "" ;
 -- lin behind_Prep = mkPrep ""  ;
-lin between_Prep = possPrep (nUl "dhex") ;
+lin between_Prep = possPrep (lin N (nUl "dhex")) ;
 -- lin by8agent_Prep = mkPrep ;
 -- lin by8means_Prep = mkPrep ;
 -- lin during_Prep = mkPrep ;
 -- lin except_Prep = mkPrep ;
 -- lin for_Prep = mkPrep ;
 -- lin from_Prep = mkPrep "" ;
-lin in8front_Prep = possPrep (nUl "hor") ;
+lin in8front_Prep = possPrep (lin N (nUl "hor")) ;
 lin in_Prep = mkPrep ku ;
 lin on_Prep = mkPrep ku ;
 -- lin part_Prep = mkPrep ;
@@ -130,7 +130,7 @@ lin on_Prep = mkPrep ku ;
 -- lin through_Prep = mkPrep ;
 -- lin to_Prep = mkPrep ;
 lin under_Prep =
-    let hoos : CatSom.Prep = possPrep (nUl "hoos")
+    let hoos : CatSom.Prep = possPrep (lin N (nUl "hoos"))
      in hoos ** {c2 = Ku} ;
 lin with_Prep = mkPrep la ;
 -- lin without_Prep = mkPrep ;
@@ -176,7 +176,7 @@ lin yes_Utt = ss "haa" ;
 -------
 -- Verb
 
-lin have_V2 = mkV2 have_V noPrep ; -- TODO: check if {sii = "l" ++ BIND ; isCopula=True} makes sense for present tense negative
+lin have_V2 = mkV2 (lin V have_V) noPrep ; -- TODO: check if {sii = "l" ++ BIND ; isCopula=True} makes sense for present tense negative
 lin can8know_VV = can_VV ; -- can (capacity)
 lin can_VV = mkVV "kar" ;   -- can (possibility)
 lin must_VV = mkVV waa_in ;
@@ -190,18 +190,17 @@ lin please_Voc = ss "" ;
 -}
 oper
   mkIAdv : Adposition -> Str -> Bool -> ResSom.IAdv = \pr ->
-    let pr' : Prep = ParadigmsSom.mkPrep pr ;
-     in prepIP pr' ;
+    prepIP (ParadigmsSom.mkPrep pr) ;
 
-  mkIP : (maxay, maxaa : Str) -> Bool -> IP = \maxay,maxaa,b -> emptyNP ** {
+  mkIP : (maxay, maxaa : Str) -> Bool -> IP = \maxay,maxaa,b -> lin IP (emptyNP ** {
     s = table {
       Nom => maxaa ; -- together with STM
       Abs => maxay } ; -- alone, no STM (used in UttIP and IComp)
     contractSTM = b ;
-    } ;
+    }) ;
 
-  prepIP : Prep -> Str -> Bool -> ResSom.IAdv = \pr,str,b ->
+  prepIP : CatSom.Prep -> Str -> Bool -> ResSom.IAdv = \pr,str,b ->
     let adv : Adverb = prepNP (mkPrep pr str [] []) emptyNP ;
-     in adv ** {contractSTM = b ; s = linAdv adv} ;
+     in lin IP (adv ** {contractSTM = b ; s = linAdv adv}) ;
 
 }

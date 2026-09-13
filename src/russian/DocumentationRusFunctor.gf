@@ -3,6 +3,7 @@
 incomplete concrete DocumentationRusFunctor of Documentation = CatRus ** open
   Terminology, -- the interface
   ResRus,
+  TenseRus,
   ParadigmsRus,
   Prelude,
   HTML
@@ -145,6 +146,18 @@ lin
                     })
     } ;
 
+  InflectionCl = \cl -> {
+    t  = "кл" ;
+    s1 = heading1 "Предложение" ;
+    s2 = frameTable (
+           tr (th "Время" ++ th "Утверждение" ++ th "Вопрос") ++
+           clauseTense (heading present_Parameter) Pres cl ++
+           clauseTense (heading past_Parameter) Past cl ++
+           clauseTense (heading future_Parameter) Fut cl ++
+           clauseTense (heading conditional_Parameter) Cond cl
+         )
+    } ;
+
   InflectionV, InflectionV2, InflectionV3,
   InflectionV2V, InflectionV2S, InflectionV2Q,
   InflectionV2A, InflectionVS, InflectionVQ,
@@ -163,7 +176,22 @@ lin
 oper
 {-
 -} --# notpresent
-  inflVerb : CatRus.V -> Str = \v ->
+  clauseTense : Str -> ResRus.Tense -> Cl -> Str = \label,tense,cl ->
+    tr (intagAttr "th" "rowspan=\"2\"" label ++
+        td (clauseForm tense Pos cl) ++
+        td (clauseForm tense Pos cl)) ++
+    tr (td (clauseForm tense Neg cl) ++
+        td (clauseForm tense Neg cl)) ;
+
+  clauseForm : ResRus.Tense -> Polarity -> Cl -> Str = \tense,pol,cl ->
+    ResRus.verbEnvAgr cl.subj cl.adv cl.verb Ind tense cl.a
+      (case pol of {Pos => PPos ; Neg => PNeg}) ++
+    cl.dep ++
+    cl.compl ! pol ;
+
+{-
+-} --# notpresent
+  inflVerb : VerbForms -> Str = \v ->
     let fut : Agr=>Str = \\a => verbFutAgree v a in
     let pres : Agr=>Str = \\a => verbPresAgree v a in
     let past : Agr=>Str = \\a => verbPastAgree v a "" in

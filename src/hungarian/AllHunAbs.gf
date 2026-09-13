@@ -2,5 +2,6 @@
 
 abstract AllHunAbs =
   Lang,
+  IrregHunAbs,
   Extend
   ** {} ;

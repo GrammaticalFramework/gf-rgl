@@ -148,7 +148,7 @@ oper
     let 
       tuoree = tuore.s ! 1 ;
       tuoreesti  = tuoree + "sti" ; 
-      tuoreemmin =  init tuoree ;
+      tuoreemmin = init tuoree + "in" ;
     in {s = table {
          SAN f => tuore.s ! f ;
          SAAdv => if_then_Str isPos tuoreesti tuoreemmin

@@ -35,6 +35,7 @@ fun
   InflectionAdA : AdA -> Inflection ;
   InflectionAdN : AdN -> Inflection ;
   InflectionPrep : Prep -> Inflection ;
+  InflectionCl : Cl -> Inflection ;
 
 fun
   NoDefinition   : String -> Definition ;

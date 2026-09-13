@@ -300,9 +300,6 @@ fun
   CardCNCard : Card -> CN -> Card ;  -- three million, four lakh, six dozen etc
 
 fun
-  AnaphPron : NP -> Pron ;
-
-fun
   TPastSimple : Tense ;
 
 fun

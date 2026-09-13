@@ -83,6 +83,7 @@ concrete CatGer of Cat =
 
     Num = {s,sp : AForm => Str ; n : Number ; isNum : Bool} ; -- Num,Card.s AForm HL 12/23
     Card = {s : AForm => Str ; n : Number} ; -- inflection mainly for: einer,eine,eines
+    ACard = {s : Str ; n : Number} ;
     Ord = {s : AForm => Str} ;
 
 -- Numeral

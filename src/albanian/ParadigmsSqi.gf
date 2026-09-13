@@ -1327,7 +1327,7 @@ oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
                                     }
                            }
                 } ;
-            spec = Indef
+            sp = Indef
           } ;
 
 oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
@@ -1350,7 +1350,7 @@ oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
                              Fem => f8
                            }
                 } ;
-            spec = Indef ;
+            sp = Indef ;
             n = n
           } ;
 

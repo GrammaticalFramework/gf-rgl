@@ -60,6 +60,9 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
     Pron = Pronoun ;
 
     Det = Determiner ;
+    DAP = Determiner ** {
+      adj : GenNum => Str
+      } ;
     Predet = {s : Str} ;
     Quant = Quantifier ;
 
@@ -80,6 +83,10 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
 
     -- [AZ]
     Card = {
+      s : NumCase => Str ;
+      n : NumForm ;
+      } ;
+    ACard = {
       s : NumCase => Str ;
       n : NumForm ;
       } ;
@@ -127,10 +134,6 @@ concrete CatMlt of Cat = CommonX - [Adv] ** open ResMlt, Prelude in {
 
 -- Overridden from CommonX
 
-    Adv = {
-      s : Str ;
-      joinsVerb : Bool ; -- Adv "for us" completely integrates into verb at VP level
-      a : Agr ; -- when joinsVerb, this is important
-      } ;
+    Adv = Adverb ;
 
 }

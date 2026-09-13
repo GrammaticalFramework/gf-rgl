@@ -15,7 +15,7 @@ resource ResHun = NounMorphoHun ** open Prelude, Predef in {
 oper
   CNoun : Type = Noun ** {
     compl : Number => Case => Str ;
-    postmod : Str ;
+    postmod : Str
     } ;
 
   mkCaseNoun : Str -> Number => Case => Str = \s ->
@@ -75,6 +75,7 @@ oper
     agr : Person*Number ;
     objdef : ObjDef ;
     empty : Str ; -- standard trick for pro-drop
+    g : Gender ;
     } ;
 
   NounPhrase : Type = BaseNP ** {
@@ -86,6 +87,7 @@ oper
     s = \\_,_ => [] ;
     agr = <P3,Sg> ;
     objdef = Indef ;
+    g = NonHuman ;
     postmod, empty = [] ;
     } ;
 
@@ -395,6 +397,24 @@ oper
     <P3,Pl> => harm "nak" "nek"  -- TODO allomorphs -anak, -enek
     } ;
 
+  endingsPastIndef : VerbEndings = table {
+    <P1,Sg> => harm3 "tam" "tem" "tem" ;
+    <P2,Sg> => harm "tál" "tél" ;
+    <P3,Sg> => harm1 "t" ;
+    <P1,Pl> => harm "tunk" "tünk" ;
+    <P2,Pl> => harm3 "tatok" "tetek" "tötök" ;
+    <P3,Pl> => harm "tak" "tek"
+    } ;
+
+  endingsPastDef : VerbEndings = table {
+    <P1,Sg> => harm3 "tam" "tem" "tem" ;
+    <P2,Sg> => harm "tad" "ted" ;
+    <P3,Sg> => harm "ta" "te" ;
+    <P1,Pl> => harm "tuk" "tük" ;
+    <P2,Pl> => harm "tátok" "tétek" ;
+    <P3,Pl> => harm "ták" "ték"
+    } ;
+
   BaseVerb : Type = {
     sc : SubjCase ; -- subject case
   } ;
@@ -406,7 +426,7 @@ oper
     c2 : Case   -- object case
     } ;
   Verb3 : Type = Verb2 ** {
-    -- c3 : Case   -- indirect object case
+    c3 : Case   -- indirect object case
     } ;
 
   datV2 : Verb -> Verb2 = \v -> {
@@ -418,18 +438,44 @@ oper
   mkVerb2 : Str -> Verb2 = \sg3 -> vtov2 (mkVerb sg3) ;
   mkVerb3 : Str -> Verb3 = \sg3 -> v2tov3 (mkVerb2 sg3) ;
 
+  futureAux : ObjDef -> Person -> Number -> Str = \od,p,n ->
+    case <od,p,n> of {
+      <Indef,P1,Sg> => "fogok" ;
+      <Indef,P2,Sg> => "fogsz" ;
+      <Indef,P3,Sg> => "fog" ;
+      <Indef,P1,Pl> => "fogunk" ;
+      <Indef,P2,Pl> => "fogtok" ;
+      <Indef,P3,Pl> => "fognak" ;
+      <Def,P1,Sg> => "fogom" ;
+      <Def,P2,Sg> => "fogod" ;
+      <Def,P3,Sg> => "fogja" ;
+      <Def,P1,Pl> => "fogjuk" ;
+      <Def,P2,Pl> => "fogjátok" ;
+      <Def,P3,Pl> => "fogják"
+    } ;
+
   vtov2 : Verb -> Verb2 = \v -> v ** {
     s = table {
-          Def => let vDef : Verb = mkVerbReg endingsDef (v.s ! VInf) (v.s ! VPres P3 Sg)
+          Def => let vDef : Verb = mkVerbRegPast endingsDef endingsPastDef
+                                   (v.s ! VInf) (v.s ! VPres P3 Sg)
                   in vDef.s ;
           Indef => v.s } ;
     c2 = Acc
     } ;
   v2tov3 : Verb2 -> Verb3 = \v -> v ** {c3 = Dat} ;
 
-  mkVerb : (sg3 : Str) -> Verb = mkVerbReg endingsIndef "TODO:infinitive" ; -- TODO
+  mkVerb : (sg3 : Str) -> Verb = \sg3 ->
+    let inf : Str
+            = case sg3 of {
+                _ + ("ít" | (#c + #c)) => sg3 + harm3 "ani" "eni" "eni" ! getHarm sg3 ;
+                _                      => sg3 + "ni"
+            }
+    in mkVerbReg endingsIndef inf sg3 ;
 
-  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb = \hf,inf,stem ->
+  mkVerbReg : VerbEndings -> (inf, stem : Str) -> Verb =
+    \hf,inf,stem -> mkVerbRegPast hf endingsPastIndef inf stem ;
+
+  mkVerbRegPast : VerbEndings -> VerbEndings -> (inf, stem : Str) -> Verb = \hf,pastHf,inf,stem ->
     let h : Harm = getHarm stem ;
         sg1 : Str = stem + hf ! <P1,Sg> ! h ;
         sg2 : Str = stem + hf ! <P2,Sg> ! h ;
@@ -437,10 +483,43 @@ oper
         pl1 : Str = stem + hf ! <P1,Pl> ! h ;
         pl2 : Str = stem + hf ! <P2,Pl> ! h ;
         pl3 : Str = stem + hf ! <P3,Pl> ! h ;
-     in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3 inf ;
+        pastSg1 : Str = stem + pastHf ! <P1,Sg> ! h ;
+        pastSg2 : Str = stem + pastHf ! <P2,Sg> ! h ;
+        pastSg3 : Str = stem + pastHf ! <P3,Sg> ! h ;
+        pastPl1 : Str = stem + pastHf ! <P1,Pl> ! h ;
+        pastPl2 : Str = stem + pastHf ! <P2,Pl> ! h ;
+        pastPl3 : Str = stem + pastHf ! <P3,Pl> ! h ;
+        ppart : Str = case sg3 of {
+                          x + "o" + y@("g"|"l") => x+y+"ó" ;
+                          _ + ("ér"|"éz"|"ít")  => sg3 + "ő" ;
+                          _                     => sg3 + "ó"
+                      } ;
+        apart : Str = sg3 + harm "va" "ve" ! h
+     in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3
+                   pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                   inf ppart apart ;
 
-  mkVerbFull : (x1,_,_,_,_,_,x7 : Str) -> Verb =
-    \sg1,sg2,sg3,pl1,pl2,pl3,inf -> {
+  mkVerbPres : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+    \sg1,sg2,sg3,pl1,pl2,pl3,inf ->
+      let h : Harm = getHarm sg3 ;
+          pastSg1 : Str = sg3 + endingsPastIndef ! <P1,Sg> ! h ;
+          pastSg2 : Str = sg3 + endingsPastIndef ! <P2,Sg> ! h ;
+          pastSg3 : Str = sg3 + endingsPastIndef ! <P3,Sg> ! h ;
+          pastPl1 : Str = sg3 + endingsPastIndef ! <P1,Pl> ! h ;
+          pastPl2 : Str = sg3 + endingsPastIndef ! <P2,Pl> ! h ;
+          pastPl3 : Str = sg3 + endingsPastIndef ! <P3,Pl> ! h ;
+          ppart : Str = case sg3 of {
+                          x + "o" + y@("g"|"l") => x+y+"ó" ;
+                          _ + ("ér"|"éz"|"ít")  => sg3 + "ő" ;
+                          _                     => sg3 + "ó"
+                        } ;
+          apart : Str = sg3 + harm "va" "ve" ! h
+       in mkVerbFull sg1 sg2 sg3 pl1 pl2 pl3
+                     pastSg1 pastSg2 pastSg3 pastPl1 pastPl2 pastPl3
+                     inf ppart apart ;
+
+  mkVerbFull : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Verb =
+    \sg1,sg2,sg3,pl1,pl2,pl3,pastSg1,pastSg2,pastSg3,pastPl1,pastPl2,pastPl3,inf,ppart,apart -> {
       s = table {
         VInf => inf ;
         VPres P1 Sg => sg1 ;
@@ -448,7 +527,15 @@ oper
         VPres P3 Sg => sg3 ;
         VPres P1 Pl => pl1 ;
         VPres P2 Pl => pl2 ;
-        VPres P3 Pl => pl3
+        VPres P3 Pl => pl3 ;
+        VPast P1 Sg => pastSg1 ;
+        VPast P2 Sg => pastSg2 ;
+        VPast P3 Sg => pastSg3 ;
+        VPast P1 Pl => pastPl1 ;
+        VPast P2 Pl => pastPl2 ;
+        VPast P3 Pl => pastPl3 ;
+        VPresPart => ppart ;
+        VAdvPart => apart
       } ;
       sc = SCNom
     } ;
@@ -460,7 +547,15 @@ oper
     "vagyunk"
     "vagytok"
     "vannak"
-    "lenni" ;
+    "voltam"
+    "voltál"
+    "volt"
+    "voltunk"
+    "voltatok"
+    "voltak"
+    "lenni"
+    "levő"
+    "léve" ;
 
   megvan : Verb = copula ** {
     s = \\vf => "meg" + copula.s ! vf ;
@@ -489,8 +584,22 @@ oper
     adv = [] ;
     } ;
 
-  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = adv.s} ;
-  insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = adv.s} ;
+  insertAdv : VerbPhrase -> SS -> VerbPhrase = \vp,adv -> vp ** {adv = vp.adv ++ adv.s} ;
+  insertAdvSlash : VPSlash -> SS -> VPSlash = \vps,adv -> vps ** {adv = vps.adv ++ adv.s} ;
+
+  infVP : VerbPhrase -> Str = \vp ->
+    vp.obj ++ vp.adv ++ vp.s ! VInf ;
+
+  infVPSlash : VPSlash -> Str = \vps ->
+    vps.adv ++ vps.s ! Indef ! VInf ;
+
+  verbStemFromInf : Str -> Str = \inf ->
+    case inf of {
+      stem + "ani" => stem ;
+      stem + "eni" => stem ;
+      stem + "ni"  => stem ;
+      _            => inf
+    } ;
 
 --------------------------------------------------------------------------------
 -- Cl, S
@@ -515,7 +624,11 @@ oper
                                                SCDat => Dat }
                         in linNP' NoPoss subjcase np
                         ++ if_then_Pol p [] "nem"
-                        ++ vp.s ! agr2vf np.agr
+                        ++ case <t,np.agr.p1,np.agr.p2> of {
+                             <Past,p,n> => vp.s ! VPast p n ;
+                             <Fut,p,n>  => futureAux Indef p n ++ vp.s ! VInf ;
+                             <_,p,n>    => vp.s ! VPres p n
+                           }
                         ++ vp.obj -- ! np.agr
                         ++ vp.adv
                         ++ np.empty -- standard trick for prodrop+metavariable problem
@@ -523,27 +636,32 @@ oper
 
   -- Relative
 
-  RP : Type = {s : Number => Case => Str} ;
-  RClause : Type = {s : Tense => Anteriority => Polarity => Number => Case => Str} ;
+  RP : Type = {s : Gender => Number => Case => Str} ;
+  RClause : Type = {s : Tense => Anteriority => Polarity => Gender => Number => Case => Str} ;
 
   relVP : RP -> VerbPhrase -> RClause = \rp -> relVP' (rp ** {agr=<P3,Sg>}) ;
 
   relVP' : RP ** {agr : Person*Number} -> VerbPhrase -> RClause = \rp,vp -> {
-    s = \\t,a,p,n,c => let subjcase : Case = case vp.sc of {
+    s = \\t,a,p,g,n,c => let subjcase : Case = case vp.sc of {
                                                SCNom => Nom ;
                                                SCDat => Dat }
-                        in rp.s ! n ! subjcase
+                        in rp.s ! g ! n ! subjcase
                         ++ if_then_Pol p [] "nem"
                         ++ vp.obj -- ! <rp.agr.p1,n>
                         ++ vp.adv
-                        ++ vp.s ! VPres rp.agr.p1 n -- variable by number
+                        ++ case <t,rp.agr.p1,n> of {
+                             <Past,p,n> => vp.s ! VPast p n ;
+                             <Fut,p,n>  => futureAux Indef p n ++ vp.s ! VInf ;
+                             <_,p,n>    => vp.s ! VPres p n
+                           }  -- variable by number
     } ;
 
   relSlash : RP -> ClSlash -> RClause = \rp,cls -> {
-    s = \\t,a,p,n,c => let objcase : Case = case cls.c2 of {
-                                              Acc => c ;
-                                              _ => cls.c2 }
-                    in rp.s ! n ! objcase
+    s = \\t,a,p,g,n,c => let objcase : Case = case cls.c2 of {
+                                                Acc => c ;
+                                                _ => cls.c2
+                                              }
+                    in rp.s ! g ! n ! objcase
                     ++ cls.s ! t ! a ! p
    } ;
 --------------------------------------------------------------------------------

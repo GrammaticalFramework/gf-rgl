@@ -1,50 +1,58 @@
---concrete VerbTel of Verb = CatTel ** open ResTel in {
---
---  flags optimize=all_subs ;
---
---  lin
---    UseV = predV ;
---
---    SlashV2a v = predV v ** {c2 = v.c2} ;
---
-----    Slash2V3 v np = 
-----      insertObjc (\\_ => v.c2 ++ np.s ! Acc) (predV v ** {c2 = v.c3}) ;
-----    Slash3V3 v np = 
-----      insertObjc (\\_ => v.c3 ++ np.s ! Acc) (predVc v) ; ----
-----
-----    ComplVV v vp = insertObj (\\a => infVP v.isAux vp a) (predVV v) ;
-----    ComplVS v s  = insertObj (\\_ => conjThat ++ s.s) (predV v) ;
-----    ComplVQ v q  = insertObj (\\_ => q.s ! QIndir) (predV v) ;
-----    ComplVA v ap = insertObj (ap.s) (predV v) ;
-----
-----    SlashV2V v vp = insertObjc (\\a => infVP v.isAux vp a) (predVc v) ;
-----    SlashV2S v s  = insertObjc (\\_ => conjThat ++ s.s) (predVc v) ;
-----    SlashV2Q v q  = insertObjc (\\_ => q.s ! QIndir) (predVc v) ;
-----    SlashV2A v ap = insertObjc (\\a => ap.s ! a) (predVc v) ; ----
---
---    ComplSlash vp np = insertObject np vp ;
---
-----    SlashVV vv vp = 
-----      insertObj (\\a => infVP vv.isAux vp a) (predVV vv) **
-----        {c2 = vp.c2} ;
-----    SlashV2VNP vv np vp = 
-----      insertObjPre (\\_ => vp.c2 ++ np.s ! Acc)
-----        (insertObjc (\\a => infVP vv.isAux vp a) (predVc vv)) **
-----          {c2 = vp.c2} ;
-----
-----    UseComp comp = insertComplement comp.s (predAux auxBe) ;
-----
-----    AdvVP vp adv = insertObj (\\_ => adv.s) vp ;
-----
-----    AdVVP adv vp = insertAdV adv.s vp ;
-----
-----    ReflVP v = insertObjPre (\\a => v.c2 ++ reflPron ! a) v ;
-----
-----    PassV2 v = insertObj (\\_ => v.s ! VPPart) (predAux auxBe) ;
-----
-----
-----    CompAP ap = ap ;
-----    CompNP np = {s = \\_ => np.s ! Acc} ;
-----    CompAdv a = {s = \\_ => a.s} ;
-----
---}
+concrete VerbTel of Verb = CatTel ** open ResTel, Prelude in {
+
+  flags optimize=all_subs ;
+
+  lin
+    UseV = predV ;
+
+    SlashV2a v = predV v ** {c2 = v.c2} ;
+
+    SlashV2A v ap = predV v ** {
+      c2 = v.c2 ;
+      comp = \\agr => case agr of {Ag g n _ => ap.s ! g ! n ! Dir}
+      } ;
+
+    Slash2V3 v np =
+      let vp = insertObject np (predV v ** {c2 = v.c2})
+      in vp ** {c2 = v.c3} ;
+
+    Slash3V3 v np =
+      let vp = insertObject np (predV v ** {c2 = v.c3})
+      in vp ** {c2 = v.c2} ;
+
+    AdvVPSlash vps adv = vps ** {
+      comp = \\agr => vps.comp ! agr ++ adv.s
+      } ;
+
+    AdVVPSlash adv vps = vps ** {
+      comp = \\agr => adv.s ++ vps.comp ! agr
+      } ;
+
+    ComplSlash vp np = insertObject np vp ;
+
+    ComplVV v vp = predV v ** {
+      comp = \\agr => let f = vp.s ! Pos ! VPInf in
+        f.inf ++ f.fin
+      } ;
+
+    ComplVS v s = predV v ** {comp = \\_ => s.s} ;
+    ComplVQ v q = predV v ** {comp = \\_ => q.s} ;
+    ComplVA v ap = predV v ** {comp = \\agr => case agr of {
+      Ag g n _ => ap.s ! g ! n ! Dir
+      }} ;
+
+    AdVVP adv vp = insertAdv adv.s vp ;
+
+    UseComp comp = predV (regVerb []) ** {comp = comp.s} ;
+
+    CompAP ap = {s = \\agr => case agr of {
+      Ag g n _ => ap.s ! g ! n ! Dir
+      }} ;
+    CompNP np = {s = \\_ => np.s ! NPC Obl} ;
+    CompAdv adv = {s = \\_ => adv.s} ;
+    CompCN cn = {s = \\_ => cn.s ! Sg ! Dir} ;
+
+    AdvVP vp adv = insertAdv adv.s vp ;
+    ExtAdvVP vp adv = insertAdv adv.s vp ;
+
+}

@@ -44,6 +44,7 @@ oper
 
 -- To abstract over case names, we define the following.
 
+
   Case       : Type ;     -- the four cases of nouns, noun phrases etc.
   ObjCase    : Type ;     -- the three cases for objects(!) of verbs and prepositions
 
@@ -248,7 +249,7 @@ mkN : overload {
   -- Prepositions with CAdvPron/CIPron forms generated from prep, e.g. auf -> da/wo+r+auf
 
   mkCPrep : overload { -- preposition contracting with relative pronoun ! RSentence (TODO: check!)
-    mkCPrep : Str -> ObjCase -> Prep ;    -- preposition contracting with IP/RP, e.g. wo-mit, wo-r-an
+    mkCPrep : Str -> ObjCase -> Prep ;        -- preposition contracting with IP/RP, e.g. wo-mit, wo-r-an
     mkCPrep : Str -> ObjCase -> Str -> Prep ; -- circumposition contracting with IP, e.g. von wo-her
     mkCPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep ; -- prep maybe contracting with defArtSg
                                               -- and generated CAdvPron, CIPron forms
@@ -620,22 +621,78 @@ mkV2 : overload {
                  CIPron => p ++ (caselist "was" "was" "wem" "wessen") ! (Obj c) ;
                  _ => p} ;
        s2 = q ; c = c ; t = isPrep ; lock_Prep = <>} ;
+{-
+    mkPrep : Str -> Case -> Prep = \p,c ->  -- TODO IPron Adv
+      {s = case c of {Nom => prepForms p (p ++ "der") (p ++ "die") (p ++ "das")
+                        (p ++ artDef ! GSg Neutr ! Nom) (p ++ "was") ;
+                      Obj Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das")
+                        (p ++ artDef ! GSg Neutr ! c) (p ++ "was") ;
+                      Obj Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem")
+                        (p ++ artDef ! GSg Neutr ! c) (p ++ "wem") ;
+                      Obj Gen => prepForms p (p ++ "des") (p ++ "der") (p ++ "des")
+                        (p ++ "dessen") (p ++ "wessen")} ;
+       s2 = [] ; c = objCase c ; t = isPrep ; lock_Prep = <>
+      } ;
+-}
     mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \p,masc,fem,neutr,c ->
       mkCPrep p masc fem neutr c ;             -- preposition contracting with defArtSg and
     } ;                                        -- pronominal adverb/interrogative da/wo+prep
 
-  accPrep = mkPrep accusative ;
-  datPrep = mkPrep dative ;
-  genPrep = mkPrep genitive ;
+  accPrep = mkPrep Acc ; -- accusative ;
+  datPrep = mkPrep Dat ; -- dative ;
+  genPrep = mkPrep Gen ; -- genitive ;
 
-  von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
-  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
-  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" dative ;
-  inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
-  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
-  anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
-  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
-  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" accusative ;
+  von_Prep   = mkPrep "von" "vom" "von der" "vom" Dat ; -- dative ;
+  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" Dat ; -- dative ;
+  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" Dat ; -- dative ;
+  inDat_Prep = mkPrep "in" "im" "in der" "im" Dat ; -- dative ;
+  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" Acc ; -- accusative ; ;
+  anDat_Prep = mkPrep "an" "am" "an der" "am" Dat ; -- dative ;
+  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" Acc ; -- accusative ; ;
+  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" Acc ; -- accusative ; ;
+
+  mkCPrep = overload {
+    mkCPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \s,masc,fem,neutr,c ->
+      {s = pflist s masc fem neutr ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkCPrep : Str -> ObjCase -> Prep = \p,c ->
+      {s = case c of {Acc => pflist p (p ++ "den") (p ++ "die") (p ++ "das") ;
+                      Dat => pflist p (p ++ "dem") (p ++ "der") (p ++ "dem") ;
+                      _   => pflist p (p ++ "des") (p ++ "der") (p ++ "des")} ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>
+      } ;
+    mkCPrep : Str -> ObjCase -> Str -> Prep = \p,c,post ->
+      {s = let dawo = pronAdvs post ;
+               darauf = dawo.p1 ;
+               worauf = dawo.p2
+         in case c of {
+         Acc => prepForms p (p++"den") (p++"die") (p++"das") darauf worauf ;
+         Dat => prepForms p (p++"dem") (p++"der") (p++"dem") darauf worauf ;
+         _   => prepForms p (p++"des") (p++"der") (p++"des") darauf worauf} ;
+       s2 = post ; c = c ; t = isPrep ; lock_Prep = <>
+      }
+    } ;
+  pronAdvs : Str -> Str * Str = \auf ->    -- da|wo-rauf|mit, des|wes-halb|wegen
+    let
+      rauf : Str   = case auf of {("a" | "i" | "u" | "ü") + _ => "r" + auf ; _ => auf} ;
+      darauf : Str = case rauf of {("ha" | "w") + _ => "des" + rauf ; _ => "da"+ rauf} ;
+      worauf : Str = case rauf of {("ha" | "w") + _ => "wes" + rauf ; _ => "wo"+ rauf} ;
+    in
+    <darauf, worauf> ;
+
+  pflist : (x1,_,_,x4 : Str) -> PrepForm => Str = \auf,m,f,n ->
+    let
+      rauf : Str   = case auf of {("a" | "i" | "u" | "ü") + _ => "r" + auf ; _ => auf} ;
+      darauf : Str = case rauf of {("ha" | "w") + _ => "des" + rauf ; _ => "da"+ rauf} ;
+      worauf : Str = case rauf of {("ha" | "w") + _ => "wes" + rauf ; _ => "wo"+ rauf} ;
+    in
+    prepForms auf m f n darauf worauf ;
+
+  prepForms : (x1,_,_,_,_,x6 : Str) -> PrepForm => Str = \p,m,f,n,da,wo ->
+    table {CPl => p ;
+           CSg Masc => m ; CSg Fem => f ; CSg Neutr => n ;
+           CAdvPron => da ; CIPron => wo} ;
+
 
   mkCPrep = overload { -- with CAdvPron/CIPron forms generated from prep, e.g. auf -> da/wo+r+auf
     mkCPrep : Str -> ObjCase -> Prep = \p,c -> -- not contracted with DefArtSg

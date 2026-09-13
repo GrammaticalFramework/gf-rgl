@@ -1,12 +1,14 @@
-resource ResFao = {
+resource ResFao = ParamX - [Tense,Pres,Past] ** {
+
+param
+  CardOrd = NCard | NOrd Number ;
 
 param Species = Indef | Def ;
-param Number = Sg | Pl ;
 param Case = Nom | Acc | Dat | Gen ;
-param Gender = Neutr | Fem | Masc ;
-oper Noun = {s: Species => Number => Case => Str} ; -- 2135
-oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Noun =
-       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->
+param Gender = Masc | Fem | Neuter ;
+oper Noun = {s: Species => Number => Case => Str; g : Gender} ; -- 2135
+oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
+       \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,g ->
           { s = table {
                   Indef => table {
                              Sg => table {
@@ -36,7 +38,8 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Noun =
                                    Gen => f16
                                  }
                          }
-                }
+                } ;
+            g = g
           } ;
 
 
@@ -72,7 +75,7 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                                    Gen => f16
                                  }
                          } ;
-                  Neutr => table {
+                  Neuter=> table {
                              Sg => table {
                                      Nom => f17 ;
                                      Acc => f18 ;
@@ -89,17 +92,28 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                 }
           } ;
 
-param Tense = Past | Pres ;
+param Tense = Pres | Past ;
+
 param PersNum = PSg Person | PPl ;
-param Person = P1 | P3 | P2 ;
-oper Verb = {Converb: Str; Imperative_Jussive: Number => Str; Indicative: Tense => PersNum => Str; Nonfinite: Str; Participle: Tense => Str} ; -- 596
+oper persNum : Number -> Person -> PersNum =
+       \n,p -> case n of {
+                 Sg => PSg p ;
+                 Pl => PPl
+               } ;
+oper persNumNumber : PersNum -> Number =
+       \pn -> case pn of {
+                PSg _ => Sg ;
+                PPl   => Pl
+              } ;
+
+oper Verb = {Converb: Str; imperative: Number => Str; Indicative: Tense => PersNum => Str; Nonfinite: Str; Participle: Tense => Str ; particle : Str} ; -- 596
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14 ->
           { Converb = f1 ;
-            Imperative_Jussive = table {
-                                   Sg => f2 ;
-                                   Pl => f3
-                                 } ;
+            imperative = table {
+                           Sg => f2 ;
+                           Pl => f3
+                         } ;
             Indicative = table {
                            Pres => table {
                                      PSg P1 => f4 ;
@@ -118,7 +132,8 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
             Participle = table {
                            Pres => f13 ;
                            Past => f14
-                         }
+                         } ;
+           particle = []
           } ;
 
 
@@ -127,5 +142,62 @@ oper noPrep : Compl = {s=""; c=Acc} ;
 
 oper CommonNoun = Noun ;
 oper AdjPhrase = Adj ;
+oper VerbPhrase = {
+  Converb : Str ;
+  Indicative : Tense => Polarity => Gender => PersNum => Str ;
+  Nonfinite : Str ;
+  Participle : Tense => Str ;
+} ;
+oper Clause = {
+  Converb : Str ;
+  Indicative : Tense => Polarity => Str ;
+  Nonfinite : Str ;
+  Participle : Tense => Str
+} ;
+
+oper
+  copula : Tense => PersNum => Str =
+    table {
+      Pres => table {
+                PSg P1 => "eri" ;
+                PSg P2 => "ert" ;
+                PSg P3 => "er" ;
+                PPl => "eru"
+              } ;
+      Past => table {
+                PSg P1 => "var" ;
+                PSg P2 => "vart" ;
+                PSg P3 => "var" ;
+                PPl => "vóru"
+              }
+    } ;
+
+oper
+  negStr : Polarity -> Str = \pol -> case pol of {
+    Pos => [] ;
+    Neg => "ikki"
+  } ;
+
+  mkNP : Str -> Gender -> Number -> Person -> {s : Case => Str ; g : Gender ; n : Number ; p : Person} =
+    \str,g,n,p -> {
+      s = \\_ => str ;
+      g = g ;
+      n = n ;
+      p = p
+    } ;
+
+  mkCN : Str -> Gender -> CommonNoun =
+    \str,g -> {
+      s = \\_,_,_ => str ;
+      g = g
+    } ;
+
+  mkVP : Str -> VerbPhrase =
+    \str -> {
+      Converb = str ;
+      Indicative = \\_,pol,_,_ => str ++ negStr pol ;
+      Nonfinite = str ;
+      Participle = \\_ => str
+    } ;
 
 }

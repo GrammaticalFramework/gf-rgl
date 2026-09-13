@@ -56,6 +56,7 @@ oper
 -- Nouns
 
 param
+  Gender = Human | NonHuman ;
 
   NumCaseStem =
     SgNom | SgAccStem | SgSup -- These may use 2-3 different stems
@@ -73,16 +74,16 @@ param
 
   Case =
     Nom | Acc | Dat
---  | Ill  -- Locatives
+  | Ill  -- Locatives
   | Ine
   | Ela
   | All
   | Ade
   | Abl
---  | Sub
+  | Sub
   | Sup
---  | Del
---  | Cau  -- Causal-final 'for the purpose of, for the reason that'
+  | Del
+  | Cau  -- Causal-final 'for the purpose of, for the reason that'
   | Ins  -- Instrumental
   | Tra  -- Translative
   -- | Ess | Ter | For
@@ -198,14 +199,10 @@ param
 
   VForm =
       VInf
-    | VPres Person Number ;
-
-oper
-
-  agr2vf : Person*Number -> VForm = \pn ->
-    case <pn.p1,pn.p2> of {
-      <p,n> => VPres p n
-    } ;
+    | VPres Person Number
+    | VPast Person Number
+    | VPresPart
+    | VAdvPart ;
 
 --------------------------------------------------------------------------------
 -- Clauses

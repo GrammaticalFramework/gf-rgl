@@ -3,6 +3,10 @@ concrete NounHun of Noun = CatHun ** open
 
   flags optimize=all_subs ;
 
+  oper
+    hunV : pattern Str = #("a"|"e"|"i"|"o"|"u"|"ö"|"ü"|
+                           "á"|"é"|"í"|"ó"|"ú"|"ő"|"ű") ;
+
   lin
 
 --2 Noun phrases
@@ -65,7 +69,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   RelNP np rs = np ** {
-    s = \\p,c => np.s ! p ! c ++ bindComma ++ rs.s ! np.agr.p2 ! c ;
+    s = \\p,c => np.s ! p ! c ++ bindComma ++ rs.s ! np.g ! np.agr.p2 ! c ;
     } ;
 
 -- Determiners can form noun phrases directly.
@@ -144,22 +148,24 @@ concrete NounHun of Noun = CatHun ** open
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 
-{-
   -- : AdN -> Card -> Card ;
-  AdNum adn card = card ** { s = adn.s ++ card.s } ;
+  AdNum adn card = card ** { s = \\p => adn.s ++ card.s ! p } ;
 
   -- : Digits  -> Ord ;
-  OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
+  OrdDigits digs = {
+    s = \\_,_ => digs.s ! NOrd ;
+    n = Sg
+    } ;
 
   -- : Numeral -> Ord ;
-  OrdNumeral num = num ** {
-    s = \\_ => num.ord
+  OrdNumeral num = {
+    s = \\_,_ => num.s ! Attrib ;
+    n = Sg
     } ;
--}
   -- : A       -> Ord ;
   OrdSuperl a = {
     s = \\n,c =>
-      let adj : Noun = (a ** {s = a.s ! Superl}) in
+      let adj : Noun = (a ** {s = a.s ! Superl; g=NonHuman}) in
       caseFromStem glue adj c n ;
     n = Sg -- ?? is this meaningful?
     } ;
@@ -172,7 +178,7 @@ concrete NounHun of Noun = CatHun ** open
   -- : Quant
   DefArt = mkQuant "a" "a" ** {
     s,
-    sp = \\_,_ => pre {"a" ; "az" / v } ;
+    sp = \\_,_ => pre {"a" ; "az" / hunV } ;
     dt = DefDet ;
     } ;
 
@@ -185,7 +191,10 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : Pron -> Quant
   PossPron pron = pron ** {
-    s,sp = \\_ => pron.s ;
+    s,sp = \\_,_ => case pron.agr of {
+      <P3,_> => "az" ++ pron.s ! Nom ;
+      _ => pre {"a" ; "az" / hunV} ++ pron.s ! Nom
+      } ;
     dt = DetPoss (agr2pstem pron.agr) ;
     caseagr = False ;
     } ;
@@ -200,7 +209,9 @@ concrete NounHun of Noun = CatHun ** open
     } ;
 
   -- : N2 -> NP -> CN ;
-  -- ComplN2 n2 np =
+  ComplN2 n2 np = (UseN n2) ** {
+    compl = \\n,c => np.s ! NoPoss ! Dat ++ np.postmod
+    } ;
 
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   -- ComplN3 n3 np =
@@ -220,7 +231,7 @@ concrete NounHun of Noun = CatHun ** open
 
   -- : CN -> RS  -> CN ;
   RelCN cn rs = cn ** {
-    compl = \\n,c => cn.compl ! n ! c ++ rs.s ! n ! c
+    compl = \\n,c => cn.compl ! n ! c ++ rs.s ! cn.g ! n ! c
     } ;
 
   -- : CN -> Adv -> CN ;
@@ -234,7 +245,9 @@ concrete NounHun of Noun = CatHun ** open
 -- to decide. Sentential complements are defined in VerbHun.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  -- SentCN cn sc = cn ** { } ;
+  SentCN cn sc = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ sc.s
+    } ;
 
 --2 Apposition
 
@@ -248,29 +261,37 @@ concrete NounHun of Noun = CatHun ** open
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  -- PossNP cn np = cn ** {
-  --  compl = \\n,c => cn.compl ! n ! c ++ np.s ! Poss P3 n ! c -- TODO check
-  --  } ;
+  PossNP cn np = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Dat ++ np.postmod
+    } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
-  -- PartNP cn np = cn ** {
-  --   } ;
+  PartNP cn np = cn ** {
+    compl = \\n,c => cn.compl ! n ! c ++ np.s ! NoPoss ! Nom ++ np.postmod
+    } ;
 
-{-
+  -- : Det -> NP -> NP ;    -- three of them, some of the boys
+  CountNP det np = emptyNP ** det ** {
+    s = \\_,c => det.sp ! c ++ np.s ! NoPoss ! Ela ++ np.postmod ;
+    agr = <P3,det.n> ;
+    objdef = dt2objdef det.dt
+    } ;
 
--- This is different from the partitive, as shown by many languages.
-
-  -- : Det -> NP -> NP ;
-  CountNP det np = np **
-    { } ; -- Nonsense for DefArt or IndefArt
+  -- : Decimal -> MU -> NP ;
+  QuantityNP dec mu = indeclNP
+    (case mu.isPre of {
+       True => mu.s ++ dec.s ! NCard ;
+       False => dec.s ! NCard ++ mu.s
+       }) ** {
+    objdef = Def
+    } ;
 
 --3 Conjoinable determiners and ones with adjectives
 
   -- : DAP -> AP -> DAP ;    -- the large (one)
-  AdjDAP dap ap = dap ** { } ;
+  AdjDAP dap ap = dap ;
 
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
--}
 
 }

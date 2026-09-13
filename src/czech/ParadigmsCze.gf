@@ -122,6 +122,14 @@ oper
       = \vf,c -> vf ** {c = c} ;
     } ;
 
+  mkV3 = overload {
+    mkV3 : VerbForms -> VerbForms ** {c,c2 : ComplementCase}
+      = \vf -> vf ** {c = {s = [] ; c = Acc ; hasPrep = False} ;
+                      c2 = {s = [] ; c = Dat ; hasPrep = False}} ;
+    mkV3 : VerbForms -> ComplementCase -> ComplementCase -> VerbForms ** {c,c2 : ComplementCase}
+      = \vf,c,c2 -> vf ** {c = c ; c2 = c2} ;
+    } ;
+
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...
 

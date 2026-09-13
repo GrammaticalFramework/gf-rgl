@@ -7,7 +7,7 @@ Bul,Bulgarian,bulgarian,,,y,,,,,y,n
 Cat,Catalan,catalan,Romance,,y,,,,y,y,n
 Cgg,Rukiga,rukiga,,,y,y,n,n,y,y,n
 Chi,Chinese (simplified),chinese,,,,,,,,y,y
-Cze,Czech,czech,,,,,,n,,y,n
+Cze,Czech,czech,,,,,,y,,y,n
 Dan,Danish,danish,Scand,,y,,,,,y,n
 Dut,Dutch,dutch,,,y,,,,,y,n
 Eng,English,english,,,y,,,,y,y,y
@@ -55,7 +55,7 @@ Sco,Scots,scots,,,y,,,,,y,n
 Swa,Swahili,swahili,Bantu,,,y,n,n,n,n,n
 Swe,Swedish,swedish,Scand,,y,,,,y,y,y
 Tam,Tamil,tamil,n,n,n,n,n,n,n,n,n
-Tel,Telugu,telugu,,,y,n,n,n,,n,n
+Tel,Telugu,telugu,,,y,y,n,n,,n,n
 Tha,Thai,thai,,to_thai,,,,,,y,n
 Tur,Turkish,turkish,,,y,,,n,,n,n
 Ukr,Ukrainian,ukrainian,,,,y,n,n,n,y,n

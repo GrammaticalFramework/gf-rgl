@@ -29,12 +29,12 @@ lin
          paragraph (x.infinitive) ++
          heading1 "Present" ++
          frameTable (
-           tr (intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P1 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P1 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P2 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P2 ! Pl)) ++
-           tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td ((x.active ! Imperf).Pres ! P3 ! Sg)) ++
-           tr (th "Pl" ++ td ((x.active ! Imperf).Pres ! P3 ! Pl))) ++
+           tr (intagAttr "th" "rowspan=\"6\"" "Pres" ++ intagAttr "th" "rowspan=\"2\"" "P1" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P1 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P1 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P2" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P2 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P2 ! Pl)) ++
+           tr (intagAttr "th" "rowspan=\"2\"" "P3" ++ th "Sg" ++ td ((x.active ! Imperf).pres ! P3 ! Sg)) ++
+           tr (th "Pl" ++ td ((x.active ! Imperf).pres ! P3 ! Pl))) ++
          heading1 "Imperative" ++
          frameTable (
            tr (th "Sg" ++ td (x.imperative ! Sg)) ++

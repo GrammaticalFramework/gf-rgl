@@ -2,6 +2,8 @@
 concrete ExtendSlv of Extend = CatSlv ** open ResSlv, ParadigmsSlv, GrammarSlv in {
 
 lin
+  UttAdV adv = {s = adv.s} ;
+
   iFem_Pron = mkPron "jàz" "méne" "méne" "méni" "méni" ("menój"|"máno")
                      "mój"  "mòjega" "mòjemu" ("mòj"|"mòjega") "mòjem" "mòjim" 
                      "mòja" "mòjih"  "mòjima"  "mòja"          "mòjih" "mòjima"
@@ -60,4 +62,3 @@ lin
   TPastSimple = TPast ;
 
 }
-

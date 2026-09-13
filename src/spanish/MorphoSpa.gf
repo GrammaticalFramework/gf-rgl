@@ -166,65 +166,65 @@ oper
   -- Used in application grammars, please don't remove. /IL
   agr2pron : Agr => Pron = table {
     {g=Masc ; n=Sg ; p=P1}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "yo" "me" "me" "mí"
            "mi" "mi" "mis" "mis"
-            Masc Sg P1 ;
+            Masc Sg P1) ;
     {g=Masc ; n=Sg ; p=P2}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "tú" "te" "te" "ti"
            "tu" "tu" "tus" "tus"
-            Masc Sg P2 ;
+            Masc Sg P2) ;
     {g=Masc ; n=Sg ; p=P3}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "él" "lo" "le" "él"
            "su" "su" "sus" "sus"
-            Masc Sg P3 ;
+            Masc Sg P3) ;
     {g=Masc ; n=Pl ; p=P1}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "nosotros" "nos" "nos" "nosotros"
            "nuestro" "nuestra" "nuestros" "nuestras"
-            Masc Pl P1 ;
+            Masc Pl P1) ;
     {g=Masc ; n=Pl ; p=P2}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "vosotros" "os" "os" "vosotros"
            "vuestro" "vuestra" "vuestros" "vuestras"
-            Masc Pl P2 ;
+            Masc Pl P2) ;
     {g=Masc ; n=Pl ; p=P3}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "ellos" "los" "les" "ellos"
            "su" "su" "sus" "sus"
-            Masc Pl P3 ;
+            Masc Pl P3) ;
     {g=Fem ; n=Sg ; p=P1}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "yo" "me" "me" "mí"
            "mi" "mi" "mis" "mis"
-            Fem Sg P1 ;
+            Fem Sg P1) ;
     {g=Fem ; n=Sg ; p=P2}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "tú" "te" "te" "ti"
            "tu" "tu" "tus" "tus"
-            Fem Sg P2 ;
+            Fem Sg P2) ;
     {g=Fem ; n=Sg ; p=P3}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "ella" "la" "le" "ella"
            "su" "su" "sus" "sus"
-            Fem Sg P3 ;
+            Fem Sg P3) ;
     {g=Fem ; n=Pl ; p=P1}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "nosotras" "nos" "nos" "nosotras"
            "nuestro" "nuestra" "nuestros" "nuestras"
-            Fem Pl P1 ;
+            Fem Pl P1) ;
     {g=Fem ; n=Pl ; p=P2}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "vosotras" "os" "os" "vosotras"
            "vuestro" "vuestra" "vuestros" "vuestras"
-            Fem Pl P2 ;
+            Fem Pl P2) ;
     {g=Fem ; n=Pl ; p=P3}
-      => mkPronoun
+      => lin Pron (mkPronoun
            "ellas" "las" "les" "ellas"
            "su" "su" "sus" "sus"
-            Fem Pl P3
+            Fem Pl P3)
     } ;
 
 --2 Determiners

@@ -2,6 +2,7 @@
 concrete LangFao of Lang =
   GrammarFao,
   LexiconFao
+  ,ConstructionFao
   ,DocumentationFao --# notpresent
   ** {
 

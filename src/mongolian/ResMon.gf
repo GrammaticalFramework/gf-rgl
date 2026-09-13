@@ -86,7 +86,6 @@ oper
  hlaar4 : Suffix = \\vt => "хл" + aa4!vt + "р" ;
   haar4 : Suffix = \\vt => "х" + aa4!vt + "р" ;
    tal4 : Suffix = \\vt => "т" + a4!vt + "л" ;
-  saar4 : Suffix = \\vt => "с" + aa4!vt + "р" ;
  nguut2 : Suffix = table {MascA | MascO => "нгуут" ; FemE | FemOE => "нгүүт"} ; 
   ngaa4 : Suffix = \\vt => "нг" + aa4!vt ;
    aad4 : Suffix = \\vt => aa4!vt + "д" ;

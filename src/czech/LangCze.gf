@@ -1,10 +1,11 @@
 --# -path=.:../abstract:../common:../api
 
-concrete LangCze of Lang = 
+concrete LangCze of Lang =
   GrammarCze,
   LexiconCze
 --  ,ConstructionCze
 --  ,DocumentationCze --# notpresent
+  ,MarkupCze - [stringMark]
   ** {
 
 }

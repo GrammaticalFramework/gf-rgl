@@ -1,7 +1,5 @@
---# -path=.:../abstract:../common
 concrete DocumentationBul of Documentation = CatBul ** open 
-  ResBul, Prelude,
-  HTML in {
+  ResBul, Prelude, ParamX, HTML in {
 flags coding=utf8 ;
 
 lincat
@@ -181,6 +179,116 @@ lin
     s2= paragraph (prep.s) ;
     s3= ""
     } ;
+
+{-
+-} --# notpresent
+  InflectionCl = \cl -> {
+    t = "изр" ;
+    s1 = heading1 ("Изречение") ;
+    s2 =
+      heading2 "Изявително Наклонение" ++
+      frameTable (
+      tr (intagAttr "th" "colspan=\"3\"" "Акционни времена" ++
+          intagAttr "th" "colspan=\"3\"" "Резултативни времена") ++
+      tr (th "" ++ th "съобщително" ++ th "въпросително" ++
+          th "" ++ th "съобщително" ++ th "въпросително") ++
+      tr (intagAttr "th" "rowspan=\"2\"" "сегашно" ++
+          td (cl.s ! VPresent ! Simul ! Pos ! Main) ++
+          td (cl.s ! VPresent ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "минало неопределено" ++
+          td (cl.s ! VPresent ! Anter ! Pos ! Main) ++
+          td (cl.s ! VPresent ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! VPresent ! Simul ! Neg ! Main) ++
+          td (cl.s ! VPresent ! Simul ! Neg ! Quest) ++
+          td (cl.s ! VPresent ! Anter ! Neg ! Main) ++
+          td (cl.s ! VPresent ! Anter ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "минало несвършено" ++
+          td (cl.s ! (VPastImperfect Indicative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VPastImperfect Indicative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "минало предварително" ++
+          td (cl.s ! (VPastImperfect Indicative) ! Anter ! Pos ! Main) ++
+          td (cl.s ! (VPastImperfect Indicative) ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VPastImperfect Indicative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VPastImperfect Indicative) ! Simul ! Neg ! Quest) ++
+          td (cl.s ! (VPastImperfect Indicative) ! Anter ! Neg ! Main) ++
+          td (cl.s ! (VPastImperfect Indicative) ! Anter ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "минало свършено" ++
+          td (cl.s ! (VPastSimple Indicative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VPastSimple Indicative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\" colspan=\"3\"" "") ++
+      tr (td (cl.s ! (VPastSimple Indicative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VPastSimple Indicative) ! Simul ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "бъдеще" ++
+          td (cl.s ! (VFut Indicative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VFut Indicative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "бъдеще предварително" ++
+          td (cl.s ! (VFut Indicative) ! Anter ! Pos ! Main) ++
+          td (cl.s ! (VFut Indicative) ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VFut Indicative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VFut Indicative) ! Simul ! Neg ! Quest) ++
+          td (cl.s ! (VFut Indicative) ! Anter ! Neg ! Main) ++
+          td (cl.s ! (VFut Indicative) ! Anter ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "бъдеще в миналото" ++
+          td (cl.s ! (VPastFut) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VPastFut) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "бъдеще предв. в миналото" ++
+          td (cl.s ! VPastFut ! Anter ! Pos ! Main) ++
+          td (cl.s ! VPastFut ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! VPastFut ! Simul ! Neg ! Main) ++
+          td (cl.s ! VPastFut ! Simul ! Neg ! Quest) ++
+          td (cl.s ! VPastFut ! Anter ! Neg ! Main) ++
+          td (cl.s ! VPastFut ! Anter ! Neg ! Quest))) ++
+      heading3 "Условно Наклонение" ++
+      frameTable (
+      tr (th "съобщително" ++ th "въпросително") ++
+      tr (td (cl.s ! (VCond Indicative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VCond Indicative) ! Simul ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VCond Indicative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VCond Indicative) ! Simul ! Neg ! Quest))) ++
+      heading2 "Преизказни Форми" ++
+      frameTable (
+      tr (intagAttr "th" "colspan=\"3\"" "Акционни времена" ++
+          intagAttr "th" "colspan=\"3\"" "Резултативни времена") ++
+      tr (th "" ++ th "съобщително" ++ th "въпросително" ++
+          th "" ++ th "съобщително" ++ th "въпросително") ++
+      tr (intagAttr "th" "rowspan=\"2\"" "сегашно / минало несвършено" ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "минало неопределено/предварително" ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Anter ! Pos ! Main) ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VPastImperfect Renarrative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Simul ! Neg ! Quest) ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Anter ! Neg ! Main) ++
+          td (cl.s ! (VPastImperfect Renarrative) ! Anter ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "минало свършено" ++
+          td (cl.s ! (VPastSimple Renarrative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VPastSimple Renarrative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\" colspan=\"3\"" "") ++
+      tr (td (cl.s ! (VPastSimple Renarrative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VPastSimple Renarrative) ! Simul ! Neg ! Quest)) ++
+      tr (intagAttr "th" "rowspan=\"2\"" "бъдеще / бъдеще в миналото" ++
+          td (cl.s ! (VFut Renarrative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VFut Renarrative) ! Simul ! Pos ! Quest) ++
+          intagAttr "th" "rowspan=\"2\"" "бъдеще предв. / бъдеще предв. в миналото" ++
+          td (cl.s ! (VFut Renarrative) ! Anter ! Pos ! Main) ++
+          td (cl.s ! (VFut Renarrative) ! Anter ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VFut Renarrative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VFut Renarrative) ! Simul ! Neg ! Quest) ++
+          td (cl.s ! (VFut Renarrative) ! Anter ! Neg ! Main) ++
+          td (cl.s ! (VFut Renarrative) ! Anter ! Neg ! Quest))) ++
+      heading3 "Условно Наклонение" ++
+      frameTable (
+      tr (th "съобщително" ++ th "въпросително") ++
+      tr (td (cl.s ! (VCond Renarrative) ! Simul ! Pos ! Main) ++
+          td (cl.s ! (VCond Renarrative) ! Simul ! Pos ! Quest)) ++
+      tr (td (cl.s ! (VCond Renarrative) ! Simul ! Neg ! Main) ++
+          td (cl.s ! (VCond Renarrative) ! Simul ! Neg ! Quest))) ;
+    s3 = ""
+  } ;
+
+{-  --# notpresent
+-}
 
   InflectionV v = {
     t = "гл" ;

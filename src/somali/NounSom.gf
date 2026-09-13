@@ -64,7 +64,10 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     } ;
 
   -- : Pron -> NP ;
-  UsePron pron = pron ** {st = Definite} ;
+  UsePron pron = pron ** {
+    s = pron.sp ;
+    st = Definite
+    } ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np =
@@ -91,7 +94,15 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   --   s = \\c => v2.s ! ??? ++ np.s ! c } ; ----
 
   -- : NP -> Adv -> NP ;    -- Paris today ; boys, such as ..
-  --AdvNP,ExtAdvNP = \np,adv -> np ** {} ; --adverbs are complicated
+  AdvNP np adv = np ** {
+    s = \\c => objpron np ! c ++ linAdv adv ;
+    isPron = False
+    } ;
+
+  ExtAdvNP np adv = np ** {
+    s = \\c => objpron np ! c ++ "," ++ linAdv adv ;
+    isPron = False
+    } ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   {- NB. technically, if the RS has undergone ConjRS, it could contain both
@@ -171,18 +182,29 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     } ;
 
   -- : Digits  -> Card ;
---  NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
+  NumDigits dig = baseNum ** {
+    s = \\_ => dig.s ! NCard ;
+    da = M KA ;
+    n = dig.n
+    } ;
+
+  NumDecimal dec = baseNum ** {
+    s = \\_ => dec.s ! NCard ;
+    da = M KA ;
+    n = dec.n
+    } ;
 
   -- : Numeral -> Card ;
   NumNumeral num = num ; -- ** {s = num.s ! NCard};
 
-{-
   -- : AdN -> Card -> Card ;
-  AdNum adn card = card ** { s = adn.s ++ card.s } ;
+  AdNum adn card = card ** { s = \\df => adn.s ++ card.s ! df } ;
 
   -- : Digits  -> Ord ;
-  OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
--}
+  OrdDigits digs = {
+    s = \\_ => digs.s ! NOrd ;
+    n = digs.n
+    } ;
   -- : Numeral -> Ord ;
   OrdNumeral num = num ** {
     s = \\_ => num.ord
@@ -226,7 +248,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
   UseN,UseN2 = ResSom.useN ;
 
   -- : N2 -> NP -> CN ;    -- Sahra hooyadeed
-  ComplN2 n2 np = genModCN (useN n2) np ;
+  ComplN2 n2 np = genModCN (lin CN (useN n2)) np ;
 
 {-
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
@@ -250,7 +272,7 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     mod = \\st,n,c =>
             cn.mod ! st ! n ! Abs -- If there was something before, it is now in Abs
          ++ andConj st cn.modtype -- If the sentence is already modified, any new modifier needs to be introduced with conjunction
-         ++ ap.s ! AF n c ;
+         ++ ap.s ! AF n c ++ " " ++ ap.compar ;
     modtype = AMod
     } ;
 
@@ -266,16 +288,33 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
     modtype = AMod
     } ;
 
-{-
   -- : CN -> Adv -> CN ;
-  AdvCN cn adv = cn ** {  } ;
+  AdvCN cn adv = cn ** {
+    s = table {
+          Numerative => cn.s ! Numerative ++ andConj Indefinite (notMod cn.modtype) ;
+          nf => cn.s ! nf } ;
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! Abs
+         ++ andConj st cn.modtype
+         ++ linAdv adv ;
+    modtype = OtherMod
+    } ;
 
 -- Nouns can also be modified by embedded sentences and questions.
 -- For some nouns this makes little sense, but we leave this for applications
 -- to decide. Sentential complements are defined in VerbSom.
 
   -- : CN -> SC  -> CN ;   -- question where she sleeps
-  SentCN cn sc = cn ** { } ;
+  SentCN cn sc = cn ** {
+    s = table {
+          Numerative => cn.s ! Numerative ++ andConj Indefinite (notMod cn.modtype) ;
+          nf => cn.s ! nf } ;
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! Abs
+         ++ andConj st cn.modtype
+         ++ sc.s ;
+    modtype = OtherMod
+    } ;
 
 
 --2 Apposition
@@ -283,8 +322,13 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
 -- This is certainly overgenerating.
 
   -- : CN -> NP -> CN ;    -- city Paris (, numbers x and y)
-  ApposCN cn np = cn ** { s =  } ;
--}
+  ApposCN cn np = cn ** {
+    mod = \\st,n,c =>
+            cn.mod ! st ! n ! Abs
+         ++ andConj st cn.modtype
+         ++ np.s ! Abs ;
+    modtype = OtherMod
+    } ;
 
 --2 Possessive and partitive constructs
 
@@ -308,22 +352,26 @@ concrete NounSom of Noun = CatSom ** open ResSom, Prelude in {
       _ => OtherMod }
     } ;
 
-{-
-
 -- This is different from the partitive, as shown by many languages.
 
   -- : Det -> NP -> NP ;
   CountNP det np = np **
-    { } ; -- Nonsense for DefArt or IndefArt
+    { s = \\c => det.sp ! Masc ! c ++ objpron np ! Abs ;
+      a = getAgr det.n Masc ;
+      isPron = False } ; -- Nonsense for DefArt or IndefArt
 
 --3 Conjoinable determiners and ones with adjectives
 
   -- : DAP -> AP -> DAP ;    -- the large (one)
-  AdjDAP dap ap = dap ** { } ;
+  AdjDAP dap ap = dap ** {
+    s = \\da,c => dap.s ! da ! c ++ ap.s ! AF dap.n c ;
+    sp = \\g,c => dap.sp ! g ! c ++ ap.s ! AF dap.n c
+    } ;
 
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
--}
+
+  QuantityNP dec mu = indeclNP (dec.s ! NCard ++ mu.s) ;
 
 oper
   andConj : State -> ModType -> Str = \st,mod ->

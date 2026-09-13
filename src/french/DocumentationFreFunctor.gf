@@ -108,6 +108,32 @@ lin
     s2 = paragraph p.s
     } ;
 
+  InflectionCl = \cl -> {
+    t  = "cl" ;
+    s1 = heading1 "Phrase" ;
+    s2 = frameTable (
+           tr (intagAttr "th" "colspan=3" "Temps simples" ++
+               intagAttr "th" "colspan=3" "Temps composés") ++
+           tr (th "Temps" ++ th "Affirmation" ++ th "Question" ++
+               th "Temps" ++ th "Affirmation" ++ th "Question") ++
+           inflClauseTense (heading present_Parameter)
+                           (heading present_Parameter ++ " " ++ heading perfect_Parameter)
+                           RPres cl ++
+           inflClauseTense (heading past_Parameter)
+                           (heading past_Parameter ++ " " ++ heading perfect_Parameter)
+                           RPast cl ++
+           inflClauseTense (heading past_Parameter)
+                           (heading past_Parameter ++ " " ++ heading perfect_Parameter)
+                           RPasse cl ++
+           inflClauseTense (heading future_Parameter)
+                           (heading future_Parameter ++ " " ++ heading perfect_Parameter)
+                           RFut cl ++
+           inflClauseTense (heading conditional_Parameter)
+                           (heading conditional_Parameter ++ " " ++ heading perfect_Parameter)
+                           RCond cl
+         )
+    } ;
+
   InflectionV v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
@@ -188,6 +214,18 @@ lin
   MkTag i = ss i.t ;
 
 oper
+  inflClauseTense : Str -> Str -> RTense -> Cl -> Str = \simple,perfect,tense,cl ->
+    tr (intagAttr "th" "rowspan=2" simple ++
+        td (cl.s ! DDir ! tense ! Simul ! RPos ! Indic) ++
+        td (cl.s ! DInv ! tense ! Simul ! RPos ! Indic) ++
+        intagAttr "th" "rowspan=2" perfect ++
+        td (cl.s ! DDir ! tense ! Anter ! RPos ! Indic) ++
+        td (cl.s ! DInv ! tense ! Anter ! RPos ! Indic)) ++
+    tr (td (cl.s ! DDir ! tense ! Simul ! (RNeg True) ! Indic) ++
+        td (cl.s ! DInv ! tense ! Simul ! (RNeg True) ! Indic) ++
+        td (cl.s ! DDir ! tense ! Anter ! (RNeg True) ! Indic) ++
+        td (cl.s ! DInv ! tense ! Anter ! (RNeg True) ! Indic)) ;
+
   verbExample : CatFre.Cl -> Str = \cl ->
      (S.mkUtt cl).s
      ++ ";" ++ (S.mkUtt (S.mkS S.anteriorAnt cl)).s  --# notpresent

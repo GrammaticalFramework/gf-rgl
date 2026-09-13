@@ -2,5 +2,6 @@
 
 concrete AllHun of AllHunAbs =
   LangHun,
+  IrregHun,
   ExtendHun
   ** {} ;

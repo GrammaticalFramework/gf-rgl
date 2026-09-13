@@ -46,6 +46,11 @@ resource ResGer = ParamX ** open Prelude in {
     Agr = AgSgP1 | AgSgP2 | AgSgP3 Gender | AgPl Person | AgPlPol ;
 
   oper
+    objCase : Case -> ObjCase = \c -> case c of {
+      Nom => Acc ; --- what else could one have?
+      Obj o => o
+      } ;
+
     genderAgr : Agr -> Gender = \r -> case r of {AgSgP3 g => g ; _ => Masc} ;
 
     numberAgr = overload {
@@ -470,6 +475,7 @@ resource ResGer = ParamX ** open Prelude in {
     Preposition : Type = {s : PrepForm => Str ; s2:Str ; c : ObjCase ; t : PrepType} ;
 
     -- To specify subjects of V, VP etc, extend to allow nominative     -- HL 9/26
+    -- TODO: reduce from 8 to 7 values, i.e. omit C = Nom ; t = isPrep
     SubjectPrep : Type = {s : PrepForm => Str ; s2:Str ; c : Case ; t : PrepType} ;
 
   -- auxiliary type for interrogative and relative pronoun
@@ -480,8 +486,7 @@ resource ResGer = ParamX ** open Prelude in {
   -- To apply a preposition to a noun phrase, interrogative or relative pronoun
 
     appPrep = overload {
-      appPrep : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
-        prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
+      appPrep : Preposition -> (ObjCase => Str) -> Str = appPrep0 ;
 --    appPrep : Preposition -> (Case => Str) -> Str = \p,c -> appSPrep (toSPrep p) c ; -- does not infer lintype e.g. in ExtraGer.AdvRAP
       appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
       appPrep : SubjectPrep -> NP -> Str = appSPrepNP ;             -- e.g. in dem CN => im CN
@@ -489,6 +494,8 @@ resource ResGer = ParamX ** open Prelude in {
       appPrep : SubjectPrep -> RP -> RelGenNum => Str = appPrepRP ; -- e.g. in was    => worin
       -- appPrep : Preposition -> DemPron -> Str = use CAdvPron ;      -- e.g. in dem => darin
       } ;
+    appPrep0 : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
+      prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
 
     appSPrep : SubjectPrep -> (Case => Str) -> Str = \prep,arg ->
       prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
@@ -501,9 +508,6 @@ resource ResGer = ParamX ** open Prelude in {
         <isPrep,Sg,WDefArt> => True ;  -- e.g. "zum Hof|zur Tür|zum Fenster herein"
         _ => False} ;                  -- e.g. "auf dem Hof|auf der Tür|auf dem Fenster"
       f = case b of {True => CSg g ; _ => CPl} ;
-      in
-      prep.s ! f ++ np.s ! b ! prep.c ++ np.ext ++ prep.s2 ++ np.rc ;
-
     appPrepNP : Preposition -> NP -> Str = \prep,np ->
       appSPrepNP (toSPrep prep) np ;
 
@@ -814,7 +818,7 @@ resource ResGer = ParamX ** open Prelude in {
     let obj = appPrepNP prep np ;
         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
         w = np.w ;
-        c = prep.c
+        c = prep.c -- TODO turn to ObjCase?
     in insertObj' obj b w c vp ;
 
   insertObj' : Str -> Bool -> Weight -> ObjCase -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
@@ -1032,7 +1036,7 @@ resource ResGer = ParamX ** open Prelude in {
     in
        glue (embedInf vpi.inpl <vpi.objs, vpi.pred>) ++ vpi.extr!agr ++ vp.ext ;
 
--- Relfexive pronouns have forms for object cases only, so nominative is omitted. -- HL 9/26
+  -- Relfexive pronouns have forms for object cases only, so nominative is omitted. -- HL 9/26
 
   reflPron : Agr => ObjCase => Str = table {
     AgSgP1       => objcaselist "mich" "mir"  "meiner" ;

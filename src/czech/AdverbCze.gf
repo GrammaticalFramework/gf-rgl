@@ -6,4 +6,8 @@ lin
       s = prep.s ++ np.prep ! prep.c
       } ;
 
+    SubjS subj s = {
+      s = subj.s ++ s.s
+      } ;
+
 }

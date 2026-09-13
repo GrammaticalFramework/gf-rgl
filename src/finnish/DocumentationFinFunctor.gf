@@ -80,6 +80,29 @@ lin
     s2 = paragraph ((S.mkAdv (lin Prep p) S.it_NP).s ++ ";" ++ (S.mkAdv (lin Prep p) S.we_NP).s)
     } ;
 
+  InflectionCl = \cl -> {
+    t  = "lause" ;
+    s1 = heading1 "Lause" ;
+    s2 = frameTable (
+           tr (intagAttr "th" "colspan=3" "Yksinkertaiset aikamuodot" ++
+               intagAttr "th" "colspan=3" "Perfektimuodot") ++
+           tr (th "aikamuoto" ++ th "väitelause" ++ th "kysymys" ++
+               th "aikamuoto" ++ th "väitelause" ++ th "kysymys") ++
+           inflClauseTense (heading present_Parameter)
+                           (heading present_Parameter ++ " " ++ heading perfect_Parameter)
+                           Pres cl ++
+           inflClauseTense (heading past_Parameter)
+                           (heading past_Parameter ++ " " ++ heading perfect_Parameter)
+                           Past cl ++
+           inflClauseTense (heading future_Parameter)
+                           (heading future_Parameter ++ " " ++ heading perfect_Parameter)
+                           Fut cl ++
+           inflClauseTense (heading conditional_Parameter)
+                           (heading conditional_Parameter ++ " " ++ heading perfect_Parameter)
+                           Cond cl
+         )
+    } ;
+
   InflectionV v = {
     t  = "v" ;
     s1 = heading1 (heading verb_Category) ++
@@ -159,16 +182,30 @@ lin
 
 oper
   verbExample : CatFin.Cl -> Str = \cl -> (S.mkUtt cl).s ;
+
+  inflClauseTense : Str -> Str -> ResFin.Tense -> CatFin.Cl -> Str =
+    \simple,perfect,tense,cl ->
+      tr (intagAttr "th" "rowspan=2" simple ++
+          td (cl.s ! tense ! Simul ! Pos ! SDecl) ++
+          td (cl.s ! tense ! Simul ! Pos ! SQuest) ++
+          intagAttr "th" "rowspan=2" perfect ++
+          td (cl.s ! tense ! Anter ! Pos ! SDecl) ++
+          td (cl.s ! tense ! Anter ! Pos ! SQuest)) ++
+      tr (td (cl.s ! tense ! Simul ! Neg ! SDecl) ++
+          td (cl.s ! tense ! Simul ! Neg ! SQuest) ++
+          td (cl.s ! tense ! Anter ! Neg ! SDecl) ++
+          td (cl.s ! tense ! Anter ! Neg ! SQuest)) ;
+
 {-
 -} --# notpresent
-  inflVerb : CatFin.V -> Str = \verb0 ->
+  inflVerb : SVerb1 -> Str = \verb0 ->
      let
        verb = sverb2verbSep verb0 ;
        vfin : ResFin.VForm -> Str = \f ->
          verb.s ! f ;
 
        nounNounHeading : Parameter -> Parameter -> Str = \n1,n2 ->
-         (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP (snoun2nounSep n2)))).s ;
+         (S.mkUtt (G.PossNP (S.mkCN n1) (S.mkNP (lin N (snoun2nounSep n2))))).s ;
      in
        heading3 (nounNounHeading present_Parameter indicative_Parameter) ++
        frameTable (

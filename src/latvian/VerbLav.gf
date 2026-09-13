@@ -185,15 +185,14 @@ lin
   ComplSlash vpslash np =
     let agr : Agreement = np.agr in {
       v        = vpslash.v ;
-      {-
-      compl    = \\agr => case vpslash.voice of {
-        Act  => vpslash.rightVal.s ++ np.s ! (vpslash.rightVal.c ! (fromAgr agr).num) ;
-        Pass => case vpslash.rightVal.c ! (fromAgr agr).num of {
-          Nom => np.s ! (vpslash.rightVal.c ! Sg) ;
-          _   => vpslash.rightVal.s ++ np.s ! (vpslash.rightVal.c ! (fromAgr agr).num)
-        }
-      } ++ vpslash.compl ! agr ;
-      -}
+      -- compl    = \\agr => case vpslash.voice of {
+      --  Act  => vpslash.rightVal.s ++ np.s ! (vpslash.rightVal.c ! (fromAgr agr).num) ;
+      --  Pass => case vpslash.rightVal.c ! (fromAgr agr).num of {
+      --    Nom => np.s ! (vpslash.rightVal.c ! Sg) ;
+      --    _   => vpslash.rightVal.s ++ np.s ! (vpslash.rightVal.c ! (fromAgr agr).num)
+      --  }
+      -- } ++ vpslash.compl ! agr ;
+      
       compl    = \\agr => vpslash.rightVal.s ++ 
                           np.s ! (vpslash.rightVal.c ! (fromAgr agr).num) ++ 
                           vpslash.compl ! agr ;

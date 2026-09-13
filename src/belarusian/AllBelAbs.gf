@@ -1,3 +1,4 @@
 abstract AllBelAbs =
-  Lang
+  Lang,
+  Extend
   ** {}

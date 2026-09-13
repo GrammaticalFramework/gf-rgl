@@ -2,7 +2,7 @@
 
 --1 Latin auxiliary operations.
 
-resource ResLat = ParamX ** open Prelude, Predef, (C=CommonX) in {
+resource ResLat = ParamX - [DTail,T1,T2,T3,inc] ** open Prelude, Predef, (C=CommonX) in {
 
 param
   Case = Nom | Acc | Gen | Dat | Abl | Voc ;

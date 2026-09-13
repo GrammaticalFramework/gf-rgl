@@ -292,7 +292,7 @@ oper
 
   compoundN = overload {
      compoundN : A -> N -> N
-       = \a, n -> applyMaybeNumber
+       = \a, n -> lin N (applyMaybeNumber
             {snom = case n.g of {
                       Fem  => preOrPost (notB a.p) a.fsnom n.snom ;
                       Masc => preOrPost (notB a.p) a.msnom n.snom ;
@@ -349,7 +349,7 @@ oper
              g=n.g ;
              rel=(guessAdjectiveForms nonExist) ;
              rt=GenType
-            } ;
+            }) ;
 
      compoundN : N -> Str -> N
        = \n, adv -> n ** {
@@ -392,8 +392,6 @@ oper
     mkN2 : Str -> Gender -> Animacy -> Str -> A -> Prep -> N2
       = \word, g, anim, zi, rel, p -> lin N2 (mkFun (noMinorCases (Z.makeNoun word g anim rel AdjType (Z.parseIndex zi))) p)   ;
     } ;
-
-  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
 
   mkN3 = overload {
     mkN3 : N -> Prep -> Prep -> N3
@@ -592,7 +590,7 @@ oper
     mkA : Str -> Str -> Z.ZAIndex -> ShortFormPreference -> A
       = \nom, comp, zi, spf -> lin A (makeAdjectiveFormsUseIndex nom comp zi spf) ;
     mkA : PronForms -> A
-      = \pf -> pronToAdj pf ;
+      = \pf -> lin A (pronToAdj pf) ;
     mkA : A -> Str -> A -> A
       = \a1,link,a2 -> lin A (mkCompoundA a1 link a2) ;
     mkA : V -> Voice -> Tense -> A

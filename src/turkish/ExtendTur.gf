@@ -13,6 +13,8 @@ concrete ExtendTur of Extend = CatTur ** open ResTur, SuffixTur, Predef in {
 
     UttVPShort vp = {s = vp.s ! Perf ! VInf Pos} ;
 
+    UttAdV adv = {s = adv.s} ;
+
     TPastSimple = {s = []} ** {t = Past} ;  --# notpresent
 
     PositAdVAdj a = {s = a.s ! Sg ! Nom} ;
