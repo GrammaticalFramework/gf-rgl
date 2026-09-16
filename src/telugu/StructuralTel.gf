@@ -1,5 +1,5 @@
 concrete StructuralTel of Structural = CatTel **
-  open MorphoTel, (P = ParadigmsTel), Prelude in {
+  open MorphoTel, (P = ParadigmsTel), Prelude, ResTel in {
 
   flags optimize=all ;
 
@@ -21,10 +21,18 @@ concrete StructuralTel of Structural = CatTel **
     s = table {PC Dir => "ఆమె" ; PC Obl => "ఆమె" ; PObj => "ఆమెను" ; PPoss => "ఆమె"} ;
     a = Ag Fem Sg P3
     } ;
-  that_Quant = {s = \\_,_,_ => "ఆ"} ;
+  that_Quant = {s = table {
+                      Sg => \\_,_ => "అది" ;
+                      Pl => \\_,_ => "అవి"
+                    }
+               } ;
   that_Subj = {s = "అని"} ;
   they_Pron = personalPronoun P3 Pl ** {a = Ag Masc Pl P3} ;
-  this_Quant = {s = \\_,_,_ => "ఈ"} ;
+  this_Quant = {s = table {
+                      Sg => \\_,_ => "ఇది" ;
+                      Pl => \\_,_ => "ఇవి"
+                    }
+               } ;
   very_AdA = {s = "చాలా"} ;
   when_Subj = {s = "అప్పుడు"} ;
   with_Prep = {s = "తో"} ;
