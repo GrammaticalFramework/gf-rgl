@@ -475,7 +475,6 @@ resource ResGer = ParamX ** open Prelude in {
     Preposition : Type = {s : PrepForm => Str ; s2:Str ; c : ObjCase ; t : PrepType} ;
 
     -- To specify subjects of V, VP etc, extend to allow nominative     -- HL 9/26
-    -- TODO: reduce from 8 to 7 values, i.e. omit C = Nom ; t = isPrep
     SubjectPrep : Type = {s : PrepForm => Str ; s2:Str ; c : Case ; t : PrepType} ;
 
   -- auxiliary type for interrogative and relative pronoun
@@ -487,15 +486,17 @@ resource ResGer = ParamX ** open Prelude in {
 
     appPrep = overload {
       appPrep : Preposition -> (ObjCase => Str) -> Str = appPrep0 ;
---    appPrep : Preposition -> (Case => Str) -> Str = \p,c -> appSPrep (toSPrep p) c ; -- does not infer lintype e.g. in ExtraGer.AdvRAP
       appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
-      appPrep : SubjectPrep -> NP -> Str = appSPrepNP ;             -- e.g. in dem CN => im CN
-      appPrep : SubjectPrep -> IP -> Str = appPrepIP ;              -- e.g. in was    => worin
-      appPrep : SubjectPrep -> RP -> RelGenNum => Str = appPrepRP ; -- e.g. in was    => worin
-      -- appPrep : Preposition -> DemPron -> Str = use CAdvPron ;      -- e.g. in dem => darin
+      appPrep : Preposition -> NP -> Str =
+        \p,np -> appSPrepNP (toSPrep p) np ;                       -- e.g. in dem CN => im CN
+      appPrep : Preposition -> RP -> (RelGenNum => Str) =          -- e.g. in was    => worin
+        \prep,rp -> appSPrepRP (toSPrep prep) rp ;
       } ;
+
     appPrep0 : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
       prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
+    appPrep1 : Preposition -> (Case => Str) -> Str = \p,c ->
+      appSPrep (toSPrep p) c ;
 
     appSPrep : SubjectPrep -> (Case => Str) -> Str = \prep,arg ->
       prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
@@ -508,10 +509,10 @@ resource ResGer = ParamX ** open Prelude in {
         <isPrep,Sg,WDefArt> => True ;  -- e.g. "zum Hof|zur Tür|zum Fenster herein"
         _ => False} ;                  -- e.g. "auf dem Hof|auf der Tür|auf dem Fenster"
       f = case b of {True => CSg g ; _ => CPl} ;
-    appPrepNP : Preposition -> NP -> Str = \prep,np ->
-      appSPrepNP (toSPrep prep) np ;
+      in
+      prep.s ! f ++ np.s ! b ! prep.c ++ np.ext ++ prep.s2 ++ np.rc ;
 
-    appPrepIP : SubjectPrep -> IP -> Str = \prep,np ->
+    appSPrepIP : SubjectPrep -> IP -> Str = \prep,np ->
     let
       g : Gender = genGenNum np.a ;
       n : Number = numGenNum np.a ;
@@ -519,17 +520,17 @@ resource ResGer = ParamX ** open Prelude in {
       f = case b of {True => CIPron ; _ => CPl} -- e.g. "zu was" => "wozu"
     in prep.s ! f ++ np.s ! b ! prep.c ++ prep.s2 ;
 
-  appPrepRP : SubjectPrep -> RP -> (RelGenNum => Str) = \prep,np ->
-    let
-      uncontracted : RelGenNum => Str =
-        \\gn => prep.s ! CPl ++ np.s ! gn ! prep.c ++ prep.s2
-    in
-    case <prep.t, np.a> of {
-      <isPrep, RNoAg> =>  table{RSentence => prep.s ! CIPron ;
-                                -- RGenNum (GSg Neutr) => prep.s ! CIPron ;
-                                gn => uncontracted ! gn} ;
-      _ => uncontracted
-    } ;
+    appSPrepRP : SubjectPrep -> RP -> (RelGenNum => Str) = \prep,np ->
+      let
+        uncontracted : RelGenNum => Str =
+          \\gn => prep.s ! CPl ++ np.s ! gn ! prep.c ++ prep.s2
+      in
+      case <prep.t, np.a> of {
+        <isPrep, RNoAg> =>  table{RSentence => prep.s ! CIPron ;
+                                  -- RGenNum (GSg Neutr) => prep.s ! CIPron ;
+                                  gn => uncontracted ! gn} ;
+        _ => uncontracted
+      } ;
 
   bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
 
@@ -549,11 +550,11 @@ resource ResGer = ParamX ** open Prelude in {
 -- To build passive: accusative object -> nom subject; others -> same case or prep
 
   subjPrep : Preposition -> SubjectPrep = \prep ->
-    let r : {s : PrepForm => Str ; s2:Str ; t : PrepType} = {s = prep.s ; s2 = prep.s2 ; t = prep.t} in
-    case <prep.c,prep.t> of {
-      <Acc,isCase> => r ** {c = Nom} ;
-      <c,  _>      => r ** {c = Obj c}
-    } ;
+    let
+      d = case <prep.c,prep.t> of {
+        <Acc,isCase> => Nom ;
+        <e,  _>      => Obj e}
+    in {s = prep.s ; s2 = prep.s2 ; c = d ; t = prep.t} ;
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
@@ -815,10 +816,10 @@ resource ResGer = ParamX ** open Prelude in {
     insertObj obj vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl } ;
 
   insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
-    let obj = appPrepNP prep np ;
+    let obj : Str = appPrep prep np ;
         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
         w = np.w ;
-        c = prep.c -- TODO turn to ObjCase?
+        c = prep.c
     in insertObj' obj b w c vp ;
 
   insertObj' : Str -> Bool -> Weight -> ObjCase -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->

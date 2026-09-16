@@ -42,7 +42,7 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
 
     ComplA2 a np =
       let
-        obj = appPrepNP a.c2 np
+        obj : Str = appPrep a.c2 np
       in {
         s = a.s ! Posit ;
         s2 = \\_ => [] ;
