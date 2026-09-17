@@ -1231,6 +1231,19 @@ mkV = overload {
   mkV : Str -> Str -> V = reg2V   -- Indicative;Pres;Sg;P1  participle
 } ;
 
+compoundV : V -> Str -> V = \v,adv -> lin V {
+  indicative = \\t,n,p => v.indicative ! t ! n ! p ++ adv ;
+  imperative = \\n => v.imperative ! n ++ adv ;
+  participle = v.participle ++ adv ;
+  pres_optative = \\n,p => v.pres_optative ! n ! p ++ adv ;
+  perf_optative = \\n,p => v.perf_optative ! n ! p ++ adv ;
+  pres_admirative = \\n,p => v.pres_admirative ! n ! p ++ adv ;
+  imperf_admirative = \\n,p => v.imperf_admirative ! n ! p ++ adv ;
+  vtype = v.vtype
+} ;
+
+reflV : V -> V = \v -> v ** {vtype=VRefl} ;
+
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
   mkV2 : V -> Prep -> V2 = \v,p -> lin V2 v ** {c2=p} ;
@@ -1283,7 +1296,12 @@ mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
 
-oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
+mkQuant = overload {
+  mkQuant : Str -> Quant = \s -> lin Quant {
+    s  = \\_,_,_ => s ;
+    sp = Indef
+  } ;
+  mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->  lin Quant
           { s = table {
                   Nom => table {
@@ -1328,9 +1346,16 @@ oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
                            }
                 } ;
             sp = Indef
-          } ;
+          }
+} ;
 
-oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
+mkDet = overload {
+  mkDet : Str -> Number -> Det = \s,n -> lin Det {
+    s  = \\_,_ => s ;
+    sp = Indef ;
+    n  = n
+  } ;
+  mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
        \f1,f2,f3,f4,f5,f6,f7,f8,n -> lin Det
           { s = table {
                   Nom => table {
@@ -1352,7 +1377,8 @@ oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
                 } ;
             sp = Indef ;
             n = n
-          } ;
+          }
+} ;
 
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;

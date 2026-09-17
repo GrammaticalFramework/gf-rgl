@@ -27672,7 +27672,8 @@ mkV001 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV002 : Str -> V ;
@@ -27781,7 +27782,8 @@ mkV002 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV002"
   } ;
@@ -27892,7 +27894,8 @@ mkV003 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -28003,7 +28006,8 @@ mkV004 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -28114,7 +28118,8 @@ mkV005 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -28224,7 +28229,8 @@ mkV006 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV007 : Str -> V ;
@@ -28332,7 +28338,8 @@ mkV007 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV008 : Str -> V ;
@@ -28440,7 +28447,8 @@ mkV008 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV009 : Str -> V ;
@@ -28549,7 +28557,8 @@ mkV009 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV009"
   } ;
@@ -28660,7 +28669,8 @@ mkV010 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -28771,7 +28781,8 @@ mkV011 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -28882,7 +28893,8 @@ mkV012 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -28992,7 +29004,8 @@ mkV013 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV014 : Str -> V ;
@@ -29100,7 +29113,8 @@ mkV014 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV015 : Str -> V ;
@@ -29209,7 +29223,8 @@ mkV015 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -29320,7 +29335,8 @@ mkV016 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -29430,7 +29446,8 @@ mkV017 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV018 : Str -> V ;
@@ -29538,7 +29555,8 @@ mkV018 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV019 : Str -> V ;
@@ -29647,7 +29665,8 @@ mkV019 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -29758,7 +29777,8 @@ mkV020 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -29869,7 +29889,8 @@ mkV021 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -29980,7 +30001,8 @@ mkV022 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -30091,7 +30113,8 @@ mkV023 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -30202,7 +30225,8 @@ mkV024 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -30314,6 +30338,8 @@ mkV025 base =
                                       P3 => nonExist
                                     }
                             }
+                             ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -30424,7 +30450,8 @@ mkV026 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -30535,7 +30562,8 @@ mkV027 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -30646,7 +30674,8 @@ mkV028 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -30756,7 +30785,8 @@ mkV029 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV030 : Str -> V ;
@@ -30865,7 +30895,8 @@ mkV030 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -30976,7 +31007,8 @@ mkV031 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -31087,7 +31119,8 @@ mkV032 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -31197,7 +31230,8 @@ mkV033 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV034 : Str -> V ;
@@ -31306,7 +31340,8 @@ mkV034 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -31417,7 +31452,8 @@ mkV035 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -31528,7 +31564,8 @@ mkV036 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -31639,7 +31676,8 @@ mkV037 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -31750,7 +31788,8 @@ mkV038 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -31861,7 +31900,8 @@ mkV039 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -31972,7 +32012,8 @@ mkV040 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -32083,7 +32124,8 @@ mkV041 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -32194,7 +32236,8 @@ mkV042 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -32305,7 +32348,8 @@ mkV043 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -32416,7 +32460,8 @@ mkV044 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV044"
   } ;
@@ -32527,7 +32572,8 @@ mkV045 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -32638,7 +32684,8 @@ mkV046 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -32749,7 +32796,8 @@ mkV047 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -32860,7 +32908,8 @@ mkV048 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -32971,7 +33020,8 @@ mkV049 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -33082,7 +33132,8 @@ mkV050 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -33193,7 +33244,8 @@ mkV051 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV051"
   } ;
@@ -33304,7 +33356,8 @@ mkV052 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -33415,7 +33468,8 @@ mkV053 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -33526,7 +33580,8 @@ mkV054 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -33637,7 +33692,8 @@ mkV055 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV055"
   } ;
@@ -33748,7 +33804,8 @@ mkV056 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -33859,7 +33916,8 @@ mkV057 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -33970,7 +34028,8 @@ mkV058 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -34080,7 +34139,8 @@ mkV059 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV060 : Str -> V ;
@@ -34189,7 +34249,8 @@ mkV060 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -34300,7 +34361,8 @@ mkV061 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -34410,7 +34472,8 @@ mkV062 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV063 : Str -> V ;
@@ -34519,7 +34582,8 @@ mkV063 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -34630,7 +34694,8 @@ mkV064 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -34741,7 +34806,8 @@ mkV065 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -34852,7 +34918,8 @@ mkV066 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -34963,7 +35030,8 @@ mkV067 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -35074,7 +35142,8 @@ mkV068 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -35185,7 +35254,8 @@ mkV069 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -35296,7 +35366,8 @@ mkV070 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -35407,7 +35478,8 @@ mkV071 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -35518,7 +35590,8 @@ mkV072 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -35629,7 +35702,8 @@ mkV073 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -35740,7 +35814,8 @@ mkV074 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -35851,7 +35926,8 @@ mkV075 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -35962,7 +36038,8 @@ mkV076 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -36073,7 +36150,8 @@ mkV077 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -36184,7 +36262,8 @@ mkV078 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -36295,7 +36374,8 @@ mkV079 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -36406,7 +36486,8 @@ mkV080 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -36517,7 +36598,8 @@ mkV081 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -36628,7 +36710,8 @@ mkV082 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -36739,7 +36822,8 @@ mkV083 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -36850,7 +36934,8 @@ mkV084 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -36961,7 +37046,8 @@ mkV085 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -37072,7 +37158,8 @@ mkV086 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -37183,120 +37270,10 @@ mkV087 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV087"
-  } ;
-
-mkV088 : Str -> V ;
-mkV088 base =
-  case base of {
-    "vrokth" => lin V
-      { indicative = table {
-                       Pres => table {
-                                 Sg => table {
-                                         P1 => "vrokth" ;
-                                         P2 => "-" ;
-                                         P3 => "-"
-                                       } ;
-                                 Pl => table {
-                                         P1 => "-" ;
-                                         P2 => "-" ;
-                                         P3 => "-"
-                                       }
-                               } ;
-                       Past => table {
-                                 Sg => table {
-                                         P1 => "-" ;
-                                         P2 => "-" ;
-                                         P3 => "-"
-                                       } ;
-                                 Pl => table {
-                                         P1 => "-" ;
-                                         P2 => "-" ;
-                                         P3 => "-"
-                                       }
-                               } ;
-                       Aorist => table {
-                                   Sg => table {
-                                           P1 => "m" ;
-                                           P2 => "-" ;
-                                           P3 => "-"
-                                         } ;
-                                   Pl => table {
-                                           P1 => "-" ;
-                                           P2 => "-" ;
-                                           P3 => "-"
-                                         }
-                                 } ;
-                       Imperfect => table {
-                                      Sg => table {
-                                              P1 => "-" ;
-                                              P2 => "-" ;
-                                              P3 => "-"
-                                            } ;
-                                      Pl => table {
-                                              P1 => "-" ;
-                                              P2 => "-" ;
-                                              P3 => "-"
-                                            }
-                                    }
-                     } ;
-        imperative = table {
-                       Sg => "-" ;
-                       Pl => "-"
-                     } ;
-        participle = "vrokthe" ;
-        pres_optative = table {
-                          Sg => table {
-                                  P1 => "-" ;
-                                  P2 => "-" ;
-                                  P3 => "-"
-                                } ;
-                          Pl => table {
-                                  P1 => "-" ;
-                                  P2 => "-" ;
-                                  P3 => "-"
-                                }
-                        } ;
-        perf_optative = table {
-                          Sg => table {
-                                  P1 => "-" ;
-                                  P2 => "-" ;
-                                  P3 => "-"
-                                } ;
-                          Pl => table {
-                                  P1 => "-" ;
-                                  P2 => "-" ;
-                                  P3 => "-"
-                                }
-                        } ;
-        pres_admirative = table {
-                            Sg => table {
-                                    P1 => "-" ;
-                                    P2 => "-" ;
-                                    P3 => "-"
-                                  } ;
-                            Pl => table {
-                                    P1 => "-" ;
-                                    P2 => "-" ;
-                                    P3 => "-"
-                                  }
-                          } ;
-        imperf_admirative = table {
-                              Sg => table {
-                                      P1 => "-" ;
-                                      P2 => "-" ;
-                                      P3 => "-"
-                                    } ;
-                              Pl => table {
-                                      P1 => "-" ;
-                                      P2 => "-" ;
-                                      P3 => "-"
-                                    }
-                            }
-      };
-    _ => error "Can't apply paradigm mkV088"
   } ;
 
 mkV089 : Str -> V ;
@@ -37405,7 +37382,8 @@ mkV089 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -37516,7 +37494,8 @@ mkV090 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV090"
   } ;
@@ -37627,7 +37606,8 @@ mkV091 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV091"
   } ;
@@ -37738,7 +37718,8 @@ mkV092 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -37849,7 +37830,8 @@ mkV093 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -37960,7 +37942,8 @@ mkV094 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -38071,7 +38054,8 @@ mkV095 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV095"
   } ;
@@ -38182,7 +38166,8 @@ mkV096 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV096"
   } ;
@@ -38293,7 +38278,8 @@ mkV097 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -38404,7 +38390,8 @@ mkV098 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -38515,7 +38502,8 @@ mkV099 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -38626,7 +38614,8 @@ mkV100 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV100"
   } ;
@@ -38737,7 +38726,8 @@ mkV101 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV101"
   } ;
@@ -38848,7 +38838,8 @@ mkV102 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV102"
   } ;
@@ -38959,7 +38950,8 @@ mkV103 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV103"
   } ;
@@ -39070,7 +39062,8 @@ mkV104 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV104"
   } ;
@@ -39181,7 +39174,8 @@ mkV105 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV105"
   } ;
@@ -39292,7 +39286,8 @@ mkV106 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV106"
   } ;
@@ -39403,7 +39398,8 @@ mkV107 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV107"
   } ;
@@ -39514,7 +39510,8 @@ mkV108 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV108"
   } ;
@@ -39625,7 +39622,8 @@ mkV109 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV109"
   } ;
@@ -39736,7 +39734,8 @@ mkV110 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV110"
   } ;
@@ -39846,7 +39845,8 @@ mkV111 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV112 : Str -> V ;
@@ -39955,7 +39955,8 @@ mkV112 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV112"
   } ;
@@ -40066,7 +40067,8 @@ mkV113 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV113"
   } ;
@@ -40176,7 +40178,8 @@ mkV114 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV115 : Str -> V ;
@@ -40284,7 +40287,8 @@ mkV115 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV116 : Str -> V ;
@@ -40393,7 +40397,8 @@ mkV116 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV116"
   } ;
@@ -40504,7 +40509,8 @@ mkV117 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV117"
   } ;
@@ -40615,7 +40621,8 @@ mkV118 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV118"
   } ;
@@ -40726,7 +40733,8 @@ mkV119 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV119"
   } ;
@@ -40837,7 +40845,8 @@ mkV120 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV120"
   } ;
@@ -40948,7 +40957,8 @@ mkV121 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV121"
   } ;
@@ -41059,7 +41069,8 @@ mkV122 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV122"
   } ;
@@ -41170,7 +41181,8 @@ mkV123 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV123"
   } ;
@@ -41281,7 +41293,8 @@ mkV124 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV124"
   } ;
@@ -41392,7 +41405,8 @@ mkV125 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV125"
   } ;
@@ -41503,7 +41517,8 @@ mkV126 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV126"
   } ;
@@ -41613,7 +41628,8 @@ mkV127 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV128 : Str -> V ;
@@ -41722,7 +41738,8 @@ mkV128 base =
                                       P2 => "-" ;
                                       P3 => "-"
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV128"
   } ;
@@ -41833,7 +41850,8 @@ mkV129 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV129"
   } ;
@@ -41944,7 +41962,8 @@ mkV130 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV130"
   } ;
@@ -42055,7 +42074,8 @@ mkV131 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV131"
   } ;
@@ -42165,7 +42185,8 @@ mkV132 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV133 : Str -> V ;
@@ -42274,7 +42295,8 @@ mkV133 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV133"
   } ;
@@ -42384,7 +42406,8 @@ mkV134 base_1 =
                                   P2 => nonExist ;
                                   P3 => nonExist
                                 }
-                        }
+                        } ;
+    vtype = VNormal
   } ;
 
 mkV135 : Str -> V ;
@@ -42493,7 +42516,8 @@ mkV135 base =
                                       P2 => nonExist ;
                                       P3 => nonExist
                                     }
-                            }
+                            } ;
+        vtype = VNormal
       };
     _ => error "Can't apply paradigm mkV135"
   } ;

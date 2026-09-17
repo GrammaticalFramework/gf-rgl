@@ -1,6 +1,8 @@
 concrete CatSqi of Cat = CommonX ** open ParamX,Prelude,ResSqi in {
   lincat A = Adj ;
+  linref A = \a -> case a.clit of {True=>"i"; False=>[]} ++ a.s ! Nom ! Masc ! Sg ;
   lincat A2 = Adj ** {c2 : Compl} ;
+  linref A2 = \a -> case a.clit of {True=>"i"; False=>[]} ++ a.s ! Nom ! Masc ! Sg ++ a.c2.s ;
   lincat V, VA, VV, VS, VQ = Verb ;
   lincat V2, V2S, V2Q = Verb ** {c2 : Compl} ;
   lincat V3, V2A, V2V = Verb ** {c2,c3 : Compl} ;
