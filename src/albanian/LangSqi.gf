@@ -2,6 +2,7 @@
 concrete LangSqi of Lang =
   GrammarSqi,
   LexiconSqi
+  ,ConstructionSqi
   ,DocumentationSqi --# notpresent
   ** {
 

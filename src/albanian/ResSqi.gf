@@ -1,6 +1,6 @@
 resource ResSqi = ParamX-[Tense,Past,Pres] ** open Prelude in {
 
-oper Compl = {s : Str} ;
+oper Compl = {s : Str; c : Case} ;
 
 param Species = Indef | Def ;
 param Case = Nom | Acc | Dat | Ablat ;
@@ -8,6 +8,16 @@ param Gender = Masc | Fem ;
 
 param GenNum = GSg Gender | GPl ;
 oper Agr = {gn : GenNum; p : Person} ;
+
+oper agrNumber : Agr -> Number = \a -> case a.gn of {
+       GSg _ => Sg ;
+       GPl   => Pl
+     } ;
+
+oper agrGender : Agr -> Gender = \a -> case a.gn of {
+       GSg g => g ;
+       GPl   => Masc
+     } ;
 
 oper Noun = {s: Species => Case => Number => Str; g: Gender} ; -- 3978
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
@@ -104,7 +114,7 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Bool -> Adj =
 
 
 param Tense = Pres | Past | Imperfect | Aorist ;
-param VType = VNormal | VRefl ;
+param VType = VNormal | VRefl | VJ ;
 oper Verb = {indicative: Tense => Number => Person => Str; imperative: Number => Str; participle: Str; pres_optative: Number => Person => Str; perf_optative: Number => Person => Str; pres_admirative: Number => Person => Str; imperf_admirative: Number => Person => Str; vtype : VType} ; -- 758
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,f50,f51 ->
@@ -259,5 +269,52 @@ oper genNum : Gender -> Number -> GenNum = \g,n ->
 
      agrgP3 : Gender -> Number -> Agr = 
        \g,n -> {gn=genNum g n; p=P3} ;
+
+oper sqiTense : ParamX.Tense -> Tense = \t -> case t of {
+       ParamX.Pres => Pres ;
+       ParamX.Past => Aorist ;
+       ParamX.Fut  => Pres ;
+       ParamX.Cond => Imperfect
+     } ;
+
+oper negation : Polarity -> Str = \p -> case p of {
+       Pos => [] ;
+       Neg => "nuk"
+     } ;
+
+oper futureParticle : ParamX.Tense -> Str = \t -> case t of {
+       ParamX.Fut  => "do" ++ "të" ;
+       ParamX.Cond => "do" ++ "të" ;
+       _           => []
+     } ;
+
+oper subjunctiveForm : VType -> Str -> Str -> Number -> Person -> Str =
+  \vt,citation,fallback,n,p -> case vt of {
+    VJ => case <n,p> of {
+      <Sg,P1> => citation ;
+      <Sg,P3> => citation ++ BIND ++ "ë" ;
+      _ => fallback
+      } ;
+    _ => fallback
+  } ;
+
+oper haveAux : ParamX.Tense => Number => Person => Str = table {
+       ParamX.Pres => table {
+         Sg => table {P1 => "kam"; P2 => "ke"; P3 => "ka"};
+         Pl => table {P1 => "kemi"; P2 => "keni"; P3 => "kanë"}
+       } ;
+       ParamX.Past => table {
+         Sg => table {P1 => "kisha"; P2 => "kishe"; P3 => "kishte"};
+         Pl => table {P1 => "kishim"; P2 => "kishit"; P3 => "kishin"}
+       } ;
+       ParamX.Fut => table {
+         Sg => table {P1 => "do të kem"; P2 => "do të kesh"; P3 => "do të ketë"};
+         Pl => table {P1 => "do të kemi"; P2 => "do të keni"; P3 => "do të kenë"}
+       } ;
+       ParamX.Cond => table {
+         Sg => table {P1 => "do të kisha"; P2 => "do të kishe"; P3 => "do të kishte"};
+         Pl => table {P1 => "do të kishim"; P2 => "do të kishit"; P3 => "do të kishin"}
+       }
+     } ;
 
 }

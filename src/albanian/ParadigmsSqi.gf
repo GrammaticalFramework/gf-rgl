@@ -1199,6 +1199,39 @@ oper
 		_ => regV form1
   } ;
 
+irregV : (p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,impSg,impPl,part : Str) -> V =
+    \p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,impSg,impPl,part -> lin V {
+      indicative = table {
+        Pres => table {
+          Sg => table {P1 => p1sg ; P2 => p2sg ; P3 => p3sg} ;
+          Pl => table {P1 => p1pl ; P2 => p2pl ; P3 => p3pl}
+        } ;
+        _ => table {
+          Sg => table {P1 => p1sg ; P2 => p2sg ; P3 => p3sg} ;
+          Pl => table {P1 => p1pl ; P2 => p2pl ; P3 => p3pl}
+        }
+      } ;
+      imperative = table {Sg => impSg ; Pl => impPl} ;
+      participle = part ;
+      pres_optative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      perf_optative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      pres_admirative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      imperf_admirative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      vtype = VNormal
+    } ;
+
 mkN = overload {
   mkN : Str -> N = regN;   -- s;Indef;Nom;Sg
   mkN : Str -> Str -> N = reg2N   -- s;Indef;Nom;Sg  s;Indef;Nom;Pl
@@ -1286,9 +1319,9 @@ mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
 mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=""} ;
 
 mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
-mkIP : Str -> IP = \s -> lin IP {s=s} ;
-mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
-mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+mkIP : Str -> IP = \s -> lin IP {s=s; a={gn=GSg Masc; p=P3}} ;
+mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_=>s} ;
+mkIDet : Str -> IDet = \s -> lin IDet {s=\\_=>s; n=Sg} ;
 
 mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 
@@ -1299,7 +1332,8 @@ mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
 mkQuant = overload {
   mkQuant : Str -> Quant = \s -> lin Quant {
     s  = \\_,_,_ => s ;
-    sp = Indef
+    sp = Indef ;
+    isPoss = False
   } ;
   mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->  lin Quant
@@ -1345,13 +1379,15 @@ mkQuant = overload {
                                     }
                            }
                 } ;
-            sp = Indef
+            sp = Indef ;
+            isPoss = False
           }
 } ;
 
 mkDet = overload {
   mkDet : Str -> Number -> Det = \s,n -> lin Det {
     s  = \\_,_ => s ;
+    post = \\_,_,_ => [] ;
     sp = Indef ;
     n  = n
   } ;
@@ -1375,6 +1411,7 @@ mkDet = overload {
                              Fem => f8
                            }
                 } ;
+            post = \\_,_,_ => [] ;
             sp = Indef ;
             n = n
           }
@@ -1395,7 +1432,23 @@ mkCard : Str -> Card = \s -> lin Card {s=s} ;
 mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
 mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
 
-mkPrep : Str -> Prep = \s -> lin Prep {s=s} ;
-noPrep : Prep = lin Prep {s=""} ;
+mkPrep : Str -> Prep = \s -> lin Prep {
+  s=s;
+  c=case s of {
+    "nga" => Nom;
+    "prej" => Ablat;
+    "gjatë" => Ablat;
+    "pas" => Ablat;
+    "para" => Ablat;
+    "prapa" => Ablat;
+    "midis" => Ablat;
+    "mes" => Ablat;
+    "përveç" => Ablat;
+    "përtej" => Ablat;
+    "krahas" => Ablat;
+    _ => Acc
+    }
+  } ;
+noPrep : Prep = lin Prep {s=""; c=Acc} ;
 
 }
