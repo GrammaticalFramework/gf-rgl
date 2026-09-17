@@ -721,6 +721,21 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     pastpartpl = kupo + "vali" ;
     } ;
 
+  iii_krýtVerbForms : Str -> VerbForms = \krýt ->
+   let
+     kry = shortenVowel (Predef.tk 1 krýt) ;
+   in
+   {
+    inf = krýt ;
+    pressg1 = kry + "ji" ;
+    pressg2 = kry + "ješ" ;
+    pressg3, negpressg3 = kry + "je" ;
+    prespl1 = kry + "jeme" ;
+    prespl2 = kry + "jete" ;
+    prespl3 = kry + "jí" ;
+    pastpartsg = kry + "l" ;
+    pastpartpl = kry + "li" ;
+    } ;
 
 ---------------------------
 -- Pronouns

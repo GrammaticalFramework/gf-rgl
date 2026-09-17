@@ -132,6 +132,9 @@ oper
 
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...
+ 
+  mkAdA : Str -> AdA
+    = \s -> lin AdA {s = s} ;
 
   mkAdv : Str -> Adv
     = \s -> lin Adv {s = s} ;
