@@ -3,10 +3,32 @@ concrete SentenceFao of Sentence = CatFao ** open Prelude, ResFao, (P = ParamX) 
                       Indicative = \\t,pol =>
                                          let p = persNum np.n np.p
                                          in np.s ! Nom ++ vp.Indicative ! t ! pol ! np.g ! p;
+                      Interrogative = \\t,pol => let p = persNum np.n np.p in
+                        vp.Finite ! t ! p ++ np.s ! Nom ++ vp.Remainder ! pol ! np.g ! p ;
+                      Future = \\pol => let p = persNum np.n np.p in
+                        np.s ! Nom ++ futureAux ! p ++ negStr pol ++ vp.Nonfinite ;
+                      FutureInterrogative = \\pol => let p = persNum np.n np.p in
+                        futureAux ! p ++ np.s ! Nom ++ negStr pol ++ vp.Nonfinite ;
+                      Conditional = \\pol => let p = persNum np.n np.p in
+                        np.s ! Nom ++ conditionalAux ! p ++ negStr pol ++ vp.Nonfinite ;
+                      ConditionalInterrogative = \\pol => let p = persNum np.n np.p in
+                        conditionalAux ! p ++ np.s ! Nom ++ negStr pol ++ vp.Nonfinite ;
+                      Anterior = \\t,pol => let p = persNum np.n np.p in
+                        np.s ! Nom ++ perfectAux ! t ! p ++ negStr pol ++ vp.Converb ;
+                      AnteriorInterrogative = \\t,pol => let p = persNum np.n np.p in
+                        perfectAux ! t ! p ++ np.s ! Nom ++ negStr pol ++ vp.Converb ;
                       Nonfinite = np.s ! Nom ++ vp.Nonfinite;
                       Participle = \\t => np.s ! Nom ++ vp.Participle ! t} ;
   PredSCVP sc vp = {Converb = sc.s ++ vp.Converb;
                     Indicative = \\t,pol => sc.s ++ vp.Indicative ! t ! pol ! Neuter ! PSg P3;
+                    Interrogative = \\t,pol => vp.Finite ! t ! PSg P3 ++ sc.s ++
+                                              vp.Remainder ! pol ! Neuter ! PSg P3;
+                    Future = \\pol => sc.s ++ futureAux ! PSg P3 ++ negStr pol ++ vp.Nonfinite ;
+                    FutureInterrogative = \\pol => futureAux ! PSg P3 ++ sc.s ++ negStr pol ++ vp.Nonfinite ;
+                    Conditional = \\pol => sc.s ++ conditionalAux ! PSg P3 ++ negStr pol ++ vp.Nonfinite ;
+                    ConditionalInterrogative = \\pol => conditionalAux ! PSg P3 ++ sc.s ++ negStr pol ++ vp.Nonfinite ;
+                    Anterior = \\t,pol => sc.s ++ perfectAux ! t ! PSg P3 ++ negStr pol ++ vp.Converb ;
+                    AnteriorInterrogative = \\t,pol => perfectAux ! t ! PSg P3 ++ sc.s ++ negStr pol ++ vp.Converb ;
                     Nonfinite = sc.s ++ vp.Nonfinite;
                     Participle = \\t => sc.s ++ vp.Participle ! t} ;
   SlashVP np vps = {
@@ -29,7 +51,7 @@ concrete SentenceFao of Sentence = CatFao ** open Prelude, ResFao, (P = ParamX) 
     c2 = sslash.c2
   } ;
   ImpVP vp = {
-    s = \\pol,n => negStr pol ++ vp.Nonfinite
+    s = \\pol,n => negStr pol ++ vp.Imperative ! n
   } ;
   AdvImp adv imp = {
     s = \\pol,n => adv.s ++ imp.s ! pol ! n
@@ -43,7 +65,16 @@ concrete SentenceFao of Sentence = CatFao ** open Prelude, ResFao, (P = ParamX) 
         P.Cond => Past
       } ;
     in {
-      s = temp.s ++ pol.s ++ cl.Indicative ! tense ! pol.p
+      s = temp.s ++ pol.s ++ case <temp.a,temp.t> of {
+        <P.Simul,P.Pres> => cl.Indicative ! Pres ! pol.p ;
+        <P.Simul,P.Past> => cl.Indicative ! Past ! pol.p ;
+        <P.Simul,P.Fut> => cl.Future ! pol.p ;
+        <P.Simul,P.Cond> => cl.Conditional ! pol.p ;
+        <P.Anter,P.Pres> => cl.Anterior ! Pres ! pol.p ;
+        <P.Anter,P.Past> => cl.Anterior ! Past ! pol.p ;
+        <P.Anter,P.Fut> => cl.Future ! pol.p ;
+        <P.Anter,P.Cond> => cl.Anterior ! Past ! pol.p
+      }
     } ;
   UseQCl temp pol qcl =
     let
@@ -54,7 +85,16 @@ concrete SentenceFao of Sentence = CatFao ** open Prelude, ResFao, (P = ParamX) 
         P.Cond => Past
       } ;
     in {
-      s = temp.s ++ pol.s ++ qcl.s ! tense ! pol.p
+      s = temp.s ++ pol.s ++ case <temp.a,temp.t> of {
+        <P.Simul,P.Pres> => qcl.s ! Pres ! pol.p ;
+        <P.Simul,P.Past> => qcl.s ! Past ! pol.p ;
+        <P.Simul,P.Fut> => qcl.future ! pol.p ;
+        <P.Simul,P.Cond> => qcl.conditional ! pol.p ;
+        <P.Anter,P.Pres> => qcl.anterior ! Pres ! pol.p ;
+        <P.Anter,P.Past> => qcl.anterior ! Past ! pol.p ;
+        <P.Anter,P.Fut> => qcl.future ! pol.p ;
+        <P.Anter,P.Cond> => qcl.anterior ! Past ! pol.p
+      }
     } ;
   UseRCl temp pol rcl =
     let

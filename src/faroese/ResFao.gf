@@ -43,10 +43,52 @@ oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> Noun =
           } ;
 
 
-oper Adj = {s: Gender => Number => Case => Str} ; -- 346
+param Declension = Strong | Weak ;
+oper Adj = {
+  s : Declension => Gender => Number => Case => Str ;
+} ; -- 346
+
+-- The weak adjective is used attributively in definite noun phrases.  The
+-- generated morphology contains the strong paradigm; the three weak forms
+-- can be recovered from it (e.g. langa -> langi, longum -> longu).
+oper weakAdj : Adj -> Gender -> Number -> Case -> Str =
+  \a,g,n,c -> a.s ! Weak ! g ! n ! c ;
+
+oper weakAdjForms : Str -> Gender => Number => Case => Str = \lemma ->
+  let stem = case lemma of {
+    x + "ur" => x ;
+    x + "nin" => x + "n" ;
+    x + "in" => x + "n" ;
+    x + "il" => x + "il" ;
+    x => x
+  } in table {
+    Masc => table {
+      Sg => table {Nom => stem + "i" ; _ => stem + "a"} ;
+      Pl => \\_ => stem + "u"
+    } ;
+    _ => table {
+      Sg => \\_ => stem + "a" ;
+      Pl => \\_ => stem + "u"
+    }
+  } ;
+
+oper reflPoss : Gender -> Number -> Case -> Str = \g,n,c ->
+  case <g,n,c> of {
+    <Masc,Sg,Nom> => "sín" ; <Masc,Sg,Acc> => "sín" ;
+    <Masc,Sg,Dat> => "sínum" ; <Masc,Sg,Gen> => "síns" ;
+    <Fem,Sg,Nom> => "sín" ; <Fem,Sg,Acc> => "sína" ;
+    <Fem,Sg,Dat> => "síni" ; <Fem,Sg,Gen> => "sínar" ;
+    <Neuter,Sg,Nom> => "sítt" ; <Neuter,Sg,Acc> => "sítt" ;
+    <Neuter,Sg,Dat> => "sínum" ; <Neuter,Sg,Gen> => "síns" ;
+    <Masc,Pl,Nom> => "sínir" ; <Masc,Pl,Acc> => "sínar" ;
+    <Fem,Pl,Nom> => "sínar" ; <Fem,Pl,Acc> => "sínar" ;
+    <Neuter,Pl,Nom> => "síni" ; <Neuter,Pl,Acc> => "síni" ;
+    <_,Pl,Dat> => "sínum" ; <_,Pl,Gen> => "sína"
+  } ;
 oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24 ->
           { s = table {
+              Strong => table {
                   Masc => table {
                             Sg => table {
                                     Nom => f1 ;
@@ -89,7 +131,9 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
                                      Gen => f24
                                    }
                            }
-                }
+                } ;
+              Weak => weakAdjForms f1
+            }
           } ;
 
 param Tense = Pres | Past ;
@@ -140,17 +184,31 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
 oper Compl = {s : Str; c : Case} ;
 oper noPrep : Compl = {s=""; c=Acc} ;
 
-oper CommonNoun = Noun ;
+oper CommonNoun = {
+  s : Species => Number => Case => Str ;
+  p : Number => Case => Str ;
+  g : Gender
+} ;
 oper AdjPhrase = Adj ;
 oper VerbPhrase = {
   Converb : Str ;
+  Imperative : Number => Str ;
   Indicative : Tense => Polarity => Gender => PersNum => Str ;
+  Finite : Tense => PersNum => Str ;
+  Remainder : Polarity => Gender => PersNum => Str ;
   Nonfinite : Str ;
   Participle : Tense => Str ;
 } ;
 oper Clause = {
   Converb : Str ;
   Indicative : Tense => Polarity => Str ;
+  Interrogative : Tense => Polarity => Str ;
+  Future : Polarity => Str ;
+  FutureInterrogative : Polarity => Str ;
+  Conditional : Polarity => Str ;
+  ConditionalInterrogative : Polarity => Str ;
+  Anterior : Tense => Polarity => Str ;
+  AnteriorInterrogative : Tense => Polarity => Str ;
   Nonfinite : Str ;
   Participle : Tense => Str
 } ;
@@ -172,6 +230,17 @@ oper
               }
     } ;
 
+  futureAux : PersNum => Str = table {
+    PSg P1 => "skal" ; PSg P2 => "skalt" ; PSg P3 => "skal" ; PPl => "skulu"
+  } ;
+  conditionalAux : PersNum => Str = table {
+    PSg _ => "skuldi" ; PPl => "skuldu"
+  } ;
+  perfectAux : Tense => PersNum => Str = table {
+    Pres => table {PSg P1 => "havi" ; PSg P2 => "hevur" ; PSg P3 => "hevur" ; PPl => "hava"} ;
+    Past => table {PSg _ => "hevði" ; PPl => "høvdu"}
+  } ;
+
 oper
   negStr : Polarity -> Str = \pol -> case pol of {
     Pos => [] ;
@@ -189,13 +258,17 @@ oper
   mkCN : Str -> Gender -> CommonNoun =
     \str,g -> {
       s = \\_,_,_ => str ;
+      p = \\_,_ => str ;
       g = g
     } ;
 
   mkVP : Str -> VerbPhrase =
     \str -> {
       Converb = str ;
+      Imperative = \\_ => str ;
       Indicative = \\_,pol,_,_ => str ++ negStr pol ;
+      Finite = \\_,_ => str ;
+      Remainder = \\pol,_,_ => negStr pol ;
       Nonfinite = str ;
       Participle = \\_ => str
     } ;

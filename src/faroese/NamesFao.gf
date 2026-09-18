@@ -10,5 +10,5 @@ lin
   UseLN ln = mkNP ln.s Neuter Sg P3 ;
   PlainLN ln = mkNP ln.s Neuter Sg P3 ;
   InLN ln = {s = "í" ++ ln.s} ;
-  AdjLN ap ln = {s = ap.s ! Neuter ! Sg ! Nom ++ ln.s} ;
+  AdjLN ap ln = {s = ap.s ! Strong ! Neuter ! Sg ! Nom ++ ln.s} ;
 }
