@@ -61,8 +61,6 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
 ---- Structural
 --
     Conj = {s1,s2 : Str ; n : Number} ;
------b    Conj = {s : Str ; n : Number} ;
------b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
     Prep = {s : Str} ;
 --

@@ -356,11 +356,6 @@ resource ResTel = ParamX ** open Prelude in {
       ---- the third is the vocative - is it really this way?
 
   -- the Telugu verb phrase
-
----    CTense = CPresent | CPast | CFuture ;
-
-
-
   param
     VPHTense =
        VPGenPres  -- impf hum       nahim    "I go"
