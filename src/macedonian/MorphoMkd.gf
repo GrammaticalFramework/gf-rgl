@@ -407,15 +407,15 @@ mkN013 base_1 =
                      Pl => base_1+"и"
                    } ;
           Def Unspecified => table {
-                               Sg => base_1+"та" ; --guessed
+                               Sg => base_1+"от" ;
                                Pl => base_1+"ите" --guessed
                              } ;
           Def Proximal => table {
-                            Sg => base_1+"ва" ; --guessed
+                            Sg => base_1+"ов" ;
                             Pl => base_1+"иве" --guessed
                           } ;
           Def Distal => table {
-                          Sg => base_1+"на" ; --guessed
+                          Sg => base_1+"он" ;
                           Pl => base_1+"ине" --guessed
                         }
         } ;
@@ -4999,22 +4999,22 @@ mkN152 base =
                          Pl => base_1+"а"
                        } ;
               Def Unspecified => table {
-                                   Sg => nonExist ;
-                                   Pl => nonExist
+                                   Sg => base_1+"ото" ;
+                                   Pl => base_1+"ата"
                                  } ;
               Def Proximal => table {
-                                Sg => nonExist ;
-                                Pl => nonExist
+                                Sg => base_1+"ово" ;
+                                Pl => base_1+"ава"
                               } ;
               Def Distal => table {
-                              Sg => nonExist ;
-                              Pl => nonExist
+                              Sg => base_1+"оно" ;
+                              Pl => base_1+"ана"
                             }
             } ;
         count_form = base_1+"а" ;
         vocative = table {
-                     Sg => nonExist ;
-                     Pl => nonExist
+                     Sg => base_1+"о" ;
+                     Pl => base_1+"а"
                    } ;
         rel = \\_,_ => base_1 ;
         relType = Pref ;
@@ -13800,7 +13800,7 @@ mkA002 base_1 =
                           GPl => base_1+"ине"
                         }
         } ;
-    adverb = nonExist
+    adverb = base_1+"е"
   } ;
 
 mkA003 : Str -> A ;
@@ -14104,7 +14104,7 @@ mkA011 base =
                               GPl => base_1+"а"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"а"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA011"
   } ;
@@ -14174,7 +14174,7 @@ mkA013 base =
                               GPl => base_1+"т"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"т"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA013"
   } ;
@@ -14209,7 +14209,7 @@ mkA014 base =
                               GPl => nonExist
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"оа"
       };
     _ => error "Can't apply paradigm mkA014"
   } ;
@@ -14244,7 +14244,7 @@ mkA015 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"е"
       };
     _ => error "Can't apply paradigm mkA015"
   } ;
@@ -14279,7 +14279,7 @@ mkA016 base =
                               GPl => nonExist
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"е"
       };
     _ => error "Can't apply paradigm mkA016"
   } ;
@@ -14314,7 +14314,7 @@ mkA017 base =
                               GPl => nonExist
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"а"
       };
     _ => error "Can't apply paradigm mkA017"
   } ;
@@ -14489,7 +14489,7 @@ mkA022 base =
                               GPl => base_1+"да"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"да"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA022"
   } ;
@@ -14558,7 +14558,7 @@ mkA024 base_1 =
                           GPl => base_1+"ине"
                         }
         } ;
-    adverb = nonExist
+    adverb = base_1+"ѐ"
   } ;
 
 mkA025 : Str -> A ;
@@ -14626,7 +14626,7 @@ mkA026 base =
                               GPl => base_1+"с"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"с"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA026"
   } ;
@@ -14731,7 +14731,7 @@ mkA029 base =
                               GPl => nonExist
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"е"+base_2
       };
     _ => error "Can't apply paradigm mkA029"
   } ;
@@ -14765,7 +14765,7 @@ mkA030 base_1 =
                           GPl => base_1+"ине" --guessed
                         }
         } ;
-    adverb = nonExist
+    adverb = base_1+"о"
   } ;
 
 mkA031 : Str -> A ;
@@ -14798,7 +14798,7 @@ mkA031 base =
                               GPl => base_1+base_2+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+base_2+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA031"
   } ;
@@ -14868,7 +14868,7 @@ mkA033 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"
       };
     _ => error "Can't apply paradigm mkA033"
   } ;
@@ -14938,7 +14938,7 @@ mkA035 base =
                               GPl => "‘"+base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = "‘"+base_1+"о"
       };
     _ => error "Can't apply paradigm mkA035"
   } ;
@@ -14973,7 +14973,7 @@ mkA036 base =
                               GPl => base_1+"по"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"по"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA036"
   } ;
@@ -15008,7 +15008,7 @@ mkA037 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"
       };
     _ => error "Can't apply paradigm mkA037"
   } ;
@@ -15043,7 +15043,7 @@ mkA038 base =
                               GPl => base_1+"о"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA038"
   } ;
@@ -15078,7 +15078,7 @@ mkA039 base =
                               GPl => base_1+"о"+base_2+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"+base_2+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA039"
   } ;
@@ -15113,7 +15113,7 @@ mkA040 base =
                               GPl => base_1+base_2+"а"+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+base_2+"а"+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA040"
   } ;
@@ -15148,7 +15148,7 @@ mkA041 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"
       };
     _ => error "Can't apply paradigm mkA041"
   } ;
@@ -15183,7 +15183,7 @@ mkA042 base =
                               GPl => base_1+"ч"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"ч"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA042"
   } ;
@@ -15218,7 +15218,7 @@ mkA043 base =
                               GPl => base_1+"а"+base_2+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"а"+base_2+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA043"
   } ;
@@ -15253,7 +15253,7 @@ mkA044 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"
       };
     _ => error "Can't apply paradigm mkA044"
   } ;
@@ -15288,7 +15288,7 @@ mkA045 base =
                               GPl => base_1+"т"+base_2+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"т"+base_2+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA045"
   } ;
@@ -15323,7 +15323,7 @@ mkA046 base =
                               GPl => base_1+"д"+base_2+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"д"+base_2+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA046"
   } ;
@@ -15358,7 +15358,7 @@ mkA047 base =
                               GPl => "б"+base_1+"р"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = "б"+base_1+"р"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA047"
   } ;
@@ -15393,7 +15393,7 @@ mkA048 base =
                               GPl => base_1+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = base_1+"о"
       };
     _ => error "Can't apply paradigm mkA048"
   } ;
@@ -15428,7 +15428,7 @@ mkA049 base =
                               GPl => "дир"+base_1+"кт"+base_2+"р"+base_3+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = "дир"+base_1+"кт"+base_2+"р"+base_3+"о"
       };
     _ => error "Can't apply paradigm mkA049"
   } ;
@@ -15463,7 +15463,7 @@ mkA050 base =
                               GPl => "р"+base_1+"з"+base_2+"ине"
                             }
             } ;
-        adverb = nonExist
+        adverb = "р"+base_1+"з"+base_2+"о"
       };
     _ => error "Can't apply paradigm mkA050"
   } ;

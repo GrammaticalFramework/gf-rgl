@@ -199,6 +199,13 @@ genNum2num : GenNum -> Number = \gn ->
     GPl   => Pl
   } ;
 
+medialClitic : VType -> Str = \vtype ->
+  case vtype of {
+    VNormal     => [] ;
+    VMedial Acc => "се" ;
+    VMedial Dat => "си"
+  } ;
+
 auxBe = {
   present : Number => Person => Str
           = table {
@@ -328,11 +335,7 @@ mkClause : Str -> Agr -> Verb ** {compl : Agr => Str} -> Order => Tense => Anter
                             Main  => "" ;
                             Quest => "ли"
                           } ;
-                    se  = case vp.vtype of {
-                            VNormal     => "" ;
-                            VMedial Acc => "се" ;
-                            VMedial Dat => "си"
-                          }
+                    se  = medialClitic vp.vtype
                 } ;
 
 linCoord : Str -> Ints 4 => Str ;
