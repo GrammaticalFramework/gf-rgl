@@ -1,5 +1,5 @@
 concrete StructuralTel of Structural = CatTel **
-  open MorphoTel, (P = ParadigmsTel), Prelude, ResTel in {
+  open (P = ParadigmsTel), Prelude, ResTel in {
 
   flags optimize=all ;
 
