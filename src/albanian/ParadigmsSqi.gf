@@ -4,6 +4,11 @@ oper
   singular : Number = Sg ;
   plural   : Number = Pl ;
 
+  nominative : Case = Nom ;
+  accusative : Case = Acc ;
+  dative     : Case = Dat ;
+  ablative   : Case = Ablat ;
+
 oper
   regN : Str -> N   -- s;Indef;Nom;Sg
     = \form -> case form of {
@@ -1435,22 +1440,9 @@ mkCard : Str -> Card = \s -> lin Card {s=s} ;
 mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
 mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
 
-mkPrep : Str -> Prep = \s -> lin Prep {
+mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {
   s=s;
-  c=case s of {
-    "nga" => Nom;
-    "prej" => Ablat;
-    "gjatë" => Ablat;
-    "pas" => Ablat;
-    "para" => Ablat;
-    "prapa" => Ablat;
-    "midis" => Ablat;
-    "mes" => Ablat;
-    "përveç" => Ablat;
-    "përtej" => Ablat;
-    "krahas" => Ablat;
-    _ => Acc
-    }
+  c=c
   } ;
 noPrep : Prep = lin Prep {s=""; c=Acc} ;
 
