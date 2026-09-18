@@ -103,8 +103,8 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Infinitive" ++ td (verb.s ! VInf)) ++
         tr (th "Stem" ++ td (verb.s ! VStem)) ++
         tr (th "Absolutive" ++ td (verb.s ! VAbs)) ++
-        tr (th "Request" ++ td (verb.s ! VReq)) ++
-        tr (th "Imperative" ++ td (verb.s ! VImp)) ++
+        tr (th "Imperative" ++ td (verb.s ! VImp Sg Pos)) ++
+        tr (th "Request" ++ td (verb.s ! VImp Pl Pos)) ++
         tr (th "Future request" ++ td (verb.s ! VReqFut))
         ) ++
       heading2 "Imperfect" ++ genderNumberTable verb VImpf ++
@@ -133,7 +133,7 @@ concrete DocumentationTel of Documentation = CatTel ** open
     futureTable : Verb -> Gender -> Str = \verb,gender ->
       frameTable (
         tr (th "" ++ th "P1" ++ th "P2" ++ th "P3") ++
-        tr (th "Sg" ++ td (verb.s ! VFut Sg P1 gender) ++ td (verb.s ! VFut Sg P2 gender) ++ td (verb.s ! VFut Sg P3 gender)) ++
-        tr (th "Pl" ++ td (verb.s ! VFut Pl P1 gender) ++ td (verb.s ! VFut Pl P2 gender) ++ td (verb.s ! VFut Pl P3 gender))
+        tr (th "Sg" ++ td (verb.s ! VFuture gender Sg P1) ++ td (verb.s ! VFuture gender Sg P2) ++ td (verb.s ! VFuture gender Sg P3)) ++
+        tr (th "Pl" ++ td (verb.s ! VFuture gender Pl P1) ++ td (verb.s ! VFuture gender Pl P2) ++ td (verb.s ! VFuture gender Pl P3))
         ) ;
 }

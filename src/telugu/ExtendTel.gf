@@ -20,6 +20,10 @@ concrete ExtendTel of Extend =
   lincat
     VPS = {s : Agr => Str} ;
     [VPS] = {s1,s2 : Agr => Str} ;
+    VPI = {s : Str} ;
+    [VPI] = {s1,s2 : Str} ;
+    [Comp] = {s1,s2 : Agr => Str} ;
+    [Imp] = {s1,s2 : Polarity => Number => Str} ;
 
   lin
     UseDAP dap = {s = \\c => dap.s ! Neutr ! npcase2case c ; a = agrP3 Neutr dap.n} ;
@@ -33,14 +37,14 @@ concrete ExtendTel of Extend =
       } ;
 
     AdvRNP np prep rnp = {
-      s = \\c => np.s ! c ++ rnp.s ! NPC Obl ++ prep.s ;
+      s = \\c => rnp.s ! NPC Obl ++ prep.s ++ np.s ! c ;
       a = np.a ;
       lock_NP = <>
       } ;
 
     AdvRVP vp prep rnp = insertAdv (rnp.s ! NPC Obl ++ prep.s) vp ;
     AdvRAP ap prep rnp = {
-      s = \\g,n,c => ap.s ! g ! n ! c ++ rnp.s ! NPC Obl ++ prep.s
+      s = \\g,n,c => rnp.s ! NPC Obl ++ prep.s ++ ap.s ! g ! n ! c
       } ;
 
     PositAdVAdj a = {s = a.s ! Masc ! Sg ! Dir} ;
@@ -61,9 +65,38 @@ concrete ExtendTel of Extend =
       } ;
     PredVPS np vps = {s = np.s ! NPC Dir ++ vps.s ! np.a} ;
 
+    MkVPI vp = {s = let f = vp.s ! Pos ! VPInf in
+      vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin} ;
+    BaseVPI first second = {s1 = first.s ; s2 = second.s} ;
+    ConsVPI first rest = {s1 = first.s ++ "," ++ rest.s1 ; s2 = rest.s2} ;
+    ConjVPI conj vpi = {s = vpi.s1 ++ conj.s2 ++ vpi.s2} ;
+    ComplVPIVV vv vpi = predV vv ** {comp = \\_ => vpi.s} ;
+
+    BaseComp first second = {s1 = first.s ; s2 = second.s} ;
+    ConsComp first rest = {
+      s1 = \\agr => first.s ! agr ++ "," ++ rest.s1 ! agr ;
+      s2 = rest.s2
+      } ;
+    ConjComp conj comps = {
+      s = \\agr => comps.s1 ! agr ++ conj.s2 ++ comps.s2 ! agr
+      } ;
+
+    BaseImp first second = {s1 = first.s ; s2 = second.s} ;
+    ConsImp first rest = {
+      s1 = \\pol,num => first.s ! pol ! num ++ "," ++ rest.s1 ! pol ! num ;
+      s2 = rest.s2
+      } ;
+    ConjImp conj imps = {
+      s = \\pol,num => imps.s1 ! pol ! num ++ conj.s2 ++ imps.s2 ! pol ! num
+      } ;
+
     CompoundN modifier head = {
       s = \\n,c => modifier.s ! Sg ! Dir ++ head.s ! n ! c ;
       g = head.g
+      } ;
+
+    CompoundAP noun adjective = {
+      s = \\g,n,c => noun.s ! Sg ! Dir ++ adjective.s ! g ! n ! c
       } ;
 
     GenModNP num np cn = {
@@ -72,18 +105,19 @@ concrete ExtendTel of Extend =
       } ;
 
     PresPartAP vp = {
-      s = \\_,_,_ => let f = vp.s ! Pos ! VPStem in
-        vp.obj.s ++ vp.comp ! defaultAgr ++ f.inf ++ f.fin
+      s = \\g,n,_ => let f = vp.s ! Pos ! VPPresPart in
+        vp.obj.s ++ vp.comp ! Ag g n P3 ++ f.neg ++ f.inf ++ f.fin
       } ;
 
     PastPartAP vps = {
-      s = \\_,_,_ => let f = vps.s ! Pos ! VPStem in
-        vps.obj.s ++ vps.comp ! defaultAgr ++ f.inf ++ f.fin
+      s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
+        vps.obj.s ++ vps.comp ! Ag g n P3 ++ f.neg ++ f.inf ++ f.fin
       } ;
 
     PastPartAgentAP vps np = {
-      s = \\_,_,_ => let f = vps.s ! Pos ! VPStem in
-        np.s ! NPC Obl ++ vps.obj.s ++ vps.comp ! defaultAgr ++ f.inf ++ f.fin
+      s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
+        np.s ! NPC Obl ++ "చేత" ++ vps.obj.s ++ vps.comp ! Ag g n P3 ++
+        f.neg ++ f.inf ++ f.fin
       } ;
 
     GerundCN vp = {
@@ -92,13 +126,29 @@ concrete ExtendTel of Extend =
       g = Neutr
       } ;
 
+    GerundNP vp = {
+      s = \\_ => let f = vp.s ! Pos ! VPInf in
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin ;
+      a = defaultAgr
+      } ;
+
     GerundAdv vp = {
       s = let f = vp.s ! Pos ! VPInf in
         vp.obj.s ++ vp.comp ! defaultAgr ++ f.inf ++ f.fin
       } ;
 
+    ByVP vp = {
+      s = let f = vp.s ! Pos ! VPInf in
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin ++ "ద్వారా"
+      } ;
+
+    ApposNP first second = {
+      s = \\c => first.s ! c ++ "," ++ second.s ! c ;
+      a = first.a
+      } ;
+
     ReflPoss num cn = {
-      s = \\c => cn.s ! num.n ! npcase2case c ;
+      s = \\c => "తన" ++ cn.s ! num.n ! npcase2case c ;
       a = agrP3 cn.g num.n ;
       lock_NP = <>
       } ;
@@ -109,16 +159,20 @@ concrete ExtendTel of Extend =
       } ;
 
     PassVPSlash vps = {
-      s = vps.s ;
+      s = vps.passive ;
+      passive = vps.passive ;
       obj = vps.obj ;
       subj = VIntrans ;
       comp = vps.comp
       } ;
 
     PassAgentVPSlash vps agent = {
-      s = vps.s ;
+      s = vps.passive ;
+      passive = vps.passive ;
       obj = vps.obj ;
       subj = VIntrans ;
-      comp = \\agr => agent.s ! NPC Obl ++ vps.comp ! agr
+      comp = \\agr => agent.s ! NPC Obl ++ "చేత" ++ vps.comp ! agr
       } ;
+
+    ProgrVPSlash vps = vps ;
 }

@@ -27,5 +27,7 @@ concrete NamesTel of Names = CatTel ** open ResTel in {
       a = agrP3 Neutr Sg
       } ;
 
+    AdjLN ap name = {s = ap.s ! Neutr ! Sg ! Dir ++ name.s} ;
+
     InLN name = {s = name.s ++ "లో"} ;
 }

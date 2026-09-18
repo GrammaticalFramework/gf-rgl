@@ -10,7 +10,7 @@ resource ResTel = ParamX ** open Prelude in {
   flags optimize=all ;
 
   param
-    Case = Dir | Obl ;
+    Case = Dir | Obl | Acc ;
     Gender = Masc | Fem | Neutr ;
 
   oper
@@ -18,12 +18,32 @@ resource ResTel = ParamX ** open Prelude in {
 
     mkNoun : (x1,_,_,x4 : Str) -> Gender -> Noun =
       \sd,so,pd,po,g -> {
-      s = table Number [table Case [sd;so] ; table Case [pd;po]] ;
+      s = table Number [
+        table Case [sd;so;accusative sd] ;
+        table Case [pd;po;accusative pd]
+        ] ;
       g = g
       } ;
 
-    wallNoun : Str -> Noun = \goda ->
-      mkNoun goda goda (goda + "లు") (goda + "ల") Neutr ;
+    accusative : Str -> Str = \word -> case word of {
+      stem + "ం" => stem + "ాన్ని" ;
+      stem + "ము" => stem + "ాన్ని" ;
+      stem + "లు" => stem + "లను" ;
+      stem + "ి" => word + "ని" ;
+      stem + "ై" => word + "ని" ;
+      stem + "ు" => word + "ను" ;
+      _ => word + "ను"
+      } ;
+
+    wallNoun : Str -> Noun = \word ->
+      case word of {
+        stem + "ం"  => mkNoun word word (stem + "ాలు") (stem + "ాల") Neutr ;
+        stem + "ము" => mkNoun word word (stem + "ములు") (stem + "ముల") Neutr ;
+        stem + "లు" => mkNoun word word word (stem + "ల") Neutr ;
+        stem + "ుడు" => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
+        stem + "ి"  => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
+        _            => mkNoun word word (word + "లు") (word + "ల") Neutr
+        } ;
 
     reggNoun : Str -> Gender -> Noun = \s,g ->
       wallNoun s ** {g = g} ;
@@ -47,18 +67,24 @@ resource ResTel = ParamX ** open Prelude in {
     VForm =
        VInf
      | VStem
+     | VPresent Gender Number Person
+     | VPast Gender Number Person
+     | VFuture Gender Number Person
+     | VNegFinite Bool Gender Number Person
+     | VPresentPart
+     | VRelativePresent
+     | VPastPart
+     | VHortative
      | VImpf Gender Number
      | VPerf Gender Number
      | VSubj Number Person
-     | VFut  Number Person Gender
      | VAbs
-     | VReq
-     | VImp
+     | VImp Number Polarity
      | VReqFut
      ;
 
   oper
-    Verb = {s : VForm => Str} ;
+    Verb = {s, passive : VForm => Str} ;
 
     mkVerb : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Verb =
       \inf,stem,ims,imp,ifs,ifp,pms,pmp,pfs,pfp,ss1,ss2,sp2,sp3,r -> {
@@ -83,19 +109,229 @@ resource ResTel = ParamX ** open Prelude in {
           VSubj Sg   _  => ss2 ;
           VSubj Pl   P2 => sp2 ;
           VSubj Pl   _  => sp3 ;
-          VFut  Sg   P1 g => ss1 + ga Sg g ;
-          VFut  Sg   _  g => ss2 + ga Sg g ;
-          VFut  Pl   P2 g => sp2 + ga Pl g ;
-          VFut  Pl   _  g => sp3 + ga Pl g ;
           VAbs  => stem ;
-          VReq  => r ;
-          VImp  => sp2 ;
-          VReqFut => r
-          }
+          VImp Sg Pos => sp2 ;
+          VImp Sg Neg => verbRoot stem + "వద్దు" ;
+          VImp Pl Pos => r ;
+          VImp Pl Neg => verbRoot stem + "కండి" ;
+          VReqFut => r ;
+          VPresent g n p => presentFinite stem (Ag g n p) ;
+          VPast g n p => pastFinite stem (Ag g n p) ;
+          VFuture g n p => futureFinite stem (Ag g n p) ;
+          VNegFinite future g n p => case future of {
+            True => verbRoot stem + negativeEnding (Ag g n p) ;
+            False => verbRoot stem + "లేదు"
+            } ;
+          VPresentPart => nonPastStem stem + "ున్న" ;
+          VRelativePresent => relativePresent stem ;
+          VPastPart => pastStem stem + "ిన" ;
+          VHortative => verbRoot stem + "దాం"
+          } ;
+        passive = conjugation (verbRoot stem + "బడు")
         } ;
 
-    regVerb : Str -> Verb = \cal ->
-      mkVerb cal cal cal cal cal cal cal cal cal cal cal cal cal cal cal ;
+    regVerb : Str -> Verb = \verb -> {
+      s = conjugation verb ;
+      passive = conjugation (verbRoot verb + "బడు")
+      } ;
+
+    conjugation : Str -> VForm => Str = \verb ->
+      let root = verbRoot verb in table {
+        VInf => root + "డం" ;
+        VStem => verb ;
+        VPresent g n p => presentFinite verb (Ag g n p) ;
+        VPast g n p => pastFinite verb (Ag g n p) ;
+        VFuture g n p => futureFinite verb (Ag g n p) ;
+        VNegFinite future g n p => case future of {
+          True => root + negativeEnding (Ag g n p) ;
+          False => root + "లేదు"
+          } ;
+        VPresentPart => nonPastStem verb + "ున్న" ;
+        VRelativePresent => relativePresent verb ;
+        VPastPart => pastStem verb + "ిన" ;
+        VHortative => root + "దాం" ;
+        VImpf g n => nonPastStem verb + "ున్న" ;
+        VPerf g n => pastStem verb ;
+        VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
+        VAbs => pastStem verb + "ి" ;
+        VImp Sg Pos => verb ;
+        VImp Sg Neg => root + "వద్దు" ;
+        VImp Pl Pos => root + "ండి" ;
+        VImp Pl Neg => root + "కండి" ;
+        VReqFut => root + "ండి"
+        } ;
+
+    -- The WordNet lexicon gives verbs in the usual dictionary/imperative
+    -- form.  These operations provide the productive spoken-Telugu stems.
+    -- Irregular high-frequency verbs are listed before the regular suffix
+    -- rules; compound verbs are handled because matching is suffix based.
+    verbRoot : Str -> Str = \verb -> case verb of {
+      stem + "ండి" => stem ;
+      stem + "ు" => stem ;
+      _ => verb
+      } ;
+
+    pastStem : Str -> Str = \verb -> case verb of {
+      stem + "చేయు" => stem + "చేశ" ;
+      stem + "తిను" => stem + "తిన్న" ;
+      stem + "విను" => stem + "విన్న" ;
+      stem + "కొను" => stem + "కొన్న" ;
+      stem + "కను" => stem + "కన్న" ;
+      stem + "ఉండు" => stem + "ఉన్న" ;
+      stem + "వచ్చు" => stem + "వచ్చ" ;
+      stem + "పో" => stem + "పోయ" ;
+      stem + "ను" => stem + "న్న" ;
+      stem + "ు" => stem ;
+      _ => verb
+      } ;
+
+    nonPastStem : Str -> Str = \verb -> case verb of {
+      stem + "చేయు" => stem + "చేస్త" ;
+      stem + "అవు" => stem + "అవుత" ;
+      stem + "వెళ్ళు" => stem + "వెళ్త" ;
+      stem + "పో" => stem + "పోత" ;
+      stem + "తిను" => stem + "తింట" ;
+      stem + "విను" => stem + "వింట" ;
+      stem + "కొను" => stem + "కొంట" ;
+      stem + "ను" => stem + "ంట" ;
+      stem + "ించు" => stem + "ిస్త" ;
+      stem + "చు" => stem + "స్త" ;
+      stem + "ు" => stem + "ుత" ;
+      _ => verb + "త"
+      } ;
+
+    relativePresent : Str -> Str = \verb -> case verb of {
+      stem + "చేయు" => stem + "చేసే" ;
+      stem + "వెళ్ళు" => stem + "వెళ్ళే" ;
+      stem + "వచ్చు" => stem + "వచ్చే" ;
+      _ => verbRoot verb + "ే"
+      } ;
+
+    finiteEnding : Agr -> Str = \agr -> case agr of {
+      Ag _     Sg P1 => "ాను" ;
+      Ag _     Sg P2 => "ావు" ;
+      Ag Masc  Sg P3 => "ాడు" ;
+      Ag _     Sg P3 => "ింది" ;
+      Ag _     Pl P1 => "ాము" ;
+      Ag Neutr Pl P3 => "ాయి" ;
+      Ag _     Pl _  => "ారు"
+      } ;
+
+    presentFinite : Str -> Agr -> Str = \verb,agr ->
+      nonPastStem verb + "ున్న" + case agr of {
+        Ag _     Sg P1 => "ాను" ;
+        Ag _     Sg P2 => "ావు" ;
+        Ag Masc  Sg P3 => "ాడు" ;
+        Ag _     Sg P3 => "ది" ;
+        Ag _     Pl P1 => "ాము" ;
+        Ag Neutr Pl P3 => "ాయి" ;
+        Ag _     Pl _  => "ారు"
+        } ;
+
+    pastFinite : Str -> Agr -> Str = \verb,agr -> case agr of {
+      Ag Masc Sg P3 => pastStem verb + "ాడు" ;
+      Ag _ Sg P3 => case verb of {
+        stem + "చేయు" => stem + "చేసింది" ;
+        stem + "తిను" => stem + "తిన్నది" ;
+        stem + "విను" => stem + "విన్నది" ;
+        stem + "కొను" => stem + "కొన్నది" ;
+        stem + "కను" => stem + "కన్నది" ;
+        _ => pastStem verb + case agr of {
+          Ag Masc Sg P3 => "ాడు" ;
+          _ => "ింది"
+          }
+        } ;
+      _ => pastStem verb + finiteEnding agr
+      } ;
+
+    futureFinite : Str -> Agr -> Str = \verb,agr ->
+      nonPastStem verb + case agr of {
+        Ag _     Sg P1 => "ాను" ;
+        Ag _     Sg P2 => "ావు" ;
+        Ag Masc  Sg P3 => "ాడు" ;
+        Ag _     Sg P3 => "ుంది" ;
+        Ag _     Pl P1 => "ాము" ;
+        Ag Neutr Pl P3 => "ాయి" ;
+        Ag _     Pl _  => "ారు"
+        } ;
+
+    negativeEnding : Agr -> Str = \agr -> case agr of {
+      Ag _     Sg P1 => "ను" ;
+      Ag _     Sg P2 => "వు" ;
+      Ag Masc  Sg P3 => "డు" ;
+      Ag _     Sg P3 => "దు" ;
+      Ag _     Pl P1 => "ము" ;
+      Ag Neutr Pl P3 => "వు" ;
+      Ag _     Pl _  => "రు"
+      } ;
+
+    finitePast : Verb -> Agr -> Str = \verb,agr ->
+      case agr of {Ag g n p => verb.s ! VPast g n p} ;
+
+    finitePresent : Verb -> Agr -> Str = \verb,agr ->
+      case agr of {Ag g n p => verb.s ! VPresent g n p} ;
+
+    finiteFuture : Verb -> Agr -> Str = \verb,agr ->
+      case agr of {Ag g n p => verb.s ! VFuture g n p} ;
+
+    finiteNegative : Verb -> VPHTense -> Agr -> Str = \verb,tense,agr ->
+      case agr of {Ag g n p => verb.s ! VNegFinite (case tense of {
+        VPFut => True ; _ => False}) g n p} ;
+
+    passiveV : Verb -> Verb = \verb -> {
+      s = verb.passive ;
+      passive = verb.passive
+      } ;
+
+    predCopula : VPH = {
+      s = \\pol,form => case form of {
+        VPTense tense agr => case pol of {
+          Neg => {fin = case tense of {
+                    VPGenPres => negativeCopula agr ;
+                    _ => "కాలేదు"
+                    } ; inf = [] ; neg = []} ;
+          Pos => {fin = case tense of {
+                    VPGenPres => [] ;
+                    VPContPres => [] ;
+                    VPPerf => copulaPast agr ;
+                    VPPerfPres => copulaPast agr ;
+                    VPImpPast => copulaPast agr ;
+                    VPContPast => copulaPast agr ;
+                    VPPerfPast => copulaPast agr ;
+                    VPSubj => futureFinite "అవు" agr ;
+                    VPFut => futureFinite "అవు" agr
+                    } ; inf = [] ; neg = []}
+          } ;
+        VPInf => {fin = "అవడం" ; inf = [] ; neg = []} ;
+        VPStem => {fin = "అవు" ; inf = [] ; neg = []} ;
+        VPPresPart => {fin = "అవుతున్న" ; inf = [] ; neg = []} ;
+        VPRelPresent => {fin = "అయ్యే" ; inf = [] ; neg = []} ;
+        VPPastPart => {fin = "అయిన" ; inf = [] ; neg = []} ;
+        VPHort => {fin = "అవుదాం" ; inf = [] ; neg = []} ;
+        VPImp Sg => {fin = "అవు" ;   inf = [] ; neg = []} ;
+        VPImp Pl => {fin = "అవండి" ; inf = [] ; neg = []} ;
+        VPReqFut => {fin = "అవండి" ; inf = [] ; neg = []}
+        } ;
+      passive = verbForms (regVerb "అవు") ;
+      obj = {s = [] ; a = defaultAgr} ;
+      subj = VIntrans ;
+      comp = \\_ => []
+      } ;
+
+    negativeCopula : Agr -> Str = \agr -> case agr of {
+      Ag _ Pl _ => "కారు" ;
+      _ => "కాదు"
+      } ;
+
+    copulaPast : Agr -> Str = \agr -> case agr of {
+      Ag _     Sg P1 => "అయ్యాను" ;
+      Ag _     Sg P2 => "అయ్యావు" ;
+      Ag Masc  Sg P3 => "అయ్యాడు" ;
+      Ag _     Sg P3 => "అయింది" ;
+      Ag _     Pl P1 => "అయ్యాము" ;
+      Ag Neutr Pl P3 => "అయ్యాయి" ;
+      Ag _     Pl _  => "అయ్యారు"
+      } ;
 
   param
     CTense = CPresent | CPast | CFuture ;
@@ -110,12 +346,12 @@ resource ResTel = ParamX ** open Prelude in {
   oper
     personalPronoun : Person -> Number -> {s : PronCase => Str} = \p,n ->
       case <p,n> of {
-        <P1,Sg> => {s = table {PC Dir => "నేను" ; PC Obl => "నా" ; PObj => "నన్ను" ; PPoss => "నా"}} ;
-        <P1,Pl> => {s = table {PC Dir => "మేము" ; PC Obl => "మా" ; PObj => "మమ్మల్ని" ; PPoss => "మా"}} ;
-        <P2,Sg> => {s = table {PC Dir => "నువ్వు" ; PC Obl => "నీ" ; PObj => "నిన్ను" ; PPoss => "నీ"}} ;
-        <P2,Pl> => {s = table {PC Dir => "మీరు" ; PC Obl => "మీ" ; PObj => "మిమ్మల్ని" ; PPoss => "మీ"}} ;
-        <P3,Sg> => {s = table {PC Dir => "అతను" ; PC Obl => "అతని" ; PObj => "అతన్ని" ; PPoss => "అతని"}} ;
-        <P3,Pl> => {s = table {PC Dir => "వారు" ; PC Obl => "వారి" ; PObj => "వారిని" ; PPoss => "వారి"}}
+        <P1,Sg> => {s = table {PC Dir => "నేను" ; PC Obl => "నా" ; PC Acc => "నన్ను" ; PObj => "నన్ను" ; PPoss => "నా"}} ;
+        <P1,Pl> => {s = table {PC Dir => "మేము" ; PC Obl => "మా" ; PC Acc => "మమ్మల్ని" ; PObj => "మమ్మల్ని" ; PPoss => "మా"}} ;
+        <P2,Sg> => {s = table {PC Dir => "నువ్వు" ; PC Obl => "నీ" ; PC Acc => "నిన్ను" ; PObj => "నిన్ను" ; PPoss => "నీ"}} ;
+        <P2,Pl> => {s = table {PC Dir => "మీరు" ; PC Obl => "మీ" ; PC Acc => "మిమ్మల్ని" ; PObj => "మిమ్మల్ని" ; PPoss => "మీ"}} ;
+        <P3,Sg> => {s = table {PC Dir => "అతను" ; PC Obl => "అతని" ; PC Acc => "అతన్ని" ; PObj => "అతన్ని" ; PPoss => "అతని"}} ;
+        <P3,Pl> => {s = table {PC Dir => "వారు" ; PC Obl => "వారి" ; PC Acc => "వారిని" ; PObj => "వారిని" ; PPoss => "వారి"}}
         } ;
       ---- the third is the vocative - is it really this way?
 
@@ -139,12 +375,15 @@ resource ResTel = ParamX ** open Prelude in {
      ;
 
     VPHForm =
-       VPTense VPHTense Agr -- 9 * 12
-     | VPReq
-     | VPImp
+       VPInf
+     | VPTense VPHTense Agr -- 9 * 12
+     | VPImp Number
      | VPReqFut
-     | VPInf
      | VPStem
+     | VPPresPart
+     | VPRelPresent
+     | VPPastPart
+     | VPHort
      ;
 
     VType = VIntrans | VTrans | VTransPost ;
@@ -155,41 +394,50 @@ resource ResTel = ParamX ** open Prelude in {
       _ => NPC Obl
       } ;
 
+    FiniteForm : Type = {fin, inf, neg : Str} ;
+
     VPH : Type = {
-      s    : Polarity => VPHForm => {fin, inf, neg : Str} ;
+      s, passive : Polarity => VPHForm => FiniteForm ;
       obj  : {s : Str ; a : Agr} ;
       subj : VType ;
       comp : Agr => Str
       } ;
 
-    predV : Verb -> VPH = \verb -> {
-      s = \\b,vh =>
+    verbForms : Verb -> (Polarity => VPHForm => FiniteForm) = \verb -> \\b,vh =>
        let
          na       = case b of {Pos => []; Neg => "వద్దు" } ;
          negative = case b of {Pos => []; Neg => "లేదు"} ;
        in
        case vh of {
-         VPTense VPGenPres (Ag g n p) =>
-           {fin = copula CPresent n p g ; inf = verb.s ! VImpf g n ; neg = negative} ;
-         VPTense VPImpPast (Ag g n p) =>
-           {fin = copula CPast n p g ; inf = verb.s ! VImpf g n ; neg = negative} ;
-         VPTense VPContPres (Ag g n p) =>
-           {fin = copula CPresent n p g ;
-            inf = verb.s ! VStem ++ progressive g n ; neg = negative} ;
-         VPTense VPContPast (Ag g n p) =>
-           {fin = copula CPast n p g ;
-            inf = verb.s ! VStem ++ progressive g n ; neg = negative} ;
-         VPTense VPPerf (Ag g n _) =>
-           {fin = verb.s ! VPerf g n ; inf = [] ; neg = negative} ;
-         VPTense VPPerfPres (Ag g n p) =>
-           {fin = copula CPresent n p g ; inf = verb.s ! VPerf g n ; neg = negative} ;
-         VPTense VPPerfPast (Ag g n p) =>
-           {fin = copula CPast n p g ; inf = verb.s ! VPerf g n ; neg = negative} ;
-         VPTense VPSubj (Ag _ n p) => {fin = verb.s ! VSubj n p ; inf = [] ; neg = na} ;
-         VPTense VPFut (Ag g n p) => {fin = verb.s ! VFut n p g ; inf = [] ; neg = na} ;
-         VPInf => {fin = verb.s ! VStem ; inf = [] ; neg = na} ;
-         _ => {fin = verb.s ! VStem ; inf = [] ; neg = na} ----
+         VPTense tense agr => case b of {
+           Neg => {fin = finiteNegative verb tense agr ; inf = [] ; neg = []} ;
+           Pos => case tense of {
+             VPGenPres  => {fin = finiteFuture verb agr ; inf = [] ; neg = []} ;
+             VPImpPast  => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
+             VPContPres => {fin = finitePresent verb agr ; inf = [] ; neg = []} ;
+             VPContPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
+             VPPerf     => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
+             VPPerfPres => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
+             VPPerfPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
+             VPSubj     => {fin = finiteFuture verb agr ; inf = [] ; neg = []} ;
+             VPFut      => {fin = finiteFuture verb agr ; inf = [] ; neg = []}
+             }
+           } ;
+         {- The finite cases above deliberately precede the legacy form
+            table.  The latter remains part of the public paradigms API. -}
+         VPInf => {fin = verb.s ! VInf ; inf = [] ; neg = na} ;
+         VPStem => {fin = verb.s ! VStem ; inf = [] ; neg = na} ;
+         VPPresPart => {fin = verb.s ! VPresentPart ; inf = [] ; neg = na} ;
+         VPRelPresent => {fin = verb.s ! VRelativePresent ; inf = [] ; neg = na} ;
+         VPPastPart => {fin = verb.s ! VPastPart ; inf = [] ; neg = na} ;
+         VPHort => {fin = verb.s ! VHortative ; inf = [] ; neg = na} ;
+         VPImp n => {fin = verb.s ! VImp n b ; inf = [] ; neg = []} ;
+         VPReqFut => {fin = verb.s ! VReqFut ; inf = [] ; neg = na}
          } ;
+
+    predV : Verb -> VPH = \verb -> {
+      s = verbForms verb ;
+      passive = verbForms (passiveV verb) ;
       obj = {s = [] ; a = defaultAgr} ;
       subj = VIntrans ;
       comp = \\_ => []
@@ -205,6 +453,7 @@ resource ResTel = ParamX ** open Prelude in {
 
     insertObject : NP -> VPHSlash -> VPH = \np,vps -> {
       s = vps.s ;
+      passive = vps.passive ;
       obj = {s = vps.obj.s ++ np.s ! objVType vps.c2.c ++ vps.c2.s ; a = np.a} ;
       subj = vps.c2.c ;
       comp = vps.comp
@@ -242,7 +491,7 @@ resource ResTel = ParamX ** open Prelude in {
 
     npcase2case : NPCase -> Case = \npc -> case npc of {
       NPC c => c ;
-      NPObj => Obl ;
+      NPObj => Acc ;
       NPErg => Obl
       } ;
 
@@ -254,7 +503,7 @@ resource ResTel = ParamX ** open Prelude in {
 
     toNP : (Case => Str) -> NPCase -> Str = \pn, npc -> case npc of {
       NPC c => pn ! c ;
-      NPObj => pn ! Obl ;
+      NPObj => pn ! Acc ;
       NPErg => pn ! Obl
       } ;
 

@@ -10,14 +10,16 @@ concrete PhraseTel of Phrase = CatTel ** open Prelude, ResTel in {
     UttAP ap = {s = ap.s ! Masc ! Sg ! Dir} ;
     UttVP vp = {s = let f = vp.s ! Pos ! VPInf in f.inf ++ f.fin} ;
     UttAdv adv = adv ;
-    UttImpSg pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPl pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s} ;
+    UttIP ip = {s = ip.s ! Dir} ;
+    UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! Sg} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
 
     NoPConj = {s = []} ;
 --    PConjConj conj = {s = conj.s2} ; ---
 --
     NoVoc = {s = []} ;
+    VocNP np = {s = "," ++ np.s ! NPC Dir} ;
 --    VocNP np = {s = "," ++ np.s ! Nom} ;
 --
 }

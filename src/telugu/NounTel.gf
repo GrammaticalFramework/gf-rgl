@@ -27,7 +27,12 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
 --      } ;
 --
     AdvNP np adv = {
-      s = \\c => np.s ! c ++ adv.s ;
+      s = \\c => adv.s ++ np.s ! c ;
+      a = np.a
+      } ;
+
+    ExtAdvNP np adv = {
+      s = \\c => np.s ! c ++ "," ++ adv.s ;
       a = np.a
       } ;
 --
@@ -57,6 +62,7 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
     NumDecimal n = {s = n.s ; n = n.n} ;
     AdNum adn card = {s = adn.s ++ card.s ; n = card.n} ;
     OrdNumeral numeral = {s = numeral.s} ;
+    OrdDigits digits = {s = digits.s ++ "వ"} ;
 --
 --    NumDigits n = {s = n.s ! NCard ; n = n.n} ;
 --    OrdDigits n = {s = n.s ! NOrd} ;
@@ -101,7 +107,10 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
 --      c2 = f.c3
 --      } ;
 --
-    ComplN2 f x = {s = \\n,c => f.s ! n ! c ++ f.c2 ++ x.s ! NPC c ; g = f.g} ;
+    ComplN2 f x = {
+      s = \\n,c => x.s ! NPC c ++ f.c2 ++ f.s ! n ! c ;
+      g = f.g
+      } ;
 --    ComplN3 f x = {
 --      s = \\n,c => f.s ! n ! Nom ++ f.c2 ++ x.s ! c ;
 --      g = f.g ;
@@ -122,9 +131,9 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
 --      s = \\n,c => cn.s ! n ! c ++ rs.s ! agrgP3 n cn.g ;
 --      g = cn.g
 --      } ;
-    AdvCN cn ad = {s = \\n,c => cn.s ! n ! c ++ ad.s ; g = cn.g} ;
+    AdvCN cn ad = {s = \\n,c => ad.s ++ cn.s ! n ! c ; g = cn.g} ;
 --
-    SentCN cn sc = {s = \\n,c => cn.s ! n ! c ++ sc.s ; g = cn.g} ;
+    SentCN cn sc = {s = \\n,c => sc.s ++ cn.s ! n ! c ; g = cn.g} ;
 
     PossNP cn np = {
       s = \\n,c => np.s ! NPC Obl ++ cn.s ! n ! c ;
@@ -134,6 +143,19 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
     PartNP cn np = {
       s = \\n,c => np.s ! NPC Obl ++ cn.s ! n ! c ;
       g = cn.g
+      } ;
+
+    CountNP det np = {
+      s = \\c => np.s ! NPC Obl ++ "లో" ++ det.s ! Neutr ! npcase2case c ;
+      a = agrP3 Neutr det.n
+      } ;
+
+    QuantityNP decimal mu = {
+      s = \\_ => case mu.isPre of {
+        True => mu.s ++ decimal.s ;
+        False => decimal.s ++ mu.s
+        } ;
+      a = agrP3 Neutr Pl
       } ;
 
     ApposCN cn np = {

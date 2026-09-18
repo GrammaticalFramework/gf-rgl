@@ -8,10 +8,13 @@ concrete SentenceTel of Sentence = CatTel ** open Prelude, ResTel in {
 
     PredSCVP sc vp = mkClause {s = \\_ => sc.s ; a = agrP3 Neutr Sg} vp ;
 
-    ImpVP vp = {s = let f = vp.s ! Pos ! VPImp in
-      vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin} ;
+    ImpVP vp = {
+      s = \\pol,num =>
+            let f = vp.s ! pol ! VPImp num
+            in vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin
+      } ;
 
-    AdvImp adv imp = {s = adv.s ++ imp.s} ;
+    AdvImp adv imp = {s = \\pol,num => adv.s ++ imp.s ! pol ! num} ;
 
     AdvS a s = {s = a.s ++ s.s} ;
 

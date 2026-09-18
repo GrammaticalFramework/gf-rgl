@@ -15,7 +15,7 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
 --
     Cl = ResTel.Clause ;
     ClSlash = {s : VPHTense => Polarity => Str ; c2 : Compl} ;
-    Imp = {s : Str} ;
+    Imp = {s : Polarity => Number => Str} ;
 --
 ---- Question
 --
