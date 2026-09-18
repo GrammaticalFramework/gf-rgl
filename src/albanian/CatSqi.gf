@@ -42,7 +42,12 @@ concrete CatSqi of Cat = CommonX ** open ParamX,Prelude,ResSqi in {
   lincat Ord = {s : Case => Gender => Number => Str} ;
   lincat PN = {s : Str} ;
   lincat Predet = {s : Str} ;
-  lincat Pron = {s: Case => Str; acc_clit, dat_clit : Str; a : Agr} ;
+  lincat Pron = {
+     s: Case => Str;
+     acc_clit, dat_clit : Str;
+     poss : Case => Gender => Number => Str;
+     a : Agr
+     } ;
   lincat QCl = {s : ParamX.Tense => Anteriority => Polarity => Str} ;
   lincat QS = {s : Str} ;
   lincat Quant = {

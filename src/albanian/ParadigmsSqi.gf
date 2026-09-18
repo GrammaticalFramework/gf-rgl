@@ -1420,11 +1420,14 @@ mkDet = overload {
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
 
-mkPron : (nom,acc,dat,ablat,acc_clit,dat_clit : Str) -> GenNum -> Person -> Pron =
-  \nom,acc,dat,ablat,acc_clit,dat_clit,gn,p -> lin Pron 
+mkPron : (nom,acc,dat,ablat,acc_clit,dat_clit : Str) ->
+         (Case => Gender => Number => Str) ->
+         GenNum -> Person -> Pron =
+  \nom,acc,dat,ablat,acc_clit,dat_clit,poss,gn,p -> lin Pron
      {s = table Case [nom; acc; dat; ablat];
       acc_clit = acc_clit;
       dat_clit = dat_clit;
+      poss = poss;
       a = {gn=gn; p=p}
      } ;
 

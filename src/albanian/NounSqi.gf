@@ -92,25 +92,7 @@ concrete NounSqi of Noun = CatSqi ** open MorphoSqi, ResSqi, Prelude in {
     CountNP det np = {s=\\c=>det.s ! c ! Masc ++ "nga" ++ np.s ! Ablat; a=agrgP3 Masc det.n} ;
 
     PossPron p = {
-      s=\\c,g,n=>case <p.a.gn,p.a.p,g,n> of {
-        <GSg _,P1,Masc,Sg> => case c of {Nom=>"im"; _=>"tim"};
-        <GSg _,P1,Fem,Sg> => case c of {Nom=>"ime"; Acc=>"time"; _=>"sime"};
-        <GSg _,P2,Masc,Sg> => case c of {Nom=>"yt"; _=>"tënd"};
-        <GSg _,P2,Fem,Sg> => case c of {Nom=>"jote"; Acc=>"tënde"; _=>"sate"};
-        <GSg Masc,P3,_,_> => link_clitic!Def!c!g!n++"tij";
-        <GSg Fem,P3,_,_> => link_clitic!Def!c!g!n++"saj";
-        <GPl,P3,_,_> => link_clitic!Def!c!g!n++"tyre";
-        <GSg _,P1,Masc,Pl> => link_clitic!Def!c!g!n++"mi";
-        <GSg _,P1,Fem,Pl> => link_clitic!Def!c!g!n++"mia";
-        <GSg _,P2,Masc,Pl> => link_clitic!Def!c!g!n++"tu";
-        <GSg _,P2,Fem,Pl> => link_clitic!Def!c!g!n++"tua";
-        <GPl,P1,Masc,Sg> => case c of {Nom=>"ynë"; _=>"tonë"};
-        <GPl,P1,Fem,Sg> => case c of {Nom=>"jonë"; Acc=>"tonë"; _=>"sonë"};
-        <GPl,P1,Masc,Pl> => "tanë";
-        <GPl,P1,Fem,Pl> => "tona";
-        <GPl,P2,_,Sg> => case c of {Nom=>"juaj"; _=>"tuaj"};
-        <GPl,P2,_,Pl> => "tuaj"
-      };
+      s=p.poss;
       sp=Def;
       isPoss=True
       } ;
