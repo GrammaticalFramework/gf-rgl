@@ -198,28 +198,28 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       ext,adv = [] 
       } ;
 
-    ComplN2 f x = {
-      s = \\_,n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
-      g = f.g ;
+    ComplN2 n2 np = {
+      s = \\_,n,c => n2.s ! n ! c ++ appPrep n2.c2 np ;
+      g = n2.g ;
       rc = \\_ => [] ;
       ext,adv = []
       } ;
 
-    ComplN3 f x = {
-      s = \\n,c => f.s ! n ! c ++ appPrepNP f.c2 x ;
-      co = f.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+    ComplN3 n3 np = {
+      s = \\n,c => n3.s ! n ! c ++ appPrep n3.c2 np ;
+      co = n3.co ++ appPrep n3.c2 np ; ---- should not occur at all; the abstract syntax is problematic in giving N2
       uncap = {
-        s = \\n,c => f.uncap.s ! n ! c ++ appPrepNP f.c2 x ;
-        co = f.uncap.co ++ appPrepNP f.c2 x ; ---- should not occur at all; the abstract syntax is problematic in giving N2
+        s = \\n,c => n3.uncap.s ! n ! c ++ appPrep n3.c2 np ;
+        co = n3.uncap.co ++ appPrep n3.c2 np ; ---- should not occur at all; the abstract syntax is problematic in giving N2
        } ;
-      g = f.g ; 
-      c2 = f.c3 ;
+      g = n3.g ;
+      c2 = n3.c3 ;
       } ;
 
-    Use2N3 f = f ;
+    Use2N3 n3 = n3 ;
 
-    Use3N3 f = f ** {
-      c2 = f.c3;
+    Use3N3 n3 = n3 ** {
+      c2 = n3.c3;
       } ;
 
     AdjCN ap cn = 
@@ -252,18 +252,18 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
       s = \\a,n,c => cn.s ! a ! n ! c ++ np.s ! False ! c ++ bigNP np } ;
 
     PossNP cn np = cn ** {
-      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep vonDat) (np.s ! False) ++ bigNP np } ;
+      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 vonDat (np.s ! False) ++ bigNP np } ;
 
     PartNP cn np = case np.w of {
-      WPron => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep vonDat) (np.s ! False) ++ np.rc} ;
-      _     => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep (toSPrep genPrep) (np.s ! False) ++ np.ext ++ np.rc}
+      WPron => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 vonDat (np.s ! False) ++ np.rc} ;
+      _     => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 genPrep (np.s ! False) ++ np.ext ++ np.rc}
         };         -- glass of wine
 
     CountNP det np = -- drei der Kinder | drei von den Kindern -- HL 7/22, ad-hoc TODO
                      -- det or numeral? np or rather (DefArt +) cn?  drei (einiger Kinder) ?
       let g : Gender = genderAgr np.a
       in {
-        s = \\b,c => det.s ! b ! g ! c ++ appPrepNP vonDat np ;
+        s = \\b,c => det.s ! b ! g ! c ++ appPrep vonDat np ;
         a = agrgP3 g det.n ;
         w = case det.isDef of { True => WLight ; _ => WHeavy } ;
         rc = np.rc ;
