@@ -78,7 +78,13 @@ concrete VerbAfr of Verb = CatAfr ** open Prelude, ResAfr in {
     CompAdv a = {s = \\_ => a.s} ;
 
     AdvVP vp adv = insertAdv adv.s vp ;
+    ExtAdvVP vp adv = insertAdv ("," ++ adv.s ++ ",") vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
+
+    AdvVPSlash vp adv = vp ** {a2 = vp.a2 ++ adv.s} ;
+    AdVVPSlash adv vp = vp ** {a1 = \\a => adv.s ++ vp.a1 ! a} ;
+
+    VPSlashPrep vp prep = vp ** {c2 = prep.s} ;
 
     ReflVP vp = insertObj (\\a => appPrep vp.c2 (\\_ => reflPron ! a )) vp ;
 
