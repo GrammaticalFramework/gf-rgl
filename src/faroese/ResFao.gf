@@ -55,7 +55,7 @@ oper weakAdj : Adj -> Gender -> Number -> Case -> Str =
   \a,g,n,c -> a.s ! Weak ! g ! n ! c ;
 
 oper weakAdjForms : Str -> Gender => Number => Case => Str = \lemma ->
-  let stem = case lemma of {
+  let stem : Str = case lemma of {
     x + "ur" => x ;
     x + "nin" => x + "n" ;
     x + "in" => x + "n" ;
