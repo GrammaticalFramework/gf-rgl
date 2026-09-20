@@ -907,10 +907,6 @@ param VerbForm =
   FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX | FormXI ;
 
 
-
--- paradigms for Wiktionary extraction
----- TODO: better usage of information in Wiktionary
-
 oper
   wmkN = overload {
     wmkN : {sg, pl : Str ; g : Gender} -> N
@@ -999,6 +995,13 @@ oper
       = \r -> mkV r.root r.cls ;
     wmkV : {imperfect : Str} -> V
       = \r -> variants {} ; ---- mkV r.imperfect ; -- expects cls I
+    } ;
+
+  invarCard : Str -> Size -> NumOrdCard = \s,n -> {
+    s = \\_,_,_ => s ; n = n ; isNum = False
+    } ;
+  invarQuant : Str -> State -> Quant = \s,d -> lin Quant baseQuant ** {
+    s = \\_,_,_,_ => s ; d = d
     } ;
 
 } ;

@@ -465,8 +465,11 @@ oper
 
 param
   VPForm = VPPerf
+         | VPPassPerf
          | VPImpf Mood
+         | VPPassImpf Mood
          | VPImp
+         | VPPPart
          | VPGer ;
 
   VType = -- indicates if there is a predicate (xabar):
@@ -500,8 +503,11 @@ oper
         let gn = pgn2gn pgn in
         case vf of {
           VPPerf => v.s ! VPerf Act pgn ;
+          VPPassPerf => v.s ! VPerf Pas pgn ;
           VPImpf m => v.s ! VImpf m Act pgn ;
+          VPPassImpf m => v.s ! VImpf m Pas pgn ;
           VPImp => v.s ! VImp gn.g gn.n ;
+          VPPPart => v.s ! VPPart ;
           VPGer => v.s ! Masdar
         };
       sc = noPrep ;
@@ -515,8 +521,8 @@ oper
     let actVP = predV v in actVP ** {
       s = \\pgn,vf =>
         case vf of {
-          VPPerf   => v.s ! VPerf   Pas pgn ;
-          VPImpf m => v.s ! VImpf m Pas pgn ;
+          VPPerf        => actVP.s ! pgn ! VPPassPerf ;
+          VPImpf m      => actVP.s ! pgn ! VPPassImpf m ;
           _        => actVP.s ! pgn ! vf
       }
     };

@@ -11,6 +11,12 @@ lin FullName gn sn = emptyNP ** {
 
 lin UseLN ln = ln ;
 
+lin AdjLN ap ln = ln ** {
+      s = \\c => ln.s ! c
+              ++ ap.s ! NoHum ! (pgn2gn ln.a.pgn).g
+                      ! (pgn2gn ln.a.pgn).n ! Def ! c
+    } ;
+
 lin PlainLN ln = ln ;
 
 lin InLN n = A.PrepNP S.in_Prep n ; ---- TODO: alternative prepositions

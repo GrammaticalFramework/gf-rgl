@@ -22,6 +22,8 @@ concrete PhraseAra of Phrase = CatAra ** open
     UttS s = {s = \\_ => s.s ! Verbal} ;
     UttAdv,
     UttIAdv = \s -> {s = \\_ => s.s} ; ---- OK? AR
+
+    VocNP np = {s = "يَا" ++ np.s ! Nom} ;
 --
     NoPConj = {s = []} ;
 --    PConjConj conj = conj ;

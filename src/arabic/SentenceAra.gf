@@ -15,6 +15,8 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     PredVP = predVP ;
 
+    PredSCVP sc vp = predVP (indeclNP sc.s ResAra.Sg) vp ;
+
     ImpVP vp = {
       s = \\p,g,n =>
         case p of {
@@ -37,8 +39,15 @@ concrete SentenceAra of Sentence = CatAra ** open
     SlashVP = predVPSlash ;
     AdvSlash slash adv = slash ** { s2 = slash.s2 ++ adv.s } ;
 
+    AdvImp adv imp = {s = \\p,g,n => adv.s ++ imp.s ! p ! g ! n} ;
+
 -- : Cl -> Prep -> ClSlash
---    SlashPrep cl prep = TODO
+    SlashPrep cl prep = (predV copula) ** {
+      s = \\_,_ => cl.s ! Pres ! Pos ! Verbal ;
+      c2 = prep ;
+      agrObj = \\_ => [] ;
+      subj = np2subj emptyNP
+      } ;
 
 --  SlashVS np vs sslash = TODO
 
@@ -72,4 +81,8 @@ concrete SentenceAra of Sentence = CatAra ** open
 
     AdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
     ExtAdvS adv s = s ** {s = \\o => adv.s ++ s.s ! o} ;
+
+    SSubjS s1 subj s2 = {
+      s = \\o => s1.s ! o ++ SOFT_BIND ++ "," ++ subj.s ++ s2.s ! subj.o
+      } ;
 }

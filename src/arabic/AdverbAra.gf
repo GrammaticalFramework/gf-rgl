@@ -4,6 +4,7 @@ concrete AdverbAra of Adverb = CatAra ** open ResAra, Prelude in {
   lin
 
     PositAdvAdj a = {s = a.s ! APosit Masc Sg Indef Acc} ;
+    PositAdAAdj a = {s = a.s ! APosit Masc Sg Indef Acc} ;
     -- ComparAdvAdj cadv a np = {
     --   s = cadv.s ++ a.s ! AAdv ++ "مِنْ" ++ np.s ! Gen
     --   } ;
