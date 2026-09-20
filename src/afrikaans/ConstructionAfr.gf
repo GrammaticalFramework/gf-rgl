@@ -1,25 +1,25 @@
 --# -path=.:../abstract:../common
 
 concrete ConstructionAfr of Construction = CatAfr **
-  open SyntaxAfr, GrammarAfr, ParadigmsAfr, Prelude,
-       (N = NounAfr), (L = LexiconAfr) in {
+  open GrammarAfr, ParadigmsAfr, Prelude in {
 
 lin
-  ready_VP = mkVP (mkA "gereed") ;
+  ready_VP = UseComp (CompAP (PositA (mkA "gereed"))) ;
 
-  has_age_VP card = mkVP
-    (lin AP (mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (mkN "jaar"))))
-                 (mkA "oud"))) ;
+  has_age_VP card =
+    UseComp (CompAP (AdAP (lin AdA (UttNP (DetCN (DetQuant IndefArt (NumCard card)) (UseN (mkN "jaar")))))
+                          (PositA (mkA "oud")))) ;
 
-  n_units_AP card cn a = mkAP
-    (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_units_AP card cn a =
+    AdAP (lin AdA (UttNP (DetCN (DetQuant IndefArt (NumCard card)) cn)))
+         (PositA a) ;
 
-  n_units_of_NP card cn np = N.AdvNP
-    (mkNP <lin Card card : Card> (lin CN cn))
-    (SyntaxAfr.mkAdv (mkPrep "van") (lin NP np)) ;
+  n_units_of_NP card cn np =
+    AdvNP (DetCN (DetQuant IndefArt (NumCard card)) cn)
+          (PrepNP (mkPrep "van") np) ;
 
-  cup_of_CN np = mkCN (mkCN (mkN "koppie"))
-                       (SyntaxAfr.mkAdv (mkPrep "van") (lin NP np)) ;
+  cup_of_CN np = AdvCN (UseN (mkN "koppie"))
+                       (PrepNP (mkPrep "van") np) ;
 
 lincat
   Weekday = N ;
@@ -28,8 +28,8 @@ lincat
   Monthday = {s : Str} ;
 
 lin
-  weekdayPunctualAdv w = SyntaxAfr.mkAdv (mkPrep "op") (mkNP w) ;
-  weekdayHabitualAdv w = SyntaxAfr.mkAdv (mkPrep "elke") (mkNP w) ;
+  weekdayPunctualAdv w = PrepNP (mkPrep "op") (MassNP (UseN w)) ;
+  weekdayHabitualAdv w = PrepNP (mkPrep "elke") (MassNP (UseN w)) ;
   yearAdv y = {s = "in" ++ y.s} ;
   intYear i = {s = i.s} ;
 
