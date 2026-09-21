@@ -15,17 +15,18 @@ lin
     between_Prep = mkPrep "mezi" Ins ;
     by8agent_Prep = mkPrep "od" Gen ; ---- TODO this means "from", there might be no good translation
     by8means_Prep = mkPrep "pomocí" Gen ;
-    can_VV = {
+    can_VV = (withNeg {
       inf = "moci" ;
+      impsg2,imppl1,imppl2 = nonExist ;
       pressg1 = "mohu" ;
       pressg2 = "můžeš" ;
-      pressg3, negpressg3 = "může" ;
+      pressg3 = "může" ;
       prespl1 = "můžeme" ;
       prespl2 = "můžete" ;
       prespl3 = "mohou" ;
       pastpartsg = "mohl" ;
       pastpartpl = "mohli" ;
-      } ;
+      }) ;
     either7or_DConj = {s1 = "buď" ; s2 = "nebo"} ;
     every_Det = adjDet (mladyAdjForms "každý") ;
     few_Det = invarNumeral "málo" ; -- CEG 6.8 --- TODO genitive mála
@@ -38,7 +39,7 @@ lin
     under_Prep = mkPrep "pod" Ins ;
     where_IAdv = {s = "kde"} ;
     from_Prep = mkPrep (pre {"s"|"z" => "ze" ; _ => "z"}) Gen ; ---- consonant clusters
-    have_V2 = mkV2 haveVerbForms ;
+    have_V2 = mkV2 <lin V haveVerbForms : CatCze.V> ;
     in_Prep = mkPrep (pre {"v"|"m" => "ve" ; _ => "v"}) Loc ; ----
     many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
     or_Conj = mkConj "nebo" ;

@@ -29,12 +29,9 @@ lin
 		 rcl.compl ! a ;
       } ;
 
--- no imperative in VerbForms yet; the 1st person plural present is used
--- instead, which is the normal register in mathematical Czech
--- ("předpokládáme, že ..." = "we assume that ...")
-    ImpVP vp = let agr = Ag (Masc Anim) Pl P1 in
-      {s = vp.clit ! agr ++ verbAgr vp.verb agr True ++ vp.compl ! agr} ;
-
+    ImpVP vp = {s = \\pos,a =>
+      imperativeAgr vp.verb a pos ++ vp.clit ! a ++ vp.compl ! a
+      } ;
     EmbedS s = {s = "že" ++ s.s} ;
 
     EmbedQS qs = {s = qs.s} ;

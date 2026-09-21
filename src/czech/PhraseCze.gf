@@ -8,9 +8,11 @@ lin
     UttNP np = {s = np.s ! Nom} ;
     UttVP vp = let agr = Ag Neutr Sg P3 in {s = vp.clit ! agr ++ vp.verb.inf ++ vp.compl ! agr} ; 
 
-    UttImpSg pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPl pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s} ;
+    -- pol.p selects the verb form; empty pol.s retains the Pol constituent.
+    -- Without it, parsing "nečti ji" recovers UttImpSg ?1 instead of PNeg.
+    UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! Ag (Masc Anim) Sg P2} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Ag (Masc Anim) Pl P2} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! AgPol (Masc Anim)} ;
 
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 

@@ -138,21 +138,44 @@ oper
 -------------------------
 -- Verbs
 
+  -- Class constructors, not guesses from an arbitrary infinitive.
+  -- kupovat: -ovat, -uji, -oval, -uj; kryt: -ýt/-ít, -yji/-iji, -yl/-il.
+  kupovatV : Str -> V = \s -> lin V (iii_kupovatVerbForms s) ;
+  krytV : Str -> V = \s -> lin V (iii_krýtVerbForms s) ;
+
+  -- Full present and imperative forms, with masculine singular/plural past
+  -- participles. Keep this twelve-field input compatible as VerbForms grows.
+  -- Storing past participles does not yet implement past-tense clauses.
+  VerbPrincipalParts : Type = PositiveVerbForms ;
+
+  mkV = overload {
+    mkV : VerbPrincipalParts -> V = \v -> lin V (withNeg v) ;
+    mkV : (inf,p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,pastsg,pastpl,imp2sg,imp1pl,imp2pl : Str) -> V =
+      \inf,p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,pastsg,pastpl,imp2sg,imp1pl,imp2pl -> lin V (withNeg {
+        inf = inf ; pressg1 = p1sg ; pressg2 = p2sg ; pressg3 = p3sg ;
+        prespl1 = p1pl ; prespl2 = p2pl ; prespl3 = p3pl ;
+        pastpartsg = pastsg ; pastpartpl = pastpl ;
+        impsg2 = imp2sg ; imppl1 = imp1pl ; imppl2 = imp2pl
+        }) ;
+    } ;
+
+  mkVS : V -> VS = \v -> lin VS v ;
+  mkVQ : V -> VQ = \v -> lin VQ v ;
   mkV2 = overload {
-    mkV2 : VerbForms -> VerbForms ** {c : ComplementCase}
-      = \vf -> vf ** {c = {s = [] ; c = Acc ; hasPrep = False}} ;
-    mkV2 : VerbForms -> Case -> VerbForms ** {c : ComplementCase}
-      = \vf,c -> vf ** {c = {s = [] ; c = c ; hasPrep = False}} ;
-    mkV2 : VerbForms -> ComplementCase -> VerbForms ** {c : ComplementCase}
-      = \vf,c -> vf ** {c = c} ;
+    mkV2 : V -> V2
+      = \v -> lin V2 (v ** {c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+    mkV2 : V -> Case -> V2
+      = \v,c -> lin V2 (v ** {c = {s = [] ; c = c ; hasPrep = False}}) ;
+    mkV2 : V -> Prep -> V2
+      = \v,p -> lin V2 (v ** {c = p}) ;
     } ;
 
   mkV3 = overload {
-    mkV3 : VerbForms -> VerbForms ** {c,c2 : ComplementCase}
-      = \vf -> vf ** {c = {s = [] ; c = Acc ; hasPrep = False} ;
-                      c2 = {s = [] ; c = Dat ; hasPrep = False}} ;
-    mkV3 : VerbForms -> ComplementCase -> ComplementCase -> VerbForms ** {c,c2 : ComplementCase}
-      = \vf,c,c2 -> vf ** {c = c ; c2 = c2} ;
+    mkV3 : V -> V3
+      = \v -> lin V3 (v ** {c = {s = [] ; c = Acc ; hasPrep = False} ;
+                           c2 = {s = [] ; c = Dat ; hasPrep = False}}) ;
+    mkV3 : V -> Prep -> Prep -> V3
+      = \v,p,p2 -> lin V3 (v ** {c = p ; c2 = p2}) ;
     } ;
 
 ------------------------

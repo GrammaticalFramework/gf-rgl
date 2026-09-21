@@ -15,6 +15,7 @@ concrete CatCze of Cat =
     QS  = {s : Str} ; ---- TODO: indirect questions
     QCl = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr} ; -- = Cl ---- check if enough
     IAdv = {s : Str} ;
+    Imp = {s : Bool => Agr => Str} ;
 
     RS  = {s : Agr => Str} ;
     RCl = {subj,clit,compl : Agr => Str ; verb : VerbForms} ; ---- RAgr with composite RP

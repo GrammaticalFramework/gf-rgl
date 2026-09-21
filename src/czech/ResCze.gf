@@ -716,32 +716,54 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 ---------------------
 -- Verbs
 
-  VerbForms : Type = {          ---- TODO more forms to add
+  -- Public input schema of ParadigmsCze.VerbPrincipalParts. Keep existing
+  -- record literals valid: derived forms belong in VerbForms; additional
+  -- principal parts need a new constructor or overload.
+  PositiveVerbForms : Type = {
     inf,
+    impsg2, imppl1, imppl2,
     pressg1, pressg2, pressg3,
     prespl1, prespl2, prespl3,
-    pastpartsg, pastpartpl,
-----    passpart,
-    negpressg3 : Str   -- matters only for copula
+    pastpartsg, pastpartpl : Str
+    } ;
+
+  VerbForms : Type = PositiveVerbForms ** {
+    negpressg1,negpressg2,negpressg3,negprespl1,negprespl2,negprespl3,
+    negimpsg2,negimppl1,negimppl2,refl : Str ; isRefl : Bool
+    } ;
+
+  -- Prefix at lexical construction time, so ordinary spelling also parses.
+  withNeg : PositiveVerbForms -> VerbForms = \v -> v ** {
+    refl = [] ; isRefl = False ;
+    negpressg1 = "ne" + v.pressg1 ; negpressg2 = "ne" + v.pressg2 ;
+    negpressg3 = "ne" + v.pressg3 ;
+    negprespl1 = "ne" + v.prespl1 ; negprespl2 = "ne" + v.prespl2 ;
+    negprespl3 = "ne" + v.prespl3 ;
+    negimpsg2 = "ne" + v.impsg2 ; negimppl1 = "ne" + v.imppl1 ; negimppl2 = "ne" + v.imppl2
     } ;
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
-  verbAgr : VerbForms -> Agr -> Bool -> Str   ---- TODO tenses
-    = \vf,a,b -> case a of {
-      Ag _ Sg P1 => vf.pressg1 ;
-      Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 | AgQuant _ => case b of {
-        True  => vf.pressg3 ;
-	False => vf.negpressg3 -- matters only for copula
-	} ;
-      Ag _ Pl P1 => vf.prespl1 ;
-      Ag _ Pl P2 | AgPol _ => vf.prespl2 ;
-      Ag _ Pl P3 => vf.prespl3
+  verbAgr : VerbForms -> Agr -> Bool -> Str
+    = \vf,a,b -> case <a,b> of {
+      <Ag _ Sg P1,True> => vf.pressg1 ; <Ag _ Sg P1,False> => vf.negpressg1 ;
+      <Ag _ Sg P2,True> => vf.pressg2 ; <Ag _ Sg P2,False> => vf.negpressg2 ;
+      <Ag _ Sg P3 | AgQuant _,True> => vf.pressg3 ; <Ag _ Sg P3 | AgQuant _,False> => vf.negpressg3 ;
+      <Ag _ Pl P1,True> => vf.prespl1 ; <Ag _ Pl P1,False> => vf.negprespl1 ;
+      <Ag _ Pl P2 | AgPol _,True> => vf.prespl2 ; <Ag _ Pl P2 | AgPol _,False> => vf.negprespl2 ;
+      <Ag _ Pl P3,True> => vf.prespl3 ; <Ag _ Pl P3,False> => vf.negprespl3
       } ;
 
-  copulaVerbForms : VerbForms = {
+  imperativeAgr : VerbForms -> Agr -> Bool -> Str = \v,a,pos -> case <a,pos> of {
+    <Ag _ Sg _,True> => v.impsg2 ; <Ag _ Sg _,False> => v.negimpsg2 ;
+    <Ag _ Pl P1,True> => v.imppl1 ; <Ag _ Pl P1,False> => v.negimppl1 ;
+    <_,True> => v.imppl2 ; <_,False> => v.negimppl2
+    } ;
+
+
+  copulaVerbForms : VerbForms = (withNeg {
     inf = "být" ;
+    impsg2 = "buď" ; imppl1 = "buďme" ; imppl2 = "buďte" ;
     pressg1 = "jsem" ;
     pressg2 = "jsi" ;
     pressg3 = "je" ;
@@ -750,14 +772,14 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     prespl3 = "jsou" ;
     pastpartsg = "byl" ;
     pastpartpl = "byli" ;
-    negpressg3 = "ní" ;  -- ne is added to this
-    } ;
+    }) ** {negpressg3 = "není"} ;
 
-  haveVerbForms : VerbForms = {
+  haveVerbForms : VerbForms = withNeg {
     inf = "mít" ;
+    impsg2 = "měj" ; imppl1 = "mějme" ; imppl2 = "mějte" ;
     pressg1 = "mám" ;
     pressg2 = "máš" ;
-    pressg3, negpressg3 = "má" ;
+    pressg3 = "má" ;
     prespl1 = "máme" ;
     prespl2 = "máte" ;
     prespl3 = "mají" ;
@@ -773,11 +795,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
      kupo = Predef.tk 3 kupovat ;
      kupu = Predef.tk 1 kupo + "u"
    in
-   {
+   withNeg {
     inf = kupovat ;
+    impsg2 = kupu + "j" ; imppl1 = kupu + "jme" ; imppl2 = kupu + "jte" ;
     pressg1 = kupu + "ji" ; --- kupuju
     pressg2 = kupu + "ješ" ;
-    pressg3, negpressg3 = kupu + "je" ;
+    pressg3 = kupu + "je" ;
     prespl1 = kupu + "jeme" ;
     prespl2 = kupu + "jete" ;
     prespl3 = kupu + "jí" ; --- kupujou
@@ -789,11 +812,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
    let
      kry = shortenVowel (Predef.tk 1 krýt) ;
    in
-   {
+   withNeg {
     inf = krýt ;
+    impsg2 = kry + "j" ; imppl1 = kry + "jme" ; imppl2 = kry + "jte" ;
     pressg1 = kry + "ji" ;
     pressg2 = kry + "ješ" ;
-    pressg3, negpressg3 = kry + "je" ;
+    pressg3 = kry + "je" ;
     prespl1 = kry + "jeme" ;
     prespl2 = kry + "jete" ;
     prespl3 = kry + "jí" ;

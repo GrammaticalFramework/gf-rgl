@@ -24,4 +24,5 @@ test -f "$work/api/ExtendCze.gfo"
 GF_LIB_PATH="$work/api" "$GF" -c -path="$work/api" -gfo-dir="$work/consumer" \
   tests/czech/CzeTests.gf \
   </dev/null > "$work/consumer.log" 2>&1 || { cat "$work/consumer.log"; exit 1; }
+test -s "$work/consumer/CzeTests.gfo" || { cat "$work/consumer.log"; exit 1; }
  printf 'Czech source regressions, AllCze, installed API imports passed.\n'

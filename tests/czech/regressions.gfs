@@ -33,6 +33,17 @@ cc -one ((mkA "lehký").compar.msnom)
 cc -one ((mkA "lehký" "lehčí").compar.msnom)
 cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (comparAP L.young_A) (panN "student"))))
 
+-- Verb principal parts and public valency constructors.
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP drink_V2 (mkNP (zenaN "voda")))))
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP buy_V3 (mkNP (zenaN "kniha")) (mkNP (panN "syn")))))
+cc -one ((kupovatV "kupovat").pressg1 ++ (kupovatV "kupovat").negprespl3 ++ (kupovatV "kupovat").pastpartsg ++ (kupovatV "kupovat").impsg2 ++ (kupovatV "kupovat").negimppl2)
+cc -one ((krytV "krýt").pressg1 ++ (krytV "krýt").negprespl3 ++ (krytV "krýt").pastpartsg ++ (krytV "krýt").impsg2 ++ (krytV "krýt").negimppl2)
+cc -one ((krytV "pít").pressg1 ++ (krytV "pít").pastpartsg ++ (krytV "pít").impsg2)
+
+-- Clitic domains in clauses, questions, infinitives and imperatives.
+cc -one (mkUtt negativePol (mkImp (mkVP L.read_V2 (mkNP (zenaN "kniha")))) )
+cc -one (mkUtt politeImpForm negativePol (mkImp (mkVP L.read_V2 (mkNP (zenaN "kniha")))) )
+
 -- Complement forms distinguish bare case government from prepositions.
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
