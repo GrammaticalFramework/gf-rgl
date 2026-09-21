@@ -27,9 +27,9 @@ concrete CatCze of Cat =
     V3 = ResCze.VerbForms ** {c,c2 : ComplementCase} ; -- c : direct object, c2 : indirect object
     VS,VQ,VV = ResCze.VerbForms ;
 
-    A  = ResCze.AdjForms ;
-    AP = ResCze.Adjective ** {isPost : Bool} ; -- {s : Gender => Number => Case => Str}
-    A2 = ResCze.AdjForms ** {c : ComplementCase} ;
+    A  = ResCze.DegreeForms ;
+    AP = ResCze.Adjective ** {pred : Agr => Str ; isPost : Bool} ;
+    A2 = ResCze.DegreeForms ** {c : ComplementCase} ;
 
     AdA = {s : Str} ;
 
@@ -37,6 +37,7 @@ concrete CatCze of Cat =
     CN = ResCze.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit : Bool} ; -- clit,prep differ for pronouns
     PN = {s : Case => Str ; g : Gender} ;
+    Ord = Adjective ;
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Num = Determiner ;

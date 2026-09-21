@@ -97,24 +97,40 @@ oper
 ---------------------
 -- Adjectives
 
--- Only positive forms so far ----
+-- Guess regular comparison; supply a principal part for exceptions, or
+-- nonExist as the comparative for a positive-only adjective.
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (guessAdjForms s) ;
+      = \s -> lin A (degreeAdjForms s (guessComparative s)) ;
+    mkA : (positive,comparative : Str) -> A
+      = \p,c -> lin A (degreeAdjForms p c) ;
     } ;
 
+  -- Declension constructors supply positive forms only.
   mladyA : Str -> A
-    = \s -> lin A (mladyAdjForms s) ;
+    = \s -> lin A (positiveAdj (mladyAdjForms s)) ;
   jarniA : Str -> A
-    = \s -> lin A (jarniAdjForms s) ;
+    = \s -> lin A (positiveAdj (jarniAdjForms s)) ;
   otcuvA : Str -> A
-    = \s -> lin A (otcuvAdjForms s) ;
+    = \s -> lin A (positiveAdj (otcuvAdjForms s)) ;
   matcinA : Str -> A
-    = \s -> lin A (matcinAdjForms s) ;
+    = \s -> lin A (positiveAdj (matcinAdjForms s)) ;
 
   invarA : Str -> A
-    = \s -> lin A (invarAdjForms s) ;
+    = \s -> lin A (positiveAdj (invarAdjForms s)) ;
+
+  -- Short adjectives supply predicates, not attributive AP forms.
+  shortAP : (m,f,n,mp,fp,np : Str) -> AP = \m,f,n,mp,fp,np ->
+    let ap : Adjective = {
+    s = \\g,num,c => case <num,c,g> of {
+      <Sg,Nom|ResCze.Voc,Masc _> => m ; <Sg,Nom|ResCze.Voc,Fem> => f ; <Sg,Nom|ResCze.Voc,Neutr> => n ;
+      <Pl,Nom|ResCze.Voc,Masc Anim> => mp ; <Pl,Nom|ResCze.Voc,Neutr> => np ;
+      <Pl,Nom|ResCze.Voc,_> => fp ; _ => nonExist
+      }
+    } in lin AP {
+      s = \\_,_,_ => nonExist ; pred = shortPredicate ap ; isPost = True
+      } ;
 
   mkA2 : A -> Prep -> A2
     = \a,p -> lin A2 (a ** {c = p}) ;

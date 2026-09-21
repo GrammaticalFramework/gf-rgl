@@ -45,19 +45,18 @@ lin
       compl = comp.s
       } ;
       
-    CompAP ap = {
-      s = \\a => case a of {
-        Ag g n p_ => ap.s ! g ! n ! Nom
-        }
-      } ;
+    CompAP ap = {s = ap.pred} ;
       
     CompNP np = {
-      s = \\a_ => np.s ! Nom ; ---- InstrC in Pol
+      -- An identifying NP retains its own number; only its case is selected.
+      s = \\a_ => np.s ! Nom ;
       } ;
 
     CompCN cn = {
       s = \\a => case a of {
-        Ag _ n _ => cn.s ! n ! Nom ---- InstrC also possible
+        Ag _ n _ => cn.s ! n ! Nom ;
+        AgQuant _ => cn.s ! Pl ! Ins ; -- selected formal predicative instrumental
+        AgPol _ => cn.s ! Sg ! Nom
         }
       } ;
       

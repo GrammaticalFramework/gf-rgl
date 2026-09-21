@@ -41,7 +41,9 @@ lin
   SymbS sy = sy ;
 
   SymbNum sy = {s = \\_,_ => sy.s ; size = Num5} ; -- "n čísel", like numerals from 5 up
-  SymbOrd sy = {s = glue sy.s "-tý"} ;             ---- Ord is still an uninflected string
+  SymbOrd sy = {s = \\g,n,c =>
+    glue sy.s ((adjFormsAdjective (mladyAdjForms "-tý")).s ! g ! n ! c)
+    } ;
 
 oper
   symbolPN : Str -> PN

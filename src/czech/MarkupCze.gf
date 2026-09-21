@@ -17,7 +17,10 @@ lin
     prep = \\c => appMark m (np.prep ! c)
     } ;
 
-  MarkupAP   m ap  = ap ** {s = \\g,n,c => appMark m (ap.s ! g ! n ! c)} ;
+  MarkupAP   m ap  = ap ** {
+    s = \\g,n,c => appMark m (ap.s ! g ! n ! c) ;
+    pred = \\a => appMark m (ap.pred ! a)
+    } ;
   MarkupAdv  m adv =       {s =            appMark m adv.s} ;
   MarkupS    m s   =       {s =            appMark m s.s} ;
   MarkupUtt  m utt =       {s =            appMark m utt.s} ;

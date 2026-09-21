@@ -18,4 +18,25 @@ cc -one ((zenaN "Naďa").sgen ++ (zenaN "Naďa").sdat ++ (zenaN "Káťa").sgen +
 cc -one ((zenaN "Zoja").sgen ++ (zenaN "Zoja").sdat)
 cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zenaN "banka").sdat)
 cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
+
+-- Adjective degrees retain case and agreement.
+cc -one ((mkA "mladý").compar.msnom)
+cc -one ((mkA "hrdý").compar.msnom ++ (mkA "rudý").superl.msgen ++ (mkA "chudý").compar.msnom)
+cc -one ((mkA "rychlý").compar.msnom ++ (mkA "rychlý").superl.msnom)
+cc -one ((mkA "krásný").compar.msnom ++ (mkA "moderní").compar.msnom ++ (mkA "chytrý").compar.msnom)
+cc -one ((mkA "praktický").compar.msnom ++ (mkA "lidský").compar.msnom ++ (mkA "cizí").compar.msnom)
+cc -one ((mkA "čistý" "čistší").compar.msnom)
+cc -one ((mkA "jarní" nonExist).msgen)
+cc -one ((mkA "jarní" nonExist).compar.msnom)
+cc -one ((mkA "jarní" nonExist).superl.msnom)
+cc -one ((mkA "lehký").compar.msnom)
+cc -one ((mkA "lehký" "lehčí").compar.msnom)
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (comparAP L.young_A) (panN "student"))))
+
+-- Complement forms distinguish bare case government from prepositions.
+cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
+cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
+-- Short forms allow predicate responses but cannot modify a noun.
+cc -one (mkUtt (mkNP (mkCN like_AP (panN "student"))))
+cc -one (mkUtt ready_AP)
 q

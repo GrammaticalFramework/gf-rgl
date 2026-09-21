@@ -5,7 +5,6 @@ oper AAnter : Ant = notYet "AAnter" ;
 oper AdAdv : AdA -> Adv -> Adv = notYet "AdAdv" ;
 oper AdNum : AdN -> Card -> Card = notYet "AdNum" ;
 oper AdVVP : AdV -> VP -> VP = notYet "AdVVP" ;
-oper AdjOrd : Ord -> AP = notYet "AdjOrd" ;
 oper AdnCAdv : CAdv -> AdN = notYet "AdnCAdv" ;
 oper AdvIAdv : IAdv -> Adv -> IAdv = notYet "AdvIAdv" ;
 oper AdvIP : IP -> Adv -> IP = notYet "AdvIP" ;

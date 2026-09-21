@@ -17,7 +17,7 @@ param
 
   Person = P1 | P2 | P3 ;
 
-  Agr = Ag Gender Number Person ;
+  Agr = Ag Gender Number Person | AgPol Gender | AgQuant Gender ; -- polite singular: plural verb, singular predicate
 
   CTense = CTPres | CTPast ; ----- TODO complete the tense system to match Czech verb morphology
 
@@ -546,8 +546,24 @@ oper
 -- to be used for AP: 56 forms for each degree
   Adjective : Type = {s : Gender => Number => Case => Str} ;
 
+  -- Long predicates agree with the counted noun; short predicates instead
+  -- use neuter singular with a quantified subject.
+  longPredicate : Adjective -> Agr => Str = \ap -> \\a => case a of {
+    Ag g n _ => ap.s ! g ! n ! Nom ;
+    AgPol g => ap.s ! g ! Sg ! Nom ;
+    AgQuant g => ap.s ! g ! Pl ! Gen
+    } ;
+  shortPredicate : Adjective -> Agr => Str = \ap -> \\a => case a of {
+    AgQuant _ => ap.s ! Neutr ! Sg ! Nom ;
+    _ => longPredicate ap ! a
+    } ;
+
 -- to be used for A, in three degrees: 15 forms in each
----- TODO other degrees than positive
+  DegreeForms : Type = AdjForms ** {compar,superl : AdjForms} ;
+
+  positiveAdj : AdjForms -> DegreeForms = \a -> a ** {
+    compar,superl = invarAdjForms nonExist
+    } ;
 
   AdjForms : Type = {
     msnom, fsnom, nsnom : Str ; -- svoc = snom
@@ -602,6 +618,36 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     }
 
     } ;
+
+  -- Regular comparison plus common lexical exceptions. Spelling cannot
+  -- determine semantic gradability or every stem alternation: callers can
+  -- supply a comparative or nonExist explicitly.
+  guessComparative : Str -> Str = \s -> case s of {
+    "dobrý" => "lepší" ; "špatný" | "zlý" => "horší" ;
+    "malý" => "menší" ; "velký" => "větší" ; "dlouhý" => "delší" ;
+    "mladý" => "mladší" ; "starý" => "starší" ;
+    "chudý" => "chudší" ; "tvrdý" => "tvrdší" ; "bledý" => "bledší" ;
+    "bílý" => "bělejší" ; "hnědý" => "hnědší" ; "hezký" => "hezčí" ;
+    stem + "cký" => stem + "čtější" ;
+    stem + "ský" => stem + "štější" ;
+    stem + ("ný" | "ní") => stem + "nější" ;
+    stem + "lý" => stem + "lejší" ;
+    stem + "rý" => stem + "řejší" ;
+    stem + "vý" => stem + "vější" ;
+    stem + "dý" => stem + "dější" ;
+    stem + "tý" => stem + "tější" ;
+    stem + "pý" => stem + "pější" ;
+    stem + "bý" => stem + "bější" ;
+    stem + "mý" => stem + "mější" ;
+    stem + "zí" => stem + "zejší" ;
+    stem + "ží" => stem + "žejší" ;
+    _ => nonExist
+    } ;
+
+  degreeAdjForms : Str -> Str -> DegreeForms = \p,c ->
+    (guessAdjForms p) ** {
+      compar = guessAdjForms c ; superl = guessAdjForms ("nej" + c)
+      } ;
 
   guessAdjForms : Str -> AdjForms = \s -> case s of {
         _ + "ý"  => mladyAdjForms s ;
@@ -685,12 +731,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     = \vf,a,b -> case a of {
       Ag _ Sg P1 => vf.pressg1 ;
       Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 => case b of {
+      Ag _ Sg P3 | AgQuant _ => case b of {
         True  => vf.pressg3 ;
 	False => vf.negpressg3 -- matters only for copula
 	} ;
       Ag _ Pl P1 => vf.prespl1 ;
-      Ag _ Pl P2 => vf.prespl2 ;
+      Ag _ Pl P2 | AgPol _ => vf.prespl2 ;
       Ag _ Pl P3 => vf.prespl3
       } ;
 
@@ -771,6 +817,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
   personalPron : Agr -> PronForms = \a ->
     {a = a ; cnom = []} **
     case a of {
+      AgQuant _ => {nom,gen,cgen,pgen,acc,cacc,pacc,dat,cdat,pdat,loc,ins,pins = nonExist} ;
       Ag _ Sg P1 => {
         nom = "já" ;
         gen,acc,pgen,pacc = "mne" ;
@@ -829,7 +876,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         dat,cdat,pdat = "nám" ;
 	ins,pins = "námi" ;
         } ;
-      Ag _ Pl P2 => {
+      Ag _ Pl P2 | AgPol _ => {
         nom = "vy" ;
         gen,acc,
           cgen,cacc,
@@ -870,7 +917,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 	pgen = "našich" ;
 	pins = "našimi" ;
 	} ;
-      Ag _ Pl P2   => jarniAdjForms "vaše" ** {
+      Ag _ Pl P2 | AgPol _ => jarniAdjForms "vaše" ** {
         msnom = "váš" ;
 	fsgen,mpnom = "vaši" ;
 	fsins = "vaší" ;
@@ -882,7 +929,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       Ag Fem Sg P3 => jarniAdjForms "její" ** {pdat = "jejím"} ;
 
       Ag (Masc _ | Neutr) Sg P3 => invarDemPronForms "jeho" ** {pdat = "jeho"} ;
-      Ag _ Pl P3 => invarDemPronForms "jejich" ** {pdat = "jejich"}
+      Ag _ Pl P3 | AgQuant _ => invarDemPronForms "jejich" ** {pdat = "jejich"}
 
 
     } ;

@@ -41,21 +41,21 @@ concrete LexiconCze of Lexicon =
     house_N = declSTAVENI "stavení" ; --- building, house
     station_N = declSTAVENI "nádraží" ;
 
-    young_A = mkA "mladý" ;
-    old_A = mkA "starý" ;
-    good_A = mkA "dobrý" ;
-    bad_A = mkA "špatný" ;
-    beautiful_A = mkA "krásný" ;
-    clean_A = mkA "čistý" ;
-    dirty_A = mkA "špinavý" ;
+    young_A = mkA "mladý" "mladší" ;
+    old_A = mkA "starý" "starší" ;
+    good_A = mkA "dobrý" "lepší" ;
+    bad_A = mkA "špatný" "horší" ;
+    beautiful_A = mkA "krásný" "krásnější" ;
+    clean_A = mkA "čistý" "čistší" ;
+    dirty_A = mkA "špinavý" "špinavější" ;
     
-    white_A = mkA "bílý" ;
-    black_A = mkA "černý" ;
-    red_A = mkA "červený" ;
-    brown_A = mkA "hnědý" ;
-    blue_A = mkA "modrý" ;
-    green_A = mkA "zelený" ;
-    yellow_A = mkA "žlutý" ;
+    white_A = mkA "bílý" "bělejší" ;
+    black_A = mkA "černý" "černější" ;
+    red_A = mkA "červený" "červenější" ;
+    brown_A = mkA "hnědý" "hnědší" ;
+    blue_A = mkA "modrý" "modřejší" ;
+    green_A = mkA "zelený" "zelenější" ;
+    yellow_A = mkA "žlutý" "žlutější" ;
 
     buy_V2 = mkV2 (iii_kupovatVerbForms "kupovat") ;
     love_V2 = mkV2 (iii_kupovatVerbForms "milovat") ;
@@ -67,8 +67,8 @@ concrete LexiconCze of Lexicon =
     salt_N = (kostN "sol") ** {snom,sacc = "sůl" ; pdat = "solím" ; ploc = "solích" ; pins = "solemi"} ;
     water_N = zenaN "voda" ;
     wine_N = mestoN "víno" ;
-    cold_A = mkA "studený" ;
-    warm_A = mkA "teplý" ;
+    cold_A = mkA "studený" "studenější" ;
+    warm_A = mkA "teplý" "teplejší" ;
 
 
 }
