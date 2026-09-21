@@ -213,6 +213,12 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (SlashV2AP have_V2 lik
 -- Kdo has masculine singular agreement and inflects for case.
 cc -one (mkUtt (mkQS (mkQCl whoSg_IP (mkAP L.young_A))))
 cc -one (whoSg_IP.s ! genitive ++ whoSg_IP.s ! dative ++ whoSg_IP.s ! instrumental)
+
+-- Comparison terms remain nominative while the adjective inflects.
+cc -one (mkUtt (mkNP (mkCN (mkAP L.young_A (mkNP he_Pron)) (panN "student"))))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (mkAP L.young_A (mkNP he_Pron)) (panN "student"))))
+-- A ProDrop comparison pronoun must still be overt.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP L.young_A (mkNP (E.ProDrop she_Pron))))))
 -- Addressing a quantified group retains genitive government.
 cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
 cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))

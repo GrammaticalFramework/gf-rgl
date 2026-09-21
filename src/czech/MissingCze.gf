@@ -10,7 +10,6 @@ oper AdvSlash : ClSlash -> Adv -> ClSlash = notYet "AdvSlash" ;
 oper CAdvAP : CAdv -> AP -> NP -> AP = notYet "CAdvAP" ;
 oper CleftAdv : Adv -> S -> Cl = notYet "CleftAdv" ;
 oper CleftNP : NP -> RS -> Cl = notYet "CleftNP" ;
-oper ComparA : A -> NP -> AP = notYet "ComparA" ;
 oper ComparAdvAdj : CAdv -> A -> NP -> Adv = notYet "ComparAdvAdj" ;
 oper ComparAdvAdjS : CAdv -> A -> S -> Adv = notYet "ComparAdvAdjS" ;
 oper ComplN2 : N2 -> NP -> CN = notYet "ComplN2" ;
