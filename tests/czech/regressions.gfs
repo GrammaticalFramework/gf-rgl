@@ -178,6 +178,13 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (P
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)))))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
+cc -one (SyntaxCze.mkAdv bareGen_Prep (mkNP he_Pron))
+cc -one (SyntaxCze.mkAdv by8agent_Prep (mkNP he_Pron))
+cc -one (SyntaxCze.mkAdv vocalized_Prep (mkNP he_Pron))
+-- mkVPSlash V3 NP completes Slash2V3.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (mkVPSlash buyFor_V3 (mkNP he_Pron)) (mkNP she_Pron)))))
+-- mkVP V3 NP NP instead completes Slash3V3; both must preserve slot order.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP buyFor_V3 (mkNP he_Pron) (mkNP she_Pron)))))
 
 -- Secondary and short predicates retain agreement through modification and coordination.
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) ready_AP)))

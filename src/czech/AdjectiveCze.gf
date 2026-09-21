@@ -11,9 +11,7 @@ concrete AdjectiveCze of Adjective = CatCze ** open ResCze, Prelude in {
 
     ComplA2 a np =
       let ap = adjFormsAdjective a ;
-          compl = a.c.s ++ case a.c.hasPrep of {
-            True => np.prep ! a.c.c ; False => np.s ! a.c.c
-            }
+          compl = fullComplement a.c np.s np.prep
       in
       ap **  {
         s = \\g,n,c => ap.s ! g ! n ! c ++ compl ;

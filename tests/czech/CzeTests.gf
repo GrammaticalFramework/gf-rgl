@@ -1,5 +1,7 @@
 resource CzeTests = open Prelude, SyntaxCze, SymbolicCze, ParadigmsCze, (L = LexiconCze), (N = NumeralCze), (I = IdiomCze), (E = ExtendCze) in {
 oper
+  bareGen_Prep : Prep = ParadigmsCze.mkPrep genitive ;
+  vocalized_Prep : Prep = v_Prep locative ;
   -- Typed consumers exercise every public verb-valency overload.
   drink_V2 : V2 = mkV2 (krytV "pít") ;
   drinkAcc_V2 : V2 = mkV2 (krytV "pít") accusative ;

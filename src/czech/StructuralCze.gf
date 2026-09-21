@@ -59,7 +59,7 @@ lin
       clit = s ; a = Ag Neutr Sg P3 ; m = Mod Neutr Sg ;
       hasClit = False ; isDrop = False ; isPron = False
       } ; -- CEG 5.6.3
-    possess_Prep = mkPrep "" Gen ;
+    possess_Prep = mkPrep Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;
     to_Prep = mkPrep "do" Gen ;

@@ -215,8 +215,14 @@ oper
   mkAdv : Str -> Adv
     = \s -> lin Adv {s = s} ;
 
-  mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+  mkPrep = overload {
+    -- Bare case government: use this instead of mkPrep "" c.
+    mkPrep : Case -> Prep
+      = \c -> lin Prep {s = [] ; c = c ; hasPrep = False} ;
+    -- Overt preposition, possibly with token-dependent allomorphs.
+    mkPrep : Str -> Case -> Prep
+      = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+    } ;
 
   -- The same vocalization applies to locative and accusative v.
   v_Prep : Case -> Prep = \c -> mkPrep vPreposition c ;

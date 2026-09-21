@@ -14,7 +14,7 @@ lin
         } ;
       False => vps ** {
         clit = \\a => vps.clit ! a ++ vps.clitAfter ! a ;
-        compl = \\a => vps.compl ! a ++ vps.c.s ++ (case vps.c.hasPrep of {True => np.prep ! vps.c.c ; False => np.s ! vps.c.c}) ++ vps.ind ! a
+        compl = \\a => vps.compl ! a ++ fullComplement vps.c np.s np.prep ++ vps.ind ! a
         }
       } ;
 
@@ -34,7 +34,7 @@ lin
       verb = v ; clitPresent = orB v.isRefl isClit ;
       clit = \\_ => v.refl ++ case before of {True => weak ; False => []} ;
       clitAfter = \\_ => case before of {True => [] ; False => weak} ;
-      compl = \\_ => case isClit of {True => [] ; False => v.c.s ++ np.s ! v.c.c} ;
+      compl = \\_ => case isClit of {True => [] ; False => fullComplement v.c np.s np.prep} ;
       c = v.c2 ;
       ind = \\_ => []
       } ;
@@ -48,7 +48,7 @@ lin
       clitAfter = \\_ => case before of {True => weak ; False => []} ;
       compl = \\_ => [] ;
       c = v.c ;
-      ind = \\_ => case isClit of {True => [] ; False => v.c2.s ++ np.s ! v.c2.c}
+      ind = \\_ => case isClit of {True => [] ; False => fullComplement v.c2 np.s np.prep}
       } ;
 
     UseComp comp = {

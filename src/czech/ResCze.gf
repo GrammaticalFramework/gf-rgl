@@ -794,6 +794,13 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     _ => True
     } ;
 
+  -- Full complements: prepositions select n-forms, bare cases select j-forms.
+  -- Clitic eligibility and placement are handled separately by the caller.
+  fullComplement : ComplementCase -> (Case => Str) -> (Case => Str) -> Str =
+    \p,bare,prep -> p.s ++ case p.hasPrep of {
+      True => prep ! p.c ; False => bare ! p.c
+      } ;
+
   verbAgr : VerbForms -> Agr -> Bool -> Str
     = \vf,a,b -> case <a,b> of {
       <Ag _ Sg P1,True> => vf.pressg1 ; <Ag _ Sg P1,False> => vf.negpressg1 ;
