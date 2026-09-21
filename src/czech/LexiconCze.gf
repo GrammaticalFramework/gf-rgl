@@ -6,6 +6,11 @@ concrete LexiconCze of Lexicon =
   in {
 
   lin
+    child_N = (kureN "dítě") ** {
+      sgen = "dítěte" ; sdat,sloc = "dítěti" ; sins = "dítětem" ;
+      pnom,pacc = "děti" ; pgen = "dětí" ; pdat = "dětem" ; ploc = "dětech" ; pins = "dětmi" ; gPl = Fem
+      } ;
+    year_N = (hradN "rok") ** {sgen = "roku" ; sloc = "roce" ; pgen = "let" ; pdat = "letům" ; ploc = "letech" ; pins = "lety"} ;
     boy_N = declPAN "kluk" ;
     man_N = declMUZ "muž" ;
     teacher_N = declMUZ "učitel" ;
@@ -18,7 +23,7 @@ concrete LexiconCze of Lexicon =
     machine_N = declSTROJ "stroj" ;
 
     woman_N = declZENA "žena" ;
-    school_N = declZENA "škola" ; ----
+    school_N = zenaN "škola" ;
     skirt_N = declRUZE "sukně";
     street_N = declRUZE "ulice" ;
     rose_N = declRUZE "růže" ;
@@ -28,7 +33,7 @@ concrete LexiconCze of Lexicon =
     bone_N = declKOST "kost" ;
     village_N = declKOST "ves" ; ----
 
-    city_N = declMESTO "město" ;
+    city_N = (mestoN "město") ** {sloc = "městě"} ;
     apple_N = declMESTO "jablko" ; ----
     sea_N = declMORE "moře" ;
     airport_N = declMORE "letiště" ;
@@ -55,5 +60,15 @@ concrete LexiconCze of Lexicon =
     buy_V2 = mkV2 (iii_kupovatVerbForms "kupovat") ;
     love_V2 = mkV2 (iii_kupovatVerbForms "milovat") ;
 
-}
+    beer_N = mestoN "pivo" ;
+    bread_N = mkN "chléb" "chleba" mascInanimate ;
+    fish_N = zenaN "ryba" ;
+    milk_N = (mestoN "mléko") ** {sloc = "mléce"} ;
+    salt_N = (kostN "sol") ** {snom,sacc = "sůl" ; pdat = "solím" ; ploc = "solích" ; pins = "solemi"} ;
+    water_N = zenaN "voda" ;
+    wine_N = mestoN "víno" ;
+    cold_A = mkA "studený" ;
+    warm_A = mkA "teplý" ;
 
+
+}

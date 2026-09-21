@@ -33,8 +33,8 @@ lin
 
   -- as DetCN in NounCze, with the symbols in apposition
   CNSymbNP det cn xs = {
-    s,clit,prep = \\c => det.s ! cn.g ! c ++ numSizeForm cn.s det.size c ++ xs.s ;
-    a = numSizeAgr cn.g det.size P3 ;
+    s,clit,prep = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ++ xs.s ;
+    a = numSizeAgr (nounGender cn (numSizeNumber det.size)) det.size P3 ;
     hasClit = False ;
     } ;
 

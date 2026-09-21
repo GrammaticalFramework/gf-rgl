@@ -71,12 +71,28 @@ oper
     _ => init (addI s) + "í"
     } ;
 
+  -- Before i/í/ě the vowel letter carries the dental's palatalization.
+  dentalStem : Str -> Str = \s -> case s of {
+    stem + "ň" => stem + "n" ; stem + "ť" => stem + "t" ;
+    stem + "ď" => stem + "d" ; _ => s
+    } ;
+
+  -- The žena ending is spelled i after a soft consonant, otherwise y.
+  addY : Str -> Str = \s -> case s of {
+    _ + #softConsonant => dentalStem s + "i" ; _ => s + "y"
+    } ;
+
   -- 3.4.10, in particular when also final 'a' is dropped
   addE : Str -> Str = \s -> case s of {
     re + "k"   => re + "ce" ;
     pra + ("g"|"h") => pra + "ze" ;
     stre + "ch" => stre  + "še" ;
     sest + "r" => sest + "ře" ;
+    stem + "l" => stem + "le" ;
+    stem + "z" => stem + "ze" ;
+    stem + "s" => stem + "se" ;
+    _ + ("ň"|"ť"|"ď") => dentalStem s + "ě" ;
+    _ + #softConsonant => s + "e" ;
     pan => pan + "ě"
     } ;
 
@@ -106,12 +122,12 @@ oper
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g,gPl : Gender} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
 
-  Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+  Noun : Type = {s : Number => Case => Str ; g,gPl : Gender} ;
 
 -- this is used in UseN
 
@@ -136,7 +152,7 @@ oper
 	  Ins => forms.pins
 	  }
 	} ;
-      g = forms.g
+      g = forms.g ; gPl = forms.gPl
       } ;
 
 -- terminology of CEG
@@ -209,7 +225,7 @@ oper
       pdat      = pan + "ům" ;
       pacc,pins = pan + "y" ;
       ploc      = addEch pan ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declPREDSEDA : DeclensionType = \predseda -> --- 3.5.4: sgen y/i
@@ -231,7 +247,7 @@ oper
       pdat      = predsed + "ům" ;
       pacc,pins = predsed + "y" ;
       ploc      = addEch predsed ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
 -- the oblique stem is a separate argument, because it cannot always be
@@ -248,7 +264,7 @@ oper
       pgen           = hrd + "ů" ;
       pdat           = hrd + "ům" ;
       ploc           = addEch hrd ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
   declHRAD : DeclensionType = \hrad -> --- 3.5.2: sloc u/ě/e  extra arg, sport-u, hrad-ě ; sgen u/a
@@ -259,18 +275,18 @@ oper
     in
     {
       snom      = zena ;
-      sgen      = zen + "y" ;  --- i after soft cons sometimes
-      sdat,sloc = zen + "ě" ;  --- i after soft cons sometimes ; skol+e
+      sgen      = addY zen ;
+      sdat,sloc = addE zen ;
       sacc      = zen + "u" ;
       svoc      = shortenVowel zen + "o" ; ---- shorten ?
       sins      = zen + "ou" ;
 
-      pnom,pacc = zen + "y" ;  --- also sgen
+      pnom,pacc = addY zen ;
       pgen      = zen ; --- sometimes with vowel shortening
       pdat      = zen + "ám" ;
       ploc      = zen + "ách" ;
       pins      = zen + "ami" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declMESTO : DeclensionType = \mesto -> --- 3.7.1 sloc u/e ; pgen vowel shortening sometimes ; ploc variations
@@ -288,7 +304,7 @@ oper
       pdat      = mest + "ům" ;
       ploc      = mest + "ech" ; --- with variations
       pins      = mest + "y" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 -- Latin masculines in -us: the ending is dropped outside the nominative
@@ -301,7 +317,7 @@ oper
       } ;
 
   declLATINUSA : DeclensionType = \genius ->
-    declLATINUS genius ** {g = Masc Anim} ;
+    declLATINUS genius ** {g,gPl = Masc Anim} ;
 
 -- Latin neuters in -um: the ending is dropped outside the nominative
 -- (kontinuum - kontinua), otherwise they follow město
@@ -324,7 +340,7 @@ oper
       pdat      = schemat + "ům" ;
       ploc      = schemat + "ech" ;
       pins      = schemat + "y" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 -- the hrad type with genitive -a instead of -u (les - lesa, zákon - zákona)
@@ -347,7 +363,7 @@ oper
       pgen,ploc = a.pgen ;
       pdat      = a.msins ;
       pins      = a.pins ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declADJM : DeclensionType = \nulty ->
@@ -362,14 +378,14 @@ oper
       pgen,ploc = a.pgen ;
       pdat      = a.msins ;
       pins      = a.pins ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
 -- indeclinable loans: bombé, tamari, software
   declINVAR : Gender -> DeclensionType = \g,s -> {
     snom,sgen,sdat,sacc,svoc,sloc,sins = s ;
     pnom,pgen,pdat,pacc,ploc,pins      = s ;
-    g = g
+    g,gPl = g
     } ;
 
   declMUZ : DeclensionType = \muz_ -> --- 3.5.3 : sdat,sloc ; pnom
@@ -395,7 +411,7 @@ oper
       pdat = muz + "ům" ;
       ploc = muz + "ích" ;
       pins = muz + "i" ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declSOUDCE : DeclensionType = \soudce ->   --- 3.5.3: sdat/sloc i,ovi ; pnom i/ové
@@ -412,7 +428,7 @@ oper
       pacc                = soudce ;
       ploc                = soudc + "ích" ;
       pins                = soudc + "i" ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declSTROJ : DeclensionType = \stroj ->
@@ -427,7 +443,7 @@ oper
       pdat           = stroj + "ům" ;
       ploc           = stroj + "ích" ;
       pins           = stroj + "i" ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
   declRUZE : DeclensionType = \ruze -> --- 3.6.2: pgen ulice-ulic, chvile-cvil
@@ -443,11 +459,11 @@ oper
       pdat      = ruz + "ím" ;
       ploc      = ruz + "ích" ;
       pins      = ruz + "emi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declPISEN : DeclensionType = \pisen ->
-    let pisn = dropFleetingE pisen
+    let pisn = dentalStem (dropFleetingE pisen)
     in
     {
       snom,sacc      = pisen ;
@@ -460,21 +476,23 @@ oper
       pdat           = pisn + "ím" ;
       ploc           = pisn + "ích" ;
       pins           = pisn + "ěmi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declKOST : DeclensionType = \kost ->
+    let stem = dentalStem kost
+    in
     {
       snom,sacc           = kost ;
-      sgen,sdat,svoc,sloc = kost + "i" ; --- pnom,pacc
-      sins                = kost + "í" ; --- pgen
+      sgen,sdat,svoc,sloc = stem + "i" ; --- pnom,pacc
+      sins                = stem + "í" ; --- pgen
 
-      pnom,pacc      = kost + "i" ;
-      pgen           = kost + "í" ;
-      pdat           = kost + "em" ;
-      ploc           = kost + "ech" ;
+      pnom,pacc      = stem + "i" ;
+      pgen           = stem + "í" ;
+      pdat           = stem + "em" ;
+      ploc           = stem + "ech" ;
       pins           = kost + "mi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declKURE : DeclensionType = \kure ->
@@ -491,7 +509,7 @@ oper
       pdat      = kur + "atům" ;
       ploc      = kur + "atech" ;
       pins      = kur + "aty" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
   declMORE : DeclensionType = \more -> --- 3.7.2 pgen zero sometimes
@@ -507,7 +525,7 @@ oper
       pdat      = mor + "ím" ;
       ploc      = mor + "ích" ;
       pins      = mor + "i" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
   declSTAVENI : DeclensionType = \staveni ->
@@ -519,7 +537,7 @@ oper
       pdat           = staveni + "m" ;
       ploc           = staveni + "ch" ;
       pins           = staveni + "mi" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 ---------------------------
@@ -783,9 +801,10 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag Fem Sg P3 => {
         nom = "ona" ;
-        gen = "její" ;
-        dat,acc,cgen,cacc,cdat,ins = "ji" ;
-        pgen,pdat,pacc,loc,pins = "ní" ;
+        gen,dat,cgen,cdat,ins = "jí" ;
+        acc,cacc = "ji" ;
+        pacc = "ni" ;
+        pgen,pdat,loc,pins = "ní" ;
         } ;
       Ag Neutr Sg P3 => {
         nom = "ono" ;
@@ -821,7 +840,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag g Pl P3 => {
         nom = case g of {
-	  Masc _ => "oni" ;
+	  Masc Anim => "oni" ;
+          Masc Inanim => "ony" ;
 	  Fem => "ony" ;
 	  Neutr => "ona"
 	  } ;
@@ -1038,6 +1058,10 @@ param
   NumSize = Num1 | Num2_4 | Num5 ; -- CEG 6.1
 
 oper
+  nounGender : Noun -> Number -> Gender = \cn,n -> case n of {
+    Sg => cn.g ; Pl => cn.gPl
+    } ;
+
   numSizeForm : (Number => Case => Str) -> NumSize -> Case -> Str
     = \cns,n,c -> case n of {
         Num1   => cns ! Sg ! c ;

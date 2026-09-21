@@ -40,8 +40,17 @@ oper
   mkN = overload {
     mkN : (nom : Str) -> N
       = \nom -> lin N (guessNounForms nom) ;
+    -- Select a default paradigm; mixed endings and stem alternations may
+    -- still need lexical overrides on the result.
     mkN : (nom,gen : Str) -> Gender -> N
       = \nom,gen,g -> lin N (declensionNounForms nom gen g) ;
+    } ;
+
+  mkPN = overload {
+    -- Indeclinable name: every case uses the supplied string.
+    mkPN : Str -> Gender -> PN = \s,g -> lin PN {s = \\_ => s ; g = g} ;
+    -- Inflected name: use the noun paradigm's singular cases and gender.
+    mkPN : N -> PN = \n -> lin PN {s = (nounFormsNoun n).s ! Sg ; g = n.g} ;
     } ;
 
 -- The following standard declensions can be used with good accuracy.
@@ -81,7 +90,7 @@ oper
 -- The full definition of the noun record is
 -- {
 --  snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ;
---  g : Gender
+--  g,gPl : Gender
 -- }
 
 

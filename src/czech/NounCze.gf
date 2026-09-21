@@ -6,8 +6,8 @@ concrete NounCze of Noun =
 
 lin
     DetCN det cn = {
-        s,prep,clit = \\c => det.s ! cn.g ! c ++ numSizeForm cn.s det.size c ;
-        a = numSizeAgr cn.g det.size P3 ;
+        s,prep,clit = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ;
+        a = numSizeAgr (nounGender cn (numSizeNumber det.size)) det.size P3 ;
         hasClit = False ;
       } ;
 
@@ -29,7 +29,7 @@ lin
 
     UsePron pron = {
       s = table {
-        Nom | Voc => pron.nom ;
+        Nom | ResCze.Voc => pron.nom ;
         Gen => pron.gen ;
         Dat => pron.dat ;
         Acc => pron.acc ;
@@ -38,7 +38,7 @@ lin
         } ;
       clit = table {
         Nom => pron.cnom ;
-        Voc => pron.nom ;
+        ResCze.Voc => pron.nom ;
         Gen => pron.cgen ;
         Dat => pron.cdat ;
         Acc => pron.cacc ;
@@ -46,7 +46,7 @@ lin
         Ins => pron.ins
         } ;
       prep = table {
-        Nom | Voc => pron.nom ;
+        Nom | ResCze.Voc => pron.nom ;
         Gen => pron.pgen ;
         Dat => pron.pdat ;
         Acc => pron.pacc ;
@@ -66,18 +66,18 @@ lin
       } ;
 
     AdjCN ap cn = {
-      s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! cn.g ! n ! c) (cn.s ! n ! c) ;
-      g = cn.g
+      s = \\n,c => preOrPost (notB ap.isPost) (ap.s ! nounGender cn n ! n ! c) (cn.s ! n ! c) ;
+      g = cn.g ; gPl = cn.gPl
       } ;
 
     RelCN cn rs = {
-      s = \\n,c => cn.s ! n ! c ++ rs.s ! Ag cn.g n P3 ;
-      g = cn.g
+      s = \\n,c => cn.s ! n ! c ++ rs.s ! Ag (nounGender cn n) n P3 ;
+      g = cn.g ; gPl = cn.gPl
       } ;
 
     AdvCN cn adv = {
       s = \\n,c => cn.s ! n ! c ++ adv.s ;
-      g = cn.g
+      g = cn.g ; gPl = cn.gPl
       } ;
 
     AdvNP np adv = {
@@ -91,7 +91,7 @@ lin
 
     ApposCN cn np = {
       s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ---- TODO check apposition order
-      g = cn.g
+      g = cn.g ; gPl = cn.gPl
       } ;
 
     NumCard c = c ;

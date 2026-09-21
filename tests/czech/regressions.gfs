@@ -1,0 +1,21 @@
+i -retain tests/czech/CzeTests.gf
+
+-- Noun inflection, possession and proper names.
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "banka")))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (zenaN "banka")))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP i_Pron (zenaN "manželka")))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant plNum L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkPN "NN" mascAnimate)) (mkA "unavený"))))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkPN (zenaN "Praha"))))
+cc -one ((kostN "paměť").snom ++ (kostN "paměť").sacc ++ (kostN "paměť").sgen ++ (kostN "paměť").sins ++ (kostN "paměť").pdat ++ (kostN "paměť").ploc ++ (kostN "paměť").pins)
+cc -one ((mkN "loď" "lodi" feminine).sgen ++ (mkN "loď" "lodi" feminine).sins ++ (mkN "loď" "lodi" feminine).pins)
+cc -one ((pisenN "dlaň").snom ++ (pisenN "dlaň").sacc ++ (pisenN "dlaň").sgen ++ (pisenN "dlaň").sdat ++ (pisenN "dlaň").sins ++ (pisenN "dlaň").pins)
+cc -one ((pisenN "píseň").sgen ++ (pisenN "píseň").sdat ++ (pisenN "píseň").pins)
+cc -one ((zenaN "Nataša").sgen ++ (zenaN "Nataša").sdat ++ (zenaN "Nataša").sloc ++ (zenaN "Nataša").pnom ++ (zenaN "Nataša").pacc)
+cc -one ((zenaN "Máňa").sgen ++ (zenaN "Máňa").sdat ++ (zenaN "Máňa").sloc ++ (zenaN "Máňa").pnom ++ (zenaN "Máňa").pacc)
+cc -one ((zenaN "Naďa").sgen ++ (zenaN "Naďa").sdat ++ (zenaN "Káťa").sgen ++ (zenaN "Káťa").sdat)
+cc -one ((zenaN "Zoja").sgen ++ (zenaN "Zoja").sdat)
+cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zenaN "banka").sdat)
+cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
+q
