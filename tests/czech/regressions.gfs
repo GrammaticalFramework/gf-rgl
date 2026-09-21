@@ -18,6 +18,8 @@ cc -one ((zenaN "Naďa").sgen ++ (zenaN "Naďa").sdat ++ (zenaN "Káťa").sgen +
 cc -one ((zenaN "Zoja").sgen ++ (zenaN "Zoja").sdat)
 cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zenaN "banka").sdat)
 cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.milk_N))
+cc -one (mkVoc (mkNP L.year_N))
 
 -- Adjective degrees retain case and agreement.
 cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant (mkOrd L.good_A)) (hradN "hotel")))

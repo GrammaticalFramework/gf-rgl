@@ -10,7 +10,7 @@ concrete LexiconCze of Lexicon =
       sgen = "dítěte" ; sdat,sloc = "dítěti" ; sins = "dítětem" ;
       pnom,pacc = "děti" ; pgen = "dětí" ; pdat = "dětem" ; ploc = "dětech" ; pins = "dětmi" ; gPl = Fem
       } ;
-    year_N = (hradN "rok") ** {sgen = "roku" ; sloc = "roce" ; pgen = "let" ; pdat = "letům" ; ploc = "letech" ; pins = "lety"} ;
+    year_N = (hradN "rok") ** {sgen,svoc = "roku" ; sloc = "roce" ; pgen = "let" ; pdat = "letům" ; ploc = "letech" ; pins = "lety"} ;
     boy_N = declPAN "kluk" ;
     man_N = declMUZ "muž" ;
     teacher_N = declMUZ "učitel" ;
@@ -80,7 +80,7 @@ concrete LexiconCze of Lexicon =
     beer_N = mestoN "pivo" ;
     bread_N = mkN "chléb" "chleba" mascInanimate ;
     fish_N = zenaN "ryba" ;
-    milk_N = (mestoN "mléko") ** {sloc = "mléce"} ;
+    milk_N = (mestoN "mléko") ** {sloc = "mléce" ; ploc = "mlékách"} ;
     salt_N = (kostN "sol") ** {snom,sacc = "sůl" ; pdat = "solím" ; ploc = "solích" ; pins = "solemi"} ;
     water_N = zenaN "voda" ;
     wine_N = mestoN "víno" ;
