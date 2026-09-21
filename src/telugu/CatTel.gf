@@ -47,15 +47,16 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
     Pron = {s : PronCase => Str ; a : Agr} ;
     Det = {s : Gender => Case => Str ; n : Number} ;
     Predet, Ord = {s : Str} ;
-    Num  = {s : Str ; n : Number} ;
-    Card, ACard = {s : Str; n : Number} ;
+    Num, Card = {s : Gender => Str ; n : Number} ;
+    ACard = {s : Str; n : Number} ;
     DAP = {s : Gender => Case => Str ; n : Number} ;
     Quant = {s : Number => Gender => Case => Str} ;
     Art = {s : Str} ;
 --
 ---- Numeral
 --
-    Numeral, Digits, Decimal = {s : Str ; n : Number} ;
+    Numeral = {s : Gender => Str ; n : Number} ;
+    Digits, Decimal = {s : Str ; n : Number} ;
     LN, GN, SN = {s : Str} ;
 --
 ---- Structural

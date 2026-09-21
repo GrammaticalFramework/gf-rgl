@@ -10,6 +10,7 @@ concrete PhraseTel of Phrase = CatTel ** open Prelude, ResTel in {
     UttVP vp = {s = let f = vp.s ! Pos ! VPInf in f.inf ++ f.fin} ;
     UttAdv adv = adv ;
     UttIP ip = {s = ip.s ! Dir} ;
+    UttCard card = {s = card.s ! Neutr} ;
     UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! Sg} ;
     UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
     UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;

@@ -30,35 +30,28 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
       } ;
 
     DetQuantOrd quant num ord = {
-      s = \\g,c => quant.s ! num.n ! g ! c ++ num.s ++ ord.s ;
+      s = \\g,c => quant.s ! num.n ! g ! c ++ num.s ! Neutr ++ ord.s ;
       n = num.n
       } ;
 
     DetQuant quant num = {
-      s = \\g,c => quant.s ! num.n ! g ! c ++ num.s ;
+      s = \\g,c => quant.s ! num.n ! g ! c ++ num.s ! g ;
       n = num.n
       } ;
 
     PossPron p = {s = \\_,_,_ => p.s ! PPoss} ;
 
-    NumSg = {s = []; n = Sg} ;
-    NumPl = {s = []; n = Pl} ;
+    NumSg = {s = \\_ => [] ; n = Sg} ;
+    NumPl = {s = \\_ => [] ; n = Pl} ;
 
     OrdSuperl a = {s = "అత్యంత" ++ a.s ! Masc ! Sg ! Dir} ;
 
-    NumCard n = {s = n.s ; n = Pl} ;
-    NumDecimal n = {s = n.s ; n = n.n} ;
-    AdNum adn card = {s = adn.s ++ card.s ; n = card.n} ;
-    OrdNumeral numeral = {s = numeral.s} ;
+    NumCard n = n ;
+    NumDecimal n = {s = \\_ => n.s ; n = n.n} ;
+    AdNum adn card = {s = \\g => adn.s ++ card.s ! g ; n = card.n} ;
+    OrdNumeral numeral = {s = numeral.s ! Neutr} ;
     OrdDigits digits = {s = digits.s ++ "వ"} ;
-    NumNumeral numeral = {s = numeral.s ; n = Pl} ;
-
-    DetArtOrd art num ord = {
-      s = art.s ++ num.s ++ ord.s ;
-      n = num.n
-      } ;
---
-    DetArtCard art card = {s = art.s ++ card.s ; n = card.n} ;
+    NumNumeral numeral = numeral ;
 
     DetDAP det = {s = det.s ; n = det.n} ;
     AdjDAP dap ap = {

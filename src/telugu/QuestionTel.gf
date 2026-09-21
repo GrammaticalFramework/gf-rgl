@@ -14,7 +14,7 @@ concrete QuestionTel of Question = CatTel ** open ResTel, Prelude in {
     AdvIAdv iadv adv = {s = adv.s ++ iadv.s} ;
     IdetCN idet cn = {s = \\c => idet.s ++ cn.s ! idet.n ! c ; n = idet.n} ;
     IdetIP idet = {s = \\_ => idet.s ; n = idet.n} ;
-    IdetQuant iq num = {s = iq.s ! num.n ++ num.s ; n = num.n} ;
+    IdetQuant iq num = {s = iq.s ! num.n ++ num.s ! Neutr ; n = num.n} ;
     CompIAdv adv = {s = adv.s} ;
     CompIP ip = {s = ip.s ! Dir} ;
 }
