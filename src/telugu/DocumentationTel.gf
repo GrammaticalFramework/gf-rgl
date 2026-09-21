@@ -107,13 +107,16 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Request" ++ td (verb.s ! VImp Pl Pos)) ++
         tr (th "Future request" ++ td (verb.s ! VReqFut))
         ) ++
-      heading2 "Imperfect" ++ genderNumberTable verb VImpf ++
-      heading2 "Perfect" ++ genderNumberTable verb VPerf ++
-      heading2 "Subjunctive" ++ personTable verb VSubj ++
+      heading2 "Past" ++
+        heading3 "Masculine" ++ personTable verb (VPast Masc) ++
+        heading3 "Feminine" ++ personTable verb (VPast Fem) ++
+        heading3 "Neuter" ++ personTable verb (VPast Neutr) ++
+      heading2 "Subjunctive" ++
+        personTable verb VSubj ++
       heading2 "Future" ++
-        heading3 "Masculine" ++ futureTable verb Masc ++
-        heading3 "Feminine" ++ futureTable verb Fem ++
-        heading3 "Neuter" ++ futureTable verb Neutr ;
+        heading3 "Masculine" ++ personTable verb (VFuture Masc) ++
+        heading3 "Feminine" ++ personTable verb (VFuture Fem) ++
+        heading3 "Neuter" ++ personTable verb (VFuture Neutr) ;
 
     genderNumberTable : Verb -> (Gender -> Number -> VForm) -> Str = \verb,form ->
       frameTable (
@@ -130,10 +133,4 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Pl" ++ td (verb.s ! form Pl P1) ++ td (verb.s ! form Pl P2) ++ td (verb.s ! form Pl P3))
         ) ;
 
-    futureTable : Verb -> Gender -> Str = \verb,gender ->
-      frameTable (
-        tr (th "" ++ th "P1" ++ th "P2" ++ th "P3") ++
-        tr (th "Sg" ++ td (verb.s ! VFuture gender Sg P1) ++ td (verb.s ! VFuture gender Sg P2) ++ td (verb.s ! VFuture gender Sg P3)) ++
-        tr (th "Pl" ++ td (verb.s ! VFuture gender Pl P1) ++ td (verb.s ! VFuture gender Pl P2) ++ td (verb.s ! VFuture gender Pl P3))
-        ) ;
 }

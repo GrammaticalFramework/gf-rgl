@@ -75,8 +75,6 @@ resource ResTel = ParamX ** open Prelude in {
      | VRelativePresent
      | VPastPart
      | VHortative
-     | VImpf Gender Number
-     | VPerf Gender Number
      | VSubj Number Person
      | VAbs
      | VImp Number Polarity
@@ -86,25 +84,13 @@ resource ResTel = ParamX ** open Prelude in {
   oper
     Verb = {s, passive : VForm => Str} ;
 
-    mkVerb : (x1,_,_,_,_,_,_,_,_,_,_,_,_,_,x15 : Str) -> Verb =
-      \inf,stem,ims,imp,ifs,ifp,pms,pmp,pfs,pfp,ss1,ss2,sp2,sp3,r -> {
+    mkVerb : (x1,_,_,_,_,_,x7 : Str) -> Verb =
+      \inf,stem,ss1,ss2,sp2,sp3,r -> {
         s =
         let ga : Number -> Gender -> Str = \_,_ -> []
         in table {
           VInf => inf ;
           VStem => stem ;
-          VImpf Masc Sg => ims ;
-          VImpf Masc Pl => imp ;
-          VImpf Fem  Sg => ifs ;
-          VImpf Fem  Pl => ifp ;
-          VImpf Neutr Sg => ifs ;
-          VImpf Neutr Pl => ifp ;
-          VPerf Masc Sg => pms ;
-          VPerf Masc Pl => pmp ;
-          VPerf Fem  Sg => pfs ;
-          VPerf Fem  Pl => pfp ;
-          VPerf Neutr Sg => pfs ;
-          VPerf Neutr Pl => pfp ;
           VSubj Sg   P1 => ss1 ;
           VSubj Sg   _  => ss2 ;
           VSubj Pl   P2 => sp2 ;
@@ -150,8 +136,6 @@ resource ResTel = ParamX ** open Prelude in {
         VRelativePresent => relativePresent verb ;
         VPastPart => pastStem verb + "ిన" ;
         VHortative => root + "దాం" ;
-        VImpf g n => nonPastStem verb + "ున్న" ;
-        VPerf g n => pastStem verb ;
         VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
         VAbs => pastStem verb + "ి" ;
         VImp Sg Pos => verb ;
