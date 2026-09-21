@@ -216,7 +216,10 @@ oper
     = \s -> lin Adv {s = s} ;
 
   mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ; ---- True if s /= ""
+    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+
+  -- The same vocalization applies to locative and accusative v.
+  v_Prep : Case -> Prep = \c -> mkPrep vPreposition c ;
 
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;

@@ -742,6 +742,44 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     negimpsg2 = "ne" + v.impsg2 ; negimppl1 = "ne" + v.imppl1 ; negimppl2 = "ne" + v.imppl2
     } ;
 
+  -- Vocalization depends on the next realized token, not on the noun head.
+  -- These environments choose a neutral standard form; other clusters can
+  -- admit stylistic variants (https://prirucka.ujc.cas.cz/?id=770).
+  vPreposition : Str =
+    let continuation : Str -> Strs = \p -> strs {
+          p+"a"; p+"á"; p+"b"; p+"c"; p+"č"; p+"d"; p+"ď"; p+"e"; p+"é"; p+"ě";
+          p+"f"; p+"g"; p+"h"; p+"i"; p+"í"; p+"j"; p+"k"; p+"l"; p+"m"; p+"n";
+          p+"ň"; p+"o"; p+"ó"; p+"p"; p+"q"; p+"r"; p+"ř"; p+"s"; p+"š"; p+"t";
+          p+"ť"; p+"u"; p+"ú"; p+"ů"; p+"v"; p+"w"; p+"x"; p+"y"; p+"ý"; p+"z"; p+"ž"
+          } ;
+        longerMe : Strs = continuation "mě" ;
+        longerMeCapital : Strs = continuation "Mě"
+    in pre {
+    -- pre matches prefixes: apply the měst- default to derived words too,
+    -- then distinguish pronoun mě from longer words such as měna and měřítko.
+    "měst" | "Měst" => "ve" ;
+    longerMe => "v" ;
+    longerMeCapital => "v" ;
+    "mlýn" | "Mlýn" => "ve" ;
+    "v" | "V" | "f" | "F" | "mě" | "mně" | "mne" | "mz" | "dv" | "čt" | "tř" | "hř" => "ve" ;
+    "sb" | "sc" | "sd" | "sf" | "sh" | "sk" | "sl" | "sm" | "sn" | "sp" | "st" | "sv" |
+    "zb" | "zd" | "zh" | "zk" | "zl" | "zm" | "zn" | "zv" |
+    "šk" | "šp" | "št" | "šv" | "Šk" | "Šp" | "Št" | "Šv" | "žd" | "žl" | "žr" => "ve" ;
+    "Mě" | "Mně" | "Mne" | "Mz" | "Dv" | "Čt" | "Tř" | "Hř" | "Sb" | "Sc" | "Sd" | "Sf" | "Sh" | "Sk" | "Sl" | "Sm" | "Sn" | "Sp" | "St" | "Sv" | "Zb" | "Zd" | "Zh" | "Zk" | "Zl" | "Zm" | "Zn" | "Zv" | "Žd" | "Žl" | "Žr" => "ve" ;
+    _ => "v"
+    } ;
+
+  -- s/z share these common environments; v has a different profile.
+  -- These defaults do not enumerate every lexical/style variant.
+  szPreposition : Str -> Str -> Str = \bare,vocalized -> pre {
+    "s" | "z" | "š" | "ž" | "mn" | "mz" | "vš" | "vs" | "vz" | "vč" | "dv" | "čt" | "tř" | "ps" |
+    "S" | "Z" | "Š" | "Ž" | "Mn" | "Mz" | "Vš" | "Vs" | "Vz" | "Vč" | "Dv" | "Čt" | "Tř" | "Ps" => vocalized ;
+    _ => bare
+    } ;
+
+  sPreposition : Str = szPreposition "s" "se" ;
+  zPreposition : Str = szPreposition "z" "ze" ;
+
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
   hasCliticComplement : ComplementCase -> Bool -> Bool = \p,hasClit ->

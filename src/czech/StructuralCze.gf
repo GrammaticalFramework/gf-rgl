@@ -39,9 +39,9 @@ lin
     that_Subj = {s = "že"} ;
     under_Prep = mkPrep "pod" Ins ;
     where_IAdv = {s = "kde"} ;
-    from_Prep = mkPrep (pre {"s"|"z" => "ze" ; _ => "z"}) Gen ; ---- consonant clusters
+    from_Prep = mkPrep zPreposition Gen ;
     have_V2 = mkV2 <lin V haveVerbForms : CatCze.V> ;
-    in_Prep = mkPrep (pre {"v"|"m" => "ve" ; _ => "v"}) Loc ; ----
+    in_Prep = v_Prep Loc ;
     many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
     or_Conj = mkConj "nebo" ;
     somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
@@ -50,7 +50,7 @@ lin
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;
     to_Prep = mkPrep "do" Gen ;
-    with_Prep = mkPrep (pre {"s"|"z" => "se" ; _ => "s"}) Ins ; ----
+    with_Prep = mkPrep sPreposition Ins ;
 
     i_Pron = mkPron (Ag (Masc Anim) Sg P1) ;
     youSg_Pron = mkPron (Ag (Masc Anim) Sg P2) ;

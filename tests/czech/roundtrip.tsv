@@ -13,3 +13,6 @@ UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	nečti 
 UttImpSg PPos (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	čti ji
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 buy_V3 (UsePron he_Pron)) (UsePron she_Pron))))	já mu ji kupuji
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 buy_V3 (UsePron she_Pron)) (UsePron he_Pron))))	já mu ji kupuji
+UttAdv (PrepNP vAcc_Prep (UsePron i_Pron))	ve mě
+UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN currency_N)))	v měně
+UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN city_N)))	ve městě
