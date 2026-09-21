@@ -30,7 +30,8 @@ successfully.
 joined negation, polarity recovery and polite/plural ambiguity.
 `CzeExtensionRoundTrip` and `extension-roundtrip.tsv` cover secondary and
 dative predicates, bound objects, subject omission, complement forms and
-predeterminer placement with a modified pronoun.
+predeterminer placement with a modified pronoun. Compound cardinals are checked
+with possessives, oblique case and predicate agreement.
 The abstract fragments are acyclic: parsing must return the complete
 expected set of trees, without truncation or reliance on enumeration order.
 Repeated strings record distinct intended analyses. These small fragments

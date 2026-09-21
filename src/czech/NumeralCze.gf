@@ -1,11 +1,10 @@
 concrete NumeralCze of Numeral = CatCze [Numeral,Digits,Decimal] **
   open ResCze, Prelude in {
 
--- Keep inflection until the numeral receives its case. Compound numerals
--- use agreement with their final component (dvacet jeden rok, dvacet dvě děti).
--- This is one standard variant. The more usual genitive-plural alternative
--- (dvacet jedna roků, dvacet dva žáků) is not generated here.
--- See https://prirucka.ujc.cas.cz/?id=792.
+-- Keep inflection until the numeral receives its case. Compound cardinals
+-- use quantified agreement: mých dvacet jedna stromů, dvacet dva dětí.
+-- Agreement with the final unit does not compose with possessive modifiers.
+-- See https://www.czechency.org/slovnik/ČÍSLOVKA.
 oper
   -- Only units vary in count agreement. Keeping four full Determiners here
   -- would create a product of independent agreement states during compilation.
@@ -22,7 +21,14 @@ oper
     s = d.hundred ; size = NumScale ; head = ScaleHead Neutr d.unit.size QuantifiedScale
     } ;
   plus : Determiner -> Determiner -> Determiner = \a,b -> {
-    s = \\g,c => a.s ! g ! c ++ b.s ! g ! c ; size = b.size ; head = b.head
+    -- Compound jedna stays fixed even in oblique cases; dva inflects but
+    -- does not vary with the counted noun's gender (CEG 6.1.5--6.1.6).
+    s = \\g,c => a.s ! g ! c ++ case b.size of {
+      Num1 => b.s ! Fem ! Nom ; _ => b.s ! Masc Inanim ! c
+      } ;
+    -- A final scale still governs genitive in every case; other compound
+    -- tails take ordinary quantified agreement, including final 1--4.
+    size = case b.size of {NumScale => NumScale ; _ => Num5} ; head = b.head
     } ;
   scale : ScaleAgreement -> Determiner -> Noun -> Determiner = \agr,d,n -> {
     s = \\_,c => d.s ! n.g ! c ++ numSizeForm n.s d.size c ; size = NumScale ;

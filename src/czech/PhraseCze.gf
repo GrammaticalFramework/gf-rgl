@@ -5,7 +5,8 @@ lin
     UttQS q = {s = q.s} ;
     UttIAdv a = a ;
     UttIP ip = {s = ip.s ! Nom} ;
-    -- Choose feminine counting forms (jedna, dvě); jedna, dva is also used.
+    -- Choose feminine forms for simple units (jedna, dvě). Compounds use
+    -- their own gender-independent forms (dvacet jedna, dvacet dva).
     UttCard c = {s = c.s ! Fem ! Nom} ;
     UttAdv adv = adv ;
     UttCN cn = {s = cn.s ! Sg ! Nom} ;

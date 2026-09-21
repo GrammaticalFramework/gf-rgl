@@ -6,7 +6,7 @@ concrete CzeExtensionRoundTripCze of CzeExtensionRoundTrip = AllCze [
   A, Comp, UseComp, CompAP, young_A,
   UttS, UttQS, UttAdv, UseCl, UseQCl, UsePron, UseV, SlashV2a, ComplSlash,
   SlashV2AP, DativeCopulaCl, DativeCopulaQCl, SubjS,
-  UseN, DetCN, DetQuant, DefArt, NumSg, NumPl, IdetCN,
+  UseN, DetCN, DetQuant, DefArt, PossPron, NumSg, NumPl, IdetCN, UttNP,
   TTAnt, TPres, ASimul, PPos, PNeg,
   i_Pron, she_Pron, youPol_Pron, have_V2, love_V2, wait_V2,
   year_N, child_N, how8many_IDet, only_Predet, all_Predet, if_Subj
@@ -34,5 +34,7 @@ concrete CzeExtensionRoundTripCze of CzeExtensionRoundTrip = AllCze [
     wash_V = seV (krytV "mýt") ;
     two_Num = mkNum "2" ;
     five_Num = mkNum "5" ;
+    twentyOne_Num = mkNum "21" ;
+    twentyTwo_Num = mkNum "22" ;
     writeAbout_V2 = LexiconCze.write_V2 ** {c = mkPrep "o" locative} ;
 }

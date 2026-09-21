@@ -8,7 +8,7 @@ abstract CzeExtensionRoundTrip = AllCzeAbs [
   A, Comp, UseComp, CompAP, young_A,
   UttS, UttQS, UttAdv, UseCl, UseQCl, UsePron, UseV, SlashV2a, ComplSlash,
   SlashV2AP, DativeCopulaCl, DativeCopulaQCl, SubjS,
-  UseN, DetCN, DetQuant, DefArt, NumSg, NumPl, IdetCN,
+  UseN, DetCN, DetQuant, DefArt, PossPron, NumSg, NumPl, IdetCN, UttNP,
   TTAnt, TPres, ASimul, PPos, PNeg,
   i_Pron, she_Pron, youPol_Pron, have_V2, love_V2, wait_V2,
   year_N, child_N, how8many_IDet, only_Predet, all_Predet, if_Subj
@@ -33,6 +33,6 @@ abstract CzeExtensionRoundTrip = AllCzeAbs [
     ReflRNP : VPSlash -> RNP -> VP ;
     like_AP : AP ; son_N : N ; wash_V : V ;
     fast_A : A ;
-    two_Num, five_Num : Num ;
+    two_Num, five_Num, twentyOne_Num, twentyTwo_Num : Num ;
     writeAbout_V2 : V2 ;
 }

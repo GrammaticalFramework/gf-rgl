@@ -24,3 +24,8 @@ UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a love_V2) (PredetRNP all_Predet ReflPron))))	pět dětí miluje sebe všechny
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet ReflPron))))	pět dětí čeká na sebe všechny
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet (ReflPoss five_Num (UseN child_N))))))	čekám na všech svých pět dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyOne_Num) (UseN child_N))	mých dvacet jedna dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))	mých dvacet dva dětí
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyOne_Num) (UseN child_N)))	s mými dvaceti jedna dětmi
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N)))	s mými dvaceti dvěma dětmi
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	mých dvacet dva dětí je mladších než ona
