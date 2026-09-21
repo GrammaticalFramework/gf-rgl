@@ -190,6 +190,8 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop he_Pron)) (E.ReflRNP (mkVPSlash L.lov
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.ConjRNP and_Conj (E.Base_rr_RNP E.ReflPron (E.ReflPoss plNum (mkCN L.child_N))))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRVP (mkVP <lin V learn_VV : V>) (ParadigmsCze.mkPrep "o" locative) E.ReflPron))))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (E.AdvRAP (mkAP (mkA "hrdý")) (ParadigmsCze.mkPrep "na" accusative) E.ReflPron))))
+-- Reflexive modifiers take the complement's case, also with quantified subjects.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (E.AdvRAP (mkAP (mkA "spokojený")) with_Prep (E.PredetRNP all_Predet E.ReflPron)))))
 cc -one (mkUtt (mkNP (mkCN (E.AdvRAP (mkAP (mkA "hrdý")) (ParadigmsCze.mkPrep "na" accusative) E.ReflPron) L.child_N)))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.wait_V2) (E.ConjRNP and_Conj (E.Base_nr_RNP (mkNP she_Pron) E.ReflPron))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.PredetRNP only_Predet E.ReflPron)))))

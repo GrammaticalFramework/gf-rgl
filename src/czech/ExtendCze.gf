@@ -117,12 +117,16 @@ oper
     after = rnp.after ! a
     } ;
   -- Ordinary NPs and possessed heads have their own modifier agreement.
-  -- A bare reflexive instead inherits agreement from its antecedent.
   fullRNP : S.NP -> RNP = \np -> lin RNP (boundNPForms (\\_ => np) ** {
     m = FixedHead np.m ; isPron = np.isPron
     }) ;
+  -- A reflexive inherits gender and number, but its own complement position
+  -- selects case: pět dětí miluje sebe všechny, not sebe všech.
   rnpAgr : RNPHead -> Agr -> ModifierAgr = \head,a -> case head of {
-    AntecedentHead => modifierAgr a ; FixedHead m => m
+    AntecedentHead => case a of {
+      AgQuant g => Mod g Pl ; _ => modifierAgr a
+      } ;
+    FixedHead m => m
     } ;
   -- As for ordinary NPs, preposed modifiers agree with the first conjunct.
   baseRNP : RNP -> RNP -> RNPList = \x,y -> lin RNPList {

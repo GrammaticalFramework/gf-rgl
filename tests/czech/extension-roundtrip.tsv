@@ -20,3 +20,7 @@ UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseC
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	pět dětí je mladších než ona
 UttAdv (PrepNP by8agent_Prep (DetCN (DetQuant DefArt NumSg) (ModifiedN (Compare young_A (ComparisonPron she_Pron)) child_N)))	od dítěte mladšího než ona
 UttAdv (PrepNP with_Prep (PredetNP all_Predet (AdvPron we_Pron home_Adv)))	s námi všemi doma
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt two_Num) (UseN child_N))) (ReflRNP (SlashV2a love_V2) (PredetRNP all_Predet ReflPron))))	dvě děti milují sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a love_V2) (PredetRNP all_Predet ReflPron))))	pět dětí miluje sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet ReflPron))))	pět dětí čeká na sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet (ReflPoss five_Num (UseN child_N))))))	čekám na všech svých pět dětí
