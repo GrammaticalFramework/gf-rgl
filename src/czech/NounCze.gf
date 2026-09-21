@@ -8,13 +8,13 @@ lin
     DetCN det cn = {
         s,prep,clit = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ;
         a = numSizeAgr (nounGender cn (numSizeNumber det.size)) det.size P3 ;
-        hasClit = False ;
+        hasClit = False ; isDrop = False ;
       } ;
 
     MassNP cn = {
       s,prep,clit = \\c => cn.s ! Sg ! c ;
       a = Ag cn.g Sg P3 ;
-      hasClit = False ;
+      hasClit = False ; isDrop = False ;
       } ;
 
     DetQuant quant num = {
@@ -54,7 +54,7 @@ lin
         Ins => pron.pins
         } ;
       a = pron.a ;
-      hasClit = True ;
+      hasClit = True ; isDrop = pron.isDrop ;
       } ;
 
     PossPron pron = justDemPronFormsAdjective pron.poss ;
@@ -62,7 +62,7 @@ lin
     UsePN pn = {
       s,clit,prep = \\c => pn.s ! c ;
       a = Ag pn.g Sg P3 ;
-      hasClit = False ;
+      hasClit = False ; isDrop = False ;
       } ;
 
     AdjCN ap cn = {
@@ -84,7 +84,7 @@ lin
       s,clit = \\c => np.s ! c ++ adv.s ;
       prep = \\c => np.prep ! c ++ adv.s ;
       a = np.a ;
-      hasClit = False ;
+      hasClit = False ; isDrop = False ;
       } ;
 
     UseN n = nounFormsNoun n ;
@@ -102,9 +102,11 @@ lin
     SentCN cn sc = cn ** {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
 
     PredetNP pred np = np ** {
-      s    = \\c => pred.s ++ np.s ! c ;
-      clit = \\c => pred.s ++ np.clit ! c ;
-      prep = \\c => pred.s ++ np.prep ! c
+      -- A predeterminer modifies a full NP: jen já, jen jeho. Its scope
+      -- cannot be preserved by an omitted subject or an object clitic.
+      s,clit = \\c => pred.s ++ np.s ! c ;
+      prep = \\c => pred.s ++ np.prep ! c ;
+      hasClit = False ; isDrop = False
       } ;
 
 }

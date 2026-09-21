@@ -5,7 +5,7 @@ concrete ConjunctionCze of Conjunction = CatCze **
     [Adv] = {s1,s2 : Str} ;
     [AP]  = {s1,s2 : Gender => Number => Case => Str ; pred1,pred2 : Agr => Str ; isPost : Bool} ;
     [NP]  = {s1,s2,prep1,prep2 : Case => Str ; a : Agr} ;
-    [S] = {s1,s2 : Str} ;
+    [S] = {s1 : Sentence ; s2 : Str} ;
     [RS] = {s1,s2 : Agr => Str} ;
 
   lin
@@ -32,8 +32,8 @@ concrete ConjunctionCze of Conjunction = CatCze **
       a = xs.a ----
       } ; 
 
-    BaseS = twoSS ;
-    ConsS = consrSS comma ;
+    BaseS x y = {s1 = x ; s2 = y.s} ;
+    ConsS x xs = {s1 = appendSentence x (comma ++ xs.s1.s) ; s2 = xs.s2} ;
 
     BaseRS = twoTable Agr ;
     ConsRS = consrTable Agr comma ;
@@ -47,10 +47,10 @@ concrete ConjunctionCze of Conjunction = CatCze **
       s,clit = \\c => conj.s1 ++ xs.s1 ! c ++ conj.s2 ++ xs.s2 ! c ;
       prep   = \\c => conj.s1 ++ xs.prep1 ! c ++ conj.s2 ++ xs.prep2 ! c ;
       a = xs.a ; ---- dep. on conj as well
-      hasClit = False ;
+      hasClit = False ; isDrop = False ;
       } ;
 
-    ConjS = conjunctDistrSS ;
+    ConjS conj xs = prefixSentence conj.s1 (appendSentence xs.s1 (conj.s2 ++ xs.s2)) ;
     ConjRS = conjunctDistrTable Agr ;
 
 }

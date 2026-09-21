@@ -7,7 +7,7 @@ lin
       } ;
 
     SubjS subj s = {
-      s = subj.s ++ s.s
+      s = (frontSentence subj.s s).s
       } ;
 
 }

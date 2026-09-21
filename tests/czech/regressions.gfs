@@ -40,14 +40,68 @@ cc -one ((kupovatV "kupovat").pressg1 ++ (kupovatV "kupovat").negprespl3 ++ (kup
 cc -one ((krytV "krýt").pressg1 ++ (krytV "krýt").negprespl3 ++ (krytV "krýt").pastpartsg ++ (krytV "krýt").impsg2 ++ (krytV "krýt").negimppl2)
 cc -one ((krytV "pít").pressg1 ++ (krytV "pít").pastpartsg ++ (krytV "pít").impsg2)
 
+-- Pronoun gender and polite singular versus plural predicate agreement.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop youPol_Pron)) (mkA "unavený"))))
+cc -one (mkUtt (mkS negativePol (mkCl (mkNP (E.ProDrop (genderPron feminine youPol_Pron))) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop (genderPron feminine youPol_Pron))) (mkVP (mkCN (zenaN "Angličanka"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.theyFem_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.theyNeutr_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.youPolFem_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.youPolPlFem_Pron) (mkA "unavený"))))
+
+-- CN predicates take predicative case; NP predicates retain their own number.
+cc -one (mkUtt (mkS (mkCl (mkNP he_Pron) (mkNP (mkPN (panN "Petr"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (mkDet the_Quant plNum) (panN "student")))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (zenaN "rodina")))))
+
 -- Clitic domains in clauses, questions, infinitives and imperatives.
-cc -one (mkUtt negativePol (mkImp (mkVP L.read_V2 (mkNP (zenaN "kniha")))) )
-cc -one (mkUtt politeImpForm negativePol (mkImp (mkVP L.read_V2 (mkNP (zenaN "kniha")))) )
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP buy_V3 (mkNP (zenaN "kniha")) (mkNP he_Pron))))
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP (mkVPSlash buy_V3 (mkNP she_Pron)) (mkNP only_Predet (mkNP he_Pron)))))
+cc -one (mkUtt (mkQS (mkQCl where_IAdv (mkNP (hradN "hotel")))))
+cc -one (mkUtt (mkS negativePol (mkCl (mkNP (E.ProDrop i_Pron)) want_VV (mkVP L.swim_V))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP L.wait_V2 (mkNP she_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) (mkA "unavený")))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl where_IAdv (mkNP (hradN "hotel")))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) want_VV (mkVP wash_V))))
+cc -one (mkUtt politeImpForm negativePol (mkImp (mkVP wash_V)))
+cc -one (mkUtt (mkVP wash_V))
+-- Ordinary VV keeps the embedded reflexive in its infinitive domain.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) learn_VV (mkVP wash_V))))
+cc -one (mkUtt (mkS L.today_Adv (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V))))
+cc -one (mkUtt (mkS L.today_Adv (mkS (ParadigmsCze.mkAdv "doma") (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VS (mkS (mkCl (mkNP (E.ProDrop she_Pron)) wash_V)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) wash_V))))))
+cc -one (I.ImpP3 (mkNP (E.ProDrop he_Pron)) (mkVP wash_V))
+cc -one (I.ImpP3 (mkNP (E.ProDrop she_Pron)) (mkVP L.love_V2 (mkNP he_Pron)))
+cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))
+cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
+cc -one (SyntaxCze.mkAdv if_Subj (mkS L.today_Adv (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V))))
+cc -one (mkUtt (mkS (mkCl (mkNP i_Pron) wash_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (siV (kupovatV "kupovat")))))
+cc -one (mkUtt negativePol (mkImp (siV (kupovatV "kupovat"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) can_VV (mkVP (siV (kupovatV "kupovat"))))))
+-- A reflexive matrix verb blocks climbing even through mkModalVV.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkModalVV learn_V) (mkVP wash_V))))
+
+-- Predeterminers retain full pronouns and inflect with the NP head.
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) L.swim_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) wash_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP only_Predet (mkNP he_Pron)))))
+-- NP focus restores the full form even when given a ProDrop pronoun.
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP (E.ProDrop i_Pron))) wash_V)))
 
 -- Complement forms distinguish bare case government from prepositions.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP he_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)))))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
 -- Short forms allow predicate responses but cannot modify a noun.
 cc -one (mkUtt (mkNP (mkCN like_AP (panN "student"))))
 cc -one (mkUtt ready_AP)
+-- Third-person gender changes the whole paradigm and preserves omission.
+cc -one ((genderPron feminine he_Pron).nom ++ (genderPron feminine he_Pron).cacc ++ (genderPron feminine he_Pron).pacc ++ (genderPron feminine he_Pron).poss.msnom)
+cc -one (mkUtt (mkS (mkCl (mkNP (genderPron feminine (E.ProDrop he_Pron))) ready_AP)))
+cc -one ((genderPron mascAnimate (he_Pron ** {pacc = "něj"})).pacc)
 q

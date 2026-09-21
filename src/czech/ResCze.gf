@@ -744,6 +744,18 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
+  hasCliticComplement : ComplementCase -> Bool -> Bool = \p,hasClit ->
+    case <hasClit,p.hasPrep,p.c> of {
+      <True,False,Gen | Dat | Acc> => True ;
+      _ => False
+      } ;
+
+  -- Dative precedes genitive/accusative; otherwise retain argument order.
+  cliticBefore : Case -> Case -> Bool = \first,second -> case <first,second> of {
+    <Gen | Acc,Dat> => False ;
+    _ => True
+    } ;
+
   verbAgr : VerbForms -> Agr -> Bool -> Str
     = \vf,a,b -> case <a,b> of {
       <Ag _ Sg P1,True> => vf.pressg1 ; <Ag _ Sg P1,False> => vf.negpressg1 ;
@@ -760,6 +772,28 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     <_,True> => v.imppl2 ; <_,False> => v.negimppl2
     } ;
 
+
+  -- s is the ordinary order; fronted places the clitics first, ready for
+  -- an external host. clit/body retain the pieces needed by further fronting.
+  -- Keep complete orders as well as pieces so markup can enclose a sentence
+  -- in either order without leaking the moved clitics outside its scope.
+  Sentence : Type = {s,fronted,clit,body : Str ; clitPresent : Bool} ;
+  sentence : Bool -> Str -> Str -> Str -> Sentence = \present,first,clit,rest -> {
+    s = first ++ clit ++ rest ; fronted = clit ++ first ++ rest ;
+    clit = clit ; body = first ++ rest ; clitPresent = present
+    } ;
+  frontSentence : Str -> Sentence -> Sentence = \first,s -> s ** {
+    s = first ++ s.fronted ; fronted = s.clit ++ first ++ s.body ;
+    body = first ++ s.body
+    } ;
+  prefixSentence : Str -> Sentence -> Sentence = \first,s -> s ** {
+    s = first ++ s.s ; fronted = s.clit ++ first ++ s.body ;
+    body = first ++ s.body
+    } ;
+  -- Appended clauses retain their own domains; only s's clitics can move.
+  appendSentence : Sentence -> Str -> Sentence = \s,last -> s ** {
+    s = s.s ++ last ; fronted = s.fronted ++ last ; body = s.body ++ last
+    } ;
 
   copulaVerbForms : VerbForms = (withNeg {
     inf = "být" ;
@@ -835,11 +869,11 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     dat, cdat,pdat,
     loc,
     ins,pins        : Str ;
-    a : Agr
+    a : Agr ; isDrop : Bool
     } ;
 
   personalPron : Agr -> PronForms = \a ->
-    {a = a ; cnom = []} **
+    {a = a ; cnom = [] ; isDrop = False} **
     case a of {
       AgQuant _ => {nom,gen,cgen,pgen,acc,cacc,pacc,dat,cdat,pdat,loc,ins,pins = nonExist} ;
       Ag _ Sg P1 => {

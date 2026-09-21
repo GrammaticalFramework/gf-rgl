@@ -2,45 +2,57 @@ concrete VerbCze of Verb = CatCze ** open ResCze, Prelude in {
 
 lin
     UseV v = {
-      verb = v ;
-      clit,compl = \\_ => []
+      verb = v ; clitPresent = v.isRefl ;
+      clit = \\_ => v.refl ; compl = \\_ => []
       } ;
     
-    ComplSlash vps np = case <np.hasClit, vps.c.hasPrep> of {
-      <True,False> => vps ** {
-        clit = \\a => vps.clit ! a ++ np.clit ! vps.c.c ;
+    ComplSlash vps np = case hasCliticComplement vps.c np.hasClit of {
+      True => vps ** {
+        clitPresent = True ;
+        clit = \\a => vps.clit ! a ++ np.clit ! vps.c.c ++ vps.clitAfter ! a ;
         compl = \\a => vps.compl ! a ++ vps.ind ! a
         } ;
-      _  => vps ** {
-        compl = \\a => vps.compl ! a ++ vps.c.s ++ np.s ! vps.c.c ++ vps.ind ! a
+      False => vps ** {
+        clit = \\a => vps.clit ! a ++ vps.clitAfter ! a ;
+        compl = \\a => vps.compl ! a ++ vps.c.s ++ (case vps.c.hasPrep of {True => np.prep ! vps.c.c ; False => np.s ! vps.c.c}) ++ vps.ind ! a
         }
       } ;
 
     SlashV2a v = {
-      verb = v ;
-      clit,compl = \\_ => [] ;
+      verb = v ; clitPresent = v.isRefl ;
+      clit = \\_ => v.refl ; compl = \\_ => [] ;
       c = v.c ;
-      ind = \\_ => []
+      ind = \\_ => [] ; clitAfter = \\_ => []
       } ;
 
-    -- three-place verbs: c = direct object case, c2 = indirect object case
-    Slash2V3 v np = {          -- fill the direct object, leave the indirect open
-      verb = v ;
-      clit = \\_ => [] ;
-      compl = \\_ => v.c.s ++ np.s ! v.c.c ;
+    -- Full objects retain c-before-c2 order; weak objects follow case order.
+    Slash2V3 v np = let
+      isClit = hasCliticComplement v.c np.hasClit ;
+      weak = case isClit of {True => np.clit ! v.c.c ; False => []} ;
+      before = cliticBefore v.c.c v.c2.c
+      in {
+      verb = v ; clitPresent = orB v.isRefl isClit ;
+      clit = \\_ => v.refl ++ case before of {True => weak ; False => []} ;
+      clitAfter = \\_ => case before of {True => [] ; False => weak} ;
+      compl = \\_ => case isClit of {True => [] ; False => v.c.s ++ np.s ! v.c.c} ;
       c = v.c2 ;
       ind = \\_ => []
       } ;
-    Slash3V3 v np = {          -- fill the indirect object (rendered after the object slot)
-      verb = v ;
-      clit = \\_ => [] ;
+    Slash3V3 v np = let
+      isClit = hasCliticComplement v.c2 np.hasClit ;
+      weak = case isClit of {True => np.clit ! v.c2.c ; False => []} ;
+      before = cliticBefore v.c.c v.c2.c
+      in {
+      verb = v ; clitPresent = orB v.isRefl isClit ;
+      clit = \\_ => v.refl ++ case before of {True => [] ; False => weak} ;
+      clitAfter = \\_ => case before of {True => weak ; False => []} ;
       compl = \\_ => [] ;
       c = v.c ;
-      ind = \\_ => v.c2.s ++ np.s ! v.c2.c
+      ind = \\_ => case isClit of {True => [] ; False => v.c2.s ++ np.s ! v.c2.c}
       } ;
 
     UseComp comp = {
-      verb  = copulaVerbForms ;
+      verb  = copulaVerbForms ; clitPresent = False ;
       clit = \\_ => [] ;
       compl = comp.s
       } ;
@@ -71,21 +83,25 @@ lin
 -- VerbForms has no passive participle yet, so the reflexive passive is used:
 -- "číslo se dělí" = "the number is divided"
     PassV2 v = {
-      verb  = v ;
+      verb  = v ; clitPresent = True ;
       clit  = \\_ => "se" ;
       compl = \\_ => []
       } ;
 
     ComplVV vv vp = {
-      verb  = vv ;
-      clit  = vp.clit ;
-      compl = \\a => vp.verb.inf ++ vp.compl ! a
+      verb  = vv ; clitPresent = orB vv.isRefl (andB vv.isAux vp.clitPresent) ;
+      clit = \\a => vv.refl ++ case vv.isAux of {True => vp.clit ! a ; False => []} ;
+      compl = \\a => vp.verb.inf ++ case vv.isAux of {True => [] ; False => vp.clit ! a} ++ vp.compl ! a
       } ;
 
     ComplVS vs s = {
-      verb  = vs ;
-      clit  = \\_ => [] ;
-      compl = \\_ => SOFT_BIND ++ "," ++ "že" ++ s.s
+      verb  = vs ; clitPresent = vs.isRefl ;
+      clit  = \\_ => vs.refl ;
+      compl = \\_ => SOFT_BIND ++ "," ++ (frontSentence "že" s).s
       } ;
 
+    ComplVQ v q = {
+      verb = v ; clitPresent = v.isRefl ; clit = \\_ => v.refl ;
+      compl = \\_ => SOFT_BIND ++ "," ++ q.ind
+      } ;
 }

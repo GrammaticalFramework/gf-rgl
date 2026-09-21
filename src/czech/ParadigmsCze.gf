@@ -159,8 +159,36 @@ oper
         }) ;
     } ;
 
+  -- Lexical reflexive clitics. The case-based interface accepts only Acc/Dat.
+  seV : V -> V = \v -> reflV v Acc ;
+  siV : V -> V = \v -> reflV v Dat ;
+  reflV : V -> Case -> V = \v,c -> v ** {
+    isRefl = True ; refl = case c of {Acc => "se" ; Dat => "si" ; _ => nonExist}
+    } ;
+
   mkVS : V -> VS = \v -> lin VS v ;
   mkVQ : V -> VQ = \v -> lin VQ v ;
+  -- Ordinary VV: the infinitive retains its own clitic domain.
+  mkVV : V -> VV = \v -> lin VV (v ** {isAux = False}) ;
+  -- Modals allow their infinitive's clitics in the finite clause. A lexical
+  -- reflexive on the matrix verb blocks this climbing.
+  mkModalVV : V -> VV = \v -> lin VV (v ** {isAux = notB v.isRefl}) ;
+  -- Third-person singular gender selects personal and possessive forms.
+  -- A no-op keeps lexical overrides; conversion uses the standard target forms.
+  genderPron : Gender -> Pron -> Pron = \g,p -> case p.a of {
+    Ag old Sg P3 => case <g,old> of {
+      <Fem,Fem> | <Neutr,Neutr> |
+      <Masc Anim,Masc Anim> | <Masc Inanim,Masc Inanim> => p ;
+      _ => lin Pron ((mkPron (Ag g Sg P3)) ** {isDrop = p.isDrop})
+      } ;
+    _ => p ** {
+      a = case p.a of {Ag _ n person => Ag g n person ; AgPol _ => AgPol g ; AgQuant _ => AgQuant g} ;
+      nom = case p.a of {
+        Ag _ Pl P3 => (personalPron (Ag g Pl P3)).nom ; _ => p.nom
+        }
+      }
+    } ;
+
   mkV2 = overload {
     mkV2 : V -> V2
       = \v -> lin V2 (v ** {c = {s = [] ; c = Acc ; hasPrep = False}}) ;
