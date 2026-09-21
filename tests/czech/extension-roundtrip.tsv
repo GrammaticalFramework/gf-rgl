@@ -29,3 +29,6 @@ UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))	mých dv
 UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyOne_Num) (UseN child_N)))	s mými dvaceti jedna dětmi
 UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N)))	s mými dvaceti dvěma dětmi
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	mých dvacet dva dětí je mladších než ona
+UttNP (DetCN (DetQuant this_Quant twentyTwoHundred_Num) (UseN child_N))	tyto dva tisíce dvě stě dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwoHundred_Num) (UseN child_N))	mé dva tisíce dvě stě dětí
+UttAdv (PrepNP with_Prep (DetCN (DetQuant this_Quant twelveHundred_Num) (UseN child_N)))	s tímto jedním tisícem dvěma sty dětí

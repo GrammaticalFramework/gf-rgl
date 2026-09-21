@@ -130,6 +130,11 @@ cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot1as2 (N.pot0a
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot2 N.n2) : Numeral>) (zenaN "koruna")) ready_AP)))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot2 N.n2)) : Numeral>) (zenaN "koruna")) ready_AP)))
 
+-- Sums ending in a scale retain their leading head for modifiers and predicates.
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard (N.num (N.pot3plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2 (N.pot0 N.n2))))) L.child_N)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2as3 (N.pot2 (N.pot0 N.n2)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant (mkNum (mkCard <lin Numeral (N.pot5plus (N.pot1as2 (N.pot0as1 N.pot01)) (N.pot4plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2as3 (N.pot2 (N.pot0 N.n2))))) : Numeral>)) (zenaN "koruna")) ready_AP)))
+
 -- Signed integers retain agreement; fractions govern genitive.
 cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.PosDecimal (N.IDig N.D_1))) : Numeral>))
 cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.NegDecimal (N.IDig N.D_1))) : Numeral>))

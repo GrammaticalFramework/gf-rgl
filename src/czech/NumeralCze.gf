@@ -1,8 +1,8 @@
 concrete NumeralCze of Numeral = CatCze [Numeral,Digits,Decimal] **
   open ResCze, Prelude in {
 
--- Keep inflection until the numeral receives its case. Compound cardinals
--- use quantified agreement: mých dvacet jedna stromů, dvacet dva dětí.
+-- Keep inflection until the numeral receives its case. Compounds ending in
+-- units or tens use quantified agreement: mých dvacet jedna stromů, dvacet dva dětí.
 -- Agreement with the final unit does not compose with possessive modifiers.
 -- See https://www.czechency.org/slovnik/ČÍSLOVKA.
 oper
@@ -28,7 +28,10 @@ oper
       } ;
     -- A final scale still governs genitive in every case; other compound
     -- tails take ordinary quantified agreement, including final 1--4.
-    size = case b.size of {NumScale => NumScale ; _ => Num5} ; head = b.head
+    size = case b.size of {NumScale => NumScale ; _ => Num5} ;
+    -- Sums ending in a scale retain the leading scale's agreement head:
+    -- tyto dva tisíce dvě stě korun, not tato dva tisíce dvě stě korun.
+    head = case b.size of {NumScale => a.head ; _ => CountedHead}
     } ;
   scale : ScaleAgreement -> Determiner -> Noun -> Determiner = \agr,d,n -> {
     s = \\_,c => d.s ! n.g ! c ++ numSizeForm n.s d.size c ; size = NumScale ;
