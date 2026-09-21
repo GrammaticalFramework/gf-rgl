@@ -13,4 +13,6 @@ UttAdv (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubj
 UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a writeAbout_V2) (PredetRNP all_Predet (ReflPoss NumPl (UseN child_N))))))	píši o všech svých dětech
 UttAdv (PrepNP possess_Prep (UsePron he_Pron))	jeho
 UttAdv (PrepNP by8agent_Prep (UsePron he_Pron))	od něho
+UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	kdo ji miluje
+UttIAdv (PrepIP by8agent_Prep whoSg_IP)	od koho
 UttAdv (PrepNP with_Prep (PredetNP all_Predet (AdvPron we_Pron home_Adv)))	s námi všemi doma

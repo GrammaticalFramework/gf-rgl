@@ -2,6 +2,7 @@ concrete CzeExtensionRoundTripCze of CzeExtensionRoundTrip = AllCze [
   Utt, S, Cl, NP, VP, VPSlash, Pron, V, V2, AP, QCl, QS, IP,
   N, CN, Det, Quant, Num, IDet, Predet, Adv, Prep, Subj, Temp, Tense, Ant, Pol,
   PrepNP, possess_Prep, by8agent_Prep, with_Prep, he_Pron, we_Pron,
+  IAdv, UttIAdv, PrepIP, QuestVP, whoSg_IP,
   UttS, UttQS, UttAdv, UseCl, UseQCl, UsePron, UseV, SlashV2a, ComplSlash,
   SlashV2AP, DativeCopulaCl, DativeCopulaQCl, SubjS,
   UseN, DetCN, DetQuant, DefArt, NumSg, NumPl, IdetCN,

@@ -85,6 +85,7 @@ lin
     how_IAdv = {s = "jak"} ;
     how8much_IAdv = {s = "kolik"} ;
     whatSg_IP = {s = coForms ; a = Ag Neutr Sg P3} ;
+    whoSg_IP = {s = kdoForms ; a = Ag (Masc Anim) Sg P3} ;
     how8many_IDet = regNumeral "kolik" "kolika" ;
     which_IQuant = adjFormsAdjective (guessAdjForms "který") ;
 }

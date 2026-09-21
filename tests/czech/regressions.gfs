@@ -209,6 +209,10 @@ cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) ready_AP)))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP very_AdA ready_AP))))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP and_Conj ready_AP (mkAP (mkA "unavený"))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (SlashV2AP have_V2 like_AP) (mkNP he_Pron)))))
+
+-- Kdo has masculine singular agreement and inflects for case.
+cc -one (mkUtt (mkQS (mkQCl whoSg_IP (mkAP L.young_A))))
+cc -one (whoSg_IP.s ! genitive ++ whoSg_IP.s ! dative ++ whoSg_IP.s ! instrumental)
 -- Addressing a quantified group retains genitive government.
 cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
 cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))

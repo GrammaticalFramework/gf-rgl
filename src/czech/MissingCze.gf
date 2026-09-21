@@ -47,6 +47,5 @@ oper TPast : Tense = notYet "TPast" ;
 oper Use2N3 : N3 -> N2 = notYet "Use2N3" ;
 oper UseN2 : N2 -> CN = notYet "UseN2" ;
 oper UseSlash : Temp -> Pol -> ClSlash -> SSlash = notYet "UseSlash" ;
-oper whoSg_IP : IP = notYet "whoSg_IP" ;
 
 }
