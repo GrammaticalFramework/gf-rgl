@@ -15,5 +15,21 @@ lin
             } ;
     isPre = True
   } ;
+  UseA2 a = PositA a ;
+  ComplA2 a np = {
+    s = \\sp,c,n => (case a.c2.isPre of {
+      True => a.c2.s ++ np.s ! a.c2.c;
+      False => np.s ! a.c2.c ++ a.c2.s
+    }) ++ a.s ! c ! n;
+    isPre = False
+  } ;
+  AdvAP ap adv = {s = \\sp,c,n => ap.s ! sp ! c ! n ++ adv.s; isPre = ap.isPre} ;
+  SentAP ap sc = {s = \\sp,c,n => ap.s ! sp ! c ! n ++ sc.s; isPre = ap.isPre} ;
+  ComparA a np = {
+    s = \\sp,c,n => a.s ! c ! n ++ "քան" ++ np.s ! Nom; isPre = False
+  } ;
+  UseComparA a = {
+    s = \\sp,c,n => "ավելի" ++ (a.s ! c ! n); isPre = True
+  } ;
 
 }

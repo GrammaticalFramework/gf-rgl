@@ -149,7 +149,7 @@ mkV002 base =
                                Sg => base_1+"ա՛" ;
                                Pl => base_1+"ացե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
@@ -207,7 +207,7 @@ mkV003 base =
   case base of {
     base_1+"նել" => lin V
       { s = base_1+"նել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -349,7 +349,7 @@ mkV004 base =
                                Sg => base_1+"ցի՛ր" ;
                                Pl => base_1+"ցե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ցա" ;
@@ -449,7 +449,7 @@ mkV005 base =
                                Sg => base_1+"րձի՛ր" ;
                                Pl => base_1+"րձե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"րձեցի" ;
@@ -549,7 +549,7 @@ mkV006 base =
                                Sg => "երթա՛" ;
                                Pl => "գնացե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => "գնացի" ;
@@ -649,7 +649,7 @@ mkV007 base =
                                Sg => "էթա՛" ;
                                Pl => "գնացե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => "գնացի" ;
@@ -807,7 +807,7 @@ mkV009 base =
   case base of {
     "ըլնել" => lin V
       { s = "ըլնել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -849,7 +849,7 @@ mkV009 base =
                                Sg => "էղի՛ր" ;
                                Pl => "էղե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => "էղա" ;
@@ -949,7 +949,7 @@ mkV010 base =
                                Sg => base_1+"՛" ;
                                Pl => base_1+"ցե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ցի" ;
@@ -1049,7 +1049,7 @@ mkV011 base =
                                Sg => base_1+"ա՛" ;
                                Pl => base_1+"ացէ՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
@@ -1307,7 +1307,7 @@ mkV014 base =
   case base of {
     base_1+base_2@(?+?)+"նել" => lin V
       { s = base_1+base_2+"նել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -1449,7 +1449,7 @@ mkV015 base =
                                Sg => base_1+base_2+"ցի՛ր" ;
                                Pl => base_1+base_2+"ցե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ցա" ;
@@ -1507,7 +1507,7 @@ mkV016 base =
   case base of {
     base_1+base_2@(?+?+?+?)+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -1607,7 +1607,7 @@ mkV017 base =
   case base of {
     base_1+base_2@(?+?+?)+"նել" => lin V
       { s = base_1+base_2+"նել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -1707,7 +1707,7 @@ mkV018 base =
   case base of {
     base_1+"ել" => lin V
       { s = base_1+"ել" ;
-        causative = nonExist ;
+        causative = base ;
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -1849,7 +1849,7 @@ mkV019 base =
                                Sg => base_1+base_2+"ա՛" ;
                                Pl => base_1+base_2+"ացե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ացի" ;
@@ -1949,7 +1949,7 @@ mkV020 base =
                                Sg => base_1+"ցի՛ր" ;
                                Pl => base_1+"ցէ՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ցայ" ;
@@ -2007,7 +2007,7 @@ mkV021 base =
   case base of {
     base_1+base_2@(?+?)+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        causative = nonExist ;
+        causative = base ;
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -2049,7 +2049,7 @@ mkV021 base =
                                Sg => base_1+base_2+"ի՛ր" ;
                                Pl => base_1+base_2+"է՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
@@ -2149,7 +2149,7 @@ mkV022 base =
                                Sg => base_1+"րձի՛ր" ;
                                Pl => base_1+"րձե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"րձա" ;
@@ -2246,10 +2246,10 @@ mkV023 base =
                     simultaneous = base_1+"նալիս"
                   } ;
         imperative = table {
-                               Sg => nonExist ;
+                               Sg => base ;
                                Pl => base_1+"սե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"սա" ;
@@ -2346,10 +2346,10 @@ mkV024 base =
                     simultaneous = base_1+"նալիս"
                   } ;
         imperative = table {
-                               Sg => nonExist ;
+                               Sg => base ;
                                Pl => base_1+"ե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+"ա" ;
@@ -2407,7 +2407,7 @@ mkV025 base =
   case base of {
     base_1+base_2@?+"ել" => lin V
       { s = base_1+base_2+"ել" ;
-        causative = nonExist ;
+        causative = base ;  --guessed
         conditional = table {
                         Perfect => table {
                                      P1 => table {
@@ -2449,7 +2449,7 @@ mkV025 base =
                                Sg => base_1+"՛"+base_2 ;
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
-        passive = nonExist ;
+        passive = base ;  --guessed
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
@@ -2503,167 +2503,159 @@ mkV025 base =
   } ;
 
 mkN001 : Str -> N ;
-mkN001 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"ներում"
-                     }
+mkN001 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                   Sg => base+"ում" ;
+                   Pl => base+"ներում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"ներումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"ներումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN001"
-  } ;
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base+"ները"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"ներումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"իդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base+"ներումդ"
+                   }
+          }
+  };
 
 mkN002 : Str -> N ;
-mkN002 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"յի" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"յից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"յով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"յում" ;
-                       Pl => base_1+"ներում"
-                     }
+mkN002 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"յի" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"յից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"յով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                 Sg => base+"յում" ;
+                 Pl => base+"ներում"
+              }
+      } ;
+  def_dat = table {
+              Sg => base+"յին" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"յին" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ն" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"յիս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"յիցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"յովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"յումս" ;
-                           Pl => base_1+"ներումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"յիդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"յիցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"յովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"յումդ" ;
-                           Pl => base_1+"ներումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN002"
+  def_nom = table {
+              Sg => base+"ն" ;
+              Pl => base+"ները"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"յիս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"յիցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"յովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"յումս" ;
+                     Pl => base+"ներումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"յիդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"յիցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"յովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"յումդ" ;
+                     Pl => base+"ներումդ"
+                   }
+          }
   } ;
 
 mkN003 : Str -> N ;
@@ -2995,85 +2987,81 @@ mkN006 base =
   } ;
 
 mkN007 : Str -> N ;
-mkN007 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
+mkN007 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"եր"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"երի"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"երից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"երով"
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base+"երում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"երին"
+            } ;
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base+"երը"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"երս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"երիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"երիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"երովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"երումս"
+                   }
+          } ;
+    poss2 = table {
               Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"եր"
+                       Sg => base+"դ" ;
+                       Pl => base+"երդ"
                      } ;
               Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"երի"
+                       Sg => base+"իդ" ;
+                       Pl => base+"երիդ"
                      } ;
               Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"երից"
+                         Sg => base+"իցդ" ;
+                         Pl => base+"երիցդ"
                        } ;
               Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"երով"
+                         Sg => base+"ովդ" ;
+                         Pl => base+"երովդ"
                        } ;
               Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"երում"
+                       Sg => base+"ումդ" ;
+                       Pl => base+"երումդ"
                      }
-            } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"երին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => base_1+"երը"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"երս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"երիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"երիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"երովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"երումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"երդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"երիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"երիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"երովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"երումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN007"
+            }
   } ;
 
 mkN008 : Str -> N ;
@@ -3344,8 +3332,8 @@ mkN011 base =
                          Pl => base_1+"ե"+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -3374,8 +3362,8 @@ mkN011 base =
                              Pl => base_1+"ե"+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -3396,8 +3384,8 @@ mkN011 base =
                              Pl => base_1+"ե"+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -3575,75 +3563,75 @@ mkN014 base =
       { s = table {
               Nom => table {
                        Sg => base_1+"ի"+base_2 ;
-                       Pl => nonExist
+                       Pl => base  --guessed
                      } ;
               Dat => table {
                        Sg => base_1+base_2+"վա" ;
-                       Pl => nonExist
+                       Pl => base  --guessed
                      } ;
               Ablat => table {
                          Sg => base_1+base_2+"վանից" ;
-                         Pl => nonExist
+                         Pl => base  --guessed
                        } ;
               Instr => table {
                          Sg => base_1+base_2+"ով" ;
-                         Pl => nonExist
+                         Pl => base  --guessed
                        } ;
               Loc => table {
                        Sg => base_1+base_2+"ում" ;
-                       Pl => nonExist
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
                     Sg => base_1+base_2+"վան" ;
-                    Pl => nonExist
+                    Pl => base  --guessed
                   } ;
         def_nom = table {
                     Sg => base_1+"ի"+base_2+"ը" ;
-                    Pl => nonExist
+                    Pl => base  --guessed
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ի"+base_2+"ս" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          } ;
                   Dat => table {
                            Sg => base_1+base_2+"վաս" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          } ;
                   Ablat => table {
                              Sg => base_1+base_2+"վանիցս" ;
-                             Pl => nonExist
+                             Pl => base  --guessed
                            } ;
                   Instr => table {
                              Sg => base_1+base_2+"ովս" ;
-                             Pl => nonExist
+                             Pl => base  --guessed
                            } ;
                   Loc => table {
                            Sg => base_1+base_2+"ումս" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
                   Nom => table {
                            Sg => base_1+"ի"+base_2+"դ" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          } ;
                   Dat => table {
                            Sg => base_1+base_2+"վադ" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          } ;
                   Ablat => table {
                              Sg => base_1+base_2+"վանիցդ" ;
-                             Pl => nonExist
+                             Pl => base  --guessed
                            } ;
                   Instr => table {
                              Sg => base_1+base_2+"ովդ" ;
-                             Pl => nonExist
+                             Pl => base  --guessed
                            } ;
                   Loc => table {
                            Sg => base_1+base_2+"ումդ" ;
-                           Pl => nonExist
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -3733,249 +3721,237 @@ mkN015 base =
   } ;
 
 mkN016 : Str -> N ;
-mkN016 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => nonExist
-                     } ;
-              Dat => table {
-                       Sg => base_1+"վա" ;
-                       Pl => nonExist
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"վանից" ;
-                         Pl => base_1+"ներից" --guessed
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => nonExist
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => nonExist
-                     }
+mkN016 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base
+               } ;
+        Dat => table {
+                 Sg => base+"վա" ;
+                 Pl => base
+               } ;
+        Ablat => table {
+                   Sg => base+"վանից" ;
+                   Pl => base+"ներից" --guessed
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"վան" ;
+              Pl => base
             } ;
-        def_dat = table {
-                    Sg => base_1+"վան" ;
-                    Pl => nonExist
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => nonExist
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => nonExist
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"վաս" ;
-                           Pl => nonExist
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"վանիցս" ;
-                             Pl => base_1+"ներիցս" --guessed
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => nonExist
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => nonExist
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ" --guessed
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"վադ" ;
-                           Pl => nonExist
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"վանիցդ" ;
-                             Pl => nonExist
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => nonExist
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => nonExist
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN016"
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base
+                   } ;
+            Dat => table {
+                     Sg => base+"վաս" ;
+                     Pl => base
+                   } ;
+            Ablat => table {
+                       Sg => base+"վանիցս" ;
+                       Pl => base+"ներիցս" --guessed
+                     } ;
+           Instr => table {
+                      Sg => base+"ովս" ;
+                      Pl => base
+                    } ;
+           Loc => table {
+                    Sg => base+"ումս" ;
+                    Pl => base
+                  }
+         } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ" --guessed
+                   } ;
+            Dat => table {
+                     Sg => base+"վադ" ;
+                     Pl => base
+                   } ;
+            Ablat => table {
+                       Sg => base+"վանիցդ" ;
+                       Pl => base
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base
+                   }
+          }
   } ;
 
 mkN017 : Str -> N ;
-mkN017 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"եր"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"երի"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"երից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"երով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"երում"
-                     }
+mkN017 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"եր"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"երի"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"երից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"երով"
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base+"երում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"երին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"երին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ն" ;
-                    Pl => base_1+"երը"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"երս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"երիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"երիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"երովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"երումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"երդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"երիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"երիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"երովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"երումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN017"
+  def_nom = table {
+              Sg => base+"ն" ;
+              Pl => base+"երը"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"երս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"երիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"երիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"երովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"երումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"երդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"իդ" ;
+                     Pl => base+"երիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցդ" ;
+                       Pl => base+"երիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base+"երովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base+"երումդ"
+                   }
+          }
   } ;
 
 mkN018 : Str -> N ;
-mkN018 base =
-  case base of {
-    base_1 => lin N
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ոջ" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ոջից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ոջով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
-                     }
+mkN018 base = lin N {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"ոջ" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"ոջից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ոջով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                 Sg => base ;  --guessed
+                 Pl => base  --guessed
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ոջը" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ոջը" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"ոջս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"ոջիցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ոջովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"ոջդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"ոջիցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ոջովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkN018"
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base+"ները"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"ոջս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"ոջիցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ոջովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base ;  --guessed
+                     Pl => base  --guessed
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"ոջդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"ոջիցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ոջովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base ;  --guessed
+                     Pl => base  --guessed
+                   }
+          }
   } ;
 
 mkN019 : Str -> N ;
@@ -4164,8 +4140,8 @@ mkN021 base =
                          Pl => base_1+"վա"+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -4178,46 +4154,46 @@ mkN021 base =
                   } ;
         poss1 = table {
                   Nom => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          } ;
                   Dat => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          } ;
                   Ablat => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;  --guessed
+                             Pl => base  --guessed
                            } ;
                   Instr => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;  --guessed
+                             Pl => base  --guessed
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
                   Nom => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          } ;
                   Dat => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          } ;
                   Ablat => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;  --guessed
+                             Pl => base  --guessed
                            } ;
                   Instr => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;  --guessed
+                             Pl => base  --guessed
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -4328,8 +4304,8 @@ mkN023 base =
                          Pl => base_1+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -4358,8 +4334,8 @@ mkN023 base =
                              Pl => base_1+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -4380,8 +4356,8 @@ mkN023 base =
                              Pl => base_1+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -4410,8 +4386,8 @@ mkN024 base =
                          Pl => base_1+base_2+base_3+"երով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -4424,46 +4400,46 @@ mkN024 base =
                   } ;
         poss1 = table {
                   Nom => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          } ;
                   Dat => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          } ;
                   Ablat => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;
+                             Pl => base
                            } ;
                   Instr => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          }
                 } ;
         poss2 = table {
                   Nom => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          } ;
                   Dat => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          } ;
                   Ablat => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;
+                             Pl => base
                            } ;
                   Instr => table {
-                             Sg => nonExist ;
-                             Pl => nonExist
+                             Sg => base ;
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -4492,8 +4468,8 @@ mkN025 base =
                          Pl => base_1+base_2+"ւյրերով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;
+                       Pl => base
                      }
             } ;
         def_dat = table {
@@ -4522,8 +4498,8 @@ mkN025 base =
                              Pl => base_1+base_2+"ւյրերովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -4544,8 +4520,8 @@ mkN025 base =
                              Pl => base_1+base_2+"ւյրերովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -4559,11 +4535,11 @@ mkN026 base =
       { s = table {
               Nom => table {
                        Sg => base_1 ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Dat => table {
                        Sg => base_1+"ան" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Ablat => table {
                          Sg => base_1+"նից" ;
@@ -4571,29 +4547,29 @@ mkN026 base =
                        } ;
               Instr => table {
                          Sg => base_1+"նով" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
                     Sg => base_1+"անը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"անս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"նիցս" ;
@@ -4601,11 +4577,11 @@ mkN026 base =
                            } ;
                   Instr => table {
                              Sg => base_1+"նովս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -4615,19 +4591,19 @@ mkN026 base =
                          } ;
                   Dat => table {
                            Sg => base_1+"անդ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"նիցդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"նովդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -4656,8 +4632,8 @@ mkN027 base =
                          Pl => base_1+"երով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -4708,8 +4684,8 @@ mkN027 base =
                              Pl => base_1+"երովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5066,7 +5042,7 @@ mkN032 base =
                          Pl => base_1+"ուններով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
+                       Sg => base ;
                        Pl => base_1+"ուններում"
                      }
             } ;
@@ -5096,7 +5072,7 @@ mkN032 base =
                              Pl => base_1+"ուններովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
+                           Sg => base ;
                            Pl => base_1+"ուններումս"
                          }
                 } ;
@@ -5118,7 +5094,7 @@ mkN032 base =
                              Pl => base_1+"ուններովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
+                           Sg => base ;
                            Pl => base_1+"ուններումդ"
                          }
                 }
@@ -5148,8 +5124,8 @@ mkN033 base =
                          Pl => base_1+"վերով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5178,8 +5154,8 @@ mkN033 base =
                              Pl => base_1+"վերովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5200,8 +5176,8 @@ mkN033 base =
                              Pl => base_1+"վերովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5230,17 +5206,17 @@ mkN034 base =
                          Pl => base_1+"ա"+base_2+"անցով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
                     Sg => base_1+base_2+"ոջը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ի"+base_2+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
@@ -5260,8 +5236,8 @@ mkN034 base =
                              Pl => base_1+"ա"+base_2+"անցովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5282,8 +5258,8 @@ mkN034 base =
                              Pl => base_1+"ա"+base_2+"անցովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5312,8 +5288,8 @@ mkN035 base =
                          Pl => base_1+"ի"+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5342,8 +5318,8 @@ mkN035 base =
                              Pl => base_1+"ի"+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5364,8 +5340,8 @@ mkN035 base =
                              Pl => base_1+"ի"+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5394,8 +5370,8 @@ mkN036 base =
                          Pl => base_1+"այ"+base_2+"երով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5424,8 +5400,8 @@ mkN036 base =
                              Pl => base_1+"այ"+base_2+"երովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5446,8 +5422,8 @@ mkN036 base =
                              Pl => base_1+"այ"+base_2+"երովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5476,8 +5452,8 @@ mkN037 base =
                          Pl => base_1+"ե"+base_2+"երով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5506,8 +5482,8 @@ mkN037 base =
                              Pl => base_1+"ե"+base_2+"երովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5528,8 +5504,8 @@ mkN037 base =
                              Pl => base_1+"ե"+base_2+"երովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5543,75 +5519,75 @@ mkN038 base =
       { s = table {
               Nom => table {
                        Sg => base_1+"ու" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Dat => table {
                        Sg => base_1+"վա" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Ablat => table {
                          Sg => base_1+"վանից" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Instr => table {
                          Sg => base_1+"ով" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Loc => table {
                        Sg => base_1+"ում" ;
-                       Pl => nonExist
+                       Pl => base
                      }
             } ;
         def_dat = table {
                     Sg => base_1+"վան" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ուն" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ուս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"վաս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"վանիցս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ովս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ումս" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 } ;
         poss2 = table {
                   Nom => table {
                            Sg => base_1+"ուդ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"վադ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"վանիցդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ովդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ումդ" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 }
       };
@@ -5640,8 +5616,8 @@ mkN039 base =
                          Pl => base_1+base_2+"ւյրներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5670,8 +5646,8 @@ mkN039 base =
                              Pl => base_1+base_2+"ւյրներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5692,8 +5668,8 @@ mkN039 base =
                              Pl => base_1+base_2+"ւյրներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5722,8 +5698,8 @@ mkN040 base =
                          Pl => base_1+"այ"+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5752,8 +5728,8 @@ mkN040 base =
                              Pl => base_1+"այ"+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5774,8 +5750,8 @@ mkN040 base =
                              Pl => base_1+"այ"+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5789,75 +5765,75 @@ mkN041 base =
       { s = table {
               Nom => table {
                        Sg => base_1+"ե"+base_2 ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Dat => table {
                        Sg => base_1+"ի"+base_2+"ի" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Ablat => table {
                          Sg => base_1+"ի"+base_2+"ից" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Instr => table {
                          Sg => base_1+"ի"+base_2+"ով" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Loc => table {
                        Sg => base_1+"ի"+base_2+"ում" ;
-                       Pl => nonExist
+                       Pl => base
                      }
             } ;
         def_dat = table {
                     Sg => base_1+"ի"+base_2+"ին" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ե"+base_2+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ե"+base_2+"ս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"ի"+base_2+"իս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"ի"+base_2+"իցս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ի"+base_2+"ովս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ի"+base_2+"ումս" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 } ;
         poss2 = table {
                   Nom => table {
                            Sg => base_1+"ե"+base_2+"դ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"ի"+base_2+"իդ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"ի"+base_2+"իցդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ի"+base_2+"ովդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ի"+base_2+"ումդ" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 }
       };
@@ -5886,8 +5862,8 @@ mkN042 base =
                          Pl => base_1+"իներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5916,8 +5892,8 @@ mkN042 base =
                              Pl => base_1+"իներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -5938,8 +5914,8 @@ mkN042 base =
                              Pl => base_1+"իներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -5968,8 +5944,8 @@ mkN043 base =
                          Pl => base_1+"ե"+base_2+"երով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -5998,8 +5974,8 @@ mkN043 base =
                              Pl => base_1+"ե"+base_2+"երովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -6020,8 +5996,8 @@ mkN043 base =
                              Pl => base_1+"ե"+base_2+"երովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -6035,75 +6011,75 @@ mkN044 base =
       { s = table {
               Nom => table {
                        Sg => base_1+"ու"+base_2 ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Dat => table {
                        Sg => base_1+base_2+"ոջ" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Ablat => table {
                          Sg => base_1+base_2+"ոջից" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Instr => table {
                          Sg => base_1+base_2+"ոջով" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
                     Sg => base_1+base_2+"ոջը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ու"+base_2+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ու"+base_2+"ս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+base_2+"ոջս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+base_2+"ոջիցս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+base_2+"ոջովս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
                   Nom => table {
                            Sg => base_1+"ու"+base_2+"դ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+base_2+"ոջդ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+base_2+"ոջիցդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+base_2+"ոջովդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -6117,75 +6093,75 @@ mkN045 base =
       { s = table {
               Nom => table {
                        Sg => base_1+"ը" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Dat => table {
                        Sg => base_1+"վա" ;
-                       Pl => nonExist
+                       Pl => base
                      } ;
               Ablat => table {
                          Sg => base_1+"վանից" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Instr => table {
                          Sg => base_1+"ով" ;
-                         Pl => nonExist
+                         Pl => base
                        } ;
               Loc => table {
                        Sg => base_1+"ում" ;
-                       Pl => nonExist
+                       Pl => base
                      }
             } ;
         def_dat = table {
                     Sg => base_1+"վան" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
                            Sg => base_1+"ըս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"վաս" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"վանիցս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ովս" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ումս" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 } ;
         poss2 = table {
                   Nom => table {
                            Sg => base_1+"ըդ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Dat => table {
                            Sg => base_1+"վադ" ;
-                           Pl => nonExist
+                           Pl => base
                          } ;
                   Ablat => table {
                              Sg => base_1+"վանիցդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Instr => table {
                              Sg => base_1+"ովդ" ;
-                             Pl => nonExist
+                             Pl => base
                            } ;
                   Loc => table {
                            Sg => base_1+"ումդ" ;
-                           Pl => nonExist
+                           Pl => base
                          }
                 }
       };
@@ -6214,8 +6190,8 @@ mkN046 base =
                          Pl => base_1+"ա"+base_2+"անցով" --guessed
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -6244,8 +6220,8 @@ mkN046 base =
                              Pl => base_1+"ա"+base_2+"անցովս" --guessed
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -6266,8 +6242,8 @@ mkN046 base =
                              Pl => base_1+"ա"+base_2+"անցովդ" --guessed
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -6296,17 +6272,17 @@ mkN047 base =
                          Pl => base_1+"կանցով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
                     Sg => base_1+"ուն" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         def_nom = table {
                     Sg => base_1+"ը" ;
-                    Pl => nonExist
+                    Pl => base
                   } ;
         poss1 = table {
                   Nom => table {
@@ -6326,8 +6302,8 @@ mkN047 base =
                              Pl => base_1+"կանցովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -6348,8 +6324,8 @@ mkN047 base =
                              Pl => base_1+"կանցովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -6460,8 +6436,8 @@ mkN049 base =
                          Pl => base_1+"ի"+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;  --guessed
+                       Pl => base  --guessed
                      }
             } ;
         def_dat = table {
@@ -6490,8 +6466,8 @@ mkN049 base =
                              Pl => base_1+"ի"+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 } ;
         poss2 = table {
@@ -6512,8 +6488,8 @@ mkN049 base =
                              Pl => base_1+"ի"+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;  --guessed
+                           Pl => base  --guessed
                          }
                 }
       };
@@ -6521,167 +6497,159 @@ mkN049 base =
   } ;
 
 mkA001 : Str -> A ;
-mkA001 base =
-  case base of {
-    base_1 => lin A
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"ներում"
-                     }
+mkA001 base = lin A {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base+"ներում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"ներումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"ներումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkA001"
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base+"ները"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"ներումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"իդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base+"ներումդ"
+                   }
+          }
   } ;
 
 mkA002 : Str -> A ;
-mkA002 base =
-  case base of {
-    base_1 => lin A
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"ներում"
-                     }
+mkA002 base = lin A {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base+"ներում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ն" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"ներումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"ներումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkA002"
+ def_nom = table {
+             Sg => base+"ն" ;
+             Pl => base+"ները"
+           } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"ներումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"իդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base+"ներումդ"
+                   }
+          }
   } ;
 
 mkA003 : Str -> A ;
@@ -6767,167 +6735,159 @@ mkA003 base =
   } ;
 
 mkA004 : Str -> A ;
-mkA004 base =
-  case base of {
-    base_1 => lin A
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"ներ"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"յի" ;
-                       Pl => base_1+"ների"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"յից" ;
-                         Pl => base_1+"ներից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"յով" ;
-                         Pl => base_1+"ներով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"յում" ;
-                       Pl => base_1+"ներում"
-                     }
+mkA004 base = lin A {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"ներ"
+               } ;
+        Dat => table {
+                 Sg => base+"յի" ;
+                 Pl => base+"ների"
+               } ;
+        Ablat => table {
+                   Sg => base+"յից" ;
+                   Pl => base+"ներից"
+                 } ;
+        Instr => table {
+                   Sg => base+"յով" ;
+                   Pl => base+"ներով"
+                 } ;
+        Loc => table {
+                 Sg => base+"յում" ;
+                 Pl => base+"ներում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"յին" ;
+              Pl => base+"ներին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"յին" ;
-                    Pl => base_1+"ներին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ն" ;
-                    Pl => base_1+"ները"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"ներս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"յիս" ;
-                           Pl => base_1+"ներիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"յիցս" ;
-                             Pl => base_1+"ներիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"յովս" ;
-                             Pl => base_1+"ներովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"յումս" ;
-                           Pl => base_1+"ներումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"ներդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"յիդ" ;
-                           Pl => base_1+"ներիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"յիցդ" ;
-                             Pl => base_1+"ներիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"յովդ" ;
-                             Pl => base_1+"ներովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"յումդ" ;
-                           Pl => base_1+"ներումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkA004"
+  def_nom = table {
+              Sg => base+"ն" ;
+              Pl => base+"ները"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"ներս"
+                   } ;
+            Dat => table {
+                     Sg => base+"յիս" ;
+                     Pl => base+"ներիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"յիցս" ;
+                       Pl => base+"ներիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"յովս" ;
+                       Pl => base+"ներովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"յումս" ;
+                     Pl => base+"ներումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"ներդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"յիդ" ;
+                     Pl => base+"ներիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"յիցդ" ;
+                       Pl => base+"ներիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"յովդ" ;
+                       Pl => base+"ներովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"յումդ" ;
+                     Pl => base+"ներումդ"
+                   }
+          }
   } ;
 
 mkA005 : Str -> A ;
-mkA005 base =
-  case base of {
-    base_1 => lin A
-      { s = table {
-              Nom => table {
-                       Sg => base_1 ;
-                       Pl => base_1+"եր"
-                     } ;
-              Dat => table {
-                       Sg => base_1+"ի" ;
-                       Pl => base_1+"երի"
-                     } ;
-              Ablat => table {
-                         Sg => base_1+"ից" ;
-                         Pl => base_1+"երից"
-                       } ;
-              Instr => table {
-                         Sg => base_1+"ով" ;
-                         Pl => base_1+"երով"
-                       } ;
-              Loc => table {
-                       Sg => base_1+"ում" ;
-                       Pl => base_1+"երում"
-                     }
+mkA005 base = lin A {
+  s = table {
+        Nom => table {
+                 Sg => base ;
+                 Pl => base+"եր"
+               } ;
+        Dat => table {
+                 Sg => base+"ի" ;
+                 Pl => base+"երի"
+               } ;
+        Ablat => table {
+                   Sg => base+"ից" ;
+                   Pl => base+"երից"
+                 } ;
+        Instr => table {
+                   Sg => base+"ով" ;
+                   Pl => base+"երով"
+                 } ;
+        Loc => table {
+                 Sg => base+"ում" ;
+                 Pl => base+"երում"
+               }
+      } ;
+  def_dat = table {
+              Sg => base+"ին" ;
+              Pl => base+"երին"
             } ;
-        def_dat = table {
-                    Sg => base_1+"ին" ;
-                    Pl => base_1+"երին"
-                  } ;
-        def_nom = table {
-                    Sg => base_1+"ը" ;
-                    Pl => base_1+"երը"
-                  } ;
-        poss1 = table {
-                  Nom => table {
-                           Sg => base_1+"ս" ;
-                           Pl => base_1+"երս"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իս" ;
-                           Pl => base_1+"երիս"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցս" ;
-                             Pl => base_1+"երիցս"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովս" ;
-                             Pl => base_1+"երովս"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումս" ;
-                           Pl => base_1+"երումս"
-                         }
-                } ;
-        poss2 = table {
-                  Nom => table {
-                           Sg => base_1+"դ" ;
-                           Pl => base_1+"երդ"
-                         } ;
-                  Dat => table {
-                           Sg => base_1+"իդ" ;
-                           Pl => base_1+"երիդ"
-                         } ;
-                  Ablat => table {
-                             Sg => base_1+"իցդ" ;
-                             Pl => base_1+"երիցդ"
-                           } ;
-                  Instr => table {
-                             Sg => base_1+"ովդ" ;
-                             Pl => base_1+"երովդ"
-                           } ;
-                  Loc => table {
-                           Sg => base_1+"ումդ" ;
-                           Pl => base_1+"երումդ"
-                         }
-                }
-      };
-    _ => error "Can't apply paradigm mkA005"
+  def_nom = table {
+              Sg => base+"ը" ;
+              Pl => base+"երը"
+            } ;
+  poss1 = table {
+            Nom => table {
+                     Sg => base+"ս" ;
+                     Pl => base+"երս"
+                   } ;
+            Dat => table {
+                     Sg => base+"իս" ;
+                     Pl => base+"երիս"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցս" ;
+                       Pl => base+"երիցս"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովս" ;
+                       Pl => base+"երովս"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումս" ;
+                     Pl => base+"երումս"
+                   }
+          } ;
+  poss2 = table {
+            Nom => table {
+                     Sg => base+"դ" ;
+                     Pl => base+"երդ"
+                   } ;
+            Dat => table {
+                     Sg => base+"իդ" ;
+                     Pl => base+"երիդ"
+                   } ;
+            Ablat => table {
+                       Sg => base+"իցդ" ;
+                       Pl => base+"երիցդ"
+                     } ;
+            Instr => table {
+                       Sg => base+"ովդ" ;
+                       Pl => base+"երովդ"
+                     } ;
+            Loc => table {
+                     Sg => base+"ումդ" ;
+                     Pl => base+"երումդ"
+                   }
+          }
   } ;
 
 mkA006 : Str -> A ;
@@ -7034,8 +6994,8 @@ mkA007 base =
                          Pl => base_1+base_2+"ներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;
+                       Pl => base
                      }
             } ;
         def_dat = table {
@@ -7064,8 +7024,8 @@ mkA007 base =
                              Pl => base_1+base_2+"ներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          }
                 } ;
         poss2 = table {
@@ -7086,8 +7046,8 @@ mkA007 base =
                              Pl => base_1+base_2+"ներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          }
                 }
       };
@@ -7444,8 +7404,8 @@ mkA012 base =
                          Pl => base_1+"իներով"
                        } ;
               Loc => table {
-                       Sg => nonExist ;
-                       Pl => nonExist
+                       Sg => base ;
+                       Pl => base
                      }
             } ;
         def_dat = table {
@@ -7474,8 +7434,8 @@ mkA012 base =
                              Pl => base_1+"իներովս"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          }
                 } ;
         poss2 = table {
@@ -7496,8 +7456,8 @@ mkA012 base =
                              Pl => base_1+"իներովդ"
                            } ;
                   Loc => table {
-                           Sg => nonExist ;
-                           Pl => nonExist
+                           Sg => base ;
+                           Pl => base
                          }
                 }
       };

@@ -6,6 +6,7 @@ concrete CatHye of Cat = CommonX ** open Prelude,ResHye in {
   lincat CN = {s : Species => Case => Number => Str} ;
   lincat Card = {s : Str} ;
   lincat Cl = {s : Str;
+               negative : Tense => Str;
                conditional : Aspect => Number => Str;
                converb : {imperfective : Str; futCon1 : Str;
                           futCon2 : Str; negative : Str;
@@ -17,9 +18,9 @@ concrete CatHye of Cat = CommonX ** open Prelude,ResHye in {
   lincat Comp = {s : Str} ;
   lincat Conj = {s : Str} ;
   lincat DAP = {s : Str} ;
-  lincat Decimal = {s : Str} ;
+  lincat Decimal = {s : CardOrd => Str; n : Number; hasDot : Bool} ;
   lincat Det = {s : Str; n : Number; sp : Species} ;
-  lincat Digits = {s : Str} ;
+  lincat Digits = {s : CardOrd => Str; n : Number; tail : DTail} ;
   lincat GN = {s : Str} ;
   lincat IComp = {s : Str} ;
   lincat IDet = {s : Str} ;
@@ -32,12 +33,12 @@ concrete CatHye of Cat = CommonX ** open Prelude,ResHye in {
   lincat N3 = Noun ** {c2,c3 : Compl} ;
   lincat NP = {s : Case => Str; a : Agr} ;
   lincat Num = {s : Str; n : Number} ;
-  lincat Numeral = {s : Str} ;
+  lincat Numeral = {s : CardOrd => Str; n : Number} ;
   lincat Ord = {s : Str} ;
   lincat PN = {s : Str} ;
   lincat Predet = {s : Str} ;
-  lincat Prep = Compl ** {isPre : Bool} ;
-  lincat Pron = {s : Str; empty : Str; a : Agr} ;
+  lincat Prep = Compl ;
+  lincat Pron = {s : Case => Str; empty : Str; a : Agr} ;
   lincat QCl = {s : Str} ;
   lincat QS = {s : Str} ;
   lincat Quant = {s : Str; sp : Species} ;

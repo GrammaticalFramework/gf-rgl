@@ -1,9 +1,19 @@
-resource ResHye = ParamX ** {
+resource ResHye = ParamX ** open Prelude in {
 
+param CardOrd = NCard | NOrd ;
 param Aspect = Non_Past | Perfect ;
 param Case = Nom | Dat | Ablat | Instr | Loc ;
 param PartType = Resultative | Subject ;
 oper Verb = {s: Str; causative: Str; conditional: Aspect => Person => Number => Str; converb: {imperfective: Str; futCon1: Str; futCon2: Str; negative: Str; perfective: Str; simultaneous: Str}; imperative: Number => Str; passive: Str; past: Person => Number => Str; participle: PartType => Str; subjunctive: Aspect => Person => Number => Str} ; -- 898
+oper invarVerb : Str -> Verb = \s -> {
+  s=s; causative=s;
+  conditional=table {_ => table {_ => table {_ => s}}};
+  converb={imperfective=s;futCon1=s;futCon2=s;negative=s;perfective=s;simultaneous=s};
+  imperative=table {_ => s}; passive=s;
+  past=table {_ => table {_ => s}};
+  participle=table {_ => s};
+  subjunctive=table {_ => table {_ => table {_ => s}}}
+} ;
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42,f43 ->
           { s = f1 ;
@@ -103,6 +113,11 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
 param Species = Indef | Def | Poss Person ;
 oper Agr = {n : Number; p : Person} ;
 oper Noun = {s: Case => Number => Str; def_dat: Number => Str; def_nom: Number => Str; poss1: Case => Number => Str; poss2: Case => Number => Str} ; -- 4880
+oper invarNoun : Str -> Noun = \s -> {
+  s=table {_ => table {_ => s}};
+  def_dat=table {_ => s}; def_nom=table {_ => s};
+  poss1=table {_ => table {_ => s}}; poss2=table {_ => table {_ => s}}
+} ;
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34 ->
           { s = table {
@@ -262,7 +277,7 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,
           } ;
 
 
-oper Compl = {s : Str; c : Case} ;
-oper noPrep : Compl = {s=""; c=Dat} ;
+oper Compl = {s : Str; c : Case; isPre : Bool} ;
+oper noPrep : Compl = {s=""; c=Nom; isPre=False} ;
 
 }
