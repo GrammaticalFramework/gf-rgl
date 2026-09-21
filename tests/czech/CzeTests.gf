@@ -10,6 +10,9 @@ oper
   -- Buying from a source for a recipient: both complements are prepositional.
   buyFor_V3 : V3 = mkV3 (kupovatV "kupovat")
     (ParadigmsCze.mkPrep "od" genitive) (ParadigmsCze.mkPrep "pro" accusative) ;
+  himSelf_RNP : E.RNP = E.ConjRNP and_Conj (E.Base_nr_RNP (mkNP he_Pron) E.ReflPron) ;
+  about_Prep : Prep = ParadigmsCze.mkPrep "o" locative ;
+  writeAbout_V2 : V2 = L.write_V2 ** {c = ParadigmsCze.mkPrep "o" locative} ;
   like_AP : AP = shortAP "rád" "ráda" "rádo" "rádi" "rády" "ráda" ;
   ready_AP : AP = shortAP "připraven" "připravena" "připraveno" "připraveni" "připraveny" "připravena" ;
   wash_V : V = seV (krytV "mýt") ;
