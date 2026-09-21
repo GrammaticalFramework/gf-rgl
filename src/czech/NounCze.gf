@@ -5,15 +5,19 @@ concrete NounCze of Noun =
   open ResCze, Prelude in {
 
 lin
-    DetCN det cn = {
-        s,prep,clit = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ;
+    DetCN det cn =
+      let s : Case => Str = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c
+      in npForms s s ** {
+        clit = s ;
         a = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3 ;
-        hasClit = False ; isDrop = False ;
+        m = numeralModAgr (nounGender cn (numSizeNumber det.size)) det ;
+        hasClit = False ; isDrop = False ; isPron = False ;
       } ;
 
-    MassNP cn = {
-      s,prep,clit = \\c => cn.s ! Sg ! c ;
-      a = Ag cn.g Sg P3 ;
+    MassNP cn =
+      let s = cn.s ! Sg in npForms s s ** {
+      clit = s ;
+      a = Ag cn.g Sg P3 ; m = Mod cn.g Sg ; isPron = False ;
       hasClit = False ; isDrop = False ;
       } ;
 
@@ -33,8 +37,8 @@ lin
     NumPl = invarDeterminer [] Num2_4 ;
     NumSg = invarDeterminer [] Num1 ;
 
-    UsePron pron = {
-      s = table {
+    UsePron pron =
+      let s : Case => Str = table {
         Nom | ResCze.Voc => pron.nom ;
         Gen => pron.gen ;
         Dat => pron.dat ;
@@ -42,6 +46,15 @@ lin
         Loc => pron.loc ;
         Ins => pron.ins
         } ;
+      prep : Case => Str = table {
+        Nom | ResCze.Voc => pron.nom ;
+        Gen => pron.pgen ;
+        Dat => pron.pdat ;
+        Acc => pron.pacc ;
+        Loc => pron.loc ;
+        Ins => pron.pins
+        }
+      in npForms s prep ** {
       clit = table {
         Nom => pron.cnom ;
         ResCze.Voc => pron.nom ;
@@ -51,23 +64,15 @@ lin
         Loc => pron.loc ;
         Ins => pron.ins
         } ;
-      prep = table {
-        Nom | ResCze.Voc => pron.nom ;
-        Gen => pron.pgen ;
-        Dat => pron.pdat ;
-        Acc => pron.pacc ;
-        Loc => pron.loc ;
-        Ins => pron.pins
-        } ;
-      a = pron.a ;
-      hasClit = True ; isDrop = pron.isDrop ;
+      a = pron.a ; m = modifierAgr pron.a ;
+      hasClit = True ; isDrop = pron.isDrop ; isPron = True ;
       } ;
 
     PossPron pron = justDemPronFormsAdjective pron.poss ;
 
-    UsePN pn = {
-      s,clit,prep = \\c => pn.s ! c ;
-      a = Ag pn.g Sg P3 ;
+    UsePN pn = npForms pn.s pn.s ** {
+      clit = pn.s ;
+      a = Ag pn.g Sg P3 ; m = Mod pn.g Sg ; isPron = False ;
       hasClit = False ; isDrop = False ;
       } ;
 
@@ -86,10 +91,9 @@ lin
       g = cn.g ; gPl = cn.gPl
       } ;
 
-    AdvNP np adv = {
-      s,clit = \\c => np.s ! c ++ adv.s ;
-      prep = \\c => np.prep ! c ++ adv.s ;
-      a = np.a ;
+    AdvNP np adv =
+      let forms = appendNPForms np adv.s in np ** forms ** {
+      clit = forms.s ;
       hasClit = False ; isDrop = False ;
       } ;
 
@@ -107,11 +111,13 @@ lin
 
     SentCN cn sc = cn ** {s = \\n,c => cn.s ! n ! c ++ sc.s} ;
 
-    PredetNP pred np = np ** {
+    PredetNP pred np =
+      let forms = predetNPForms (andB pred.postPron np.isPron)
+        (\\c => predetForm pred np.m c) np
+      in np ** forms ** {
       -- A predeterminer modifies a full NP: jen já, jen jeho. Its scope
       -- cannot be preserved by an omitted subject or an object clitic.
-      s,clit = \\c => pred.s ++ np.s ! c ;
-      prep = \\c => pred.s ++ np.prep ! c ;
+      clit = forms.s ;
       hasClit = False ; isDrop = False
       } ;
 

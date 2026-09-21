@@ -9,8 +9,17 @@ oper
     } ;
 
 lin
-    all_Predet = {s = "všechny"} ;
-    only_Predet = {s = "jen"} ;
+    all_Predet = {s = \\g,n,c => case <n,c,g> of {
+      <Pl,Gen | Loc,_> => "všech" ; <Pl,Dat,_> => "všem" ; <Pl,Ins,_> => "všemi" ;
+      <Pl,Nom | ResCze.Voc,Masc Anim> => "všichni" ;
+      <Pl,_,Neutr> => "všechna" ; <Pl,_,_> => "všechny" ;
+      <Sg,Nom | ResCze.Voc,Fem> => "všechna" ; <Sg,Acc,Fem> => "všechnu" ;
+      <Sg,_,Fem> => "vší" ;
+      <Sg,Gen,_> | <Sg,Acc,Masc Anim> => "všeho" ;
+      <Sg,Dat,_> => "všemu" ; <Sg,Loc,_> => "všem" ; <Sg,Ins,_> => "vším" ;
+      <Sg,_,Neutr> => "všechno" ; <Sg,_,_> => "všechen"
+      } ; postPron = True} ;
+    only_Predet = {s = \\_,_,_ => "jen" ; postPron = False} ;
     and_Conj = mkConj "a" ;
     both7and_DConj = {s1 = "jak" ; s2 = "tak"} ;
     between_Prep = mkPrep "mezi" Ins ;
@@ -45,7 +54,11 @@ lin
     many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
     or_Conj = mkConj "nebo" ;
     somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
-    something_NP = {s,clit,prep = \\c => "ně" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False ; isDrop = False} ; -- CEG 5.6.3
+    something_NP =
+      let s : Case => Str = \\c => "ně" + coForms ! c in npForms s s ** {
+      clit = s ; a = Ag Neutr Sg P3 ; m = Mod Neutr Sg ;
+      hasClit = False ; isDrop = False ; isPron = False
+      } ; -- CEG 5.6.3
     possess_Prep = mkPrep "" Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;

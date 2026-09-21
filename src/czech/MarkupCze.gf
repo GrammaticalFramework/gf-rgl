@@ -14,7 +14,12 @@ lin
       Nom => np.clit ! Nom ;
       _   => appMark m (np.clit ! c)
       } ;
-    prep = \\c => appMark m (np.prep ! c)
+    prep = \\c => appMark m (np.prep ! c) ;
+    -- Later predetermination can split the original marked constituent.
+    before = \\c => appMark m (np.before ! c) ;
+    prepBefore = \\c => appMark m (np.prepBefore ! c) ;
+    -- Accept empty wrappers to avoid an NP parameter used only by markup.
+    after = appMark m np.after
     } ;
 
   MarkupAP   m ap  = ap ** {

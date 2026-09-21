@@ -46,11 +46,14 @@ concrete CatCze of Cat =
     -- Object-clitic eligibility and subject omission are independent.
     -- Extend.ProDrop selects isDrop; clit ! Nom retains its empty constituent.
     -- Modifiers restore full forms. s and prep are always available for strong use.
-    NP = {s,clit,prep : Case => Str ; a : Agr ; hasClit,isDrop : Bool} ;
+    -- m controls NP modifiers; a controls the clause. Scale nouns can differ.
+    -- A modified pronoun can keep its pronominal head without a weak form.
+    NP = NPForms ** {clit : Case => Str ; a : Agr ; m : ModifierAgr ; hasClit,isDrop,isPron : Bool} ;
     PN = {s : Case => Str ; g : Gender} ;
     Ord = Adjective ;
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
+    Predet = Adjective ** {postPron : Bool} ;
     Num = Determiner ;
     Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
     Pron = PronForms ** {poss : DemPronForms} ;

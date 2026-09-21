@@ -149,6 +149,7 @@ cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkCN (mkA "nový") ((hradN "mlýn") ** {
 cc -one (SyntaxCze.mkAdv with_Prep (mkNP i_Pron))
 cc -one (SyntaxCze.mkAdv with_Prep (mkNP (zenaN "žena")))
 cc -one (SyntaxCze.mkAdv from_Prep (mkNP L.school_N))
+cc -one (SyntaxCze.mkAdv from_Prep (mkNP all_Predet (mkNP plNum L.child_N)))
 cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "mzda")))
 cc -one (SyntaxCze.mkAdv in_Prep (mkNP i_Pron))
 cc -one (SyntaxCze.mkAdv (v_Prep accusative) (mkNP i_Pron))
@@ -160,8 +161,17 @@ cc -one (SyntaxCze.mkAdv from_Prep (mkNP (mkPN (zenaN "Škola"))))
 cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) L.swim_V)))
 cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) wash_V)))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP only_Predet (mkNP he_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP all_Predet (mkNP (genderPron feminine they_Pron))) wash_V)))
 -- NP focus restores the full form even when given a ProDrop pronoun.
 cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP (E.ProDrop i_Pron))) wash_V)))
+cc -one (mkUtt (mkNP all_Predet (mkNP plNum (panN "student"))))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP all_Predet (mkNP plNum L.child_N)))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCN (zenaN "voda")))))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard (N.num N.pot31)) (zenaN "koruna"))))
+-- Shared preposed modifiers agree with the first conjunct, also after ConsNP.
+cc -one (mkUtt (mkNP all_Predet (mkNP and_Conj (mkNP plNum L.man_N) (mkNP plNum L.woman_N))))
+cc -one (mkUtt (mkNP all_Predet (mkNP and_Conj (mkListNP (mkNP plNum L.woman_N) (mkListNP (mkNP plNum L.man_N) (mkNP plNum L.child_N))))))
 
 -- Complement forms distinguish bare case government from prepositions.
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP he_Pron)))))
@@ -175,6 +185,9 @@ cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP very_AdA ready_AP)
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP and_Conj ready_AP (mkAP (mkA "unavený"))))))
 -- Addressing a quantified group retains genitive government.
 cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
+cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
+-- Pronominal heads retain their order after modification and binding.
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP all_Predet (mkNP youPl_Pron)))
 -- Short forms allow predicate responses but cannot modify a noun.
 cc -one (mkUtt (mkNP (mkCN like_AP (panN "student"))))
 cc -one (mkUtt ready_AP)

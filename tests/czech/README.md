@@ -15,7 +15,8 @@ a temporary directory removed on exit. No application grammar is required.
 `regressions.gfs` checks morphology and grammatical composition through the
 source API, grouped by feature. Its expected output is in `regressions.out`.
 `markup.gfs` separately checks clitic movement through fronting, embedding
-and coordination, including discontinuous marked constituents.
+and coordination, including discontinuous marked constituents. It also checks
+that NP predetermination preserves markup scope when inserting before a modifier.
 Source computation exposes `Predef.BIND` and `Predef.SOFT_BIND` markers;
 PGF linearization handles them as token joining and punctuation.
 

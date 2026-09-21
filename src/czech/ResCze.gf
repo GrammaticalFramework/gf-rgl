@@ -1192,6 +1192,8 @@ param
   -- Nested scales retain the outer head: tato dvě stě tisíc korun.
   ScaleAgreement = QuantifiedScale | NominalScale ;
   NumHead = CountedHead | ScaleHead Gender NumSize ScaleAgreement ;
+  -- NP modifiers have gender/number/case agreement, never verbal person.
+  ModifierAgr = Mod Gender Number | ModQuant Gender ;
 
 oper
   quantifierForm : Adjective -> Determiner -> Gender -> Case -> Str = \q,num,g,c ->
@@ -1203,6 +1205,54 @@ oper
   quantifyNumeral : Adjective -> Determiner -> Determiner = \q,num -> num ** {
     s = \\g,c => quantifierForm q num g c ++ num.s ! g ! c
     } ;
+
+  -- Predeterminers agree with the NP head, including a quantified head in
+  -- the genitive. This differs from clause agreement for e.g. tisíc korun.
+  numeralModAgr : Gender -> Determiner -> ModifierAgr = \g,num -> case num.head of {
+    CountedHead => modifierAgr (numSizeAgr g num.size P3) ;
+    ScaleHead sg size _ => modifierAgr (numSizeAgr sg size P3)
+    } ;
+
+  modifierAgr : Agr -> ModifierAgr = \a -> case a of {
+    Ag g n _ => Mod g n ; AgPol g => Mod g Sg ; AgQuant g => ModQuant g
+    } ;
+
+  predetForm : Adjective -> ModifierAgr -> Case -> Str = \pred,a,c -> case a of {
+    Mod g n => pred.s ! g ! n ! c ;
+    ModQuant g => pred.s ! g ! Pl ! countCase Num5 c
+    } ;
+
+  -- Keep the boundary for my všichni doma, also after AdvNP. Complete forms
+  -- retain a single markup wrapper; insertion can use separately marked pieces.
+  NPForms : Type = {
+    s,prep,before,prepBefore : Case => Str ;
+    after : Str
+    } ;
+
+  npForms : (Case => Str) -> (Case => Str) -> NPForms = \s,prep -> {
+    s,before = s ; prep,prepBefore = prep ; after = []
+    } ;
+
+  appendNPForms : NPForms -> Str -> NPForms = \np,adv -> np ** {
+    s = \\c => np.s ! c ++ adv ; prep = \\c => np.prep ! c ++ adv ;
+    after = np.after ++ adv
+    } ;
+
+  predetNPForms : Bool -> (Case => Str) -> NPForms -> NPForms = \post,pred,np ->
+    case post of {
+      True => np ** {
+        s = \\c => np.before ! c ++ pred ! c ++ np.after ;
+        prep = \\c => np.prepBefore ! c ++ pred ! c ++ np.after ;
+        before = \\c => np.before ! c ++ pred ! c ;
+        prepBefore = \\c => np.prepBefore ! c ++ pred ! c
+        } ;
+      False => np ** {
+        s = \\c => pred ! c ++ np.s ! c ;
+        prep = \\c => pred ! c ++ np.prep ! c ;
+        before = \\c => pred ! c ++ np.before ! c ;
+        prepBefore = \\c => pred ! c ++ np.prepBefore ! c
+        }
+      } ;
 
   nounGender : Noun -> Number -> Gender = \cn,n -> case n of {
     Sg => cn.g ; Pl => cn.gPl
