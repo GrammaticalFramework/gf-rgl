@@ -1,0 +1,16 @@
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (UsePron i_Pron)) (ComplSlash (SlashV2AP have_V2 like_AP) (UsePron she_Pron))))	já ji mám rád
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2AP have_V2 like_AP) (UsePron she_Pron))))	mám ji rád
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject she_Pron) (ReflRNP (SlashV2AP have_V2 like_AP) (UseRNP (ReflPoss NumSg (UseN son_N))))))	má ráda svého syna
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject she_Pron) (ReflRNP (SlashV2AP have_V2 like_AP) (PredetRNP only_Predet ReflPron))))	má ráda jen sebe
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet (ReflPoss NumPl (UseN child_N))))))	čekám na všechny své děti
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (UsePron i_Pron) (DetCN (DetQuant DefArt two_Num) (UseN year_N))))	jsou mi dva roky
+UttS (UseCl (TTAnt TPres ASimul) PNeg (DativeCopulaCl (UsePron i_Pron) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	není mi pět let
+UttQS (UseQCl (TTAnt TPres ASimul) PPos (DativeCopulaQCl (UsePron youPol_Pron) (IdetCN how8many_IDet (UseN year_N))))	kolik let vám je
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant DefArt NumSg) (UseN son_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	synovi je pět let
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (UsePron i_Pron)) (UseV wash_V)))	já se myji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseV wash_V)))	myji se
+UttAdv (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseV wash_V))))	jestliže se myji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a writeAbout_V2) (PredetRNP all_Predet (ReflPoss NumPl (UseN child_N))))))	píši o všech svých dětech
+UttAdv (PrepNP possess_Prep (UsePron he_Pron))	jeho
+UttAdv (PrepNP by8agent_Prep (UsePron he_Pron))	od něho
+UttAdv (PrepNP with_Prep (PredetNP all_Predet (AdvPron we_Pron home_Adv)))	s námi všemi doma

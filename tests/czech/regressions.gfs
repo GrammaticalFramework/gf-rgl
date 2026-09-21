@@ -68,7 +68,6 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP L.wait_V2 (mkNP she_Pr
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) (mkA "unavený")))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl where_IAdv (mkNP (hradN "hotel")))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
-cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) want_VV (mkVP wash_V))))
 cc -one (mkUtt politeImpForm negativePol (mkImp (mkVP wash_V)))
 cc -one (mkUtt (mkVP wash_V))
@@ -81,10 +80,8 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl
 cc -one (I.ImpP3 (mkNP (E.ProDrop he_Pron)) (mkVP wash_V))
 cc -one (I.ImpP3 (mkNP (mkCard "2") L.child_N) (mkVP wash_V))
 cc -one (I.ImpP3 (mkNP (E.ProDrop she_Pron)) (mkVP L.love_V2 (mkNP he_Pron)))
-cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))
 cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
 cc -one (SyntaxCze.mkAdv if_Subj (mkS L.today_Adv (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V))))
-cc -one (mkUtt (mkS (mkCl (mkNP i_Pron) wash_V)))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (siV (kupovatV "kupovat")))))
 cc -one (mkUtt negativePol (mkImp (siV (kupovatV "kupovat"))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) can_VV (mkVP (siV (kupovatV "kupovat"))))))
@@ -178,8 +175,6 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (P
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)))))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
-cc -one (SyntaxCze.mkAdv bareGen_Prep (mkNP he_Pron))
-cc -one (SyntaxCze.mkAdv by8agent_Prep (mkNP he_Pron))
 cc -one (SyntaxCze.mkAdv vocalized_Prep (mkNP he_Pron))
 -- mkVPSlash V3 NP completes Slash2V3.
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (mkVPSlash buyFor_V3 (mkNP he_Pron)) (mkNP she_Pron)))))
@@ -198,8 +193,6 @@ cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (E.AdvRAP (mkAP (mkA "hr
 cc -one (mkUtt (mkNP (mkCN (E.AdvRAP (mkAP (mkA "hrdý")) (ParadigmsCze.mkPrep "na" accusative) E.ReflPron) L.child_N)))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.wait_V2) (E.ConjRNP and_Conj (E.Base_nr_RNP (mkNP she_Pron) E.ReflPron))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.PredetRNP only_Predet E.ReflPron)))))
-cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.wait_V2) (E.PredetRNP all_Predet (E.ReflPoss plNum (mkCN L.child_N)))))))
-cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash writeAbout_V2) (E.PredetRNP all_Predet (E.ReflPoss plNum (mkCN L.child_N)))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRVP (mkVP L.write_V2 (mkNP (zenaN "kniha"))) about_Prep (E.PredetRNP all_Predet (E.ReflPoss plNum (mkCN L.child_N)))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash have_V2) (E.PredetRNP all_Predet (E.ReflPoss (mkNum (mkCard (N.num N.pot31))) (mkCN (zenaN "koruna"))))))))
 -- RNP coordination keeps the same first-conjunct rule through list extension.
@@ -211,9 +204,11 @@ cc -one (mkUtt (mkNP (mkCN (E.AdvRAP (mkAP (mkA "plný")) possess_Prep himSelf_R
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRAP (mkAP (mkA "plný")) possess_Prep himSelf_RNP))))
 
 -- Secondary and short predicates retain agreement through modification and coordination.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkVP (SlashV2AP have_V2 like_AP) (mkNP (zenaN "pizza"))))))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) ready_AP)))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP very_AdA ready_AP))))
 cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP and_Conj ready_AP (mkAP (mkA "unavený"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (SlashV2AP have_V2 like_AP) (mkNP he_Pron)))))
 -- Addressing a quantified group retains genitive government.
 cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
 cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))

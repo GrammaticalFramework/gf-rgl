@@ -28,6 +28,9 @@ successfully.
 
 `CzeRoundTrip` and `roundtrip.tsv` check PGF generation and parsing, including
 joined negation, polarity recovery and polite/plural ambiguity.
+`CzeExtensionRoundTrip` and `extension-roundtrip.tsv` cover secondary and
+dative predicates, bound objects, subject omission, complement forms and
+predeterminer placement with a modified pronoun.
 The abstract fragments are acyclic: parsing must return the complete
 expected set of trees, without truncation or reliance on enumeration order.
 Repeated strings record distinct intended analyses. These small fragments

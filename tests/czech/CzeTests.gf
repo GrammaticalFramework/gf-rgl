@@ -1,6 +1,5 @@
-resource CzeTests = open Prelude, SyntaxCze, SymbolicCze, ParadigmsCze, (L = LexiconCze), (N = NumeralCze), (I = IdiomCze), (E = ExtendCze) in {
+resource CzeTests = open Prelude, SyntaxCze, SymbolicCze, ExtraCze, ParadigmsCze, (L = LexiconCze), (N = NumeralCze), (I = IdiomCze), (E = ExtendCze) in {
 oper
-  bareGen_Prep : Prep = ParadigmsCze.mkPrep genitive ;
   vocalized_Prep : Prep = v_Prep locative ;
   -- Typed consumers exercise every public verb-valency overload.
   drink_V2 : V2 = mkV2 (krytV "pít") ;
@@ -12,7 +11,6 @@ oper
     (ParadigmsCze.mkPrep "od" genitive) (ParadigmsCze.mkPrep "pro" accusative) ;
   himSelf_RNP : E.RNP = E.ConjRNP and_Conj (E.Base_nr_RNP (mkNP he_Pron) E.ReflPron) ;
   about_Prep : Prep = ParadigmsCze.mkPrep "o" locative ;
-  writeAbout_V2 : V2 = L.write_V2 ** {c = ParadigmsCze.mkPrep "o" locative} ;
   like_AP : AP = shortAP "rád" "ráda" "rádo" "rádi" "rády" "ráda" ;
   ready_AP : AP = shortAP "připraven" "připravena" "připraveno" "připraveni" "připraveny" "připravena" ;
   wash_V : V = seV (krytV "mýt") ;

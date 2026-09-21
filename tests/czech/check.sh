@@ -19,6 +19,7 @@ done
 "$GF" -c -path="$src" -gfo-dir="$work/api" \
   src/czech/AllCze.gf src/api/TryCze.gf src/api/SymbolicCze.gf \
   </dev/null > "$work/api.log" 2>&1 || { cat "$work/api.log"; exit 1; }
+test -f "$work/api/ExtraCze.gfo"
 test -f "$work/api/ExtendCze.gfo"
 # Compile a consumer with only the resulting distribution on its search path.
 GF_LIB_PATH="$work/api" "$GF" -c -path="$work/api" -gfo-dir="$work/consumer" \
@@ -28,7 +29,7 @@ test -s "$work/consumer/CzeTests.gfo" || { cat "$work/consumer.log"; exit 1; }
 # Acyclic abstract grammars make the complete parse sets finite. Compare
 # whole trees without relying on parser enumeration order; repeated strings in
 # the treebank record genuine ambiguity, including polite/plural address.
-for grammar in CzeRoundTrip; do
+for grammar in CzeRoundTrip CzeExtensionRoundTrip; do
 case "$grammar" in
   CzeRoundTrip) bank=tests/czech/roundtrip.tsv ;;
   CzeExtensionRoundTrip) bank=tests/czech/extension-roundtrip.tsv ;;
