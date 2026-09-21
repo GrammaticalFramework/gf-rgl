@@ -15,6 +15,8 @@ Nadi Nadě Káti Kátě
 Zoji Zoje
 škole váze míse bance
 sůl sůl soli
+do nejlepšího hotelu
+v nejmodřejší barvě
 mladší
 hrdější nejrudějšího chudší
 rychlejší nejrychlejší
@@ -27,6 +29,7 @@ Predef.nonExist
 Predef.nonExist
 lehčí
 s mladším studentem
+pět dětí je mladších
 já piji vodu
 já kupuji knihu synovi
 kupuji nekupují kupoval kupuj nekupujte
@@ -39,8 +42,10 @@ ony jsou unavené
 ona jsou unavená
 vy jste unavená
 vy jste unavené
+pět dětí je studenty
 on je Petr
 my jsme studenti
+my jsme dvě děti
 my jsme rodina
 já mu kupuji knihu
 já ji kupuji jen jemu
@@ -60,6 +65,7 @@ dnes se doma myji
 vím Predef.SOFT_BIND , že se myje
 vím Predef.SOFT_BIND , jestli se myješ
 nechť se myje
+nechť se dvě děti myjí
 nechť ho miluje
 jestliže se myji
 jestliže ji miluji
@@ -69,6 +75,43 @@ kupuji si
 nekupuj si
 mohu si kupovat
 učím se mýt se
+mám pět pizz
+dvacet jeden rok
+dvacet dvě děti
+tří dětí
+s dvaceti třemi dětmi
+s dvěma sty dětí
+s tisícem korun
+0 korun
+do n Predef.BIND -tého hotelu
+dvě miliardy
+3 Predef.BIND , Predef.BIND 5 milionu
+pět dětí je unavených
+dva tisíce dětí je unavených
+s tímto tisícem korun
+tyto dva tisíce dětí
+těchto dvou tisíc dětí
+tato dvě stě korun
+těchto pět set korun
+tato dvě stě tisíc dětí
+s tímto tisícem nejlepších korun
+kterých pět dětí
+které dvě děti
+který tisíc dětí
+jedna
+dvacet jedna
+dvě
+jedno dítě
+dva miliony korun jsou připraveny
+miliarda korun je připravena
+pět milionů korun je připraveno
+dvě stě korun je připraveno
+dvě stě milionů korun je připraveno
+1 milion
+- Predef.BIND 1 milion
+- Predef.BIND 2 miliony
+- Predef.BIND 2 tisíce korun
+- Predef.BIND 1 Predef.BIND , Predef.BIND 5 milionu
 jen já plavu
 jen já se myji
 miluji jen jeho
@@ -77,6 +120,10 @@ jsem hrdý na něho
 jsem hrdý na ni
 dítě hrdé na ni
 dítě věrné jemu
+pět dětí je připraveno
+pět dětí je velmi připraveno
+pět dětí je připraveno a unavených
+pět dětí
 Predef.nonExist
 připraven
 ona ji ni její

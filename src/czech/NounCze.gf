@@ -7,7 +7,7 @@ concrete NounCze of Noun =
 lin
     DetCN det cn = {
         s,prep,clit = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ;
-        a = numSizeAgr (nounGender cn (numSizeNumber det.size)) det.size P3 ;
+        a = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3 ;
         hasClit = False ; isDrop = False ;
       } ;
 
@@ -17,15 +17,21 @@ lin
       hasClit = False ; isDrop = False ;
       } ;
 
-    DetQuant quant num = {
-      s = \\g,c => num.s ! g ! c ++ quant.s ! g ! numSizeNumber num.size ! c ;
-      size = num.size
+    DetQuant = quantifyNumeral ;
+
+    OrdSuperl a = adjFormsAdjective a.superl ;
+    -- With a scale head, the quantifier modifies the scale, but the following
+    -- ordinal modifies the counted noun: s tímto tisícem nejlepších korun.
+    DetQuantOrd quant num ord =
+      let det = quantifyNumeral quant num in det ** {
+      s = \\g,c => det.s ! g ! c ++
+        ord.s ! g ! numSizeNumber num.size ! countCase num.size c
       } ;
 
     DefArt = {s = \\_,_,_ => []} ;
     IndefArt = {s = \\_,_,_ => []} ;
-    NumPl = {s = \\_,_ => [] ; size = Num2_4} ; ---- size
-    NumSg = {s = \\_,_ => [] ; size = Num1} ;
+    NumPl = invarDeterminer [] Num2_4 ;
+    NumSg = invarDeterminer [] Num1 ;
 
     UsePron pron = {
       s = table {
@@ -95,8 +101,8 @@ lin
       } ;
 
     NumCard c = c ;
-    NumDigits ds = ds ** {s = \\_,_ => ds.s} ;
-    NumDecimal ds = ds ** {s = \\_,_ => ds.s} ;
+    NumDigits ds = invarDeterminer ds.s ds.size ;
+    NumDecimal ds = invarDeterminer ds.s ds.size ;
     NumNumeral nu = nu ;
 
     SentCN cn sc = cn ** {s = \\n,c => cn.s ! n ! c ++ sc.s} ;

@@ -5,6 +5,8 @@ lin
     UttQS q = {s = q.s} ;
     UttIAdv a = a ;
     UttIP ip = {s = ip.s ! Nom} ;
+    -- Choose feminine counting forms (jedna, dvě); jedna, dva is also used.
+    UttCard c = {s = c.s ! Fem ! Nom} ;
     UttAdv adv = adv ;
     UttCN cn = {s = cn.s ! Sg ! Nom} ;
     UttAP ap = {s = ap.pred ! Ag (Masc Anim) Sg P3} ;

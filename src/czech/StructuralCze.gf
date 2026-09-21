@@ -5,7 +5,7 @@ concrete StructuralCze of Structural = CatCze **
 oper
   adjDet : AdjForms -> Determiner = \afs -> {
     s = \\g,c => (adjFormsAdjective afs).s ! g ! Sg ! c ;
-    size = Num1
+    size = Num1 ; head = CountedHead
     } ;
 
 lin

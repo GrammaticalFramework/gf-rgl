@@ -1043,7 +1043,8 @@ oper
 
   Determiner : Type = {
     s : Gender => Case => Str ;
-    size : NumSize
+    size : NumSize ;  -- number and case of the counted noun
+    head : NumHead    -- agreement of a quantifier preceding the numeral
     } ;
 
   mkDemPronForms : Str -> DemPronForms = \t -> {
@@ -1109,50 +1110,38 @@ oper
       adjAdj = adjFormsAdjective demAdj
     in {
       s = \\g,c => adjAdj.s ! g ! Sg ! c ;
-      size = size
+      size = size ; head = CountedHead
       } ;
 
   -- example: number 1
   oneNumeral : Determiner = numeralFormsDeterminer ((mkDemPronForms "jedn") ** {msnom = "jeden"}) Num1 ;
 
-  -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
-  twoNumeral : Determiner =
-    let forms = {
-      msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
-      msgen, fsgen, msloc = "dvou" ;
-      msdat, msins, fsins = "dvěma"
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  threeNumeral : Determiner =
-    let forms = {
-      msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
-      msdat = "třem" ;
-      msloc = "třech" ;
-      msins,fsins = "třemi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  fourNumeral : Determiner =
-    let forms = {
-      msnom, fsnom, nsnom, fsacc = "čtyři" ;
-      msgen, fsgen = "čtyř" ;
-      msdat = "čtyřem" ;
-      msloc = "čtyřech" ;
-      msins,fsins = "čtyřmi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
+  -- Unlike adjectives, 2--4 do not use the genitive for animate accusatives.
+  twoNumeral : Determiner = {
+    s = \\g,c => case c of {
+      Nom|Acc|Voc => case g of {Masc _ => "dva" ; _ => "dvě"} ;
+      Gen|Loc => "dvou" ; Dat|Ins => "dvěma"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
+  threeNumeral : Determiner = {
+    s = \\_,c => case c of {
+      Nom|Acc|Voc => "tři" ; Gen => "tří" ; Dat => "třem" ; Loc => "třech" ; Ins => "třemi"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
+  fourNumeral : Determiner = {
+    s = \\_,c => case c of {
+      Nom|Acc|Voc => "čtyři" ; Gen => "čtyř" ; Dat => "čtyřem" ; Loc => "čtyřech" ; Ins => "čtyřmi"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
 
   -- for the numbers 5 upwards
-  regNumeral : Str -> Str -> Determiner = \pet,peti ->
-    let forms = {
-      msnom,fsnom,nsnom = pet ;
-      msgen, fsgen, msdat, fsacc, msloc, msins, fsins = peti
-      }
-    in numeralFormsDeterminer forms Num5 ;
+  regNumeral : Str -> Str -> Determiner = \pet,peti -> {
+    s = \\_,c => case c of {Nom | Acc | Voc => pet ; _ => peti} ;
+    size = Num5 ; head = CountedHead
+    } ;
 
   invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
-    regNumeral sto sto ;
+    (regNumeral sto sto) ** {size = size} ;
 
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 
@@ -1160,26 +1149,55 @@ oper
 -- combining nouns with numerals
 
 param
-  NumSize = Num1 | Num2_4 | Num5 ; -- CEG 6.1
+  NumSize = Num1 | Num2_4 | Num5 | NumScale ; -- CEG 6.1
+  -- A scale noun has its own agreement: tímto tisícem vs. těchto pěti tisíců.
+  -- Nested scales retain the outer head: tato dvě stě tisíc korun.
+  ScaleAgreement = QuantifiedScale | NominalScale ;
+  NumHead = CountedHead | ScaleHead Gender NumSize ScaleAgreement ;
 
 oper
+  quantifierForm : Adjective -> Determiner -> Gender -> Case -> Str = \q,num,g,c ->
+    case num.head of {
+      CountedHead => q.s ! g ! numSizeNumber num.size ! countCase num.size c ;
+      ScaleHead sg size _ => q.s ! sg ! numSizeNumber size ! countCase size c
+      } ;
+
+  quantifyNumeral : Adjective -> Determiner -> Determiner = \q,num -> num ** {
+    s = \\g,c => quantifierForm q num g c ++ num.s ! g ! c
+    } ;
+
   nounGender : Noun -> Number -> Gender = \cn,n -> case n of {
     Sg => cn.g ; Pl => cn.gPl
+    } ;
+
+  countCase : NumSize -> Case -> Case = \n,c -> case <n,c> of {
+    <NumScale,_> | <Num5, Nom | Acc | Voc> => Gen ; _ => c
     } ;
 
   numSizeForm : (Number => Case => Str) -> NumSize -> Case -> Str
     = \cns,n,c -> case n of {
         Num1   => cns ! Sg ! c ;
+        NumScale => cns ! Pl ! Gen ;
 	Num2_4 => cns ! Pl ! c ;
 	Num5   => case c of {
-	  Nom | Acc => cns ! Pl ! Gen ;
+	  Nom | Acc | Voc => cns ! Pl ! Gen ;
 	  _ => cns ! Pl ! c
 	  }
 	} ;
 
+  -- Clause agreement is independent of the counted noun's genitive case.
+  -- Millions/billions normally agree with their scale head; hundreds and
+  -- thousands use quantified agreement by default. Five million still has
+  -- a quantified head, while two million has a plural nominal head.
+  numeralAgr : Gender -> Determiner -> Person -> Agr = \g,num,p ->
+    case num.head of {
+      ScaleHead sg size NominalScale => numSizeAgr sg size p ;
+      _ => numSizeAgr g num.size p
+    } ;
+
   numSizeAgr : Gender -> NumSize -> Person -> Agr
     = \g,ns,p -> case ns of {
-        Num5   => Ag Neutr Sg p ; -- essential grammar 6.1.4
+        Num5 | NumScale => AgQuant g ; -- essential grammar 6.1.4
 	Num2_4 => Ag g Pl p ;
 	Num1   => Ag g Sg p
 	} ;

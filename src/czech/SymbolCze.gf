@@ -34,13 +34,13 @@ lin
   -- as DetCN in NounCze, with the symbols in apposition
   CNSymbNP det cn xs = {
     s,clit,prep = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ++ xs.s ;
-    a = numSizeAgr (nounGender cn (numSizeNumber det.size)) det.size P3 ;
+    a = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3 ;
     hasClit = False ; isDrop = False ;
     } ;
 
   SymbS sy = sentence False sy.s [] [] ;
 
-  SymbNum sy = {s = \\_,_ => sy.s ; size = Num5} ; -- "n čísel", like numerals from 5 up
+  SymbNum sy = invarNumeral sy.s ; -- "n čísel", like numerals from 5 up
   SymbOrd sy = {s = \\g,n,c =>
     glue sy.s ((adjFormsAdjective (mladyAdjForms "-tý")).s ! g ! n ! c)
     } ;

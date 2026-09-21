@@ -20,6 +20,8 @@ cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zen
 cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
 
 -- Adjective degrees retain case and agreement.
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant (mkOrd L.good_A)) (hradN "hotel")))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkDet the_Quant (mkOrd L.blue_A)) (zenaN "barva")))
 cc -one ((mkA "mladý").compar.msnom)
 cc -one ((mkA "hrdý").compar.msnom ++ (mkA "rudý").superl.msgen ++ (mkA "chudý").compar.msnom)
 cc -one ((mkA "rychlý").compar.msnom ++ (mkA "rychlý").superl.msnom)
@@ -32,6 +34,7 @@ cc -one ((mkA "jarní" nonExist).superl.msnom)
 cc -one ((mkA "lehký").compar.msnom)
 cc -one ((mkA "lehký" "lehčí").compar.msnom)
 cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (comparAP L.young_A) (panN "student"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (comparAP L.young_A))))
 
 -- Verb principal parts and public valency constructors.
 cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP drink_V2 (mkNP (zenaN "voda")))))
@@ -50,8 +53,10 @@ cc -one (mkUtt (mkS (mkCl (mkNP E.youPolFem_Pron) (mkA "unavený"))))
 cc -one (mkUtt (mkS (mkCl (mkNP E.youPolPlFem_Pron) (mkA "unavený"))))
 
 -- CN predicates take predicative case; NP predicates retain their own number.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkVP (mkCN (panN "student"))))))
 cc -one (mkUtt (mkS (mkCl (mkNP he_Pron) (mkNP (mkPN (panN "Petr"))))))
 cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (mkDet the_Quant plNum) (panN "student")))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (mkCard "2") L.child_N))))
 cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (zenaN "rodina")))))
 
 -- Clitic domains in clauses, questions, infinitives and imperatives.
@@ -74,6 +79,7 @@ cc -one (mkUtt (mkS L.today_Adv (mkS (ParadigmsCze.mkAdv "doma") (mkS (mkCl (mkN
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VS (mkS (mkCl (mkNP (E.ProDrop she_Pron)) wash_V)))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) wash_V))))))
 cc -one (I.ImpP3 (mkNP (E.ProDrop he_Pron)) (mkVP wash_V))
+cc -one (I.ImpP3 (mkNP (mkCard "2") L.child_N) (mkVP wash_V))
 cc -one (I.ImpP3 (mkNP (E.ProDrop she_Pron)) (mkVP L.love_V2 (mkNP he_Pron)))
 cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))
 cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
@@ -84,6 +90,50 @@ cc -one (mkUtt negativePol (mkImp (siV (kupovatV "kupovat"))))
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) can_VV (mkVP (siV (kupovatV "kupovat"))))))
 -- A reflexive matrix verb blocks climbing even through mkModalVV.
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkModalVV learn_V) (mkVP wash_V))))
+
+-- Cardinal agreement and case government, including oblique compound numerals.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) have_V2 (mkNP (mkCard "5") (zenaN "pizza")))))
+cc -one (mkUtt (mkNP (mkCard "21") (hradN "rok")))
+cc -one (mkUtt (mkNP (mkCard "22") L.child_N))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP (mkCard "3") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard "23") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard "200") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard (N.num N.pot31)) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkCard (N.IDig N.D_0)) (zenaN "koruna")))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant <symb (mkSymb "n") : Ord>) (hradN "hotel")))
+cc -one (N.pot5 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))))
+cc -one (N.pot4decimal (N.IFrac (N.PosDecimal (N.IDig N.D_3)) N.D_5))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))) L.child_N) (mkA "unavený"))))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num N.pot31)))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))))) L.child_N))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))))) L.child_N))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard "200"))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard "500"))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot2 N.n2)))))) L.child_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num N.pot31))) (mkOrd (mkA "dobrý" "lepší"))) (zenaN "koruna")))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard "5")) (mkCN L.child_N)))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard "2")) (mkCN L.child_N)))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard (N.num N.pot31))) (mkCN L.child_N)))
+cc -one (mkUtt (mkCard "1"))
+cc -one (mkUtt (mkCard "21"))
+cc -one (mkUtt (mkCard "2"))
+cc -one (mkUtt (mkNP (mkCard "1") L.child_N))
+
+-- Scale heads control agreement independently of their genitive complements.
+-- The shared num stops below a million; larger subcategories are used directly.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral N.pot51 : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot1as2 (N.pot0as1 (N.pot0 N.n5)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot2 N.n2) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot2 N.n2)) : Numeral>) (zenaN "koruna")) ready_AP)))
+
+-- Signed integers retain agreement; fractions govern genitive.
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.PosDecimal (N.IDig N.D_1))) : Numeral>))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.NegDecimal (N.IDig N.D_1))) : Numeral>))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.NegDecimal (N.IDig N.D_2))) : Numeral>))
+cc -one (mkUtt (mkNP (mkCard (N.num (N.pot3decimal (N.NegDecimal (N.IDig N.D_2))))) (zenaN "koruna")))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.IFrac (N.NegDecimal (N.IDig N.D_1)) N.D_5)) : Numeral>))
 
 -- Predeterminers retain full pronouns and inflect with the NP head.
 cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) L.swim_V)))
@@ -97,6 +147,13 @@ cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (P
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)))))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
 cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
+
+-- Secondary and short predicates retain agreement through modification and coordination.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP very_AdA ready_AP))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP and_Conj ready_AP (mkAP (mkA "unavený"))))))
+-- Addressing a quantified group retains genitive government.
+cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
 -- Short forms allow predicate responses but cannot modify a noun.
 cc -one (mkUtt (mkNP (mkCN like_AP (panN "student"))))
 cc -one (mkUtt ready_AP)
