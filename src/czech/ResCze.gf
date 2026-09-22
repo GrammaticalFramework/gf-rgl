@@ -1012,22 +1012,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       Ag _ Sg P1 => mladyAdjForms "my" ** {msnom = "můj" ; pdat = "mým"} ;  --- alts: moje, moji,...
       Ag _ Sg P2 => mladyAdjForms "tvy" ** {msnom = "tvůj" ; pdat = "tvým"} ;
       
-      Ag _ Pl P1   => jarniAdjForms "naše" ** {
-        msnom = "náš" ;
-	fsgen,mpnom = "naši" ;
-	fsins = "naší" ;
-	pdat, msins = "našim" ;
-	pgen = "našich" ;
-	pins = "našimi" ;
-	} ;
-      Ag _ Pl P2 | AgPol _ => jarniAdjForms "vaše" ** {
-        msnom = "váš" ;
-	fsgen,mpnom = "vaši" ;
-	fsins = "vaší" ;
-	pdat, msins = "vašim" ;
-	pgen = "vašich" ;
-	pins = "vašimi" ;
-	} ;
+      Ag _ Pl P1 => nasPossessiveForms "náš" "naš" ;
+      Ag _ Pl P2 | AgPol _ => nasPossessiveForms "váš" "vaš" ;
 	
       Ag Fem Sg P3 => jarniAdjForms "její" ** {pdat = "jejím"} ;
 
@@ -1035,6 +1021,22 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       Ag _ Pl P3 | AgQuant _ => invarDemPronForms "jejich" ** {pdat = "jejich"}
 
 
+    } ;
+
+  -- Náš/váš distinguish feminine accusative naši from oblique naší,
+  -- and singular instrumental naším from plural dative našim.
+  nasPossessiveForms : Str -> Str -> DemPronForms = \nas,nasStem -> {
+    msnom = nas ;
+    fsnom,nsnom,fpnom = nasStem + "e" ;
+    msgen = nasStem + "eho" ;
+    fsgen,fsins = nasStem + "í" ;
+    msdat = nasStem + "emu" ;
+    fsacc,mpnom = nasStem + "i" ;
+    msloc = nasStem + "em" ;
+    msins = nasStem + "ím" ;
+    pgen = nasStem + "ich" ;
+    pdat = nasStem + "im" ;
+    pins = nasStem + "imi"
     } ;
 
   reflPossessivePron : DemPronForms = mladyAdjForms "svy" ** {msnom = "svůj" ; pdat = "svým"} ;

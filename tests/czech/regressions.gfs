@@ -21,6 +21,18 @@ cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
 cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.milk_N))
 cc -one (mkVoc (mkNP L.year_N))
 
+-- Náš/váš inflect for the possessed noun, independently of addressee number.
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP we_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv about_Prep (mkNP we_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP youPol_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP youPol_Pron L.city_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP youPl_Pron L.man_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep dative) (mkNP (mkDet we_Pron plNum) L.man_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep dative) (mkNP (mkDet youPl_Pron plNum) L.man_N))
+cc -one (mkUtt (mkNP (mkDet we_Pron plNum) L.man_N))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) L.love_V2 (mkNP (mkDet we_Pron plNum) L.man_N))))
+cc -one (mkUtt (mkNP (mkDet youPol_Pron plNum) L.city_N))
+
 -- Adjective degrees retain case and agreement.
 cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant (mkOrd L.good_A)) (hradN "hotel")))
 cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkDet the_Quant (mkOrd L.blue_A)) (zenaN "barva")))

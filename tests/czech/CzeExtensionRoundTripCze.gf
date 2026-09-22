@@ -9,7 +9,7 @@ concrete CzeExtensionRoundTripCze of CzeExtensionRoundTrip = AllCze [
   UseN, DetCN, DetQuant, DefArt, PossPron, this_Quant, NumSg, NumPl, IdetCN, UttNP,
   TTAnt, TPres, ASimul, PPos, PNeg,
   i_Pron, she_Pron, youPol_Pron, have_V2, love_V2, wait_V2,
-  year_N, child_N, how8many_IDet, only_Predet, all_Predet, if_Subj
+  year_N, child_N, woman_N, how8many_IDet, only_Predet, all_Predet, if_Subj
 ] ** open SyntaxCze, ParadigmsCze, (E = ExtendCze), (N = NumeralCze) in {
   lincat Subject, ComparisonNP, ModifiedNP = NP ; BareRNP, RNP = E.RNP ;
     NPModifier = Adv ;

@@ -32,3 +32,11 @@ UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant
 UttNP (DetCN (DetQuant this_Quant twentyTwoHundred_Num) (UseN child_N))	tyto dva tisíce dvě stě dětí
 UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwoHundred_Num) (UseN child_N))	mé dva tisíce dvě stě dětí
 UttAdv (PrepNP with_Prep (DetCN (DetQuant this_Quant twelveHundred_Num) (UseN child_N)))	s tímto jedním tisícem dvěma sty dětí
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2a love_V2) (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)))))	miluji vaši ženu
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2a love_V2) (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)))))	miluji naši ženu
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	naší ženě je pět let
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	vaší ženě je pět let
+UttAdv (PrepNP possess_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)))	vaší ženy
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN son_N)))	s naším synem
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN child_N)))	s vaším dítětem
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumPl) (UseN child_N)))	s vašimi dětmi
