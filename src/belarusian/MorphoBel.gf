@@ -1,4 +1,4 @@
-resource MorphoBel = open CatBel, ResBel, Predef in {
+resource MorphoBel = open CatBel, ResBel, Predef, Prelude in {
 
 oper
 
@@ -29196,7 +29196,8 @@ mkA001 : Str -> A ;
 mkA001 base =
   case base of {
     base_1+"ы" => lin A
-      { s = table {
+      { adv = base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"ы" ;
                        GSg Fem => base_1+"ая" ;
@@ -29238,7 +29239,8 @@ mkA002 : Str -> A ;
 mkA002 base =
   case base of {
     base_1+"ы" => lin A
-      { s = table {
+      { adv = base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"ы" ;
                        GSg Fem => base_1+"ая" ;
@@ -29280,7 +29282,8 @@ mkA003 : Str -> A ;
 mkA003 base =
   case base of {
     base_1+"і" => lin A
-      { s = table {
+      { adv = base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"і" ;
                        GSg Fem => base_1+"ая" ;
@@ -29322,7 +29325,8 @@ mkA004 : Str -> A ;
 mkA004 base =
   case base of {
     base_1 => lin A
-      { s = table {
+      { adv = base_1 ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1 ;
                        GSg Fem => base_1+"яя" ;
@@ -29364,7 +29368,8 @@ mkA005 : Str -> A ;
 mkA005 base =
   case base of {
     base_1+"і" => lin A
-      { s = table {
+      { adv = base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"і" ;
                        GSg Fem => base_1+"яя" ;
@@ -29406,7 +29411,8 @@ mkA006 : Str -> A ;
 mkA006 base =
   case base of {
     base_1+"і" => lin A
-      { s = table {
+      { adv = base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"і" ;
                        GSg Fem => base_1+"ая" ;
@@ -29448,7 +29454,8 @@ mkA007 : Str -> A ;
 mkA007 base =
   case base of {
     base_1+"ны" => lin A
-      { s = table {
+      { adv = base_1+"на" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"ны" ;
                        GSg Fem => base_1+"ая" ;
@@ -29490,7 +29497,8 @@ mkA008 : Str -> A ;
 mkA008 base =
   case base of {
     "м"+base_1+"ўк"+base_2@(?+?+?)+"ы" => lin A
-      { s = table {
+      { adv = "м"+base_1+"ўк"+base_2+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => "м"+base_1+"ўк"+base_2+"ы" ;
                        GSg Fem => "гав"+base_1+"р"+base_2+"ая" ;
@@ -29532,7 +29540,8 @@ mkA009 : Str -> A ;
 mkA009 base =
   case base of {
     "невым"+base_1+"ы" => lin A
-      { s = table {
+      { adv = "невым"+base_1+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => "невым"+base_1+"ы" ;
                        GSg Fem => "ах"+base_1+"ая" ;
@@ -29574,7 +29583,8 @@ mkA010 : Str -> A ;
 mkA010 base =
   case base of {
     base_1+"е"+base_2@(?+?+?)+"ы" => lin A
-      { s = table {
+      { adv = base_1+"е"+base_2+"а" ; post = False ;
+        s = table {
               Nom => table {
                        GSg Masc => base_1+"е"+base_2+"ы" ;
                        GSg Fem => base_1+"я"+base_2+"ая" ;

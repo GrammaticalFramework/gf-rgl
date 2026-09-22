@@ -3,7 +3,7 @@ concrete StructuralBel of Structural = CatBel ** open ResBel, ParadigmsBel in {
 lin
   above_Prep = mkPrep "над" instrumental ;
   after_Prep = mkPrep "пасля" genitive ;
-  all_Predet = mkPredet "усе" ;
+  all_Predet = allPredet ;
   almost_AdA = mkAdA "амаль" ;
   almost_AdN = mkAdN "амаль" ;
   although_Subj = mkSubj "хоць" ;
@@ -15,13 +15,13 @@ lin
   between_Prep = mkPrep "паміж" instrumental ;
   both7and_DConj = mkConj "і" ;
   but_PConj = mkPConj "але" ;
-  by8agent_Prep = mkPrep "кім" instrumental ;
+  by8agent_Prep = mkPrep instrumental ;
   by8means_Prep = mkPrep "праз" accusative ;
   can8know_VV = mkVV (mkV021 "магчы") ;
   can_VV = mkVV (mkV021 "магчы") ;
   during_Prep = mkPrep "падчас" genitive ;
   either7or_DConj = mkConj "або" ;
-  every_Det = {s = \\_,_ => "кожны"; n = Sg} ;
+  every_Det = mkDet (mkA "кожны") Sg ;
   everybody_NP = mkSimpleNP "усе" Masc Pl P3 ;
   everything_NP = mkSimpleNP "усё" Neuter Sg P3 ;
   everywhere_Adv = mkAdv "усюды" ;
@@ -69,13 +69,13 @@ lin
   somebody_NP = mkSimpleNP "нехта" Masc Sg P3 ;
   something_NP = mkSimpleNP "нешта" Neuter Sg P3 ;
   somewhere_Adv = mkAdv "недзе" ;
-  that_Quant = mkQuant "той" ;
+  that_Quant = mkQuant (mkDemonstrativeA "т") ;
   that_Subj = mkSubj "што" ;
   there_Adv = mkAdv "там" ;
   there7to_Adv = mkAdv "туды" ;
   there7from_Adv = mkAdv "адтуль" ;
   therefore_PConj = mkPConj "таму" ;
-  this_Quant = mkQuant "гэты" ;
+  this_Quant = mkQuant (mkA "гэты") ;
   through_Prep = mkPrep "праз" accusative ;
   to_Prep = mkPrep "да" genitive ;
   too_AdA = mkAdA "занадта" ;
@@ -95,7 +95,7 @@ lin
   without_Prep = mkPrep "без" genitive ;
   yes_Utt = {s = "так"} ;
 
-  no_Quant = mkQuant "ніякі" ;
+  no_Quant = mkQuant (mkA "ніякі") ;
   not_Predet = mkPredet "не" ;
   if_then_Conj = mkConj "калі" ;
   at_least_AdN = mkAdN "прынамсі" ;

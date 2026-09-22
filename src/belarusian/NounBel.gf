@@ -1,9 +1,18 @@
 concrete NounBel of Noun = CatBel ** open ResBel, Prelude in {
+
+oper superlativeMarker : Case => GenNum => Str = table {
+  Nom => table {GSg Masc => "самы"; GSg Fem => "самая"; GSg Neuter => "самае"; GPl => "самыя"};
+  Acc => table {GSg Masc => "самага"; GSg Fem => "самую"; GSg Neuter => "самае"; GPl => "самых"};
+  Dat => table {GSg Masc => "самому"; GSg Fem => "самай"; GSg Neuter => "самому"; GPl => "самым"};
+  Gen => table {GSg Masc => "самага"; GSg Fem => "самай"; GSg Neuter => "самага"; GPl => "самых"};
+  Loc => table {GSg Masc => "самым"; GSg Fem => "самай"; GSg Neuter => "самым"; GPl => "самых"};
+  Instr => table {GSg Masc => "самым"; GSg Fem => "самай"; GSg Neuter => "самым"; GPl => "самымі"}
+  };
 lin
   UseN n = n ;
 
   DetCN det cn = {
-    s = \\c => det.s ! c ! cn.g ++ cn.s ! c ! det.n ;
+    s = \\c => det.s ! (modifierCase c cn.g det.n) ! cn.g ++ cn.s ! c ! det.n ;
     a = {g=cn.g; n=det.n; p=P3}
   } ;
   UsePN pn = {
@@ -55,8 +64,12 @@ lin
 
   OrdDigits d = adjFromStr d.s ;
   OrdNumeral n = adjFromStr n.s ;
-  OrdSuperl a = {s = \\c,gn => "най" ++ a.s ! c ! gn} ;
-  OrdNumeralSuperl n a = {s = \\c,gn => n.s ++ a.s ! c ! gn} ;
+  OrdSuperl a = {
+    s = \\c,gn => superlativeMarker ! c ! gn ++ a.s ! c ! gn;
+    adv = "найбольш" ++ a.adv;
+    post = False
+  } ;
+  OrdNumeralSuperl n a = {s = \\c,gn => n.s ++ a.s ! c ! gn; adv = n.s ++ a.adv; post = False} ;
 
   IndefArt = {s = \\_,_,_ => []} ;
   DefArt = {s = \\_,_,_ => []} ;
@@ -64,7 +77,7 @@ lin
     s = \\c => cn.s ! c ! Sg ;
     a = {g=cn.g; n=Sg; p=P3}
   } ;
-  PossPron p = {s = \\_,_,_ => p.s ! Gen} ;
+  PossPron p = {s = p.poss} ;
 
   ComplN2 n np = {
     s = \\c,num => n.s ! c ! num ++ prepNP n.c2 np ;
@@ -77,7 +90,10 @@ lin
   Use3N3 n = n ** {c2 = n.c3} ;
 
   AdjCN ap cn = {
-    s = \\c,num => ap.s ! c ! genNum cn.g num ++ cn.s ! c ! num ;
+    s = \\c,num => case ap.post of {
+      False => ap.s ! (modifierCase c cn.g num) ! genNum cn.g num ++ cn.s ! c ! num;
+      True => cn.s ! c ! num ++ SOFT_BIND ++ "," ++ ap.s ! Nom ! genNum cn.g num
+      } ;
     voc = cn.voc ;
     g = cn.g
   } ;

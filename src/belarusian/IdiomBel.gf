@@ -12,7 +12,7 @@ lin
   ExistIPAdv ip adv = {s = \\t,p => copula t p ip.a ++ ip.s ! Nom ++ adv.s} ;
 
   ProgrVP vp = vp ;
-  ImpPl1 vp = {s = "давайце" ++ vp.inf} ;
+  ImpPl1 vp = {s = "давайце" ++ vp.inf ! defaultAgr} ;
   ImpP3 np vp = {s = "няхай" ++ np.s ! Nom ++ vp.s ! R.Pres ! R.Pos ! np.a} ;
 
   SelfAdvVP vp = addAdvVP vp "сам" ;

@@ -116,10 +116,22 @@ oper genNum : Gender -> Number -> GenNum = \g,n ->
          Pl => GPl
        } ;
 
-oper Adj = {s: Case => GenNum => Str} ; -- 704
+-- Adjectival accusatives coincide with the nominative for inanimate
+-- masculine singular and inanimate plural noun phrases.  Nouns retain
+-- their own accusative paradigm; this selector is for agreeing modifiers.
+oper modifierCase : Case -> Gender -> Number -> Case = \c,g,n ->
+  case <c,g,n> of {
+    <Acc,Masc,Sg> => Nom;
+    <Acc,_,Pl> => Nom;
+    _ => c
+  } ;
+
+oper Adj = {s: Case => GenNum => Str; adv : Str; post : Bool} ; -- 704
 oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Adj =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24 ->
-          { s = table {
+          { adv = f3 ;
+            post = False ;
+            s = table {
                   Nom => table {
                            GSg Masc => f1 ;
                            GSg Fem => f2 ;
@@ -185,7 +197,19 @@ oper nounFromStr : Str -> Gender -> Noun =
   } ;
 
 oper adjFromStr : Str -> Adj =
-  \s -> {s = \\_,_ => s} ;
+  \s -> {s = \\_,_ => s; adv = s; post = False} ;
+
+oper agrFromGenNum : GenNum -> Agr = \gn -> case gn of {
+  GSg g => {g=g; n=Sg; p=P3};
+  GPl => {g=Masc; n=Pl; p=P3}
+  } ;
+
+oper relativeNom : GenNum -> Str = \gn -> case gn of {
+  GSg Masc => "які";
+  GSg Fem => "якая";
+  GSg Neuter => "якое";
+  GPl => "якія"
+  } ;
 
 oper prepNP : Compl -> NPhrase -> Str =
   \prep,np -> prep.s ++ np.s ! prep.c ;
@@ -222,6 +246,12 @@ oper copula : R.Tense -> R.Polarity -> Agr -> Str =
     R.Cond => neg p ++ pastBe a ++ "бы"
   } ;
 
+oper anteriorTense : R.Tense -> R.Anteriority -> R.Tense = \t,a ->
+  case <t,a> of {
+    <R.Pres,R.Anter> => R.Past ;
+    _ => t
+  } ;
+
 oper finiteVerb : Verb -> R.Tense -> R.Polarity -> Agr -> Str =
   \v,t,p,a -> case t of {
     R.Pres => neg p ++ (v.active ! Imperf).pres ! a.p ! a.n ;
@@ -232,14 +262,14 @@ oper finiteVerb : Verb -> R.Tense -> R.Polarity -> Agr -> Str =
 
 oper VPhrase : Type = {
   s : R.Tense => R.Polarity => Agr => Str ;
-  inf : Str ;
+  inf : Agr => Str ;
   imp : R.Polarity => Number => Str
 } ;
 
 oper mkVPhrase : Verb -> VPhrase =
   \v -> {
     s = \\t,p,a => finiteVerb v t p a ;
-    inf = v.infinitive ;
+    inf = \\_ => v.infinitive ;
     imp = \\p,n => neg p ++ v.imperative ! n
   } ;
 
@@ -248,29 +278,33 @@ oper VSlash : Type = {
   inf : Str ;
   c : Compl ;
   imp : R.Polarity => Number => Str ;
-  post : Str
+  pass : Adj ;
+  post : Str ;
+  objPost : Agr => Str
 } ;
 
-oper mkVSlash : Verb -> Compl -> VSlash =
-  \v,c -> {
+oper mkVSlash : Verb -> Compl -> Adj -> VSlash =
+  \v,c,pa -> {
     s = \\t,p,a => finiteVerb v t p a ;
     inf = v.infinitive ;
     c = c ;
     imp = \\p,n => neg p ++ v.imperative ! n ;
-    post = []
+    pass = pa ;
+    post = [] ;
+    objPost = \\_ => []
   } ;
 
 oper addAdvVP : VPhrase -> Str -> VPhrase =
   \vp,adv -> {
     s = \\t,p,a => vp.s ! t ! p ! a ++ adv ;
-    inf = vp.inf ++ adv ;
+    inf = \\a => vp.inf ! a ++ adv ;
     imp = \\p,n => vp.imp ! p ! n ++ adv
   } ;
 
 oper addAdVVP : Str -> VPhrase -> VPhrase =
   \adv,vp -> {
     s = \\t,p,a => adv ++ vp.s ! t ! p ! a ;
-    inf = adv ++ vp.inf ;
+    inf = \\a => adv ++ vp.inf ! a ;
     imp = \\p,n => adv ++ vp.imp ! p ! n
   } ;
 
@@ -280,7 +314,9 @@ oper addAdvSlash : VSlash -> Str -> VSlash =
     inf = vp.inf ++ adv ;
     c = vp.c ;
     imp = \\p,n => vp.imp ! p ! n ;
-    post = vp.post ++ adv
+    pass = vp.pass ;
+    post = vp.post ++ adv ;
+    objPost = \\a => vp.objPost ! a ++ adv
   } ;
 
 }

@@ -1,5 +1,5 @@
 --# -path=.:../abstract:../common:prelude
-concrete ExtendBel of Extend = CatBel ** open ResBel, (R = ParamX), ParadigmsBel in {
+concrete ExtendBel of Extend = CatBel ** open ResBel, (R = ParamX), ParadigmsBel, Prelude in {
 
 lincat
   VPS = {s : Agr => Str} ;
@@ -31,11 +31,11 @@ lin
   GenIP ip = {s = \\_,_,_ => ip.s ! Gen} ;
   GenRP num cn = {s = cn.s ! Gen ! num.n ++ "якога"} ;
   GenModNP num np cn = {
-    s = \\c => np.s ! Gen ++ cn.s ! c ! num.n ;
+    s = \\c => cn.s ! c ! num.n ++ np.s ! Gen ;
     a = {g=cn.g; n=num.n; p=P3}
   } ;
   GenModIP num ip cn = {
-    s = \\c => ip.s ! Gen ++ cn.s ! c ! num.n ;
+    s = \\c => cn.s ! c ! num.n ++ ip.s ! Gen ;
     a = {g=cn.g; n=num.n; p=P3}
   } ;
 
@@ -46,7 +46,7 @@ lin
   StrandRelSlash rp cl = {s = \\t,p => rp.s ++ cl.s ! t ! p} ;
   EmptyRelSlash cl = {s = \\t,p => "што" ++ cl.s ! t ! p} ;
 
-  MkVPS temp pol vp = {s = \\a => vp.s ! temp.t ! pol.p ! a} ;
+  MkVPS temp pol vp = {s = \\a => vp.s ! anteriorTense temp.t temp.a ! pol.p ! a} ;
   ConjVPS conj xs = {s = \\a => xs.s1 ! a ++ conj.s ++ xs.s2 ! a} ;
   PredVPS np vps = {s = np.s ! Nom ++ vps.s ! np.a} ;
   SQuestVPS np vps = {s = np.s ! Nom ++ vps.s ! np.a} ;
@@ -63,13 +63,13 @@ lin
   ConjVPI conj xs = {s = xs.s1 ++ conj.s ++ xs.s2} ;
   ComplVPIVV vv vpi = {
     s = \\t,p,a => finiteVerb vv t p a ++ vpi.s ;
-    inf = vv.infinitive ++ vpi.s ;
+    inf = \\_ => vv.infinitive ++ vpi.s ;
     imp = \\p,n => neg p ++ vv.imperative ! n ++ vpi.s
   } ;
   BaseVPI x y = {s1 = x.s; s2 = y.s} ;
   ConsVPI x xs = {s1 = x.s ++ "," ++ xs.s1; s2 = xs.s2} ;
 
-  MkVPS2 temp pol vp = {s = \\a => vp.s ! temp.t ! pol.p ! a; c = vp.c; post = vp.post} ;
+  MkVPS2 temp pol vp = {s = \\a => vp.s ! anteriorTense temp.t temp.a ! pol.p ! a; c = vp.c; post = vp.post} ;
   ConjVPS2 conj xs = {s = \\a => xs.s1 ! a ++ conj.s ++ xs.s2 ! a; c = xs.c; post = xs.post} ;
   ComplVPS2 vps np = {s = \\a => vps.s ! a ++ prepNP vps.c np ++ vps.post} ;
   ReflVPS2 vps rnp = {s = \\a => vps.s ! a ++ rnp.s ! vps.c.c ++ vps.post} ;
@@ -100,16 +100,24 @@ lin
   FocusAdV adv s = {s = adv.s ++ s.s} ;
   FocusAP ap np = {s = ap.s ! Nom ! genNum np.a.g np.a.n ++ np.s ! Nom} ;
 
-  PresPartAP vp = adjFromStr vp.inf ;
-  EmbedPresPart vp = {s = vp.inf} ;
-  PastPartAP vp = adjFromStr vp.inf ;
-  PastPartAgentAP vp np = adjFromStr (vp.inf ++ prepNP (mkPrep "кім" instrumental) np) ;
-  PassVPSlash vp = {
-    s = \\t,p,a => copula t p a ++ vp.inf ;
-    inf = "быць" ++ vp.inf ;
-    imp = \\p,_ => neg p ++ "будзь" ++ vp.inf
+  PresPartAP vp = {
+    s = \\_,gn => relativeNom gn ++ vp.s ! R.Pres ! R.Pos ! agrFromGenNum gn;
+    adv = vp.inf;
+    post = True
   } ;
-  PassAgentVPSlash vp np = addAdvVP (PassVPSlash vp) (prepNP (mkPrep "кім" instrumental) np) ;
+  EmbedPresPart vp = {s = vp.inf} ;
+  PastPartAP vp = vp.pass ;
+  PastPartAgentAP vp np = {
+    s = \\c,gn => vp.pass.s ! c ! gn ++ prepNP (mkPrep instrumental) np ;
+    adv = vp.pass.adv ++ prepNP (mkPrep instrumental) np;
+    post = False
+  } ;
+  PassVPSlash vp = {
+    s = \\t,p,a => copula t p a ++ vp.pass.s ! Nom ! genNum a.g a.n ;
+    inf = \\a => "быць" ++ vp.pass.s ! Nom ! genNum a.g a.n ;
+    imp = \\p,_ => neg p ++ "будзь" ++ vp.pass.s ! Nom ! GSg Masc
+  } ;
+  PassAgentVPSlash vp np = addAdvVP (PassVPSlash vp) (prepNP (mkPrep instrumental) np) ;
   NominalizeVPSlashNP vp np = mkSimpleNP (vp.inf ++ prepNP vp.c np) Neuter Sg P3 ;
   ProgrVPSlash vp = vp ;
   A2VPSlash a = {
@@ -117,14 +125,18 @@ lin
     inf = a.s ! Nom ! GSg Masc ;
     c = a.c2 ;
     imp = \\p,_ => neg p ++ a.s ! Nom ! GSg Masc ;
-    post = []
+    pass = a ;
+    post = [] ;
+    objPost = \\_ => []
   } ;
   N2VPSlash n = {
     s = \\t,p,agr => copula t p agr ++ n.s ! Nom ! agr.n ;
     inf = n.s ! Nom ! Sg ;
     c = n.c2 ;
     imp = \\p,_ => neg p ++ n.s ! Nom ! Sg ;
-    post = []
+    pass = adjFromStr (n.s ! Nom ! Sg) ;
+    post = [] ;
+    objPost = \\_ => []
   } ;
   ExistsNP np = {s = \\t,p => copula t p np.a ++ np.s ! Nom} ;
   ExistCN cn = {s = \\t,p => copula t p {g=cn.g; n=Sg; p=P3} ++ cn.s ! Nom ! Sg} ;
@@ -135,7 +147,7 @@ lin
   PurposeVP vp = {s = "каб" ++ vp.inf} ;
   ComplBareVS vs s = {
     s = \\t,p,a => finiteVerb vs t p a ++ s.s ;
-    inf = vs.infinitive ++ s.s ;
+    inf = \\_ => vs.infinitive ++ s.s ;
     imp = \\p,n => neg p ++ vs.imperative ! n ++ s.s
   } ;
   SlashBareV2S v s = {
@@ -143,16 +155,18 @@ lin
     inf = v.infinitive ++ s.s ;
     c = v.c2 ;
     imp = \\p,n => neg p ++ v.imperative ! n ;
-    post = s.s
+    pass = v.pa ;
+    post = s.s ;
+    objPost = \\_ => s.s
   } ;
   ComplDirectVS vs utt = {
     s = \\t,p,a => finiteVerb vs t p a ++ utt.s ;
-    inf = vs.infinitive ++ utt.s ;
+    inf = \\_ => vs.infinitive ++ utt.s ;
     imp = \\p,n => neg p ++ vs.imperative ! n ++ utt.s
   } ;
   ComplDirectVQ vq utt = {
     s = \\t,p,a => finiteVerb vq t p a ++ utt.s ;
-    inf = vq.infinitive ++ utt.s ;
+    inf = \\_ => vq.infinitive ++ utt.s ;
     imp = \\p,n => neg p ++ vq.imperative ! n ++ utt.s
   } ;
   FrontComplDirectVS np vs utt = {s = \\t,p => utt.s ++ np.s ! Nom ++ finiteVerb vs t p np.a} ;
@@ -165,18 +179,20 @@ lin
 
   ReflRNP vp rnp = {
     s = \\t,p,a => vp.s ! t ! p ! a ++ rnp.s ! vp.c.c ++ vp.post ;
-    inf = vp.inf ++ rnp.s ! vp.c.c ;
+    inf = \\_ => vp.inf ++ rnp.s ! vp.c.c ;
     imp = \\p,n => vp.imp ! p ! n ++ rnp.s ! vp.c.c ++ vp.post
   } ;
   ReflPron = {s = caseTable "сябе"} ;
-  ReflPoss num cn = {s = \\c => "свой" ++ cn.s ! c ! num.n} ;
+  ReflPoss num cn = {s = \\c =>
+    (mkPossAdj "св").s ! (modifierCase c cn.g num.n) ! genNum cn.g num.n ++ cn.s ! c ! num.n
+  } ;
   PredetRNP pred rnp = {s = \\c => pred.s ! c ! Masc ! Sg ++ rnp.s ! c} ;
   AdvRNP np prep rnp = {s = \\c => np.s ! c ++ prep.s ++ rnp.s ! prep.c} ;
   AdvRVP vp prep rnp = addAdvVP vp (prep.s ++ rnp.s ! prep.c) ;
-  AdvRAP ap prep rnp = {s = \\c,gn => ap.s ! c ! gn ++ prep.s ++ rnp.s ! prep.c} ;
-  ReflA2RNP a rnp = {s = \\c,gn => a.s ! c ! gn ++ a.c2.s ++ rnp.s ! a.c2.c} ;
+  AdvRAP ap prep rnp = {s = \\c,gn => ap.s ! c ! gn ++ prep.s ++ rnp.s ! prep.c; adv = ap.adv ++ prep.s ++ rnp.s ! prep.c; post = ap.post} ;
+  ReflA2RNP a rnp = {s = \\c,gn => a.s ! c ! gn ++ a.c2.s ++ rnp.s ! a.c2.c; adv = a.adv ++ a.c2.s ++ rnp.s ! a.c2.c; post = a.post} ;
   PossPronRNP pron num cn rnp = {
-    s = \\c => pron.s ! Gen ++ cn.s ! c ! num.n ++ rnp.s ! Gen ;
+    s = \\c => pron.poss ! c ! cn.g ! num.n ++ cn.s ! c ! num.n ++ rnp.s ! Gen ;
     a = {g=cn.g; n=num.n; p=P3}
   } ;
   ConjRNP conj xs = {s = \\c => xs.s1 ! c ++ conj.s ++ xs.s2 ! c} ;
@@ -188,15 +204,15 @@ lin
   ReflPossPron = mkQuant "свой" ;
   ComplGenVV vv ant pol vp = {
     s = \\t,p,a => finiteVerb vv t p a ++ neg pol.p ++ vp.inf ;
-    inf = vv.infinitive ++ neg pol.p ++ vp.inf ;
+    inf = \\a => vv.infinitive ++ neg pol.p ++ vp.inf ! a ;
     imp = \\p,n => neg p ++ vv.imperative ! n ++ neg pol.p ++ vp.inf
   } ;
   CompoundN n1 n2 = {
-    s = \\c,n => n1.s ! Nom ! Sg ++ n2.s ! c ! n ;
-    voc = n1.voc ++ n2.voc ;
+    s = \\c,n => n2.s ! c ! n ++ n1.s ! Gen ! Sg ;
+    voc = n2.voc ++ n1.s ! Gen ! Sg ;
     g = n2.g
   } ;
-  CompoundAP n a = {s = \\c,gn => n.s ! Nom ! Sg ++ a.s ! c ! gn} ;
+  CompoundAP n a = {s = \\c,gn => n.s ! Nom ! Sg ++ a.s ! c ! gn; adv = n.s ! Nom ! Sg ++ a.adv; post = a.post} ;
   GerundCN vp = nounFromStr vp.inf Neuter ;
   GerundNP vp = mkSimpleNP vp.inf Neuter Sg P3 ;
   GerundAdv vp = {s = vp.inf} ;
@@ -206,7 +222,7 @@ lin
   ApposNP np app = {s = \\c => np.s ! c ++ app.s ! Nom; a = np.a} ;
   AdAdV ada adv = {s = ada.s ++ adv.s} ;
   UttAdV adv = {s = adv.s} ;
-  PositAdVAdj a = {s = a.s ! Nom ! GSg Neuter} ;
+  PositAdVAdj a = {s = a.adv} ;
   CompS s = {s = \\_ => s.s} ;
   CompQS qs = {s = \\_ => qs.s} ;
   CompVP ant pol vp = {s = \\_ => neg pol.p ++ vp.inf} ;
@@ -214,7 +230,7 @@ lin
   UttVPShort vp = {s = vp.inf} ;
   ComplSlashPartLast vp np = {
     s = \\t,p,a => vp.s ! t ! p ! a ++ prepNP vp.c np ++ vp.post ;
-    inf = vp.inf ++ prepNP vp.c np ;
+    inf = \\_ => vp.inf ++ prepNP vp.c np ;
     imp = \\p,n => vp.imp ! p ! n ++ prepNP vp.c np ++ vp.post
   } ;
   DetNPMasc det = {s = \\c => det.s ! c ! Masc; a = {g=Masc; n=det.n; p=P3}} ;
@@ -222,7 +238,7 @@ lin
   UseComp_estar comp = UseComp_ser comp ;
   UseComp_ser comp = {
     s = \\t,p,a => copula t p a ++ comp.s ! a ;
-    inf = "быць" ++ comp.s ! defaultAgr ;
+    inf = \\a => "быць" ++ comp.s ! a ;
     imp = \\p,_ => neg p ++ "будзь" ++ comp.s ! defaultAgr
   } ;
   SubjRelNP np rs = {s = \\c => np.s ! c ++ rs.s; a = np.a} ;
