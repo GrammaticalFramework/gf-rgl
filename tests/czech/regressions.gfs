@@ -20,6 +20,7 @@ cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zen
 cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
 cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.milk_N))
 cc -one (mkVoc (mkNP L.year_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.apple_N))
 
 -- Náš/váš inflect for the possessed noun, independently of addressee number.
 cc -one (SyntaxCze.mkAdv possess_Prep (mkNP we_Pron L.woman_N))

@@ -34,7 +34,7 @@ concrete LexiconCze of Lexicon =
     village_N = declKOST "ves" ; ----
 
     city_N = (mestoN "město") ** {sloc = "městě"} ;
-    apple_N = declMESTO "jablko" ; ----
+    apple_N = declMESTO "jablko" ** {pgen = "jablek" ; ploc = "jablkách"} ;
     sea_N = declMORE "moře" ;
     airport_N = declMORE "letiště" ;
     chicken_N = declKURE "kuře" ;

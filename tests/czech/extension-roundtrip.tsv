@@ -40,3 +40,5 @@ UttAdv (PrepNP possess_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN
 UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN son_N)))	s naším synem
 UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN child_N)))	s vaším dítětem
 UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumPl) (UseN child_N)))	s vašimi dětmi
+UttNP (DetCN (DetQuant DefArt two_Num) (UseN apple_N))	dvě jablka
+UttNP (DetCN (DetQuant DefArt five_Num) (UseN apple_N))	pět jablek
