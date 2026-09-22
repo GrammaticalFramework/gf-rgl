@@ -59,7 +59,7 @@ lin
   ExistNPQS temp pol np = {s = copula temp.t pol.p np.a ++ np.s ! Nom} ;
   ExistIPQS temp pol ip = {s = copula temp.t pol.p ip.a ++ ip.s ! Nom} ;
 
-  MkVPI vp = {s = vp.inf} ;
+  MkVPI vp = {s = vp.inf ! defaultAgr} ;
   ConjVPI conj xs = {s = xs.s1 ++ conj.s ++ xs.s2} ;
   ComplVPIVV vv vpi = {
     s = \\t,p,a => finiteVerb vv t p a ++ vpi.s ;
@@ -102,10 +102,10 @@ lin
 
   PresPartAP vp = {
     s = \\_,gn => relativeNom gn ++ vp.s ! R.Pres ! R.Pos ! agrFromGenNum gn;
-    adv = vp.inf;
+    adv = vp.inf ! defaultAgr;
     post = True
   } ;
-  EmbedPresPart vp = {s = vp.inf} ;
+  EmbedPresPart vp = {s = vp.inf ! defaultAgr} ;
   PastPartAP vp = vp.pass ;
   PastPartAgentAP vp np = {
     s = \\c,gn => vp.pass.s ! c ! gn ++ prepNP (mkPrep instrumental) np ;
@@ -144,7 +144,7 @@ lin
   ExistPluralCN cn = {s = \\t,p => copula t p {g=cn.g; n=Pl; p=P3} ++ cn.s ! Nom ! Pl} ;
   AdvIsNP adv np = {s = \\t,p => adv.s ++ copula t p np.a ++ np.s ! Nom} ;
   AdvIsNPAP adv np ap = {s = \\t,p => adv.s ++ copula t p np.a ++ np.s ! Nom ++ ap.s ! Nom ! genNum np.a.g np.a.n} ;
-  PurposeVP vp = {s = "каб" ++ vp.inf} ;
+  PurposeVP vp = {s = "каб" ++ vp.inf ! defaultAgr} ;
   ComplBareVS vs s = {
     s = \\t,p,a => finiteVerb vs t p a ++ s.s ;
     inf = \\_ => vs.infinitive ++ s.s ;
@@ -171,10 +171,10 @@ lin
   } ;
   FrontComplDirectVS np vs utt = {s = \\t,p => utt.s ++ np.s ! Nom ++ finiteVerb vs t p np.a} ;
   FrontComplDirectVQ np vq utt = {s = \\t,p => utt.s ++ np.s ! Nom ++ finiteVerb vq t p np.a} ;
-  PredAPVP ap vp = {s = \\t,p => copula t p defaultAgr ++ ap.s ! Nom ! GSg Neuter ++ vp.inf} ;
+  PredAPVP ap vp = {s = \\t,p => copula t p defaultAgr ++ ap.s ! Nom ! GSg Neuter ++ vp.inf !  defaultAgr} ;
   AdjAsCN ap = nounFromStr (ap.s ! Nom ! GSg Masc) Masc ;
   AdjAsNP ap = mkSimpleNP (ap.s ! Nom ! GSg Masc) Masc Sg P3 ;
-  PredIAdvVP iadv vp = {s = \\t,p => iadv.s ++ vp.inf} ;
+  PredIAdvVP iadv vp = {s = \\t,p => iadv.s ++ vp.inf ! defaultAgr} ;
   EmbedSSlash ss = {s = ss.s} ;
 
   ReflRNP vp rnp = {
@@ -203,9 +203,9 @@ lin
   Cons_nr_RNP x xs = {s1 = \\c => x.s ! c ++ "," ++ xs.s1 ! c; s2 = xs.s2} ;
   ReflPossPron = mkQuant "свой" ;
   ComplGenVV vv ant pol vp = {
-    s = \\t,p,a => finiteVerb vv t p a ++ neg pol.p ++ vp.inf ;
+    s = \\t,p,a => finiteVerb vv t p a ++ neg pol.p ++ vp.inf ! a ;
     inf = \\a => vv.infinitive ++ neg pol.p ++ vp.inf ! a ;
-    imp = \\p,n => neg p ++ vv.imperative ! n ++ neg pol.p ++ vp.inf
+    imp = \\p,n => neg p ++ vv.imperative ! n ++ neg pol.p ++ vp.inf ! defaultAgr
   } ;
   CompoundN n1 n2 = {
     s = \\c,n => n2.s ! c ! n ++ n1.s ! Gen ! Sg ;
@@ -213,21 +213,21 @@ lin
     g = n2.g
   } ;
   CompoundAP n a = {s = \\c,gn => n.s ! Nom ! Sg ++ a.s ! c ! gn; adv = n.s ! Nom ! Sg ++ a.adv; post = a.post} ;
-  GerundCN vp = nounFromStr vp.inf Neuter ;
-  GerundNP vp = mkSimpleNP vp.inf Neuter Sg P3 ;
-  GerundAdv vp = {s = vp.inf} ;
-  WithoutVP vp = {s = "без" ++ vp.inf} ;
-  ByVP vp = {s = "праз" ++ vp.inf} ;
-  InOrderToVP vp = {s = "каб" ++ vp.inf} ;
+  GerundCN vp = nounFromStr (vp.inf ! defaultAgr) Neuter ;
+  GerundNP vp = mkSimpleNP (vp.inf ! defaultAgr) Neuter Sg P3 ;
+  GerundAdv vp = {s = vp.inf ! defaultAgr} ;
+  WithoutVP vp = {s = "без" ++ vp.inf ! defaultAgr} ;
+  ByVP vp = {s = "праз" ++ vp.inf ! defaultAgr} ;
+  InOrderToVP vp = {s = "каб" ++ vp.inf ! defaultAgr} ;
   ApposNP np app = {s = \\c => np.s ! c ++ app.s ! Nom; a = np.a} ;
   AdAdV ada adv = {s = ada.s ++ adv.s} ;
   UttAdV adv = {s = adv.s} ;
   PositAdVAdj a = {s = a.adv} ;
   CompS s = {s = \\_ => s.s} ;
   CompQS qs = {s = \\_ => qs.s} ;
-  CompVP ant pol vp = {s = \\_ => neg pol.p ++ vp.inf} ;
+  CompVP ant pol vp = {s = \\_ => neg pol.p ++ vp.inf ! defaultAgr} ;
   UncontractedNeg = {s = []; p = R.Neg} ;
-  UttVPShort vp = {s = vp.inf} ;
+  UttVPShort vp = {s = vp.inf ! defaultAgr} ;
   ComplSlashPartLast vp np = {
     s = \\t,p,a => vp.s ! t ! p ! a ++ prepNP vp.c np ++ vp.post ;
     inf = \\_ => vp.inf ++ prepNP vp.c np ;
