@@ -259,4 +259,9 @@ cc -one (mkUtt ready_AP)
 cc -one ((genderPron feminine he_Pron).nom ++ (genderPron feminine he_Pron).cacc ++ (genderPron feminine he_Pron).pacc ++ (genderPron feminine he_Pron).poss.msnom)
 cc -one (mkUtt (mkS (mkCl (mkNP (genderPron feminine (E.ProDrop he_Pron))) ready_AP)))
 cc -one ((genderPron mascAnimate (he_Pron ** {pacc = "něj"})).pacc)
+-- Standalone case utterances preserve NP inflection and strong pronoun forms.
+cc -one (E.UttAccNP (mkNP this_Quant (mkCN (mkA "studený") (zenaN "káva"))))
+cc -one (E.UttDatNP (mkNP this_Quant (mkCN (mkA "studený") (zenaN "káva"))))
+cc -one (E.UttAccNP (mkNP he_Pron))
+cc -one (E.UttDatNP (mkNP (E.ProDrop he_Pron)))
 q

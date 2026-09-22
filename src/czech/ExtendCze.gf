@@ -2,7 +2,7 @@ concrete ExtendCze of Extend = CatCze **
   ExtendFunctor - [
     RNP, RNPList, ReflRNP, ReflPron, ReflPoss, PredetRNP,
     ConjRNP, Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
-    ReflPossPron, ProDrop,
+    ReflPossPron, ProDrop, UttAccNP, UttDatNP,
     iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron,
     theyFem_Pron, theyNeutr_Pron, youPolFem_Pron, youPolPlFem_Pron
     ---- constant not found (yet)
@@ -45,6 +45,10 @@ param
   RNPHead = AntecedentHead | FixedHead ModifierAgr ;
 
 lin
+  -- Standalone oblique NPs use full forms, never clitics or prepositional forms.
+  UttAccNP np = {s = np.s ! Acc} ;
+  UttDatNP np = {s = np.s ! Dat} ;
+
   -- Retain full forms for objects, coordination and NP modifiers.
   ProDrop pron = pron ** {isDrop = True} ;
 
