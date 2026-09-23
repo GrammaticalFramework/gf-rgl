@@ -89,6 +89,10 @@ lin
         ++ vp.compl ! pol.p ! a
     } ;
 
+  AdvImp adv imp = {
+    s=\\p,gn => adv.s ++ imp.s ! p ! gn
+    } ;
+
   -- : NP -> VP -> Cl ;         -- John walks - Иван гуляет
   PredVP np vp = {
     subj=np.s ! Nom ;

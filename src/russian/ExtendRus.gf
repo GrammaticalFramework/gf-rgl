@@ -21,9 +21,10 @@ concrete ExtendRus of Extend =
     -- MkVPS2, ConjVPS2, ComplVPS2, MkVPI2, ConjVPI2, ComplVPI2,
     -- Base_nr_RNP, Base_rn_RNP, Base_rr_RNP, ByVP, CompBareCN,
     -- CompQS, CompS, CompVP, ComplBareVS, ComplGenVV, ComplSlashPartLast, ComplVPSVV, CompoundAP,
-    CompoundN,
+    CompoundN, CompoundAP,
 
-    --ConjRNP, Cons_nr_RNP, Cons_rr_RNP,
+    ConjImp, BaseImp, ConsImp,
+    RNP, RNPList, ConjRNP, Base_rr_RNP, Base_nr_RNP, Base_rn_RNP, Cons_rr_RNP, Cons_nr_RNP,
     DetNPMasc,
     DetNPFem,
     UseDAP,
@@ -36,20 +37,21 @@ concrete ExtendRus of Extend =
     -- FocusAP, FocusAdV, FocusAdv,
     FocusObj,
     -- GenIP, GenModIP, GenModNP, GenNP, GenRP,
-    -- GerundAdv, GerundCN, GerundNP, IAdvAdv, ICompAP,
+    GerundAdv, GerundCN, GerundNP, ByVP,
     InOrderToVP,
     -- NominalizeVPSlashNP,
     PassAgentVPSlash,
     PassVPSlash,
-    -- ProgrVPSlash,
+    ProgrVPSlash,
     PastPartAP,
     PastPartAgentAP,
     PositAdVAdj,
     PredVPS,
     -- PredVPSVV, PredetRNP, PrepCN,
-    -- EmbedSSlash, PresPartAP,
+    PresPartAP,
     PurposeVP,
-    -- ReflPoss, ReflPron, ReflRNP, SlashBareV2S, SlashV2V, StrandQuestSlash, StrandRelSlash,
+    ReflPoss, ReflPron, ReflRNP, PredetRNP, AdvRNP, AdvRVP, AdvRAP,
+    ReflA2RNP, PossPronRNP,
     PredIAdvVP,
     -- UncontractedNeg, UttAccIP, UttAccNP,
     FrontComplDirectVS,
@@ -64,8 +66,9 @@ lincat
   VPS     = {s : Mood => Agr => Str} ;
   [VPS]  = {s1,s2 : Mood => Agr => Str} ;
   [Comp] = {s1,s2 : AgrTable ; cop : CopulaType} ;
-  RNP     = {s : Agr => Str} ;
-  RNPList = {s1,s2 : Agr => Str} ;
+  [Imp] = {s1,s2 : Polarity => GenNum => Str} ;
+  RNP     = {s : Case => Str} ;
+  RNPList = {s1,s2 : Case => Str} ;
 
 lin
   -- : NP -> NP -> NP ;        -- Mr Macron, the president of France,
@@ -79,18 +82,18 @@ lin
   PredIAdvVP iadv vp = QuestIAdv iadv (GenericCl vp) ; -- DEFAULT how does one walk
 
   -- : VP -> Adv ;         -- (in order) to publish the document
-  InOrderToVP vp = lin Adv ({
+  InOrderToVP vp = {
     s = "чтобы"
       ++ vp.adv ! Ag (GSg Neut) P3
       ++ (verbInf vp.verb)
       ++ vp.dep
       ++ vp.compl ! Pos ! Ag (GSg Neut) P3
-    }) ;
+    } ;
 
   -- : VP -> Adv ;  -- to become happy
-  PurposeVP vp = lin Adv ({
+  PurposeVP vp = {
     s = vp.adv ! Ag (GSg Neut) P3 ++ (verbInf vp.verb) ++ vp.dep ++ vp.compl ! Pos ! Ag (GSg Neut) P3
-    }) ;
+    } ;
 
   -- : NP -> Cl ;  -- there exists a number / there exist numbers
   ExistsNP np = {
@@ -148,21 +151,36 @@ lin
                                             }
                         } ;
 
+  -- : VP -> AP ; -- (the man) looking at Mary
+  PresPartAP vp = {
+      s=\\gn,anim,cas =>
+        vp.adv ! (genNumAgrP3 gn)
+        ++ (presActPart vp.verb).s ! gn ! anim ! cas
+        ++ vp.dep
+        ++ vp.compl ! Pos ! (genNumAgrP3 gn) ;
+      short=\\gn =>
+        vp.adv ! (genNumAgrP3 gn)
+        ++ (presActPart vp.verb).s ! gn ! Animate ! Nom
+        ++ vp.dep
+        ++ vp.compl ! Pos ! (genNumAgrP3 gn) ;
+      isPost=False ;
+      preferShort=PreferFull
+      } ;
+
   -- VPSlash -> AP ; -- lost (opportunity) ; (opportunity) lost in space
   PastPartAP vps = {
     s=\\gn,anim,cas =>
       vps.adv ! (genNumAgrP3 gn)
-      ++ shortPastPassPart vps.verb gn
+      ++ (pastPassPart vps.verb).s ! gn ! anim ! cas
       ++ vps.dep
       ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
       ++ vps.compl2 ! Pos ! (genNumAgrP3 gn);
-    short=\\a =>
-      vps.adv ! a
-      ++ shortPastPassPart vps.verb (agrGenNum a)
+    short=\\gn =>
+      vps.adv ! (genNumAgrP3 gn)
+      ++ (pastPassPart vps.verb).short ! gn
       ++ vps.dep
-      ++ vps.compl1 ! Pos ! a
-      ++ vps.compl2 ! Pos ! a
-      ++ vps.c.s ; --
+      ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
+      ++ vps.compl2 ! Pos ! (genNumAgrP3 gn) ;
     isPost = case vps.isSimple of {
                True  => False ;
                False => True
@@ -171,21 +189,21 @@ lin
     } ;
 
   -- : VPSlash -> NP -> AP ;   -- (opportunity) lost by the company
-  PastPartAgentAP vps np ={
+  PastPartAgentAP vps np = {
     s=\\gn,anim,cas =>
       vps.adv ! (genNumAgrP3 gn)
-      ++ shortPastPassPart vps.verb gn
+      ++ (pastPassPart vps.verb).s ! gn ! anim ! cas
       ++ vps.dep
-      ++ applyPolPrep Pos vps.c np
+      ++ np.s ! Ins
       ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
       ++ vps.compl2 ! Pos ! (genNumAgrP3 gn);
-    short=\\a =>
-      vps.adv ! a
-      ++ shortPastPassPart vps.verb (agrGenNum a)
+    short=\\gn =>
+      vps.adv ! (genNumAgrP3 gn)
+      ++ (pastPassPart vps.verb).short ! gn
       ++ vps.dep
-      ++ applyPolPrep Pos vps.c np
-      ++ vps.compl1 ! Pos ! a
-      ++ vps.compl2 ! Pos ! a ;
+      ++ np.s ! Ins
+      ++ vps.compl1 ! Pos ! (genNumAgrP3 gn)
+      ++ vps.compl2 ! Pos ! (genNumAgrP3 gn) ;
     isPost = False ;
     preferShort=PreferFull
     } ;
@@ -194,7 +212,7 @@ lin
   PassVPSlash vps = case vps.verb.asp of {
   Perfective => vps ** {
     verb=copulaEll ;
-    compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
+    compl=\\p,a => (pastPassPart vps.verb).short ! (agrGenNum a) ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ vps.c.s
     } ;
   Imperfective => vps ** {
     verb=(passivate vps.verb);
@@ -202,20 +220,120 @@ lin
   }
      };
 
-  -- PresPartAP    : VP -> AP ;   -- (the man) looking at Mary
-  -- use PlP2 + "ый"
-
   -- : VPSlash -> VP
   PassAgentVPSlash vps np = case vps.verb.asp of {
       Perfective => vps ** {
         verb=copulaEll ;
-        compl=\\p,a => shortPastPassPart vps.verb (agrGenNum a) ++ vps.c.s ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ np.s ! Ins
+        compl=\\p,a => (pastPassPart vps.verb).short ! (agrGenNum a) ++ vps.c.s ++ vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ np.s ! Ins
         } ;
       Imperfective => vps ** {
         verb=(passivate vps.verb);
         compl=\\p,a => vps.compl1 ! p ! a ++ vps.compl2 ! p ! a ++ np.s ! Ins
       }
      };
+
+  -- Russian has no productive nominal gerund. The infinitive is the
+  -- neutral fallback used by the multilingual Extend API.
+  GerundCN vp = nounFormsNoun (immutableNounForms
+    (vp.adv ! Ag (GSg Neut) P3 ++ verbInf vp.verb ++ vp.dep
+      ++ vp.compl ! Pos ! Ag (GSg Neut) P3)
+    Neut Inanimate) ;
+
+  GerundNP vp = {
+    s=\\_ => vp.adv ! Ag (GSg Neut) P3 ++ verbInf vp.verb ++ vp.dep
+      ++ vp.compl ! Pos ! Ag (GSg Neut) P3 ;
+    pron=False ;
+    a=Ag (GSg Neut) P3
+    } ;
+
+  GerundAdv vp = {
+    s=vp.adv ! Ag (GSg Neut) P3
+      ++ vp.verb.prtr ++ verbRefl vp.verb ++ vp.dep
+      ++ vp.compl ! Pos ! Ag (GSg Neut) P3
+    } ;
+
+  ByVP vp = GerundAdv vp ;
+
+  CompoundAP n a =
+    let ap = adjFormsAdjective a in {
+      s=\\gn,anim,cas => n.snom ++ "-" ++ ap.s ! gn ! anim ! cas ;
+      short=\\agr => n.snom ++ "-" ++ ap.short ! agr ;
+      isPost=False ;
+      preferShort=a.preferShort
+    } ;
+
+  ProgrVPSlash vps = vps ;
+
+  ReflRNP vps rnp = {
+    verb=vps.verb ;
+    adv=vps.adv ;
+    dep=vps.dep ;
+    compl=\\p,a => vps.compl1 ! p ! a ++ vps.c.s
+      ++ rnp.s ! vps.c.c ++ vps.compl2 ! p ! a ;
+    p=vps.p
+    } ;
+
+  ReflPron = sebya ;
+
+  ReflPoss num cn = {
+    s=\\cas =>
+      (mkPronTable (reflexivePron (Ag (GSg Masc) P3)).poss)
+        ! gennum cn.g (numSizeNumber num.size)
+        ! cn.anim ! numSizeCase cas num.size
+      ++ num.s ! cn.g ! cn.anim ! cas
+      ++ cn.s ! animNumSizeNum cn.anim cas num.size
+                ! numSizeCase cas num.size
+    } ;
+
+  PredetRNP pred rnp = {
+    s=\\cas => pred.s ! GSg Masc ! Inanimate ! cas ++ rnp.s ! cas
+    } ;
+
+  AdvRNP np prep rnp = {
+    s=\\cas => np.s ! cas ++ prep.s ++ rnp.s ! prep.c
+    } ;
+
+  AdvRVP vp prep rnp = vp ** {
+    compl=\\p,a => vp.compl ! p ! a ++ prep.s ++ rnp.s ! prep.c
+    } ;
+
+  AdvRAP ap prep rnp = ap ** {
+    s=\\gn,anim,cas => ap.s ! gn ! anim ! cas
+      ++ prep.s ++ rnp.s ! prep.c ;
+    short=\\a => ap.short ! a ++ prep.s ++ rnp.s ! prep.c ;
+    isPost=True
+    } ;
+
+  ReflA2RNP a2 rnp = {
+    s=\\gn,anim,cas =>
+      (adjFormsAdjective a2).s ! gn ! anim ! cas
+      ++ a2.c.s ++ rnp.s ! a2.c.c ;
+    short=\\a =>
+      (adjFormsAdjective a2).short ! a
+      ++ a2.c.s ++ rnp.s ! a2.c.c ;
+    isPost=False ;
+    preferShort=a2.preferShort
+    } ;
+
+  PossPronRNP pron num cn rnp =
+    let np = DetCN (DetQuant (PossPron pron) num) cn in {
+      s=\\cas => np.s ! cas ++ rnp.s ! Gen ;
+      pron=False ;
+      a=np.a
+      } ;
+
+  ConjRNP conj xs = {
+    s=\\cas => conj.s1 ++ xs.s1 ! cas ++ conj.s2 ++ xs.s2 ! cas
+    } ;
+  Base_rr_RNP x y = {s1=x.s ; s2=y.s} ;
+  Base_nr_RNP x y = {s1=x.s ; s2=y.s} ;
+  Base_rn_RNP x y = {s1=x.s ; s2=y.s} ;
+  Cons_rr_RNP x xs = {
+    s1=\\c => x.s ! c ++ comma ++ xs.s1 ! c ; s2=xs.s2
+    } ;
+  Cons_nr_RNP x xs = {
+    s1=\\c => x.s ! c ++ comma ++ xs.s1 ! c ; s2=xs.s2
+    } ;
 
 
   -- : Pron -> Pron ;  -- unstressed subject pronoun becomes empty: "am tired"
@@ -230,7 +348,7 @@ lin
   UttAdV adv = {s=adv.s} ;
 
   -- : A -> AdV ;                    -- (that she) positively (sleeps)
-  PositAdVAdj a = ss a.sn ** {p=Pos} ;
+  PositAdVAdj a = {s=a.short ! (GSg Neut); p=Pos} ;
 
   -- : NP -> SSlash -> Utt ; -- her I love
   FocusObj np ss = {
@@ -343,6 +461,15 @@ lin
     s = \\a => conj.s1 ++ xs.s1 ! a ++ conj.s2 ++ xs.s2 ! a ;
     adv = [] ;
     cop = xs.cop
+    } ;
+
+  BaseImp x y = {s1=x.s ; s2=y.s} ;
+  ConsImp x xs = {
+    s1=\\p,gn => x.s ! p ! gn ++ comma ++ xs.s1 ! p ! gn ;
+    s2=xs.s2
+    } ;
+  ConjImp conj xs = {
+    s=\\p,gn => conj.s1 ++ xs.s1 ! p ! gn ++ conj.s2 ++ xs.s2 ! p ! gn
     } ;
 
   -- : NP -> VPS -> S ;

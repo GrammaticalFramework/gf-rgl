@@ -53,7 +53,7 @@ lin
     adv=\\a=>[] ;
     compl=\\_ => case ap.preferShort of {
       PreferFull => (\\a => ap.s ! agrGenNum a ! Inanimate ! Ins) ;
-      PrefShort => ap.short
+      PrefShort => (\\a => ap.short ! agrGenNum a)
       } ;
     p = Pos
     } ;
@@ -146,7 +146,7 @@ lin
   -- : AP -> Comp ;            -- (be) small
   CompAP ap = case ap.preferShort of {
     PreferFull => {s=\\a=>ap.s ! agrGenNum a ! Inanimate ! Ins ; adv=[] ; cop=InsCopula} ;
-    PrefShort => {s=ap.short ; adv=[] ; cop=EllCopula}
+    PrefShort => {s=\\a=>ap.short ! agrGenNum a ; adv=[] ; cop=EllCopula}
     };
 
   -- : NP -> Comp ;            -- (be) the man

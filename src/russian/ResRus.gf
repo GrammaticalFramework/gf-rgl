@@ -213,7 +213,7 @@ oper
   ComplTable = Polarity => Agr => Str ;
   PolarityTable = Polarity => Str ;
 
-  from2 = {s="из" ; c=Gen ; neggen=True ; hasPrep=True} ;
+  from2 = {s="из" ; c=Gen ; hasPrep=True} ;
 
   mkCompoundN : NounForms -> Str -> NounForms -> NounForms
     = \n1,link,n2 ->
@@ -244,16 +244,18 @@ oper
 
   Adjective : Type = {
     s : AdjTable ;
-    short : AgrTable ;
+    short : GenNum => Str ;
     preferShort : ShortFormPreference
     } ;
 
   pronToAdj : PronForms -> AdjForms
     = \base -> base ** {
-      sm = base.msnom ; -- these are incorrect, but empty causes parsing problems
-      sf = base.fsnom ;
-      sn = base.nsnom ;
-      sp = base.pnom ;
+      short = table {
+                GSg Masc => base.msnom ; -- these are incorrect, but empty causes parsing problems
+                GSg Fem  => base.fsnom ;
+                GSg Neut => base.nsnom ;
+                GPl      => base.pnom
+              } ;
       comp = base.nsnom ;
       preferShort = PreferFull ;
       p = False
@@ -266,15 +268,12 @@ oper
 
   mkAltShort : AdjForms -> AdjForms -> AdjForms
     = \full, short -> full ** {
-      sm =  short.sm ;
-      sf =  short.sf ;
-      sn =  short.sn ;
-      sp =  short.sp
+      short =  short.short
     } ;
 
   adjFormsAdjective : AdjForms -> Adjective
     = \forms -> {
-      short = adjFormsToShort forms ;
+      short = forms.short ;
       s = table {
         GSg Fem => table {
           (Inanimate|Animate) => table {
@@ -351,8 +350,6 @@ oper
           }
         }
       } ;
-      g = forms.g ;
-      -- a = forms.a ;
       preferShort = forms.preferShort
     } ;
 
@@ -424,12 +421,8 @@ oper
       fsins = the_most.fsins  ++ af.fsins ;
       pins  = the_most.pins   ++ af.pins  ;
       msprep= the_most.msprep ++ af.msprep;
-      sm    = the_most.sm     ++ af.sm    ;
-      sf    = the_most.sf     ++ af.sf    ;
-      sn    = the_most.sn     ++ af.sn    ;
-      sp    = the_most.sp     ++ af.sp    ;
+      short = \\gn => the_most.short ! gn ++ af.short ! gn ;
       comp  = the_most.comp   ++ af.comp  ;
-      g=af.g ;
       preferShort = PreferFull ;
       p = af.p
     } ;
@@ -449,12 +442,13 @@ oper
       fsins = pf.fsins ++ the_most.fsins  ++ af.fsins ;
       pins  = pf.pins  ++ the_most.pins   ++ af.pins  ;
       msprep= pf.msprep++ the_most.msprep ++ af.msprep;
-      sm    = pf.msnom ++ the_most.sm     ++ af.sm    ;
-      sf    = pf.fsnom ++ the_most.sf     ++ af.sf    ;
-      sn    = pf.nsnom ++ the_most.sn     ++ af.sn    ;
-      sp    = pf.pnom  ++ the_most.sp     ++ af.sp    ;
+      short = table {
+                GSg Masc => pf.msnom ++ the_most.short ! (GSg Masc) ++ af.short ! (GSg Masc) ;
+                GSg Fem  => pf.fsnom ++ the_most.short ! (GSg Fem)  ++ af.short ! (GSg Fem) ;
+                GSg Neut => pf.nsnom ++ the_most.short ! (GSg Neut) ++ af.short ! (GSg Neut) ;
+                GPl      => pf.pnom  ++ the_most.short ! GPl        ++ af.short ! GPl
+              } ;
       comp  = pf.msnom ++ the_most.comp   ++ af.comp  ;
-      g=af.g ;
       preferShort = PreferFull ;
       p = af.p
     } ;
@@ -565,36 +559,25 @@ oper
         }
       } ;
 
-  adjFormsToShort : AdjForms -> AgrTable
-    = \af -> table {
-      Ag (GSg Fem) _ => af.sf ;
-      Ag (GSg Masc) _ => af.sm ;
-      Ag (GSg Neut) _ => af.sn ;
-      Ag GPl _ => af.sp
-    } ;
-
   mkCompoundA : AdjForms -> Str -> AdjForms -> AdjForms
     = \a1,link,a2 ->
       let l : Str=case link of {x+"-" => BIND ++ "-" ++ BIND ; _ => link} in
       a2 ** {
-      msnom = a1.sn ++ l ++ a2.msnom ;
-      fsnom = a1.sn ++ l ++ a2.fsnom ;
-      nsnom = a1.sn ++ l ++ a2.nsnom ;
-      pnom  = a1.sn ++ l ++ a2.pnom  ;
-      msgen = a1.sn ++ l ++ a2.msgen ;
-      fsgen = a1.sn ++ l ++ a2.fsgen ;
-      pgen  = a1.sn ++ l ++ a2.pgen  ;
-      msdat = a1.sn ++ l ++ a2.msdat ;
-      fsacc = a1.sn ++ l ++ a2.fsacc ;
-      msins = a1.sn ++ l ++ a2.msins ;
-      fsins = a1.sn ++ l ++ a2.fsins ;
-      pins  = a1.sn ++ l ++ a2.pins  ;
-      msprep= a1.sn ++ l ++ a2.msprep;
-      sm    = a1.sn ++ l ++ a2.sm    ;
-      sf    = a1.sn ++ l ++ a2.sf    ;
-      sn    = a1.sn ++ l ++ a2.sn    ;
-      sp    = a1.sn ++ l ++ a2.sp    ;
-      comp  = a1.sn ++ l ++ a2.comp  ;
+      msnom = a1.short ! GSg Neut ++ l ++ a2.msnom ;
+      fsnom = a1.short ! GSg Neut ++ l ++ a2.fsnom ;
+      nsnom = a1.short ! GSg Neut ++ l ++ a2.nsnom ;
+      pnom  = a1.short ! GSg Neut ++ l ++ a2.pnom  ;
+      msgen = a1.short ! GSg Neut ++ l ++ a2.msgen ;
+      fsgen = a1.short ! GSg Neut ++ l ++ a2.fsgen ;
+      pgen  = a1.short ! GSg Neut ++ l ++ a2.pgen  ;
+      msdat = a1.short ! GSg Neut ++ l ++ a2.msdat ;
+      fsacc = a1.short ! GSg Neut ++ l ++ a2.fsacc ;
+      msins = a1.short ! GSg Neut ++ l ++ a2.msins ;
+      fsins = a1.short ! GSg Neut ++ l ++ a2.fsins ;
+      pins  = a1.short ! GSg Neut ++ l ++ a2.pins  ;
+      msprep= a1.short ! GSg Neut ++ l ++ a2.msprep;
+      short = \\gn => a1.short ! GSg Neut ++ l ++ a2.short ! gn ;
+      comp  = a1.short ! GSg Neut ++ l ++ a2.comp  ;
       } ;
 
 
@@ -646,17 +629,17 @@ oper
       compl2 = \\p,a => case p of {
            Pos => case ap.preferShort of {
              PreferFull => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! slash.c.c ;
-             PrefShort => slash.compl2 ! p ! a ++ ap.short ! a
+             PrefShort => slash.compl2 ! p ! a ++ ap.short ! agrGenNum a
              } ;
            Neg => case ap.preferShort of {
              PreferFull => case neggen slash.c of {
                  False => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! slash.c.c ;
                  True  => slash.compl2 ! p ! a ++ ap.s ! agrGenNum a ! Animate ! Gen
               } ;
-             PrefShort => slash.compl2 ! p ! a ++ ap.short ! a
+             PrefShort => slash.compl2 ! p ! a ++ ap.short ! agrGenNum a
              }
            } ;
-      c = {s="" ; c=Acc ; neggen=True ; hasPrep=False};
+      c = {s="" ; c=Acc ; hasPrep=False};
       dep = slash.dep ;
       isSimple = False ;
       p = slash.p
@@ -729,17 +712,21 @@ oper
         _ => passivateNonReflexive vf
       } ;
 
-  shortPastPassPart : VerbForms -> GenNum -> Str
-    = \vf,gn ->
-      case vf.refltran of {
-        Trans => case <vf.fut,gn> of {
-          <NormalFuture,GSg Masc> => vf.pppss ;
-          <NormalFuture,GSg Fem> => vf.pppss ++ BIND ++ "а" ;
-          <NormalFuture,GSg Neut> => vf.pppss ++ BIND ++ "о" ;
-          <NormalFuture,GPl> => vf.pppss ++ BIND ++ "ы" ;
-          _ => vf.pppss } ;
-        _ => variants {}
-        } ;
+  presActPart : VerbForms -> Adjective =
+    \v -> adjFormsAdjective (v.prap ** {
+              short = table {
+                        GSg Masc => v.prap.msnom;
+                        GSg Fem  => v.prap.fsnom;
+                        GSg Neut => v.prap.nsnom;
+                        GPl      => v.prap.pnom
+                      } ;
+              comp = [] ;
+              p = False ;
+              preferShort = PreferFull
+            }) ;
+
+  pastPassPart : VerbForms -> Adjective =
+    \v -> adjFormsAdjective (v.pppa ** {comp = []; p = False ; preferShort = PreferFull}) ;
 
   copula : VerbForms
     = {
@@ -757,8 +744,8 @@ oper
       isg2="будь";
       isg2refl="явись" ; -- ?
       ipl1="давайте будем";
-      ppps="явленн";   --*
-      pppss="явлен";   --*
+      prap=mkPresPartForms "являющ";
+      pppa=mkPastPassPartForms "явленн" "явлен";
       prtr="будучи";
       ptr="быв";
       asp=Imperfective;
@@ -822,8 +809,8 @@ oper
       isg2refl="будь способны" ;   -- *
       isg2="будь способен";  -- some improvisation here
       ipl1="давайте будем способны";   -- maybe, special like for future?
-      ppps=""; --*
-      pppss=""; --*
+      prap=mkPresPartForms "могущ";
+      pppa=mkPastPassPartForms "" "";
       prtr="могши";  --*
       ptr="могши";
       asp=Imperfective;
@@ -846,8 +833,8 @@ oper
       isg2="желай";
       isg2refl="желайся" ;
       ipl1="давайте будем хотеть";
-      ppps="хотим";  -- *
-      pppss="хотим";  -- *
+      prap=mkPresPartForms "хотящ";
+      pppa=mkPastPassPartForms "хотим" "хотим";
       prtr="хотя";
       ptr="хотев";
       asp=Imperfective;
@@ -860,10 +847,11 @@ oper
       prsg1, prsg2, prsg3, prpl1, prpl2, prpl3,
       psgm, psgs,
       isg2, isg2refl, ipl1,
-      ppps, pppss,
       prtr, ptr ="";
       fut=NullFuture ;
       asp=Imperfective;
+      prap=mkPresPartForms "";
+      pppa=mkPastPassPartForms "" "";
       refltran = Trans ; -- used to be refl=NonReflexive; tran=Transitive
     } ;
 
@@ -1306,10 +1294,10 @@ oper
     = \ch, a, anim -> {  -- "ч", "нич"
       a = a ;
       anim=anim ;
-      nom, voc = ch + "то" ;
-      gen, acc, ptv = ch + "его" ;
+      nom = ch + "то" ;
+      gen, acc = ch + "его" ;
       dat = ch + "ему" ;
-      prep, loc = ch + "ём" ;
+      prep = ch + "ём" ;
       ins = ch + "ем" ;
       poss = {
         msnom = ch + "ей" ;
@@ -1333,10 +1321,10 @@ oper
       let subPoss = (Predef.tk 1 ch) + "ч" in {
       a = a ;
       anim=anim ;
-      nom, voc = ch + "то" ;
-      gen, acc, ptv = ch + "ого" ;
+      nom = ch + "то" ;
+      gen, acc = ch + "ого" ;
       dat = ch + "ому" ;
-      prep, loc = ch + "ом" ;
+      prep = ch + "ом" ;
       ins = ch + "ем" ;
       poss = (doChPron subPoss a anim).poss
       } ;
@@ -1414,9 +1402,6 @@ oper
       pacc=n.s ! Pl ! Acc ;
       pins=n.s ! Pl ! Ins ;
       pprep=n.s ! Pl ! Pre ;
-      ploc=n.s ! Pl ! Loc ;
-      pptv=n.s ! Pl ! Ptv ;
-      pvoc=n.s ! Pl ! VocRus ;
       g=n.g ;
       mayben=n.mayben ;
       anim=n.anim ;
@@ -1466,15 +1451,21 @@ oper
     pins  = "тех" ;
     msprep = "том" ;
     preferShort = PreferFull ;
+    short = table {
+              GSg Masc => "тот" ;
+              GSg Fem => "та" ;
+              GSg Neut => "то" ;
+              GPl => "те"
+            } ;
     comp = [] ;
     p = False
     } ;
 
   this_forms = {
-    msnom, sm = "этот" ;
-    fsnom, sf = "эта" ;
-    nsnom, sn = "это" ;
-    pnom, sp = "эти" ;
+    msnom = "этот" ;
+    fsnom = "эта" ;
+    nsnom = "это" ;
+    pnom = "эти" ;
     msgen = "этого" ;
     fsgen = "этой" ;
     pgen  = "этих" ;
@@ -1485,15 +1476,21 @@ oper
     pins  = "этими" ;
     msprep = "этом" ;
     preferShort = PreferFull ;
+    short = table {
+              GSg Masc => "этот" ;
+              GSg Fem  => "эта" ;
+              GSg Neut => "это" ;
+              GPl      => "эти"
+            } ;
     comp = [] ;
     p = False
     } ;
 
   a_forms = { -- this pronoun is an approximate translation of indef article; preventing DetNP parsing problems
-    msnom, sm = "некий" ;
-    fsnom, sf = "некая" ;
-    nsnom, sn = "некое" ;
-    pnom, sp = "некие" ;
+    msnom = "некий" ;
+    fsnom = "некая" ;
+    nsnom = "некое" ;
+    pnom = "некие" ;
     msgen = "некого" ;
     fsgen = "некой" ;
     pgen  = "неких" ;
@@ -1504,6 +1501,12 @@ oper
     pins  = "неким" ;
     msprep = "некой" ;
     preferShort = PreferFull ;
+    short = table {
+              GSg Masc => "некий" ;
+              GSg Fem  => "некая" ;
+              GSg Neut => "некое" ;
+              GPl      => "некие"
+           } ;
     comp = [] ;
     p = False
     } ;
@@ -1540,6 +1543,12 @@ oper
     pins  = "данных" ;
     msprep = "данном" ;
     preferShort = PreferFull ;
+    short = table {
+              GSg Masc => "данный" ;
+              GSg Fem  => "данная" ;
+              GSg Neut => "данное" ;
+              GPl      => "данные"
+            } ;
     comp = [] ;
     p = False
     } ;
@@ -1568,6 +1577,8 @@ param DForm = unit | teen | ten | hund ;
 param Place = attr | indep ;
 oper
   mille : Noun = nounFormsNoun ((guessNounForms "тысяча" (doGuessAdjectiveForms "тысячный") AdjType) ** {sins=variants {"тысячей" ; "тысячью"}});
+  million : Noun = nounFormsNoun (guessNounForms "миллион" (doGuessAdjectiveForms "миллионный") AdjType) ;
+  milliard : Noun = nounFormsNoun (guessNounForms "миллиард" (doGuessAdjectiveForms "миллиардный") AdjType) ;
 
   ith_forms : Str -> AdjForms
     = \s -> {
@@ -1584,7 +1595,7 @@ oper
       fsins = s ++ BIND ++ "-й" ;
       pins  = s ++ BIND ++ "-ми" ;
       msprep= s ++ BIND ++ "-м" ;
-      sm, sf, sn, sp = s ;
+      short = \\_ => s ;
       comp = s ++ BIND ++ "-е" ; --*
       p = False ;
       preferShort=PreferFull
@@ -1689,7 +1700,7 @@ oper
       ++ mfa.sacc ++ "," ++ ffa.sacc ++ "," ++ nfa.sacc ++ "," ++ mfa.pacc ++ ","
       ++ mf.sins  ++ "," ++ ff.sins  ++ "," ++ nf.sins  ++ "," ++ mf.pins  ++ ","
       ++ mf.sprep ++ "," ++ ff.sprep ++ "," ++ nf.sprep ++ "," ++ mf.pprep ++ ","
-      ++ af.sm    ++ "," ++ af.sf    ++ "," ++ af.sn    ++ "," ++ af.sp    ++ ","
+      ++ af.short ! (GSg Masc) ++ "," ++ af.short ! (GSg Fem) ++ "," ++ af.short ! (GSg Neut) ++ "," ++ af.short ! GPl ++ ","
       ++ af.comp
       ;
 
@@ -1697,8 +1708,8 @@ oper
     let fut : Agr=>Str = \\a => verbFutAgree v a in
     let pres : Agr=>Str = \\a => verbPresAgree v a in
     let past : Agr=>Str = \\a => verbPastAgree v a "" in
-    let imp : Agr=>Str = \\a => ((verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2) in
-    let ppp : GenNum=>Str = \\gn => shortPastPassPart v gn in
+    let imp : Agr=>Str = \\a => (verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2 in
+    let ppp : GenNum=>Str = variants {} {-(pastPassPart v).short-} in
     let inf = verbInf v in
     inf ++ "-"
       ++ inf ++ ","

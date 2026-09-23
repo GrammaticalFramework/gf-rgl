@@ -405,7 +405,69 @@ lin pot3plus n m = {
   } ;
 lin pot3as4 n = n ;
 
+lin pot41 = {
+  s=\\g,a,c => million.s ! Sg ! c ;
+  o=pronounAdj1A "миллионный" ;
+  just1=True ;
+  size=Num5
+  } ;
+
+lin pot4 n = {
+  s=\\g,a,c => n.s ! attr ! Masc ! a ! c
+    ++ million.s ! animNumSizeNum Inanimate c n.size ! numSizeCase c n.size ;
+  o=prependPF (n.s ! attr ! Masc ! Inanimate ! Nom) (pronounAdj1A "миллионный") ;
+  just1=False ;
+  size=Num5
+  } ;
+
+lin pot4plus n m = {
+  s=\\g,a,c => n.s ! attr ! Masc ! a ! c
+    ++ million.s ! animNumSizeNum Inanimate c n.size ! numSizeCase c n.size
+    ++ m.s ! g ! a ! c ;
+  o=m.o ;
+  just1=False ;
+  size=m.size
+  } ;
+
+lin pot4decimal d = {
+  s=\\g,a,c => d.s ++ million.s ! Sg ! Gen ;
+  o=pronounAdj1A "миллионный" ;
+  just1=False ;
+  size=Num5
+  } ;
+
 lin pot4as5 n = n ;
+
+lin pot51 = {
+  s=\\g,a,c => milliard.s ! Sg ! c ;
+  o=pronounAdj1A "миллиардный" ;
+  just1=True ;
+  size=Num5
+  } ;
+
+lin pot5 n = {
+  s=\\g,a,c => n.s ! attr ! Masc ! a ! c
+    ++ milliard.s ! animNumSizeNum Inanimate c n.size ! numSizeCase c n.size ;
+  o=prependPF (n.s ! attr ! Masc ! Inanimate ! Nom) (pronounAdj1A "миллиардный") ;
+  just1=False ;
+  size=Num5
+  } ;
+
+lin pot5plus n m = {
+  s=\\g,a,c => n.s ! attr ! Masc ! a ! c
+    ++ milliard.s ! animNumSizeNum Inanimate c n.size ! numSizeCase c n.size
+    ++ m.s ! g ! a ! c ;
+  o=m.o ;
+  just1=False ;
+  size=m.size
+  } ;
+
+lin pot5decimal d = {
+  s=\\g,a,c => d.s ++ milliard.s ! Sg ! Gen ;
+  o=pronounAdj1A "миллиардный" ;
+  just1=False ;
+  size=Num5
+  } ;
 
 -- numerals as sequences of digits
 
@@ -416,11 +478,10 @@ lincat
     IDig d = d ** {tail = T1} ;
 
     IIDig d i = {
-    s = d.s ++ spaceIf i.tail ++ i.s ;
-    n = Pl ;
-    size = i.size ;
-    tail = inc i.tail
-  } ;
+      s = d.s ++ spaceIf i.tail ++ i.s ;
+      size = i.size ;
+      tail = inc i.tail
+    } ;
 
   D_0 = mk2Dig "0" Num5 ;
   D_1 = mk4Dig "1" "1" Sg Num1 ; ----
@@ -436,16 +497,14 @@ lincat
   PosDecimal d = d ** {hasDot=False} ;
   NegDecimal d = {
     s = "-" ++ BIND ++ d.s ;
-    n = Pl ;
-    size = d.size ;
+    size = NumAll ;
     hasDot=False
   } ;
   IFrac d i = {
     s=d.s ++
       if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
       i.s;
-    n = Pl ;
-    size = d.size ;
+    size = NumAll ;
     hasDot=True
   } ;
 

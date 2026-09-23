@@ -5,7 +5,7 @@ flags optimize=all_subs ; coding=utf8 ;
 
 lin
   -- : Cl -> QCl ;            -- does John walk
-  QuestCl cl = cl ** {qf=QDir} ;
+  QuestCl cl = cl ;
 
   -- : IP -> VP -> QCl ;      -- who walks
   QuestVP ip vp = {

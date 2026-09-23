@@ -121,7 +121,11 @@ lin
   fridge_N = mkN "холодильник" ;
   friend_N = (mkNplus (mkN "друг" masculine inanimate "3c")) ** {pnom="друзья";pgen="друзей";pdat="друзьям";pacc="друзей";pins="друзьями";pprep="друзьях"};
   fruit_N = mkN "фрукт" ;
-  full_A = (mkAplus (mkA "полный" "" "1*a/c'")) ** {sm="полон"} ;
+  full_A = let adj = mkAplus (mkA "полный" "" "1*a/c'")
+           in adj ** {short = table {
+                                GSg Masc => "полон";
+                                gn       => adj.short ! gn
+                              }} ;
   fun_AV = (mkAltShort (mkA "весёлый" "" "1a/c'") (mkA "веселый")) ;
   garden_N = mkN "сад" ;
   girl_N = mkN "девочка" feminine animate "3*a";
@@ -142,7 +146,11 @@ lin
   head_N = mkN "голова" feminine inanimate "1f'";
   hear_V2 = mkV2 (mkV imperfective "слушать" "слушаю");
   heart_N = mkN "сердце" neuter inanimate "5*c" ;
-  heavy_A = (mkAltShort (mkA "тяжёлый" "тяжелее") (mkA "тяжелый")) ** {sm="тяжёл"} ;   -- TODO: same
+  heavy_A = let adj = mkAltShort (mkA "тяжёлый" "тяжелее") (mkA "тяжелый")
+            in adj ** {short = table {
+                                 GSg Masc => "тяжёл" ;   -- TODO: same
+                                 gn       => adj.short ! gn
+                               }} ;
   hill_N = mkN "холм" ;
   hit_V2 = mkV2 (mkV imperfective "ударять" "ударяю" "ударяет") ;
   hold_V2 = mkV2 (mkV imperfective "держать" "держу" "держит") ;
@@ -254,7 +262,7 @@ lin
   science_N = mkN "наука" ;
   scratch_V2 = mkV2 (mkV imperfective "чесать" "чешу" "чешет");
   sea_N = mkN "море" neuter inanimate "2c" (mkA "морской") ;
-  see_V2 = (mkV2plus (mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a"))) ** {pppss="виден"; ppps="виденн"} ;
+  see_V2 = (mkV2plus (mkV2 (mkV imperfective transitive "видеть" "вижу" "видит" "5a"))) ** {pppa=mkPastPassPartForms "виденн" "виден"} ;
   seed_N = mkN "семя" neuter inanimate "8°c" ;
   seek_V2 = mkV2 (mkV imperfective "искать" "ищу" "ищет");
   sell_V3 = tvDirDir (mkV imperfective "продавать" "продаю" "продаёт");
@@ -329,7 +337,11 @@ lin
   wait_V2 = mkV2 (mkV imperfective "ждать" "жду" "ждёт");
   walk_V = mkV imperfective "гулять" "гуляю" "гуляет";
   war_N = mkN "война" (mkA "военный") ;
-  warm_A = (mkAltShort (mkA "тёплый" "теплее" "1*a/b") (mkA "теплый" "" "1*a/b")) ** {sm="тёплый"} ;  -- workaround TODO: Any way to remove yo from stem?
+  warm_A = let adj = mkAltShort (mkA "тёплый" "теплее" "1*a/b") (mkA "теплый" "" "1*a/b")
+           in adj ** {short=table {
+                              GSg Masc => "тёплый" ; -- workaround TODO: Any way to remove yo from stem?
+                              gn       => adj.short ! gn
+                            }} ; 
   wash_V2 = mkV2 (mkV imperfective "мыть" "мою" "моет");
   watch_V2 = mkV2 (mkV imperfective "смотреть" "смотрю" "смотрит");
   water_N = mkN "вода" feminine inanimate "1d'";
@@ -349,5 +361,9 @@ lin
   worm_N = mkN "червь" masculine animate ;
   write_V2 = mkV2 (mkV imperfective "писать" "пишу" "пишет");
   year_N = (mkNplus (mkN "год" (mkA "годовой")))  **  {sloc="году"; pgen="лет"};
-  yellow_A = (mkAplus (mkA "жёлтый" "желтее" "1a/c''") ** {sf="желта"}) ;  -- TODO: variants
+  yellow_A = let adj = mkAplus (mkA "жёлтый" "желтее" "1a/c''")  -- TODO: variants
+             in adj ** {short = table {
+                                  GSg Fem => "желта" ;
+                                  gn      => adj.short ! gn
+                                }} ;
 }

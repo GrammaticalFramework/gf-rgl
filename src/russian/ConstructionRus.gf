@@ -29,7 +29,7 @@ lin
         adv=[];
         verb=copulaEll ;   -- ???
         dep=[] ;
-        compl=\\_ => (PositA married).short ! np1.a ++ applyPrep cc np2 ;
+        compl=\\_ => (PositA married).short ! (agrGenNum np1.a) ++ applyPrep cc np2 ;
         a=np1.a ; ---
         } ;
 
@@ -63,7 +63,7 @@ lin
     subj=[] ;
     adv=[] ;
     verb=copulaEll ;
-    dep=ap.short ! Ag (GSg Neut) P3 ;
+    dep=ap.short ! (GSg Neut) ;
     compl=\\p=>[] ;
     a=Ag (GSg Neut) P3
     } ;
