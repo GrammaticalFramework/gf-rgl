@@ -29,12 +29,12 @@ concrete RelativeGer of Relative = CatGer ** open ResGer, Prelude in {
 
     RelSlash rp slash = {
       s = \\m,t,a,p,gn => 
-        (appPrep (toSPrep slash.c2) rp) ! gn ++ slash.s ! m ! t ! a ! p ! Sub ;
+        (appPrep slash.c2 rp) ! gn ++ slash.s ! m ! t ! a ! p ! Sub ;
       c = Obj slash.c2.c
       } ;
 
     FunRP p np rp = {
-      s = \\gn,c => np.s ! False ! c ++ appPrep (toSPrep p) (rp.s ! gn) ;
+      s = \\gn,c => np.s ! False ! c ++ appPrep1 p (rp.s ! gn) ;
       a = RAg (numberAgr np.a) (personAgr np.a)
       } ;
 

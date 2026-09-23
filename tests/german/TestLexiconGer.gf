@@ -8,13 +8,13 @@ lincat
   V4 = R.Verb ** {c2,c3,c4 : R.Preposition} ;
 
 oper
-  reflV2 : V -> Case -> Prep -> V2 ; -- reflexive, with case and prep-object
+  reflV2 : V -> ObjCase -> Prep -> V2 ; -- reflexive, with case and prep-object
   reflV2 v c p = prepV2 (reflV v c) p ;
 
-  reflV3 : V -> Case -> Prep -> Prep -> V3 ; -- reflexive, with case, and prep-objects
+  reflV3 : V -> ObjCase -> Prep -> Prep -> V3 ; -- reflexive, with case, and prep-objects
   reflV3 v c p q = mkV3 (reflV v c) p q ;
 
-  bei_Prep   = mkPrep "bei" dative ; 
+--  bei_Prep   = mkPrep "bei" dative ; 
   fuer_Prep  = mkPrep "für" accusative ;
   mit_Prep   = mkPrep "mit" dative ; 
 

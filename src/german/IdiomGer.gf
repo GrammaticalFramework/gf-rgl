@@ -19,7 +19,7 @@ concrete IdiomGer of Idiom = CatGer **
 
     ExistNP np = 
       mkClause "es" (agrP3 Sg) 
-        (insertObj (\\_ => appPrep (toSPrep geben.c2) (np.s ! False) ++ bigNP np)
+        (insertObj (\\_ => appPrep1 geben.c2 (np.s ! False) ++ bigNP np)
           (predV geben)) ;
 
     ExistIP ip = {
@@ -35,7 +35,7 @@ concrete IdiomGer of Idiom = CatGer **
 
     ExistNPAdv np adv= 
       mkClause "es" (agrP3 Sg) 
-        (insertAdv adv.s (insertObj (\\_ => appPrep (toSPrep geben.c2) (np.s ! False) ++ bigNP np)
+        (insertAdv adv.s (insertObj (\\_ => appPrep1 geben.c2 (np.s ! False) ++ bigNP np)
           (predV geben))) ;
 
     ExistIPAdv ip adv = {
