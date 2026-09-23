@@ -121,7 +121,7 @@ lin
   fridge_N = mkN "холодильник" ;
   friend_N = (mkNplus (mkN "друг" masculine inanimate "3c")) ** {pnom="друзья";pgen="друзей";pdat="друзьям";pacc="друзей";pins="друзьями";pprep="друзьях"};
   fruit_N = mkN "фрукт" ;
-  full_A = let adj = mkAplus (mkA "полный" "" "1*a/c'")
+  full_A = let adj : AdjForms = mkAplus (mkA "полный" "" "1*a/c'")
            in adj ** {short = table {
                                 GSg Masc => "полон";
                                 gn       => adj.short ! gn
@@ -146,7 +146,7 @@ lin
   head_N = mkN "голова" feminine inanimate "1f'";
   hear_V2 = mkV2 (mkV imperfective "слушать" "слушаю");
   heart_N = mkN "сердце" neuter inanimate "5*c" ;
-  heavy_A = let adj = mkAltShort (mkA "тяжёлый" "тяжелее") (mkA "тяжелый")
+  heavy_A = let adj : AdjForms = mkAltShort (mkA "тяжёлый" "тяжелее") (mkA "тяжелый")
             in adj ** {short = table {
                                  GSg Masc => "тяжёл" ;   -- TODO: same
                                  gn       => adj.short ! gn
@@ -337,7 +337,7 @@ lin
   wait_V2 = mkV2 (mkV imperfective "ждать" "жду" "ждёт");
   walk_V = mkV imperfective "гулять" "гуляю" "гуляет";
   war_N = mkN "война" (mkA "военный") ;
-  warm_A = let adj = mkAltShort (mkA "тёплый" "теплее" "1*a/b") (mkA "теплый" "" "1*a/b")
+  warm_A = let adj : AdjForms = mkAltShort (mkA "тёплый" "теплее" "1*a/b") (mkA "теплый" "" "1*a/b")
            in adj ** {short=table {
                               GSg Masc => "тёплый" ; -- workaround TODO: Any way to remove yo from stem?
                               gn       => adj.short ! gn
@@ -361,7 +361,7 @@ lin
   worm_N = mkN "червь" masculine animate ;
   write_V2 = mkV2 (mkV imperfective "писать" "пишу" "пишет");
   year_N = (mkNplus (mkN "год" (mkA "годовой")))  **  {sloc="году"; pgen="лет"};
-  yellow_A = let adj = mkAplus (mkA "жёлтый" "желтее" "1a/c''")  -- TODO: variants
+  yellow_A = let adj : AdjForms = mkAplus (mkA "жёлтый" "желтее" "1a/c''")  -- TODO: variants
              in adj ** {short = table {
                                   GSg Fem => "желта" ;
                                   gn      => adj.short ! gn
