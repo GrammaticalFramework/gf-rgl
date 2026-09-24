@@ -37,13 +37,20 @@ resource ResTel = ParamX ** open Prelude in {
 
     wallNoun : Str -> Noun = \word ->
       case word of {
-        stem + "ం"  => mkNoun word word (stem + "ాలు") (stem + "ాల") Neutr ;
+        stem + ("ట్టి"|"ట్టు") => mkNoun word word (stem + "ట్లు") (stem + "ట్ల") Neutr;
+        stem + ("టి"|"టు") => mkNoun word word (stem + "ట్లు") (stem + "ట్ల") Neutr ;
+        stem + ("డ్డు"|"డ్డి") => mkNoun word word (stem + "డ్లు") (stem + "డ్ల") Neutr;
+        stem + ("డు "|"డి") => mkNoun word word (stem + "ళ్ళు") (stem + "ట్ల") Neutr ;
+        stem + "ం"  => mkNoun word word (stem + "లు") (stem + "ాల") Neutr ;
         stem + "ము" => mkNoun word word (stem + "ములు") (stem + "ముల") Neutr ;
-        stem + "లు" => mkNoun word word word (stem + "ల") Neutr ;
+        stem + ("ల్లు"|"న్ను") => mkNoun word word (stem + "ళ్ళు") (stem + "డ్లు") Neutr;
+        stem + "లు" => mkNoun word word (stem + "ళ్ళు")(stem + "ల") Neutr ;
+        stem + "ాయి" => mkNoun word word (word + "లు") (word + "ల") Neutr;
+        stem + ("యి"|"య్యి") => mkNoun word word (stem + "తులు") (stem + "తుల") Neutr;
         stem + "ుడు" => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
         stem + "ి"  => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
-        _            => mkNoun word word (word + "లు") (word + "ల") Neutr
-        } ;
+        _          => mkNoun word word (word + "లు") (word + "ల") Neutr
+    } ;
 
     reggNoun : Str -> Gender -> Noun = \s,g ->
       wallNoun s ** {g = g} ;
