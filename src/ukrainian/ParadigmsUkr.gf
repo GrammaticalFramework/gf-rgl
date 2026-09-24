@@ -1171,8 +1171,29 @@ oper
     }
   } ;
 
-  mkPron : (_,_,_,_,_,_ : Str) -> Gender -> Number -> Person -> Pron =
-    \nom,acc,dat,gen,loc,instr,g,n,p -> lin Pron {
+  forcePluralN : N -> N = \n -> n ** {
+    s = \\c,_ => n.s ! c ! Pl ;
+    voc = \\_ => n.voc ! Pl
+  } ;
+
+  wholeA : A = {
+    s = table {
+      Nom => table {GSg Masc => "весь"; GSg Fem => "вся"; GSg Neuter => "все"; GPl => "всі"} ;
+      Acc => table {GSg Masc => "весь"; GSg Fem => "всю"; GSg Neuter => "все"; GPl => "всі"} ;
+      Dat => table {GSg Masc => "всьому"; GSg Fem => "всій"; GSg Neuter => "всьому"; GPl => "всім"} ;
+      Gen => table {GSg Masc => "всього"; GSg Fem => "всієї"; GSg Neuter => "всього"; GPl => "всіх"} ;
+      Loc => table {GSg Masc => "всьому"; GSg Fem => "всій"; GSg Neuter => "всьому"; GPl => "всіх"} ;
+      Instr => table {GSg Masc => "всім"; GSg Fem => "всією"; GSg Neuter => "всім"; GPl => "всіма"}
+    }
+  } ;
+
+  wholePredet : Predet = lin Predet {
+    s = \\c,g,n => wholeA.s ! c ! genNum g n
+  } ;
+
+  mkPron : (_,_,_,_,_,_ : Str) ->
+    (Case -> Gender -> Number -> Str) -> Gender -> Number -> Person -> Pron =
+    \nom,acc,dat,gen,loc,instr,poss,g,n,p -> lin Pron {
       s = table {
             Nom => nom ;
             Acc => acc ;
@@ -1181,6 +1202,7 @@ oper
             Loc => loc ;
             Instr => instr
           } ;
+      poss = \\c,g,n => poss c g n ;
       g = g ;
       n = n ;
       p = p
