@@ -14,6 +14,8 @@ lincat
   Sub100     = {s : CardOrd => Str ; n : Number} ;
   Sub1000    = {s : CardOrd => Str ; n : Number} ;
   Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000000000 = {s : CardOrd => Str ; n : Number} ;
 
 lin num x = x ;
 -- 2     12     20    200             
@@ -47,6 +49,10 @@ lin pot1plus d e = {
 lin pot1as2 n = n ;
 
 lin pot2 d = {s = d.s ! hundreds}  ** {n = Pl} ;
+lin pot21 = {s = \\o => table {
+  NCard => "صد" ;
+  NOrd => "صدم"
+  } ! o ; n = Pl} ;
 lin pot2plus d e = {
   s = \\o => d.s ! hundreds ! NCard  ++ "و" ++ e.s ! o  ; n = Pl} ; -- remove "??"
 
@@ -56,6 +62,21 @@ lin pot3 n = { s = \\o => n.s ! NCard ++  "هزار" ; n = Pl} ;
 
 lin pot3plus n m = {
   s = \\o => n.s ! NCard ++ "هزار" ++ "و" ++ m.s ! o; n = Pl} ; -- missing word "????????" after NCard
+
+lin pot31 = {s = \\o => table {NCard => "هزار" ; NOrd => "هزارم"} ! o ; n = Pl} ;
+lin pot3as4 n = n ;
+lin pot3decimal n = {s = \\o => n.s ! o ++ "هزار" ; n = Pl} ;
+
+lin pot41 = {s = \\o => table {NCard => "یک میلیون" ; NOrd => "یک میلیونم"} ! o ; n = Pl} ;
+lin pot4 n = {s = \\o => n.s ! NCard ++ "میلیون" ; n = Pl} ;
+lin pot4plus n m = {s = \\o => n.s ! NCard ++ "میلیون" ++ "و" ++ m.s ! o ; n = Pl} ;
+lin pot4as5 n = n ;
+lin pot4decimal n = {s = \\o => n.s ! o ++ "میلیون" ; n = Pl} ;
+
+lin pot51 = {s = \\o => table {NCard => "یک میلیارد" ; NOrd => "یک میلیاردم"} ! o ; n = Pl} ;
+lin pot5 n = {s = \\o => n.s ! NCard ++ "میلیارد" ; n = Pl} ;
+lin pot5plus n m = {s = \\o => n.s ! NCard ++ "میلیارد" ++ "و" ++ m.s ! o ; n = Pl} ;
+lin pot5decimal n = {s = \\o => n.s ! o ++ "میلیارد" ; n = Pl} ;
 
 -- numerals as sequences of digits
 
@@ -83,7 +104,10 @@ lin pot3plus n m = {
     D_9 = mkDig "9" ;
    
   --  lin IDig d = { s = \\_ => d.s ; n = Sg} ;
-    IIDig d dg = { s = \\df => d.s ! NCard ++ dg.s ! df   ; n = Pl}; 
+    IIDig d dg = {
+      s = \\df => d.s ! NCard ++ BIND ++ dg.s ! df ;
+      n = Pl
+      } ;
 
     PosDecimal d = d ** {hasDot=False} ;
     NegDecimal d = {

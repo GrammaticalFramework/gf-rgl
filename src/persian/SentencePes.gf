@@ -62,6 +62,8 @@ concrete SentencePes of Sentence = CatPes ** open Prelude, ResPes,Predef in {
       } ;
 
     AdvS a s = {s = \\vvf => a.s ++ s.s ! vvf} ;
+    ExtAdvS a s = {s = \\vvf => a.s ++ SOFT_BIND ++ "،" ++ s.s ! vvf} ;
+    AdvImp adv imp = {s = \\pol,n => adv.s ++ imp.s ! pol ! n} ;
 
     RelS s r = {s = \\vvf => s.s ! vvf ++ rs2str Ke (agrP3 Sg) r} ;
     SSubjS s1 sj s2 = {s = \\vvf => s1.s ! vvf ++ sj.s ++ s2.s ! sj.compl};

@@ -21,6 +21,27 @@ lincat
 
 
 lin
+  monday_Weekday = mkN "دوشنبه" ;
+  tuesday_Weekday = mkN "سه‌شنبه" ;
+  wednesday_Weekday = mkN "چهارشنبه" ;
+  thursday_Weekday = mkN "پنجشنبه" ;
+  friday_Weekday = mkN "جمعه" ;
+  saturday_Weekday = mkN "شنبه" ;
+  sunday_Weekday = mkN "یکشنبه" ;
+
+  january_Month = mkN "ژانویه" ;
+  february_Month = mkN "فوریه" ;
+  march_Month = mkN "مارس" ;
+  april_Month = mkN "آوریل" ;
+  may_Month = mkN "مه" ;
+  june_Month = mkN "ژوئن" ;
+  july_Month = mkN "ژوئیه" ;
+  august_Month = mkN "اوت" ;
+  september_Month = mkN "سپتامبر" ;
+  october_Month = mkN "اکتبر" ;
+  november_Month = mkN "نوامبر" ;
+  december_Month = mkN "دسامبر" ;
+
   weekdayN w = w ;
   monthN m = m ;
 
@@ -76,6 +97,13 @@ lin
 
   hungry_VP = mkVP (mkA "گرسنه") ;
   thirsty_VP = mkVP (mkA "تشنه") ;
+  ready_VP = mkVP (mkA "آماده") ;
+  has_age_VP card = mkVP (P.mkAdv (card.s ++ "ساله")) ;
+  cup_of_CN np = mkCN (P.mkN2 (P.mkN "فنجان") "از") np ;
+  n_units_of_NP card unit np = R.emptyNP ** {
+    s = \\_ => card.s ++ unit.s ! R.Sg ! R.Ezafe ++ np.s ! R.Bare ;
+    a = R.agrP3 R.Pl
+    } ;
   have_name_Cl p n = mkCl (mkNP (E.GenNP p) L.name_N) n ;
   what_name_QCl p = mkQCl what_IAdv (mkNP (E.GenNP p) L.name_N) ;
 

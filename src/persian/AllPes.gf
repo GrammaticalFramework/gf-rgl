@@ -2,5 +2,6 @@
 
 concrete AllPes of AllPesAbs =
   LangPes,
-  ExtraPes
+  ExtraPes,
+  IrregPes
   ** {} ;

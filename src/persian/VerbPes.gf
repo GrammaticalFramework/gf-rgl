@@ -24,7 +24,9 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     SlashVV vv vps = vps ** ComplVV vv vps ;
     SlashV2S v s  = predVc v ** ComplVS v s ;
     SlashV2Q v q  = predVc v ** ComplVQ v q ;
-    SlashV2A v ap = predVc v ** insertObj (appComp v.c2 ap.s) (predV v) ; ---- paint it red , check form of adjective
+    -- The marker in a V2A belongs to the NP object, not to its AP predicate:
+    -- او دیوار را قرمز کرد, not *دیوار را قرمز را کرد.
+    SlashV2A v ap = predVc v ** insertObj (ap.s ! Bare) (predV v) ;
 
     -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
     SlashV2V v2v vp = predVc v2v ** {
@@ -56,6 +58,9 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
 
     AdvVP vp adv = insertAdv adv.s vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
+    AdvVPSlash vp adv = vp ** insertAdv adv.s vp ;
+    AdVVPSlash adv vp = vp ** insertAdV adv.s vp ;
+    ExtAdvVP vp adv = insertAdv ("،" ++ adv.s) vp ;
     ReflVP = insertCompPre reflPron ;
     PassV2 = passV ;
 
@@ -66,7 +71,7 @@ concrete VerbPes of Verb = CatPes ** open ResPes,Prelude in {
     -- see https://sites.la.utexas.edu/persian_online_resources/nouns/noun-in-a-predicative-position/
     -- TODO: extend this to all verbs, when NP is indefinite
     CompCN cn = {
-      s = \\a => cn.s ! giveNumber a
+      s = \\a => cn.s ! Sg
                       ! case cn.hasAdj of {
                           False => Bare ;
                           True  => Clitic }

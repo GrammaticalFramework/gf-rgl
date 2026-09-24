@@ -1,4 +1,5 @@
 abstract AllPesAbs =
   Lang,
-  ExtraPesAbs
+  ExtraPesAbs,
+  IrregPesAbs
   ** {} ;
