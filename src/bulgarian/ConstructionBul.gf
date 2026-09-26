@@ -32,6 +32,13 @@ lin
   is_right_VP = mkVP (mkA084 "верен") ;
   is_wrong_VP = mkVP (mkA079 "грешен") ;
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_units_of_NP card cn np =
+    let unit = mkNP <lin Card card : Card> (lin CN cn)
+    in {
+      s  = \\role => unit.s ! role ++ np.s ! R.RObj R.CPrep ;
+      gn = unit.gn ;
+      p  = unit.p
+      } ;
   weather_adjCl a = R.mkClause (a.s ! R.ASg R.Masc R.Indef ! R.P3) (R.GSg R.Masc) (R.NounP3 R.Pos) (R.insertObj (\\_=>"") R.Pos (R.predV R.verbBe)) ;
 
 lin

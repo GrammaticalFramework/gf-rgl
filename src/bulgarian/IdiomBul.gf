@@ -32,6 +32,7 @@ concrete IdiomBul of Idiom = CatBul ** open Prelude, ParadigmsBul, ResBul in {
 	          in case o of {
 	               Main  => tenses ! Inv ! Perf ++ np.s ! RObj Acc ++ adv.s ;
 	               Inv   => np.s ! RObj Acc ++ tenses ! Main ! Perf ++ adv.s ;
+                   Wh    => tenses ! Wh ! Perf ++ np.s ! RObj Acc ++ adv.s ;
                    Quest => tenses ! Quest ! Perf ++ np.s ! RObj Acc ++ adv.s
 	             }
       } ;
@@ -52,4 +53,3 @@ concrete IdiomBul of Idiom = CatBul ** open Prelude, ParadigmsBul, ResBul in {
 
     ImpPl1 vp = {s = "нека" ++ daComplex Simul Pos vp ! Perf ! {gn = GPl ; p = P1}} ;
 }
-
