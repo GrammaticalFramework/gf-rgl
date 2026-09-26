@@ -2,5 +2,5 @@
 
 concrete AllEus of AllEusAbs = 
   LangEus,
-  ExtraEus
-  ** {} ;
+  ExtendEus
+  ** open ExtraEus in {} ;
