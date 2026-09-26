@@ -298,6 +298,9 @@ oper
                   val : AuxType  --TODO change name of the field
                 } ;
 
+  Verb2 : Type = Verb ** { c2 : Postposizio } ;
+  Verb3 : Type = Verb2 ** { c3 : Postposizio } ;
+
   mkVerbDa : Str -> Verb = \s -> { val = Da Izan ;
                                    nstem = mkNStem s ;
                                    prc = mkPrc s } ;  
@@ -413,9 +416,33 @@ oper
     { post = noPost ;
       missing = missingArg } ;
 
-  slashDObj : Verb -> VPSlash = slashV MissingDObj ; --works for V2, V2V, V2S, V2Q, V2A.
+  slashDObj : Verb2 -> VPSlash = \v ->
+    case v.c2.complCase of {
+      Abs => slashV MissingDObj v ;
+      _   => (slashV MissingAdv v) ** {post = v.c2}
+    } ; --works for V2, V2V, V2S, V2Q, V2A.
 
-  slashIObj : Verb -> VPSlash = slashV MissingIObj ; --only Slash3V3
+  slashIObj : Verb3 -> VPSlash = \v ->
+    case v.c3.complCase of {
+      Dat => slashV MissingIObj v ;
+      _   => (slashV MissingAdv v) ** {post = v.c3}
+    } ; --only Slash3V3
+
+  slashDObjVP : Verb2 -> VerbPhrase -> VPSlash = \v,vp ->
+    vp ** { post = v.c2 ;
+            missing = case v.c2.complCase of {
+                        Acc => MissingDObj ;
+                        _   => MissingAdv
+                      }
+          } ;
+
+  slashIObjVP : Verb3 -> VerbPhrase -> VPSlash = \v,vp ->
+    vp ** { post = v.c3 ;
+            missing = case v.c3.complCase of {
+                        Acc => MissingIObj ;
+                        _   => MissingAdv
+                      }
+          } ;
 
   -----
   -- Modify existing VPs
@@ -462,7 +489,11 @@ oper
   linSSub : Sentence -> Str -> Str = \sent,subj ->
     sent.beforeAux ++ glue sent.aux.stem subj ++ sent.afterAux ;
 
-  Clause : Type = { s : Tense => Anteriority => Polarity => ClType => Sentence } ;
+  Clause : Type = {
+    s : Tense => Anteriority => Polarity => ClType => Sentence ;
+    subj : NounPhrase ;
+    vp : VerbPhrase
+    } ;
 
   linCl : Clause -> Str = \clause ->
     linS (clause.s ! Pres ! Simul ! Pos ! Stat) ;
@@ -498,7 +529,9 @@ oper
                              ++ vp.dobj.s ! pol       -- garagardoa / garagardorik
                              ++ vp.comp ! subj.agr ;  -- etorriko dela / nor den / handi(ak) / ...
                        prc = verb.prc ;
-                       aux = verb.aux ! subj.agr }
+                       aux = verb.aux ! subj.agr } ;
+      subj = subj ;
+      vp = vp
     } ;
 
   verbformPeriphrastic : Tense -> Anteriority -> VerbPhrase -> {aux : Agr => VForms ; prc : Str} = \t,a,vp ->

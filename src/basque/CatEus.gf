@@ -104,16 +104,18 @@ concrete CatEus of Cat = CommonX ** open ResEus, Prelude in {
 -- additional lexicon modules.
 
     V,
-    V2,
-    V3,
     VV,    -- verb-phrase-complement verb         e.g. "want"
     VS,    -- sentence-complement verb            e.g. "claim"
-    VQ,    -- question-complement verb            e.g. "wonder"  
-    VA,    -- adjective-complement verb           e.g. "look"
+    VQ,    -- question-complement verb            e.g. "wonder"
+    VA = ResEus.Verb ; -- adjective-complement verb, e.g. "look"
+
+    V2,
     V2V,   -- verb with NP and V complement       e.g. "cause"
     V2S,   -- verb with NP and S complement       e.g. "tell"
     V2Q,   -- verb with NP and Q complement       e.g. "ask"
-    V2A = ResEus.Verb ;   -- verb with NP and AP complement      e.g. "paint"
+    V2A = ResEus.Verb2 ;   -- verb with NP and AP complement      e.g. "paint"
+
+    V3 = ResEus.Verb3 ;
 
     A = ResEus.Adjective ;
     A2  = ResEus.Adjective2 ;

@@ -39,15 +39,12 @@ lin
 
 
   -- : V3 -> NP -> VPSlash ; -- give it (to her)
-  Slash2V3 v3 npNori = slashDObj v3 **
-    { iobj = { s = npNori.s ! Dat ;
-               agr = npNori.agr }
-    } ;
+  Slash2V3 v3 npNor =
+    slashIObjVP v3 (complSlash (slashDObj v3) npNor) ;
 
   -- : V3 -> NP -> VPSlash ; -- give (it) to her
-  Slash3V3 v3 npNor = slashIObj v3 **
-    { dobj = npNor ** { s = mkDObj npNor } 
-    } ;
+  Slash3V3 v3 npNori =
+    slashDObjVP v3 (complSlash (slashIObj v3) npNori) ;
 
 
   -- : V2V -> VP -> VPSlash ;  -- beg (her) to go
@@ -169,6 +166,5 @@ oper
                             _     => nonExist } ; 
                   val = Da izan } ;
 } 
-
 
 

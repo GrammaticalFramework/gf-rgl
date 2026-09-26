@@ -91,7 +91,7 @@ lin die_V = izanV "hil" ; -- | mkV "zendu" ; --Apertium
 lin dig_V = mkV "zulatu" ; --Apertium
 lin dirty_A = mkA "likits" ; --| mkA "zikin" ; --Apertium
 lin distance_N3 = mkN3 (mkN "distantzia") toPrep S.from_Prep ; --Apertium
-lin do_V2 = lin V2 egin_V ;
+lin do_V2 = mkV2 egin_V ;
 lin doctor_N = mkN "mediku" animate ; --| mkN "doktore" ; --Apertium
 lin dog_N = mkN "txakur" ;
 lin door_N = mkN "ate" ;
@@ -120,7 +120,7 @@ lin fall_V = mkV "amildu" ; -- | mkV "erori" ; --Apertium
 lin far_Adv = mkAdv "urrun" ;
 lin fat_N = mkN "gantz" ; --| mkN "koipe" ; --Apertium
 lin father_N2 = mkN2 (mkN "aita" animate) ;
-lin fear_V2 = ukanV "beldur" ; -- beldur nauzu `you are afraid of me'
+lin fear_V2 = mkV2 (ukanV "beldur") ; -- beldur nauzu `you are afraid of me'
 lin fear_VS = izanV "beldur" ; -- beldur naiz [ez datorrela] `I'm afraid s/he won't come'
 lin feather_N = mkN "luma" ; --Apertium
 lin fight_V2 = mkV2 "borrokatu" ; --Apertium
@@ -224,7 +224,7 @@ lin long_A = mkA "luze" ; --Apertium
 lin lose_V2 = mkV2 "galdu" ; --Apertium
 lin louse_N = mkN "zorri" ; --Apertium
 lin love_N = mkN "maitasun" ; -- | mkN "amodio" ; --Apertium
-lin love_V2 = ukanV "maite" ; 
+lin love_V2 = mkV2 (ukanV "maite") ;
 lin man_N = mkN "gizon" animate ; --Apertium
 lin married_A2 = mkA2 "ezkondu" (mkPrep [] sociative) ;
 lin meat_N = mkN "haragi" ; -- | mkN "mami" ; --Apertium
@@ -336,7 +336,7 @@ lin snake_N = mkN "suge" ; --Apertium
 lin snow_N = mkN "elur" ; --Apertium
 lin sock_N = mkN "galtzetin" ; --Apertium
 lin song_N = mkN "abesti" ; --| mkN "kanta" | mkN "kantu" ; --Apertium
-lin speak_V2 = lin V2 (mkV "hitz" egin_V) ; --Apertium
+lin speak_V2 = mkV2 (mkV "hitz" egin_V) ; --Apertium
 lin spit_V = mkV "txistua bota" ; --Apertium
 lin split_V2 = mkV2 "pitzatu" ; --| mkV2 "zatitu" ; --Apertium
 lin squeeze_V2 = mkV2 "estutu" ; --Apertium
@@ -430,7 +430,7 @@ oper
 
   ibili_V : V = lin V (R.syntVerbDa "ibili" R.Ibili) ;
 
-  jakin_V2 : V2 = lin V2 (R.syntVerbDu "jakin" R.Jakin) ;
+  jakin_V2 : V2 = lin V2 (R.syntVerbDu "jakin" R.Jakin ** {c2 = R.noPost}) ;
 
   joan_V : V = lin V (R.syntVerbDa "joan" R.Joan) ;
 }

@@ -204,9 +204,9 @@ concrete NounEus of Noun = CatEus ** open ResEus, Prelude in {
     let a : Str = artIndef ! Abs ! cn.ph ; --`a' for FinalA, [] for other
         result : {s : Agr => Str ; ph : Phono} =
           case ap.typ of {
-                Ko => { s = \\agr => ap.s ! Hau ++ cn.s ! agr ;
+                Ko => { s = \\agr => ap.s ! agr ++ cn.s ! agr ;
                         ph = cn.ph } ;
-                Bare => { s = \\agr => cn.s ! agr ++ a ++ ap.s ! Hau ;
+                Bare => { s = \\agr => cn.s ! agr ++ a ++ ap.s ! agr ;
                           ph = ap.ph }
              } ;
       in cn ** { s  = result.s ;
