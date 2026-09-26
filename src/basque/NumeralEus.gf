@@ -73,6 +73,7 @@ lin pot2plus d e =
     n = Pl ;
     isHundred = True } ;
 lin pot2as3 n = n ;
+lin pot21 = {s = "ehun" ; n = Pl ; isHundred = True} ;
 lin pot3 n =
   {s = table {Sg => [] ; Pl => n.s } ! n.n ++ "mila" ;
    n = n.n } ;
@@ -83,6 +84,21 @@ lin pot3plus n m =
   in 
     { s = table {Sg => [] ; Pl => n.s } ! n.n ++ "mila" ++ ta ++ m.s ;
       n = n.n } ;
+
+lin pot31 = {s = "mila" ; n = Pl} ;
+lin pot3as4 n = n ;
+lin pot3decimal n = {s = n.s ! NCard ++ "mila" ; n = Pl} ;
+
+lin pot41 = {s = "milioi bat" ; n = Pl} ;
+lin pot4 n = {s = n.s ++ "milioi" ; n = Pl} ;
+lin pot4plus n m = {s = n.s ++ "milioi" ++ m.s ; n = Pl} ;
+lin pot4as5 n = n ;
+lin pot4decimal n = {s = n.s ! NCard ++ "milioi" ; n = Pl} ;
+
+lin pot51 = {s = "mila milioi" ; n = Pl} ;
+lin pot5 n = {s = n.s ++ "mila milioi" ; n = Pl} ;
+lin pot5plus n m = {s = n.s ++ "mila milioi" ++ m.s ; n = Pl} ;
+lin pot5decimal n = {s = n.s ! NCard ++ "mila milioi" ; n = Pl} ;
 
 ----------------------------------------------------------------------------
 

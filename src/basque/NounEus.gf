@@ -127,6 +127,18 @@ concrete NounEus of Noun = CatEus ** open ResEus, Prelude in {
   NumDigits dig = { s = dig.s ! NCard ; n = dig.n } ;
   NumDecimal dec = { s = dec.s ! NCard ; n = dec.n } ;
 
+  QuantityNP dec mu = {
+    s = \\_ => case mu.isPre of {
+      True => mu.s ++ dec.s ! NCard ;
+      False => dec.s ! NCard ++ mu.s
+      } ;
+    stem = case mu.isPre of {
+      True => mu.s ++ dec.s ! NCard ;
+      False => dec.s ! NCard ++ mu.s
+      } ;
+    agr = Hauek ; anim = Inan ; isDef = True
+    } ;
+
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 

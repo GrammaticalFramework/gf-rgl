@@ -462,7 +462,7 @@ oper
   linSSub : Sentence -> Str -> Str = \sent,subj ->
     sent.beforeAux ++ glue sent.aux.stem subj ++ sent.afterAux ;
 
-  Clause : Type = { s : Tense => Anteriority => Polarity => ClType => Sentence } ; 
+  Clause : Type = { s : Tense => Anteriority => Polarity => ClType => Sentence } ;
 
   linCl : Clause -> Str = \clause ->
     linS (clause.s ! Pres ! Simul ! Pos ! Stat) ;

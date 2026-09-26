@@ -20,6 +20,10 @@ concrete IdiomEus of Idiom = CatEus ** open Prelude, ResEus, VerbEus in {
   -- : NP -> Cl ;        -- there is a house
   ExistNP np = let vp = UseComp (CompNP np)
 		in clFromVP empty_NP vp ;
+
+  ExistNPAdv np adv =
+    let vp = AdvVP (UseComp (CompNP np)) adv
+    in clFromVP empty_NP vp ;
   
 {-    ExistIP   : IP -> QCl ;       -- which houses are there
 

@@ -96,6 +96,9 @@ oper
       lin V2 (egin ** { prc = \\t => lo ++ egin.prc ! t ;
                         val = Du Ukan }) ;
 
+    -- A V2 always selects the transitive auxiliary.  Keeping the auxiliary
+    -- inherited from mkV made the very common `mkV2 (mkV "...")` idiom
+    -- produce absolutive subjects and forms of izan (e.g. *hura ... da).
     mkV2 : V -> V2 = \x -> lin V2 x ;
   } ;
 
@@ -194,4 +197,3 @@ oper
 --------------------------------------------------------------------------------
 
 }
-

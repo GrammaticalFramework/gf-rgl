@@ -16,7 +16,7 @@ concrete QuestionEus of Question = CatEus ** open ResEus, (VE=VerbEus), (NE=Noun
 
   -- : IAdv -> Cl -> QCl ;    -- why does John walk
   -- nola (how), zerbait (how much), noiz (when), non (where), zergatik (why)
-  QuestIAdv iadv cl = 
+  QuestIAdv iadv cl =
     { s = \\t,a,p,c => 
       let sent = cl.s ! t ! a ! p ! Indir ; -- no "al" with a wh-word!
       in { beforeAux = iadv.s ++ sent.beforeAux ;
