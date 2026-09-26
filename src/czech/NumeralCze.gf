@@ -1,102 +1,99 @@
-concrete NumeralCze of Numeral =
+concrete NumeralCze of Numeral = CatCze [Numeral,Digits,Decimal] **
+  open ResCze, Prelude in {
 
-  CatCze [Numeral,Digits,Decimal] **
-
-  open
-    ResCze,
-    Prelude
-  in {
-
--- from gf-contrib/numerals/czech.gf, added inflections
--- AR 2020-03-20
----- TODO ordinal forms
-
-
-oper LinNumeral = Determiner ; -- {s : NumeralForms ; size : NumSize} ;
-oper LinDigit = {unit : Gender => Case => Str ; teen, ten, hundred : Str ; size : NumSize} ;
-
-lincat Digit = LinDigit ;
-lincat Sub10 = LinDigit ;
-
-lincat Sub100 = LinNumeral ;
-lincat Sub1000 = LinNumeral ;
-lincat Sub1000000 = LinNumeral ;
-
-oper mkNum : Determiner -> Str -> Str -> Str -> LinDigit =
-  \dva, dvanast, dvadsat, dveste -> {
-    unit = dva.s ;
-    teen = dvanast + "náct" ;
-    ten  = dvadsat ;
-    hundred = dveste ;
-    size = dva.size ;
-   } ;
-
-oper mk2Num : Determiner -> Str -> Str -> Str -> LinDigit =
-  \unit, teenbase, tenbase, hundred ->
-    mkNum unit teenbase (tenbase + "cet") hundred ;
-
-oper mk5Num : Str -> Str -> Str -> Str -> LinDigit =
-  \unit,uniti, teenbase, tenbase ->
-  mkNum (regNumeral unit uniti) teenbase (tenbase + "desát") (unit ++ "set") ;
-
-oper bigNumeral : Str -> LinNumeral = \s -> invarNumeral s ;
-
-lin num x = x ;
-
-lin n2 = mk2Num twoNumeral "dva" "dva" ("dvě" ++ "stě") ;
-lin n3 = mk2Num threeNumeral "tři" "tři" ("tři" ++ "sta") ;
-lin n4 = mk2Num fourNumeral "čtr" "čtyři" ("čtyři" ++ "sta") ;
-lin n5 = mk5Num "pět" "pěti" "pat" "pa" ;
-lin n6 = mk5Num "šest" "šesti" "šest" "še" ;
-lin n7 = mk5Num "sedm" "sedmi" "sedm" "sedm";
-lin n8 = mk5Num "osm" "osmi" "osm" "osm";
-lin n9 = mk5Num "devět" "devíti" "devate" "deva" ;
-
-lin pot01 = {
-  unit = oneNumeral.s ; hundred = "sto" ; ten = "deset" ; teen = "jedenáct" ;
-  size = Num1
-  } ;
-lin pot0 d = d ;
-
-lin pot110 = bigNumeral "deset" ;
-lin pot111 = bigNumeral "jedenáct" ;
-lin pot1to19 d = bigNumeral d.teen ;
-
-lin pot0as1 n = {s = n.unit ; size = n.size} ;
-lin pot1 d = bigNumeral d.ten ;
-lin pot1plus d e = {
-  s = (invarNumeral (d.ten ++ determinerStr (e ** {s = e.unit}))).s ; ---- TODO inflection?
-  size = tfSize e.size
-  } ;
-  ---- variants { d.s ! ten ++ e.s ! unit ; glue (glue (e.s ! unit) "a") (d.s ! ten)} ; size = tfSize e.size} ;
-
-lin pot1as2 n = n ;
-lin pot2 d = bigNumeral d.hundred ;
-lin pot2plus d e = {
-  s = (invarNumeral (d.hundred ++ determinerStr e)).s ;  ---- TODO inflection?
-  size = tfSize e.size
-  } ;
-
-lin pot2as3 n = n ;
-lin pot3 n = bigNumeral (mkTh (determinerStr n) n.size) ;
-
-lin pot3plus n m = {
-  s = (invarNumeral (mkTh (determinerStr n) n.size ++ determinerStr m)).s ;  ---- TODO inflection?
-  size = tfSize m.size
-  } ;
-
-oper tfSize : NumSize -> NumSize = \sz ->
-  table {Num1 => Num5 ; other => other} ! sz ;
-
-oper mkTh : Str -> NumSize -> Str = \attr,size ->
-  case size of {
-    Num1 => "tisíc" ;
-    Num2_4 => attr ++ "tisíce" ;
-    Num5 => attr ++ "tisíc"
+-- Keep inflection until the numeral receives its case. Compounds ending in
+-- units or tens use quantified agreement: mých dvacet jedna stromů, dvacet dva dětí.
+-- Agreement with the final unit does not compose with possessive modifiers.
+-- See https://www.czechency.org/slovnik/ČÍSLOVKA.
+oper
+  -- Only units vary in count agreement. Keeping four full Determiners here
+  -- would create a product of independent agreement states during compilation.
+  LinDigit : Type = {unit : Determiner ; teen,ten,hundred : Gender => Case => Str} ;
+  digit : Determiner -> Str -> Str -> Str -> LinDigit = \u,teen,ten,hundred -> {
+    unit = u ; teen = (regNumeral teen (teen + "i")).s ;
+    ten = (regNumeral ten (ten + "i")).s ;
+    hundred = \\_,c => case c of {Nom|Acc|ResCze.Voc => hundred ; _ => (scale QuantifiedScale u hundredN).s ! Neutr ! c}
     } ;
+  counted : (Gender => Case => Str) -> Determiner = \s -> {
+    s = s ; size = Num5 ; head = CountedHead
+    } ;
+  hundreds : LinDigit -> Determiner = \d -> {
+    s = d.hundred ; size = NumScale ; head = ScaleHead Neutr d.unit.size QuantifiedScale
+    } ;
+  plus : Determiner -> Determiner -> Determiner = \a,b -> {
+    -- Compound jedna stays fixed even in oblique cases; dva inflects but
+    -- does not vary with the counted noun's gender (CEG 6.1.5--6.1.6).
+    s = \\g,c => a.s ! g ! c ++ case b.size of {
+      Num1 => b.s ! Fem ! Nom ; _ => b.s ! Masc Inanim ! c
+      } ;
+    -- A final scale still governs genitive in every case; other compound
+    -- tails take ordinary quantified agreement, including final 1--4.
+    size = case b.size of {NumScale => NumScale ; _ => Num5} ;
+    -- Sums ending in a scale retain the leading scale's agreement head:
+    -- tyto dva tisíce dvě stě korun, not tato dva tisíce dvě stě korun.
+    head = case b.size of {NumScale => a.head ; _ => CountedHead}
+    } ;
+  scale : ScaleAgreement -> Determiner -> Noun -> Determiner = \agr,d,n -> {
+    s = \\_,c => d.s ! n.g ! c ++ numSizeForm n.s d.size c ; size = NumScale ;
+    head = case d.head of {CountedHead => ScaleHead n.g d.size agr ; h => h}
+    } ;
+  bareScale : ScaleAgreement -> Noun -> Determiner = \agr,n -> {
+    s = \\_,c => n.s ! Sg ! c ; size = NumScale ; head = ScaleHead n.g Num1 agr
+    } ;
+  decimalScale : ScaleAgreement -> {s : Str ; size : NumSize ; hasDot : Bool} -> Noun -> Determiner = \agr,d,n -> {
+    s = \\_,c => d.s ++ case d.hasDot of {
+      True => n.s ! Sg ! Gen ; False => numSizeForm n.s d.size c
+      } ; size = NumScale ; head = ScaleHead n.g d.size agr
+    } ;
+  hundredN : Noun = nounFormsNoun ((declMESTO "sto") ** {pgen = "set" ; pdat = "stům" ; ploc = "stech"}) ;
+  thousandN : Noun = nounFormsNoun ((declSTROJ "tisíc") ** {pgen = "tisíc"}) ;
+  millionN : Noun = nounFormsNoun (declHRAD "milion") ;
+  billionN : Noun = nounFormsNoun (declZENA "miliarda") ;
 
-oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
-
+lincat
+  Digit,Sub10 = LinDigit ;
+  Sub100,Sub1000,Sub1000000,Sub1000000000,Sub1000000000000 = Determiner ;
+lin
+  num x = x ;
+  n2 = digit twoNumeral "dvanáct" "dvacet" "dvě stě" ;
+  n3 = digit threeNumeral "třináct" "třicet" "tři sta" ;
+  n4 = digit fourNumeral "čtrnáct" "čtyřicet" "čtyři sta" ;
+  n5 = digit (regNumeral "pět" "pěti") "patnáct" "padesát" "pět set" ;
+  n6 = digit (regNumeral "šest" "šesti") "šestnáct" "šedesát" "šest set" ;
+  n7 = digit (regNumeral "sedm" "sedmi") "sedmnáct" "sedmdesát" "sedm set" ;
+  n8 = digit (regNumeral "osm" "osmi") "osmnáct" "osmdesát" "osm set" ;
+  n9 = digit (regNumeral "devět" "devíti") "devatenáct" "devadesát" "devět set" ;
+  pot01 = {unit = oneNumeral ; teen = (regNumeral "jedenáct" "jedenácti").s ;
+    ten = (regNumeral "deset" "deseti").s ; hundred = (bareScale QuantifiedScale hundredN).s} ;
+  pot0 d = d ;
+  pot0as1 d = d.unit ;
+  pot110 = regNumeral "deset" "deseti" ;
+  pot111 = regNumeral "jedenáct" "jedenácti" ;
+  pot1to19 d = counted d.teen ;
+  pot1 d = counted d.ten ;
+  pot1plus d e = plus (counted d.ten) e.unit ;
+  pot1as2 n = n ;
+  pot21 = bareScale QuantifiedScale hundredN ;
+  pot2 d = hundreds d ;
+  pot2plus d e = plus (hundreds d) e ;
+  pot2as3 n = n ;
+  -- Generation default: hundreds/thousands take quantified agreement.
+  -- Tisíc also admits nominal agreement; the noun's declension is independent.
+  pot31 = bareScale QuantifiedScale thousandN ;
+  pot3 n = scale QuantifiedScale n thousandN ;
+  pot3plus n m = plus (scale QuantifiedScale n thousandN) m ;
+  pot3as4 n = n ;
+  pot3decimal d = decimalScale QuantifiedScale d thousandN ;
+  -- Millions/billions instead agree with their nominal head (dva miliony jsou).
+  pot41 = bareScale NominalScale millionN ;
+  pot4 n = scale NominalScale n millionN ;
+  pot4plus n m = plus (scale NominalScale n millionN) m ;
+  pot4as5 n = n ;
+  pot4decimal d = decimalScale NominalScale d millionN ;
+  pot51 = bareScale NominalScale billionN ;
+  pot5 n = scale NominalScale n billionN ;
+  pot5plus n m = plus (scale NominalScale n billionN) m ;
+  pot5decimal d = decimalScale NominalScale d billionN ;
 
 -- -- Numerals as sequences of digits have a separate, simpler grammar
   lincat Dig = {s:Str ; size : NumSize} ;
@@ -106,7 +103,7 @@ oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
 
     IIDig d dd = {s = d.s ++ Predef.BIND ++ dd.s ; size = Num5} ; ---- leading zeros ??
 
-    D_0 = { s = "0" ; size = Num1} ; ---- ??
+    D_0 = { s = "0" ; size = Num5} ;
     D_1 = { s = "1" ; size = Num1} ;
     D_2 = { s = "2" ; size = Num2_4} ;
     D_3 = { s = "3" ; size = Num2_4} ;
@@ -120,12 +117,12 @@ oper determinerStr : Determiner -> Str = \d -> d.s ! Masc Anim ! Nom ;
     PosDecimal d = d ** {hasDot=False} ;
     NegDecimal d = {
       s = "-" ++ Predef.BIND ++ d.s ;
-      size = Num5 ;
+      size = d.size ;
       hasDot=False
       } ;
     IFrac d i = {
       s = d.s ++
-          if_then_Str d.hasDot BIND (BIND++"."++BIND) ++
+          if_then_Str d.hasDot BIND (BIND++","++BIND) ++
           i.s ;
       size = Num5 ;
       hasDot=True

@@ -17,7 +17,7 @@ param
 
   Person = P1 | P2 | P3 ;
 
-  Agr = Ag Gender Number Person ;
+  Agr = Ag Gender Number Person | AgPol Gender | AgQuant Gender ; -- polite singular: plural verb, singular predicate
 
   CTense = CTPres | CTPast ; ----- TODO complete the tense system to match Czech verb morphology
 
@@ -71,12 +71,28 @@ oper
     _ => init (addI s) + "í"
     } ;
 
+  -- Before i/í/ě the vowel letter carries the dental's palatalization.
+  dentalStem : Str -> Str = \s -> case s of {
+    stem + "ň" => stem + "n" ; stem + "ť" => stem + "t" ;
+    stem + "ď" => stem + "d" ; _ => s
+    } ;
+
+  -- The žena ending is spelled i after a soft consonant, otherwise y.
+  addY : Str -> Str = \s -> case s of {
+    _ + #softConsonant => dentalStem s + "i" ; _ => s + "y"
+    } ;
+
   -- 3.4.10, in particular when also final 'a' is dropped
   addE : Str -> Str = \s -> case s of {
     re + "k"   => re + "ce" ;
     pra + ("g"|"h") => pra + "ze" ;
     stre + "ch" => stre  + "še" ;
     sest + "r" => sest + "ře" ;
+    stem + "l" => stem + "le" ;
+    stem + "z" => stem + "ze" ;
+    stem + "s" => stem + "se" ;
+    _ + ("ň"|"ť"|"ď") => dentalStem s + "ě" ;
+    _ + #softConsonant => s + "e" ;
     pan => pan + "ě"
     } ;
 
@@ -106,12 +122,12 @@ oper
 
 -- so this is the lincat of N
 
-  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g : Gender} ;
+  NounForms : Type = {snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ; g,gPl : Gender} ;
 
 -- But traditional tables make agreement easier to handle in syntax
 -- so this is the lincat of CN
 
-  Noun : Type = {s : Number => Case => Str ; g : Gender} ;
+  Noun : Type = {s : Number => Case => Str ; g,gPl : Gender} ;
 
 -- this is used in UseN
 
@@ -136,7 +152,7 @@ oper
 	  Ins => forms.pins
 	  }
 	} ;
-      g = forms.g
+      g = forms.g ; gPl = forms.gPl
       } ;
 
 -- terminology of CEG
@@ -209,7 +225,7 @@ oper
       pdat      = pan + "ům" ;
       pacc,pins = pan + "y" ;
       ploc      = addEch pan ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declPREDSEDA : DeclensionType = \predseda -> --- 3.5.4: sgen y/i
@@ -231,7 +247,7 @@ oper
       pdat      = predsed + "ům" ;
       pacc,pins = predsed + "y" ;
       ploc      = addEch predsed ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
 -- the oblique stem is a separate argument, because it cannot always be
@@ -248,7 +264,7 @@ oper
       pgen           = hrd + "ů" ;
       pdat           = hrd + "ům" ;
       ploc           = addEch hrd ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
   declHRAD : DeclensionType = \hrad -> --- 3.5.2: sloc u/ě/e  extra arg, sport-u, hrad-ě ; sgen u/a
@@ -259,18 +275,18 @@ oper
     in
     {
       snom      = zena ;
-      sgen      = zen + "y" ;  --- i after soft cons sometimes
-      sdat,sloc = zen + "ě" ;  --- i after soft cons sometimes ; skol+e
+      sgen      = addY zen ;
+      sdat,sloc = addE zen ;
       sacc      = zen + "u" ;
       svoc      = shortenVowel zen + "o" ; ---- shorten ?
       sins      = zen + "ou" ;
 
-      pnom,pacc = zen + "y" ;  --- also sgen
+      pnom,pacc = addY zen ;
       pgen      = zen ; --- sometimes with vowel shortening
       pdat      = zen + "ám" ;
       ploc      = zen + "ách" ;
       pins      = zen + "ami" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declMESTO : DeclensionType = \mesto -> --- 3.7.1 sloc u/e ; pgen vowel shortening sometimes ; ploc variations
@@ -288,7 +304,7 @@ oper
       pdat      = mest + "ům" ;
       ploc      = mest + "ech" ; --- with variations
       pins      = mest + "y" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 -- Latin masculines in -us: the ending is dropped outside the nominative
@@ -301,7 +317,7 @@ oper
       } ;
 
   declLATINUSA : DeclensionType = \genius ->
-    declLATINUS genius ** {g = Masc Anim} ;
+    declLATINUS genius ** {g,gPl = Masc Anim} ;
 
 -- Latin neuters in -um: the ending is dropped outside the nominative
 -- (kontinuum - kontinua), otherwise they follow město
@@ -324,7 +340,7 @@ oper
       pdat      = schemat + "ům" ;
       ploc      = schemat + "ech" ;
       pins      = schemat + "y" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 -- the hrad type with genitive -a instead of -u (les - lesa, zákon - zákona)
@@ -347,7 +363,7 @@ oper
       pgen,ploc = a.pgen ;
       pdat      = a.msins ;
       pins      = a.pins ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declADJM : DeclensionType = \nulty ->
@@ -362,14 +378,14 @@ oper
       pgen,ploc = a.pgen ;
       pdat      = a.msins ;
       pins      = a.pins ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
 -- indeclinable loans: bombé, tamari, software
   declINVAR : Gender -> DeclensionType = \g,s -> {
     snom,sgen,sdat,sacc,svoc,sloc,sins = s ;
     pnom,pgen,pdat,pacc,ploc,pins      = s ;
-    g = g
+    g,gPl = g
     } ;
 
   declMUZ : DeclensionType = \muz_ -> --- 3.5.3 : sdat,sloc ; pnom
@@ -395,7 +411,7 @@ oper
       pdat = muz + "ům" ;
       ploc = muz + "ích" ;
       pins = muz + "i" ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declSOUDCE : DeclensionType = \soudce ->   --- 3.5.3: sdat/sloc i,ovi ; pnom i/ové
@@ -412,7 +428,7 @@ oper
       pacc                = soudce ;
       ploc                = soudc + "ích" ;
       pins                = soudc + "i" ;
-      g = Masc Anim
+      g,gPl = Masc Anim
       } ;
 
   declSTROJ : DeclensionType = \stroj ->
@@ -427,7 +443,7 @@ oper
       pdat           = stroj + "ům" ;
       ploc           = stroj + "ích" ;
       pins           = stroj + "i" ;
-      g = Masc Inanim
+      g,gPl = Masc Inanim
       } ;
 
   declRUZE : DeclensionType = \ruze -> --- 3.6.2: pgen ulice-ulic, chvile-cvil
@@ -443,11 +459,11 @@ oper
       pdat      = ruz + "ím" ;
       ploc      = ruz + "ích" ;
       pins      = ruz + "emi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declPISEN : DeclensionType = \pisen ->
-    let pisn = dropFleetingE pisen
+    let pisn = dentalStem (dropFleetingE pisen)
     in
     {
       snom,sacc      = pisen ;
@@ -460,21 +476,23 @@ oper
       pdat           = pisn + "ím" ;
       ploc           = pisn + "ích" ;
       pins           = pisn + "ěmi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declKOST : DeclensionType = \kost ->
+    let stem = dentalStem kost
+    in
     {
       snom,sacc           = kost ;
-      sgen,sdat,svoc,sloc = kost + "i" ; --- pnom,pacc
-      sins                = kost + "í" ; --- pgen
+      sgen,sdat,svoc,sloc = stem + "i" ; --- pnom,pacc
+      sins                = stem + "í" ; --- pgen
 
-      pnom,pacc      = kost + "i" ;
-      pgen           = kost + "í" ;
-      pdat           = kost + "em" ;
-      ploc           = kost + "ech" ;
+      pnom,pacc      = stem + "i" ;
+      pgen           = stem + "í" ;
+      pdat           = stem + "em" ;
+      ploc           = stem + "ech" ;
       pins           = kost + "mi" ;
-      g = Fem
+      g,gPl = Fem
       } ;
 
   declKURE : DeclensionType = \kure ->
@@ -491,7 +509,7 @@ oper
       pdat      = kur + "atům" ;
       ploc      = kur + "atech" ;
       pins      = kur + "aty" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
   declMORE : DeclensionType = \more -> --- 3.7.2 pgen zero sometimes
@@ -507,7 +525,7 @@ oper
       pdat      = mor + "ím" ;
       ploc      = mor + "ích" ;
       pins      = mor + "i" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
   declSTAVENI : DeclensionType = \staveni ->
@@ -519,7 +537,7 @@ oper
       pdat           = staveni + "m" ;
       ploc           = staveni + "ch" ;
       pins           = staveni + "mi" ;
-      g = Neutr
+      g,gPl = Neutr
       } ;
 
 ---------------------------
@@ -528,8 +546,24 @@ oper
 -- to be used for AP: 56 forms for each degree
   Adjective : Type = {s : Gender => Number => Case => Str} ;
 
+  -- Long predicates agree with the counted noun; short predicates instead
+  -- use neuter singular with a quantified subject.
+  longPredicate : Adjective -> Agr => Str = \ap -> \\a => case a of {
+    Ag g n _ => ap.s ! g ! n ! Nom ;
+    AgPol g => ap.s ! g ! Sg ! Nom ;
+    AgQuant g => ap.s ! g ! Pl ! Gen
+    } ;
+  shortPredicate : Adjective -> Agr => Str = \ap -> \\a => case a of {
+    AgQuant _ => ap.s ! Neutr ! Sg ! Nom ;
+    _ => longPredicate ap ! a
+    } ;
+
 -- to be used for A, in three degrees: 15 forms in each
----- TODO other degrees than positive
+  DegreeForms : Type = AdjForms ** {compar,superl : AdjForms} ;
+
+  positiveAdj : AdjForms -> DegreeForms = \a -> a ** {
+    compar,superl = invarAdjForms nonExist
+    } ;
 
   AdjForms : Type = {
     msnom, fsnom, nsnom : Str ; -- svoc = snom
@@ -584,6 +618,36 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     }
 
     } ;
+
+  -- Regular comparison plus common lexical exceptions. Spelling cannot
+  -- determine semantic gradability or every stem alternation: callers can
+  -- supply a comparative or nonExist explicitly.
+  guessComparative : Str -> Str = \s -> case s of {
+    "dobrý" => "lepší" ; "špatný" | "zlý" => "horší" ;
+    "malý" => "menší" ; "velký" => "větší" ; "dlouhý" => "delší" ;
+    "mladý" => "mladší" ; "starý" => "starší" ;
+    "chudý" => "chudší" ; "tvrdý" => "tvrdší" ; "bledý" => "bledší" ;
+    "bílý" => "bělejší" ; "hnědý" => "hnědší" ; "hezký" => "hezčí" ;
+    stem + "cký" => stem + "čtější" ;
+    stem + "ský" => stem + "štější" ;
+    stem + ("ný" | "ní") => stem + "nější" ;
+    stem + "lý" => stem + "lejší" ;
+    stem + "rý" => stem + "řejší" ;
+    stem + "vý" => stem + "vější" ;
+    stem + "dý" => stem + "dější" ;
+    stem + "tý" => stem + "tější" ;
+    stem + "pý" => stem + "pější" ;
+    stem + "bý" => stem + "bější" ;
+    stem + "mý" => stem + "mější" ;
+    stem + "zí" => stem + "zejší" ;
+    stem + "ží" => stem + "žejší" ;
+    _ => nonExist
+    } ;
+
+  degreeAdjForms : Str -> Str -> DegreeForms = \p,c ->
+    (guessAdjForms p) ** {
+      compar = guessAdjForms c ; superl = guessAdjForms ("nej" + c)
+      } ;
 
   guessAdjForms : Str -> AdjForms = \s -> case s of {
         _ + "ý"  => mladyAdjForms s ;
@@ -652,32 +716,133 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 ---------------------
 -- Verbs
 
-  VerbForms : Type = {          ---- TODO more forms to add
+  -- Public input schema of ParadigmsCze.VerbPrincipalParts. Keep existing
+  -- record literals valid: derived forms belong in VerbForms; additional
+  -- principal parts need a new constructor or overload.
+  PositiveVerbForms : Type = {
     inf,
+    impsg2, imppl1, imppl2,
     pressg1, pressg2, pressg3,
     prespl1, prespl2, prespl3,
-    pastpartsg, pastpartpl,
-----    passpart,
-    negpressg3 : Str   -- matters only for copula
+    pastpartsg, pastpartpl : Str
     } ;
+
+  VerbForms : Type = PositiveVerbForms ** {
+    negpressg1,negpressg2,negpressg3,negprespl1,negprespl2,negprespl3,
+    negimpsg2,negimppl1,negimppl2,refl : Str ; isRefl : Bool
+    } ;
+
+  -- Prefix at lexical construction time, so ordinary spelling also parses.
+  withNeg : PositiveVerbForms -> VerbForms = \v -> v ** {
+    refl = [] ; isRefl = False ;
+    negpressg1 = "ne" + v.pressg1 ; negpressg2 = "ne" + v.pressg2 ;
+    negpressg3 = "ne" + v.pressg3 ;
+    negprespl1 = "ne" + v.prespl1 ; negprespl2 = "ne" + v.prespl2 ;
+    negprespl3 = "ne" + v.prespl3 ;
+    negimpsg2 = "ne" + v.impsg2 ; negimppl1 = "ne" + v.imppl1 ; negimppl2 = "ne" + v.imppl2
+    } ;
+
+  -- Vocalization depends on the next realized token, not on the noun head.
+  -- These environments choose a neutral standard form; other clusters can
+  -- admit stylistic variants (https://prirucka.ujc.cas.cz/?id=770).
+  vPreposition : Str =
+    let continuation : Str -> Strs = \p -> strs {
+          p+"a"; p+"á"; p+"b"; p+"c"; p+"č"; p+"d"; p+"ď"; p+"e"; p+"é"; p+"ě";
+          p+"f"; p+"g"; p+"h"; p+"i"; p+"í"; p+"j"; p+"k"; p+"l"; p+"m"; p+"n";
+          p+"ň"; p+"o"; p+"ó"; p+"p"; p+"q"; p+"r"; p+"ř"; p+"s"; p+"š"; p+"t";
+          p+"ť"; p+"u"; p+"ú"; p+"ů"; p+"v"; p+"w"; p+"x"; p+"y"; p+"ý"; p+"z"; p+"ž"
+          } ;
+        longerMe : Strs = continuation "mě" ;
+        longerMeCapital : Strs = continuation "Mě"
+    in pre {
+    -- pre matches prefixes: apply the měst- default to derived words too,
+    -- then distinguish pronoun mě from longer words such as měna and měřítko.
+    "měst" | "Měst" => "ve" ;
+    longerMe => "v" ;
+    longerMeCapital => "v" ;
+    "mlýn" | "Mlýn" => "ve" ;
+    "v" | "V" | "f" | "F" | "mě" | "mně" | "mne" | "mz" | "dv" | "čt" | "tř" | "hř" => "ve" ;
+    "sb" | "sc" | "sd" | "sf" | "sh" | "sk" | "sl" | "sm" | "sn" | "sp" | "st" | "sv" |
+    "zb" | "zd" | "zh" | "zk" | "zl" | "zm" | "zn" | "zv" |
+    "šk" | "šp" | "št" | "šv" | "Šk" | "Šp" | "Št" | "Šv" | "žd" | "žl" | "žr" => "ve" ;
+    "Mě" | "Mně" | "Mne" | "Mz" | "Dv" | "Čt" | "Tř" | "Hř" | "Sb" | "Sc" | "Sd" | "Sf" | "Sh" | "Sk" | "Sl" | "Sm" | "Sn" | "Sp" | "St" | "Sv" | "Zb" | "Zd" | "Zh" | "Zk" | "Zl" | "Zm" | "Zn" | "Zv" | "Žd" | "Žl" | "Žr" => "ve" ;
+    _ => "v"
+    } ;
+
+  -- s/z share these common environments; v has a different profile.
+  -- These defaults do not enumerate every lexical/style variant.
+  szPreposition : Str -> Str -> Str = \bare,vocalized -> pre {
+    "s" | "z" | "š" | "ž" | "mn" | "mz" | "vš" | "vs" | "vz" | "vč" | "dv" | "čt" | "tř" | "ps" |
+    "S" | "Z" | "Š" | "Ž" | "Mn" | "Mz" | "Vš" | "Vs" | "Vz" | "Vč" | "Dv" | "Čt" | "Tř" | "Ps" => vocalized ;
+    _ => bare
+    } ;
+
+  sPreposition : Str = szPreposition "s" "se" ;
+  zPreposition : Str = szPreposition "z" "ze" ;
 
   ComplementCase : Type = {s : Str ; c : Case ; hasPrep : Bool} ;
 
-  verbAgr : VerbForms -> Agr -> Bool -> Str   ---- TODO tenses
-    = \vf,a,b -> case a of {
-      Ag _ Sg P1 => vf.pressg1 ;
-      Ag _ Sg P2 => vf.pressg2 ;
-      Ag _ Sg P3 => case b of {
-        True  => vf.pressg3 ;
-	False => vf.negpressg3 -- matters only for copula
-	} ;
-      Ag _ Pl P1 => vf.prespl1 ;
-      Ag _ Pl P2 => vf.prespl2 ;
-      Ag _ Pl P3 => vf.prespl3
+  hasCliticComplement : ComplementCase -> Bool -> Bool = \p,hasClit ->
+    case <hasClit,p.hasPrep,p.c> of {
+      <True,False,Gen | Dat | Acc> => True ;
+      _ => False
       } ;
 
-  copulaVerbForms : VerbForms = {
+  -- Dative precedes genitive/accusative; otherwise retain argument order.
+  cliticBefore : Case -> Case -> Bool = \first,second -> case <first,second> of {
+    <Gen | Acc,Dat> => False ;
+    _ => True
+    } ;
+
+  -- Full complements: prepositions select n-forms, bare cases select j-forms.
+  -- Clitic eligibility and placement are handled separately by the caller.
+  fullComplement : ComplementCase -> (Case => Str) -> (Case => Str) -> Str =
+    \p,bare,prep -> p.s ++ case p.hasPrep of {
+      True => prep ! p.c ; False => bare ! p.c
+      } ;
+
+  verbAgr : VerbForms -> Agr -> Bool -> Str
+    = \vf,a,b -> case <a,b> of {
+      <Ag _ Sg P1,True> => vf.pressg1 ; <Ag _ Sg P1,False> => vf.negpressg1 ;
+      <Ag _ Sg P2,True> => vf.pressg2 ; <Ag _ Sg P2,False> => vf.negpressg2 ;
+      <Ag _ Sg P3 | AgQuant _,True> => vf.pressg3 ; <Ag _ Sg P3 | AgQuant _,False> => vf.negpressg3 ;
+      <Ag _ Pl P1,True> => vf.prespl1 ; <Ag _ Pl P1,False> => vf.negprespl1 ;
+      <Ag _ Pl P2 | AgPol _,True> => vf.prespl2 ; <Ag _ Pl P2 | AgPol _,False> => vf.negprespl2 ;
+      <Ag _ Pl P3,True> => vf.prespl3 ; <Ag _ Pl P3,False> => vf.negprespl3
+      } ;
+
+  imperativeAgr : VerbForms -> Agr -> Bool -> Str = \v,a,pos -> case <a,pos> of {
+    <Ag _ Sg _,True> => v.impsg2 ; <Ag _ Sg _,False> => v.negimpsg2 ;
+    <Ag _ Pl P1,True> => v.imppl1 ; <Ag _ Pl P1,False> => v.negimppl1 ;
+    <_,True> => v.imppl2 ; <_,False> => v.negimppl2
+    } ;
+
+
+  -- s is the ordinary order; fronted places the clitics first, ready for
+  -- an external host. clit/body retain the pieces needed by further fronting.
+  -- Keep complete orders as well as pieces so markup can enclose a sentence
+  -- in either order without leaking the moved clitics outside its scope.
+  Sentence : Type = {s,fronted,clit,body : Str ; clitPresent : Bool} ;
+  sentence : Bool -> Str -> Str -> Str -> Sentence = \present,first,clit,rest -> {
+    s = first ++ clit ++ rest ; fronted = clit ++ first ++ rest ;
+    clit = clit ; body = first ++ rest ; clitPresent = present
+    } ;
+  frontSentence : Str -> Sentence -> Sentence = \first,s -> s ** {
+    s = first ++ s.fronted ; fronted = s.clit ++ first ++ s.body ;
+    body = first ++ s.body
+    } ;
+  prefixSentence : Str -> Sentence -> Sentence = \first,s -> s ** {
+    s = first ++ s.s ; fronted = s.clit ++ first ++ s.body ;
+    body = first ++ s.body
+    } ;
+  -- Appended clauses retain their own domains; only s's clitics can move.
+  appendSentence : Sentence -> Str -> Sentence = \s,last -> s ** {
+    s = s.s ++ last ; fronted = s.fronted ++ last ; body = s.body ++ last
+    } ;
+
+  copulaVerbForms : VerbForms = (withNeg {
     inf = "být" ;
+    impsg2 = "buď" ; imppl1 = "buďme" ; imppl2 = "buďte" ;
     pressg1 = "jsem" ;
     pressg2 = "jsi" ;
     pressg3 = "je" ;
@@ -686,14 +851,14 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     prespl3 = "jsou" ;
     pastpartsg = "byl" ;
     pastpartpl = "byli" ;
-    negpressg3 = "ní" ;  -- ne is added to this
-    } ;
+    }) ** {negpressg3 = "není"} ;
 
-  haveVerbForms : VerbForms = {
+  haveVerbForms : VerbForms = withNeg {
     inf = "mít" ;
+    impsg2 = "měj" ; imppl1 = "mějme" ; imppl2 = "mějte" ;
     pressg1 = "mám" ;
     pressg2 = "máš" ;
-    pressg3, negpressg3 = "má" ;
+    pressg3 = "má" ;
     prespl1 = "máme" ;
     prespl2 = "máte" ;
     prespl3 = "mají" ;
@@ -709,11 +874,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
      kupo = Predef.tk 3 kupovat ;
      kupu = Predef.tk 1 kupo + "u"
    in
-   {
+   withNeg {
     inf = kupovat ;
+    impsg2 = kupu + "j" ; imppl1 = kupu + "jme" ; imppl2 = kupu + "jte" ;
     pressg1 = kupu + "ji" ; --- kupuju
     pressg2 = kupu + "ješ" ;
-    pressg3, negpressg3 = kupu + "je" ;
+    pressg3 = kupu + "je" ;
     prespl1 = kupu + "jeme" ;
     prespl2 = kupu + "jete" ;
     prespl3 = kupu + "jí" ; --- kupujou
@@ -725,11 +891,12 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
    let
      kry = shortenVowel (Predef.tk 1 krýt) ;
    in
-   {
+   withNeg {
     inf = krýt ;
+    impsg2 = kry + "j" ; imppl1 = kry + "jme" ; imppl2 = kry + "jte" ;
     pressg1 = kry + "ji" ;
     pressg2 = kry + "ješ" ;
-    pressg3, negpressg3 = kry + "je" ;
+    pressg3 = kry + "je" ;
     prespl1 = kry + "jeme" ;
     prespl2 = kry + "jete" ;
     prespl3 = kry + "jí" ;
@@ -747,12 +914,13 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     dat, cdat,pdat,
     loc,
     ins,pins        : Str ;
-    a : Agr
+    a : Agr ; isDrop : Bool
     } ;
 
   personalPron : Agr -> PronForms = \a ->
-    {a = a ; cnom = []} **
+    {a = a ; cnom = [] ; isDrop = False} **
     case a of {
+      AgQuant _ => {nom,gen,cgen,pgen,acc,cacc,pacc,dat,cdat,pdat,loc,ins,pins = nonExist} ;
       Ag _ Sg P1 => {
         nom = "já" ;
         gen,acc,pgen,pacc = "mne" ;
@@ -783,9 +951,10 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag Fem Sg P3 => {
         nom = "ona" ;
-        gen = "její" ;
-        dat,acc,cgen,cacc,cdat,ins = "ji" ;
-        pgen,pdat,pacc,loc,pins = "ní" ;
+        gen,dat,cgen,cdat,ins = "jí" ;
+        acc,cacc = "ji" ;
+        pacc = "ni" ;
+        pgen,pdat,loc,pins = "ní" ;
         } ;
       Ag Neutr Sg P3 => {
         nom = "ono" ;
@@ -810,7 +979,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         dat,cdat,pdat = "nám" ;
 	ins,pins = "námi" ;
         } ;
-      Ag _ Pl P2 => {
+      Ag _ Pl P2 | AgPol _ => {
         nom = "vy" ;
         gen,acc,
           cgen,cacc,
@@ -821,7 +990,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
         } ;
       Ag g Pl P3 => {
         nom = case g of {
-	  Masc _ => "oni" ;
+	  Masc Anim => "oni" ;
+          Masc Inanim => "ony" ;
 	  Fem => "ony" ;
 	  Neutr => "ona"
 	  } ;
@@ -842,29 +1012,31 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       Ag _ Sg P1 => mladyAdjForms "my" ** {msnom = "můj" ; pdat = "mým"} ;  --- alts: moje, moji,...
       Ag _ Sg P2 => mladyAdjForms "tvy" ** {msnom = "tvůj" ; pdat = "tvým"} ;
       
-      Ag _ Pl P1   => jarniAdjForms "naše" ** {
-        msnom = "náš" ;
-	fsgen,mpnom = "naši" ;
-	fsins = "naší" ;
-	pdat, msins = "našim" ;
-	pgen = "našich" ;
-	pins = "našimi" ;
-	} ;
-      Ag _ Pl P2   => jarniAdjForms "vaše" ** {
-        msnom = "váš" ;
-	fsgen,mpnom = "vaši" ;
-	fsins = "vaší" ;
-	pdat, msins = "vašim" ;
-	pgen = "vašich" ;
-	pins = "vašimi" ;
-	} ;
+      Ag _ Pl P1 => nasPossessiveForms "náš" "naš" ;
+      Ag _ Pl P2 | AgPol _ => nasPossessiveForms "váš" "vaš" ;
 	
       Ag Fem Sg P3 => jarniAdjForms "její" ** {pdat = "jejím"} ;
 
       Ag (Masc _ | Neutr) Sg P3 => invarDemPronForms "jeho" ** {pdat = "jeho"} ;
-      Ag _ Pl P3 => invarDemPronForms "jejich" ** {pdat = "jejich"}
+      Ag _ Pl P3 | AgQuant _ => invarDemPronForms "jejich" ** {pdat = "jejich"}
 
 
+    } ;
+
+  -- Náš/váš distinguish feminine accusative naši from oblique naší,
+  -- and singular instrumental naším from plural dative našim.
+  nasPossessiveForms : Str -> Str -> DemPronForms = \nas,nasStem -> {
+    msnom = nas ;
+    fsnom,nsnom,fpnom = nasStem + "e" ;
+    msgen = nasStem + "eho" ;
+    fsgen,fsins = nasStem + "í" ;
+    msdat = nasStem + "emu" ;
+    fsacc,mpnom = nasStem + "i" ;
+    msloc = nasStem + "em" ;
+    msins = nasStem + "ím" ;
+    pgen = nasStem + "ich" ;
+    pdat = nasStem + "im" ;
+    pins = nasStem + "imi"
     } ;
 
   reflPossessivePron : DemPronForms = mladyAdjForms "svy" ** {msnom = "svůj" ; pdat = "svým"} ;
@@ -918,7 +1090,8 @@ oper
 
   Determiner : Type = {
     s : Gender => Case => Str ;
-    size : NumSize
+    size : NumSize ;  -- number and case of the counted noun
+    head : NumHead    -- agreement of a quantifier preceding the numeral
     } ;
 
   mkDemPronForms : Str -> DemPronForms = \t -> {
@@ -984,50 +1157,38 @@ oper
       adjAdj = adjFormsAdjective demAdj
     in {
       s = \\g,c => adjAdj.s ! g ! Sg ! c ;
-      size = size
+      size = size ; head = CountedHead
       } ;
 
   -- example: number 1
   oneNumeral : Determiner = numeralFormsDeterminer ((mkDemPronForms "jedn") ** {msnom = "jeden"}) Num1 ;
 
-  -- numbers 2,3,4 ---- to check if everything comes out right with the determiner type
-  twoNumeral : Determiner =
-    let forms = {
-      msnom = "dva" ; fsnom, nsnom, fsacc = "dvě" ;
-      msgen, fsgen, msloc = "dvou" ;
-      msdat, msins, fsins = "dvěma"
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  threeNumeral : Determiner =
-    let forms = {
-      msnom, fsnom, nsnom, fsacc, msgen, fsgen = "tři" ;
-      msdat = "třem" ;
-      msloc = "třech" ;
-      msins,fsins = "třemi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
-
-  fourNumeral : Determiner =
-    let forms = {
-      msnom, fsnom, nsnom, fsacc = "čtyři" ;
-      msgen, fsgen = "čtyř" ;
-      msdat = "čtyřem" ;
-      msloc = "čtyřech" ;
-      msins,fsins = "čtyřmi" ;
-      }
-    in numeralFormsDeterminer forms Num2_4 ;
+  -- Unlike adjectives, 2--4 do not use the genitive for animate accusatives.
+  twoNumeral : Determiner = {
+    s = \\g,c => case c of {
+      Nom|Acc|Voc => case g of {Masc _ => "dva" ; _ => "dvě"} ;
+      Gen|Loc => "dvou" ; Dat|Ins => "dvěma"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
+  threeNumeral : Determiner = {
+    s = \\_,c => case c of {
+      Nom|Acc|Voc => "tři" ; Gen => "tří" ; Dat => "třem" ; Loc => "třech" ; Ins => "třemi"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
+  fourNumeral : Determiner = {
+    s = \\_,c => case c of {
+      Nom|Acc|Voc => "čtyři" ; Gen => "čtyř" ; Dat => "čtyřem" ; Loc => "čtyřech" ; Ins => "čtyřmi"
+      } ; size = Num2_4 ; head = CountedHead
+    } ;
 
   -- for the numbers 5 upwards
-  regNumeral : Str -> Str -> Determiner = \pet,peti ->
-    let forms = {
-      msnom,fsnom,nsnom = pet ;
-      msgen, fsgen, msdat, fsacc, msloc, msins, fsins = peti
-      }
-    in numeralFormsDeterminer forms Num5 ;
+  regNumeral : Str -> Str -> Determiner = \pet,peti -> {
+    s = \\_,c => case c of {Nom | Acc | Voc => pet ; _ => peti} ;
+    size = Num5 ; head = CountedHead
+    } ;
 
   invarDeterminer : Str -> NumSize -> Determiner = \sto,size ->
-    regNumeral sto sto ;
+    (regNumeral sto sto) ** {size = size} ;
 
   invarNumeral : Str -> Determiner = \s -> invarDeterminer s Num5 ;
 
@@ -1035,22 +1196,105 @@ oper
 -- combining nouns with numerals
 
 param
-  NumSize = Num1 | Num2_4 | Num5 ; -- CEG 6.1
+  NumSize = Num1 | Num2_4 | Num5 | NumScale ; -- CEG 6.1
+  -- A scale noun has its own agreement: tímto tisícem vs. těchto pěti tisíců.
+  -- Nested scales retain the outer head: tato dvě stě tisíc korun.
+  ScaleAgreement = QuantifiedScale | NominalScale ;
+  NumHead = CountedHead | ScaleHead Gender NumSize ScaleAgreement ;
+  -- NP modifiers have gender/number/case agreement, never verbal person.
+  ModifierAgr = Mod Gender Number | ModQuant Gender ;
 
 oper
+  quantifierForm : Adjective -> Determiner -> Gender -> Case -> Str = \q,num,g,c ->
+    case num.head of {
+      CountedHead => q.s ! g ! numSizeNumber num.size ! countCase num.size c ;
+      ScaleHead sg size _ => q.s ! sg ! numSizeNumber size ! countCase size c
+      } ;
+
+  quantifyNumeral : Adjective -> Determiner -> Determiner = \q,num -> num ** {
+    s = \\g,c => quantifierForm q num g c ++ num.s ! g ! c
+    } ;
+
+  -- Predeterminers agree with the NP head, including a quantified head in
+  -- the genitive. This differs from clause agreement for e.g. tisíc korun.
+  numeralModAgr : Gender -> Determiner -> ModifierAgr = \g,num -> case num.head of {
+    CountedHead => modifierAgr (numSizeAgr g num.size P3) ;
+    ScaleHead sg size _ => modifierAgr (numSizeAgr sg size P3)
+    } ;
+
+  modifierAgr : Agr -> ModifierAgr = \a -> case a of {
+    Ag g n _ => Mod g n ; AgPol g => Mod g Sg ; AgQuant g => ModQuant g
+    } ;
+
+  predetForm : Adjective -> ModifierAgr -> Case -> Str = \pred,a,c -> case a of {
+    Mod g n => pred.s ! g ! n ! c ;
+    ModQuant g => pred.s ! g ! Pl ! countCase Num5 c
+    } ;
+
+  -- Keep the boundary for my všichni doma, also after AdvNP. Complete forms
+  -- retain a single markup wrapper; insertion can use separately marked pieces.
+  NPForms : Type = {
+    s,prep,before,prepBefore : Case => Str ;
+    after : Str
+    } ;
+
+  npForms : (Case => Str) -> (Case => Str) -> NPForms = \s,prep -> {
+    s,before = s ; prep,prepBefore = prep ; after = []
+    } ;
+
+  appendNPForms : NPForms -> Str -> NPForms = \np,adv -> np ** {
+    s = \\c => np.s ! c ++ adv ; prep = \\c => np.prep ! c ++ adv ;
+    after = np.after ++ adv
+    } ;
+
+  predetNPForms : Bool -> (Case => Str) -> NPForms -> NPForms = \post,pred,np ->
+    case post of {
+      True => np ** {
+        s = \\c => np.before ! c ++ pred ! c ++ np.after ;
+        prep = \\c => np.prepBefore ! c ++ pred ! c ++ np.after ;
+        before = \\c => np.before ! c ++ pred ! c ;
+        prepBefore = \\c => np.prepBefore ! c ++ pred ! c
+        } ;
+      False => np ** {
+        s = \\c => pred ! c ++ np.s ! c ;
+        prep = \\c => pred ! c ++ np.prep ! c ;
+        before = \\c => pred ! c ++ np.before ! c ;
+        prepBefore = \\c => pred ! c ++ np.prepBefore ! c
+        }
+      } ;
+
+  nounGender : Noun -> Number -> Gender = \cn,n -> case n of {
+    Sg => cn.g ; Pl => cn.gPl
+    } ;
+
+  countCase : NumSize -> Case -> Case = \n,c -> case <n,c> of {
+    <NumScale,_> | <Num5, Nom | Acc | Voc> => Gen ; _ => c
+    } ;
+
   numSizeForm : (Number => Case => Str) -> NumSize -> Case -> Str
     = \cns,n,c -> case n of {
         Num1   => cns ! Sg ! c ;
+        NumScale => cns ! Pl ! Gen ;
 	Num2_4 => cns ! Pl ! c ;
 	Num5   => case c of {
-	  Nom | Acc => cns ! Pl ! Gen ;
+	  Nom | Acc | Voc => cns ! Pl ! Gen ;
 	  _ => cns ! Pl ! c
 	  }
 	} ;
 
+  -- Clause agreement is independent of the counted noun's genitive case.
+  -- Millions/billions normally agree with their scale head; hundreds and
+  -- thousands use quantified agreement by default. Five million still has
+  -- a quantified head, while two million has a plural nominal head.
+  numeralAgr : Gender -> Determiner -> Person -> Agr = \g,num,p ->
+    case num.head of {
+      ScaleHead sg size NominalScale => numSizeAgr sg size p ;
+      _ => numSizeAgr g num.size p
+    } ;
+
   numSizeAgr : Gender -> NumSize -> Person -> Agr
     = \g,ns,p -> case ns of {
-        Num5   => Ag Neutr Sg p ; -- essential grammar 6.1.4
+        Num5 | NumScale => AgQuant g ; -- essential grammar 6.1.4
 	Num2_4 => Ag g Pl p ;
 	Num1   => Ag g Sg p
 	} ;
