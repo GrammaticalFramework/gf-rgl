@@ -7,6 +7,8 @@ lin FullName gn sn = {
     } ;
 
 lin UseLN ln = ln ** {det = []} ;
+lin PlainLN ln = ln ** {det = []} ;
+lin AdjLN ap ln = {s = ap.s ! Attr ++ possessive_s ++ ln.s} ;
 
 lin InLN ln = 
   let prep : Prep = mkPrep "里" []

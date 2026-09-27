@@ -103,4 +103,14 @@ concrete NounChi of Noun = CatChi ** open ResChi, Prelude in {
 
     CountNP det np = np ** {det = det.s ++ ge_s ++ possessive_s ++ np.det} ; --- classifier from NP?
 
+    DetDAP det = det ** {adj = []} ;
+    AdjDAP dap ap = dap ** {
+      adj = dap.adj ++ ap.s ! Attr ++ possessive_s
+      } ;
+
+    QuantityNP decimal mu = mkNP (case mu.isPre of {
+      True => mu.s ++ decimal.s ;
+      False => decimal.s ++ mu.s
+      }) ;
+
 }

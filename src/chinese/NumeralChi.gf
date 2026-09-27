@@ -139,6 +139,20 @@ lin pot3plus n m =
   {s,p = (n.s ! shiwan0) ++ (ling ! <n.end0,m.beg0>) ++ m.s ! bai0} ;
 lin pot3as4 n = n ;
 
+lin pot21 = {
+  beg0 = nozero ; end0 = zero ;
+  s,p = table {_ => yi_s ++ "百"}
+  } ;
+lin pot31 = {s,p = yi_s ++ "千"} ;
+
+lin pot41 = {s,p = yi_s ++ "百万"} ;
+lin pot4 n = {s,p = n.s ! bai ++ "百万"} ;
+lin pot4plus n m = {s,p = n.s ! bai ++ "百万" ++ m.s} ;
+
+lin pot51 = {s,p = "十亿"} ;
+lin pot5 n = {s,p = n.s ! bai ++ "十亿"} ;
+lin pot5plus n m = {s,p = n.s ! bai ++ "十亿" ++ m.s} ;
+
 lin pot4as5 n = n ;
 
 -- numerals as sequences of digits
