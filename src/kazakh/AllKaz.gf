@@ -1,4 +1,5 @@
 concrete AllKaz of AllKazAbs =
-  LangKaz
+  LangKaz,
+  ExtendKaz
   **
     {} ;

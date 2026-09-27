@@ -2,29 +2,29 @@ resource ParadigmsKaz = MorphoKaz  ** open Predef, Prelude, CatKaz, ResKaz in {
 oper
   regN : Str -> N   -- s;Nom;Sg
     = \form -> case form of {
-		_ + "дас" => mkN004 form;
-		_ + "нас" => mkN004 form;
-		_ + "йыс" => mkN004 form;
+		_ + "дас" => mkN001 form;
+		_ + "нас" => mkN001 form;
+		_ + "йыс" => mkN001 form;
 		_ + "дыс" => mkN020 form;
 		_ + "ніс" => mkN009 form;
 		_ + "гіс" => mkN009 form;
 		_ + "тіс" => mkN022 form;
 		_ + "мес" => mkN009 form;
 		_ + "ғат" => mkN020 form;
-		_ + "нат" => mkN004 form;
-		_ + "пат" => mkN004 form;
-		_ + "жат" => mkN004 form;
+		_ + "нат" => mkN001 form;
+		_ + "пат" => mkN001 form;
+		_ + "жат" => mkN001 form;
 		_ + "зат" => mkN020 form;
-		_ + "ұлт" => mkN004 form;
+		_ + "ұлт" => mkN001 form;
 		_ + "ілт" => mkN021 form;
-		_ + "уыт" => mkN004 form;
+		_ + "уыт" => mkN001 form;
 		_ + "ірт" => mkN009 form;
 		_ + "орт" => mkN020 form;
 		_ + "ырт" => mkN020 form;
-		_ + "шот" => mkN004 form;
-		_ + "ант" => mkN004 form;
+		_ + "шот" => mkN001 form;
+		_ + "ант" => mkN001 form;
 		_ + "ент" => mkN021 form;
-		_ + "хит" => mkN004 form;
+		_ + "хит" => mkN001 form;
 		_ + "нөт" => mkN009 form;
 		_ + "тет" => mkN009 form;
 		_ + "лет" => mkN022 form;
@@ -39,12 +39,12 @@ oper
 		_ + "ліш" => mkN021 form;
 		_ + "ріш" => mkN022 form;
 		_ + "шам" => mkN003 form;
-		_ + "нам" => mkN064 form;
+		_ + "нам" => mkN002 form;
 		_ + "йым" => mkN026 form;
 		_ + "рым" => mkN026 form;
 		_ + "жым" => mkN026 form;
-		_ + "ным" => mkN066 form;
-		_ + "тым" => mkN066 form;
+		_ + "ным" => mkN002 form;
+		_ + "тым" => mkN002 form;
 		_ + "нім" => mkN016 form;
 		_ + "рім" => mkN035 form;
 		_ + "дем" => mkN035 form;
@@ -53,22 +53,22 @@ oper
 		_ + "ран" => mkN003 form;
 		_ + "жан" => mkN003 form;
 		_ + "оян" => mkN003 form;
-		_ + "мән" => mkN028 form;
-		_ + "сін" => mkN028 form;
-		_ + "кін" => mkN028 form;
+		_ + "мән" => mkN016 form;
+		_ + "сін" => mkN016 form;
+		_ + "кін" => mkN016 form;
 		_ + "гін" => mkN035 form;
-		_ + "лен" => mkN028 form;
-		_ + "рен" => mkN028 form;
+		_ + "лен" => mkN016 form;
+		_ + "рен" => mkN016 form;
 		_ + "йың" => mkN003 form;
 		_ + "заң" => mkN019 form;
-		_ + "пап" => mkN004 form;
-		_ + "лып" => mkN004 form;
+		_ + "пап" => mkN043 form;
+		_ + "лып" => mkN043 form;
 		_ + "қып" => mkN020 form;
-		_ + "сық" => mkN004 form;
-		_ + "шық" => mkN004 form;
-		_ + "зақ" => mkN004 form;
-		_ + "уақ" => mkN004 form;
-		_ + "қақ" => mkN004 form;
+		_ + "сық" => mkN015 form;
+		_ + "шық" => mkN015 form;
+		_ + "зақ" => mkN015 form;
+		_ + "уақ" => mkN015 form;
+		_ + "қақ" => mkN015 form;
 		_ + "ыла" => mkN030 form;
 		_ + "ола" => mkN030 form;
 		_ + "рда" => mkN030 form;
@@ -127,7 +127,7 @@ oper
 		_ + "зік" => mkN033 form;
 		_ + "біз" => mkN010 form;
 		_ + "көз" => mkN010 form;
-		_ + "сөз" => mkN067 form;
+		_ + "сөз" => mkN029 form;
 		_ + "быз" => mkN039 form;
 		_ + "кше" => mkN042 form;
 		_ + "рпе" => mkN042 form;
@@ -227,14 +227,14 @@ oper
 		_ + "сі" => mkN042 form;
 		_ + "с" => mkN001 form;
 		_ + "т" => mkN001 form;
-		_ + "ш" => mkN004 form;
-		_ + "м" => mkN028 form;
+		_ + "ш" => mkN001 form;
+		_ + "м" => mkN016 form;
 		_ + "н" => mkN026 form;
 		_ + "ң" => mkN016 form;
 		_ + "п" => mkN043 form;
-		_ + "д" => mkN004 form;
+		_ + "д" => mkN002 form;
 		_ + "қ" => mkN015 form;
-		_ + "х" => mkN004 form;
+		_ + "х" => mkN001 form;
 		_ + "а" => mkN005 form;
 		_ + "ы" => mkN030 form;
 		_ + "я" => mkN024 form;
@@ -302,25 +302,37 @@ oper
 
   regV : Str -> V   -- Infinitive
     = \form -> case form of {
+		_ + "ану" => mkV003 form;
+		_ + "ыну" => mkV003 form;
+		_ + "ону" => mkV003 form;
+		_ + "ұну" => mkV003 form;
+		_ + "азу" => mkV003 form;
+		_ + "ызу" => mkV003 form;
+		_ + "озу" => mkV003 form;
+		_ + "ұзу" => mkV003 form;
+		_ + "арту" => mkV001 form;
+		_ + "ырту" => mkV001 form;
+		_ + "орту" => mkV001 form;
+		_ + "ұрту" => mkV001 form;
 		_ + "лту" => mkV005 form;
-		_ + "pту" => mkV007 form;
-		_ + "eту" => mkV007 form;
-		_ + "iту" => mkV007 form;
+		_ + "рту" => mkV007 form;
+		_ + "ету" => mkV007 form;
+		_ + "іту" => mkV007 form;
 		_ + "үту" => mkV010 form;
-		_ + "тaу" => mkV006 form;
-		_ + "сaу" => mkV006 form;
-		_ + "нaу" => mkV011 form;
-		_ + "қaу" => mkV011 form;
-		_ + "paу" => mkV026 form;
-		_ + "apу" => mkV003 form;
-		_ + "ыpу" => mkV003 form;
-		_ + "ipу" => mkV023 form;
+		_ + "тау" => mkV006 form;
+		_ + "сау" => mkV006 form;
+		_ + "нау" => mkV011 form;
+		_ + "қау" => mkV011 form;
+		_ + "рау" => mkV026 form;
+		_ + "ару" => mkV003 form;
+		_ + "ыру" => mkV003 form;
+		_ + "іру" => mkV023 form;
 		_ + "ту" => mkV001 form;
-		_ + "aу" => mkV002 form;
+		_ + "ау" => mkV002 form;
 		_ + "лу" => mkV033 form;
 		_ + "шу" => mkV010 form;
 		_ + "уу" => mkV006 form;
-		_ + "eу" => mkV009 form;
+		_ + "еу" => mkV009 form;
 		_ + "су" => mkV010 form;
 		_ + "бу" => mkV020 form;
 		_ + "ңу" => mkV023 form;
@@ -330,7 +342,7 @@ oper
 
   reg2V : Str -> Str -> V   -- Infinitive  Indicative;Pres;Progressive;Pos;P1;Sg
     = \form1, form2 -> case <form1, form2> of {
-		<_ + "aу", _ + "iн"> => mkV011 form1;
+		<_ + "ау", _ + "ін"> => mkV011 form1;
 		_ => regV form1
   } ;
 
@@ -345,7 +357,7 @@ mkN = overload {
 } ;
 
 mkN2 = overload {
-  mkN2 : N -> N2 = \n -> lin N2 n ** {c2=noPrep};
+  mkN2 : N -> N2 = \n -> lin N2 n ** {c2=genPrep};
   mkN2 : N -> Prep -> N2 = \n,p -> lin N2 n ** {c2=p};
 } ;
 
@@ -353,6 +365,11 @@ mkPN : Str -> PN = \s -> lin PN {s=s} ;
 mkLN : Str -> LN = \s -> lin LN {s=s} ;
 mkGN : Str -> GN = \s -> lin GN {s=s} ;
 mkSN : Str -> SN = \s -> lin SN {s=s} ;
+mkPron : (nom,acc,dat,loc,gen,instr,ablat : Str) -> Person -> Number -> Pron =
+  \nom,acc,dat,loc,gen,instr,ablat,p,n -> lin Pron {
+    s = table {Nom=>nom; Acc=>acc; Dat=>dat; Loc=>loc; Gen=>gen; Instr=>instr; Ablat=>ablat};
+    a = {p=p; n=n}
+  } ;
 
 mkV = overload {
   mkV : Str -> V = regV;   -- Infinitive
@@ -361,7 +378,7 @@ mkV = overload {
 } ;
 
 mkV2 = overload {
-  mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
+  mkV2 : V -> V2 = \v -> lin V2 v ** {c2=accPrep} ;
   mkV2 : V -> Prep -> V2 = \v,p -> lin V2 v ** {c2=p} ;
 } ;
 
@@ -371,32 +388,32 @@ mkVQ : V -> VQ = \v -> lin VQ v ;
 mkVA : V -> VA = \v -> lin VA v ;
 
 mkV2V = overload {
-  mkV2V : V -> V2V = \v -> lin V2V v ** {c2,c3=noPrep} ;
+  mkV2V : V -> V2V = \v -> lin V2V v ** {c2=accPrep; c3=noPrep} ;
   mkV2V : V -> Prep -> Prep -> V2V = \v,p2,p3 -> lin V2V v ** {c2=p2; c3=p3} ;
 } ;
 
 mkV2S = overload {
-  mkV2S : V -> V2S = \v -> lin V2S v ** {c2,c3=noPrep} ;
+  mkV2S : V -> V2S = \v -> lin V2S v ** {c2=accPrep; c3=noPrep} ;
   mkV2S : V -> Prep -> Prep -> V2S = \v,p2,p3 -> lin V2S v ** {c2=p2; c3=p3} ;
 } ;
 
 mkV2Q = overload {
-  mkV2Q : V -> V2Q = \v -> lin V2Q v ** {c2,c3=noPrep} ;
+  mkV2Q : V -> V2Q = \v -> lin V2Q v ** {c2=accPrep; c3=noPrep} ;
   mkV2Q : V -> Prep -> Prep -> V2Q = \v,p2,p3 -> lin V2Q v ** {c2=p2; c3=p3} ;
 } ;
 
 mkV2A = overload {
-  mkV2A : V -> V2A = \v -> lin V2A v ** {c2,c3=noPrep} ;
+  mkV2A : V -> V2A = \v -> lin V2A v ** {c2=accPrep; c3=noPrep} ;
   mkV2A : V -> Prep -> Prep -> V2A = \v,p2,p3 -> lin V2A v ** {c2=p2; c3=p3} ;
 } ;
 
 mkV3 = overload {
-  mkV3 : V -> V3 = \v -> lin V3 v ** {c2,c3=noPrep} ;
+  mkV3 : V -> V3 = \v -> lin V3 v ** {c2=datPrep; c3=accPrep} ;
   mkV3 : V -> Prep -> Prep -> V3 = \v,p2,p3 -> lin V3 v ** {c2=p2; c3=p3} ;
 } ;
 
 mkA : Str -> A = \s -> lin A {s=s} ;
-mkA2 : A -> A2 = \a -> lin A2 a ** {c2=noPrep} ;
+mkA2 : A -> A2 = \a -> lin A2 a ** {c2=datPrep} ;
 
 mkAdv : Str -> Adv = \s -> lin Adv {s=s} ;
 mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
@@ -407,7 +424,13 @@ mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 
 mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 
-mkPrep : Str -> Prep = \s -> lin Prep {s=s} ;
-noPrep : Prep = lin Prep {s=""} ;
+mkPrep = overload {
+  mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Nom} ;
+  mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {s=s; c=c}
+} ;
+noPrep : Prep = lin Prep {s=""; c=Nom} ;
+accPrep : Prep = lin Prep {s=""; c=Acc} ;
+datPrep : Prep = lin Prep {s=""; c=Dat} ;
+genPrep : Prep = lin Prep {s=""; c=Gen} ;
 
 }

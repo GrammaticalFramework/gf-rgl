@@ -1,6 +1,17 @@
 concrete GrammarKaz of Grammar =
+  NounKaz,
+  VerbKaz,
+  AdjectiveKaz,
+  AdverbKaz,
+  NumeralKaz,
+  SentenceKaz,
+  QuestionKaz,
+  RelativeKaz,
+  ConjunctionKaz,
   PhraseKaz,
   TextX,
-  TenseX ** {
-
-} ;
+  IdiomKaz,
+  TenseX,
+  NamesKaz
+  ** {
+}

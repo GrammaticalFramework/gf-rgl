@@ -1,6 +1,7 @@
 concrete LangKaz of Lang =
   GrammarKaz,
-  LexiconKaz
+  LexiconKaz,
+  ConstructionKaz
   ,DocumentationKaz --# notpresent
   ** {
 } ;

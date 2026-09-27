@@ -1,11 +1,35 @@
-resource ResKaz = {
-
-oper Compl = {s : Str} ;
+resource ResKaz = open (P = ParamX) in {
 
 param Case = Nom | Acc | Dat | Loc | Gen | Instr | Ablat ;
+oper Compl = {s : Str; c : Case} ;
 param Number = Sg | Pl ;
 param Person = P1 | P2 Formality | P3 ;
 param Formality = Informal | Formal ;
+oper Agr = {p : Person; n : Number} ;
+-- MorphoKaz's generated possessive tables use the two P2 labels in the
+-- opposite order from verbal agreement.  Normalize them at noun lookup.
+oper nounPerson : Person -> Person = \p -> case p of {
+  P2 Informal => P2 Formal;
+  P2 Formal => P2 Informal;
+  _ => p
+  } ;
+-- The source morphology has no separate second/third-person forms for a
+-- plural possessor.  Kazakh uses the same possessive ending in these cells;
+-- plurality is already expressed by the possessor NP/pronoun.
+oper possForm : Noun -> Number -> Person -> Number -> Str = \noun,owner,p,n ->
+  noun.poss ! case <owner,p> of {
+    <Pl,P2 _> => Sg ;
+    <Pl,P3> => Sg ;
+    _ => owner
+  } ! p ! n ;
+param Possessor = NoPoss | Poss Person Number ;
+oper Clause = {
+  pres : P.Polarity => Str;
+  past : P.Polarity => Str;
+  fut  : P.Polarity => Str;
+  cond : P.Polarity => Str;
+  anter : P.Polarity => Str
+  } ;
 oper Noun = {s: Case => Number => Str; poss: Number => Person => Number => Str} ; -- 1651
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Noun =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30 ->
@@ -321,6 +345,58 @@ oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_
                           }
           } ;
 
+oper mapVerb : (Str -> Str) -> Verb -> Verb = \f,v -> {
+  infinitive = f v.infinitive ;
+  indicative = {
+    fut = f v.indicative.fut ;
+    pres = {
+      progressive = \\pol,p,n => f (v.indicative.pres.progressive ! pol ! p ! n) ;
+      noAspect = \\pol,p,n => f (v.indicative.pres.noAspect ! pol ! p ! n)
+      } ;
+    past = {
+      perfect = \\pol,p,n => f (v.indicative.past.perfect ! pol ! p ! n) ;
+      progressive = \\pol,p,n => f (v.indicative.past.progressive ! pol ! p ! n) ;
+      noAspect = \\pol,p,n => f (v.indicative.past.noAspect ! pol ! p ! n)
+      }
+    } ;
+  imperative = \\pol,form,n => f (v.imperative ! pol ! form ! n) ;
+  subjunctive = \\p,n => f (v.subjunctive ! p ! n)
+  } ;
 
+oper prefixVerb : Str -> Verb -> Verb = \x,v -> mapVerb (\s -> x ++ s) v ;
+
+oper NPForm = {s : Case => Str; a : Agr} ;
+oper defaultAgr : Agr = {p=P3; n=Sg} ;
+oper complNP : Compl -> NPForm -> Str = \c,np -> np.s ! c.c ++ c.s ;
+
+oper rglPolarity : P.Polarity -> Polarity = \pol -> case pol of {
+  P.Pos => Pos;
+  P.Neg => Neg
+  } ;
+
+oper selectVerb : Verb -> P.Tense -> P.Anteriority -> P.Polarity -> Agr -> Str =
+  \v,t,a,pol,agr -> case <t,a> of {
+    <P.Pres,P.Simul> => v.indicative.pres.noAspect ! rglPolarity pol ! agr.p ! agr.n ;
+    <P.Pres,P.Anter> => v.indicative.past.perfect ! rglPolarity pol ! agr.p ! agr.n ;
+    <P.Past,P.Simul> => v.indicative.past.noAspect ! rglPolarity pol ! agr.p ! agr.n ;
+    <P.Past,P.Anter> => v.indicative.past.perfect ! rglPolarity pol ! agr.p ! agr.n ;
+    -- The habitual/non-past form is also the ordinary future form.
+    <P.Fut,_> => v.indicative.pres.noAspect ! rglPolarity pol ! agr.p ! agr.n ;
+    <P.Cond,_> => v.subjunctive ! agr.p ! agr.n
+    } ;
+
+oper mkClause : NPForm -> Verb -> Clause = \np,vp -> {
+  pres = \\pol => np.s ! Nom ++ selectVerb vp P.Pres P.Simul pol np.a ;
+  past = \\pol => np.s ! Nom ++ selectVerb vp P.Past P.Simul pol np.a ;
+  fut = \\pol => np.s ! Nom ++ selectVerb vp P.Fut P.Simul pol np.a ;
+  cond = \\pol => np.s ! Nom ++ selectVerb vp P.Cond P.Simul pol np.a ;
+  anter = \\pol => np.s ! Nom ++ selectVerb vp P.Past P.Anter pol np.a
+  } ;
+
+oper stringClause : Str -> Clause = \s -> {
+  pres=\\_ => s; past=\\_ => s; fut=\\_ => s; cond=\\_ => s; anter=\\_ => s
+  } ;
+
+oper coord : Str -> Str -> Str -> Str = \c,x,y -> x ++ c ++ y ;
 
 }
