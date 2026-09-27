@@ -10,7 +10,7 @@
   QuestionPes,
   RelativePes,
   ConjunctionPes,
-
+  NamesPes,
   PhrasePes,
   TextPes,
   StructuralPes,
