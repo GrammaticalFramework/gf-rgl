@@ -129,7 +129,15 @@ lin
 		n= Pl} ;
 
 	pot3as4 n = n ;
+	pot41 = {s = \\co => cardOrd1 co "un milió" "un milió" "milionès" ; n = Sg} ;
+	pot4 n = {s = \\co => n.s ! NCard Masc ++ "milions" ; n = Pl} ;
+	pot4plus n m = {s = \\co => n.s ! NCard Masc ++ "milions" ++ m.s ! co ; n = Pl} ;
+	pot4decimal d = {s = \\co => d.s ! NCard Masc ++ "milions" ; n = Pl} ;
 	pot4as5 n = n ;
+	pot51 = {s = \\co => case co of {NCard _ => "mil milions" ; _ => "mil milionèsim"} ; n = Pl} ;
+	pot5 n = {s = \\co => n.s ! NCard Masc ++ "mil milions" ; n = Pl} ;
+	pot5plus n m = {s = \\co => n.s ! NCard Masc ++ "mil milions" ++ m.s ! co ; n = Pl} ;
+	pot5decimal d = {s = \\co => d.s ! NCard Masc ++ "mil milions" ; n = Pl} ;
 
 param
 	DForm = unit | teen | ten | tenplus | Aunit | OrdF ;

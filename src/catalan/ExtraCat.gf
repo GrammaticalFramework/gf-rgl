@@ -6,13 +6,13 @@ flags coding = utf8 ;
 lin
    i8fem_Pron =  mkPronoun
       "jo" "em" "em" "mi"
-      ["el meu"] ["la meva"] ["els meus"] ["les meves"]
+      "meu" "meva" "meus" "meves"
       Fem Sg P1 ;
 
    these8fem_NP = makeNP "aquestes" Fem Pl ;
    they8fem_Pron = mkPronoun
       "elles" "les" "les" "elles"
-      ["el seu"] ["la seva"] ["els seus"] ["les seves"]
+      "seu" "seva" "seus" "seves"
       Fem Pl P3 ;
     this8fem_NP = pn2np (mkPN ["aquesta"] Fem) ;
     those8fem_NP = makeNP ["aquestes"] Fem Pl ;
@@ -20,7 +20,7 @@ lin
     we8fem_Pron = 
           mkPronoun 
             "nosaltres" "ens" "ens" "nosaltres"
-            ["el nostre"] ["la nostra"] ["els nostres"] ["les nostres"]
+            "nostre" "nostra" "nostres" "nostres"
               Fem Pl P1 ;
 
     whoPl8fem_IP = {s = \\c => prepCase c ++ "qui" ; a = aagr Fem Pl} ;
@@ -28,18 +28,18 @@ lin
 
     youSg8fem_Pron = mkPronoun 
              "tu" "et" "et" "tu"
-            ["el teu"] ["la teva"] ["els teus"] ["les teves"]
+            "teu" "teva" "teus" "teves"
               Fem Sg P2 ;
     youPl8fem_Pron = mkPronoun
       "vosaltres" "us" "us" "vosaltres"
-      ["el vostre"] ["la vostra"] ["els vostres"] ["les vostres"]
+      "vostre" "vostra" "vostres" "vostres"
       Fem Pl P2 ;
     youPol8fem_Pron = mkPronoun
       "vostè" "la" "li" "vostè"
-      ["el seu"] ["la seva"] ["els seus"] ["les seves"]
+      "seu" "seva" "seus" "seves"
       Fem Sg P3 ;
 
-   --they_Pron (StructuralCat) and they8fem_Pron (ExtraCat) use "el seu / la seva" as possessive.
+   -- Possessive articles are supplied by possCase in DiffCat.
    theyLlur_Pron = mkPronoun
       "ells" "els" "els" "ells"
       "llur" "llur" "llurs" "llurs"

@@ -52,13 +52,13 @@ oper
 
     artIndef = \isNP,g,n,c -> case isNP of {
      True => case <n,c> of {
-      <Sg,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ un") ("d' ++ Predef.BIND ++ una") ! g ;
+      <Sg,CPrep P_de>   => genForms ("d'un") ("d'una") ! g ;
       <Sg,_> => prepCase c ++ genForms "un" "una" ! g ;
-      <Pl,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ uns") ("d' ++ Predef.BIND ++ unes") ! g ; -- AR 3/12/2014
+      <Pl,CPrep P_de>   => genForms ("d'uns") ("d'unes") ! g ; -- AR 3/12/2014
       <Pl,_> => prepCase c ++ genForms "uns" "unes" ! g
       } ;
      _ => case <n,c> of {
-      <Sg,CPrep P_de>   => genForms ("d' ++ Predef.BIND ++ un") ("d' ++ Predef.BIND ++ una") ! g ;
+      <Sg,CPrep P_de>   => genForms ("d'un") ("d'una") ! g ;
       <Sg,_> => prepCase c ++ genForms "un" "una" ! g ;
       <Pl,_> => prepCase c --- ++ genForms "uns" "unes" ! g --- take this as a determiner
       }
@@ -81,7 +81,7 @@ oper
       } ;
     piuComp = "més" ;
 
-    possCase = \_,_,c -> prepCase c ;
+    possCase = \g,n,c -> artDef False g n c ;
 
     partitive = \g,c -> case c of {
       CPrep P_de => "de" ;
@@ -214,7 +214,8 @@ oper
       _ => False
       } ;
 
-    haver_V, auxPassive : Verb = verbBeschH (estar_54 "estar") ;
+    haver_V : Verb = verbBeschH (haver_59 "haver" (True|False)) ;
+    auxPassive : Verb = verbBeschH (ser_52 "ser" True) ;
 
     essere_V, copula = verbBeschH (ser_52 "ser" True) ;
     stare_V, estar_V = verbBeschH (estar_54 "estar") ;
