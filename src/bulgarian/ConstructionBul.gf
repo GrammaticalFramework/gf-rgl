@@ -33,7 +33,7 @@ lin
   is_wrong_VP = mkVP (mkA079 "грешен") ;
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
   n_units_of_NP card cn np =
-    let unit = mkNP <lin Card card : Card> (lin CN cn)
+    let unit : NP = mkNP <lin Card card : Card> (lin CN cn)
     in {
       s  = \\role => unit.s ! role ++ np.s ! R.RObj R.CPrep ;
       gn = unit.gn ;
