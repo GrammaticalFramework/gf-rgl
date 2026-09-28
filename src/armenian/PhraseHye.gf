@@ -11,9 +11,9 @@ lin
   UttIAdv adv = adv ;
   UttIP ip = ip ;
   UttQS qs = qs ;
-  UttImpSg pol imp = {s = case pol.p of {Pos => imp.s; Neg => "մի" ++ imp.s}} ;
-  UttImpPl pol imp = {s = case pol.p of {Pos => imp.s; Neg => "մի" ++ imp.s}} ;
-  UttImpPol pol imp = {s = case pol.p of {Pos => imp.s; Neg => "մի" ++ imp.s}} ;
+  UttImpSg pol imp = {s = case pol.p of {Pos => imp.s ! Sg; Neg => "մի" ++ imp.s ! Sg}} ;
+  UttImpPl pol imp = {s = case pol.p of {Pos => imp.s ! Pl; Neg => "մի" ++ imp.s ! Pl}} ;
+  UttImpPol pol imp = {s = case pol.p of {Pos => imp.s ! Pl; Neg => "մի" ++ imp.s ! Pl}} ;
   VocNP np = {s = np.s ! Nom} ;
   PConjConj conj = conj ;
 

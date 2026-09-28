@@ -50,6 +50,7 @@ mkV001 base =
                                Pl => base_1+"ե՛ք"
                              } ;
         passive = base_1+"վել" ;
+        passivePart = base_1+"ված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
@@ -150,6 +151,7 @@ mkV002 base =
                                Pl => base_1+"ացե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
@@ -250,6 +252,7 @@ mkV003 base =
                                Pl => base_1+"րե՛ք"
                              } ;
         passive = base_1+"վել" ;
+        passivePart = base_1+"ված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+"րի" ;
@@ -350,6 +353,7 @@ mkV004 base =
                                Pl => base_1+"ցե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ցա" ;
@@ -450,6 +454,7 @@ mkV005 base =
                                Pl => base_1+"րձե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"րձեցի" ;
@@ -550,6 +555,7 @@ mkV006 base =
                                Pl => "գնացե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => "գնացի" ;
@@ -650,6 +656,7 @@ mkV007 base =
                                Pl => "գնացե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => "գնացի" ;
@@ -750,6 +757,7 @@ mkV008 base =
                                Pl => base_1+"ե՛ք"
                              } ;
         passive = base_1+"նվել" ;
+        passivePart = base_1+"նված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ա" ;
@@ -850,6 +858,7 @@ mkV009 base =
                                Pl => "էղե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => "էղա" ;
@@ -950,6 +959,7 @@ mkV010 base =
                                Pl => base_1+"ցե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ցի" ;
@@ -1050,6 +1060,7 @@ mkV011 base =
                                Pl => base_1+"ացէ՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ացի" ;
@@ -1150,6 +1161,7 @@ mkV012 base =
                                Pl => base_1+"է՛ք"
                              } ;
         passive = base_1+"ուել" ;
+        passivePart = base_1+"ուած" ;
         past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
@@ -1250,6 +1262,7 @@ mkV013 base =
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
         passive = base_1+base_2+"վել" ;
+        passivePart = base_1+base_2+"ված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
@@ -1350,6 +1363,7 @@ mkV014 base =
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
         passive = base_1+base_2+"նվել" ;
+        passivePart = base_1+base_2+"նված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ա" ;
@@ -1450,6 +1464,7 @@ mkV015 base =
                                Pl => base_1+base_2+"ցե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ցա" ;
@@ -1550,6 +1565,7 @@ mkV016 base =
                                Pl => base_1+base_2+"է՛ք"
                              } ;
         passive = base_1+base_2+"ուել" ;
+        passivePart = base_1+base_2+"ուած" ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
@@ -1650,6 +1666,7 @@ mkV017 base =
                                Pl => base_1+base_2+"րե՛ք"
                              } ;
         passive = base_1+base_2+"վել" ;
+        passivePart = base_1+base_2+"ված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"րի" ;
@@ -1750,6 +1767,7 @@ mkV018 base =
                                Pl => base_1+"ե՛ք"
                              } ;
         passive = base_1+"վել" ;
+        passivePart = base_1+"ված" ;
         past = table {
                  P1 => table {
                          Sg => base_1+"եցի" ;
@@ -1850,6 +1868,7 @@ mkV019 base =
                                Pl => base_1+base_2+"ացե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"ացի" ;
@@ -1950,6 +1969,7 @@ mkV020 base =
                                Pl => base_1+"ցէ՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ցայ" ;
@@ -2050,6 +2070,7 @@ mkV021 base =
                                Pl => base_1+base_2+"է՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;
@@ -2150,6 +2171,7 @@ mkV022 base =
                                Pl => base_1+"րձե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"րձա" ;
@@ -2250,6 +2272,7 @@ mkV023 base =
                                Pl => base_1+"սե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"սա" ;
@@ -2350,6 +2373,7 @@ mkV024 base =
                                Pl => base_1+"ե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+"ա" ;
@@ -2450,6 +2474,7 @@ mkV025 base =
                                Pl => base_1+base_2+"ե՛ք"
                              } ;
         passive = base ;  --guessed
+        passivePart = base ;
         past = table {
                  P1 => table {
                          Sg => base_1+base_2+"եցի" ;

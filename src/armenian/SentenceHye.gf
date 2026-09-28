@@ -1,18 +1,29 @@
 concrete SentenceHye of Sentence = CatHye ** open Prelude,ResHye in {
-  oper negAux : Agr -> Str = \a -> case <a.p,a.n> of {
-    <P1,Sg> => "չեմ"; <P2,Sg> => "չես"; <P3,Sg> => "չի";
-    <P1,Pl> => "չենք"; <P2,Pl> => "չեք"; <P3,Pl> => "չեն"
-  } ;
   lin PredVP np vp = {s = np.s ! Nom ++ vp.converb.imperfective ++
-                          case <np.a.p,np.a.n> of {
-                            <P1,Sg> => "եմ"; <P2,Sg> => "ես"; <P3,Sg> => "է";
-                            <P1,Pl> => "ենք"; <P2,Pl> => "եք"; <P3,Pl> => "են"
-                          };
+                          presentAux np.a.p np.a.n;
                       negative = table {
-                        Pres => np.s ! Nom ++ negAux np.a ++ vp.converb.imperfective;
+                        Pres => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.imperfective;
                         Past => np.s ! Nom ++ "չ" ++ BIND ++ vp.past ! np.a.p ! np.a.n;
-                        Fut => np.s ! Nom ++ negAux np.a ++ vp.converb.futCon1;
+                        Fut => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.futCon1;
                         Cond => np.s ! Nom ++ "չ" ++ BIND ++ vp.conditional ! Non_Past ! np.a.p ! np.a.n
+                      };
+                      anterior = table {
+                        Pres => table {
+                          Pos => np.s ! Nom ++ vp.converb.perfective ++ presentAux np.a.p np.a.n;
+                          Neg => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.perfective
+                        };
+                        Past => table {
+                          Pos => np.s ! Nom ++ vp.converb.perfective ++ pastAux np.a.p np.a.n;
+                          Neg => np.s ! Nom ++ negativePastAux np.a.p np.a.n ++ vp.converb.perfective
+                        };
+                        Fut => table {
+                          Pos => np.s ! Nom ++ vp.converb.perfective ++ copulaVerb.conditional ! Non_Past ! np.a.p ! np.a.n;
+                          Neg => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.perfective ++ copulaVerb.converb.futCon1
+                        };
+                        Cond => table {
+                          Pos => np.s ! Nom ++ vp.converb.perfective ++ copulaVerb.conditional ! Perfect ! np.a.p ! np.a.n;
+                          Neg => np.s ! Nom ++ negativePastAux np.a.p np.a.n ++ vp.converb.perfective
+                        }
                       };
                       conditional = \\a,_ => np.s ! Nom ++ vp.conditional ! a ! np.a.p ! np.a.n;
                       converb = {imperfective = np.s ! Nom ++ vp.converb.imperfective;
@@ -25,37 +36,51 @@ concrete SentenceHye of Sentence = CatHye ** open Prelude,ResHye in {
                       past = \\_,_ => np.s ! Nom ++ vp.past ! np.a.p ! np.a.n;
                       participle = \\p => np.s ! Nom ++ vp.participle ! p;
                       subjunctive = \\a,_ => np.s ! Nom ++ vp.subjunctive ! a ! np.a.p ! np.a.n} ;
-  lin PredSCVP sc vp = {s = sc.s ++ vp.s;
-    negative=table {_ => sc.s ++ "չ" ++ BIND ++ vp.s};
-    conditional=\\a,n => sc.s ++ vp.conditional ! a ! P3 ! n;
+  lin PredSCVP sc vp = {s = sc.s ++ vp.converb.imperfective ++ presentAux P3 Sg;
+    negative=table {
+      Pres => sc.s ++ negativePresentAux P3 Sg ++ vp.converb.imperfective;
+      Past => sc.s ++ "չ" ++ BIND ++ vp.past ! P3 ! Sg;
+      Fut => sc.s ++ negativePresentAux P3 Sg ++ vp.converb.futCon1;
+      Cond => sc.s ++ "չ" ++ BIND ++ vp.conditional ! Non_Past ! P3 ! Sg
+    };
+    anterior=table {
+      Pres=>table {Pos=>sc.s++vp.converb.perfective++presentAux P3 Sg;
+                   Neg=>sc.s++negativePresentAux P3 Sg++vp.converb.perfective};
+      Past=>table {Pos=>sc.s++vp.converb.perfective++pastAux P3 Sg;
+                   Neg=>sc.s++negativePastAux P3 Sg++vp.converb.perfective};
+      Fut=>table {Pos=>sc.s++vp.converb.perfective++copulaVerb.conditional!Non_Past!P3!Sg;
+                  Neg=>sc.s++negativePresentAux P3 Sg++vp.converb.perfective++copulaVerb.converb.futCon1};
+      Cond=>table {Pos=>sc.s++vp.converb.perfective++copulaVerb.conditional!Perfect!P3!Sg;
+                   Neg=>sc.s++negativePastAux P3 Sg++vp.converb.perfective}
+    };
+    conditional=\\a,_ => sc.s ++ vp.conditional ! a ! P3 ! Sg;
     converb={imperfective=sc.s ++ vp.converb.imperfective; futCon1=sc.s ++ vp.converb.futCon1;
       futCon2=sc.s ++ vp.converb.futCon2; negative=sc.s ++ vp.converb.negative;
       perfective=sc.s ++ vp.converb.perfective; simultaneous=sc.s ++ vp.converb.simultaneous};
-    passive=sc.s ++ vp.passive; past=\\p,n => sc.s ++ vp.past ! p ! n;
+    passive=sc.s ++ vp.passive; past=\\_,_ => sc.s ++ vp.past ! P3 ! Sg;
     participle=\\p => sc.s ++ vp.participle ! p;
-    subjunctive=\\a,n => sc.s ++ vp.subjunctive ! a ! P3 ! n} ;
-  lin UseCl temp pol cl = {s = case pol.p of {
-    Neg => cl.negative ! temp.t;
-    Pos => case <temp.t,temp.a> of {
-      <Pres,Simul> => cl.s;
-      <Pres,Anter> => cl.converb.perfective;
-      <Past,Simul> => cl.past ! P3 ! Sg;
-      <Past,Anter> => cl.converb.perfective;
-      <Fut,Simul> => cl.conditional ! Non_Past ! Sg;
-      <Fut,Anter> => cl.conditional ! Perfect ! Sg;
-      <Cond,Simul> => cl.conditional ! Non_Past ! Sg;
-      <Cond,Anter> => cl.conditional ! Perfect ! Sg
+    subjunctive=\\a,_ => sc.s ++ vp.subjunctive ! a ! P3 ! Sg} ;
+  lin UseCl temp pol cl = {s = case temp.a of {
+    Anter => cl.anterior ! temp.t ! pol.p;
+    Simul => case pol.p of {
+      Neg => cl.negative ! temp.t;
+      Pos => case temp.t of {
+        Pres => cl.s;
+        Past => cl.past ! P3 ! Sg;
+        Fut => cl.conditional ! Non_Past ! Sg;
+        Cond => cl.conditional ! Perfect ! Sg
+      }
     }
   }} ;
-  lin UseQCl temp pol qcl = {s = case pol.p of {Pos => qcl.s; Neg => "չ" ++ qcl.s}} ;
+  lin UseQCl temp pol qcl = {s = qcl.s ! temp.t ! temp.a ! pol.p} ;
   lin UseRCl temp pol rcl = {s = case pol.p of {Pos => rcl.s; Neg => "չ" ++ rcl.s}} ;
   lin UseSlash temp pol slash = {s = case pol.p of {Pos => slash.s; Neg => "չ" ++ slash.s}} ;
   lin AdvS adv s = {s = adv.s ++ s.s} ;
   lin ExtAdvS adv s = {s = adv.s ++ "," ++ s.s} ;
   lin SSubjS s1 subj s2 = {s = s1.s ++ subj.s ++ s2.s} ;
   lin RelS s rs = {s = s.s ++ "," ++ rs.s} ;
-  lin ImpVP vp = {s = vp.imperative ! Sg} ;
-  lin AdvImp adv imp = {s = adv.s ++ imp.s} ;
+  lin ImpVP vp = {s = vp.imperative} ;
+  lin AdvImp adv imp = {s = \\n => adv.s ++ imp.s ! n} ;
   lin EmbedS s = s ;
   lin EmbedQS qs = qs ;
   lin SlashVP np vp = {s = np.s ! Nom ++ vp.s} ;

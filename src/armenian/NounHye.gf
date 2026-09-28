@@ -13,17 +13,27 @@ concrete NounHye of Noun = CatHye ** open Prelude, ResHye in {
   lin ExtAdvNP np adv = {s = \\c => np.s ! c ++ "," ++ adv.s; a = np.a} ;
   lin PredetNP pred np = {s = \\c => pred.s ++ np.s ! c; a = np.a} ;
   lin UsePN pn = {s = \\_ => pn.s; a = {n = Sg; p = P3}} ;
-  lin DefArt = {s = []; sp = Def} ;
+  lin DefArt = {s = \\_ => []; sp = Def; isArt = True} ;
   lin DetCN det cn = {s = \\c => det.s ++ cn.s ! det.sp ! c ! det.n;
                       a = {n=det.n; p=P3}} ;
-  lin DetQuant quant num = {s = quant.s ++ num.s; n = num.n; sp=quant.sp} ;
-  lin DetQuantOrd quant num ord = {
-        s = quant.s ++ num.s ++ ord.s; n = num.n; sp = quant.sp
+  lin DetQuant quant num = {
+        s = case <quant.isArt,num.isCard> of {
+          <True,True> => num.s;
+          _ => quant.s ! num.n ++ num.s
+        };
+        n = num.n; sp=quant.sp
       } ;
-  lin IndefArt = {s = []; sp = Indef} ;
-  lin NumPl = {s = []; n = Pl} ;
-  lin NumSg = {s = []; n = Sg} ;
-  lin NumCard card = {s = card.s; n = Pl} ;
+  lin DetQuantOrd quant num ord = {
+        s = case <quant.isArt,num.isCard> of {
+          <True,True> => num.s ++ ord.s;
+          _ => quant.s ! num.n ++ num.s ++ ord.s
+        };
+        n = num.n; sp = quant.sp
+      } ;
+  lin IndefArt = {s = table {Sg => "մի"; Pl => []}; sp = Indef; isArt = True} ;
+  lin NumPl = {s = []; n = Pl; isCard = False} ;
+  lin NumSg = {s = []; n = Sg; isCard = False} ;
+  lin NumCard card = {s = card.s; n = Sg; isCard = True} ;
   lin NumDigits digits = {s = digits.s ! NCard} ;
   lin NumDecimal decimal = {s = decimal.s ! NCard} ;
   lin NumNumeral numeral = {s = numeral.s ! NCard} ;
@@ -73,7 +83,7 @@ concrete NounHye of Noun = CatHye ** open Prelude, ResHye in {
           };
         a = {n=Pl;p=P3}
       } ;
-  lin PossPron pron = {s = pron.empty; sp = Poss pron.a.p} ;
+  lin PossPron pron = {s = \\_ => pron.empty; sp = Def; isArt = False} ;
   lin UseN n = {
         s = \\sp,c,num =>
                 case <sp,c> of {

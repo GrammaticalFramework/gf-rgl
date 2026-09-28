@@ -1,20 +1,37 @@
 concrete ConstructionHye of Construction = CatHye ** open ResHye, ParadigmsHye, Prelude in {
 lincat Timeunit, Hour, Weekday, Month, Monthday, Year, Language = {s:Str} ;
 oper
-  stateVP : Str -> VP = \s -> lin VP (invarVerb s) ;
+  stateVP : Str -> VP = \s -> lin VP {
+    s=s++copulaVerb.s;
+    conditional=\\a,p,n=>s++copulaVerb.conditional!a!p!n;
+    converb={imperfective=s++copulaVerb.converb.imperfective;
+      futCon1=s++copulaVerb.converb.futCon1;
+      futCon2=s++copulaVerb.converb.futCon2;
+      negative=s++copulaVerb.converb.negative;
+      perfective=s++copulaVerb.converb.perfective;
+      simultaneous=s++copulaVerb.converb.simultaneous};
+    imperative=\\n=>s++copulaVerb.imperative!n;
+    passive=s++copulaVerb.passive;
+    past=\\p,n=>s++copulaVerb.past!p!n;
+    participle=\\p=>s++copulaVerb.participle!p;
+    subjunctive=\\a,p,n=>s++copulaVerb.subjunctive!a!p!n
+  } ;
   constCN : Str -> CN = \s -> lin CN {s=\\_,_,_=>s} ;
 lin
   hungry_VP=stateVP "սոված";thirsty_VP=stateVP "ծարավ";tired_VP=stateVP "հոգնած";
   scared_VP=stateVP "վախեցած";ill_VP=stateVP "հիվանդ";ready_VP=stateVP "պատրաստ";
   has_age_VP c=stateVP (c.s++"տարեկան");
-  have_name_Cl np name=lin Cl {s=np.s!Nom++name.s!Nom;negative=table {_=>np.s!Nom++"չի"++name.s!Nom};conditional=\\_,_=>np.s!Nom++name.s!Nom;
+  have_name_Cl np name=lin Cl {s=np.s!Nom++name.s!Nom;negative=table {_=>np.s!Nom++"չի"++name.s!Nom};
+    anterior=\\_=>table {_=>np.s!Nom++name.s!Nom};conditional=\\_,_=>np.s!Nom++name.s!Nom;
     converb={imperfective=np.s!Nom++name.s!Nom;futCon1=np.s!Nom++name.s!Nom;futCon2=np.s!Nom++name.s!Nom;
       negative=np.s!Nom++name.s!Nom;perfective=np.s!Nom++name.s!Nom;simultaneous=np.s!Nom++name.s!Nom};
     passive=np.s!Nom++name.s!Nom;past=\\_,_=>np.s!Nom++name.s!Nom;participle=\\_=>np.s!Nom++name.s!Nom;
     subjunctive=\\_,_=>np.s!Nom++name.s!Nom};
   married_Cl x y=have_name_Cl x y;
-  what_name_QCl np={s="ինչ է"++np.s!Nom++"անունը"};how_old_QCl np={s=np.s!Nom++"քանի տարեկան է"};
-  how_far_QCl np={s=np.s!Nom++"որքան հեռու է"};weather_adjCl ap=have_name_Cl {s=\\_=>[];a={n=Sg;p=P3}} {s=\\_=>ap.s!Indef!Nom!Sg;a={n=Sg;p=P3}};
+  what_name_QCl np={s=\\_,_,_=>"ի՞նչ է"++np.s!Nom++"անունը"};
+  how_old_QCl np={s=\\_,_,_=>np.s!Nom++"քանի՞ տարեկան է"};
+  how_far_QCl np={s=\\_,_,_=>np.s!Nom++"որքա՞ն հեռու է"};
+  weather_adjCl ap=have_name_Cl {s=\\_=>[];a={n=Sg;p=P3}} {s=\\_=>ap.s!Indef!Nom!Sg;a={n=Sg;p=P3}};
   is_right_VP=stateVP "ճիշտ";is_wrong_VP=stateVP "սխալ";
   n_units_AP card cn a={s=\\sp,c,n=>card.s++cn.s!Indef!Nom!Pl++a.s!c!n;isPre=True};
   n_units_of_NP card cn np={s=\\c=>card.s++cn.s!Indef!Nom!Pl++np.s!c;a=np.a};

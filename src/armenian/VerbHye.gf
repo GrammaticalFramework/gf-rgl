@@ -8,6 +8,32 @@ concrete VerbHye of Verb = CatHye ** open Prelude, ResHye, ParadigmsHye in {
       s=v.s; conditional=v.conditional; converb=v.converb; imperative=v.imperative;
       passive=v.passive; past=v.past; participle=v.participle; subjunctive=v.subjunctive
     } ;
+    appendVerb : Verb -> Str -> Verb = \v,x -> {
+      s=v.s ++ x; causative=v.causative ++ x;
+      conditional=\\a,p,n => v.conditional ! a ! p ! n ++ x;
+      converb={imperfective=v.converb.imperfective ++ x;
+        futCon1=v.converb.futCon1 ++ x; futCon2=v.converb.futCon2 ++ x;
+        negative=v.converb.negative ++ x; perfective=v.converb.perfective ++ x;
+        simultaneous=v.converb.simultaneous ++ x};
+      imperative=\\n => v.imperative ! n ++ x; passive=v.passive ++ x;
+      passivePart=v.passivePart ++ x;
+      past=\\p,n => v.past ! p ! n ++ x;
+      participle=\\p => v.participle ! p ++ x;
+      subjunctive=\\a,p,n => v.subjunctive ! a ! p ! n ++ x
+    } ;
+    prependVerb : Str -> Verb -> Verb = \x,v -> {
+      s=x ++ v.s; causative=x ++ v.causative;
+      conditional=\\a,p,n => x ++ v.conditional ! a ! p ! n;
+      converb={imperfective=x ++ v.converb.imperfective;
+        futCon1=x ++ v.converb.futCon1; futCon2=x ++ v.converb.futCon2;
+        negative=x ++ v.converb.negative; perfective=x ++ v.converb.perfective;
+        simultaneous=x ++ v.converb.simultaneous};
+      imperative=\\n => x ++ v.imperative ! n; passive=x ++ v.passive;
+      passivePart=x ++ v.passivePart;
+      past=\\p,n => x ++ v.past ! p ! n;
+      participle=\\p => x ++ v.participle ! p;
+      subjunctive=\\a,p,n => x ++ v.subjunctive ! a ! p ! n
+    } ;
     appendVP : VP -> Str -> VP = \v,x -> lin VP {
       s=v.s ++ x;
       conditional=\\a,p,n => v.conditional ! a ! p ! n ++ x;
@@ -66,24 +92,25 @@ concrete VerbHye of Verb = CatHye ** open Prelude, ResHye, ParadigmsHye in {
   lin ComplVS v s = appendVP (toVP v) s.s ;
   lin ComplVQ v qs = appendVP (toVP v) qs.s ;
   lin ComplVA v ap = appendVP (toVP v) (ap.s ! Indef ! Nom ! Sg) ;
-  lin Slash2V3 v np = lin VPSlash (v ** {
-    s = compl v.c2 np ++ v.s; c2 = v.c3
+  lin Slash2V3 v np = lin VPSlash ((prependVerb (compl v.c2 np) v) ** {
+    c2 = v.c3
   }) ;
-  lin Slash3V3 v np = lin VPSlash (v ** {
-    s = compl v.c3 np ++ v.s; c2 = v.c2
+  lin Slash3V3 v np = lin VPSlash ((prependVerb (compl v.c3 np) v) ** {
+    c2 = v.c2
   }) ;
-  lin SlashV2S v s = lin VPSlash (v ** {s = v.s ++ s.s; c2=v.c2}) ;
-  lin SlashV2Q v qs = lin VPSlash (v ** {s = v.s ++ qs.s; c2=v.c2}) ;
-  lin SlashV2A v ap = lin VPSlash (v ** {
-    s = v.s ++ ap.s ! Indef ! Nom ! Sg; c2=v.c2
+  lin SlashV2S v s = lin VPSlash ((appendVerb v s.s) ** {c2=v.c2}) ;
+  lin SlashV2Q v qs = lin VPSlash ((appendVerb v qs.s) ** {c2=v.c2}) ;
+  lin SlashV2A v ap = lin VPSlash ((appendVerb v (ap.s ! Indef ! Nom ! Sg)) ** {
+    c2=v.c2
   }) ;
-  lin UseComp comp = prependVP comp.s (toVP (mkV "լինել")) ;
-  lin UseCopula = toVP (mkV "լինել") ;
+  lin UseComp comp = prependVP comp.s (toVP copulaVerb) ;
+  lin UseCopula = toVP copulaVerb ;
   lin ExtAdvVP vp adv = appendVP vp ("," ++ adv.s) ;
   lin AdVVP adv vp = prependVP adv.s vp ;
-  lin AdvVPSlash vp adv = lin VPSlash (vp ** {s = vp.s ++ adv.s}) ;
-  lin AdVVPSlash adv vp = lin VPSlash (vp ** {s = adv.s ++ vp.s}) ;
-  lin VPSlashPrep vp prep = lin VPSlash (vp ** {causative=vp.s;c2=prep}) ;
+  lin AdvVPSlash vp adv = lin VPSlash ((appendVerb vp adv.s) ** {c2=vp.c2}) ;
+  lin AdVVPSlash adv vp = lin VPSlash ((prependVerb adv.s vp) ** {c2=vp.c2}) ;
+  lin VPSlashPrep vp prep = lin VPSlash
+    (vp ** {causative=vp.s;passivePart=vp.participle!Resultative;c2=prep}) ;
   lin CompAP ap = {s = ap.s ! Indef ! Nom ! Sg} ;
   lin CompNP np = {s = np.s ! Nom} ;
   lin CompAdv adv = adv ;
