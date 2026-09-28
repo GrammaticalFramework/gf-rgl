@@ -387,7 +387,7 @@ lin uncertain_A = mkA "gezur" ; --Apertium
 lin understand_V2 = mkV2 "aditu" ; --| mkV2 "ulertu" ; --Apertium
 lin university_N = mkN "unibertsitate" ; --Apertium
 lin village_N = mkN "herrixka" ; --Apertium
-lin vomit_V = mkV2 "oka" egin_V ; --Apertium
+lin vomit_V = mkV "oka" egin_V ; --Apertium
 
 --------
 -- W - Y
