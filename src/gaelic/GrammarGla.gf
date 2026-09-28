@@ -9,9 +9,10 @@ concrete GrammarGla of Grammar =
   , RelativeGla
   , ConjunctionGla
   , PhraseGla
-  , TextX
+  , TextGla
   , StructuralGla
   , IdiomGla
-  , TenseX
-  , NamesGla -- Not part of original Grammar, here to trigger compilation
+  , TenseGla
+  , NamesGla
+  , ConstructionGla
   ;

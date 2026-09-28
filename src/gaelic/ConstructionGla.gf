@@ -1,4 +1,4 @@
-concrete ConstructionGla of Construction = CatGla ** open ParadigmsGla in {
+concrete ConstructionGla of Construction = CatGla ** open ParadigmsGla, ResGla, Prelude in {
 
 lincat
   Timeunit = N ;
@@ -6,6 +6,8 @@ lincat
   Monthday = NP ;
   Month = N ;
   Year = NP ;
+  Hour = SS ;
+  Language = N ;
 {-
 lin
 
@@ -114,4 +116,69 @@ lin turkish_Language = mkLanguage "Turkish" ;
 lin urdu_Language = mkLanguage "Urdu" ;
 
 -}
+
+lin
+  hungry_VP = qualityVP "acrach" ;
+  thirsty_VP = qualityVP "tartmhor" ;
+  tired_VP = qualityVP "sgîth" ;
+  scared_VP = qualityVP "fo eagal" ;
+  ill_VP = qualityVP "tinn" ;
+  ready_VP = qualityVP "deiseil" ;
+  is_right_VP = qualityVP "ceart" ;
+  is_wrong_VP = qualityVP "ceàrr" ;
+  has_age_VP card = qualityVP (card.s ++ "bliadhna a dh'aois") ;
+
+  timeunitAdv card unit = {s = "fad" ++ card.s ++ unit.s ! NOM ! Indef ! Pl} ;
+  timeunitRange a b unit = {s = "bho" ++ a.s ++ "gu" ++ b.s ++ unit.s ! NOM ! Indef ! Pl} ;
+  weekdayPunctualAdv w = {s = "air" ++ w.s ! NOM ! Indef ! Sg} ;
+  weekdayHabitualAdv w = {s = "gach" ++ w.s ! NOM ! Indef ! Sg} ;
+  weekdayLastAdv w = {s = w.s ! NOM ! Indef ! Sg ++ "seo chaidh"} ;
+  weekdayNextAdv w = {s = w.s ! NOM ! Indef ! Sg ++ "seo tighinn"} ;
+  monthAdv m = {s = "anns an" ++ m.s ! NOM ! Indef ! Sg} ;
+  yearAdv y = {s = "ann an" ++ linNP y} ;
+  dayMonthAdv d m = {s = linNP d ++ m.s ! NOM ! Indef ! Sg} ;
+  monthYearAdv m y = {s = m.s ! NOM ! Indef ! Sg ++ linNP y} ;
+  dayMonthYearAdv d m y = {s = linNP d ++ m.s ! NOM ! Indef ! Sg ++ linNP y} ;
+  intYear i = atomConstrNP i.s ;
+  intMonthday i = atomConstrNP i.s ;
+  weekdayN w = w ; monthN m = m ;
+  weekdayPN w = {s = w.s ! NOM ! Indef ! Sg} ;
+  monthPN m = {s = m.s ! NOM ! Indef ! Sg} ;
+
+  second_Timeunit = mkN "diog" ; minute_Timeunit = mkN "mionaid" ;
+  hour_Timeunit = mkN "uair" ; day_Timeunit = mkN "latha" ;
+  week_Timeunit = mkN "seachdain" ; month_Timeunit = mkN "mìos" ; year_Timeunit = mkN "bliadhna" ;
+  monday_Weekday = mkN "Diluain" ; tuesday_Weekday = mkN "Dimàirt" ;
+  wednesday_Weekday = mkN "Diciadain" ; thursday_Weekday = mkN "Diardaoin" ;
+  friday_Weekday = mkN "Dihaoine" ; saturday_Weekday = mkN "Disathairne" ; sunday_Weekday = mkN "Didòmhnaich" ;
+  january_Month = mkN "Am Faoilleach" ; february_Month = mkN "An Gearran" ; march_Month = mkN "Am Màrt" ;
+  april_Month = mkN "An Giblean" ; may_Month = mkN "An Cèitean" ; june_Month = mkN "An t-Ògmhios" ;
+  july_Month = mkN "An t-Iuchar" ; august_Month = mkN "An Lùnastal" ; september_Month = mkN "An t-Sultain" ;
+  october_Month = mkN "An Dàmhair" ; november_Month = mkN "An t-Samhain" ; december_Month = mkN "An Dùbhlachd" ;
+
+  n_units_AP card unit adj = adj ** {
+    s = \\f => card.s ++ unit.s ! NOM ! Indef ! Pl ++ adj.s ! f ;
+    voc = \\g => card.s ++ unit.voc ! Pl ++ adj.voc ! g
+    } ;
+  n_units_of_NP card unit np = atomConstrNP (card.s ++ unit.s ! NOM ! Indef ! Pl ++ np.s ! Gen) ;
+  n_unit_CN card unit cn = appendConstrCN cn (card.s ++ unit.s ! NOM ! Indef ! Sg) ;
+  bottle_of_CN np = containerCN "botal" np ;
+  cup_of_CN np = containerCN "cupa" np ;
+  glass_of_CN np = containerCN "glainne" np ;
+
+oper
+  qualityVP : Str -> VP = \x -> lin VP (extendQuality x) ;
+  extendQuality : Str -> ResGla.LinV = \x -> {
+    s = "bi" ++ x ; conditional = table {ResGla.Sg => "bhiodh" ++ x ; ResGla.Pl => "bhiodh" ++ x} ;
+    imperative = \\_,_ => "bi" ++ x ; future = \\_ => "bidh" ++ x ; past = \\_ => "bha" ++ x ;
+    noun = "bhith" ++ x ; participle = "air a bhith" ++ x ;
+    copular = True ; complement = x
+    } ;
+  atomConstrNP : Str -> NP = \x -> lin NP (ResGla.emptyNP ** {s = \\_ => x ; voc = x}) ;
+  appendConstrCN : CN -> Str -> CN = \cn,x -> lin CN (cn ** {
+    s = \\c,d,n => cn.s ! c ! d ! n ++ x ; voc = \\n => cn.voc ! n ++ x
+    }) ;
+  containerCN : Str -> NP -> CN = \x,np -> lin CN {
+    s = \\_,_,_ => x ++ np.s ! ResGla.Gen ; voc = \\_ => x ++ np.s ! ResGla.Gen ; g = ResGla.Masc
+    } ;
 }

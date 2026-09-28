@@ -2151,7 +2151,9 @@ oper
   mkPron : (subj,poss : Str) -> PronAgr -> LinPron = \subj,poss,agr -> {
     s = table {
           Nom _ => subj ;
-          _   => "gam"  -- TODO fix this
+          -- Non-nominative pronouns are either absorbed by an inflected
+          -- preposition in prepNP or use the independent pronoun form.
+          _ => subj
         } ;
     poss = poss ;
     a = agr ;

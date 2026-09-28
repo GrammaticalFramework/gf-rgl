@@ -1,16 +1,14 @@
 concrete AdverbGla of Adverb = CatGla ** open ResGla, ParadigmsGla, Prelude in {
 lin
-{-
 
   -- : A -> Adv ;
-  PositAdvAdj adj =
+  PositAdvAdj adj = {s = "gu" ++ adj.s ! ASg NOM Masc} ;
 
   -- : CAdv -> A -> NP -> Adv ; -- more warmly than John
-  ComparAdvAdj cadv a np =
+  ComparAdvAdj cadv a np = {s = cadv.s ++ a.compar ++ cadv.p ++ linNP np} ;
 
   -- : CAdv -> A -> S  -> Adv ; -- more warmly than he runs
-  ComparAdvAdjS cadv a s =
--}
+  ComparAdvAdjS cadv a sent = {s = cadv.s ++ a.compar ++ cadv.p ++ sent.s} ;
   -- : Prep -> NP -> Adv ;
   PrepNP prep np = {
     s = prepAndArt ++ noun
@@ -33,27 +31,24 @@ lin
         _ => np.empty -- empty string to avoid metavariables
       }
     };
-{-
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
   -- : AdA -> Adv -> Adv ;             -- very quickly
-  AdAdv ada adv = adv **
+  AdAdv ada adv = {s = ada.s ++ adv.s} ;
 
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely
-  PositAdAAdj a =
+  PositAdAAdj a = {s = "gu" ++ a.s ! ASg NOM Masc} ;
 
   -- Subordinate clauses can function as adverbs.
 
   -- : Subj -> S -> Adv ;
-  SubjS subj s = {s = subj.s ++ s.s} ;
+  SubjS subj sent = {s = subj.s ++ sent.s} ;
 
 -- Comparison adverbs also work as numeral adverbs.
 
   -- : CAdv -> AdN ;                  -- less (than five)
-  AdnCAdv cadv =  ;
-
--}
+  AdnCAdv cadv = {s = cadv.s} ;
 
 }
