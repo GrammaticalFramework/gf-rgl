@@ -7,7 +7,19 @@ concrete IdiomKaz of Idiom = CatKaz ** open ResKaz, ParadigmsKaz in {
       fut=\\_ => ip.s ++ "болады";cond=\\_ => ip.s ++ "болар еді";anter=\\_ => ip.s ++ "болған"} ;
     ImpersCl vp = mkClause {s=\\_ => [];a=defaultAgr} vp ;
     GenericCl vp = mkClause {s=\\_ => "адам";a=defaultAgr} vp ;
-    CleftNP np rs = stringClause (np.s ! Nom ++ rs.s) ;
-    CleftAdv adv s = stringClause (adv.s ++ s.s) ;
+    CleftNP np rs = {
+      pres=\\_ => np.s ! Nom ++ rs.s;
+      past=\\_ => np.s ! Nom ++ rs.s;
+      fut=\\_ => np.s ! Nom ++ rs.s;
+      cond=\\_ => np.s ! Nom ++ rs.s;
+      anter=\\_ => np.s ! Nom ++ rs.s
+    } ;
+    CleftAdv adv s = {
+      pres=\\_ => adv.s ++ s.s;
+      past=\\_ => adv.s ++ s.s;
+      fut=\\_ => adv.s ++ s.s;
+      cond=\\_ => adv.s ++ s.s;
+      anter=\\_ => adv.s ++ s.s
+    } ;
     ImpPl1 vp = {s=vp.imperative!Pos!Informal!Pl} ;
 }

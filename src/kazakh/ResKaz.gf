@@ -393,10 +393,4 @@ oper mkClause : NPForm -> Verb -> Clause = \np,vp -> {
   anter = \\pol => np.s ! Nom ++ selectVerb vp P.Past P.Anter pol np.a
   } ;
 
-oper stringClause : Str -> Clause = \s -> {
-  pres=\\_ => s; past=\\_ => s; fut=\\_ => s; cond=\\_ => s; anter=\\_ => s
-  } ;
-
-oper coord : Str -> Str -> Str -> Str = \c,x,y -> x ++ c ++ y ;
-
 }
