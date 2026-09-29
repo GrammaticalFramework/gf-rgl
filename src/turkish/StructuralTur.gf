@@ -125,7 +125,7 @@ concrete StructuralTur of Structural = CatTur **
 
     -- TODO: this does not straightforwardly translate to Turkish which does
     -- not have a "when" as a subordinating conjunction.
-    when_Subj = {s = "[TODO]"} ;
+    when_Subj = {s = "ne zaman"} ;
 
     because_Subj   = {s = "çünkü"} ;
 
@@ -235,7 +235,7 @@ concrete StructuralTur of Structural = CatTur **
 
     -- TODO: this depends on the linearization for `ComplVV` and is really a
     -- morphological construct so it might be a bit tricky to implement.
-    want_VV = variants {} ;
+    want_VV = mkVV (mkV "istemek") ;
 
     whatPl_IP = { s = "neler" } ;
 

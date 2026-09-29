@@ -65,56 +65,14 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
     MassNP cn = {
       s = cn.s ! Sg;
       h = cn.h;
-      a = { n = Sg; p = P1 }
+      a = { n = Sg; p = P3 }
     } ;
 
-    ComplN2 f x =
-        case f.c.c of {
-          Nom => {
-            s = \\n, c => x.s ! Gen ++ f.s ! n ! Acc;
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Acc => {
-            s = \\_,_ => "TODO";
-            gen = \\_, _ => "TODO";
-            h = f.h};
-          Gen => {
-            s =
-              \\n, c =>
-                x.s ! Gen ++ f.gen ! n ! {n = Sg; p = P3}
-                ++ BIND ++ (caseSuffixes ! c).st ! f.h.con ! f.h.vow;
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Dat => {
-            s = \\n, c =>
-              x.s ! Gen ++ f.gen ! n ! {n = Sg; p = P3}
-                ++ datSuffixN.st ! f.h.con ! f.h.vow;
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Loc => {
-            s = \\_,_ => "TODO";
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Ablat => {
-            s = \\_,_ => "TODO";
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Abess _ => {
-            s = \\_,_ => "TODO";
-            gen = \\_, _ => "TODO";
-            h = f.h
-          };
-          Instr => {
-            s = \\_,_ => "TODO";
-            gen = \\_, _ => "TODO";
-            h = f.h
-          }
-        };
+    ComplN2 f x = {
+      s = \\n,c => x.s ! f.c.c ++ f.c.s ++ f.s ! n ! c ;
+      gen = \\n,a => x.s ! f.c.c ++ f.c.s ++ f.gen ! n ! a ;
+      h = f.h
+    } ;
 
 
     AdjCN ap cn = {
@@ -172,7 +130,7 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
     DetNP det = {
       s = \\c => det.s ;
       h = {vow=I_Har; con=SCon Soft} ;  -- to be fixed
-      a = {n = det.n ; p = P1}
+      a = {n = det.n ; p = P3}
     } ;
 
     ExtAdvNP np adv = {
@@ -212,8 +170,8 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
     } ;
 
     PossNP cn np = {
-      s   = \\n,c => np.s ! Gen ++ cn.s ! n ! c ;
-      gen = cn.gen ;
+      s   = \\n,c => np.s ! Gen ++ cn.gen ! n ! np.a ;
+      gen = \\n,a => np.s ! Gen ++ cn.gen ! n ! a ;
       h   = cn.h
     } ;
 
@@ -226,8 +184,8 @@ concrete NounTur of Noun = CatTur ** open ResTur, SuffixTur, HarmonyTur, ParamX,
     } ;
 
     SentCN cn sc = {
-      s   = \\n,c => "(TODO: SentCN)" ;
-      gen = cn.gen ;
+      s   = \\n,c => sc.s ++ cn.s ! n ! c ;
+      gen = \\n,a => sc.s ++ cn.gen ! n ! a ;
       h   = cn.h
     } ;
 

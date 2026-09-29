@@ -81,9 +81,15 @@ concrete ConjunctionTur of Conjunction =
        h = xs.h} ;
 
 
-    ConjRS _ _ = variants {} ;
-    ConsRS _ _ = variants {} ;
-    BaseRS _ _ = variants {} ;
+    ConjRS conj ss = {
+      s = \\a => linCoord [] ! conj.sep ++ ss.s ! a ! conj.sep ++ conj.s ++ ss.s ! a ! 4
+    } ;
+    ConsRS x xs = {
+      s = \\a => table {4 => xs.s ! a ! 4; i => x.s ! a ++ linCoord bindComma ! i ++ xs.s ! a ! i}
+    } ;
+    BaseRS x y = {
+      s = \\a => table {4 => y.s ! a; _ => x.s ! a}
+    } ;
 
   lincat
     [S]   = {s : Ints 4 => Str} ;
@@ -94,5 +100,6 @@ concrete ConjunctionTur of Conjunction =
     [CN]  = {s   : Number => Case => Ints 4 => Str;
              gen : Number => Agr  => Ints 4 => Str;
              h   : Harmony} ;
+    [RS]  = {s : Agr => Ints 4 => Str} ;
 
 }

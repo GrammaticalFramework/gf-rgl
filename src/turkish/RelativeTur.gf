@@ -1,7 +1,9 @@
 concrete RelativeTur of Relative = CatTur ** open ResTur in {
 
 lin
-  RelCl = variants {} ;
+  RelCl cl = {
+    s = \\t,a,p,agr => cl.s ! t ! a ! p ++ "olan"
+  } ;
 
   RelVP rp vp = {
     s = \\t,a,p,agr =>
@@ -15,9 +17,13 @@ lin
           } ;
   } ;
 
-  RelSlash = variants {} ;
+  RelSlash rp cl = {
+    s = \\t,a,p,agr => rp.s ! agr ++ cl.s ! t ! a ! p ++ "olan"
+  } ;
 
-  FunRP = variants {} ;
+  FunRP prep np rp = {
+    s = \\agr => np.s ! prep.c ++ prep.s ++ rp.s ! agr
+  } ;
 
   IdRP = {s = \\_ => []} ;
   
