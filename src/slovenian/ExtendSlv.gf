@@ -69,6 +69,13 @@ lin
   AdvRNP np prep r = {s=\\a,c => np.s ! c ++ prep.s ++ r.s ! a ! prep.c} ;
   AdvRVP vp prep r = vp ** {s2=\\a => vp.s2 ! a ++ prep.s ++ r.s ! a ! prep.c} ;
   AdvRAP ap prep r = ap ** {s=\\sp,g,c,n => ap.s ! sp ! g ! c ! n ++ prep.s ++ r.s ! {g=agender2gender g;n=n;p=P3} ! prep.c} ;
+  ReflRNP vp r = vp ** {
+    s2=\\a => vp.s2 ! a ++ vp.c2.s ++ r.s ! a ! vp.c2.c
+  } ;
+  ReflA2RNP a r = {
+    s=\\_,g,c,n => a.s ! APosit (agender2gender g) n c ++ a.c.s ++
+                    r.s ! {g=agender2gender g;n=n;p=P3} ! a.c.c
+  } ;
   PossPronRNP pron num cn r = {
     s=\\c => pron.poss ! agender2gender cn.g ! c ! (numAgr2num ! num.n) ++ cn.s ! Indef ! c ! (numAgr2num ! num.n) ++ r.s ! pron.a ! Gen;
     a={g=agender2gender cn.g;n=numAgr2num ! num.n;p=P3};isPron=False
