@@ -42,10 +42,17 @@ concrete ConjunctionSlv of Conjunction =
       s2 = xs.s2 ;
       g  = xs.g
     } ;
+    ConjS conj xs = {s=xs.s1++conj.s++xs.s2} ;
+    BaseS a b = {s1=a.s;s2=b.s} ;
+    ConsS a xs = {s1=a.s++","++xs.s1;s2=xs.s2} ;
+    ConjAdv conj xs = {s=xs.s1++conj.s++xs.s2} ;
+    BaseAdv a b = {s1=a.s;s2=b.s} ;
+    ConsAdv a xs = {s1=a.s++","++xs.s1;s2=xs.s2} ;
 
   lincat
     [NP] = {s1,s2 : Case => Str; a : Agr} ;
     [AP] = {s1,s2 : Species => AGender => Case => Number => Str} ;
     [CN] = {s1,s2 : Species => Case => Number => Str; g : AGender} ;
+    [S], [Adv] = {s1,s2 : Str} ;
 
 }

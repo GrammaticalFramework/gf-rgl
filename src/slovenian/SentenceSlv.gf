@@ -18,6 +18,13 @@ lin
 
     ExtAdvS a s = {s = a.s ++ bindComma ++ s.s} ;
     AdvS a s = {s = a.s ++ s.s} ;
+    SSubjS a subj b = {s = a.s ++ subj.s ++ b.s} ;
+    EmbedS s = s ;
+    EmbedQS s = s ;
+    PredSCVP sc vp = mkClause sc.s {g=Neut;n=Sg;p=P3} False vp ;
+    AdvImp adv imp = {s = \\p,g,n => adv.s ++ imp.s ! p ! g ! n} ;
+    UseRCl t p rcl = {s=\\a => t.s ++ p.s ++ rcl.s!a!t.t!t.a!p.p} ;
+    AdvSlash cls adv = cls ** {s=\\t,a,p=>cls.s!t!a!p++adv.s} ;
+    SlashPrep cl prep = cl ** {c2=prep} ;
 
 }
-

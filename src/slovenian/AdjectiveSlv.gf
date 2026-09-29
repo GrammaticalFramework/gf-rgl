@@ -23,4 +23,12 @@ concrete AdjectiveSlv of Adjective = CatSlv ** open ResSlv in {
       } ;
 
     AdvAP ap adv = {s = \\spec,g,c,n => ap.s ! spec ! g ! c ! n ++ adv.s} ;
+    ComplA2 a np = {
+      s = \\spec,g,c,n => a.s ! APosit (agender2gender g) n c ++ a.c.s ++ np.s ! a.c.c
+    } ;
+    UseA2 a = {s = \\_,g,c,n => a.s ! APosit (agender2gender g) n c} ;
+    SentAP ap sc = ap ** {s = \\sp,g,c,n => ap.s ! sp ! g ! c ! n ++ sc.s} ;
+    ComparA a np = {
+      s = \\_,g,c,n => a.s ! ACompar (agender2gender g) n c ++ "kot" ++ np.s ! Nom
+    } ;
 }

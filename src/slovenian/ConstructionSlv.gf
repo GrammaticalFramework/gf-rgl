@@ -1,16 +1,25 @@
 concrete ConstructionSlv of Construction = CatSlv ** 
-  open ParadigmsSlv, ResSlv in {
+  open ParadigmsSlv, ResSlv, Prelude in {
 
 flags
   coding=utf8;
 
 lincat
   Weekday = N ;
-  Month = N ; 
+  Month = N ;
+  Year, Monthday = {s : Str} ;
 
 lin
   weekdayN w = w ;
   monthN m = m ;
+  ready_VP = {s=copula;s2=\\a=>(mkA "pripravljen").s!APosit a.g a.n Nom;isCop=True;refl=[]} ;
+  has_age_VP card = {s=copula;s2=\\a=>card.s!Masc!Nom++"let star";isCop=True;refl=[]} ;
+  yearAdv y = {s="leta"++y.s} ;
+  intYear i = {s=i.s} ;
+  intMonthday i = {s=i.s} ;
+  cup_of_CN np = {s=\\_,c,n=>(mkN "skodelica").s!c!n++np.s!Gen;g=AFem} ;
+  n_units_AP card unit adj = {s=\\_,g,c,n=>card.s!(agender2gender g)!c++unit.s!Indef!Gen!Pl++adj.s!APosit(agender2gender g)n c} ;
+  n_units_of_NP card unit np = {s=\\c=>card.s!Masc!c++unit.s!Indef!Gen!Pl++np.s!Gen;a=np.a;isPron=False} ;
 
 lin
   monday_Weekday = mkN "ponedeljek" "ponedeljka" "ponedeljku" "ponedeljek" "ponedeljku" "ponedeljkom" "ponedeljka" "ponedeljkov" "ponedeljkoma" "ponedeljka" "ponedeljkih" "ponedeljkoma" "ponedeljki" "ponedeljkov" "ponedeljkom" "ponedeljke" "ponedeljkih" "ponedeljki" masculine ;

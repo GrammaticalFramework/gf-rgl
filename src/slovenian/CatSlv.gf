@@ -3,12 +3,19 @@ concrete CatSlv of Cat = CommonX ** open ResSlv, (P=ParamX), Prelude in {
 lincat
   -- Sentence
   Cl = {s : P.Tense => P.Anteriority => P.Polarity => Str} ;
+  S, QS, SSlash = {s : Str} ;
   Imp = {s : P.Polarity => Gender => Number => Str} ;
   ClSlash = {s : P.Tense => P.Anteriority => P.Polarity => Str ; c2 : Prep} ; ----AR
 
   -- Question
   QCl = {s : P.Tense => P.Anteriority => P.Polarity => Str} ;
   IP =  {s : Case => Str; a : Agr} ; ----AR
+  IComp = {s : Str} ;
+  IDet, IQuant = {s : Str} ;
+
+  RCl = {s : Agr => P.Tense => P.Anteriority => P.Polarity => Str} ;
+  RS = {s : Agr => Str} ;
+  RP = {s : AGender => Case => Number => Str} ;
 
   -- Verb
   VP = ResSlv.VP ;
@@ -25,9 +32,13 @@ lincat
   Pron = {s : Case => Str; poss : Gender => Case => Number => Str; a : Agr} ;
 
   Det = {s : Gender => Case => Str; spec : Species; n : NumAgr} ;
+  Predet = {s : Str} ;
   Num  = {s : Gender => Case => Str ; n : NumAgr} ;
   Card = {s : Gender => Case => Str ; n : NumAgr} ;
   Quant = {s : Gender => Case => Number => Str; spec : Species} ;
+  Ord = {s : Gender => Case => Number => Str} ;
+  DAP = {s : Species => AGender => Case => Number => Str; n : NumAgr} ;
+  ACard = {s : Str} ;
 
   -- Numeral
   Numeral = {s : Gender => Case => Str ; n : NumAgr} ;

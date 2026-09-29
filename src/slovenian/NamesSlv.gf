@@ -31,4 +31,8 @@ lin InLN ln = {
       s = "v" ++ ln.s ! Loc
       } ;
 
+lin AdjLN ap ln = ln ** {
+      s = \\c => ap.s ! Indef ! ln.g ! c ! ln.n ++ ln.s ! c
+      } ;
+
 }
