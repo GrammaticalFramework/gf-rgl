@@ -21,7 +21,7 @@ concrete SentenceAfr of Sentence = CatAfr ** open ResAfr, Prelude in {
           inf  = vp.inf.p1 ;
         in
         verb ++ ps.p2 ++ 
-        vp.n2 ! agr ++ vp.a1 ! pol ++ vp.a2 ++ inf ++ vp.ext
+        vp.n2 ! agr ++ vp.a1 ! pol ++ vp.a2 ++ vp.s.prefix ++ inf ++ vp.ext
     } ;
 
     SlashVP np vp = 
@@ -60,18 +60,24 @@ concrete SentenceAfr of Sentence = CatAfr ** open ResAfr, Prelude in {
       c2 = cl.c2
       } ;
 
-    AdvS a s = {s = \\o => a.s ++ s.s ! Inv} ;
+    AdvS a s = {s = \\o => a.s ++ s.s ! case o of {
+      Sub => Sub ;
+      _ => Inv
+      }} ;
 
-    ExtAdvS a s = {s = \\o => a.s ++ "," ++ s.s ! Inv} ;
+    ExtAdvS a s = {s = \\o => a.s ++ bindComma ++ s.s ! case o of {
+      Sub => Sub ;
+      _ => Inv
+      }} ;
 
     SSubjS s1 subj s2 = {
-      s = \\o => s1.s ! o ++ "," ++ subj.s ++ s2.s ! Sub
+      s = \\o => s1.s ! o ++ bindComma ++ subj.s ++ s2.s ! Sub
       } ;
 
     AdvImp adv imp = {
       s = \\p,i => adv.s ++ imp.s ! p ! i
       } ;
 
-    RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! Neutr ! Sg} ;
+    RelS s r = {s = \\o => s.s ! o ++ bindComma ++ r.s ! Neutr ! Sg} ;
 
 }

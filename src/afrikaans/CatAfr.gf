@@ -92,7 +92,7 @@ concrete CatAfr of Cat =
 
 lindef
     VPSlash = \s -> {
-      s  = {s = \\_ => s; prefix = ""; aux = VHebben; vtype = VAct} ;
+      s  = {s = \\_ => s; prefix = ""; hasPrefix = False; hasPast = False; aux = VHebben; vtype = VAct} ;
       a1 = \\_ => "" ;
       n0 = \\_ => "" ;
       n2 = \\_ => "" ;

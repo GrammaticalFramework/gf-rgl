@@ -58,6 +58,9 @@ resource ResAfr = ParamX ** open Prelude in {
       b + v@("ei"|"eu"|"oe"|"ou"|"ie"|"y"|"ui") + "g" => mkNoun s (b + v + "e") Neutr ; --tuig, tuie --R13.1
       
       _ + ("oir" | "ion" | "je") => mkNoun s (s + "s") Neutr ; --uit Nederlandse reël
+
+      b + "heid" => mkNoun s (b + "hede") Neutr ;
+      _ + "teit" => mkNoun s (s + "e") Neutr ;
       
       _ + ("rm" | "lm") => mkNoun s (s + "s") Neutr ; --R13.3
       
@@ -120,8 +123,9 @@ resource ResAfr = ParamX ** open Prelude in {
           b + v@("aal"|"baar"|"eel"|"loos") => b + init (init v) + last v + "e" ; --p288
           _ + ("agtig"|"ant"|"ent"|"êr"|"ies"|"ig"|"lik"|"matig"|"s") => s + "e" ; --p288
           b + "ief" => b + "iewe" ; --p288
+
+          _ + "af" => s ; -- compounds such as kortaf
           
-          --b + ("ei"|"eu"|"oe"|"ou"|"ie"|"y"|"ui") + ?  => endCons s + "e" ;
           b + v@("ou"|"y") + "d"  => b + v + "e" ; --koud, koue / wyd, wye
           
           --b + v@("oo"|"ee") + "d" => b + init v + "ë" ; --leeg, leë
@@ -132,6 +136,7 @@ resource ResAfr = ParamX ** open Prelude in {
           
           b + v@("aa"|"ee"|"oo"|"uu") + "r" => s ; --duur, duur
           b + v@("aa"|"ee"|"oo"|"uu") + c@#cons => b + shortVoc v c + "e" ; --gaaf, gawe
+          b + ("ei"|"eu"|"oe"|"ou"|"ie"|"y"|"ui") + ?  => endCons s + "e" ;
           b + v@("a"|"e"|"i"|"o"|"u" ) + "f" => b + v + "ww" + "e" ; --grof, growwe
           --b + v@("a"|"e"|"i"|"o"|"u" ) + c@? => b + v + c + c + "e" ; --stom, growwe
           _ + "d" => s + "e" ; --p286
@@ -175,12 +180,19 @@ resource ResAfr = ParamX ** open Prelude in {
     	s = table {
     		VInf        => aaien; -- hij/zij/het/wij aaien
     		VPres       => aai;   -- ik aai
-    		VPast       => aai; -- ik aaide  --# notpresent --!afr!	lyk vir nou soos VPres
+		VPast       => aaide; --# notpresent
     		VPerf       => geaaid -- ik heb geaaid 
     	}
     };
     
-  regVerb : Str -> Verb = \s -> irregVerb s ("ge" + s) ;
+  regVerb : Str -> Verb = \s ->
+    let perf : Str = case s of {
+      ("be" | "ge" | "her" | "er" | "ont" | "ver") + _ => s ;
+      "e" + r => "geë" + r ;
+      "i" + r => "geï" + r ;
+      _ => "ge" + s
+      }
+    in irregVerb s perf ;
 
   irregVerb : (breek, gebreek : Str) -> Verb = \breek,gebreek ->
     mkVerb breek breek breek gebreek ;
@@ -195,10 +207,12 @@ resource ResAfr = ParamX ** open Prelude in {
         if_then_Str b (ein + geb) geb ;
     in
     {s = table {
-      f@(VInf | VPerf) => ein + vs ! f ; ---- TODO: eingegeven
+      VPerf  => ein + vs ! VPerf ; ---- TODO: eingegeven
       f       => vs ! f
       } ;
      prefix = ein ;
+     hasPrefix = True ;
+     hasPast = verb.hasPast ;
      aux = verb.aux ;
      vtype = verb.vtype 
      } ;
@@ -211,18 +225,22 @@ resource ResAfr = ParamX ** open Prelude in {
        } ;
     aux = VZijn ;
     prefix = [] ;
+    hasPrefix = False ;
+    hasPast = True ;
     vtype = VAct ;
     } ;
 
   hebben_V : VVerb = {
     s = table {
-       VInf      => "het" ;
+       VInf      => "hê" ;
        VPres     => "het" ; 
        VPast     => "het" ; --# notpresent
        VPerf     => "gehad" 
        } ;
     aux = VHebben ;
     prefix = [] ;
+    hasPrefix = False ;
+    hasPast = False ;
     vtype = VAct ;
     } ;
 
@@ -241,6 +259,8 @@ resource ResAfr = ParamX ** open Prelude in {
        } ;
     aux = VHebben ;
     prefix = [] ;
+    hasPrefix = False ;
+    hasPast = True ;
     vtype = VAct ;
     } ;
 
@@ -248,11 +268,13 @@ resource ResAfr = ParamX ** open Prelude in {
     s = table {
        VInf      => "word" ;
        VPres     => "word" ; 
-       VPast     => "word" ; --# notpresent
-       VPerf     => "geword" 
+       VPast     => "is" ; --# notpresent
+       VPerf     => []
        } ;
-    aux = VHebben ;
+    aux = VZijn ;
     prefix = [] ;
+    hasPrefix = False ;
+    hasPast = True ;
     vtype = VAct ;
     } ;
 
@@ -273,15 +295,18 @@ param
     Adjf = Strong | Weak ;
 
 
-  oper VVerb = Verb ** {prefix : Str ; aux : VAux ; vtype : VType} ;
+  oper VVerb = Verb ** {
+    prefix : Str ; hasPrefix : Bool ; hasPast : Bool ; aux : VAux ; vtype : VType
+    } ;
   param VAux = VHebben | VZijn ;
 
   param VType = VAct | VRefl ;
 
   oper 
     v2vvAux : Verb -> VAux -> VVerb = \v,a -> 
-      {s = v.s ; aux = a ; prefix = [] ; vtype = VAct} ;
+      {s = v.s ; aux = a ; prefix = [] ; hasPrefix = False ; hasPast = False ; vtype = VAct} ;
     v2vv : Verb -> VVerb = \v -> v2vvAux v VHebben ;
+    v2vvPast : Verb -> VVerb = \v -> (v2vvAux v VHebben) ** {hasPast = True} ;
 
 
 
@@ -325,11 +350,10 @@ param
 
 -- Used in $NounAfr$.
 
-    agrAdj : Gender -> Adjf -> NForm -> AForm = \g,a,n ->
-      case <a,g,n> of {
-        <Strong,Neutr,NF Sg _> => APred ;
-        _ => AAttr
-        } ;
+    -- Afrikaans attributive agreement does not depend on the article in the
+    -- way Dutch/German strong and weak agreement does.  The adjective's
+    -- lexical paradigm determines whether its attributive form has -e.
+    agrAdj : Gender -> Adjf -> NForm -> AForm = \_,_,_ -> AAttr ;
 
   oper VP : Type = {
       s  : VVerb ;
@@ -440,30 +464,47 @@ param
           auxv = (auxVerb vp.s.aux).s ;
           vperf = vp.s.s ! VPerf ;
           verb : Str * Str = case <t,a> of {
-            <Fut|Cond,Simul>  => <sal_V.s ! vform, vp.s.s ! VInf> ; --# notpresent
+            <Fut|Cond,Simul>  => <sal_V.s ! vform, joinPrefix vp.s.hasPrefix vp.s.prefix (vp.s.s ! VInf)> ; --# notpresent
             <Fut|Cond,Anter>  => <sal_V.s ! vform, vperf ++ auxv ! VInf> ; --# notpresent
+            <Past,     Simul>  => case vp.s.hasPast of {
+              True  => <vp.s.s ! VPast, []> ;
+              False => <hebben_V.s ! VPast, vperf>
+              } ;
             <_,       Anter>  => <auxv ! vform,       vperf> ; --# notpresent
             <_,       Simul>  => <vp.s.s ! vform,     []>
             } ;
-          fin   = verb.p1 ;
+          fin   = case <t,a,o,vp.s.hasPast> of {
+            <Pres,Simul,Sub,_> => joinPrefix vp.s.hasPrefix vp.s.prefix verb.p1 ;
+            <Past,Simul,Sub,True> => joinPrefix vp.s.hasPrefix vp.s.prefix verb.p1 ;
+            _ => verb.p1
+            } ;
           neg   = vp.a1 ! b ;
+          tailNeg = case b of {Pos => [] ; Neg => "nie"} ;
           obj0  = vp.n0 ! agr ;
           obj   = vp.n2 ! agr ;
-          compl = obj0 ++ neg ++ obj ++ vp.a2 ++ vp.s.prefix ;
+          pref  = case <t,a,o,vp.s.hasPast> of {
+            <Pres,Simul,Main|Inv,_> => vp.s.prefix ;
+            <Past,Simul,Main|Inv,True> => vp.s.prefix ;
+            _ => []
+            } ;
+          compl = obj0 ++ neg ++ obj ++ vp.a2 ++ pref ;
           inf   = 
             case <vp.isAux, vp.inf.p2, a> of {                  --# notpresent
               <True,True,Anter> => vp.s.s ! VInf ++ vp.inf.p1 ; --# notpresent
-              _ =>                                              --# notpresent
-                 vp.inf.p1 ++ verb.p2 ++ neg
+              _ => case <t,vp.s.aux,vp.inf.p2,vp.isAux> of {
+                <Fut|Cond,VZijn,True,False> => vp.inf.p1 ++ verb.p2 ++ tailNeg ;
+                _ => verb.p2 ++ vp.inf.p1 ++ tailNeg
+                }
               }                                                 --# notpresent
               ;
           extra = vp.ext ;
           inffin = 
-            case <a,vp.isAux> of {                              --# notpresent
-              <Anter,True> => fin ++ inf ; -- double inf   --# notpresent
-              _ =>                                              --# notpresent
-              inf ++ fin              --- or just auxiliary vp
-            }                                                   --# notpresent
+            case <t,vp.isAux,vp.inf.p2,vp.s.hasPast> of {
+              <Fut|Cond,_,_,_> => fin ++ inf ;
+              <_,True,_,_> => fin ++ inf ;
+              <Pres,False,True,False> => fin ++ inf ;
+              _ => inf ++ fin
+            }
         in
         case o of {
           Main => subj ++ fin ++ compl ++ inf ++ extra ;
@@ -477,17 +518,34 @@ param
     VZijn   => zijn_V 
     } ;
 
+  -- Separable prefixes are joined to the verb in subordinate clauses and
+  -- infinitives.  An unconditional BIND is not safe here: with an empty
+  -- prefix it binds the preceding constituent to the verb (e.g. *hy salgaan).
+  joinPrefix : Bool -> Str -> Str -> Str = \has,p,v -> case has of {
+    False => v ;
+    True  => p ++ BIND ++ v
+    } ;
+
   infVP : Bool -> VP -> ((Agr => Str) * Str * Str) = \isAux, vp -> 
     <
      \\agr => vp.n0 ! agr ++  vp.n2 ! agr ++  vp.a2,
      vp.a1 ! Pos ++
-     if_then_Str isAux [] "om" ++ "te" ++ vp.s.s ! VInf,
+     case isAux of {
+       True  => joinPrefix vp.s.hasPrefix vp.s.prefix (vp.s.s ! VInf) ;
+       False => "om" ++ vp.s.prefix ++ "te" ++ vp.s.s ! VInf
+       },
      vp.inf.p1 ++ vp.ext
     > ;
 
   useInfVP : Bool -> VP -> Str = \isAux,vp ->
-    let vpi = infVP isAux vp in
-    vpi.p1 ! agrP3 Sg ++ vpi.p3 ++ vpi.p2 ;
+    let a = agrP3 Sg ;
+        obj = vp.n0 ! a ++ vp.n2 ! a ++ vp.a2
+    in case isAux of {
+      True => obj ++ joinPrefix vp.s.hasPrefix vp.s.prefix (vp.s.s ! VInf) ++
+              vp.inf.p1 ++ vp.ext ;
+      False => "om" ++ obj ++ vp.s.prefix ++ "te" ++ vp.s.s ! VInf ++
+               vp.inf.p1 ++ vp.ext
+      } ;
 
   reflPron : Agr => Str = table {
     {n = Sg ; p = P1} => "my" ;	--afr

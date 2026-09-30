@@ -78,7 +78,7 @@ concrete VerbAfr of Verb = CatAfr ** open Prelude, ResAfr in {
     CompAdv a = {s = \\_ => a.s} ;
 
     AdvVP vp adv = insertAdv adv.s vp ;
-    ExtAdvVP vp adv = insertAdv ("," ++ adv.s ++ ",") vp ;
+    ExtAdvVP vp adv = insertAdv (embedInCommas adv.s) vp ;
     AdVVP adv vp = insertAdV adv.s vp ;
 
     AdvVPSlash vp adv = vp ** {a2 = vp.a2 ++ adv.s} ;
@@ -93,6 +93,7 @@ concrete VerbAfr of Verb = CatAfr ** open Prelude, ResAfr in {
 ---- workaround for a subtyping bug
   oper
     v2v : VVerb -> VVerb = \v -> 
-      {s = v.s ; aux = v.aux ; prefix = v.prefix ; vtype = v.vtype} ;
+      {s = v.s ; aux = v.aux ; prefix = v.prefix ; hasPrefix = v.hasPrefix ;
+       hasPast = v.hasPast ; vtype = v.vtype} ;
     predVv : VVerb -> ResAfr.VP = \v -> predV (v2v v) ;
 }

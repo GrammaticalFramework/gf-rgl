@@ -40,7 +40,7 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
       } ;
 
     ExtAdvNP np adv = heavyNP {
-      s = \\c => np.s ! c ++ "," ++ adv.s ++ "," ;
+      s = \\c => np.s ! c ++ embedInCommas adv.s ;
       a = np.a
       } ;
 
@@ -163,7 +163,7 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
       } ;
 
     RelNP np rs = {
-      s = \\c => np.s ! c ++ "," ++ rs.s ! np.a.g ! np.a.n ;
+      s = \\c => np.s ! c ++ bindComma ++ rs.s ! np.a.g ! np.a.n ;
       a = np.a ;
       isPron = False
       } ;

@@ -109,7 +109,7 @@ lin GenModNP num np cn = heavyNP {
       isPre = True
       } ;
     PastPartAgentAP vp np = {
-      s = \\_ => partVP vp (agrP3 Sg) ++ "door" ++ np.s ! NPAcc ;
+      s = \\_ => partVP vp (agrP3 Sg) ++ "deur" ++ np.s ! NPAcc ;
       isPre = False
       } ;
     ProgrVPSlash vp = vp ;
@@ -121,12 +121,12 @@ lin GenModNP num np cn = heavyNP {
       s = \\_ => infVPString vp (agrP3 Sg) ;
       a = agrP3 Sg
       } ;
-    GerundAdv vp = {s = "door" ++ infVPString vp (agrP3 Sg)} ;
-    ByVP vp = {s = "door" ++ infVPString vp (agrP3 Sg)} ;
-    InOrderToVP vp = {s = "om" ++ infVPString vp (agrP3 Sg)} ;
+    GerundAdv vp = {s = "deur" ++ infVPBody vp (agrP3 Sg)} ;
+    ByVP vp = {s = "deur" ++ infVPBody vp (agrP3 Sg)} ;
+    InOrderToVP vp = {s = infVPString vp (agrP3 Sg)} ;
 
     ApposNP np1 np2 = heavyNP {
-      s = \\c => np1.s ! c ++ "," ++ np2.s ! c ;
+      s = \\c => np1.s ! c ++ bindComma ++ np2.s ! c ;
       a = np1.a
       } ;
     PositAdVAdj a = {s = a.s ! Posit ! APred} ;
@@ -155,11 +155,14 @@ lin BaseImp = twoTable2 Polarity ImpForm ;
 lin PassVPSlash vps = 
       insertInf (vps.s.s ! VPerf) (predV word_V) ;
     PassAgentVPSlash vps np = 
-      insertAdv (appPrep "door" np.s) (insertInf (vps.s.s ! VPerf) (predV word_V)) ;
+      insertAdv (appPrep "deur" np.s) (insertInf (vps.s.s ! VPerf) (predV word_V)) ;
 
 oper
   infVPString : ResAfr.VP -> Agr -> Str = \vp,a ->
-    "om" ++ vp.n0 ! a ++ vp.n2 ! a ++ vp.a2 ++ "te" ++
+    "om" ++ infVPBody vp a ;
+
+  infVPBody : ResAfr.VP -> Agr -> Str = \vp,a ->
+    vp.n0 ! a ++ vp.n2 ! a ++ vp.a2 ++ vp.s.prefix ++ "te" ++
     vp.s.s ! VInf ++ vp.inf.p1 ++ vp.ext ;
 
   partVP : ResAfr.VP -> Agr -> Str = \vp,a ->

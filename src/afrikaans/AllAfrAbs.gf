@@ -3,7 +3,7 @@
 abstract AllAfrAbs = 
   Lang,
   IrregAfrAbs,
-  ExtraAfrAbs
+  Extend
   ** 
 {
 --{} ;

@@ -54,7 +54,8 @@ concrete IdiomAfr of Idiom = CatAfr **
       a = np.a
       } ;
 
-    ProgrVP vp = insertAdv ("aan" ++ "die" ++ useInfVP True vp) (predV zijn_V) ;	--afr
+    ProgrVP vp = insertExtrapos (useInfVP False vp)
+      (insertObj (\\_ => "besig") (predV zijn_V)) ;
 
     ImpPl1 vp =
       let 

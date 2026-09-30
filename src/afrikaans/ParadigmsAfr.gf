@@ -243,11 +243,14 @@ oper
     mkV : (breek,gebreek : Str) -> V = 
       \a,b -> lin V (v2vv (irregVerb a b)) ;
     mkV : (wil,wou,gewil : Str) -> V = 
-      \a,b,c -> lin V (v2vv (mkVerb a a b c)) ;
+      \a,b,c -> lin V (v2vvPast (mkVerb a a b c)) ;
     mkV : Str -> V -> V = \v,s ->lin V (prefixV v s) ;
     } ;
   zijnV v = v ; -- lin V (v2vvAux v VZijn) ;
-  reflV v = lin V {s = v.s ; aux = v.aux ; prefix = v.prefix ; vtype = VRefl} ;
+  reflV v = lin V {
+    s = v.s ; aux = v.aux ; prefix = v.prefix ; hasPrefix = v.hasPrefix ;
+    hasPast = v.hasPast ; vtype = VRefl
+    } ;
 
   zijn_V : V = lin V ResAfr.zijn_V ;
   hebben_V : V = lin V ResAfr.hebben_V ;

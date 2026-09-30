@@ -23,11 +23,11 @@ concrete StructuralAfr of Structural = CatAfr, Prelude **
   but_PConj = ss "maar" ;
   by8agent_Prep = mkPrep "deur" ;
   by8means_Prep = mkPrep "met" ;
-  can8know_VV, can_VV = auxVV (mkV "kan" "kon") ;
+  can8know_VV, can_VV = auxVV (mkV "kan" "kon" "gekon") ;
   during_Prep = mkPrep "tydens" ;
   either7or_DConj = {s1 = "òf" ; s2 = "òf" ; n = Pl} ;
   everybody_NP = mkNP "almal" Neutr Pl ; ----
-  every_Det = mkDet "elke" "elk" Sg ; ----
+  every_Det = mkDet "elke" "elke" Sg ;
   everything_NP = mkNP "alles" Neutr Sg ; ----
   everywhere_Adv = ss "oral" ;
   few_Det = mkDet "min" "min" Pl ;
