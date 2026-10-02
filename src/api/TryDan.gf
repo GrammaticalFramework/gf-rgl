@@ -1,6 +1,6 @@
 --# -path=.:../danish:../scandinavian:../common:../abstract:../prelude
 
-resource TryDan = SyntaxDan-[mkAdN], LexiconDan, ParadigmsDan - [mkAdv,mkAdN] **
+resource TryDan = SyntaxDan-[mkAdN], LexiconDan, ParadigmsDan - [mkAdv,mkAdN,mkIAdv,mkCard,mkDet,mkIDet,mkQuant,mkPConj] **
   open (P = ParadigmsDan) in {
 
 oper
