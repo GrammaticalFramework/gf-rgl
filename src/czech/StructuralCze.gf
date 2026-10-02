@@ -56,7 +56,7 @@ lin
     somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
     something_NP =
       let s : Case => Str = \\c => "ně" + coForms ! c in npForms s s ** {
-      clit = s ; a = Ag Neutr Sg P3 ; m = Mod Neutr Sg ;
+      clit = s ; a = Ag Neutr Sg P3 ;
       hasClit = False ; isDrop = False ; isPron = False
       } ; -- CEG 5.6.3
     possess_Prep = mkPrep Gen ;

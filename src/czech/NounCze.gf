@@ -18,7 +18,7 @@ lin
     MassNP cn =
       let s = cn.s ! Sg in npForms s s ** {
       clit = s ;
-      a = Ag cn.g Sg P3 ; m = Mod cn.g Sg ; isPron = False ;
+      a = Ag cn.g Sg P3 ; isPron = False ;
       hasClit = False ; isDrop = False ;
       } ;
 
@@ -65,7 +65,7 @@ lin
         Loc => pron.loc ;
         Ins => pron.ins
         } ;
-      a = pron.a ; m = modifierAgr pron.a ;
+      a = pron.a ;
       hasClit = True ; isDrop = pron.isDrop ; isPron = True ;
       } ;
 
@@ -73,7 +73,7 @@ lin
 
     UsePN pn = npForms pn.s pn.s ** {
       clit = pn.s ;
-      a = Ag pn.g Sg P3 ; m = Mod pn.g Sg ; isPron = False ;
+      a = Ag pn.g Sg P3 ; isPron = False ;
       hasClit = False ; isDrop = False ;
       } ;
 
@@ -130,7 +130,7 @@ lin
       let forms : Case => Str = \\c => det.s ! Neutr ! c ++ np.s ! Gen ;
           agr = numeralAgr Neutr det P3 in
       npForms forms forms ** {
-        clit = forms ; a = agr ; m = Mod Neutr Pl ;
+        clit = forms ; a = agr ;
         hasClit = False ; isDrop = False ; isPron = False
       } ;
 
@@ -149,7 +149,7 @@ lin
     QuantityNP decimal unit =
       let forms : Case => Str = \\_ => decimal.s ++ unit.s in
       npForms forms forms ** {
-        clit = forms ; a = AgQuant Neutr ; m = Mod Neutr Pl ;
+        clit = forms ; a = AgQuant Neutr ;
         hasClit = False ; isDrop = False ; isPron = False
       } ;
 
@@ -167,7 +167,7 @@ lin
 
     PredetNP pred np =
       let forms = predetNPForms (andB pred.postPron np.isPron)
-        (\\c => predetForm pred np.m c) np
+        (\\c => predetForm pred np.a c) np
       in np ** forms ** {
       -- A predeterminer modifies a full NP: jen já, jen jeho. Its scope
       -- cannot be preserved by an omitted subject or an object clitic.

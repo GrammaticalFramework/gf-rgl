@@ -70,7 +70,7 @@ lincat
   RNPList = {s1,s2,prep1,prep2 : Agr => Case => Str ; m : RNPHead} ;
 
 param
-  RNPHead = AntecedentHead | FixedHead ModifierAgr ;
+  RNPHead = AntecedentHead | FixedHead Agr ;
 
 lin
   MkVPS temp pol vp = {s = \\a =>
@@ -188,7 +188,7 @@ lin
       (\\c => predetForm pred (rnpAgr rnp.m a) c) (rnpForms rnp a)) ;
   AdvRNP np p rnp = boundNPForms (\\a =>
     appendNPForms np (fullComplement p (rnp.s ! a) (rnp.prep ! a))) ** {
-      m = FixedHead np.m ; isPron = np.isPron
+      m = FixedHead np.a ; isPron = np.isPron
       } ;
   AdvRVP vp p rnp = vp ** {
     compl = \\a => vp.compl ! a ++ fullComplement p (rnp.s ! a) (rnp.prep ! a)
@@ -213,7 +213,7 @@ oper
     let forms : Case => Str = \\c => dap.s ! g ! c ;
         agr = numeralAgr g dap P3 in
     lin NP (npForms forms forms ** {
-      clit = forms ; a = agr ; m = numeralModAgr g dap ;
+      clit = forms ; a = agr ;
       hasClit = False ; isDrop = False ; isPron = False
       }) ;
 
@@ -233,15 +233,13 @@ oper
     } ;
   -- Ordinary NPs and possessed heads have their own modifier agreement.
   fullRNP : S.NP -> RNP = \np -> lin RNP (boundNPForms (\\_ => np) ** {
-    m = FixedHead np.m ; isPron = np.isPron
+    m = FixedHead np.a ; isPron = np.isPron
     }) ;
   -- A reflexive inherits gender and number, but its own complement position
   -- selects case: pět dětí miluje sebe všechny, not sebe všech.
-  rnpAgr : RNPHead -> Agr -> ModifierAgr = \head,a -> case head of {
-    AntecedentHead => case a of {
-      AgQuant g => Mod g Pl ; _ => modifierAgr a
-      } ;
-    FixedHead m => m
+  rnpAgr : RNPHead -> Agr -> Agr = \head,a -> case head of {
+    AntecedentHead => a ;
+    FixedHead a    => a
     } ;
   -- As for ordinary NPs, preposed modifiers agree with the first conjunct.
   baseRNP : RNP -> RNP -> RNPList = \x,y -> lin RNPList {

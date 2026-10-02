@@ -1367,8 +1367,6 @@ param
   -- Nested scales retain the outer head: tato dvě stě tisíc korun.
   ScaleAgreement = QuantifiedScale | NominalScale ;
   NumHead = CountedHead | ScaleHead Gender NumSize ScaleAgreement ;
-  -- NP modifiers have gender/number/case agreement, never verbal person.
-  ModifierAgr = Mod Gender Number | ModQuant Gender ;
 
 oper
   quantifierForm : Adjective -> Determiner -> Gender -> Case -> Str = \q,num,g,c ->
@@ -1383,18 +1381,15 @@ oper
 
   -- Predeterminers agree with the NP head, including a quantified head in
   -- the genitive. This differs from clause agreement for e.g. tisíc korun.
-  numeralModAgr : Gender -> Determiner -> ModifierAgr = \g,num -> case num.head of {
-    CountedHead => modifierAgr (numSizeAgr g num.size P3) ;
-    ScaleHead sg size _ => modifierAgr (numSizeAgr sg size P3)
+  numeralModAgr : Gender -> Determiner -> Agr = \g,num -> case num.head of {
+    CountedHead => numSizeAgr g num.size P3 ;
+    ScaleHead sg size _ => numSizeAgr sg size P3
     } ;
 
-  modifierAgr : Agr -> ModifierAgr = \a -> case a of {
-    Ag g n _ => Mod g n ; AgPol g => Mod g Sg ; AgQuant g => ModQuant g
-    } ;
-
-  predetForm : Adjective -> ModifierAgr -> Case -> Str = \pred,a,c -> case a of {
-    Mod g n => pred.s ! g ! n ! c ;
-    ModQuant g => pred.s ! g ! Pl ! countCase Num5 c
+  predetForm : Adjective -> Agr -> Case -> Str = \pred,a,c -> case a of {
+    Ag g n _ => pred.s ! g ! n  ! c ;
+    AgPol g  => pred.s ! g ! Sg ! c ;
+    AgQuant g => pred.s ! g ! Pl ! countCase Num5 c
     } ;
 
   -- Keep the boundary for my všichni doma, also after AdvNP. Complete forms

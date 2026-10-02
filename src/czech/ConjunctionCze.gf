@@ -5,7 +5,7 @@ concrete ConjunctionCze of Conjunction = CatCze **
     [Adv] = {s1,s2 : Str} ;
     [CN] = {s1,s2 : Number => Case => Str ; g,gPl : Gender} ;
     [AP]  = {s1,s2 : Gender => Number => Case => Str ; pred1,pred2 : Agr => Str ; isPost : Bool} ;
-    [NP]  = {s1,s2,prep1,prep2 : Case => Str ; a : Agr ; m : ModifierAgr} ;
+    [NP]  = {s1,s2,prep1,prep2 : Case => Str ; a : Agr} ;
     [S] = {s1 : Sentence ; s2 : Str} ;
     [RS] = {s1,s2 : Agr => Str} ;
 

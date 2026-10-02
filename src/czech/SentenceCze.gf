@@ -75,7 +75,7 @@ lin
     AdvImp adv imp = {s = \\pos,a => adv.s ++ imp.s ! pos ! a} ;
     PredSCVP sc vp = PredVP
       (npForms (\\_ => sc.s) (\\_ => sc.s) ** {
-        clit = \\_ => sc.s ; a = Ag Neutr Sg P3 ; m = Mod Neutr Sg ;
+        clit = \\_ => sc.s ; a = Ag Neutr Sg P3 ;
         hasClit = False ; isDrop = False ; isPron = False}) vp ;
     EmbedS s = {s = (frontSentence "že" s).s} ;
     EmbedQS qs = {s = qs.ind} ;

@@ -45,7 +45,7 @@ concrete CatCze of Cat =
     -- Modifiers restore full forms. s and prep are always available for strong use.
     -- m controls NP modifiers; a controls the clause. Scale nouns can differ.
     -- A modified pronoun can keep its pronominal head without a weak form.
-    NP = NPForms ** {clit : Case => Str ; a : Agr ; m : ModifierAgr ; hasClit,isDrop,isPron : Bool} ;
+    NP = NPForms ** {clit : Case => Str ; a : Agr ; hasClit,isDrop,isPron : Bool} ;
     PN = {s : Case => Str ; g : Gender} ;
     Ord = Adjective ;
     Det = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ; -- can contain a numeral, therefore NumSize
