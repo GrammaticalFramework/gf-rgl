@@ -35,10 +35,11 @@ lin
 
   -- as DetCN in NounCze, with the symbols in apposition
   CNSymbNP det cn xs =
-    let s : Case => Str = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ++ xs.s
+    let s : Case => Str = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ++ xs.s ;
+        agr = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3
     in npForms s s ** {
     clit = s ;
-    a = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3 ;
+    a = agr ;
     m = numeralModAgr (nounGender cn (numSizeNumber det.size)) det ;
     hasClit = False ; isDrop = False ; isPron = False ;
     } ;

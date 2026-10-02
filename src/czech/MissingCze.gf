@@ -1,50 +1,13 @@
 resource MissingCze = open GrammarCze, Prelude in {
 
 -- temporary definitions to enable the compilation of RGL API
-oper AAnter : Ant = notYet "AAnter" ;
-oper AdAdv : AdA -> Adv -> Adv = notYet "AdAdv" ;
-oper AdNum : AdN -> Card -> Card = notYet "AdNum" ;
-oper AdVVP : AdV -> VP -> VP = notYet "AdVVP" ;
-oper AdnCAdv : CAdv -> AdN = notYet "AdnCAdv" ;
-oper AdvSlash : ClSlash -> Adv -> ClSlash = notYet "AdvSlash" ;
-oper CAdvAP : CAdv -> AP -> NP -> AP = notYet "CAdvAP" ;
 oper CleftAdv : Adv -> S -> Cl = notYet "CleftAdv" ;
 oper CleftNP : NP -> RS -> Cl = notYet "CleftNP" ;
-oper ComparAdvAdj : CAdv -> A -> NP -> Adv = notYet "ComparAdvAdj" ;
-oper ComparAdvAdjS : CAdv -> A -> S -> Adv = notYet "ComparAdvAdjS" ;
-oper ComplN2 : N2 -> NP -> CN = notYet "ComplN2" ;
 oper ComplN3 : N3 -> NP -> N2 = notYet "ComplN3" ;
-oper ComplVA : VA -> AP -> VP = notYet "ComplVA" ;
-oper DetNP : Det -> NP = notYet "DetNP" ;
 oper ExistIP : IP -> QCl = notYet "ExistIP" ;
 oper FunRP : Prep -> NP -> RP -> RP = notYet "FunRP" ;
-oper OrdDigits : Digits -> Ord = notYet "OrdDigits" ;
-oper OrdNumeral : Numeral -> Ord = notYet "OrdNumeral" ;
 oper PPartNP : NP -> V2 -> NP = notYet "PPartNP" ;
-oper PositAdvAdj : A -> Adv = notYet "PositAdvAdj" ;
-oper PredSCVP : SC -> VP -> Cl = notYet "PredSCVP" ;
-oper ProgrVP : VP -> VP = notYet "ProgrVP" ;
-oper QuestSlash : IP -> ClSlash -> QCl = notYet "QuestSlash" ;
-oper ReflA2 : A2 -> AP = notYet "ReflA2" ;
-oper ReflVP : VPSlash -> VP = notYet "ReflVP" ;
-oper RelCl : Cl -> RCl = notYet "RelCl" ;
 oper RelNP : NP -> RS -> NP = notYet "RelNP" ;
-oper RelSlash : RP -> ClSlash -> RCl = notYet "RelSlash" ;
-oper SentAP : AP -> SC -> AP = notYet "SentAP" ;
-oper SlashPrep : Cl -> Prep -> ClSlash = notYet "SlashPrep" ;
-oper SlashV2A : V2A -> AP -> VPSlash = notYet "SlashV2A" ;
-oper SlashV2Q : V2Q -> QS -> VPSlash = notYet "SlashV2Q" ;
-oper SlashV2S : V2S -> S -> VPSlash = notYet "SlashV2S" ;
-oper SlashV2V : V2V -> VP -> VPSlash = notYet "SlashV2V" ;
-oper SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash = notYet "SlashV2VNP" ;
-oper SlashVP : NP -> VPSlash -> ClSlash = notYet "SlashVP" ;
-oper SlashVS : NP -> VS -> SSlash -> ClSlash = notYet "SlashVS" ;
-oper SlashVV : VV -> VPSlash -> VPSlash = notYet "SlashVV" ;
-oper TCond : Tense = notYet "TCond" ;
-oper TFut : Tense = notYet "TFut" ;
-oper TPast : Tense = notYet "TPast" ;
 oper Use2N3 : N3 -> N2 = notYet "Use2N3" ;
-oper UseN2 : N2 -> CN = notYet "UseN2" ;
-oper UseSlash : Temp -> Pol -> ClSlash -> SSlash = notYet "UseSlash" ;
 
 }

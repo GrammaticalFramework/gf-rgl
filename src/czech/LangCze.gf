@@ -2,8 +2,8 @@
 
 concrete LangCze of Lang =
   GrammarCze,
-  LexiconCze
---  ,ConstructionCze
+  LexiconCze,
+  ConstructionCze
 --  ,DocumentationCze --# notpresent
   ,MarkupCze - [stringMark]
   ** {

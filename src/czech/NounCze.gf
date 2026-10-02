@@ -6,10 +6,11 @@ concrete NounCze of Noun =
 
 lin
     DetCN det cn =
-      let s : Case => Str = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c
+      let s : Case => Str = \\c => det.s ! nounGender cn (numSizeNumber det.size) ! c ++ numSizeForm cn.s det.size c ;
+          agr = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3
       in npForms s s ** {
         clit = s ;
-        a = numeralAgr (nounGender cn (numSizeNumber det.size)) det P3 ;
+        a = agr ;
         m = numeralModAgr (nounGender cn (numSizeNumber det.size)) det ;
         hasClit = False ; isDrop = False ; isPron = False ;
       } ;
@@ -98,6 +99,59 @@ lin
       } ;
 
     UseN n = nounFormsNoun n ;
+
+    UseN2 n = nounFormsNoun n ;
+
+    ComplN2 n np =
+      let cn = nounFormsNoun n ;
+          obj = fullComplement n.c2 np.s np.prep
+      in cn ** {s = \\num,c => cn.s ! num ! c ++ obj} ;
+
+    PossNP cn np = cn ** {s = \\n,c => cn.s ! n ! c ++ np.s ! Gen} ;
+    PartNP cn np = cn ** {s = \\n,c => cn.s ! n ! c ++ np.s ! Gen} ;
+
+    DetNP det =
+      let forms : Case => Str = \\c => det.s ! Masc Inanim ! c ;
+          agr = numeralAgr (Masc Inanim) det P3 in
+      npForms forms forms ** {
+        clit = forms ; a = agr ;
+        m = numeralModAgr (Masc Inanim) det ;
+        hasClit = False ; isDrop = False ; isPron = False
+      } ;
+
+    AdNum ad num = num ** {s = \\g,c => ad.s ++ num.s ! g ! c} ;
+
+    DetDAP det = det ;
+    AdjDAP dap ap = dap ** {
+      s = \\g,c => dap.s ! g ! c ++ ap.s ! g ! numSizeNumber dap.size ! c
+      } ;
+
+    CountNP det np =
+      let forms : Case => Str = \\c => det.s ! Neutr ! c ++ np.s ! Gen ;
+          agr = numeralAgr Neutr det P3 in
+      npForms forms forms ** {
+        clit = forms ; a = agr ; m = Mod Neutr Pl ;
+        hasClit = False ; isDrop = False ; isPron = False
+      } ;
+
+    OrdNumeral num = {
+      s = \\g,n,c => num.s ! g ! c ;
+      pred = \\_ => num.s ! Neutr ! Nom ;
+      isPost = False
+      } ;
+
+    OrdDigits ds = {
+      s = \\_,_,_ => ds.s ++ SOFT_BIND ++ "." ;
+      pred = \\_ => ds.s ++ SOFT_BIND ++ "." ; isPost = False
+      } ;
+
+    ExtAdvNP np adv = AdvNP np adv ;
+    QuantityNP decimal unit =
+      let forms : Case => Str = \\_ => decimal.s ++ unit.s in
+      npForms forms forms ** {
+        clit = forms ; a = AgQuant Neutr ; m = Mod Neutr Pl ;
+        hasClit = False ; isDrop = False ; isPron = False
+      } ;
 
     ApposCN cn np = {
       s = \\n,c => cn.s ! n ! c ++ np.s ! c ; ---- TODO check apposition order

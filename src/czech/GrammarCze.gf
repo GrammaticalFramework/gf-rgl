@@ -14,6 +14,7 @@ concrete GrammarCze of Grammar =
   TextCze,
   StructuralCze,
   IdiomCze,
-  TenseCze
+  NamesCze,
+  TenseX
   ** {
 }

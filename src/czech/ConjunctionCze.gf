@@ -3,6 +3,7 @@ concrete ConjunctionCze of Conjunction = CatCze **
 
   lincat
     [Adv] = {s1,s2 : Str} ;
+    [CN] = {s1,s2 : Number => Case => Str ; g,gPl : Gender} ;
     [AP]  = {s1,s2 : Gender => Number => Case => Str ; pred1,pred2 : Agr => Str ; isPost : Bool} ;
     [NP]  = {s1,s2,prep1,prep2 : Case => Str ; a : Agr ; m : ModifierAgr} ;
     [S] = {s1 : Sentence ; s2 : Str} ;
@@ -11,6 +12,16 @@ concrete ConjunctionCze of Conjunction = CatCze **
   lin
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
+
+    BaseCN x y = {s1 = x.s ; s2 = y.s ; g = x.g ; gPl = x.gPl} ;
+    ConsCN x xs = {
+      s1 = \\n,c => x.s ! n ! c ++ comma ++ xs.s1 ! n ! c ;
+      s2 = xs.s2 ; g = x.g ; gPl = x.gPl
+      } ;
+    ConjCN conj xs = {
+      s = \\n,c => conj.s1 ++ xs.s1 ! n ! c ++ conj.s2 ++ xs.s2 ! n ! c ;
+      g = xs.g ; gPl = xs.gPl
+      } ;
 
     BaseAP x y = twoTable3 Gender Number Case x y
                   ** {pred1 = x.pred ; pred2 = y.pred ; isPost = orB x.isPost y.isPost} ;
@@ -23,14 +34,14 @@ concrete ConjunctionCze of Conjunction = CatCze **
       s2 = y.s ;
       prep1 = x.prep ;
       prep2 = y.prep ;
-      a = y.a ; m = x.m
+      a = y.a ; m = x.m ;
       } ; -- clitics disappear ---- Agr TODO
     ConsNP x xs = {
       s1 = \\c => x.s ! c ++ comma ++ xs.s1 ! c ;
       s2 = xs.s2 ; 
       prep1 = \\c => x.prep ! c ++ comma ++ xs.prep1 ! c ;
       prep2 = xs.prep2 ;
-      a = xs.a ; m = x.m ----
+      a = xs.a ; m = x.m ; ----
       } ; 
 
     BaseS x y = {s1 = x ; s2 = y.s} ;

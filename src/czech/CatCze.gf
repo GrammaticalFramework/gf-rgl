@@ -1,24 +1,21 @@
 concrete CatCze of Cat =
----  CommonX **
-
+  CommonX **
   open ResCze, Prelude in {
 
   lincat
-    Text = {s : Str} ;
-    Phr = {s : Str} ;
-    Utt = {s : Str} ;
-
     S   = ResCze.Sentence ;
-    Cl  = {subj,clit,compl : Str ; verb : VerbForms ; a : Agr ; isDrop,clitPresent : Bool} ;
+    Cl  = ResCze.Clause ;
     Comp = {s : Agr => Str} ;
 
     QS  = {s,ind : Str} ;
-    QCl = {q,subj,clit,compl : Str ; verb : VerbForms ; a : Agr ; yesNo : Bool} ;
-    IAdv, IComp = {s : Str} ;
+    ClSlash = ResCze.Clause ** {c : ComplementCase ; ind : Str} ;
+    SSlash = {s : Str ; c : ComplementCase} ;
+    QCl = ResCze.Clause ** {q : Str ; yesNo : Bool} ;
+    IComp = {s : Str} ;
     IP = {s : Case => Str ; a : Agr} ;
     IDet = Determiner ;
     IQuant = Adjective ;
-    Imp = {s : Bool => Agr => Str} ;
+    Imp = {s : Polarity => Agr => Str} ;
 
     RS  = {s : Agr => Str} ;
     RCl = {subj,clit,compl : Agr => Str ; verb : VerbForms} ; ---- RAgr with composite RP
@@ -32,16 +29,16 @@ concrete CatCze of Cat =
     V  = ResCze.VerbForms ;
     V2 = ResCze.VerbForms ** {c : ComplementCase} ;
     V3 = ResCze.VerbForms ** {c,c2 : ComplementCase} ; -- c : direct object, c2 : indirect object
-    VS,VQ = ResCze.VerbForms ;
+    VS,VQ,VA = ResCze.VerbForms ;
     VV = ResCze.VerbForms ** {isAux : Bool} ;
+    V2A,V2Q,V2S,V2V = ResCze.VerbForms ** {c : ComplementCase} ;
 
     A  = ResCze.DegreeForms ;
     AP = ResCze.Adjective ** {pred : Agr => Str ; isPost : Bool} ;
     A2 = ResCze.DegreeForms ** {c : ComplementCase} ;
 
-    AdA = {s : Str} ;
-
     N  = ResCze.NounForms ;
+    N2 = ResCze.NounForms ** {c2 : ComplementCase} ;
     CN = ResCze.Noun ;      -- {s : Number => Case => Str ; g : Gender}
     -- Object-clitic eligibility and subject omission are independent.
     -- Extend.ProDrop selects isDrop; clit ! Nom retains its empty constituent.
@@ -55,29 +52,16 @@ concrete CatCze of Cat =
     Quant = {s : Gender => Number => Case => Str} ; -- same as AP
     Predet = Adjective ** {postPron : Bool} ;
     Num = Determiner ;
-    Card = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
+    Card,DAP = Determiner ; -- {s : Gender => Case => Str ; size : NumSize} ;
     Pron = PronForms ** {poss : DemPronForms} ;
 
-    Adv  = {s : Str} ;
     Prep = ResCze.ComplementCase ; -- {s : Str ; c : Case ; hasPrep : Bool} ;
     Conj = {s1,s2 : Str} ; ---- may need a number
-
-    Pol = {s : Str ; p : Bool} ;
-    Temp = {s : Str ; t : CTense} ;
-    Tense = {s : Str ; t : CTense} ;
-    Ant = {s : Str ; t : CTense} ;
-
-    PConj = {s : Str} ;
-    Voc = {s : Str} ;
-
-    AdN = {s : Str} ;
-    AdV = {s : Str} ;
-    CAdv = {s : Str} ;
-    SC = {s : Str} ;
 
   linref
     N = \s -> s.snom ;
     A = \s -> s.msnom ;
+    Conj = \c -> c.s2 ;
 
 
   lincat Numeral = Determiner ; ---- TODO: should contain Ord as well

@@ -1,4 +1,4 @@
-resource ResCze = open Prelude in {
+resource ResCze = ParamX ** open Prelude in {
 
 -- AR March 2020
 -- sources:
@@ -8,22 +8,28 @@ resource ResCze = open Prelude in {
 -- parameters
 
 param
-  Number = Sg | Pl ;
-
   Animacy = Anim | Inanim ;
   Gender = Masc Animacy | Fem | Neutr ;
 
   Case = Nom | Gen | Dat | Acc | Voc | Loc | Ins ; -- traditional order
 
-  Person = P1 | P2 | P3 ;
-
   Agr = Ag Gender Number Person | AgPol Gender | AgQuant Gender ; -- polite singular: plural verb, singular predicate
 
-  CTense = CTPres | CTPast ; ----- TODO complete the tense system to match Czech verb morphology
+oper
+  agrGender : Agr -> Gender = \a -> case a of {
+    Ag g _ _ => g ; AgPol g => g ; AgQuant g => g
+    } ;
+
+  agrNumber : Agr -> Number = \a -> case a of {
+    Ag _ n _ => n ; AgPol _ => Sg ; AgQuant _ => Pl
+    } ;
+
+  agrPerson : Agr -> Person = \a -> case a of {
+    Ag _ _ p => p ; _ => P3
+    } ;
+
 
 -- phonology
-
-oper
   hardConsonant    : pattern Str = #("d"|"t"|"g"|"h"|"k"|"n"|"r") ;
   softConsonant    : pattern Str = #("ť"|"ď"|"j"|"ň"|"ř"|"š"|"c"|"č"|"ž") ;
   neutralConsonant : pattern Str = #("b"|"f"|"l"|"m"|"p"|"s"|"v") ;
@@ -669,7 +675,7 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       msdat                    = mlad + "ému" ;
       fsacc,fsins              = mlad + "ou" ;
       msloc                    = mlad + "ém" ;
-      msins,pdat               = mlad + "ým" ;
+      msins                    = mlad + "ým" ;
       mpnom                    = addAdjI mlad ;
       pgen                     = mlad + "ých" ;
       pins                     = mlad + "ými" ;
@@ -729,7 +735,8 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
 
   VerbForms : Type = PositiveVerbForms ** {
     negpressg1,negpressg2,negpressg3,negprespl1,negprespl2,negprespl3,
-    negimpsg2,negimppl1,negimppl2,refl : Str ; isRefl : Bool
+    negimpsg2,negimppl1,negimppl2,
+    pastpartfsg,pastpartnsg,pastpartfpl,pastpartnpl,refl : Str ; isRefl : Bool
     } ;
 
   -- Prefix at lexical construction time, so ordinary spelling also parses.
@@ -739,7 +746,11 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     negpressg3 = "ne" + v.pressg3 ;
     negprespl1 = "ne" + v.prespl1 ; negprespl2 = "ne" + v.prespl2 ;
     negprespl3 = "ne" + v.prespl3 ;
-    negimpsg2 = "ne" + v.impsg2 ; negimppl1 = "ne" + v.imppl1 ; negimppl2 = "ne" + v.imppl2
+    negimpsg2 = "ne" + v.impsg2 ; negimppl1 = "ne" + v.imppl1 ; negimppl2 = "ne" + v.imppl2 ;
+    pastpartfsg = Predef.tk 1 v.pastpartsg + "la" ;
+    pastpartnsg = Predef.tk 1 v.pastpartsg + "lo" ;
+    pastpartfpl = Predef.tk 1 v.pastpartpl + "y" ;
+    pastpartnpl = Predef.tk 1 v.pastpartpl + "a"
     } ;
 
   -- Vocalization depends on the next realized token, not on the noun head.
@@ -801,22 +812,100 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
       True => prep ! p.c ; False => bare ! p.c
       } ;
 
-  verbAgr : VerbForms -> Agr -> Bool -> Str
-    = \vf,a,b -> case <a,b> of {
-      <Ag _ Sg P1,True> => vf.pressg1 ; <Ag _ Sg P1,False> => vf.negpressg1 ;
-      <Ag _ Sg P2,True> => vf.pressg2 ; <Ag _ Sg P2,False> => vf.negpressg2 ;
-      <Ag _ Sg P3 | AgQuant _,True> => vf.pressg3 ; <Ag _ Sg P3 | AgQuant _,False> => vf.negpressg3 ;
-      <Ag _ Pl P1,True> => vf.prespl1 ; <Ag _ Pl P1,False> => vf.negprespl1 ;
-      <Ag _ Pl P2 | AgPol _,True> => vf.prespl2 ; <Ag _ Pl P2 | AgPol _,False> => vf.negprespl2 ;
-      <Ag _ Pl P3,True> => vf.prespl3 ; <Ag _ Pl P3,False> => vf.negprespl3
+  verbAgr : VerbForms -> Agr -> Polarity -> Str
+    = \vf,a,b -> case a of {
+      Ag _ n p => case <n,p,b> of {
+        <Sg,P1,Pos> => vf.pressg1 ; <Sg,P1,Neg> => vf.negpressg1 ;
+        <Sg,P2,Pos> => vf.pressg2 ; <Sg,P2,Neg> => vf.negpressg2 ;
+        <Sg,P3,Pos> => vf.pressg3 ; <Sg,P3,Neg> => vf.negpressg3 ;
+        <Pl,P1,Pos> => vf.prespl1 ; <Pl,P1,Neg> => vf.negprespl1 ;
+        <Pl,P2,Pos> => vf.prespl2 ; <Pl,P2,Neg> => vf.negprespl2 ;
+        <Pl,P3,Pos> => vf.prespl3 ; <Pl,P3,Neg> => vf.negprespl3
+        } ;
+      AgPol _ => case b of {Pos => vf.prespl2 ; Neg => vf.negprespl2} ;
+      AgQuant _ => case b of {Pos => vf.pressg3 ; Neg => vf.negpressg3}
       } ;
 
-  imperativeAgr : VerbForms -> Agr -> Bool -> Str = \v,a,pos -> case <a,pos> of {
-    <Ag _ Sg _,True> => v.impsg2 ; <Ag _ Sg _,False> => v.negimpsg2 ;
-    <Ag _ Pl P1,True> => v.imppl1 ; <Ag _ Pl P1,False> => v.negimppl1 ;
-    <_,True> => v.imppl2 ; <_,False> => v.negimppl2
+  imperativeAgr : VerbForms -> Agr -> Polarity -> Str = \v,a,pos -> case <a,pos> of {
+    <Ag _ Sg _,Pos> => v.impsg2 ; <Ag _ Sg _,Neg> => v.negimpsg2 ;
+    <Ag _ Pl P1,Pos> => v.imppl1 ; <Ag _ Pl P1,Neg> => v.negimppl1 ;
+    <_,Pos> => v.imppl2 ; <_,Neg> => v.negimppl2
     } ;
 
+  pastPartAgr : VerbForms -> Agr -> Polarity -> Str = \v,a,pos ->
+    let form = case a of {
+          Ag g n _ => case <g,n> of {
+            <Masc _,Sg> => v.pastpartsg ; <Fem,Sg> => v.pastpartfsg ;
+            <Neutr,Sg> => v.pastpartnsg ; <Masc Anim,Pl> => v.pastpartpl ;
+            <Neutr,Pl> => v.pastpartnpl ; <_,Pl> => v.pastpartfpl
+            } ;
+          AgPol g => case g of {
+            Masc _ => v.pastpartsg ; Fem => v.pastpartfsg ; Neutr => v.pastpartnsg
+            } ;
+          AgQuant _ => v.pastpartfpl
+          }
+    in case pos of {Pos => form ; Neg => "ne" ++ BIND ++ form} ;
+
+  pastAux : Agr -> Str = \a -> case a of {
+    Ag _ n p => case <n,p> of {
+                  <Sg,P1> => "jsem" ;
+                  <Sg,P2> => "jsi" ;
+                  <Pl,P1> => "jsme" ;
+                  <Pl,P2> => "jste" ;
+                  _       => []
+                } ;
+    AgPol _ => "jste" ;
+    AgQuant _ => []
+    } ;
+
+  conditionalAux : Agr -> Str = \a -> case a of {
+    Ag _ n p => case <n,p> of {
+      <Sg,P1> => "bych" ; <Sg,P2> => "bys" ; <Pl,P1> => "bychom" ;
+      <Pl,P2> => "byste" ; _ => "by"
+      } ; AgPol _ => "byste" ; AgQuant _ => "by"
+    } ;
+
+  futureAux : Agr -> Polarity -> Str = \a,pos ->
+    let form = case a of {
+      Ag _ n p => case <n,p> of {
+        <Sg,P1> => "budu" ; <Sg,P2> => "budeš" ; <Sg,P3> => "bude" ;
+        <Pl,P1> => "budeme" ; <Pl,P2> => "budete" ; <Pl,P3> => "budou"
+        } ;
+      AgQuant _ => "bude" ; AgPol _ => "budete"
+      }
+    in case pos of {Pos => form ; Neg => "ne" ++ BIND ++ form} ;
+
+  tenseVerb : Tense -> VerbForms -> Agr -> Polarity -> Str = \t,v,a,pos -> case t of {
+    Pres => verbAgr v a pos ;
+    Past => pastPartAgr v a pos ;
+    Fut => futureAux a pos ++ v.inf ;
+    Cond => pastPartAgr v a pos
+    } ;
+
+  tenseClitic : Tense -> Agr -> Str = \t,a -> case t of {
+    Past => pastAux a ; Cond => conditionalAux a ; _ => []
+    } ;
+
+  Clause : Type = {
+    subj,clit,compl : Str ; verb : VerbForms ; a : Agr ;
+    isDrop,clitPresent : Bool ;
+    finite : Tense => Polarity => Str ; auxiliary : Tense => Str
+    } ;
+
+  mkClause : Str -> Str -> Str -> VerbForms -> Agr -> Bool -> Bool -> Clause =
+    \subj,clit,compl,verb,a,isDrop,clitPresent -> {
+      subj = subj ; clit = clit ; compl = compl ; verb = verb ; a = a ;
+      isDrop = isDrop ; clitPresent = clitPresent ;
+      finite = table {
+        Pres => \\p => verbAgr verb a p ;
+        Past => \\p => pastPartAgr verb a p ;
+        Fut => \\p => tenseVerb Fut verb a p ;
+        Cond => \\p => pastPartAgr verb a p
+        } ;
+      auxiliary = table {
+        Pres => [] ; Past => pastAux a ; Fut => [] ; Cond => conditionalAux a
+        }
+      } ;
 
   -- s is the ordinary order; fronted places the clitics first, ready for
   -- an external host. clit/body retain the pieces needed by further fronting.
@@ -902,6 +991,83 @@ adjFormsAdjective : AdjForms -> Adjective = \afs -> {
     prespl3 = kry + "jí" ;
     pastpartsg = kry + "l" ;
     pastpartpl = kry + "li" ;
+    } ;
+
+  -- Productive defaults for lexicons that only provide an infinitive. Czech
+  -- has many stem alternations, so irregular verbs should still use the full
+  -- principal-parts constructor; these classes cover the regular majority.
+  atVerbForms : Str -> VerbForms = \inf ->
+    let stem = Predef.tk 2 inf in withNeg {
+      inf = inf ;
+      pressg1 = stem + "ám" ; pressg2 = stem + "áš" ; pressg3 = stem + "á" ;
+      prespl1 = stem + "áme" ; prespl2 = stem + "áte" ; prespl3 = stem + "ají" ;
+      pastpartsg = stem + "al" ; pastpartpl = stem + "ali" ;
+      impsg2 = stem + "ej" ; imppl1 = stem + "ejme" ; imppl2 = stem + "ejte"
+      } ;
+
+  itVerbForms : Str -> VerbForms = \inf ->
+    let stem = Predef.tk 2 inf in withNeg {
+      inf = inf ;
+      pressg1 = stem + "ím" ; pressg2 = stem + "íš" ; pressg3 = stem + "í" ;
+      prespl1 = stem + "íme" ; prespl2 = stem + "íte" ; prespl3 = stem + "í" ;
+      pastpartsg = stem + "il" ; pastpartpl = stem + "ili" ;
+      impsg2 = stem ; imppl1 = stem + "me" ; imppl2 = stem + "te"
+      } ;
+
+  etVerbForms : Str -> Str -> VerbForms = \inf,pastVowel ->
+    let stem = Predef.tk 2 inf in withNeg {
+      inf = inf ;
+      pressg1 = stem + "ím" ; pressg2 = stem + "íš" ; pressg3 = stem + "í" ;
+      prespl1 = stem + "íme" ; prespl2 = stem + "íte" ; prespl3 = stem + "í" ;
+      pastpartsg = stem + pastVowel + "l" ; pastpartpl = stem + pastVowel + "li" ;
+      impsg2 = stem ; imppl1 = stem + "me" ; imppl2 = stem + "te"
+      } ;
+
+  noutVerbForms : Str -> VerbForms = \inf ->
+    let stem = Predef.tk 4 inf in withNeg {
+      inf = inf ;
+      pressg1 = stem + "nu" ; pressg2 = stem + "neš" ; pressg3 = stem + "ne" ;
+      prespl1 = stem + "neme" ; prespl2 = stem + "nete" ; prespl3 = stem + "nou" ;
+      pastpartsg = stem + "nul" ; pastpartpl = stem + "nuli" ;
+      impsg2 = stem + "ni" ; imppl1 = stem + "něme" ; imppl2 = stem + "něte"
+      } ;
+
+  nestVerbForms : Str -> VerbForms = \inf ->
+    let prefix = Predef.tk 4 inf ; stem = prefix + "nes" in withNeg {
+      inf = inf ;
+      pressg1 = stem + "u" ; pressg2 = stem + "eš" ; pressg3 = stem + "e" ;
+      prespl1 = stem + "eme" ; prespl2 = stem + "ete" ; prespl3 = stem + "ou" ;
+      pastpartsg = stem + "l" ; pastpartpl = stem + "li" ;
+      impsg2 = stem ; imppl1 = stem + "me" ; imppl2 = stem + "te"
+      } ;
+
+  jistVerbForms : VerbForms = withNeg {
+    inf = "jíst" ;
+    pressg1 = "jím" ; pressg2 = "jíš" ; pressg3 = "jí" ;
+    prespl1 = "jíme" ; prespl2 = "jíte" ; prespl3 = "jedí" ;
+    pastpartsg = "jedl" ; pastpartpl = "jedli" ;
+    impsg2 = "jez" ; imppl1 = "jezme" ; imppl2 = "jezte"
+    } ;
+
+  guessVerbForms : Str -> VerbForms = \inf -> case inf of {
+    "být" => copulaVerbForms ;
+    "mít" => haveVerbForms ;
+    "jíst" => jistVerbForms ;
+    _ + "ovat" => iii_kupovatVerbForms inf ;
+    _ + ("ýt" | "ít") => iii_krýtVerbForms inf ;
+    _ + "nout" => noutVerbForms inf ;
+    _ + "nést" => nestVerbForms inf ;
+    _ + "at" => atVerbForms inf ;
+    _ + "it" => itVerbForms inf ;
+    _ + "ět" => etVerbForms inf "ě" ;
+    _ + "et" => etVerbForms inf "e" ;
+    _ => let stem = Predef.tk 1 inf in withNeg {
+      inf = inf ;
+      pressg1 = stem + "u" ; pressg2 = stem + "eš" ; pressg3 = stem + "e" ;
+      prespl1 = stem + "eme" ; prespl2 = stem + "ete" ; prespl3 = stem + "ou" ;
+      pastpartsg = stem + "l" ; pastpartpl = stem + "li" ;
+      impsg2 = stem ; imppl1 = stem + "me" ; imppl2 = stem + "te"
+      }
     } ;
 
 ---------------------------

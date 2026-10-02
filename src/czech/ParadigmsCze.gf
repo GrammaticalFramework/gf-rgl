@@ -46,6 +46,8 @@ oper
       = \nom,gen,g -> lin N (declensionNounForms nom gen g) ;
     } ;
 
+  mkN2 : N -> Prep -> N2 = \n,c -> lin N2 (n ** {c2 = c}) ;
+
   mkPN = overload {
     -- Indeclinable name: every case uses the supplied string.
     mkPN : Str -> Gender -> PN = \s,g -> lin PN {s = \\_ => s ; g = g} ;
@@ -133,7 +135,7 @@ oper
       } ;
 
   mkA2 : A -> Prep -> A2
-    = \a,p -> lin A2 (a ** {c = p}) ;
+      = \a,p -> lin A2 (a ** {c = p}) ;
 
 -------------------------
 -- Verbs
@@ -157,13 +159,14 @@ oper
         pastpartsg = pastsg ; pastpartpl = pastpl ;
         impsg2 = imp2sg ; imppl1 = imp1pl ; imppl2 = imp2pl
         }) ;
+    mkV : Str -> V = \s -> lin V (mkVerb s) ;
     } ;
 
   -- Lexical reflexive clitics. The case-based interface accepts only Acc/Dat.
   seV : V -> V = \v -> reflV v Acc ;
   siV : V -> V = \v -> reflV v Dat ;
   reflV : V -> Case -> V = \v,c -> v ** {
-    isRefl = True ; refl = case c of {Acc => "se" ; Dat => "si" ; _ => nonExist}
+    isRefl = True ; refl = case c of {Dat => "si" ; _ => "se"}
     } ;
 
   mkVS : V -> VS = \v -> lin VS v ;
@@ -196,6 +199,10 @@ oper
       = \v,c -> lin V2 (v ** {c = {s = [] ; c = c ; hasPrep = False}}) ;
     mkV2 : V -> Prep -> V2
       = \v,p -> lin V2 (v ** {c = p}) ;
+    mkV2 : Str -> V2
+      = \s -> lin V2 ((mkVerb s) ** {
+          c = {s = [] ; c = Acc ; hasPrep = False}
+          }) ;
     } ;
 
   mkV3 = overload {
@@ -204,6 +211,11 @@ oper
                            c2 = {s = [] ; c = Dat ; hasPrep = False}}) ;
     mkV3 : V -> Prep -> Prep -> V3
       = \v,p,p2 -> lin V3 (v ** {c = p ; c2 = p2}) ;
+    mkV3 : Str -> V3
+      = \s -> lin V3 ((mkVerb s) ** {
+          c = {s = [] ; c = Acc ; hasPrep = False} ;
+          c2 = {s = [] ; c = Dat ; hasPrep = False}
+          }) ;
     } ;
 
 ------------------------
@@ -229,6 +241,44 @@ oper
 
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
+
+------------------------
+-- Generic lexical constructors
+
+  mkVerb : Str -> VerbForms = guessVerbForms ;
+
+  mkCard : Str -> Card = \s -> lin Card (invarDeterminer s Num5) ;
+  mkDet : Str -> Det = \s -> lin Det (invarDeterminer s Num5) ;
+  mkQuant : Str -> Quant = \s ->
+    lin Quant (adjFormsAdjective (mkA s)) ;
+
+  mkACard : Str -> ACard = \s -> lin ACard {s = s} ;
+  mkAdN : Str -> AdN = \s -> lin AdN {s = s} ;
+  mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
+  mkCAdv : Str -> CAdv = \s -> lin CAdv {s = s; p = []} ;
+  mkDConj : Str -> Conj = \s -> lin Conj {s1 = [] ; s2 = s} ;
+  mkGN : Str -> GN = \s -> lin GN {s = s} ;
+  mkIAdv : Str -> IAdv = \s -> lin IAdv {s = s} ;
+  mkIDet : Str -> IDet = \s -> lin IDet {s = \\_,_=>s; size=Num1; head=CountedHead} ;
+  mkIP : Str -> IP = \s -> lin IP {s = \\_=>s; a = Ag (Masc Anim) Sg P3} ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s = \\_,_,_=>s} ;
+  mkInterj : Str -> Interj = \s -> lin Interj {s = s} ;
+  mkLN : Str -> LN = \s -> lin LN {s = s} ;
+  mkMU : Str -> MU = \s -> lin MU {s = s; isPre=False} ;
+  mkPConj : Str -> PConj = \s -> lin PConj {s = s} ;
+  mkPredet : Str -> Predet = \s -> lin Predet {s = \\_,_,_=>s; postPron = False} ;
+  mkSN : Str -> SN = \s -> lin SN {s = s} ;
+  mkSubj : Str -> Subj = \s -> lin Subj {s = s} ;
+  mkVA : Str -> VA = \s -> lin VA (mkVerb s) ;
+  mkV2A : Str -> V2A = \s -> lin V2A ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2Q : Str -> V2Q = \s -> lin V2Q ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2S : Str -> V2S = \s -> lin V2S ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2V : Str -> V2V = \s -> lin V2V ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkVoc : Str -> {s : Str} = \s -> {s = s} ;
 
 
 }

@@ -10,6 +10,8 @@ lin
     subj = case experiencer.hasClit of {True => [] ; False => experiencer.s ! Dat} ;
     clit = case experiencer.hasClit of {True => experiencer.clit ! Dat ; False => []} ;
     compl = predicate.s ! Nom ; verb = copulaVerbForms ; a = predicate.a ;
+    finite = (mkClause [] [] [] copulaVerbForms predicate.a False False).finite ;
+    auxiliary = (mkClause [] [] [] copulaVerbForms predicate.a False False).auxiliary ;
     isDrop = experiencer.hasClit ; clitPresent = experiencer.hasClit
     } ;
 
@@ -18,6 +20,9 @@ lin
     subj = case experiencer.hasClit of {True => [] ; False => experiencer.s ! Dat} ;
     clit = case experiencer.hasClit of {True => experiencer.clit ! Dat ; False => []} ;
     compl = [] ; verb = copulaVerbForms ; a = predicate.a ;
+    isDrop = False ; clitPresent = False ;
+    finite = (mkClause [] [] [] copulaVerbForms predicate.a False False).finite ;
+    auxiliary = (mkClause [] [] [] copulaVerbForms predicate.a False False).auxiliary ;
     yesNo = False
     } ;
 }
