@@ -31,6 +31,10 @@ lin
   is_wrong_VP = mkVP have_V2 (mkNP (ParadigmsDut.mkN "ongelijk")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+
+  n_units_of_NP card cn np =
+    G.AdvNP (G.DetCN (G.DetQuant G.IndefArt (G.NumCard card)) cn)
+            (G.PrepNP (mkPrep "van") np) ;
  
   bottle_of_CN np = N.ApposCN (mkCN (mkN "vles")) np ; --- vlesje for beer
   cup_of_CN np    = N.ApposCN (mkCN (mkN "kopje"))   np ;

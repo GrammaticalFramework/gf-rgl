@@ -56,6 +56,10 @@ concrete SentenceDut of Sentence = CatDut ** open ResDut, Prelude in {
     UseCl t p cl = {
       s = \\o => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! o
       } ;
+
+    AdvImp adv imp = {
+      s = \\pol,form => adv.s ++ imp.s ! pol ! form
+      } ;
     UseQCl t p cl = {
       s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! q
       } ;

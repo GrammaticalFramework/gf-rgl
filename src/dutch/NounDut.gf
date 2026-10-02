@@ -199,7 +199,24 @@ concrete NounDut of Noun = CatDut ** open ResDut, Prelude in {
       g = cn.g
       } ;
 
+    PartNP cn np = {
+      s = \\a,nc => cn.s ! a ! nc ++ "van" ++ np.s ! NPAcc ;
+      g = cn.g
+      } ;
+
+    CountNP det np = heavyNP {
+      s = \\c => det.s ! Neutr ++ "van" ++ np.s ! c ;
+      a = agrP3 det.n
+      } ;
+
     DetDAP det = det ;
+
+    AdjDAP dap ap = dap ** {
+      s = \\g => dap.s ! g ++
+        ap.s ! agrgP3 g dap.n ! agrAdj g dap.a (NF dap.n Nom) ;
+      sp = \\g => dap.sp ! g ++
+        ap.s ! agrgP3 g dap.n ! agrAdj g dap.a (NF dap.n Nom)
+      } ;
 
     QuantityNP n m = noMerge ** {
       s = \\c => preOrPost m.isPre m.s (n.s ! NCard Utr Nom) ;
