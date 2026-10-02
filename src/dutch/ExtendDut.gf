@@ -1,5 +1,3 @@
---# -path=alltenses:../common:../abstract
-
 concrete ExtendDut of Extend =
   CatDut ** ExtendFunctor
    - [PastPartAP,PastPartAgentAP,PresPartAP,ProgrVPSlash,ICompAP,IAdvAdv,
@@ -41,12 +39,12 @@ lin
     isPre = notB vp.isHeavy
     } ;
 
-  PastPartAgentAP vp np = {
-    s = \\agr,af =>
-      (infClause [] agr vp APred).s ! Past ! Anter ! Pos ! Sub ++
-      "door" ++ np.s ! NPAcc ;
-    isPre = False
-    } ;
+  PastPartAgentAP vp np = { --# notpresent
+    s = \\agr,af => --# notpresent
+      (infClause [] agr vp APred).s ! Past ! Anter ! Pos ! Sub ++ --# notpresent
+      "door" ++ np.s ! NPAcc ; --# notpresent
+    isPre = False --# notpresent
+    } ; --# notpresent
 
   ProgrVPSlash vp =
     let vpi = infVP True vp in
