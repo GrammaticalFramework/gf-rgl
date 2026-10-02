@@ -22,14 +22,14 @@ lin
   CNNumNP cn card =
     let s : Case => Str = \\c => cn.s ! Sg ! c ++ card.s ! cn.g ! Nom in npForms s s ** {
     clit = s ;
-    a = Ag cn.g Sg P3 ; m = Mod cn.g Sg ;
+    a = Ag cn.g Sg P3 ;
     hasClit = False ; isDrop = False ; isPron = False ;
     } ;
 
   CNIntNP cn i =
     let s : Case => Str = \\c => cn.s ! Sg ! c ++ i.s in npForms s s ** {
     clit = s ;
-    a = Ag cn.g Sg P3 ; m = Mod cn.g Sg ;
+    a = Ag cn.g Sg P3 ;
     hasClit = False ; isDrop = False ; isPron = False ;
     } ;
 
@@ -40,7 +40,6 @@ lin
     in npForms s s ** {
     clit = s ;
     a = agr ;
-    m = numeralModAgr (nounGender cn (numSizeNumber det.size)) det ;
     hasClit = False ; isDrop = False ; isPron = False ;
     } ;
 
