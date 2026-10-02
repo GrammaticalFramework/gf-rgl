@@ -37,7 +37,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
         insertInf inf vps) ** {c2 = v.c2 ; objCtrl = v.objCtrl} ;
 
     SlashV2A v ap =
-      insertAdj (ap.s ! APred ++ appSPrep (toSPrep v.c2) ap.s2) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
+      insertAdj (ap.s ! APred ++ appPrep1 v.c2 ap.s2) ap.c ap.ext (predV v) ** {c2 = v.c2; objCtrl = False} ;
 
     ComplSlash vps np =
       -- IL 24/04/2018 force reflexive in the VPSlash to take the agreement of np.
@@ -94,7 +94,7 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
    --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
      let prep = v.c2 ;
-         obj = appPrep (toSPrep prep) (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
+         obj = appPrep1 prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
          b : Bool = case prep.t of {isPrep => True ; _ => False} ;
          c = prep.c ;
          w = np.w ;
