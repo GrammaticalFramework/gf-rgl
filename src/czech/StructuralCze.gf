@@ -5,27 +5,38 @@ concrete StructuralCze of Structural = CatCze **
 oper
   adjDet : AdjForms -> Determiner = \afs -> {
     s = \\g,c => (adjFormsAdjective afs).s ! g ! Sg ! c ;
-    size = Num1
+    size = Num1 ; head = CountedHead
     } ;
 
 lin
-    all_Predet = {s = "všechny"} ;
+    all_Predet = {s = \\g,n,c => case <n,c,g> of {
+      <Pl,Gen | Loc,_> => "všech" ; <Pl,Dat,_> => "všem" ; <Pl,Ins,_> => "všemi" ;
+      <Pl,Nom | ResCze.Voc,Masc Anim> => "všichni" ;
+      <Pl,_,Neutr> => "všechna" ; <Pl,_,_> => "všechny" ;
+      <Sg,Nom | ResCze.Voc,Fem> => "všechna" ; <Sg,Acc,Fem> => "všechnu" ;
+      <Sg,_,Fem> => "vší" ;
+      <Sg,Gen,_> | <Sg,Acc,Masc Anim> => "všeho" ;
+      <Sg,Dat,_> => "všemu" ; <Sg,Loc,_> => "všem" ; <Sg,Ins,_> => "vším" ;
+      <Sg,_,Neutr> => "všechno" ; <Sg,_,_> => "všechen"
+      } ; postPron = True} ;
+    only_Predet = {s = \\_,_,_ => "jen" ; postPron = False} ;
     and_Conj = mkConj "a" ;
     both7and_DConj = {s1 = "jak" ; s2 = "tak"} ;
     between_Prep = mkPrep "mezi" Ins ;
     by8agent_Prep = mkPrep "od" Gen ; ---- TODO this means "from", there might be no good translation
     by8means_Prep = mkPrep "pomocí" Gen ;
-    can_VV = {
+    can_VV = mkModalVV (lin V (withNeg {
       inf = "moci" ;
+      impsg2,imppl1,imppl2 = nonExist ;
       pressg1 = "mohu" ;
       pressg2 = "můžeš" ;
-      pressg3, negpressg3 = "může" ;
+      pressg3 = "může" ;
       prespl1 = "můžeme" ;
       prespl2 = "můžete" ;
       prespl3 = "mohou" ;
       pastpartsg = "mohl" ;
       pastpartpl = "mohli" ;
-      } ;
+      })) ;
     either7or_DConj = {s1 = "buď" ; s2 = "nebo"} ;
     every_Det = adjDet (mladyAdjForms "každý") ;
     few_Det = invarNumeral "málo" ; -- CEG 6.8 --- TODO genitive mála
@@ -37,20 +48,24 @@ lin
     that_Subj = {s = "že"} ;
     under_Prep = mkPrep "pod" Ins ;
     where_IAdv = {s = "kde"} ;
-    from_Prep = mkPrep (pre {"s"|"z" => "ze" ; _ => "z"}) Gen ; ---- consonant clusters
-    have_V2 = mkV2 haveVerbForms ;
-    in_Prep = mkPrep (pre {"v"|"m" => "ve" ; _ => "v"}) Loc ; ----
+    from_Prep = mkPrep zPreposition Gen ;
+    have_V2 = mkV2 <lin V haveVerbForms : CatCze.V> ;
+    in_Prep = v_Prep Loc ;
     many_Det = regNumeral "mnoho" "mnoha" ; -- CEG 6.8 ----
     or_Conj = mkConj "nebo" ;
     somePl_Det = regNumeral "několik" "několika" ; -- CEG 6.8 ----
-    something_NP = {s,clit,prep = \\c => "ně" + coForms ! c ; a = Ag Neutr Sg P3 ; hasClit = False} ; -- CEG 5.6.3
-    possess_Prep = mkPrep "" Gen ;
+    something_NP =
+      let s : Case => Str = \\c => "ně" + coForms ! c in npForms s s ** {
+      clit = s ; a = Ag Neutr Sg P3 ; m = Mod Neutr Sg ;
+      hasClit = False ; isDrop = False ; isPron = False
+      } ; -- CEG 5.6.3
+    possess_Prep = mkPrep Gen ;
     that_Quant = demPronFormsAdjective (mkDemPronForms "tamt") "" ;
     this_Quant = demPronFormsAdjective (mkDemPronForms "t") "to" ;
     to_Prep = mkPrep "do" Gen ;
-    with_Prep = mkPrep (pre {"s"|"z" => "se" ; _ => "s"}) Ins ; ----
+    with_Prep = mkPrep sPreposition Ins ;
 
-    i_Pron = mkPron (Ag (Masc Anim) Sg P1) ;   --- to add Fem pronouns in Extend
+    i_Pron = mkPron (Ag (Masc Anim) Sg P1) ;
     youSg_Pron = mkPron (Ag (Masc Anim) Sg P2) ;
     he_Pron = mkPron (Ag (Masc Anim) Sg P3) ;
     she_Pron = mkPron (Ag Fem Sg P3) ;
@@ -58,5 +73,19 @@ lin
     we_Pron = mkPron (Ag (Masc Anim) Pl P1) ;
     youPl_Pron = mkPron (Ag (Masc Anim) Pl P2) ;
     they_Pron = mkPron (Ag (Masc Anim) Pl P3) ;
-
+    youPol_Pron = mkPron (AgPol (Masc Anim)) ;
+    want_VV = mkModalVV (mkV "chtít" "chci" "chceš" "chce" "chceme" "chcete" "chtějí" "chtěl" "chtěli" "chtěj" "chtějme" "chtějte") ;
+    must_VV = mkModalVV (mkV "muset" "musím" "musíš" "musí" "musíme" "musíte" "musí" "musel" "museli" nonExist nonExist nonExist) ;
+    can8know_VV = mkModalVV (mkV "umět" "umím" "umíš" "umí" "umíme" "umíte" "umějí" "uměl" "uměli" "uměj" "umějme" "umějte") ;
+    yes_Utt = {s = "ano"} ;
+    no_Utt = {s = "ne"} ;
+    please_Voc = {s = "prosím"} ;
+    very_AdA = mkAdA "velmi" ;
+    too_AdA = mkAdA "příliš" ;
+    how_IAdv = {s = "jak"} ;
+    how8much_IAdv = {s = "kolik"} ;
+    whatSg_IP = {s = coForms ; a = Ag Neutr Sg P3} ;
+    whoSg_IP = {s = kdoForms ; a = Ag (Masc Anim) Sg P3} ;
+    how8many_IDet = regNumeral "kolik" "kolika" ;
+    which_IQuant = adjFormsAdjective (guessAdjForms "který") ;
 }

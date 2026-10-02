@@ -1,0 +1,267 @@
+i -retain tests/czech/CzeTests.gf
+
+-- Noun inflection, possession and proper names.
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "banka")))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (zenaN "banka")))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP i_Pron (zenaN "manželka")))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant plNum L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkPN "NN" mascAnimate)) (mkA "unavený"))))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkPN (zenaN "Praha"))))
+cc -one ((kostN "paměť").snom ++ (kostN "paměť").sacc ++ (kostN "paměť").sgen ++ (kostN "paměť").sins ++ (kostN "paměť").pdat ++ (kostN "paměť").ploc ++ (kostN "paměť").pins)
+cc -one ((mkN "loď" "lodi" feminine).sgen ++ (mkN "loď" "lodi" feminine).sins ++ (mkN "loď" "lodi" feminine).pins)
+cc -one ((pisenN "dlaň").snom ++ (pisenN "dlaň").sacc ++ (pisenN "dlaň").sgen ++ (pisenN "dlaň").sdat ++ (pisenN "dlaň").sins ++ (pisenN "dlaň").pins)
+cc -one ((pisenN "píseň").sgen ++ (pisenN "píseň").sdat ++ (pisenN "píseň").pins)
+cc -one ((zenaN "Nataša").sgen ++ (zenaN "Nataša").sdat ++ (zenaN "Nataša").sloc ++ (zenaN "Nataša").pnom ++ (zenaN "Nataša").pacc)
+cc -one ((zenaN "Máňa").sgen ++ (zenaN "Máňa").sdat ++ (zenaN "Máňa").sloc ++ (zenaN "Máňa").pnom ++ (zenaN "Máňa").pacc)
+cc -one ((zenaN "Naďa").sgen ++ (zenaN "Naďa").sdat ++ (zenaN "Káťa").sgen ++ (zenaN "Káťa").sdat)
+cc -one ((zenaN "Zoja").sgen ++ (zenaN "Zoja").sdat)
+cc -one (L.school_N.sdat ++ (zenaN "váza").sdat ++ (zenaN "mísa").sdat ++ (zenaN "banka").sdat)
+cc -one (L.salt_N.snom ++ L.salt_N.sacc ++ L.salt_N.svoc)
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.milk_N))
+cc -one (mkVoc (mkNP L.year_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP plNum L.apple_N))
+
+-- Náš/váš inflect for the possessed noun, independently of addressee number.
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP we_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv about_Prep (mkNP we_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP youPol_Pron L.woman_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP youPol_Pron L.city_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP youPl_Pron L.man_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep dative) (mkNP (mkDet we_Pron plNum) L.man_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep dative) (mkNP (mkDet youPl_Pron plNum) L.man_N))
+cc -one (mkUtt (mkNP (mkDet we_Pron plNum) L.man_N))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) L.love_V2 (mkNP (mkDet we_Pron plNum) L.man_N))))
+cc -one (mkUtt (mkNP (mkDet youPol_Pron plNum) L.city_N))
+
+-- Adjective degrees retain case and agreement.
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant (mkOrd L.good_A)) (hradN "hotel")))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkDet the_Quant (mkOrd L.blue_A)) (zenaN "barva")))
+cc -one ((mkA "mladý").compar.msnom)
+cc -one ((mkA "hrdý").compar.msnom ++ (mkA "rudý").superl.msgen ++ (mkA "chudý").compar.msnom)
+cc -one ((mkA "rychlý").compar.msnom ++ (mkA "rychlý").superl.msnom)
+cc -one ((mkA "krásný").compar.msnom ++ (mkA "moderní").compar.msnom ++ (mkA "chytrý").compar.msnom)
+cc -one ((mkA "praktický").compar.msnom ++ (mkA "lidský").compar.msnom ++ (mkA "cizí").compar.msnom)
+cc -one ((mkA "čistý" "čistší").compar.msnom)
+cc -one ((mkA "jarní" nonExist).msgen)
+cc -one ((mkA "jarní" nonExist).compar.msnom)
+cc -one ((mkA "jarní" nonExist).superl.msnom)
+cc -one ((mkA "lehký").compar.msnom)
+cc -one ((mkA "lehký" "lehčí").compar.msnom)
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (comparAP L.young_A) (panN "student"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (comparAP L.young_A))))
+
+-- Verb principal parts and public valency constructors.
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP drink_V2 (mkNP (zenaN "voda")))))
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP buy_V3 (mkNP (zenaN "kniha")) (mkNP (panN "syn")))))
+cc -one ((kupovatV "kupovat").pressg1 ++ (kupovatV "kupovat").negprespl3 ++ (kupovatV "kupovat").pastpartsg ++ (kupovatV "kupovat").impsg2 ++ (kupovatV "kupovat").negimppl2)
+cc -one ((krytV "krýt").pressg1 ++ (krytV "krýt").negprespl3 ++ (krytV "krýt").pastpartsg ++ (krytV "krýt").impsg2 ++ (krytV "krýt").negimppl2)
+cc -one ((krytV "pít").pressg1 ++ (krytV "pít").pastpartsg ++ (krytV "pít").impsg2)
+
+-- Pronoun gender and polite singular versus plural predicate agreement.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop youPol_Pron)) (mkA "unavený"))))
+cc -one (mkUtt (mkS negativePol (mkCl (mkNP (E.ProDrop (genderPron feminine youPol_Pron))) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop (genderPron feminine youPol_Pron))) (mkVP (mkCN (zenaN "Angličanka"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.theyFem_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.theyNeutr_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.youPolFem_Pron) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP E.youPolPlFem_Pron) (mkA "unavený"))))
+
+-- CN predicates take predicative case; NP predicates retain their own number.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkVP (mkCN (panN "student"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP he_Pron) (mkNP (mkPN (panN "Petr"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (mkDet the_Quant plNum) (panN "student")))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (mkCard "2") L.child_N))))
+cc -one (mkUtt (mkS (mkCl (mkNP we_Pron) (mkNP (zenaN "rodina")))))
+
+-- Clitic domains in clauses, questions, infinitives and imperatives.
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP buy_V3 (mkNP (zenaN "kniha")) (mkNP he_Pron))))
+cc -one (mkUtt (mkCl (mkNP i_Pron) (mkVP (mkVPSlash buy_V3 (mkNP she_Pron)) (mkNP only_Predet (mkNP he_Pron)))))
+cc -one (mkUtt (mkQS (mkQCl where_IAdv (mkNP (hradN "hotel")))))
+cc -one (mkUtt (mkS negativePol (mkCl (mkNP (E.ProDrop i_Pron)) want_VV (mkVP L.swim_V))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP L.wait_V2 (mkNP she_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) (mkA "unavený")))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl where_IAdv (mkNP (hradN "hotel")))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) want_VV (mkVP wash_V))))
+cc -one (mkUtt politeImpForm negativePol (mkImp (mkVP wash_V)))
+cc -one (mkUtt (mkVP wash_V))
+-- Ordinary VV keeps the embedded reflexive in its infinitive domain.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) learn_VV (mkVP wash_V))))
+cc -one (mkUtt (mkS L.today_Adv (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V))))
+cc -one (mkUtt (mkS L.today_Adv (mkS (ParadigmsCze.mkAdv "doma") (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VS (mkS (mkCl (mkNP (E.ProDrop she_Pron)) wash_V)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.know_VQ (mkQS (mkQCl (mkCl (mkNP (E.ProDrop youSg_Pron)) wash_V))))))
+cc -one (I.ImpP3 (mkNP (E.ProDrop he_Pron)) (mkVP wash_V))
+cc -one (I.ImpP3 (mkNP (mkCard "2") L.child_N) (mkVP wash_V))
+cc -one (I.ImpP3 (mkNP (E.ProDrop she_Pron)) (mkVP L.love_V2 (mkNP he_Pron)))
+cc -one (SyntaxCze.mkAdv if_Subj (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP she_Pron))))
+cc -one (SyntaxCze.mkAdv if_Subj (mkS L.today_Adv (mkS (mkCl (mkNP (E.ProDrop i_Pron)) wash_V))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (siV (kupovatV "kupovat")))))
+cc -one (mkUtt negativePol (mkImp (siV (kupovatV "kupovat"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) can_VV (mkVP (siV (kupovatV "kupovat"))))))
+-- A reflexive matrix verb blocks climbing even through mkModalVV.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkModalVV learn_V) (mkVP wash_V))))
+
+-- Cardinal agreement and case government, including oblique compound numerals.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) have_V2 (mkNP (mkCard "5") (zenaN "pizza")))))
+cc -one (mkUtt (mkNP (mkCard "21") (hradN "rok")))
+cc -one (mkUtt (mkNP (mkCard "22") L.child_N))
+cc -one (mkUtt (mkNP (mkCard "101") L.child_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCard (N.num (N.pot3plus (N.pot1as2 (N.pot0as1 N.n2)) (N.pot1as2 (N.pot0as1 N.pot01))))) L.child_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP this_Quant (mkNum (N.num (N.pot3 (N.pot1as2 (N.pot1plus N.n2 N.pot01))))) (zenaN "koruna")))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP (mkCard "3") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard "23") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard "200") L.child_N))
+cc -one (SyntaxCze.mkAdv (ParadigmsCze.mkPrep "s" instrumental) (mkNP (mkCard (N.num N.pot31)) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkCard (N.IDig N.D_0)) (zenaN "koruna")))
+cc -one (SyntaxCze.mkAdv to_Prep (mkNP (mkDet the_Quant <symb (mkSymb "n") : Ord>) (hradN "hotel")))
+cc -one (N.pot5 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))))
+cc -one (N.pot4decimal (N.IFrac (N.PosDecimal (N.IDig N.D_3)) N.D_5))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkA "unavený"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))) L.child_N) (mkA "unavený"))))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num N.pot31)))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))))) L.child_N))
+cc -one (SyntaxCze.mkAdv possess_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))))))) L.child_N))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard "200"))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard "500"))) (zenaN "koruna")))
+cc -one (mkUtt (mkNP (mkDet this_Quant (mkNum (mkCard (N.num (N.pot3 (N.pot2 N.n2)))))) L.child_N))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkDet this_Quant (mkNum (mkCard (N.num N.pot31))) (mkOrd (mkA "dobrý" "lepší"))) (zenaN "koruna")))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard "5")) (mkCN L.child_N)))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard "2")) (mkCN L.child_N)))
+cc -one (mkUtt (mkIP which_IQuant (mkNum (mkCard (N.num N.pot31))) (mkCN L.child_N)))
+cc -one (mkUtt (mkCard "1"))
+cc -one (mkUtt (mkCard "21"))
+cc -one (mkUtt (mkCard "2"))
+cc -one (mkUtt (mkNP (mkCard "1") L.child_N))
+
+-- Scale heads control agreement independently of their genitive complements.
+-- The shared num stops below a million; larger subcategories are used directly.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot1as2 (N.pot0as1 (N.pot0 N.n2)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral N.pot51 : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot1as2 (N.pot0as1 (N.pot0 N.n5)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot2 N.n2) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4 (N.pot2 N.n2)) : Numeral>) (zenaN "koruna")) ready_AP)))
+
+-- Sums ending in a scale retain their leading head for modifiers and predicates.
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard (N.num (N.pot3plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2 (N.pot0 N.n2))))) L.child_N)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard <lin Numeral (N.pot4plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2as3 (N.pot2 (N.pot0 N.n2)))) : Numeral>) (zenaN "koruna")) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP this_Quant (mkNum (mkCard <lin Numeral (N.pot5plus (N.pot1as2 (N.pot0as1 N.pot01)) (N.pot4plus (N.pot1as2 (N.pot0as1 (N.pot0 N.n2))) (N.pot2as3 (N.pot2 (N.pot0 N.n2))))) : Numeral>)) (zenaN "koruna")) ready_AP)))
+
+-- Signed integers retain agreement; fractions govern genitive.
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.PosDecimal (N.IDig N.D_1))) : Numeral>))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.NegDecimal (N.IDig N.D_1))) : Numeral>))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.NegDecimal (N.IDig N.D_2))) : Numeral>))
+cc -one (mkUtt (mkNP (mkCard (N.num (N.pot3decimal (N.NegDecimal (N.IDig N.D_2))))) (zenaN "koruna")))
+cc -one (mkUtt (mkCard <lin Numeral (N.pot4decimal (N.IFrac (N.NegDecimal (N.IDig N.D_1)) N.D_5)) : Numeral>))
+
+-- Preposition vocalization follows the next word, including modifiers and capitals.
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP L.school_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkDet the_Quant (mkOrd L.good_A)) L.school_N))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkCN (mkA "moderní") L.school_N)))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkN "muzeum" "muzea" neuter)))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkPN (zenaN "Stromovka"))))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "Měna")))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (L.city_N ** {sloc = "Městě"})))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkCN (mkA "mělký") L.city_N)))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP ((hradN "mlýn") ** {sloc = "mlýně"})))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (mkCN (mkA "nový") ((hradN "mlýn") ** {sloc = "mlýně"}))))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP i_Pron))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (zenaN "žena")))
+cc -one (SyntaxCze.mkAdv from_Prep (mkNP L.school_N))
+cc -one (SyntaxCze.mkAdv from_Prep (mkNP all_Predet (mkNP plNum L.child_N)))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "mzda")))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP i_Pron))
+cc -one (SyntaxCze.mkAdv (v_Prep accusative) (mkNP i_Pron))
+cc -one (SyntaxCze.mkAdv in_Prep (mkNP (zenaN "hra")))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (zenaN "hra")))
+cc -one (SyntaxCze.mkAdv from_Prep (mkNP (mkPN (zenaN "Škola"))))
+
+-- Predeterminers retain full pronouns and inflect with the NP head.
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) L.swim_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP i_Pron)) wash_V)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) L.love_V2 (mkNP only_Predet (mkNP he_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP all_Predet (mkNP (genderPron feminine they_Pron))) wash_V)))
+-- NP focus restores the full form even when given a ProDrop pronoun.
+cc -one (mkUtt (mkS (mkCl (mkNP only_Predet (mkNP (E.ProDrop i_Pron))) wash_V)))
+cc -one (mkUtt (mkNP all_Predet (mkNP plNum (panN "student"))))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP all_Predet (mkNP plNum L.child_N)))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCN (zenaN "voda")))))
+cc -one (mkUtt (mkNP all_Predet (mkNP (mkCard (N.num N.pot31)) (zenaN "koruna"))))
+-- Shared preposed modifiers agree with the first conjunct, also after ConsNP.
+cc -one (mkUtt (mkNP all_Predet (mkNP and_Conj (mkNP plNum L.man_N) (mkNP plNum L.woman_N))))
+cc -one (mkUtt (mkNP all_Predet (mkNP and_Conj (mkListNP (mkNP plNum L.woman_N) (mkListNP (mkNP plNum L.man_N) (mkNP plNum L.child_N))))))
+
+-- Complement forms distinguish bare case government from prepositions.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP he_Pron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)))))
+cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "hrdý") (ParadigmsCze.mkPrep "na" accusative)) (mkNP she_Pron)) L.child_N)))
+cc -one (mkUtt (mkNP (mkCN (mkAP (mkA2 (mkA "věrný") (lin Prep {s = [] ; c = dative ; hasPrep = False})) (mkNP he_Pron)) L.child_N)))
+cc -one (SyntaxCze.mkAdv vocalized_Prep (mkNP he_Pron))
+-- mkVPSlash V3 NP completes Slash2V3.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (mkVPSlash buyFor_V3 (mkNP he_Pron)) (mkNP she_Pron)))))
+-- mkVP V3 NP NP instead completes Slash3V3; both must preserve slot order.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP buyFor_V3 (mkNP he_Pron) (mkNP she_Pron)))))
+
+-- Subject-bound RNPs compose with possession, coordination and modifiers.
+cc -one (mkUtt (mkCl (mkNP i_Pron) (E.ReflRNP (mkVPSlash buy_V3 (mkNP she_Pron)) E.ReflPron)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop he_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) E.ReflPron))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.wait_V2) E.ReflPron))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop he_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.ReflPoss sgNum (mkCN (zenaN "manželka")))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop he_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.AdvRNP (mkNP (zenaN "manželka")) possess_Prep (E.ReflPoss sgNum (mkCN (panN "syn"))))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.ConjRNP and_Conj (E.Base_rr_RNP E.ReflPron (E.ReflPoss plNum (mkCN L.child_N))))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRVP (mkVP <lin V learn_VV : V>) (ParadigmsCze.mkPrep "o" locative) E.ReflPron))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (E.AdvRAP (mkAP (mkA "hrdý")) (ParadigmsCze.mkPrep "na" accusative) E.ReflPron))))
+-- Reflexive modifiers take the complement's case, also with quantified subjects.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (E.AdvRAP (mkAP (mkA "spokojený")) with_Prep (E.PredetRNP all_Predet E.ReflPron)))))
+cc -one (mkUtt (mkNP (mkCN (E.AdvRAP (mkAP (mkA "hrdý")) (ParadigmsCze.mkPrep "na" accusative) E.ReflPron) L.child_N)))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.wait_V2) (E.ConjRNP and_Conj (E.Base_nr_RNP (mkNP she_Pron) E.ReflPron))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop she_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.PredetRNP only_Predet E.ReflPron)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRVP (mkVP L.write_V2 (mkNP (zenaN "kniha"))) about_Prep (E.PredetRNP all_Predet (E.ReflPoss plNum (mkCN L.child_N)))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash have_V2) (E.PredetRNP all_Predet (E.ReflPoss (mkNum (mkCard (N.num N.pot31))) (mkCN (zenaN "koruna"))))))))
+-- RNP coordination keeps the same first-conjunct rule through list extension.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.PredetRNP all_Predet (E.ConjRNP and_Conj (E.Base_rr_RNP (E.ReflPoss plNum (mkCN (panN "syn"))) (E.ReflPoss sgNum (mkCN (zenaN "dcera"))))))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash L.love_V2) (E.PredetRNP all_Predet (E.ConjRNP and_Conj (E.Cons_rr_RNP (E.ReflPoss plNum (mkCN (panN "syn"))) (E.Base_rr_RNP (E.ReflPoss sgNum (mkCN (zenaN "dcera"))) E.ReflPron))))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.ReflRNP (mkVPSlash have_V2) (E.AdvRNP (mkNP L.child_N) possess_Prep himSelf_RNP)))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRVP (mkVP L.write_V2 (mkNP (zenaN "kniha"))) (ParadigmsCze.mkPrep dative) himSelf_RNP))))
+cc -one (mkUtt (mkNP (mkCN (E.AdvRAP (mkAP (mkA "plný")) possess_Prep himSelf_RNP) (zenaN "kniha"))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (E.AdvRAP (mkAP (mkA "plný")) possess_Prep himSelf_RNP))))
+
+-- Secondary and short predicates retain agreement through modification and coordination.
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkVP (SlashV2AP have_V2 like_AP) (mkNP (zenaN "pizza"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) ready_AP)))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP very_AdA ready_AP))))
+cc -one (mkUtt (mkS (mkCl (mkNP (mkCard "5") L.child_N) (mkAP and_Conj ready_AP (mkAP (mkA "unavený"))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkVP (SlashV2AP have_V2 like_AP) (mkNP he_Pron)))))
+
+-- Kdo has masculine singular agreement and inflects for case.
+cc -one (mkUtt (mkQS (mkQCl whoSg_IP (mkAP L.young_A))))
+cc -one (whoSg_IP.s ! genitive ++ whoSg_IP.s ! dative ++ whoSg_IP.s ! instrumental)
+
+-- Comparison terms remain nominative while the adjective inflects.
+cc -one (mkUtt (mkNP (mkCN (mkAP L.young_A (mkNP he_Pron)) (panN "student"))))
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (mkAP L.young_A (mkNP he_Pron)) (panN "student"))))
+-- A ProDrop comparison pronoun must still be overt.
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP L.young_A (mkNP (E.ProDrop she_Pron))))))
+-- Addressing a quantified group retains genitive government.
+cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
+cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
+-- Pronominal heads retain their order after modification and binding.
+cc -one (SyntaxCze.mkAdv with_Prep (mkNP all_Predet (mkNP youPl_Pron)))
+-- The outer pronoun controls all, independently of the reflexive's antecedent.
+cc -one (mkUtt (mkS (mkCl (mkNP she_Pron) (E.AdvRVP (mkVP L.swim_V) with_Prep (E.PredetRNP all_Predet (E.AdvRNP (mkNP we_Pron) (ParadigmsCze.mkPrep "u" genitive) E.ReflPron))))))
+cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop they_Pron)) (E.AdvRVP (mkVP L.write_V2 (mkNP (zenaN "kniha"))) about_Prep (E.PredetRNP all_Predet E.ReflPron)))))
+-- Short forms allow predicate responses but cannot modify a noun.
+cc -one (mkUtt (mkNP (mkCN like_AP (panN "student"))))
+cc -one (mkUtt ready_AP)
+-- Third-person gender changes the whole paradigm and preserves omission.
+cc -one ((genderPron feminine he_Pron).nom ++ (genderPron feminine he_Pron).cacc ++ (genderPron feminine he_Pron).pacc ++ (genderPron feminine he_Pron).poss.msnom)
+cc -one (mkUtt (mkS (mkCl (mkNP (genderPron feminine (E.ProDrop he_Pron))) ready_AP)))
+cc -one ((genderPron mascAnimate (he_Pron ** {pacc = "něj"})).pacc)
+-- Standalone case utterances preserve NP inflection and strong pronoun forms.
+cc -one (E.UttAccNP (mkNP this_Quant (mkCN (mkA "studený") (zenaN "káva"))))
+cc -one (E.UttDatNP (mkNP this_Quant (mkCN (mkA "studený") (zenaN "káva"))))
+cc -one (E.UttAccNP (mkNP he_Pron))
+cc -one (E.UttDatNP (mkNP (E.ProDrop he_Pron)))
+q

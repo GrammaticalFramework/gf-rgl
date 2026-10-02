@@ -6,7 +6,7 @@ concrete TenseCze of Tense =
   in {
 lin
   PNeg = {
-    s = "ne" ++ Predef.BIND ;
+    s = [] ;
     p = False
     } ;
   PPos = {

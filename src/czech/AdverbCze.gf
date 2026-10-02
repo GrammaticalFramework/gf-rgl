@@ -3,11 +3,11 @@ concrete AdverbCze of Adverb = CatCze **
 
 lin
     PrepNP prep np = {
-      s = prep.s ++ np.prep ! prep.c
+      s = fullComplement prep np.s np.prep
       } ;
 
     SubjS subj s = {
-      s = subj.s ++ s.s
+      s = (frontSentence subj.s s).s
       } ;
 
 }

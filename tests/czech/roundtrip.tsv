@@ -1,0 +1,18 @@
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	já ji miluji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youSg_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	ty ji miluješ
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	on ji miluje
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron she_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	ona ji miluje
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPl_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	vy ji milujete
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron youPol_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	vy ji milujete
+UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron i_Pron) (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	já ji nemiluji
+UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPol_Pron) (UseComp (CompAP (PositA young_A)))))	vy nejste mladý
+UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron youPl_Pron) (UseComp (CompAP (PositA young_A)))))	vy nejste mladí
+UttImpPl PNeg (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	nečtěte ji
+UttImpPol PNeg (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	nečtěte ji
+UttImpSg PNeg (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	nečti ji
+UttImpSg PPos (ImpVP (ComplSlash (SlashV2a read_V2) (UsePron she_Pron)))	čti ji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash3V3 buy_V3 (UsePron he_Pron)) (UsePron she_Pron))))	já mu ji kupuji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (Slash2V3 buy_V3 (UsePron she_Pron)) (UsePron he_Pron))))	já mu ji kupuji
+UttAdv (PrepNP vAcc_Prep (UsePron i_Pron))	ve mě
+UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN currency_N)))	v měně
+UttAdv (PrepNP in_Prep (DetCN (DetQuant DefArt NumSg) (UseN city_N)))	ve městě

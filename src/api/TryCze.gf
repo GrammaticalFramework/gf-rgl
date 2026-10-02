@@ -1,6 +1,6 @@
 --# -path=.:../czech:../common:../abstract:../prelude
 
-resource TryCze = SyntaxCze, LexiconCze, ParadigmsCze -[mkAdv, mkDet,mkQuant]** 
+resource TryCze = ExtraCze, SyntaxCze, LexiconCze, ParadigmsCze -[mkAdv, mkDet,mkQuant]**
   open (P = ParadigmsCze) in {
 
 -- oper
@@ -10,4 +10,3 @@ resource TryCze = SyntaxCze, LexiconCze, ParadigmsCze -[mkAdv, mkDet,mkQuant]**
 --  } ;
 
 }
-
