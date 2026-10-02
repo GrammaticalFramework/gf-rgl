@@ -71,6 +71,10 @@ lin
             (imperative_form vp.verb vp.imienne pol (cast_gennum!<Masc Personal, num>) P2) ++ 
             vp.sufix !pol !MascAniSg 
     };
+
+    AdvImp adv imp = {
+      s = \\pol,num => adv.s ++ imp.s ! pol ! num
+    };
     
 --     AdvS     : Adv -> S  -> S ;            -- today, I will go home
     AdvS adv s = { s = adv.s ++ s.s };

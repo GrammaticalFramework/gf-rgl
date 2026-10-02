@@ -55,6 +55,13 @@ concrete IdiomPol of Idiom = CatPol ** open Prelude, ResPol, VerbMorphoPol in {
     ExistNP np = {s=\\pol,anter,tense => case pol of { 
         Pos=> jest_op ! <np.gn, np.p, tense, anter> ++ np.nom;
         Neg=> niema_op!<tense,anter> ++ np.dep!GenNoPrep } };
+
+    ExistNPAdv np adv = {
+      s = \\pol,anter,tense => case pol of {
+        Pos => jest_op ! <np.gn,np.p,tense,anter> ++ np.nom ++ adv.s;
+        Neg => niema_op ! <tense,anter> ++ np.dep ! GenNoPrep ++ adv.s
+        }
+      };
     
 --     ExistIP   : IP -> QCl ;       -- which houses are there
     ExistIP ip = {s=\\pol,anter,tense => case pol of {
@@ -69,6 +76,8 @@ concrete IdiomPol of Idiom = CatPol ** open Prelude, ResPol, VerbMorphoPol in {
             refl=vp.verb.refl;
             asp=vp.verb.asp;
             ppartp=vp.verb.pparti;
-            pparti=vp.verb.pparti}
+            pparti=vp.verb.pparti;
+            apart=vp.verb.apart;
+            ger=vp.verb.ger}
         };
 } ;

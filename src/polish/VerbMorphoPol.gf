@@ -5,7 +5,8 @@
 --
 -- Adam Slaski, 2009 <adam.slaski@gmail.com>
 --
-resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=AdjectiveMorphoPol) in {
+resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef),
+  (Adj=AdjectiveMorphoPol), (NM=NounMorphoPol) in {
 
      flags  coding=utf8; 
 
@@ -345,7 +346,9 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
 	  refl = "się";
 	  asp = v.asp;
 	  ppartp =  v.ppartp;
-	  pparti =  v.pparti
+	  pparti =  v.pparti;
+	  apart = v.apart;
+	  ger = \\f => v.ger ! f ++ "się"
 	 };
  
 -- intransitive verbs
@@ -357,7 +360,9 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
 	  refl = v.refl;
 	  asp = v.asp;
 	  ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist };
-	  pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist }
+	  pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist };
+	  apart = v.apart;
+	  ger = v.ger
 	 };
 	 
 -- monoaspective verbs
@@ -369,7 +374,9 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
 	 refl = "";
 	 asp = a;
 	 ppartp = tmp.p;
-	 pparti = tmp.p
+	 pparti = tmp.p;
+	 apart = mkActivePart tmp.s;
+	 ger = mkGerund tmp.p
 	 };
 
 -- normal verbs
@@ -381,7 +388,9 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
 	 refl = "";
 	 asp = Dual;
 	 ppartp = tmpp.p;
-	 pparti = tmpi.p
+	 pparti = tmpi.p;
+	 apart = mkActivePart tmpi.s;
+	 ger = mkGerund tmpp.p
 	 };
 
 -- Comlicated verbs
@@ -392,11 +401,44 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef), (Adj=Adj
   oper mkComplicatedVerb : V -> Str -> V =
 	 \v,s -> lin V
 	 {si = \\form => v.si !form ++ s;
-	 sp = \\form => v.sp !form ++ s;
-	 refl = v.refl; asp = v.asp;
-	 ppartp = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist};
-	 pparti = record2table { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11 = nonExist}
+	  sp = \\form => v.sp !form ++ s;
+	  refl = v.refl; asp = v.asp;
+	  -- Multiword verbs retain the participles of their verbal head:
+	  -- "wprowadzony w błąd", "idący na emeryturę".  Dropping them
+	  -- made every passive and participial use of such a verb disappear.
+	  ppartp = \\f => v.ppartp ! f ++ s;
+	  pparti = \\f => v.pparti ! f ++ s;
+	  apart = \\f => v.apart ! f ++ s;
+	  ger = \\f => v.ger ! f ++ s
 	 };
+
+  oper mkActivePart : (VFormM => Str) -> adj11table = \forms ->
+    case forms ! VFinM Pl P3 of {
+      stem + "ą" => record2table {
+        s1 = stem + "ący"; s2 = stem + "ącego";
+        s3 = stem + "ącemu"; s4 = stem + "ącym";
+        s5 = stem + "ące"; s6 = stem + "ąca";
+        s7 = stem + "ącej"; s8 = stem + "ącą";
+        s9 = stem + "ący"; s10 = stem + "ących";
+        s11 = stem + "ącymi"
+        };
+      form => record2table {
+        s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11 = form
+        }
+      };
+
+  oper mkGerund : adj11table -> SubstForm => Str = \part ->
+    let lemma = case part ! X1 of {
+          stem + "iany" => stem + "ianie";
+          stem + "iony" => stem + "ienie";
+          stem + "any" => stem + "anie";
+          stem + "ony" => stem + "enie";
+          stem + "nięty" => stem + "nięcie";
+          stem + "ęty" => stem + "ęcie";
+          stem + "ty" => stem + "cie";
+          form => form
+          }
+    in NM.mkNTable0402 lemma ;
 
   
 -- Two-place verbs   

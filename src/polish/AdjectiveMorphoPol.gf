@@ -121,14 +121,52 @@ resource AdjectiveMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef) in {
           pos = pos;
           comp = model_comp comp;
           super = model_comp ("naj"+comp) ;
-          advpos = nonExist;
-          advcomp = nonExist;
-          advsuper = nonExist;
+          advpos = guess_adverb pos.s1;
+          advcomp = "bardziej" ++ guess_adverb pos.s1;
+          advsuper = "najbardziej" ++ guess_adverb pos.s1;
         };
+
+  -- Analytic degree markers do not inflect, but the adjective following them
+  -- does: "bardziej interesująca", "najbardziej interesujące".
+  oper analytic_forms : Str -> adj11forms -> adj11forms = \degree, forms -> {
+    s1 = degree ++ forms.s1;
+    s2 = degree ++ forms.s2;
+    s3 = degree ++ forms.s3;
+    s4 = degree ++ forms.s4;
+    s5 = degree ++ forms.s5;
+    s6 = degree ++ forms.s6;
+    s7 = degree ++ forms.s7;
+    s8 = degree ++ forms.s8;
+    s9 = degree ++ forms.s9;
+    s10 = degree ++ forms.s10;
+    s11 = degree ++ forms.s11
+    };
+
+  -- Productive adverb formation.  Irregular adjectives can still use the
+  -- fuller constructors below, but the default adjective constructor must
+  -- not make ordinary adverbial uses disappear from linearization.
+  oper guess_adverb : Str -> Str = \form -> case form of {
+    stem + "ny" => stem + "nie";
+    stem + "ry" => stem + "rze";
+    stem + "ki" => stem + "ko";
+    stem + "gi" => stem + "go";
+    stem + "ty" => stem + "cie";
+    stem + "ły" => stem + "le";
+    stem + "y"  => stem + "o";
+    stem + "i"  => stem + "io";
+    _ => form
+    };
 
   oper mkA = overload {
     mkA : adj11forms -> A =
-      \pos -> mkAForms pos ("bardziej" ++ pos.s1) ;
+      \pos -> lin A {
+        pos = pos;
+        comp = analytic_forms "bardziej" pos;
+        super = analytic_forms "najbardziej" pos;
+        advpos = guess_adverb pos.s1;
+        advcomp = "bardziej" ++ guess_adverb pos.s1;
+        advsuper = "najbardziej" ++ guess_adverb pos.s1
+        };
     mkA : adj11forms -> Str -> A = mkAForms ;
     } ;
 
@@ -189,19 +227,19 @@ resource AdjectiveMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef) in {
   
   oper mkCompAdj = overload {
     mkCompAdj : Str -> Str -> A =
-    \pos, advpos -> lin A {
-      pos = guess_model pos;
-      comp = guess_model ("bardziej" ++ pos);
-      super = guess_model ("najbardziej" ++ pos);
+    \pos, advpos -> let forms = guess_model pos in lin A {
+      pos = forms;
+      comp = analytic_forms "bardziej" forms;
+      super = analytic_forms "najbardziej" forms;
       advpos = advpos;
       advcomp = ("bardziej" ++ advpos);
       advsuper = ("najbardziej" ++ advpos);
     };
     mkCompAdj : Str -> A =
-    \pos -> lin A {
-      pos = guess_model pos;
-      comp = guess_model ("bardziej" ++ pos);
-      super = guess_model ("najbardziej" ++ pos);
+    \pos -> let forms = guess_model pos in lin A {
+      pos = forms;
+      comp = analytic_forms "bardziej" forms;
+      super = analytic_forms "najbardziej" forms;
       advpos = "["++pos ++ [": the adverb positive form does not exist]"];
       advcomp = "["++pos ++ [": the adverb comparative form does not exist]"];
       advsuper = "["++pos ++ [": the adverb superlative form does not exist]"]

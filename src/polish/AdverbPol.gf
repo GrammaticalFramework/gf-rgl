@@ -7,6 +7,10 @@ concrete AdverbPol of Adverb = CatPol ** open ResPol, Prelude in {
 
   lin
    PositAdvAdj a = {s = a.advpos } ;
+
+-- AdA is the adverbial modifier form of an adjective.  Polish uses the
+-- ordinary adverbial form here as well ("wyjątkowo dobrze").
+   PositAdAAdj a = {s = a.advpos} ;
    
 --    ComparAdvAdj  : CAdv -> A -> NP -> Adv ; -- more warmly than John
     ComparAdvAdj c a n = {

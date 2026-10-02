@@ -41,6 +41,11 @@ concrete ConjunctionPol of Conjunction =
         s = \\af=>conj.s1 ++ list.ap1.s!af ++ conj.s2 ++ list.ap2.s!af;
 	isPost = list.ap2.isPost ---
     };
+
+    ConjCN conj list = {
+        s = \\n,c => conj.s1 ++ list.cn1 ! n ! c ++ conj.s2 ++ list.cn2 ! n ! c;
+        g = list.g
+    };
     ConjRS = conjunctDistrTable GenNum;
 
 
@@ -78,6 +83,17 @@ concrete ConjunctionPol of Conjunction =
         s = \\af=> ap.s!af ++ "," ++ apl.ap1.s!af;
         adv = ap.adv ++ "," ++ apl.ap1.adv ; isPost = apl.isPost
     }  ; isPost = apl.isPost};
+
+    BaseCN cn1 cn2 = {
+      cn1 = cn1.s;
+      cn2 = cn2.s;
+      g = conjGender cn1.g cn2.g
+    };
+    ConsCN cn cns = {
+      cn1 = \\n,k => cn.s ! n ! k ++ "," ++ cns.cn1 ! n ! k;
+      cn2 = cns.cn2;
+      g = conjGender cn.g cns.g
+    };
   
   lincat
 
@@ -85,6 +101,15 @@ concrete ConjunctionPol of Conjunction =
     [Adv] = {s1,s2 : Str} ;
     [NP]  = {np1,np2 : NounPhrase} ;
     [AP]  = {ap1,ap2 : AdjPhrase ; isPost : Bool} ;
+    [CN]  = {cn1,cn2 : Number => Case => Str; g : Gender} ;
     [RS]  = {s1,s2 : GenNum => Str} ;
+
+  oper
+    conjGender : Gender -> Gender -> Gender ;
+    conjGender x y = case <x,y> of {
+      <(Masc Personal),_> => Masc Personal;
+      <_,(Masc Personal)> => Masc Personal;
+      <_,_> => Plur
+      };
 
 }
