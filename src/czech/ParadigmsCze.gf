@@ -285,7 +285,7 @@ oper
     c = {s = [] ; c = Acc ; hasPrep = False}}) ;
   mkV2V : Str -> V2V = \s -> lin V2V ((mkVerb s) ** {
     c = {s = [] ; c = Acc ; hasPrep = False}}) ;
-  mkVoc : Str -> {s : Str} = \s -> {s = s} ;
+  mkVoc : Str -> CatCze.Voc = \s -> lin Voc {s = s} ;
 
 
 }
