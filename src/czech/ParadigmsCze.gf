@@ -257,7 +257,7 @@ oper
   mkCard : Str -> Card = \s -> lin Card (invarDeterminer s Num5) ;
   mkDet : Str -> Det = \s -> lin Det (invarDeterminer s Num5) ;
   mkQuant : Str -> Quant = \s ->
-    lin Quant (adjFormsAdjective (mkA s)) ;
+    lin Quant (adjFormsAdjective (guessAdjForms s)) ;
 
   mkACard : Str -> ACard = \s -> lin ACard {s = s} ;
   mkAdN : Str -> AdN = \s -> lin AdN {s = s} ;
