@@ -3,6 +3,8 @@ concrete RelativeLat of Relative = CatLat ** open ResLat in {
 --  flags optimize=all_subs ;
 --
   lin
+
+    RelCl cl = {s = \\_,_ => cl} ;
 --
 --    RelCl cl = {
 --      s = \\t,a,p,_ => "such" ++ "that" ++ cl.s ! t ! a ! p ! ODir ; 

@@ -40,6 +40,21 @@ concrete QuestionLat of Question = CatLat ** open ResLat, IrregLat, Prelude in {
 	det = { s , sp = \\_=> [] ; n = Sg } ; -- default number singilar
 	compl = "" ;
       } ;
+
+    QuestSlash ip cl = cl ** {
+      q = ip.s ! cl.c2.c ++ cl.c2.s
+      } ;
+
+    PrepIP prep ip = {s = prep.s ++ ip.s ! prep.c} ;
+    AdvIP ip adv = ip ** {s = \\c => ip.s ! c ++ adv.s ! Posit} ;
+    IdetCN det cn = {s = \\c => det.s ! cn.g ! c ++ cn.s ! det.n ! c; n=det.n} ;
+    IdetIP det = {s = det.s ! Masc; n=det.n} ;
+    IdetQuant quant num = {
+      s = \\g,c => quant.s ! Ag g num.n c ++ num.s ! g ! c;
+      sp = \\_,_ => ""; n=num.n
+      } ;
+    CompIP ip = {s = ip.s ! Nom} ;
+    AdvIAdv ia adv = {s = ia.s ++ adv.s ! Posit} ;
 --
 --
 --    PrepIP p ip = {s = p.s ++ ip.s ! Acc} ;

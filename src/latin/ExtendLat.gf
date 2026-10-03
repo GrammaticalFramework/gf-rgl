@@ -13,11 +13,82 @@
 -- (c) Aarne Ranta 2017-08-20 under LGPL and BSD
 
 
-concrete ExtendLat of Extend = CatLat ** open ResLat in {
+concrete ExtendLat of Extend = CatLat ** open ResLat, Prelude in {
+
+  lincat
+    VPS = {s : Gender => Number => Person => Str} ;
+    [VPS] = {s : Coordinator => {init,last : Gender => Number => Person => Str}} ;
+    VPI = {s : Agr => Str} ;
+    [VPI] = {s : Coordinator => {init,last : Agr => Str}} ;
+    [Imp] = {s : Coordinator => {init,last : Polarity => VImpForm => Str}} ;
+    [Comp] = {s : Coordinator => {init,last : Agr => Str}} ;
+    RNP = {s : Agr => Case => Str} ;
+    RNPList = {s : Agr => Case => Str} ;
+
+  oper
+    reflPron : Case => Str = table {
+      Nom | Voc => ""; Acc | Abl => "se"; Gen => "sui"; Dat => "sibi"
+      } ;
 
   lin
     -- GenNP       : NP -> Quant ;       -- this man's
     GenNP np = { s = \\_ => combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Gen ; sp = \\_ => ""} ;
+
+    GenModNP num np cn = {
+      s = \\_,c => cn.s ! num.n ! c ++ combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Gen ;
+      n = num.n; g = cn.g; p = P3; adv = cn.adv;
+      preap = cn.preap; postap = cn.postap;
+      det = {s,sp = \\_ => ""; n = num.n}
+      } ;
+
+    UseDAP dap = {
+      s = \\_,c => dap.s ! Neutr ! c; n=dap.n; g=Neutr; p=P3; adv="";
+      preap,postap={s=\\_=>""}; det={s,sp=\\_=>"";n=dap.n}
+      } ;
+    UseDAPMasc dap = {
+      s = \\_,c => dap.s ! Masc ! c; n=dap.n; g=Masc; p=P3; adv="";
+      preap,postap={s=\\_=>""}; det={s,sp=\\_=>"";n=dap.n}
+      } ;
+    UseDAPFem dap = {
+      s = \\_,c => dap.s ! Fem ! c; n=dap.n; g=Fem; p=P3; adv="";
+      preap,postap={s=\\_=>""}; det={s,sp=\\_=>"";n=dap.n}
+      } ;
+
+    EmptyRelSlash slash = {s = \\_,_ => slash} ;
+
+    MkVPS t pol vp = {s = \\g,n,p =>
+      vp.adv ++ vp.obj ++ pol.s ++ vp.compl ! Ag g n Nom ++ t.s ++
+      vp.s ! VAct (anteriorityToVAnter t.a) (tenseToVTense t.t) n p ! VQFalse} ;
+    BaseVPS x y = {s = \\_ => {init=x.s; last=y.s}} ;
+    ConsVPS x xs = {s = \\c => {
+      init = \\g,n,p => (xs.s ! c).init ! g ! n ! p ++ bindComma ++ (xs.s ! c).last ! g ! n ! p;
+      last = x.s}} ;
+    ConjVPS conj xs = {s = \\g,n,p => conj.s1 ++
+      (xs.s ! conj.c).init ! g ! n ! p ++ conj.s2 ++
+      (xs.s ! conj.c).last ! g ! n ! p ++ conj.s3} ;
+    PredVPS np vps = (combineClause "" (mkClause np emptyVP) Pres Simul Pos VQFalse) ** {
+      v = \\_ => vps.s ! np.g ! np.n ! np.p
+      } ;
+
+    MkVPI vp = {s = \\a => vp.adv ++ vp.obj ++ vp.compl ! a ++ vp.inf ! VInfActPres} ;
+    BaseVPI x y = {s = \\_ => {init=x.s; last=y.s}} ;
+    ConsVPI x xs = {s = \\c => {
+      init = \\a => (xs.s ! c).init ! a ++ bindComma ++ (xs.s ! c).last ! a;
+      last = x.s}} ;
+    ConjVPI conj xs = {s = \\a => conj.s1 ++
+      (xs.s ! conj.c).init ! a ++ conj.s2 ++
+      (xs.s ! conj.c).last ! a ++ conj.s3} ;
+    ComplVPIVV vv vpi = (predV vv) ** {compl = vpi.s} ;
+    BaseImp x y = {s=\\_=>{init=x.s;last=y.s}} ;
+    ConsImp x xs = {s=\\c=>{init=\\p,f=>(xs.s!c).init!p!f++bindComma++(xs.s!c).last!p!f;last=x.s}} ;
+    ConjImp conj xs = {s=\\p,f=>conj.s1++(xs.s!conj.c).init!p!f++conj.s2++(xs.s!conj.c).last!p!f++conj.s3} ;
+    BaseComp x y = {s = \\_ => {init = x.s; last = y.s}} ;
+    ConsComp x xs = {s = \\c => {
+      init = \\a => (xs.s ! c).init ! a ++ bindComma ++ (xs.s ! c).last ! a;
+      last = x.s}} ;
+    ConjComp conj xs = {s = \\a => conj.s1 ++
+      (xs.s ! conj.c).init ! a ++ conj.s2 ++
+      (xs.s ! conj.c).last ! a ++ conj.s3} ;
 --     GenIP       : IP -> IQuant ;      -- whose
 --     GenRP       : Num -> CN -> RP ;   -- whose car
 
@@ -92,6 +163,9 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
 
     --     PastPartAP      : VPSlash -> AP ;         -- lost (opportunity) ; (opportunity) lost in space
     PastPartAP vp = { s = \\ag => vp.part ! VPassPerf ! ag ++ vp.adv ++ vp.c.s} ; -- TODO
+    PastPartAgentAP vp np = {s = \\ag => vp.part ! VPassPerf ! ag ++ vp.adv ++
+      "ab" ++ combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Abl} ;
+    PresPartAP vp = {s = \\ag => vp.part ! VActPres ! ag ++ vp.obj ++ vp.compl ! ag ++ vp.adv} ;
 --     PastPartAgentAP : VPSlash -> NP -> AP ;   -- (opportunity) lost by the company
 
 -- -- this is a generalization of Verb.PassV2 and should replace it in the future.
@@ -100,6 +174,14 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
     PassVPSlash vp = vp ** {
       s = \\a => case a of { VAct _ t n p => vp.pass ! VPass t n p } ;
       } ;
+    PassAgentVPSlash vp np = (PassVPSlash vp) ** {
+      adv = vp.adv ++ "ab" ++ combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Abl
+      } ;
+    ComplBareVS vs s = vs ** {
+      s = \\a,q => vs.act ! a; pass=\\p,q=>vs.pass ! p;
+      compl=\\_=>defaultSentence s ! SOV; adv=""; obj=""
+      } ;
+    ProgrVPSlash vp = vp ;
 
 -- -- the form with an agent may result in a different linearization
 -- -- from an adverbial modification by an agent phrase.
@@ -163,6 +245,54 @@ concrete ExtendLat of Extend = CatLat ** open ResLat in {
       postap = { s = \\_ => "" } ;
       preap = { s = \\_ => "" } ;
       } ;
+
+    ExistsNP np = mkClause np (predV esseAux) ;
+    AdvIsNP adv np = mkClause np (insertAdv adv (predV esseAux)) ;
+    ExistMassCN cn = mkClause (cn ** {s=\\_,c=>cn.s ! Sg ! c; n=Sg;p=P3;
+      det={s,sp=\\_=>"";n=Sg}}) (predV esseAux) ;
+    ExistPluralCN cn = mkClause (cn ** {s=\\_,c=>cn.s ! Pl ! c; n=Pl;p=P3;
+      det={s,sp=\\_=>"";n=Pl}}) (predV esseAux) ;
+    PrepCN prep cn = mkAdverb (prep.s ++ cn.s ! Sg ! prep.c) ;
+    CompBareCN cn = {s = \\a => case a of {Ag _ n c => cn.s ! n ! c}} ;
+    AdjAsCN ap = {s=\\n,c=>ap.s ! Ag Neutr n c;g=Neutr;
+      preap,postap={s=\\_=>""};adv=""} ;
+
+    ReflPron = {s = \\_,c => reflPron ! c} ;
+    ReflPoss num cn = {s = \\_,c =>
+      (createPronouns Masc Sg P3).p2 ! PronRefl ! Ag cn.g num.n c ++ cn.s ! num.n ! c} ;
+    ReflRNP vp rnp = vp ** {
+      compl = \\a => rnp.s ! a ! vp.c.c ++ vp.compl ! a
+      } ;
+    AdvRNP np prep rnp = {s = \\a,c =>
+      combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! c ++ prep.s ++ rnp.s ! a ! prep.c} ;
+    AdvRVP vp prep rnp = vp ** {compl = \\a => vp.compl ! a ++ prep.s ++ rnp.s ! a ! prep.c} ;
+    AdvRAP ap prep rnp = {s = \\a => ap.s ! a ++ prep.s ++ rnp.s ! a ! prep.c} ;
+    ReflA2RNP a rnp = {s = \\ag => a.s ! Posit ! ag ++ a.c.s ++ rnp.s ! ag ! a.c.c} ;
+    PossPronRNP pron num cn rnp =
+      let base = {
+        s = \\_,c => cn.s ! num.n ! c;
+        n = num.n; g = cn.g; p = P3; adv = rnp.s ! Ag pron.pers.g pron.pers.n Nom ! Gen;
+        preap=cn.preap; postap=cn.postap;
+        det={s=\\c=>pron.poss.s ! PronNonRefl ! Ag cn.g num.n c; sp=\\_=>""; n=num.n}
+        }
+      in base ;
+
+    CompoundN n1 n2 = {s = \\n,c => n2.s ! n ! c ++ n1.s ! Sg ! Gen; g=n2.g} ;
+    CompoundAP n a = {s = \\ag => n.s ! Sg ! Gen ++ a.s ! Posit ! ag} ;
+    GerundCN vp = {s = \\_,_ => vp.inf ! VInfActPres ++ vp.obj ++ vp.adv;
+      g=Neutr; preap,postap={s=\\_=>""}; adv=""} ;
+    GerundNP vp = dummyNP (vp.inf ! VInfActPres ++ vp.obj ++ vp.adv) ;
+    GerundAdv vp = mkAdverb (vp.inf ! VInfActPres ++ vp.obj ++ vp.adv) ;
+    ByVP vp = mkAdverb ("gerundio" ++ vp.inf ! VInfActPres ++ vp.obj ++ vp.adv) ;
+    InOrderToVP vp = mkAdverb ("ut" ++ vp.inf ! VInfActPres ++ vp.obj ++ vp.adv) ;
+    ApposNP np app = np ** {adv = np.adv ++ bindComma ++
+      combineNounPhrase app ! PronNonDrop ! APostN ! DPreN ! Nom ++ bindComma} ;
+    PositAdVAdj a = {s = a.adv.s ! Posit} ;
+    CompS s = {s = \\_ => "quod" ++ defaultSentence s ! SOV} ;
+    CompQS qs = {s = \\_ => qs.s ! QIndir} ;
+    CompVP ant pol vp = {s = \\a => pol.s ++ vp.inf ! VInfActPres ++ vp.obj ++ vp.compl ! a ++ vp.adv} ;
+    ComplSlashPartLast vp np = insertObj np vp.c vp ;
+    UttVPShort vp = {s = vp.imp ! VImp1 Sg ++ vp.obj ++ vp.compl ! Ag Masc Sg Acc ++ vp.adv} ;
 
 -- -- infinitive complement for IAdv
 

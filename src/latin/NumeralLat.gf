@@ -5,6 +5,8 @@ concrete NumeralLat of Numeral = CatLat ** open ParadigmsLat, Prelude, ResLat, P
     Sub100     = TNumeral ;
     Sub1000    = TNumeral ;
     Sub1000000 = TNumeral ;
+    Sub1000000000 = TNumeral ;
+    Sub1000000000000 = TNumeral ;
 
   lin
     num x = x ;
@@ -150,6 +152,18 @@ concrete NumeralLat of Numeral = CatLat ** open ParadigmsLat, Prelude, ResLat, P
      ord = \\_,_,_ => nonExist -- TODO
      } ;
 
+   pot3as4 n = n ;
+   pot41 = pot01 ** {s=\\_,_=>"decies centena milia";n=plural} ;
+   pot4 n = n ** {s=\\g,c=>n.s ! g ! c ++ "decies centena milia";n=plural} ;
+   pot4plus m n = n ** {s=\\g,c=>m.s ! g ! c ++ "decies centena milia" ++ n.s ! g ! c;n=plural} ;
+   pot4as5 n = n ;
+   pot51 = pot01 ** {s=\\_,_=>"miliens decies centena milia";n=plural} ;
+   pot5 n = n ** {s=\\g,c=>n.s ! g ! c ++ "miliens decies centena milia";n=plural} ;
+   pot5plus m n = n ** {s=\\g,c=>m.s ! g ! c ++ "miliens decies centena milia" ++ n.s ! g ! c;n=plural} ;
+   pot3decimal d = pot01 ** {s=\\_,_=>d.s ++ "milia";n=plural} ;
+   pot4decimal d = pot01 ** {s=\\_,_=>d.s ++ "decies centena milia";n=plural} ;
+   pot5decimal d = pot01 ** {s=\\_,_=>d.s ++ "miliens decies centena milia";n=plural} ;
+
   oper
     mkDigit : (ones, eleven, tens, hundreds, ord : Str) -> Str -> Below8 -> TDigit =
       \ones, eleven, tens, hundreds, ord ->
@@ -210,6 +224,8 @@ concrete NumeralLat of Numeral = CatLat ** open ParadigmsLat, Prelude, ResLat, P
     D_9 = mkDig "IX"   "XIX"   "XC"   "CM"    "(IX)"   "(XC)"   "(CM)" ;
 
     PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = d ** {s = "-" ++ d.s; hasDot=False} ;
+    IFrac d f = d ** {s = d.s ++ "." ++ f.s ! one; hasDot=True} ;
 
   oper
     TDig = {

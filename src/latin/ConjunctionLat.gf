@@ -23,8 +23,8 @@ concrete ConjunctionLat of Conjunction =
       det = { s, sp = \\_ => [] } ;
       } ;
 
-    -- ConjAdv  : Conj -> ListAdv -> Adv ;   -- here or there
---    ConjAdv conj ss = mkAdv (conjunctDistrSS conj (ss.l ! conj.c) ).s ;
+    ConjAdv conj xs = mkAdverb (conj.s1 ++ (xs.s ! conj.c).init ++
+      conj.s2 ++ (xs.s ! conj.c).last ++ conj.s3) ;
 
     -- ConjNP   : Conj -> ListNP -> NP ;     -- she or we
     ConjNP conj nps =
@@ -45,8 +45,15 @@ concrete ConjunctionLat of Conjunction =
     	det = { s , sp = \\_ => ""} ;
       } ;
 
-    -- ConjAP   : Conj -> ListAP -> AP ;
---    ConjAP conj ss = conjunctDistrTable Agr conj (ss.l ! conj.c) ;
+    ConjAP conj xs = {s = \\a => conj.s1 ++ (xs.s ! conj.c).init ! a ++
+      conj.s2 ++ (xs.s ! conj.c).last ! a ++ conj.s3} ;
+
+    ConjCN conj xs = {
+      s = \\n,c => conj.s1 ++ (xs.s ! conj.c).init.s ! n ! c ++
+        conj.s2 ++ (xs.s ! conj.c).last.s ! n ! c ++ conj.s3 ;
+      g = (xs.s ! conj.c).last.g ;
+      preap, postap = {s = \\_ => ""} ; adv = ""
+      } ;
 
     --
 --    DConjS = conjunctDistrSS ;
@@ -85,10 +92,24 @@ concrete ConjunctionLat of Conjunction =
       } ;
 
     -- BaseAdv : Adv -> Adv -> ListAdv
-   BaseAdv x y =
+    BaseAdv x y =
      {
        s = \\_ => { init = x.s ! Posit ; last = y.s ! Posit }
      } ;
+
+    BaseAP x y = {s = \\_ => {init = x.s ; last = y.s}} ;
+    ConsAP x xs = {s = \\c => {
+      init = \\a => coord c {init = (xs.s ! c).init ! a; last = (xs.s ! c).last ! a};
+      last = x.s
+      }} ;
+
+    BaseCN x y = {s = \\_ => {init = x; last = y}} ;
+    ConsCN x xs = {s = \\c => {
+      init = {
+        s = \\n,k => coord c {init = (xs.s ! c).init.s ! n ! k; last = (xs.s ! c).last.s ! n ! k};
+        g = (xs.s ! c).last.g; preap,postap={s=\\_=>""}; adv=""};
+      last = x
+      }} ;
 
     -- ConsAdv : Adv -> ListAdv -> ListAdv
    ConsAdv x xs =
@@ -137,6 +158,7 @@ concrete ConjunctionLat of Conjunction =
     [Adv] = { s: Coordinator => {init,last : Str}} ;
     [NP] = { s : Coordinator => {init,last : PronDropForm => AdvPos => DetPos => Case => Str} ; g : Gender ; n : Number ; p : Person ; isBase : Bool } ;
     [AP] = {s : Coordinator => {init,last : Agr => Str } } ;
+    [CN] = {s : Coordinator => {init,last : CommonNoun} } ;
     [RS] = { s : Coordinator => { init, last : Gender => Number => Str }} ;
   oper
     -- Generates a new number value given two number values.

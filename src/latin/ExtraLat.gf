@@ -122,7 +122,7 @@ concrete ExtraLat of ExtraLatAbs =
 
     --  SlashVP_VP_Ellipsis  : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
     SlashVP_VP_Ellipsis np = 
-      mkClause np emptyVP ;
+      mkClause np emptyVP ** {c2 = mkPreposition "" Acc} ;
 
     -- FunRP_RP_Ellipsis : Prep -> NP -> RP ;
     FunRP_RP_Ellipsis p np = FunRP p np (lin RP { s = \\_ => "" }) ;

@@ -470,8 +470,8 @@ oper
   adjfull : (bonus,bona,bonum : Str) -> Adjective = \bonus,bona,bonum ->
     case <bonus,bona,bonum> of {
       <_ + ("er"|"us"|"ur"|"tr"), _ + "a"  , _ + "um"> => adj12 bonus ;
-      <_ + ("er"|"is"), _ + "is" , _ + "e" > => adj3x bonus bonum ; -- FISHY?
-      <_ + "ior"      , _ + "ior", _ + "ius"> => adj3x bonus bonum ; -- FISHY?
+      <_ + ("er"|"is"), _ + "is" , _ + "e" > => adj3x bonus bona ;
+      <_ + "ior"      , _ + "ior", _ + "ius"> => adj3x bonus (bonus + "is") ;
       <_ + "os"       , _ + "os" , _ + "on"> => adjgre bonus bona bonum ;
       <_ + "es"       , _ + "es" , _ + "es"> => adjgre bonus bona bonum ;
       <_ + "os"       , _ + ("e"|"a")  , _ + "on"> => adjgre bonus bona bonum ;

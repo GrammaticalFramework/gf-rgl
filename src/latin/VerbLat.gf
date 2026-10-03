@@ -63,6 +63,32 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
     ComplSlash vp np = -- VPSlash -> NP -> VP
       insertObj np vp.c vp ;
 
+    SlashV2S v s = (predV2 v) ** {
+      compl = \\_ => defaultSentence s ! SOV
+      } ;
+
+    SlashV2V v vp = (predV v) ** {
+      compl = \\_ => vp.adv ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ++ vp.inf ! VInfActPres
+      ; c = mkPreposition "" Acc
+      } ;
+
+    SlashVV v vp = (predV v) ** {
+      compl = \\_ => vp.adv ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ++ vp.inf ! VInfActPres ;
+      c = vp.c
+      } ;
+
+    SlashV2VNP v np vp = (predV v) ** {
+      obj = combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Acc ;
+      compl = \\_ => vp.adv ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ++ vp.inf ! VInfActPres ;
+      c = vp.c
+      } ;
+
+    ReflVP vp = insertObj
+      (emptyNP ** {s = \\_,c => (createPronouns Masc Sg P3).p1 ! PronNonDrop ! PronRefl ! c})
+      vp.c vp ;
+
+    VPSlashPrep vp prep = vp ** {c = prep} ;
+
 --  SlashVV    : VV  -> VPSlash -> VPSlash ;       -- want to buy
 --    SlashVV vv vp = 
 --      insertObj (\\a => infVP vv.isAux vp a) (predVV vv) **
@@ -96,6 +122,8 @@ concrete VerbLat of Verb = CatLat ** open (S=StructuralLat),ResLat,IrregLat,Extr
 
 --  AdvVP    : VP -> Adv -> VP ;        -- sleep here
     AdvVP vp adv = insertAdv adv vp ;
+
+    ExtAdvVP vp adv = insertAdv adv vp ;
 
 --    ExtAdvVP vp adv = vp
 
