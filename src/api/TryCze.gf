@@ -11,11 +11,14 @@ oper
     mkVoc : NP -> Voc = S.mkVoc ;
     mkVoc : Str -> Voc = P.mkVoc ;
   } ;
+  mkDet = overload SyntaxCze {
+    mkDet : Str -> Det = P.mkDeterminer ;
+  } ;
   mkIP = overload SyntaxCze {
-    mkIP : Str -> IP = P.mkIP ;
+    mkIP : Str -> IP = P.mkIPron ;
   } ;
   mkCard = overload SyntaxCze {
-    mkCard : Str -> Card = P.mkCard ;
+    mkCard : Str -> Card = P.mkCardinal ;
   } ;
 
 }

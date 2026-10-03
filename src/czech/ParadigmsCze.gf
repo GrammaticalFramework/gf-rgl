@@ -254,8 +254,8 @@ oper
 
   mkVerb : Str -> VerbForms = guessVerbForms ;
 
-  mkCard : Str -> Card = \s -> lin Card (invarDeterminer s Num5) ;
-  mkDet : Str -> Det = \s -> lin Det (invarDeterminer s Num5) ;
+  mkCardinal : Str -> Card = \s -> lin Card (invarDeterminer s Num5) ;
+  mkDeterminer : Str -> Det = \s -> lin Det (invarDeterminer s Num5) ;
   mkQuant : Str -> Quant = \s ->
     lin Quant (adjFormsAdjective (guessAdjForms s)) ;
 
@@ -267,7 +267,7 @@ oper
   mkGN : Str -> GN = \s -> lin GN {s = s} ;
   mkIAdv : Str -> IAdv = \s -> lin IAdv {s = s} ;
   mkIDet : Str -> IDet = \s -> lin IDet {s = \\_,_=>s; size=Num1; head=CountedHead} ;
-  mkIP : Str -> IP = \s -> lin IP {s = \\_=>s; a = Ag (Masc Anim) Sg P3} ;
+  mkIPron : Str -> IP = \s -> lin IP {s = \\_=>s; a = Ag (Masc Anim) Sg P3} ;
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s = \\_,_,_=>s} ;
   mkInterj : Str -> Interj = \s -> lin Interj {s = s} ;
   mkLN : Str -> LN = \s -> lin LN {s = s} ;
