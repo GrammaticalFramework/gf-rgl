@@ -34,14 +34,14 @@ concrete ConjunctionCze of Conjunction = CatCze **
       s2 = y.s ;
       prep1 = x.prep ;
       prep2 = y.prep ;
-      a = y.a ; m = x.m ;
+      a = x.a
       } ; -- clitics disappear ---- Agr TODO
     ConsNP x xs = {
       s1 = \\c => x.s ! c ++ comma ++ xs.s1 ! c ;
       s2 = xs.s2 ; 
       prep1 = \\c => x.prep ! c ++ comma ++ xs.prep1 ! c ;
       prep2 = xs.prep2 ;
-      a = xs.a ; m = x.m ; ----
+      a = x.a ;
       } ; 
 
     BaseS x y = {s1 = x ; s2 = y.s} ;
