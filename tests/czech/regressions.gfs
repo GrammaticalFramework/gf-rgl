@@ -245,8 +245,8 @@ cc -one (SyntaxCze.mkAdv with_Prep (mkNP (mkCN (mkAP L.young_A (mkNP he_Pron)) (
 -- A ProDrop comparison pronoun must still be overt.
 cc -one (mkUtt (mkS (mkCl (mkNP (E.ProDrop i_Pron)) (mkAP L.young_A (mkNP (E.ProDrop she_Pron))))))
 -- Addressing a quantified group retains genitive government.
-cc -one (mkVoc (mkNP (mkCard "5") L.child_N))
-cc -one (mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
+cc -one (SyntaxCze.mkVoc (mkNP (mkCard "5") L.child_N))
+cc -one (SyntaxCze.mkVoc (mkNP all_Predet (mkNP (mkCard "5") L.child_N)))
 -- Pronominal heads retain their order after modification and binding.
 cc -one (SyntaxCze.mkAdv with_Prep (mkNP all_Predet (mkNP youPl_Pron)))
 -- The outer pronoun controls all, independently of the reflexive's antecedent.
