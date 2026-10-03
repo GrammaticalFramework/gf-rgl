@@ -4,7 +4,7 @@ concrete LangCze of Lang =
   GrammarCze,
   LexiconCze,
   ConstructionCze
---  ,DocumentationCze --# notpresent
+  ,DocumentationCze --# notpresent
   ,MarkupCze - [stringMark]
   ** {
 
