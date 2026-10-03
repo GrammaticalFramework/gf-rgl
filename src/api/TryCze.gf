@@ -14,5 +14,8 @@ oper
   mkIP = overload SyntaxCze {
     mkIP : Str -> IP = P.mkIP ;
   } ;
+  mkCard = overload SyntaxCze {
+    mkCard : Str -> Card = P.mkCard ;
+  } ;
 
 }
