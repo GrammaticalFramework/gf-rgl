@@ -60,8 +60,11 @@ lin
   TPastSimple = {s = [] ; t = Past} ;
 
 lincat
-  VPS = {s : Agr => Str} ;
-  [VPS] = {s1,s2 : Agr => Str} ;
+  -- s follows an overt subject, which hosts the second-position clitics.
+  -- standalone is used without an overt subject and puts the finite verb
+  -- before the clitic cluster so that the cluster never starts the utterance.
+  VPS = {s,standalone : Agr => Str} ;
+  [VPS] = {s1,s2,standalone1 : Agr => Str} ;
   VPI = {s : Agr => Str} ;
   [VPI] = {s1,s2 : Agr => Str} ;
   [Comp] = {s1,s2 : Agr => Str} ;
@@ -73,13 +76,29 @@ param
   RNPHead = AntecedentHead | FixedHead Agr ;
 
 lin
-  MkVPS temp pol vp = {s = \\a =>
-    tenseClitic temp.t a ++ vp.clit ! a ++
-    tenseVerb temp.t vp.verb a pol.p ++ vp.compl ! a
+  MkVPS temp pol vp = {
+    s = \\a =>
+      tenseClitic temp.t a ++ vp.clit ! a ++
+      tenseVerb temp.t vp.verb a pol.p ++ vp.compl ! a ;
+    standalone = \\a =>
+      tenseVerb temp.t vp.verb a pol.p ++
+      tenseClitic temp.t a ++ vp.clit ! a ++ vp.compl ! a
     } ;
-  BaseVPS x y = {s1 = x.s ; s2 = y.s} ;
-  ConsVPS x xs = {s1 = \\a => x.s ! a ++ SOFT_BIND ++ "," ++ xs.s1 ! a ; s2 = xs.s2} ;
-  ConjVPS conj xs = {s = \\a => conj.s1 ++ xs.s1 ! a ++ conj.s2 ++ xs.s2 ! a} ;
+  BaseVPS x y = {
+    s1 = x.s ; s2 = y.s ;
+    standalone1 = x.standalone
+    } ;
+  ConsVPS x xs = {
+    s1 = \\a => x.s ! a ++ SOFT_BIND ++ "," ++ xs.s1 ! a ;
+    s2 = xs.s2 ;
+    standalone1 = \\a =>
+      x.standalone ! a ++ SOFT_BIND ++ "," ++ xs.standalone1 ! a ;
+    } ;
+  ConjVPS conj xs = {
+    s = \\a => conj.s1 ++ xs.s1 ! a ++ conj.s2 ++ xs.s2 ! a ;
+    standalone = \\a =>
+      conj.s1 ++ xs.standalone1 ! a ++ conj.s2 ++ xs.s2 ! a
+    } ;
   PredVPS np vps = sentence True (np.s ! Nom) [] (vps.s ! np.a) ;
 
   MkVPI vp = {s = \\a => vp.verb.inf ++ vp.clit ! a ++ vp.compl ! a} ;
