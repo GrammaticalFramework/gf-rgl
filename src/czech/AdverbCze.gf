@@ -2,15 +2,15 @@ concrete AdverbCze of Adverb = CatCze **
   open ResCze, Prelude in {
 
 lin
-    PositAdvAdj a = {s = a.nsnom} ;
-    PositAdAAdj a = {s = a.nsnom} ;
+    PositAdvAdj a = {s = a.adv} ;
+    PositAdAAdj a = {s = a.adv} ;
     AdAdv ada adv = {s = ada.s ++ adv.s} ;
     AdnCAdv cadv = {s = cadv.s} ;
     ComparAdvAdj cadv a np = {
-      s = cadv.s ++ a.nsnom ++ "než" ++ np.s ! Nom
+      s = cadv.s ++ a.adv ++ "než" ++ np.s ! Nom
       } ;
     ComparAdvAdjS cadv a sent = {
-      s = cadv.s ++ a.nsnom ++ "než" ++ sent.s
+      s = cadv.s ++ a.adv ++ "než" ++ sent.s
       } ;
 
     PrepNP prep np = {

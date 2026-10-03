@@ -99,7 +99,11 @@ lin
 
   PassVPSlash vp = {
     verb = vp.verb ; clitPresent = True ;
-    clit = \\a => vp.clit ! a ++ "se" ++ vp.clitAfter ! a ;
+    -- A lexically reflexive verb already supplies se/si.  Reflexive passive
+    -- must not duplicate that clitic ("se se odehraje").
+    clit = \\a => vp.clit ! a ++
+      case vp.verb.isRefl of {True => [] ; False => "se"} ++
+      vp.clitAfter ! a ;
     compl = \\a => vp.compl ! a ++ vp.ind ! a
     } ;
   PassAgentVPSlash vp np =
@@ -108,13 +112,21 @@ lin
       } ;
 
   PresPartAP vp =
-    let phrase = vp.verb.inf ++ vp.clit ! Ag Neutr Sg P3 ++ vp.compl ! Ag Neutr Sg P3 ;
-        ap = adjFormsAdjective (invarAdjForms phrase)
-    in ap ** {pred = longPredicate ap ; isPost = True} ;
+    let agr = Ag Neutr Sg P3 ;
+        ap = adjFormsAdjective vp.verb.prespart
+    in ap ** {
+      s = \\g,n,c => ap.s ! g ! n ! c ++ vp.clit ! agr ++ vp.compl ! agr ;
+      pred = \\a => longPredicate ap ! a ++ vp.clit ! a ++ vp.compl ! a ;
+      isPost = True
+      } ;
   PastPartAP vp =
-    let phrase = vp.verb.pastpartsg ++ vp.compl ! Ag Neutr Sg P3 ++ vp.ind ! Ag Neutr Sg P3 ;
-        ap = adjFormsAdjective (invarAdjForms phrase)
-    in ap ** {pred = longPredicate ap ; isPost = True} ;
+    let ap = adjFormsAdjective vp.verb.passpart
+    in ap ** {
+      s = \\g,n,c => ap.s ! g ! n ! c ++
+        vp.compl ! Ag g n P3 ++ vp.ind ! Ag g n P3 ;
+      pred = \\a => longPredicate ap ! a ++ vp.compl ! a ++ vp.ind ! a ;
+      isPost = True
+      } ;
   PastPartAgentAP vp np =
     let ap = PastPartAP vp in ap ** {
       s = \\g,n,c => ap.s ! g ! n ! c ++ "od" ++ np.prep ! Gen ;
@@ -139,7 +151,7 @@ lin
   GerundAdv vp = {s = vp.verb.inf ++ vp.clit ! Ag Neutr Sg P3 ++ vp.compl ! Ag Neutr Sg P3} ;
   InOrderToVP vp = {s = "aby" ++ vp.verb.inf ++ vp.clit ! Ag Neutr Sg P3 ++ vp.compl ! Ag Neutr Sg P3} ;
   ProgrVPSlash vp = vp ;
-  PositAdVAdj a = {s = a.nsnom} ;
+  PositAdVAdj a = {s = a.adv} ;
   ApposNP first second =
     let forms = appendNPForms first (SOFT_BIND ++ "," ++ second.s ! Nom)
     in first ** forms ** {clit = forms.s ; hasClit = False ; isDrop = False} ;

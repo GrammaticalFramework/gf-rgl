@@ -165,9 +165,16 @@ oper
   -- Lexical reflexive clitics. The case-based interface accepts only Acc/Dat.
   seV : V -> V = \v -> reflV v Acc ;
   siV : V -> V = \v -> reflV v Dat ;
-  reflV : V -> Case -> V = \v,c -> v ** {
-    isRefl = True ; refl = case c of {Dat => "si" ; _ => "se"}
-    } ;
+  reflV : V -> Case -> V = \v,c ->
+    let base : V = case v.inf of {
+          -- Stát and stát se are distinct irregular lexemes.  Selecting the
+          -- latter here lets generated lexica keep the compositional seV API.
+          "stát" => lin V statSeVerbForms ;
+          _ => v
+          }
+    in base ** {
+      isRefl = True ; refl = case c of {Dat => "si" ; _ => "se"}
+      } ;
 
   mkVS : V -> VS = \v -> lin VS v ;
   mkVQ : V -> VQ = \v -> lin VQ v ;
