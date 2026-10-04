@@ -97,4 +97,8 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     N3 = ResPes.Noun ** {c2 : Compl ; c3 : Compl} ;
     PN = {s : Str ; animacy : Animacy} ;
 
+  linref
+    V, VA, VV, VS, VQ, V2, V2A, V2S, V2Q, V2V, V3 =
+      \verb -> verb.prefix ++ verb.s ! ResPes.Inf ;
+
 }
