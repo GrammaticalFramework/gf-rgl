@@ -3,6 +3,7 @@
 concrete LangDan of Lang = 
   GrammarDan,
   LexiconDan
+  ,ConstructionDan
   ,DocumentationDan --# notpresent
   ** {
 
