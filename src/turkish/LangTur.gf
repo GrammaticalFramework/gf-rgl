@@ -3,6 +3,7 @@
 concrete LangTur of Lang =
   GrammarTur,
   LexiconTur
+  ,ConstructionTur --# notpresent
   ,DocumentationTur --# notpresent
   ** {
 
