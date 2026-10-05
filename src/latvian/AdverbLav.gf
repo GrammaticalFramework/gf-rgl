@@ -32,7 +32,7 @@ lin
   -- e.g. "very quickly"
   AdAdv ada adv = {s = ada.s ++ adv.s ; isPron = False} ;
 
-  -- TODO: PositAdAAdj : A -> AdA
+  PositAdAAdj a = {s = a.s ! (AAdv Posit)} ;
 
   -- Subj -> S -> Adv
   -- e.g. "when she sleeps"

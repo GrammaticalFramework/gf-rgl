@@ -272,15 +272,16 @@ lin
   -- e.g. 'sleep here'
   AdvVP vp adv = insertObjReg (\\_ => adv.s) adv.isPron vp ;
 
+  ExtAdvVP vp adv = insertObjReg (\\_ => "," ++ adv.s) False vp ;
+
   -- AdV -> VP -> VP
   -- e.g. 'always sleep'
   AdVVP adv vp = insertObjPre (\\_ => adv.s) vp ;
 
-  -- TODO: AdvVPSlash : VPSlash -> Adv -> VPSlash
-  -- e.g. 'use (it) here'
+  AdvVPSlash vp adv = insertObjSlash (\\_ => adv.s) vp ;
 
-  -- TODO: AdVVPSlash : AdV -> VPSlash -> VPSlash
-  -- e.g. 'always use (it)'
+  AdVVPSlash adv vp =
+    (insertObjPre (\\_ => adv.s) vp) ** {rightVal = vp.rightVal} ;
 
   -- VP -> Prep -> VPSlash
   -- e.g. 'live in (it)'

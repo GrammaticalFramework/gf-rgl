@@ -46,4 +46,11 @@ lin
     isPron = False
   } ;
 
+  InLN ln = {s = ln.s ! Loc ; isPron = False} ;
+
+  AdjLN ap ln = {
+    s = \\c => ap.s ! Def ! ln.gend ! ln.num ! c ++ ln.s ! c ;
+    gend = ln.gend ; num = ln.num
+  } ;
+
 }

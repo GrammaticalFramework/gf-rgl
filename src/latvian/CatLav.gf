@@ -73,6 +73,9 @@ lincat
 
   Ord = {s : Gender => Case => Str} ;
 
+  -- A determiner phrase without an overt noun ("these", "the larger ones").
+  DAP = {s : Gender => Case => Str ; num : Number ; pol : Polarity} ;
+
   -- Numerals
 
   Numeral = {s : CardOrd => Gender => Case => Str ; num : Number} ;

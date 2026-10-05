@@ -34,6 +34,11 @@ lin
     s = \\mood,pol => buildVerb (mkV "būt") mood pol np.agr np.pol Pos ++ np.s ! Nom
   } ;
 
+  ExistNPAdv np adv = {
+    s = \\mood,pol => buildVerb (mkV "būt") mood pol np.agr np.pol Pos ++
+                       np.s ! Nom ++ adv.s
+  } ;
+
   ExistIP ip = {
     s = \\mood,pol => ip.s ! Nom ++ buildVerb (mkV "būt") mood pol (AgrP3 ip.num Masc) Pos Pos
   } ;
