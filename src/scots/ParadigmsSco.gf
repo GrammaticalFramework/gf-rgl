@@ -1,4 +1,4 @@
-resource ParadigmsSco = ParadigmsEng - [regV, reg2V, regDuplV, irregV, irreg4V, irregDuplV, mkV, mkV2, mkV3, mkV2V, mkV2Q] ** open Prelude, ResSco, CatSco in {
+resource ParadigmsSco = ParadigmsEng - [regV, reg2V, regDuplV, irregV, irreg4V, irregDuplV, mkV, mkV2, mkV3, mkVV, mkV2V, mkV2Q] ** open Prelude, ResSco, CatSco in {
 
 oper
   regV : Str -> V ;
@@ -9,6 +9,7 @@ oper
         rax@(_ + ("x"|"sh"|"ch")) => rax+"t";
         hurt@(_ + ("t"|"p"|"d")) => hurt + "it" ;
         traivel@(_ + ("l"|"n"|"r"|"ie"|"y")) => traivel + "t" ;
+        _ + "e"      => cry + "d" ;
         clean        => clean + "ed"
         } ;
       cryin : Str = case cry of {
@@ -79,6 +80,42 @@ oper
     mkV3 : V -> V3 = dirdirV3 ;
     mkV3 : Str -> V3 = \v -> dirdirV3 (regV v) ;
   } ;
+
+  -- Modal verbs in Scots do not take the infinitive marker "tae".  WordNet
+  -- builds lexical VVs with mkVV, so recognize the Scots modals here rather
+  -- than making every caller know about the lower-level auxVV constructor.
+  mkVV : V -> VV = \v -> case v.p of {
+    "" => case v.s ! VInf of {
+      "can" | "cuid" | "ken" | "maun" | "micht" | "suld" | "daur" => scoModalVV v [] ;
+      _ => scoInfVV v
+      } ;
+    "tae" => case v.s ! VInf of {
+      "hae" | "ocht" => scoModalVV v "tae" ;
+      _ => scoInfVV v
+      } ;
+    _ => scoInfVV v
+    } ;
+
+  scoInfVV : V -> VV = \v -> lin VV {
+    s = table {VVF vf => v.s ! vf ; _ => v.s ! VInf} ;
+    p = v.p ;
+    typ = VVInf
+    } ;
+
+  scoModalVV : V -> Str -> VV = \v,p -> lin VV {
+    s = table {
+      VVF VInf      => v.s ! VInf ++ p ;
+      VVF VPres     => v.s ! VInf ++ p ;
+      VVF VPPart    => v.s ! VPPart ++ p ;
+      VVF VPresPart => v.s ! VPresPart ++ p ;
+      VVF VPast     => v.s ! VPast ++ p ;             --# notpresent
+      VVPresNeg     => posneg Neg (v.s ! VInf) ++ p
+                                                   ;  --# notpresent
+      VVPastNeg     => posneg Neg (v.s ! VPast) ++ p  --# notpresent
+      } ;
+    p = [] ;
+    typ = VVAux
+    } ;
 
   mkV2V = overload {
     mkV2V : Str -> V2V = \s -> lin V2V (dirV2 (regV s) ** {c3 = [] ; typ = VVAux}) ;
