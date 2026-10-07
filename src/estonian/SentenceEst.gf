@@ -17,6 +17,10 @@ concrete SentenceEst of Sentence = CatEst ** open Prelude, ResEst in {
         verb.fin ++ verb.inf ++ compl   ++ vp.p ;
     } ;
 
+    AdvImp adv imp = {
+      s = \\pol,agr => adv.s ++ imp.s ! pol ! agr
+      } ;
+
 -- The object case is formed at the use site of $c2$, in $Relative$ and $Question$.
 
     SlashVP np vp =  mkClause (subjForm np vp.sc) np.a vp ** {
@@ -59,5 +63,7 @@ concrete SentenceEst of Sentence = CatEst ** open Prelude, ResEst in {
     ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
 
     RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ; ---- mikä
+
+    SSubjS s1 subj s2 = {s = s1.s ++ SOFT_BIND ++ "," ++ subj.s ++ s2.s} ;
 
 }

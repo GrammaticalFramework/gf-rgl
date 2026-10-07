@@ -58,6 +58,7 @@ lin
     s = \\_,c => d.s ! NumAttr ! c ++ nBIND d.n ++ sataaN.s ! d.n ! c ++
                  e.s ! NumIndep ! c
     } ;
+  pot21 = pot2 pot01 ;
   pot2as3 n = {n = n.n  ; s = n.s ! NumIndep} ;
   pot3 d = {n = Pl ; s = \\c => d.s ! NumAttr ! c ++ tuhattaN.s ! d.n ! c} ;
   pot3plus d e = {
@@ -65,8 +66,26 @@ lin
     s = \\c => d.s ! NumAttr ! c ++ tuhattaN.s ! d.n ! c ++ e.s ! NumIndep ! c
     } ;
 
+  pot31 = {n = Pl ; s = tuhatN.s} ;
   pot3as4 n = n ;
+  pot3decimal d = {n = Pl ; s = \\_ => d.s ! NCard (NCase Sg Nom) ++ "tuhat"} ;
+
+  pot41 = {n = Pl ; s = miljonN.s} ;
+  pot4 d = {n = Pl ; s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljonitN.s ! d.n ! c} ;
+  pot4plus d e = {
+    n = Pl ;
+    s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljonitN.s ! d.n ! c ++ e.s ! c
+    } ;
   pot4as5 n = n ;
+  pot4decimal d = {n = Pl ; s = \\_ => d.s ! NCard (NCase Sg Nom) ++ "miljonit"} ;
+
+  pot51 = {n = Pl ; s = miljardN.s} ;
+  pot5 d = {n = Pl ; s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljarditN.s ! d.n ! c} ;
+  pot5plus d e = {
+    n = Pl ;
+    s = \\c => d.s ! NumAttr ! NCard (NCase Sg Nom) ++ nBIND d.n ++ miljarditN.s ! d.n ! c ++ e.s ! c
+    } ;
+  pot5decimal d = {n = Pl ; s = \\_ => d.s ! NCard (NCase Sg Nom) ++ "miljardit"} ;
 
 oper
   co : (c,o : {s : NForm => Str}) -> {s : CardOrd => Str} = \c,o -> {
@@ -98,6 +117,9 @@ oper
     (mkN "tuhat" "tuhande" "tuhandet" "tuhandesse" "tuhandete" "tuhandeid")
     (mkN "tuhandes" "tuhandenda" "tuhandendat" "tuhandendasse" "tuhandete" "tuhandendaid")  ;
 
+  miljonN = co (mkN "miljon") (mkN "miljones") ;
+  miljardN = co (mkN "miljard") (mkN "miljardes") ;
+
   kymmendN =
    {s = table {
       NCard (NCase Sg Nom) => "kümmend" ;
@@ -119,6 +141,24 @@ oper
     Pl => table {
       NCard (NCase Sg Nom) => "tuhat" ;
       k => tuhatN.s ! k
+      }
+    }
+  } ;
+
+  miljonitN : {s : MorphoEst.Number => CardOrd => Str} = {s = table {
+    Sg => miljonN.s ;
+    Pl => table {
+      NCard (NCase Sg Nom) => "miljonit" ;
+      k => miljonN.s ! k
+      }
+    }
+  } ;
+
+  miljarditN : {s : MorphoEst.Number => CardOrd => Str} = {s = table {
+    Sg => miljardN.s ;
+    Pl => table {
+      NCard (NCase Sg Nom) => "miljardit" ;
+      k => miljardN.s ! k
       }
     }
   } ;

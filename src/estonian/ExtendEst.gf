@@ -58,6 +58,19 @@ concrete ExtendEst of Extend =
     VPS = X.linVPS (agrP3 Sg) ;
     VPI = X.linVPI InfMa ;
 
+  lincat
+    [Comp] = {s1,s2 : Agr => Str} ;
+    [Imp] = {s1,s2 : Polarity => Agr => Str} ;
+
+  lin
+    BaseComp = twoTable Agr ;
+    ConsComp = consrTable Agr comma ;
+    ConjComp conj xs = conjunctDistrTable Agr conj xs ;
+
+    BaseImp = twoTable2 Polarity Agr ;
+    ConsImp = consrTable2 Polarity Agr comma ;
+    ConjImp conj xs = conjunctDistrTable2 Polarity Agr conj xs ;
+
   lin
     MkVPS = X.MkVPS ;
     BaseVPS = X.BaseVPS ;
@@ -109,10 +122,8 @@ concrete ExtendEst of Extend =
 
     -- : Num -> CN -> RNP ;      -- my car(s)
     ReflPoss num cn = {
-      s = \\a,npf => possPron ! a ++ num.s ! Sg ! Nom ++
-        case npf of {
-          NPCase c =>  cn.s ! NCase num.n c ;
-          NPAcc => cn.s ! NCase num.n Gen } ;
+      s = \\_,npf => possPron ! a ++ num.s ! Sg ! Nom ++
+        cn.s ! NCase num.n (npform2case num.n npf) ;
       } ;
 
     PredetRNP predet rnp = {
@@ -129,19 +140,31 @@ concrete ExtendEst of Extend =
     Cons_rr_RNP x xs = consrTable2 Agr NPForm comma x xs ;
     Cons_nr_RNP x xs = consrTable2 Agr NPForm comma {s = \\a => x.s} xs ;
 
-{-
     -- : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
     PossPronRNP pron num cn rnp =
+      let np = DetCN (DetQuant (PossPron pron) num) cn in
+      np ** {postmod = np.postmod ++ rnp.s ! pron.a ! NPCase Gen} ;
 
     -- : NP -> Prep -> RNP -> RNP ;   -- a dispute with his wife
-    AdvRAP adv rp =
+    AdvRNP np prep rnp = {
+      s = \\agr,npf => linNP npf np ++ appCompl True Pos prep (rnp2np agr rnp)
+      } ;
 
     -- : VP -> Prep -> RNP -> VP ;    -- lectured about her travels
-    AdvRNP adv rp =
+    AdvRVP vp prep rnp =
+      insertObj (\\_,b,agr => appCompl True b prep (rnp2np agr rnp)) vp ;
 
     -- : AP -> Prep -> RNP -> AP ;    -- adamant in his refusal
-    AdvRVP adv rp =
- -}
+    AdvRAP ap prep rnp = ap ** {
+      s = \\isMod,af => ap.s ! isMod ! af ++
+                         appCompl True Pos prep (rnp2np (agrP3 Sg) rnp)
+      } ;
+
+    ReflPossPron = {
+      s,sp = \\_,_ => "oma" ;
+      isNum = False ;
+      isDef = True
+      } ;
 
   oper
     possPron : Agr => Str = table {
@@ -217,7 +240,8 @@ concrete ExtendEst of Extend =
   -- ComplGenVV v a p vp = insertObj (\\agr => a.s ++ p.s ++ infVP v.typ vp a.a p.p agr)
   --                                 (predVV v) ;
 
-  -- ComplSlashPartLast vps np = {} ;  --- AR 7/3/2013
+    ComplSlashPartLast vps np =
+      insertObj (\\fin,b,_ => appCompl fin b vps.c2 np) vps ;
 
 ---------------------------------
 -- E - F

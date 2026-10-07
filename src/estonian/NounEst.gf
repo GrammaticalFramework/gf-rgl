@@ -70,6 +70,10 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
 
     AdvNP np adv = np ** {postmod = np.postmod ++ adv.s} ;
 
+    ExtAdvNP np adv = np ** {
+      postmod = np.postmod ++ SOFT_BIND ++ "," ++ adv.s
+      } ;
+
     DetQuantOrd quant num ord = {
       s = \\c => quant.s ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ;
       sp = \\c => quant.sp ! num.n ! c ++ num.s ! Sg ! c ++ ord.s ! NCase num.n c ;
@@ -108,6 +112,22 @@ concrete NounEst of Noun = CatEst ** open ResEst, HjkEst, MorphoEst, Prelude in 
       } ;
 
     PossNP cn np = np ** {s = \\nf => linNP (NPCase Gen) np ++ cn.s ! nf} ;
+
+    PartNP cn np = cn ** {
+      postmod = cn.postmod ++ linNP (NPCase Part) np
+      } ;
+
+    CountNP det np =
+      let n : Number = case det.isNum of {
+            True => Sg ;
+            _ => det.n
+            }
+      in emptyNP ** {
+        s = \\c => let k = npform2case n c in
+                    det.sp ! k ++ linNP (NPCase Elat) np ;
+        a = agrP3 det.n ;
+        isPron = False
+        } ;
 
     NumSg = {s = \\_,_ => [] ; isNum = False ; n = Sg} ;
     NumPl = {s = \\_,_ => [] ; isNum = False ; n = Pl} ;
