@@ -5,9 +5,12 @@ concrete ExtendFre of Extend =
    [
 ----   iFem_Pron, youFem_Pron, weFem_Pron, youPlFem_Pron, theyFem_Pron, youPolFem_Pron, youPolPl_Pron, youPolPlFem_Pron,
    GenRP,
-   ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP,
+   ExistCN, ExistMassCN, ExistPluralCN, RNP, ReflRNP, ReflPron,
    PassVPSlash, PassAgentVPSlash, PastPartAP, PastPartAgentAP, ApposNP, CompoundN,
-   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS, ExistsNP
+   BaseVPS, ConsVPS, PredVPS, MkVPS, ConjVPS, RelVPS, ExistsNP,
+   BaseVPI, ConsVPI, MkVPI, ConjVPI, ComplVPIVV,
+   ProgrVPSlash, ReflPoss, CompoundAP, GerundCN, GerundNP, GerundAdv,
+   ByVP, InOrderToVP, PositAdVAdj, TPastSimple
    ]                   -- put the names of your own definitions here
   with
     (Grammar = GrammarFre) **
@@ -18,7 +21,8 @@ concrete ExtendFre of Extend =
     PhonoFre,
     Coordination,
     Prelude,
-    ParadigmsFre in {
+    ParadigmsFre,
+    (P = ParamX) in {
     -- put your own definitions here
 
 lincat
@@ -72,6 +76,50 @@ lin PassVPSlash vps = passVPSlash vps [] ;
       s = \\agr,c => reflPron agr.n agr.p c
     } ;
 
+    ReflPoss num cn = {
+      s = \\agr,c => possCase cn.g num.n c ++
+                       possDet agr num.n cn.g ++ cn.s ! num.n
+      } ;
+
+    AdvRNP np prep rnp = {
+      s = \\agr,c => (np.s ! c).ton ++ prep.s ++ rnp.s ! agr ! prep.c
+      } ;
+
+    AdvRVP vp prep rnp =
+      insertComplement (\\a => prep.s ++ rnp.s ! verbAgr a ! prep.c) vp ;
+
+    AdvRAP ap prep rnp = ap ** {
+      s = \\af => ap.s ! af ++ prep.s ++
+                    rnp.s ! (aform2aagr af ** {p = P3}) ! prep.c ;
+      isPre = False
+      } ;
+
+    ReflA2RNP a rnp = a ** {
+      s = \\af => a.s ! af ++ a.c2.s ++
+                    rnp.s ! (aform2aagr af ** {p = P3}) ! a.c2.c ;
+      isPre = False
+      } ;
+
+    PossPronRNP pron num cn rnp = heavyNP {
+      s = \\c => possCase cn.g num.n c ++ pron.poss ! num.n ! cn.g ++
+                  cn.s ! num.n ++ rnp.s ! pron.a ! (CPrep P_de) ;
+      a = agrP3 cn.g num.n ;
+      hasClit = False ;
+      isNeg = False
+      } ;
+
+oper
+    possDet : Agr -> Number -> Gender -> Str ;
+    possDet = \agr,n,g ->
+      case <agr.n,agr.p> of {
+        <Sg,P1> => i_Pron.poss ! n ! g ;
+        <Sg,P2> => youSg_Pron.poss ! n ! g ;
+        <Sg,P3> => he_Pron.poss ! n ! g ;
+        <Pl,P1> => we_Pron.poss ! n ! g ;
+        <Pl,P2> => youPl_Pron.poss ! n ! g ;
+        <Pl,P3> => they_Pron.poss ! n ! g
+        } ;
+
 oper
     passVPSlash : VPSlash -> Str -> VP = \vps, agent -> 
       let auxvp = predV auxPassive 
@@ -94,6 +142,60 @@ lin ApposNP np1 np2 = np1 ** {    -- guessed by KA
                                comp =(np1.s ! c).comp ++ "," ++ (np2.s ! Nom).comp
                               } ;
     } ;
+
+lin
+    PresPartAP vp = {
+      s = \\af => gerVP vp RPos (aform2aagr af ** {p = P3}) ;
+      isPre = False ;
+      copTyp = serCopula
+      } ;
+
+    ProgrVPSlash vps = GrammarFre.ProgrVP (lin VP vps) ** {c2 = vps.c2} ;
+
+    CompoundAP noun adj = {
+      s = \\af => adj.s ! af ++ "de" ++ noun.s ! (aform2number af) ;
+      isPre = adj.isPre ;
+      copTyp = adj.copTyp
+      } ;
+
+    GerundNP vp = let agr = Ag Masc Sg P3 in heavyNP {
+      s = \\_ => infVP vp RPos agr ;
+      a = agr
+      } ;
+
+    GerundCN vp = {
+      s = \\n => infVP vp RPos (Ag Masc n P3) ;
+      g = Masc
+      } ;
+
+    GerundAdv vp = {s = "en" ++ gerVP vp RPos (Ag Masc Sg P3)} ;
+    ByVP vp = {s = "en" ++ gerVP vp RPos (Ag Masc Sg P3)} ;
+    InOrderToVP vp = {s = "afin de" ++ infVP vp RPos (Ag Masc Sg P3)} ;
+    PositAdVAdj a = {s = a.s ! AA} ;
+
+  lincat
+    VPI = {s : Agr => Str} ;
+    [VPI] = {s1,s2 : Agr => Str} ;
+    [Comp] = {s1,s2 : Agr => Str ; cop : CopulaType} ;
+    [Imp] = {s1,s2 : RPolarity => P.ImpForm => Gender => Str} ;
+
+  lin
+    MkVPI vp = {s = \\a => infVP vp RPos a} ;
+    BaseVPI = twoTable Agr ;
+    ConsVPI = consrTable Agr comma ;
+    ConjVPI = conjunctDistrTable Agr ;
+    ComplVPIVV vv vpi =
+      insertComplement (\\a => prepCase vv.c2.c ++ vpi.s ! a) (predV vv) ;
+
+    BaseComp x y = twoTable Agr x y ** {cop = x.cop} ;
+    ConsComp xs x = consrTable Agr comma xs x ** xs ;
+    ConjComp conj cs = conjunctDistrTable Agr conj cs ** {cop = cs.cop} ;
+
+    BaseImp = twoTable3 RPolarity P.ImpForm Gender ;
+    ConsImp = consrTable3 RPolarity P.ImpForm Gender comma ;
+    ConjImp = conjunctDistrTable3 RPolarity P.ImpForm Gender ;
+
+    TPastSimple = {s = []} ** {t = RPasse} ;
 
 lin CompoundN a b = lin N {
       s = \\n => b.s ! n ++
