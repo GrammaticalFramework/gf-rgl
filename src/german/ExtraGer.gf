@@ -49,7 +49,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     EmptyRelSlash slash = {
       s = \\m,t,a,p,gn => 
-          appPrep (toSPrep slash.c2) (relPron ! gn) ++ slash.s ! m ! t ! a ! p ! Sub ;
+          appPrep1 slash.c2 (relPron ! gn) ++ slash.s ! m ! t ! a ! p ! Sub ;
       c = Obj slash.c2.c
       } ;
 
@@ -79,7 +79,8 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PastPartAgentAP vp np =
       let a = agrP3 Sg ;
-          agent = appPrepNP P.von_Prep np
+          von : Preposition = P.von_Prep ;
+          agent : Str = appPrep von np
       in {
       s = \\af => (vp.nn ! a).p1 ++ (vp.nn ! a).p2 ++ (vp.nn ! a).p3
                   ++ vp.a2 ++ agent ++ vp.adj ++ vp.inf.inpl.p2
@@ -221,17 +222,17 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
       -- ok: alle von uns; die meisten von uns ; wrong: *nur von uns =/= nur wir
 
     AdvRNP np prep rnp = {s = \\a,c => np.s ! False ! c
-                            ++ appPrep (toSPrep prep) (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
+                            ++ appPrep1 prep (rnp.s ! a) ++ rnp.ext ++ rnp.rc ;
                           ext = np.ext ; rc = np.rc ; isPron = False} ;
 
     AdvRAP ap prep rnp =
       let                                         -- ? adv ++ ap.s ! af
-        adv = appPrep (toSPrep prep) (rnp.s ! agrP3 Sg) ;   -- bug: fixed agreement
+        adv = appPrep1 prep (rnp.s ! agrP3 Sg) ;  -- bug: fixed agreement
       in ap ** { s = \\af => ap.s ! af ++ adv } ; -- e.g. unknown in one's youth
 
     ReflA2RNP adj rnp = -- would need AP.c : Agr => Str*Str, not AP.c : Str*Str
       let                                            -- as we have no reflexive AP,
-        compl = appPrep (toSPrep adj.c2) (rnp.s ! agrP3 Sg) ;  -- we use a fixed agreement
+        compl = appPrep1 adj.c2 (rnp.s ! agrP3 Sg) ; -- we use a fixed agreement
       in {
         s = adj.s ! Posit ;
         s2 = \\_ => [] ;
@@ -293,7 +294,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 	
   lin 
     FocObj np cl =
-      let n = appPrepNP cl.c2 np in mkFoc n (lin Cl cl) ;
+      let n : Str = appPrep cl.c2 np in mkFoc n (lin Cl cl) ;
 
     FocAdv adv cl = mkFoc adv.s cl ;
 
