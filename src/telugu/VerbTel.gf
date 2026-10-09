@@ -36,8 +36,7 @@ concrete VerbTel of Verb = CatTel ** open ResTel, Prelude in {
     ComplSlash vp np = insertObject np vp ;
 
     ComplVV v vp = predV v ** {
-      comp = \\agr => let f = vp.s ! Pos ! VPInf in
-        f.inf ++ f.fin
+      comp = \\agr => let f = vp.s ! Pos ! VPInf in f.fin
       } ;
 
     ComplVS v s = predV v ** {comp = \\_ => s.s ++ "అని"} ;

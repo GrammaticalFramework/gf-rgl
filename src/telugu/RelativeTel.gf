@@ -6,7 +6,7 @@ concrete RelativeTel of Relative = CatTel ** open ResTel in {
         VPGenPres => VPRelPresent ;
         VPFut => VPRelPresent ;
         _ => VPPastPart
-        } in vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin
+        } in vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.fin
       } ;
     RelSlash rp slash = {
       s = \\t,p => slash.s ! t ! p ++ rp.s ++ slash.c2.s

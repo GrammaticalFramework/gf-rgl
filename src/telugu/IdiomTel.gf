@@ -18,7 +18,7 @@ concrete IdiomTel of Idiom = CatTel ** open Prelude, ResTel in {
 
     ImpPl1 vp = {
       s = let f = vp.s ! Pos ! VPHort in
-        vp.obj.s ++ vp.comp ! (Ag Masc Pl P1) ++ f.neg ++ f.inf ++ f.fin
+        vp.obj.s ++ vp.comp ! (Ag Masc Pl P1) ++ f.neg ++ f.fin
       } ;
 
     ImpersCl vp = mkClause {

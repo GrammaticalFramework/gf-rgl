@@ -11,7 +11,7 @@ concrete SentenceTel of Sentence = CatTel ** open Prelude, ResTel in {
     ImpVP vp = {
       s = \\pol,num =>
             let f = vp.s ! pol ! VPImp num
-            in vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin
+            in vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.fin
       } ;
 
     AdvImp adv imp = {s = \\pol,num => adv.s ++ imp.s ! pol ! num} ;

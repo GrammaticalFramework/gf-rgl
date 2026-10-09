@@ -252,7 +252,7 @@ resource ResTel = ParamX ** open Prelude in {
           Neg => {fin = case tense of {
                     VPGenPres => negativeCopula agr ;
                     _ => "కాలేదు"
-                    } ; inf = [] ; neg = []} ;
+                    } ; neg = []} ;
           Pos => {fin = case tense of {
                     VPGenPres => [] ;
                     VPContPres => [] ;
@@ -263,17 +263,17 @@ resource ResTel = ParamX ** open Prelude in {
                     VPPerfPast => copulaPast agr ;
                     VPSubj => futureFinite "అవు"  Pos agr ;
                     VPFut => futureFinite "అవు" Pos agr
-                    } ; inf = [] ; neg = []}
+                    } ; neg = []}
           } ;
-        VPInf => {fin = "అవడం" ; inf = [] ; neg = []} ;
-        VPStem => {fin = "అవు" ; inf = [] ; neg = []} ;
-        VPPresPart => {fin = "అవుతున్న" ; inf = [] ; neg = []} ;
-        VPRelPresent => {fin = "అయ్యే" ; inf = [] ; neg = []} ;
-        VPPastPart => {fin = "అయిన" ; inf = [] ; neg = []} ;
-        VPHort => {fin = "అవుదాం" ; inf = [] ; neg = []} ;
-        VPImp Sg => {fin = "అవు" ;   inf = [] ; neg = []} ;
-        VPImp Pl => {fin = "అవండి" ; inf = [] ; neg = []} ;
-        VPReqFut => {fin = "అవండి" ; inf = [] ; neg = []}
+        VPInf => {fin = "అవడం" ; neg = []} ;
+        VPStem => {fin = "అవు" ; neg = []} ;
+        VPPresPart => {fin = "అవుతున్న" ; neg = []} ;
+        VPRelPresent => {fin = "అయ్యే" ; neg = []} ;
+        VPPastPart => {fin = "అయిన" ; neg = []} ;
+        VPHort => {fin = "అవుదాం" ;  neg = []} ;
+        VPImp Sg => {fin = "అవు" ;   neg = []} ;
+        VPImp Pl => {fin = "అవండి" ;  neg = []} ;
+        VPReqFut => {fin = "అవండి" ;  neg = []}
         } ;
       passive = verbForms (regVerb "అవు") ;
       obj = {s = [] ; a = defaultAgr} ;
@@ -351,7 +351,7 @@ resource ResTel = ParamX ** open Prelude in {
       _ => NPC Obl
       } ;
 
-    FiniteForm : Type = {fin, inf, neg : Str} ;
+    FiniteForm : Type = {fin, neg : Str} ;
 
     VPH : Type = {
       s, passive : Polarity => VPHForm => FiniteForm ;
@@ -368,30 +368,30 @@ resource ResTel = ParamX ** open Prelude in {
        case vh of {
          VPTense tense agr => case b of {
            Neg => case tense of {
-             VPFut      => {fin = finiteFuture Neg verb agr ; inf = [] ; neg = []} ;
-             _          => {fin = verb.s ! VNegFinite ;       inf = [] ; neg = []}
+             VPFut      => {fin = finiteFuture Neg verb agr ; neg = []} ;
+             _          => {fin = verb.s ! VNegFinite ;       neg = []}
              } ;
            Pos => case tense of {
-             VPGenPres  => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []} ;
-             VPImpPast  => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPContPres => {fin = finitePresent verb agr ; inf = [] ; neg = []} ;
-             VPContPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPPerf     => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPPerfPres => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPPerfPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPSubj     => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []} ;
-             VPFut      => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []}
+             VPGenPres  => {fin = finiteFuture Pos verb agr ; neg = []} ;
+             VPImpPast  => {fin = finitePast verb agr ; neg = []} ;
+             VPContPres => {fin = finitePresent verb agr ; neg = []} ;
+             VPContPast => {fin = finitePast verb agr ; neg = []} ;
+             VPPerf     => {fin = finitePast verb agr ; neg = []} ;
+             VPPerfPres => {fin = finitePast verb agr ; neg = []} ;
+             VPPerfPast => {fin = finitePast verb agr ; neg = []} ;
+             VPSubj     => {fin = finiteFuture Pos verb agr ; neg = []} ;
+             VPFut      => {fin = finiteFuture Pos verb agr ; neg = []}
              }
            } ;
          {- The finite cases above deliberately precede the legacy form
             table.  The latter remains part of the public paradigms API. -}
-         VPInf => {fin = verb.s ! VInf ; inf = [] ; neg = na} ;
-         VPStem => {fin = verb.s ! VStem ; inf = [] ; neg = na} ;
-         VPPresPart => {fin = verb.s ! VPresentPart ; inf = [] ; neg = na} ;
-         VPRelPresent => {fin = verb.s ! VRelativePresent ; inf = [] ; neg = na} ;
-         VPPastPart => {fin = verb.s ! VPastPart ; inf = [] ; neg = na} ;
-         VPHort => {fin = verb.s ! VHortative ; inf = [] ; neg = na} ;
-         VPImp n => {fin = verb.s ! VImp n b ; inf = [] ; neg = []}
+         VPInf => {fin = verb.s ! VInf ; neg = na} ;
+         VPStem => {fin = verb.s ! VStem ; neg = na} ;
+         VPPresPart => {fin = verb.s ! VPresentPart ; neg = na} ;
+         VPRelPresent => {fin = verb.s ! VRelativePresent ; neg = na} ;
+         VPPastPart => {fin = verb.s ! VPastPart ; neg = na} ;
+         VPHort => {fin = verb.s ! VHortative ; neg = na} ;
+         VPImp n => {fin = verb.s ! VImp n b ; neg = []}
          } ;
 
     predV : Verb -> VPH = \verb -> {
@@ -475,7 +475,7 @@ resource ResTel = ParamX ** open Prelude in {
           agr  = np.a ;
           vps  = vp.s ! b ! VPTense vt agr ;
         in
-        np.s ! subj ++ vp.obj.s ++ vp.comp ! np.a ++ vps.neg ++ vps.inf ++ vps.fin
+        np.s ! subj ++ vp.obj.s ++ vp.comp ! np.a ++ vps.neg ++ vps.fin
       } ;
 
 

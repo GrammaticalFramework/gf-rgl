@@ -52,7 +52,7 @@ concrete ExtendTel of Extend =
     MkVPS temp pol vp = {
       s = \\agr => let f = vp.s ! pol.p !
                               VPTense (tenseVPH temp.t temp.a) agr
-                    in vp.obj.s ++ vp.comp ! agr ++ f.neg ++ f.inf ++ f.fin
+                    in vp.obj.s ++ vp.comp ! agr ++ f.neg ++ f.fin
       } ;
 
     BaseVPS first second = {s1 = first.s ; s2 = second.s} ;
@@ -66,7 +66,7 @@ concrete ExtendTel of Extend =
     PredVPS np vps = {s = np.s ! NPC Dir ++ vps.s ! np.a} ;
 
     MkVPI vp = {s = let f = vp.s ! Pos ! VPInf in
-      vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin} ;
+      vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.fin} ;
     BaseVPI first second = {s1 = first.s ; s2 = second.s} ;
     ConsVPI first rest = {s1 = first.s ++ "," ++ rest.s1 ; s2 = rest.s2} ;
     ConjVPI conj vpi = {s = vpi.s1 ++ conj.s2 ++ vpi.s2} ;
@@ -106,40 +106,40 @@ concrete ExtendTel of Extend =
 
     PresPartAP vp = {
       s = \\g,n,_ => let f = vp.s ! Pos ! VPPresPart in
-        vp.obj.s ++ vp.comp ! Ag g n P3 ++ f.neg ++ f.inf ++ f.fin
+        vp.obj.s ++ vp.comp ! Ag g n P3 ++ f.neg ++ f.fin
       } ;
 
     PastPartAP vps = {
       s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
-        vps.obj.s ++ vps.comp ! Ag g n P3 ++ f.neg ++ f.inf ++ f.fin
+        vps.obj.s ++ vps.comp ! Ag g n P3 ++ f.neg ++ f.fin
       } ;
 
     PastPartAgentAP vps np = {
       s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
         np.s ! NPC Obl ++ "చేత" ++ vps.obj.s ++ vps.comp ! Ag g n P3 ++
-        f.neg ++ f.inf ++ f.fin
+        f.neg ++ f.fin
       } ;
 
     GerundCN vp = {
       s = \\_,_ => let f = vp.s ! Pos ! VPInf in
-        vp.obj.s ++ vp.comp ! defaultAgr ++ f.inf ++ f.fin ;
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.fin ;
       g = Neutr
       } ;
 
     GerundNP vp = {
       s = \\_ => let f = vp.s ! Pos ! VPInf in
-        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin ;
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.fin ;
       a = defaultAgr
       } ;
 
     GerundAdv vp = {
       s = let f = vp.s ! Pos ! VPInf in
-        vp.obj.s ++ vp.comp ! defaultAgr ++ f.inf ++ f.fin
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.fin
       } ;
 
     ByVP vp = {
       s = let f = vp.s ! Pos ! VPInf in
-        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.inf ++ f.fin ++ "ద్వారా"
+        vp.obj.s ++ vp.comp ! defaultAgr ++ f.neg ++ f.fin ++ "ద్వారా"
       } ;
 
     ApposNP first second = {
