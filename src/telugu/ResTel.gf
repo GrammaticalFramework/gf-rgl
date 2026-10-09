@@ -82,43 +82,14 @@ resource ResTel = ParamX ** open Prelude in {
      | VRelativePresent
      | VPastPart
      | VHortative
+     | VNoun Number Case
      | VSubj Number Person
      | VAbs
      | VImp Number Polarity
-     | VReqFut
      ;
 
   oper
     Verb = {s, passive : VForm => Str} ;
-
-    mkVerb : (x1,_,_,_,_,_,x7 : Str) -> Verb =
-      \inf,stem,ss1,ss2,sp2,sp3,r -> {
-        s =
-        let ga : Number -> Gender -> Str = \_,_ -> []
-        in table {
-          VInf => inf ;
-          VStem => stem ;
-          VSubj Sg   P1 => ss1 ;
-          VSubj Sg   _  => ss2 ;
-          VSubj Pl   P2 => sp2 ;
-          VSubj Pl   _  => sp3 ;
-          VAbs  => stem ;
-          VImp Sg Pos => sp2 ;
-          VImp Sg Neg => verbRoot stem + "వద్దు" ;
-          VImp Pl Pos => r ;
-          VImp Pl Neg => verbRoot stem + "కండి" ;
-          VReqFut => r ;
-          VPresent g n p => presentFinite stem (Ag g n p) ;
-          VPast g n p => pastFinite stem (Ag g n p) ;
-          VFuture pol g n p => futureFinite stem pol (Ag g n p) ;
-          VNegFinite => verbRoot stem + "లేదు"  ;
-          VPresentPart => nonPastStem stem + "ున్న" ;
-          VRelativePresent => relativePresent stem ;
-          VPastPart => pastStem stem + "ిన" ;
-          VHortative => verbRoot stem + "దాం"
-          } ;
-        passive = conjugation (verbRoot stem + "బడు")
-        } ;
 
     regVerb : Str -> Verb = \verb -> {
       s = conjugation verb ;
@@ -137,23 +108,30 @@ resource ResTel = ParamX ** open Prelude in {
         VRelativePresent => relativePresent verb ;
         VPastPart => pastStem verb + "ిన" ;
         VHortative => root + "దాం" ;
+        VNoun n c => (wallNoun (verbalNoun verb)).s ! n ! c ;
         VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
         VAbs => pastStem verb + "ి" ;
         VImp Sg Pos => verb ;
         VImp Sg Neg => root + "వద్దు" ;
         VImp Pl Pos => root + "ండి" ;
-        VImp Pl Neg => root + "కండి" ;
-        VReqFut => root + "ండి"
+        VImp Pl Neg => root + "కండి"
         } ;
 
-    -- The WordNet lexicon gives verbs in the usual dictionary/imperative
-    -- form.  These operations provide the productive spoken-Telugu stems.
+    -- The dictionary for is the imperative form.
+    -- This operation provides the productive spoken-Telugu stems.
     -- Irregular high-frequency verbs are listed before the regular suffix
     -- rules; compound verbs are handled because matching is suffix based.
     verbRoot : Str -> Str = \verb -> case verb of {
       stem + "ండి" => stem ;
       stem + "ు" => stem ;
       _ => verb
+      } ;
+
+    verbalNoun : Str -> Str = \verb -> case verb of {
+      stem + "పోవు" => stem + "పోవడం" ;
+      stem + "చేయు" => stem + "చేయడం" ;
+      stem + "వు" => stem + "వడం" ;
+      _ => verbRoot verb + "డం"
       } ;
 
     pastStem : Str -> Str = \verb -> case verb of {
@@ -359,7 +337,6 @@ resource ResTel = ParamX ** open Prelude in {
      | VPTense VPHTense Agr -- 9 * 12
      | VPImp Number
      | VPReqFut
-     | VPStem
      | VPPresPart
      | VPRelPresent
      | VPPastPart
@@ -383,7 +360,7 @@ resource ResTel = ParamX ** open Prelude in {
       comp : Agr => Str
       } ;
 
-    verbForms : Verb -> (Polarity => VPHForm => FiniteForm) = \verb -> \\b,vh =>
+    verbForms : Verb -> Polarity => VPHForm => FiniteForm = \verb -> \\b,vh =>
        let
          na       = case b of {Pos => []; Neg => "వద్దు" } ;
          negative = case b of {Pos => []; Neg => "లేదు"} ;
@@ -414,8 +391,7 @@ resource ResTel = ParamX ** open Prelude in {
          VPRelPresent => {fin = verb.s ! VRelativePresent ; inf = [] ; neg = na} ;
          VPPastPart => {fin = verb.s ! VPastPart ; inf = [] ; neg = na} ;
          VPHort => {fin = verb.s ! VHortative ; inf = [] ; neg = na} ;
-         VPImp n => {fin = verb.s ! VImp n b ; inf = [] ; neg = []} ;
-         VPReqFut => {fin = verb.s ! VReqFut ; inf = [] ; neg = na}
+         VPImp n => {fin = verb.s ! VImp n b ; inf = [] ; neg = []}
          } ;
 
     predV : Verb -> VPH = \verb -> {

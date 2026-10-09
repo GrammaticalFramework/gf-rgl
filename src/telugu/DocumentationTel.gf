@@ -104,8 +104,7 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Stem" ++ td (verb.s ! VStem)) ++
         tr (th "Absolutive" ++ td (verb.s ! VAbs)) ++
         tr (th "Imperative" ++ td (verb.s ! VImp Sg Pos)) ++
-        tr (th "Request" ++ td (verb.s ! VImp Pl Pos)) ++
-        tr (th "Future request" ++ td (verb.s ! VReqFut))
+        tr (th "Request" ++ td (verb.s ! VImp Pl Pos))
         ) ++
       heading2 "Past" ++
         heading3 "Masculine" ++ personTable verb (VPast Masc) ++

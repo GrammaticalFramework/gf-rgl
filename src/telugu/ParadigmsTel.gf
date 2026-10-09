@@ -66,11 +66,7 @@ oper
 
   mkV = overload {
     mkV : Str -> V
-      = \s -> regVerb s ** {lock_V = <>} ;
-    mkV : (x1,_,_,_,_,_,x7 : Str) -> V
-      = \inf,stem,ss1,ss2,sp2,sp3,r ->
-           mkVerb inf stem ss1 ss2 sp2 sp3 r **
-             {lock_V = <>} ;
+      = \s -> regVerb s ** {lock_V = <>}
     } ;
 
 ----3 Two-place verbs
