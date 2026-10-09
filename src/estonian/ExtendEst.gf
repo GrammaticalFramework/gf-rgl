@@ -122,7 +122,7 @@ concrete ExtendEst of Extend =
 
     -- : Num -> CN -> RNP ;      -- my car(s)
     ReflPoss num cn = {
-      s = \\_,npf => possPron ! a ++ num.s ! Sg ! Nom ++
+      s = \\a,npf => possPron ! a ++ num.s ! Sg ! Nom ++
         cn.s ! NCase num.n (npform2case num.n npf) ;
       } ;
 

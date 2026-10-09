@@ -195,7 +195,7 @@ lin
     ConsImp = consrTable3 RPolarity P.ImpForm Gender comma ;
     ConjImp = conjunctDistrTable3 RPolarity P.ImpForm Gender ;
 
-    TPastSimple = {s = []} ** {t = RPasse} ;
+    TPastSimple = {s = []} ** {t = RPasse} ; --# notpresent
 
 lin CompoundN a b = lin N {
       s = \\n => b.s ! n ++
