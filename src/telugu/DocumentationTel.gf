@@ -114,9 +114,9 @@ concrete DocumentationTel of Documentation = CatTel ** open
       heading2 "Subjunctive" ++
         personTable verb VSubj ++
       heading2 "Future" ++
-        heading3 "Masculine" ++ personTable verb (VFuture Masc) ++
-        heading3 "Feminine" ++ personTable verb (VFuture Fem) ++
-        heading3 "Neuter" ++ personTable verb (VFuture Neutr) ;
+        heading3 "Masculine" ++ personTable verb (VFuture Pos Masc) ++
+        heading3 "Feminine" ++ personTable verb (VFuture Pos Fem) ++
+        heading3 "Neuter" ++ personTable verb (VFuture Pos Neutr) ;
 
     genderNumberTable : Verb -> (Gender -> Number -> VForm) -> Str = \verb,form ->
       frameTable (

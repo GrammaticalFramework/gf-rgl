@@ -76,8 +76,8 @@ resource ResTel = ParamX ** open Prelude in {
      | VStem
      | VPresent Gender Number Person
      | VPast Gender Number Person
-     | VFuture Gender Number Person
-     | VNegFinite Bool Gender Number Person
+     | VFuture Polarity Gender Number Person
+     | VNegFinite
      | VPresentPart
      | VRelativePresent
      | VPastPart
@@ -110,11 +110,8 @@ resource ResTel = ParamX ** open Prelude in {
           VReqFut => r ;
           VPresent g n p => presentFinite stem (Ag g n p) ;
           VPast g n p => pastFinite stem (Ag g n p) ;
-          VFuture g n p => futureFinite stem (Ag g n p) ;
-          VNegFinite future g n p => case future of {
-            True => verbRoot stem + negativeEnding (Ag g n p) ;
-            False => verbRoot stem + "లేదు"
-            } ;
+          VFuture pol g n p => futureFinite stem pol (Ag g n p) ;
+          VNegFinite => verbRoot stem + "లేదు"  ;
           VPresentPart => nonPastStem stem + "ున్న" ;
           VRelativePresent => relativePresent stem ;
           VPastPart => pastStem stem + "ిన" ;
@@ -134,11 +131,8 @@ resource ResTel = ParamX ** open Prelude in {
         VStem => verb ;
         VPresent g n p => presentFinite verb (Ag g n p) ;
         VPast g n p => pastFinite verb (Ag g n p) ;
-        VFuture g n p => futureFinite verb (Ag g n p) ;
-        VNegFinite future g n p => case future of {
-          True => root + negativeEnding (Ag g n p) ;
-          False => root + "లేదు"
-          } ;
+        VFuture pol g n p => futureFinite verb pol (Ag g n p) ;
+        VNegFinite => root + "లేదు"  ;
         VPresentPart => nonPastStem verb + "ున్న" ;
         VRelativePresent => relativePresent verb ;
         VPastPart => pastStem verb + "ిన" ;
@@ -235,17 +229,21 @@ resource ResTel = ParamX ** open Prelude in {
       _ => pastStem verb + finiteEnding agr
       } ;
 
-    futureFinite : Str -> Agr -> Str = \verb,agr ->
-      nonPastStem verb + case agr of {
-        Ag _     Sg P1 => "ాను" ;
-        Ag _     Sg P2 => "ావు" ;
-        Ag Masc  Sg P3 => "ాడు" ;
-        Ag _     Sg P3 => "ుంది" ;
-        Ag _     Pl P1 => "ాము" ;
-        Ag Neutr Pl P3 => "ాయి" ;
-        Ag _     Pl _  => "ారు"
-        } ;
+    futureFinite : Str -> Polarity -> Agr -> Str = \verb,pol,agr ->
+      case pol of {
+        Pos => nonPastStem verb + futureEnding agr ;
+        Neg => verbRoot verb + negativeEnding agr
+      } ;
 
+    futureEnding   : Agr -> Str = \agr -> case agr of {
+      Ag _     Sg P1 => "ాను" ;
+      Ag _     Sg P2 => "ావు" ;
+      Ag Masc  Sg P3 => "ాడు" ;
+      Ag _     Sg P3 => "ుంది" ;
+      Ag _     Pl P1 => "ాము" ;
+      Ag Neutr Pl P3 => "ాయి" ;
+      Ag _     Pl _  => "ారు"
+      } ;
     negativeEnding : Agr -> Str = \agr -> case agr of {
       Ag _     Sg P1 => "ను" ;
       Ag _     Sg P2 => "వు" ;
@@ -262,12 +260,8 @@ resource ResTel = ParamX ** open Prelude in {
     finitePresent : Verb -> Agr -> Str = \verb,agr ->
       case agr of {Ag g n p => verb.s ! VPresent g n p} ;
 
-    finiteFuture : Verb -> Agr -> Str = \verb,agr ->
-      case agr of {Ag g n p => verb.s ! VFuture g n p} ;
-
-    finiteNegative : Verb -> VPHTense -> Agr -> Str = \verb,tense,agr ->
-      case agr of {Ag g n p => verb.s ! VNegFinite (case tense of {
-        VPFut => True ; _ => False}) g n p} ;
+    finiteFuture : Polarity -> Verb -> Agr -> Str = \pol,verb,agr ->
+      case agr of {Ag g n p => verb.s ! VFuture pol g n p} ;
 
     passiveV : Verb -> Verb = \verb -> {
       s = verb.passive ;
@@ -289,8 +283,8 @@ resource ResTel = ParamX ** open Prelude in {
                     VPImpPast => copulaPast agr ;
                     VPContPast => copulaPast agr ;
                     VPPerfPast => copulaPast agr ;
-                    VPSubj => futureFinite "అవు" agr ;
-                    VPFut => futureFinite "అవు" agr
+                    VPSubj => futureFinite "అవు"  Pos agr ;
+                    VPFut => futureFinite "అవు" Pos agr
                     } ; inf = [] ; neg = []}
           } ;
         VPInf => {fin = "అవడం" ; inf = [] ; neg = []} ;
@@ -396,17 +390,20 @@ resource ResTel = ParamX ** open Prelude in {
        in
        case vh of {
          VPTense tense agr => case b of {
-           Neg => {fin = finiteNegative verb tense agr ; inf = [] ; neg = []} ;
+           Neg => case tense of {
+             VPFut      => {fin = finiteFuture Neg verb agr ; inf = [] ; neg = []} ;
+             _          => {fin = verb.s ! VNegFinite ;       inf = [] ; neg = []}
+             } ;
            Pos => case tense of {
-             VPGenPres  => {fin = finiteFuture verb agr ; inf = [] ; neg = []} ;
+             VPGenPres  => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []} ;
              VPImpPast  => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
              VPContPres => {fin = finitePresent verb agr ; inf = [] ; neg = []} ;
              VPContPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
              VPPerf     => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
              VPPerfPres => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
              VPPerfPast => {fin = finitePast verb agr ; inf = [] ; neg = []} ;
-             VPSubj     => {fin = finiteFuture verb agr ; inf = [] ; neg = []} ;
-             VPFut      => {fin = finiteFuture verb agr ; inf = [] ; neg = []}
+             VPSubj     => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []} ;
+             VPFut      => {fin = finiteFuture Pos verb agr ; inf = [] ; neg = []}
              }
            } ;
          {- The finite cases above deliberately precede the legacy form
