@@ -107,15 +107,15 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Request" ++ td (verb.s ! VImp Pl Pos))
         ) ++
       heading2 "Past" ++
-        heading3 "Masculine" ++ personTable verb (VPast Masc) ++
-        heading3 "Feminine" ++ personTable verb (VPast Fem) ++
-        heading3 "Neuter" ++ personTable verb (VPast Neutr) ++
+        heading3 "Masculine" ++ personTable verb (\n,p -> VPast (Ag Masc n p)) ++
+        heading3 "Feminine" ++ personTable verb (\n,p -> VPast (Ag Fem n p)) ++
+        heading3 "Neuter" ++ personTable verb (\n,p -> VPast (Ag Neutr n p)) ++
       heading2 "Subjunctive" ++
         personTable verb VSubj ++
       heading2 "Future" ++
-        heading3 "Masculine" ++ personTable verb (VFuture Pos Masc) ++
-        heading3 "Feminine" ++ personTable verb (VFuture Pos Fem) ++
-        heading3 "Neuter" ++ personTable verb (VFuture Pos Neutr) ;
+        heading3 "Masculine" ++ personTable verb (\n,p -> VFuture Pos (Ag Masc n p)) ++
+        heading3 "Feminine" ++ personTable verb (\n,p -> VFuture Pos (Ag Fem n p)) ++
+        heading3 "Neuter" ++ personTable verb (\n,p -> VFuture Pos (Ag Neutr n p)) ;
 
     genderNumberTable : Verb -> (Gender -> Number -> VForm) -> Str = \verb,form ->
       frameTable (

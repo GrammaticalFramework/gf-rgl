@@ -5,7 +5,7 @@
 -- This module contains operations that are needed to make the
 -- resource syntax work.
 
-resource ResTel = ParamX ** open Prelude in {
+resource ResTel = ParamX ** open Prelude, Predef in {
 
   flags optimize=all ;
 
@@ -74,9 +74,9 @@ resource ResTel = ParamX ** open Prelude in {
     VForm =
        VInf
      | VStem
-     | VPresent Gender Number Person
-     | VPast Gender Number Person
-     | VFuture Polarity Gender Number Person
+     | VPresent Agr
+     | VPast Agr
+     | VFuture Polarity Agr
      | VNegFinite
      | VPresentPart
      | VRelativePresent
@@ -99,16 +99,16 @@ resource ResTel = ParamX ** open Prelude in {
     conjugation : Str -> VForm => Str = \verb ->
       let root = verbRoot verb in table {
         VInf => root + "డం" ;
-        VStem => verb ;
-        VPresent g n p => presentFinite verb (Ag g n p) ;
-        VPast g n p => pastFinite verb (Ag g n p) ;
-        VFuture pol g n p => futureFinite verb pol (Ag g n p) ;
+        VStem => root ;
+        VPresent agr => presentFinite verb agr ;
+        VPast agr => pastFinite verb agr ;
+        VFuture pol agr => futureFinite verb pol agr ;
         VNegFinite => root + "లేదు"  ;
         VPresentPart => nonPastStem verb + "ున్న" ;
         VRelativePresent => relativePresent verb ;
         VPastPart => pastStem verb + "ిన" ;
         VHortative => root + "దాం" ;
-        VNoun n c => (wallNoun (verbalNoun verb)).s ! n ! c ;
+        VNoun n c => (wallNoun (verbRoot verb + "డం")).s ! n ! c ;
         VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
         VAbs => pastStem verb + "ి" ;
         VImp Sg Pos => verb ;
@@ -117,21 +117,13 @@ resource ResTel = ParamX ** open Prelude in {
         VImp Pl Neg => root + "కండి"
         } ;
 
-    -- The dictionary for is the imperative form.
+    -- The dictionary form is the imperative form.
     -- This operation provides the productive spoken-Telugu stems.
     -- Irregular high-frequency verbs are listed before the regular suffix
     -- rules; compound verbs are handled because matching is suffix based.
     verbRoot : Str -> Str = \verb -> case verb of {
-      stem + "ండి" => stem ;
       stem + "ు" => stem ;
-      _ => verb
-      } ;
-
-    verbalNoun : Str -> Str = \verb -> case verb of {
-      stem + "పోవు" => stem + "పోవడం" ;
-      stem + "చేయు" => stem + "చేయడం" ;
-      stem + "వు" => stem + "వడం" ;
-      _ => verbRoot verb + "డం"
+      _ => error (verb ++ "is not a valid verb")
       } ;
 
     pastStem : Str -> Str = \verb -> case verb of {
@@ -181,28 +173,17 @@ resource ResTel = ParamX ** open Prelude in {
       } ;
 
     presentFinite : Str -> Agr -> Str = \verb,agr ->
-      nonPastStem verb + "ున్న" + case agr of {
-        Ag _     Sg P1 => "ాను" ;
-        Ag _     Sg P2 => "ావు" ;
-        Ag Masc  Sg P3 => "ాడు" ;
-        Ag _     Sg P3 => "ది" ;
-        Ag _     Pl P1 => "ాము" ;
-        Ag Neutr Pl P3 => "ాయి" ;
-        Ag _     Pl _  => "ారు"
-        } ;
+      nonPastStem verb + "ున్న" + finiteEnding agr ;
 
     pastFinite : Str -> Agr -> Str = \verb,agr -> case agr of {
-      Ag Masc Sg P3 => pastStem verb + "ాడు" ;
+      Ag Masc Sg P3 => pastStem verb + finiteEnding agr ;
       Ag _ Sg P3 => case verb of {
         stem + "చేయు" => stem + "చేసింది" ;
         stem + "తిను" => stem + "తిన్నది" ;
         stem + "విను" => stem + "విన్నది" ;
         stem + "కొను" => stem + "కొన్నది" ;
         stem + "కను" => stem + "కన్నది" ;
-        _ => pastStem verb + case agr of {
-          Ag Masc Sg P3 => "ాడు" ;
-          _ => "ింది"
-          }
+        _           => pastStem verb + finiteEnding agr
         } ;
       _ => pastStem verb + finiteEnding agr
       } ;
@@ -231,15 +212,6 @@ resource ResTel = ParamX ** open Prelude in {
       Ag Neutr Pl P3 => "వు" ;
       Ag _     Pl _  => "రు"
       } ;
-
-    finitePast : Verb -> Agr -> Str = \verb,agr ->
-      case agr of {Ag g n p => verb.s ! VPast g n p} ;
-
-    finitePresent : Verb -> Agr -> Str = \verb,agr ->
-      case agr of {Ag g n p => verb.s ! VPresent g n p} ;
-
-    finiteFuture : Polarity -> Verb -> Agr -> Str = \pol,verb,agr ->
-      case agr of {Ag g n p => verb.s ! VFuture pol g n p} ;
 
     passiveV : Verb -> Verb = \verb -> {
       s = verb.passive ;
@@ -272,8 +244,7 @@ resource ResTel = ParamX ** open Prelude in {
         VPPastPart => {fin = "అయిన" ; neg = []} ;
         VPHort => {fin = "అవుదాం" ;  neg = []} ;
         VPImp Sg => {fin = "అవు" ;   neg = []} ;
-        VPImp Pl => {fin = "అవండి" ;  neg = []} ;
-        VPReqFut => {fin = "అవండి" ;  neg = []}
+        VPImp Pl => {fin = "అవండి" ;  neg = []}
         } ;
       passive = verbForms (regVerb "అవు") ;
       obj = {s = [] ; a = defaultAgr} ;
@@ -336,7 +307,6 @@ resource ResTel = ParamX ** open Prelude in {
        VPInf
      | VPTense VPHTense Agr -- 9 * 12
      | VPImp Number
-     | VPReqFut
      | VPPresPart
      | VPRelPresent
      | VPPastPart
@@ -368,19 +338,19 @@ resource ResTel = ParamX ** open Prelude in {
        case vh of {
          VPTense tense agr => case b of {
            Neg => case tense of {
-             VPFut      => {fin = finiteFuture Neg verb agr ; neg = []} ;
-             _          => {fin = verb.s ! VNegFinite ;       neg = []}
+             VPFut      => {fin = verb.s ! VFuture Neg agr ; neg = []} ;
+             _          => {fin = verb.s ! VNegFinite ;      neg = []}
              } ;
            Pos => case tense of {
-             VPGenPres  => {fin = finiteFuture Pos verb agr ; neg = []} ;
-             VPImpPast  => {fin = finitePast verb agr ; neg = []} ;
-             VPContPres => {fin = finitePresent verb agr ; neg = []} ;
-             VPContPast => {fin = finitePast verb agr ; neg = []} ;
-             VPPerf     => {fin = finitePast verb agr ; neg = []} ;
-             VPPerfPres => {fin = finitePast verb agr ; neg = []} ;
-             VPPerfPast => {fin = finitePast verb agr ; neg = []} ;
-             VPSubj     => {fin = finiteFuture Pos verb agr ; neg = []} ;
-             VPFut      => {fin = finiteFuture Pos verb agr ; neg = []}
+             VPGenPres  => {fin = verb.s ! VFuture Pos agr ; neg = []} ;
+             VPImpPast  => {fin = verb.s ! VPast agr ; neg = []} ;
+             VPContPres => {fin = verb.s ! VPresent agr ; neg = []} ;
+             VPContPast => {fin = verb.s ! VPast agr ; neg = []} ;
+             VPPerf     => {fin = verb.s ! VPast agr ; neg = []} ;
+             VPPerfPres => {fin = verb.s ! VPast agr ; neg = []} ;
+             VPPerfPast => {fin = verb.s ! VPast agr ; neg = []} ;
+             VPSubj     => {fin = verb.s ! VFuture Pos agr ; neg = []} ;
+             VPFut      => {fin = verb.s ! VFuture Pos agr ; neg = []}
              }
            } ;
          {- The finite cases above deliberately precede the legacy form

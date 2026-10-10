@@ -16,7 +16,7 @@ lin
   beautiful_A = mkA "అందమైన";
   become_VA = mkVA (mkV "అవు") ;
   beer_N = mkN "బీరు" ;
-  beg_V2V = mkV2V (mkV "వేడుకో") noPrep toP ;
+  beg_V2V = mkV2V (mkV "వేడుకొను") noPrep toP ;
   big_A = mkA "పెద్ద" ;
   bike_N = mkN "సైకిల్" ;
   bird_N = mkN "పక్షి" ;
@@ -100,7 +100,7 @@ lin
   know_V2 = dirV2 (mkV "తెలుసు") ;
   lake_N = mkN "సరస్సు" ;
   lamp_N = mkN "దీపం" ;
-  learn_V2 = dirV2 (mkV "నేర్చుకో") ;
+  learn_V2 = dirV2 (mkV "నేర్చుకొను") ;
   leather_N = mkN "తోలు" ;
   leave_V2 = dirV2 (mkV "విడిచిపెట్టు") ;
   like_V2 = dirV2 (mkV "ఇష్టపడు") ;
@@ -189,7 +189,7 @@ lin
   tree_N = mkN "చెట్టు" ;
  -- trousers_N = mkN "trousers" ;
   ugly_A = mkA "వికారమైన" ;
-  understand_V2 = dirV2 (mkV "అర్థంచేసుకో") ;
+  understand_V2 = dirV2 (mkV "అర్థం చేసుకొను") ;
   university_N = mkN "విశ్వవిద్యాలయం" ;
   village_N = mkN "గ్రామం" ;
   wait_V2 = prepV2 (mkV "వేచిఉండు") forP ;
