@@ -31,6 +31,7 @@ lin
   is_wrong_VP = mkVP (reflV (mkV "sbagliare")) ;
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+  n_units_of_NP card cn np = mkNP card (mkCN (lin N2 cn) np) ;
 
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "bottiglia" feminine) part_Prep)) np ;
   cup_of_CN    np = mkCN (lin N2 (mkN2 (mkN "tazza") part_Prep)) np ;
@@ -81,6 +82,7 @@ lin InLanguage l = SyntaxIta.mkAdv (mkPrep "in") (mkNP l) ;
 
 lin
   weekdayN w = w ;
+  monthN m = m ;
 
   weekdayPN w = mkPN w ;
   monthPN m = mkPN m ;
