@@ -113,10 +113,15 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits,Decimal] **
             ++ m.s ! co ;
           n = Pl} ;
 
+    pot3decimal d = {s = \\_ => d.s ! NCard Masc ++ "mil" ; n = Pl} ;
+
 
     pot3as4 n = n ;
 
-    pot4 n = {s = table CardOrd {co => n.s ! NCard Masc ++ milhao ! co } ; n = Pl} ;
+    pot4 n = {s = table CardOrd {
+      NCard _ => n.s ! NCard Masc ++ milhao ! NCard Masc ++ "de" ;
+      co => n.s ! NCard Masc ++ milhao ! co
+      } ; n = Pl} ;
 
     pot4plus n m = {s = \\co => n.s ! NCard Masc
                       ++ milhao ! co
@@ -129,9 +134,30 @@ concrete NumeralPor of Numeral = CatPor [Numeral,Digits,Decimal] **
     pot31 = mkNum "mil" "milésimo" ;
 
     -- cem, mil, but um milhão, um bilhão
-    pot41 = mkNum "um milhão" "milhonésimo" ;
+    pot41 = {s = table CardOrd {
+      NCard _ => "um milhão de" ;
+      NOrd g n => regCard "milhonésimo" g n
+      } ; n = Sg} ;
+
+    pot4decimal d = {s = \\_ => d.s ! NCard Masc ++ "milhões de" ; n = Pl} ;
 
     pot4as5 n = n ;
+
+    pot51 = {s = \\co => case co of {
+      NCard _ => "um bilhão de" ;
+      NOrd g n => regCard "bilionésimo" g n
+      } ; n = Sg} ;
+
+    pot5 n = {s = \\co => case co of {
+      NCard _ => n.s ! NCard Masc ++ "bilhões de" ;
+      NOrd g k => n.s ! NCard Masc ++ regCard "bilionésimo" g k
+      } ; n = Pl} ;
+
+    pot5plus n m = {s = \\co => n.s ! NCard Masc ++ "bilhões" ++
+                                  e_CardOrd co ++ m.s ! co ;
+                    n = Pl} ;
+
+    pot5decimal d = {s = \\_ => d.s ! NCard Masc ++ "bilhões de" ; n = Pl} ;
 
   oper
     milhao : CardOrd => Str ;
