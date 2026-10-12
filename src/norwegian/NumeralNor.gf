@@ -34,18 +34,38 @@ lin
   pot1 d = numPl (d.s ! tiotal) ;
   pot1plus d e = {s = \\g => d.s ! tiotal ! invNum ++ e.s ! ental ! g ; n = Pl} ;
   pot1as2 n = n ;
+  pot21 = numPl (cardOrd "hundre" "hundrede") ;
   pot2 d = 
     numPl (\\g => d.s ! ental ! invNum ++ cardOrd "hundre" "hundrede" ! g) ;
   pot2plus d e = 
     {s = \\g => d.s ! ental ! invNum ++ "hundre" ++ "og" ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
+  pot31 = numPl (cardOrd "tusen" "tusende") ;
   pot3 n = 
     numPl (\\g => n.s ! invNum ++ cardOrd "tusen" "tusende" ! g) ;
   pot3plus n m = 
     {s = \\g => n.s ! invNum ++ "tusen" ++ "og" ++ m.s ! g ; n = Pl} ;
 
   pot3as4 n = n ;
+
+  pot41 = numPl (cardOrd "en million" "millionte") ;
+  pot4 n = numPl (\\g => n.s ! NCard masc ++
+    cardOrd (case n.n of {Sg => "million" ; Pl => "millioner"}) "millionte" ! g) ;
+  pot4plus n m = {
+    s = \\g => n.s ! NCard masc ++ case n.n of {Sg => "million" ; Pl => "millioner"} ++ m.s ! g ;
+    n = Pl
+    } ;
+  pot4decimal d = numPl (\\g => d.s ! NCard masc ++ cardOrd "millioner" "millionte" ! g) ;
   pot4as5 n = n ;
+
+  pot51 = numPl (cardOrd "en milliard" "milliardte") ;
+  pot5 n = numPl (\\g => n.s ! NCard masc ++
+    cardOrd (case n.n of {Sg => "milliard" ; Pl => "milliarder"}) "milliardte" ! g) ;
+  pot5plus n m = {
+    s = \\g => n.s ! NCard masc ++ case n.n of {Sg => "milliard" ; Pl => "milliarder"} ++ m.s ! g ;
+    n = Pl
+    } ;
+  pot5decimal d = numPl (\\g => d.s ! NCard masc ++ cardOrd "milliarder" "milliardte" ! g) ;
 
 -- Numerals from sequences of digits.
 

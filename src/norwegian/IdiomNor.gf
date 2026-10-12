@@ -31,6 +31,21 @@ concrete IdiomNor of Idiom = CatNor **
               }
       } ;
 
+    ExistNPAdv np adv =
+      mkClause "det" (agrP3 Neutr Sg) (insertObj
+        (\\_ => np.s ! accusative ++ adv.s) (predV (depV finne_V))) ;
+
+    ExistIPAdv ip adv = {
+      s = \\t,a,p =>
+        let cls = (mkClause "det" (agrP3 Neutr Sg)
+                    (insertAdv adv.s (predV (depV finne_V)))).s ! t ! a ! p ;
+            who = ip.s ! accusative
+        in table {
+          QDir => who ++ cls ! Inv ;
+          QIndir => who ++ cls ! Sub
+          }
+      } ;
+
     ProgrVP vp = 
       insertObj (\\a => ["ved å"] ++ infVP vp a) (predV verbBe) ;
 

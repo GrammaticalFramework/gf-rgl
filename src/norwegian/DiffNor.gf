@@ -16,6 +16,7 @@ instance DiffNor of DiffScand = open CommonScand, Prelude in {
     neutrum = NNeutr ;
 
     detDef : Species = Def ;
+    artDef : GenNum -> Str = \gn -> gennumForms "den" "det" "de" ! gn ;
 
     Verb : Type = {
       s : VForm => Str ;
