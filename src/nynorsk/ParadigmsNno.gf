@@ -338,6 +338,7 @@ oper
 
   mkADeg a b c d e = mkAdject a b c d e ** {isComp = False ; lock_A = <>} ;
   regADeg a = case Predef.dp 2 a of {
+    "de" => mkAdject a a a (a + "are") (a + "ast") ;
     "eg" => aBillig a ;
     "sk" => aRask a ;
     _ => aRod a
@@ -375,6 +376,7 @@ oper
 -- The particle, such as in "lukke opp", is given as a string.
 
 
+    "a" => mkVerb6 a (a + "r") (a + "st") a a (init a) ;
     "e" => vHusk (init a) ;
     _ => vBo a
     } ** {part = [] ; vtype = VAct ; isVaere = False ; lock_V = <>} ;

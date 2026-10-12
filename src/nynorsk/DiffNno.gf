@@ -16,6 +16,7 @@ instance DiffNno of DiffScand = open CommonScand, Prelude in {
     neutrum = NNeutr ;
 
     detDef : Species = Def ;
+    artDef : GenNum -> Str = \gn -> gennumForms "den" "det" "dei" ! gn ;
 
     Verb : Type = {
       s : VForm => Str ;
@@ -35,8 +36,6 @@ instance DiffNno of DiffScand = open CommonScand, Prelude in {
     infMark  = "å" ;
 
     subjIf = "viss" ;
-
---    artDef : GenNum -> Str = \gn -> gennumForms "den" "det" "dei" ! gn ;
 
     artIndef : NGender => Str = table {
       NUtr Masc => "ein" ;

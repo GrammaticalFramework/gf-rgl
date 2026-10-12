@@ -11,6 +11,8 @@ concrete StructuralNno of Structural = CatNno **
   all_Predet = {s = detForms "all" "alt" "alle" ; p = [] ; a = PNoAg} ;
   almost_AdA, almost_AdN = ss "nesten" ;
   although_Subj = ss ["sjølv om"] ;
+  as_CAdv = X.mkCAdv "like" "som" ;
+  at_least_AdN = ss "minst" ;
   always_AdV = ss "alltid" ;
   and_Conj = {s1 = [] ; s2 = "og" ; n = Pl ; isDiscont = False} ;
   because_Subj = ss "fordi" ;
@@ -55,6 +57,13 @@ concrete StructuralNno of Structural = CatNno **
     mkV "måtte" "må" "må" "måtte" "måtte" "mått" **
     {c2 = mkComplement [] ; lock_VV = <>} ;
   no_Utt = ss ["nei"] ;
+  no_Quant =
+    {s,sp = table {
+       Sg => \\_,_ => genderForms "ingen" "inkje" ;
+       Pl => \\_,_,_ => "ingen"
+       } ;
+     det = DIndef
+    } ;
   on_Prep = ss "på" ;
 
   only_Predet = {s = \\_,_ => "kun" ; p = [] ; a = PNoAg} ;
@@ -74,15 +83,16 @@ concrete StructuralNno of Structural = CatNno **
   that_Quant =
     {s,sp = table {
        Sg => \\_,_ => genderForms ["den der"] ["det der"] ;
-       Pl => \\_,_,_ => ["de der"]
+       Pl => \\_,_,_ => ["dei der"]
        } ;
      det = DDef Def
     } ;
+  that_Subj = ss "at" ;
   there_Adv = ss "der" ;
   there7to_Adv = ss "dit" ;
   there7from_Adv = ss "derifrå" ;
   therefore_PConj = ss "derfor" ;
-  they_Pron = MorphoNno.mkNP "dei" "dei" "deira" "deira" "deira" Utr Pl P1 ;
+  they_Pron = MorphoNno.mkNP "dei" "dei" "deira" "deira" "deira" Utr Pl P3 ;
   this_Quant =
     {s,sp = table {
        Sg => \\_,_ => genderForms ["denne"] ["dette"] ;
