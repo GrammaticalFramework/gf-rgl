@@ -40,6 +40,14 @@ lin
 
     AdvS a s = {s = a.s ++ "," ++ s.s} ;
 
+    ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
+
+    SSubjS s1 subj s2 = {s = s1.s ++ subj.s ++ s2.s} ;
+
+    AdvImp adv imp = {
+      s = \\p,n => imp.s ! p ! n ++ adv.s
+      } ;
+
     RelS s r = {s = s.s ++ "," ++ r.s ! agrP3 Sg} ;
 
 }

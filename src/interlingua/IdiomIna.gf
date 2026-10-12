@@ -19,6 +19,10 @@ concrete IdiomIna of Idiom = CatIna ** open Prelude, ResIna in {
 
     ExistNP np = 
       mkClause "il" Sp3 ((insertObj "" Acc np) (predV_ haberV)) ;
+
+    ExistNPAdv np adv =
+      mkClause "il" Sp3 (insertInvarObj adv.s
+        ((insertObj "" Acc np) (predV_ haberV))) ;
     -- Il ha colonias que non pote reclamar mesmo un tal origine. (sample text 3)
 
     ExistIP ip = mkQuestion {s=ip.s ! Acc} (mkClause "il" Sp3 (predV_ haberV)) ;

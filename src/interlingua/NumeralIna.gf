@@ -5,7 +5,8 @@ concrete NumeralIna of Numeral = CatIna [Numeral,Digits,Decimal] ** open ResIna,
   Sub10 = {s : DForm => CardOrd => Str ; n : Number} ;
   Sub100     = {s : CardOrd => Str ; n : Number} ;
   Sub1000    = {s : CardOrd => Str ; n : Number} ;
-  Sub1000000 = {s : CardOrd => Str ; n : Number} ;
+  Sub1000000, Sub1000000000, Sub1000000000000 =
+    {s : CardOrd => Str ; n : Number} ;
 
   lin num x = x ;
 
@@ -32,10 +33,36 @@ concrete NumeralIna of Numeral = CatIna [Numeral,Digits,Decimal] ** open ResIna,
   lin pot2plus d e = {
 	s = \\c => d.s ! unit ! NCard ++ "cento" ++ e.s ! c ; n = Pl} ;
   lin pot2as3 n = n ;
+  lin pot21 = regCardOrd "cento" ** {n = Pl} ;
   lin pot3 n = {
 	s = \\c => n.s ! NCard ++ mkCard c "mille" ; n = Pl} ;
   lin pot3plus n m = {
 	s = \\c => n.s ! NCard ++ "mille" ++ m.s ! c ; n = Pl} ;
+
+  lin pot31 = regCardOrd "mille" ** {n = Pl} ;
+  lin pot3as4 n = n ;
+  lin pot3decimal d = d ;
+  lin pot41 = regCardOrd "un million" ** {n = Pl} ;
+  lin pot4 n = {
+    s = \\c => n.s ! NCard ++ mkCard c "million" ; n = Pl
+    } ;
+  lin pot4plus n m = {
+    s = \\c => n.s ! NCard ++ "million" ++ m.s ! c ; n = Pl
+    } ;
+  lin pot4as5 n = n ;
+  lin pot4decimal d = {
+    s = \\c => d.s ! NCard ++ mkCard c "million" ; n = Pl
+    } ;
+  lin pot51 = regCardOrd "un milliardo" ** {n = Pl} ;
+  lin pot5 n = {
+    s = \\c => n.s ! NCard ++ mkCard c "milliardo" ; n = Pl
+    } ;
+  lin pot5plus n m = {
+    s = \\c => n.s ! NCard ++ "milliardo" ++ m.s ! c ; n = Pl
+    } ;
+  lin pot5decimal d = {
+    s = \\c => d.s ! NCard ++ mkCard c "milliardo" ; n = Pl
+    } ;
 
 -- numerals as sequences of digits
 

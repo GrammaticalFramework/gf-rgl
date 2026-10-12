@@ -35,6 +35,12 @@ concrete NounIna of Noun = CatIna ** open ResIna, Prelude in {
       a = Sp3;
       } ;
 
+    ExtAdvNP np adv = {
+      isPronoun = False ;
+      s = \\c => np.s ! c ++ "," ++ adv.s ;
+      a = np.a
+      } ;
+
 -- version 1.4 changes by AR 16/6/2008
 
     DetNP det = {
@@ -71,6 +77,10 @@ concrete NounIna of Noun = CatIna ** open ResIna, Prelude in {
     AdNum adn num = {s = adn.s ++ num.s; n = num.n } ;
 
     OrdSuperl a = {s = a.s ! AAdj Superl} ;
+
+    OrdNumeralSuperl numeral a = {
+      s = numeral.s ! NOrd ++ a.s ! AAdj Superl
+      } ;
 
     DefArt = {s = \\_ => table {
 		Dat => "al";
@@ -116,6 +126,21 @@ concrete NounIna of Noun = CatIna ** open ResIna, Prelude in {
       \\c => np.s ! c ++ "," ++ rs.s ! np.a ; 
       a = np.a ;
       isPronoun = np.isPronoun ---- ?? AR
+      } ;
+
+    PossNP cn np = {s = \\n => cn.s ! n ++ "de" ++ np.s ! Acc} ;
+    PartNP cn np = {s = \\n => cn.s ! n ++ "de" ++ np.s ! Acc} ;
+
+    CountNP det np = {
+      s = \\c => det.s ! c ++ "de" ++ np.s ! c ;
+      a = agrP3 det.n ;
+      isPronoun = False
+      } ;
+
+    DetDAP det = det ;
+    AdjDAP dap ap = {
+      s = \\c => dap.s ! c ++ ap.s ! agrP3 dap.n ;
+      n = dap.n
       } ;
 
     QuantityNP n m = {

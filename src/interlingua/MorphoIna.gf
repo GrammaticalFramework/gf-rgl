@@ -54,7 +54,7 @@ oper
 -- However, most adjectives can be inflected using the final character.
 
   regAdjective : Str -> Adjective = \clar -> 
-    mkAdjective clar ("plus" ++ clar) ("le" ++ "plus" ++ clar) ; 
+    mkAdjective clar ("plus" ++ clar) ("plus" ++ clar) ;
 
 --3 Verbs
 

@@ -2,7 +2,8 @@ concrete AdverbIna of Adverb = CatIna ** open ResIna, Prelude in {
 
   lin
     PositAdvAdj a = {s = a.s ! AAdv} ;
-    PrepNP prep np = {s = prep.s ++ np.s ! Acc} ;
+    PositAdAAdj a = {s = a.s ! AAdv} ;
+    PrepNP prep np = {s = prep.s ++ np.s ! prep.c} ;
 
     ComparAdvAdj cadv a np = {
       s = cadv.s ++ a.s ! AAdv ++ "que" ++ np.s ! Nom
