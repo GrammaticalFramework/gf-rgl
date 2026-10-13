@@ -15,7 +15,7 @@ concrete QuestionIce of Question = CatIce ** open ResIce, Prelude in {
 			in {s = \\ten,ant,pol,_ => cl.s ! ten ! ant ! pol ! ODir} ;
 
 		QuestSlash ip cls = {
-			s = \\ten,ant,pol,_ => ip.s ! Masc ! Nom ++ cls.s ! ten ! ant ! pol ! ODir ++ cls.c2.s
+			s = \\ten,ant,pol,_ => cls.c2.s ++ ip.s ! Masc ! cls.c2.c ++ cls.s ! ten ! ant ! pol ! OQuestion
 		} ;
 
 		QuestIComp icomp np = 

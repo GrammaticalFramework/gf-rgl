@@ -37,6 +37,7 @@ resource ResIce = ParamX ** open Prelude in {
 		Mood = Indicative | Subjunctive ;
 
 		Voice = Active | Middle ;
+		Reflexivity = NonReflexive | Reflexive Case ;
 
 		PForm = PWeak Number Gender Case | PStrong Number Gender Case | PPres ;
 
@@ -130,6 +131,8 @@ param
 		Verb : Type = {
 			s : VForm => Str ;
 			p : PForm => Str ;
+			part : Str ;
+			refl : Reflexivity ;
 		} ;
 
 		mkVoice : Voice -> Str -> Str = \v,s ->
@@ -197,6 +200,8 @@ param
 					PStrong Pl Neutr c	=> caseList plNeutNom plNeutAcc plNeutDat plNeutGen ! c ;
 					PPres 			=> fljúgandi
 				} ;
+				refl = NonReflexive ;
+				part = [] ;
 		} ;
 
 		VP : Type = {
@@ -228,21 +233,28 @@ param
 			} ;
 
 		predV : Verb -> VP = \v -> {
-			s = \\vpform,pol,agr => case vpform of {
-				VPInf	=> vf (v.s ! vInf) [] (negation pol) False ;
-				VPImp	=> vf (v.s ! VImp Active agr.n) [] (negation pol) False ;
-				VPMood ten ant => vff v ten ant pol agr
+			s = \\vpform,pol,agr =>
+				let verb = case vpform of {
+					VPInf	=> vf (v.s ! vInf) [] (negation pol) False ;
+					VPImp	=> vf (v.s ! VImp Active agr.n) [] (negation pol) False ;
+					VPMood ten ant => vff v ten ant pol agr
+				}
+				in verb ** {a1 = <verb.a1.p1, verb.a1.p2 ++ v.part>} ;
+			p = \\pform => v.p ! pform ++ v.part ;
+			indObj = \\agr => case v.refl of {
+				NonReflexive => [] ;
+				Reflexive c => reflPron agr.p agr.n agr.g c
 			} ;
-			p = \\pform => v.p ! pform ;
-			indObj = \\_ => [] ;
 			dirObj = \\_ => [] ;
 			a2 = [] ;
-			indShift = False ;
+			indShift = case v.refl of {
+				NonReflexive => False ;
+				Reflexive _ => True
+			} ;
 			dirShift = False
 		} ;
 
-		predVV : { s : VForm => Str ; p : PForm => Str ; sup : Voice => Str ; c2 : Preposition } -> VP = \vv -> 
-			predV {s = vv.s ; p = vv.p} ;
+		predVV : Verb ** {c2 : Preposition} -> VP = \vv -> predV vv ;
 
 
 		negation : Polarity -> Str = \pol -> case pol of {

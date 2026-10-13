@@ -141,6 +141,14 @@ concrete StructuralIce of Structural = CatIce **
 		but_PConj = ss "en" ;
 		how_IAdv = ss "hvernig" ;
 		how8much_IAdv = ss "hversu mikið" ;
+		how8many_IDet = {
+			s = table {
+				Masc => caseList "hversu margir" "hversu marga" "hversu mörgum" "hversu margra" ;
+				Fem => caseList "hversu margar" "hversu margar" "hversu mörgum" "hversu margra" ;
+				Neutr => caseList "hversu mörg" "hversu mörg" "hversu mörgum" "hversu margra"
+			} ;
+			n = Pl
+		} ;
 		if_Subj = ss "ef" ;
 		please_Voc = ss "vinsamlegast" ;
 		when_Subj = ss "þegar" ;
@@ -158,34 +166,34 @@ concrete StructuralIce of Structural = CatIce **
 		-- dont be afraid to be awkward :)
 
 		he_Pron = mkPronPers "hann" "hann" "honum" "hans"
-				"sinn" "sinn" "sínum" "síns"
-				"sín" "sína" "sinni" "sinnar"
-				"sitt" "sitt" "sínu" "síns"
-				"sínir" "sína" "sínum" "sinna"
-				"sínar" "sínar" "sín" "sín" Masc Sg P3 ;
+				"sinn" "hans" "hans" "hans"
+				"sín" "hans" "hans" "hans"
+				"sitt" "hans" "hans" "hans"
+				"sínir" "hans" "hans" "hans"
+				"sínar" "hans" "hans" "hans" Masc Sg P3 ;
 
-		she_Pron = mkPronPers "hún" "hana" "henni" "hennar" 
-				"sinn" "sinn" "sínum" "síns"
-				"sín" "sína" "sinni" "sinnar"
-				"sitt" "sitt" "sínu" "síns"
-				"sínir" "sína" "sínum" "sinna"
-				"sínar" "sínar" "sín" "sín" Fem Sg P3 ;
+		she_Pron = mkPronPers "hún" "hana" "henni" "hennar"
+				"sinn" "hennar" "hennar" "hennar"
+				"sín" "hennar" "hennar" "hennar"
+				"sitt" "hennar" "hennar" "hennar"
+				"sínir" "hennar" "hennar" "hennar"
+				"sínar" "hennar" "hennar" "hennar" Fem Sg P3 ;
 
 		it_Pron = mkPronPers "það" "það" "því" "þess"
-				"sinn" "sinn" "sínum" "síns"
-				"sín" "sína" "sinni" "sinnar"
-				"sitt" "sitt" "sínu" "síns"
-				"sínir" "sína" "sínum" "sinna"
-				"sínar" "sínar" "sín" "sín" Neutr Sg P3 ;
+				"sinn" "þess" "þess" "þess"
+				"sín" "þess" "þess" "þess"
+				"sitt" "þess" "þess" "þess"
+				"sínir" "þess" "þess" "þess"
+				"sínar" "þess" "þess" "þess" Neutr Sg P3 ;
 
 		-- "They" depends on gender,i.e. has 3x4 forms for personal pronouns
 		-- the masculine is given here, neuter and feminine are given in Extra
 		they_Pron = mkPronPers "þeir" "þá" "þeim" "þeirra"
-				"sinn" "sinn" "sínum" "síns"
-				"sín" "sína" "sinni" "sinnar"
-				"sitt" "sitt" "sínu" "síns"
-				"sínir" "sína" "sínum" "sinna"
-				"sínar" "sínar" "sín" "sín" Masc Pl P3 ;
+				"sinn" "þeirra" "þeirra" "þeirra"
+				"sín" "þeirra" "þeirra" "þeirra"
+				"sitt" "þeirra" "þeirra" "þeirra"
+				"sínir" "þeirra" "þeirra" "þeirra"
+				"sínar" "þeirra" "þeirra" "þeirra" Masc Pl P3 ;
 
 		-- the possesive equivalent, vor, is mostly used in elevated style.
 		we_Pron = mkPronPers "við" "okkur" "okkur" "okkar" 
@@ -212,14 +220,32 @@ concrete StructuralIce of Structural = CatIce **
 		-- only in the nominative), and hvert/hvað corresponds to what.
 		whatSg_IP = {
 			s = \\_ => caseList "hvað" "hvað" "hverju" "hvers" ;
-			n = Pl
+			n = Sg
 		} ;
 
 		whatPl_IP = {
 			s = \\_ => caseList "hver" "hver" "hverjum" "hverra" ;
-			n = Sg
+			n = Pl
 		} ;
-				
+
+		no_Quant = {
+			s = table {
+				Sg => table {
+					Masc => caseList "enginn" "engan" "engum" "engins" ;
+					Fem => caseList "engin" "enga" "engri" "engrar" ;
+					Neutr => caseList "ekkert" "ekkert" "engu" "einskis"
+				} ;
+				Pl => table {
+					Masc => caseList "engir" "enga" "engum" "engra" ;
+					Fem => caseList "engar" "engar" "engum" "engra" ;
+					Neutr => caseList "engin" "engin" "engum" "engra"
+				}
+			} ;
+			b = Free ;
+			d = Strong ;
+			isPron = False
+		} ;
+
 		--  whoPl_IP = mkIP "who" "whom" "whose" plural ;
 		whoPl_IP = {
 			s = table {

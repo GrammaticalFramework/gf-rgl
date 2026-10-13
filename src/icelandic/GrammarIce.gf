@@ -14,7 +14,8 @@ concrete GrammarIce of Grammar =
   TextX,
   StructuralIce,
   IdiomIce,
-  TenseX
+  TenseX,
+  NamesIce
   ** open ResIce, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

@@ -219,11 +219,15 @@ concrete NounIce of Noun = CatIce ** open MorphoIce, ResIce, Prelude in {
 		-- 2 Possessive and partitive constructs
 
 		PossNP cn np = {
-			s = \\n,s,d,c	=> case np.isPron of {
-				True => cn.s ! n ! Suffix ! d ! Nom ++ np.s ! NPPoss n cn.g c ;
-				False => cn.s ! n ! Free ! d ! c ++ np.s ! NPPoss n cn.g Gen
+			-- Keep the possessor in the complement field.  Besides preserving
+			-- the case of the head, this lets an outer determiner occur directly
+			-- after the head ("meðferð hans barnanna", not
+			-- "meðferð barnanna hans").
+			s = \\n,s,d,c => cn.s ! n ! s ! d ! c ;
+			comp = \\n,c => cn.comp ! n ! c ++ case np.isPron of {
+				True => np.s ! NPPoss n cn.g Gen ;
+				False => np.s ! NCase Gen
 			} ;
-			comp = cn.comp ;
 			g = cn.g
 		} ;
 
@@ -250,4 +254,13 @@ concrete NounIce of Noun = CatIce ** open MorphoIce, ResIce, Prelude in {
 		} ;
 
 		DetDAP det = det ;
+
+		QuantityNP dec mu = {
+			s = \\_ => case mu.isPre of {
+				True  => mu.s ++ dec.s ! NCard Pl Neutr Nom ;
+				False => dec.s ! NCard Pl Neutr Nom ++ mu.s
+			} ;
+			a = gennumperToAgr Neutr Pl P3 ;
+			isPron = False
+		} ;
 }

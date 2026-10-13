@@ -3,6 +3,7 @@ concrete CatIce of Cat = CommonX ** open ResIce, Prelude in {
   flags optimize=all_subs ;
 
 	lincat
+		GN, LN, SN = {s : Str} ;
 
 		--2 Sentences and clauses
 
