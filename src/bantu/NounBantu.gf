@@ -34,7 +34,10 @@ lin
   PredetNP pred np = 
     let agr = predetAgr np.a  in {
       s = \\c =>   np.s ! NCase Nom ++ pred.s ! agr.g   ;
-      a =Ag agr.g Pl P3 ;
+      -- A predeterminer does not change the number or person of its NP.
+      -- Forcing plural here made e.g. "only an automaton" control plural
+      -- verbal agreement in Swahili.
+      a = np.a ;
     } ; 
 
    {-} PPartNP np v2 = {
@@ -103,14 +106,12 @@ lin
 
   Use2N3 f = {
     s = \\n,c => f.s ! n ! Nom ;
-    s2 = \\_ => [] ;
     g = f.g ;
     c2 = f.c2
     } ;
 
   Use3N3 f = {
     s = \\n,c => f.s ! n ! Nom ;
-    s2 = \\_ => [] ;
     g = f.g ;
     c2 = f.c3
     } ;

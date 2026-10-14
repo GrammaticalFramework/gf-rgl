@@ -40,9 +40,8 @@ incomplete concrete SentenceBantu of Sentence =
     EmbedQS qs = {s = qs.s ! QIndir} ;
     EmbedVP vp = {s = infVP VVInf vp Simul CPos (agrP3 Sg)} ; --- agr
 -}
-    UseCl  t p cl =
-      let b : Bool = case p.p of {Pos => True ; _ => False}
-      in {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! b} ;
+    UseCl t p cl =
+      {s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p} ;
 
 {-   UseQCl t p cl = {
       s = \\q => t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p ! q

@@ -297,27 +297,27 @@ iregA : Str-> Str -> {s : AForm =>  Str} = \seo,seoo -> {
             AAdj g Pl => seoo} };
 
 regV : Str -> Verb = 
-     \vika -> {
-     s = table{  True => table{
+     \vika -> let forms = table{  Pos => table{
        VInf        => vika;
+       VImp _      => vika;
        VPres g n p => Verbprefix g n p + vika; 
        VPast g n p => Verbprefix g n p + init vika + "ie" ;
        VFut  g n p => Verbfutureprefix g n p + vika 
             } ;
-        False =>table {
+        Neg =>table {
         VInf       =>  "ndi" + vika;
-       VPres g n p => neg (Ag g n p) False Pres + "na" + vika ; 
-       VPast g n p => neg (Ag g n p) False Past + "ne" + vika ;
-       VFut  g n p => neg (Ag g n p) False Fut + "ka" + vika    
+        VImp _     =>  "ndi" + vika;
+       VPres g n p => neg (Ag g n p) Neg Pres + "na" + vika ; 
+       VPast g n p => neg (Ag g n p) Neg Past + "ne" + vika ;
+       VFut  g n p => neg (Ag g n p) Neg Fut + "ka" + vika    
        } 
-     };     
-     };
+     } in {s = forms ; passive = forms};
 
-  neg : Agr -> Bool ->Tense -> Str = \a,b,t -> let 
+  neg : Agr -> Polarity ->Tense -> Str = \a,b,t -> let 
         g = getGender a;
         n=getNumber a;
         p=getPerson a
-      in case b of {True => [] ; False => negprefix g n t p} ;
+      in case b of {Pos => [] ; Neg => negprefix g n t p} ;
 
   negprefix : Gender -> Number -> Tense -> Person -> Str =\g,n,t,p-> case <g,n,t,p> of {
             <G1,Sg,_,P1> => "ndi";

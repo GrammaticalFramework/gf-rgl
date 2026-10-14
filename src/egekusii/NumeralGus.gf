@@ -1,4 +1,4 @@
-concrete NumeralGus of Numeral = CatGus [Numeral,Digits] ** open Prelude, 
+concrete NumeralGus of Numeral = CatGus [Numeral,Digits,Decimal] ** open Prelude, 
 DiffGus,MorphoGus in {
 
 lincat 
@@ -74,7 +74,7 @@ lin pot3plus n m = { s = table {
     PosDecimal d = d ** {hasDot=False} ;
     NegDecimal d = {
       s = \\o,g => "-" ++ BIND  ++ d.s ! o  ! g ;
-      n = Pl 
+      n = Pl ;
       hasDot=False
       } ;
     IFrac d i = {

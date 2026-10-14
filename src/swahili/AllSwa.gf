@@ -2,4 +2,5 @@
 
 concrete AllSwa of AllSwaAbs = 
   LangSwa
+  ,ExtendSwa
   ** {} ;

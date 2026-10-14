@@ -14,27 +14,24 @@ incomplete concrete CatBantu of Cat =
 
 -- Sentence
 
-    Cl = {s : Tense => Anteriority => Bool =>  Str} ;
- --   ClSlash = {
- --     s : ResKam.Tense => Anteriority => Bool => Str ;
---      } ;
+    Cl = {s : Tense => Anteriority => Polarity =>  Str} ;
+    ClSlash = {s : Tense => Anteriority => Polarity => Str ; c2 : Str} ;
+    Imp = {s : Polarity => Number => Str} ;
 --
 -- Question
 
-   -- QCl = {s : ResKam.Tense => Anteriority => Polarity => QForm => Str} ;
+    QCl = {s : Tense => Anteriority => Polarity => QForm => Str} ;
     IP = {s : NPCase => Str ; n : Number} ;
     IComp = {s : Str} ;    
     IDet = {s : Str ; n : Number} ;
     IQuant = {s : Number => Str} ;
 
 -- Relative
-{-}
     RCl = {
-      s : ResKam.Tense => Anteriority => Polarity => Agr => Str ; 
+      s : Tense => Anteriority => Polarity => Agr => Str ;
       c : NPCase
       } ;
-    RP = {s : RCase => Str ; a : RAgr} ;
--}
+    RP = {s : Agr => Str} ;
 -- Verb
 
     VP = ResBantu.VP ;
@@ -43,6 +40,7 @@ incomplete concrete CatBantu of Cat =
 
 -- Adjective  
   AP = {s : Gender => Number =>  Str  };
+  ACard = {s : Str} ;
 
 -- Noun
 
@@ -72,7 +70,7 @@ incomplete concrete CatBantu of Cat =
     Prep = {s: Number => Gender => Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-  V, VS, VQ, VA, V3,V2,VV, V2S, V2Q, V2V,V2A= Verb ; 
+  V, VS, VQ, VA, V3,V2,VV, V2S, V2Q, V2V,V2A= Verb ;
    -- V2, VV, V2S, V2Q = Verb ** {c2 : Str} ;
    -- V3, V2V,V2A = Verb ** {c2, c3 : Prep} ;
     A = {s : AForm =>  Str } ; 

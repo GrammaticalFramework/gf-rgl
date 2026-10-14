@@ -13,7 +13,7 @@ concrete StructuralSwa of Structural = CatSwa **
   and_Conj = mkConj "na" ;
   because_Subj = ss "maana" ;
   before_Prep = mkPrep "kabla ya"  ;
-  behind_Prep = mkPrep "baada" ;
+  behind_Prep = mkPrep "nyuma ya" ;
   between_Prep = mkPrep "katikati" ;
   both7and_DConj = mkConj "eli" "na";
   but_PConj = ss "ila" ;
@@ -30,19 +30,19 @@ concrete StructuralSwa of Structural = CatSwa **
              Sub =>   [] };
             n= Pl
              } ;
-  for_Prep = mkPrep nonExist ;
+  for_Prep = mkPrep "kwa" ;
   from_Prep = mkPrep "tokea" ;
   he_Pron = mkPron "yeye" "ake" G1 Sg P3 ;
   here_Adv = mkAdv "hapa" ;
   here7to_Adv = mkAdv ["huko"] ;
   here7from_Adv = mkAdv ["hapa"] ;
-  how_IAdv = ss "upi" ;
-  how8much_IAdv = ss "ngapi" ;
+  how_IAdv = ss "vipi" ;
+  how8much_IAdv = ss "kiasi gani" ;
   if_Subj = ss "Kama" ;
   in8front_Prep = mkPrep ["umbele "] ;
  i_Pron   =mkPron "mimi" "angu" G1 Sg P1 ;
   in_Prep = mkPrep "ndani" ;
- it_Pron   ={ s=\\c=>nonExist; poss=\\n,g=> nonExist; a=Ag G4 Sg P3};
+ it_Pron = mkPron "hicho" "ake" G4 Sg P3 ;
  --less_CAdv = C.mkCAdv "kasoro" ;
  much_Det, many_Det = { s = table { 
                       Obj g => Many_prefix g + "ngi" ;
@@ -57,7 +57,7 @@ concrete StructuralSwa of Structural = CatSwa **
   on_Prep = mkPrep "juu ya" ;
   one_Quant = {s = \\n,g =>  "moja" } ; 
   only_Predet = {s = \\g =>  "tu" } ;
-  or_Conj = mkConj "kana" singular ;
+  or_Conj = mkConj "au" singular ;
   otherwise_PConj = ss "ila" ;
   please_Voc = ss "tafadhari" ;
   part_Prep, possess_Prep = let
@@ -131,7 +131,7 @@ concrete StructuralSwa of Structural = CatSwa **
   there_Adv = mkAdv "hapo" ;
   there7to_Adv = mkAdv "hapa kuvika" ;
   there7from_Adv = mkAdv ["hapa kutoka"] ;
-  therefore_PConj = ss "kwa ajili" ;
+  therefore_PConj = ss "kwa hiyo" ;
   they_Pron  =mkPron "wao" "ao" G1 Pl P3 ;   
   this_Quant = let
        questo : ParadigmsSwa.Number =>  MorphoSwa.Gender =>  Str = table {
@@ -169,10 +169,10 @@ concrete StructuralSwa of Structural = CatSwa **
   we_Pron  =mkPron "sisi" "etu" G1 Pl P1 ;
   --whatPl_IP = mkIP "ata" "ata"  plural ;
  -- whatSg_IP = mkIP "ata" "ata"  singular ;
-  when_IAdv = ss "madhali" ;
-  when_Subj = ss "madhali" ;
+  when_IAdv = ss "lini" ;
+  when_Subj = ss "wakati" ;
   where_IAdv = ss "wapi" ;
-  which_IQuant = {s = \\_ => "wapi"} ;
+  which_IQuant = {s = \\_ => "gani"} ;
 ---b  whichPl_IDet = mkDeterminer plural ["which"] ;
 ---b  whichSg_IDet = mkDeterminer singular ["which"] ;
  -- whoPl_IP = mkIP "uu" "whom" "whose" plural ;
@@ -183,18 +183,18 @@ concrete StructuralSwa of Structural = CatSwa **
  --yes_Phr = ss "ii" ;
   yes_Utt = ss "ndio" ;
   youSg_Pron  =  mkPron "wewe" "ako" G1 Sg P2 ;
-  youPol_Pron,youPl_Pron  = mkPron "nyinyi" "enyu" G1 Pl P3 ;
+  youPol_Pron,youPl_Pron  = mkPron "nyinyi" "enyu" G1 Pl P2 ;
   not_Predet = {s = \\g =>  "nongi"} ;
   no_Quant =  {s = \\g,n =>  "hakuna"} ;   
   if_then_Conj = mkConj "kama" "basi" singular ;
   nobody_NP = regNP "hakuna mtu" a_wa singular ;
-  nothing_NP = regNP "hukuna  kitu" ki_vi singular ;
+  nothing_NP = regNP "hakuna kitu" ki_vi singular ;
   at_least_AdN = mkAdN "" ;
   at_most_AdN = mkAdN "kuvika" ;
   except_Prep = mkPrep "kasoro" ;
  -- as_CAdv = C.mkCAdv "kama" ;
  -- have_V2 = dirV2 (mk5V "have" "has" "had" "had" "having") ;
-  that_Subj = ss "hio" ;
+  that_Subj = ss "kwamba" ;
   lin language_title_Utt = ss "kiswahili" ;
 }
 

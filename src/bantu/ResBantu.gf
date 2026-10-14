@@ -39,35 +39,62 @@ oper
             } ;
           a = Ag g n p } ; 
 
-  Verb : Type      = {s : Bool => VForm => Str} ;
-  VerbForms : Type = Tense => Anteriority => Bool => Agre => Str; 
-  VP : Type        = {s:VerbForms ; obj : Agr => Str};
+  Verb : Type      = {s, passive : Polarity => VForm => Str} ;
+  VerbForms : Type = Tense => Anteriority => Polarity => Agre => Str; 
+  VP : Type        = {
+    s, passive : VerbForms ;
+    obj : Agre => Str ;
+    inf : Polarity => Agre => Str ;
+    passiveInf : Polarity => Agre => Str ;
+    imp : Polarity => Number => Str ;
+    passiveImp : Polarity => Number => Str
+    };
   SlashVP          = VP ** {c2 : Str} ;
 
   predV : Verb -> VP = \verb -> {
     s = \\t,ant,b,agre => 
-      let
-        inf  = verb.s !b! VInf ;
-        pres = verb.s !True! VPres agre.g agre.n agre.p ;
-        presn = verb.s !False! VPres agre.g agre.n agre.p ;
-        past = verb.s !True! VPast agre.g agre.n agre.p ;
-        pastn = verb.s !False! VPast agre.g agre.n agre.p ;
-        fut  = verb.s !True! VFut  agre.g agre.n  agre.p ; 
-        futn  = verb.s !False! VFut  agre.g agre.n  agre.p ;
-      in
-      case <t,ant,b> of {
-        <Pres,_, True>  => pres ;
-        <Fut, _, True>  => fut ;   --# notpresent
-        <Pas, _, True>  => past ;  --# notpresent
-        <Pres,_, False> => presn ;
-        <Fut, _, False> => futn ;  --# notpresent
-        <Pas, _, False> => pastn 
-        -- ; <_, _, _>       => inf     --# notpresent -- never reached
+      case t of {
+        Pres  => verb.s ! b ! VPres agre.g agre.n agre.p ;
+        Fut   => verb.s ! b ! VFut  agre.g agre.n  agre.p ;   --# notpresent
+        Pas   => verb.s ! b ! VPast agre.g agre.n agre.p
       } ;
-    obj = \\_ => [] };
+    passive = \\t,ant,b,agre =>
+      case t of {
+        Pres => verb.passive ! b ! VPres agre.g agre.n agre.p ;
+        Fut  => verb.passive ! b ! VFut agre.g agre.n agre.p ;
+        Pas  => verb.passive ! b ! VPast agre.g agre.n agre.p
+      } ;
+    obj = \\_ => [] ;
+    inf = \\b,_ => verb.s ! b ! VInf ;
+    passiveInf = \\b,_ => verb.passive ! b ! VInf ;
+    imp = \\b,n => verb.s ! b ! VImp n ;
+    passiveImp = \\b,n => verb.passive ! b ! VImp n
+    };
+
+  insertObj : (Agre => Str) -> VP -> VP = \x,vp -> vp ** {
+    obj = \\a => vp.obj ! a ++ x ! a
+    } ;
+
+  insertAdV : Str -> VP -> VP = \x,vp -> vp ** {
+    s = \\t,ant,b,a => x ++ vp.s ! t ! ant ! b ! a ;
+    passive = \\t,ant,b,a => x ++ vp.passive ! t ! ant ! b ! a
+    } ;
+
+  -- Productive Swahili passives are formed by replacing the final -a by
+  -- -wa (and by adding -wa to loan verbs ending in another vowel).  Keeping
+  -- this operation on VP also preserves complements and adjuncts already
+  -- accumulated in obj.
+  passiveVP : VP -> VP = \vp -> vp ** {
+    s = vp.passive ;
+    inf = vp.passiveInf ;
+    imp = vp.passiveImp
+    } ;
+
+  infVP : Polarity -> Agre -> VP -> Str = \b,a,vp ->
+    vp.inf ! b ! a ++ vp.obj ! a ;
 
   Clause : Type = {
-    s : Tense => Anteriority => Bool => Str
+    s : Tense => Anteriority => Polarity => Str
     } ;
 
   mkClause : Str -> Agre -> VP -> Clause =
@@ -76,7 +103,7 @@ oper
         let 
           verb  = vp.s ! t ! a ! b ! agr 
         in
-          subj ++ verb
+          subj ++ verb ++ vp.obj ! agr
     } ;
 
   finalComma : Str = pre {"," | "." => []; "" => SOFT_BIND ++ ","; _ => []} ;

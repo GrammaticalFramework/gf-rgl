@@ -9,8 +9,8 @@ resource ParadigmsGus = open
   in {
 
 oper
-  Gender : Type ; 
-   omo_aba  : Gender ;--%
+  Gender : PType ; 
+  omo_aba  : Gender ;--%
   omo_eme   : Gender ;
   e_ci      : Gender ;
   eri_ama   : Gender ;
@@ -23,7 +23,7 @@ oper
 
 -- To abstract over number names, we define the following.
 
-  Number : Type ; 
+  Number : PType ; 
 
   singular : Number ; 
   plural   : Number ;
@@ -396,7 +396,10 @@ mkN2 = overload {
   };
 
  
-  prefixV : Str -> V -> V = \p,v -> lin V { s = \\b,vform => p + v.s! b ! vform } ;
+  prefixV : Str -> V -> V = \p,v -> lin V {
+    s = \\b,vform => p + v.s ! b ! vform ;
+    passive = \\b,vform => p + v.passive ! b ! vform
+    } ;
   mkV2 = overload {
     mkV2  : V -> V2 = dirV2 ;
     mkV2  : Str -> V2 = \s -> dirV2 (regV s) ;

@@ -12,7 +12,7 @@ oper
 
   Noun : Type  = {s : Number => Case => Str ; g : Gender};
   CNoun : Type = {s : Number => Case => Str ; g : Gender; s2 : Number => Str};
-  AAgr : Type  = {g : Gender ; n : Number} ;
+  AAgr : PType  = {g : Gender ; n : Number} ;
 
 param 
   Agr =  Ag Gender Number Person ;

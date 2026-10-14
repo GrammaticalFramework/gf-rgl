@@ -95,6 +95,14 @@ oper dfltGender : Gender = G1 ;
     mkA : (fat,fatter : Str) -> A ; -- irreg. 
     } ;
 
+  -- Relational adjective phrases supplied by machine-translated lexica.
+  -- Their initial concord is generated from the modified noun class.
+  mkGenA  : Str -> A ; -- "a/wa/ya ..."
+  mkEnyeA : Str -> A ; -- "mwenye/enye/yenye ..."
+  mkRelPosA : Str -> A ; -- "inayo-..."
+  mkRelNegA : Str -> A ; -- "isiyo-/asiye-..."
+  mkNegGenA : Str -> A ; -- "isiyo ya ..."
+
 
 --3 Two-place adjectives
 
@@ -378,6 +386,14 @@ mkN2 = overload {
     mkA : (fat,fatter : Str) -> A =\a,b -> lin A (iregA a b);
     } ;
 
+  mkGenA  s = lin A (phraseA genitivePrefix s) ;
+  mkEnyeA s = lin A (phraseA enyePrefix s) ;
+  mkRelPosA s = lin A (joinedPhraseA relPosPrefix s) ;
+  mkRelNegA s = lin A (joinedPhraseA relNegPrefix s) ;
+  mkNegGenA s = lin A {s = \\f => case f of {
+    AAdj g n => relNegPrefix g n ++ genitivePrefix g n ++ s
+    }} ;
+
   prepA2 : A -> Prep -> A2 ;
 
   mkA2 = overload {
@@ -395,7 +411,10 @@ mkN2 = overload {
     mkV : Str -> V -> V = prefixV
   };
  
-  prefixV : Str -> V -> V = \p,v -> lin V { s = \\b,vform => p + v.s! b ! vform } ;
+  prefixV : Str -> V -> V = \p,v -> lin V {
+    s = \\b,vform => p + v.s ! b ! vform ;
+    passive = \\b,vform => p + v.passive ! b ! vform
+    } ;
   mkV2 = overload {
     mkV2  : V -> V2 = dirV2 ;
     mkV2  : Str -> V2 = \s -> dirV2 (regV s) ;
