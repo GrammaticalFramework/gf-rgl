@@ -3,6 +3,7 @@
 concrete LangNor of Lang = 
   GrammarNor,
   LexiconNor
+  ,ConstructionNor --# notpresent
   ,DocumentationNor --# notpresent
   ** {
 

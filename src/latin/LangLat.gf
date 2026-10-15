@@ -4,7 +4,7 @@ concrete LangLat of Lang =
   GrammarLat,
   ParadigmsLat,
   LexiconLat
---  ConstructionLat
+  ,ConstructionLat --# notpresent
   ,DocumentationLat --# notpresent
   ** {
 
