@@ -3,6 +3,7 @@
 concrete LangMon of Lang = 
   GrammarMon,
   LexiconMon -- to compile faster, use TestLexiconMon (see LangExtraMon.gf)
+  ,ConstructionMon
   ,DocumentationMon --# notpresent
   ** {
 

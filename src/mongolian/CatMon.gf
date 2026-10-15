@@ -61,8 +61,7 @@ lincat
    Det = {
       s : Str ; 
 	  sp : RCase => Str ; -- substantival form
-	  isNum : Bool ; -- true, if a numeral is present
-	  isPoss : Bool ; -- true, if a possessive is present
+	  n : Number ;
 	  isDef : Bool ; -- when definite, is true
 	  isPre : Bool
 	  } ;
@@ -75,17 +74,17 @@ lincat
    Quant = {
       s : Number => Str ; 
 	  sp : Number => NCase => Str ; 
-	  isPoss : Bool ; 
 	  isDef : Bool
 	  } ;
 
 -- Numeral
 
-   Num  = {s : Str ; sp : RCase => Str ; n : Number ; isNum : Bool} ; 
-   Card = {s : Str ; sp : RCase => Str ; n : Number} ;
+   Num, Card  = {s : Str ; sp : RCase => Str ; n : Number} ; 
    Numeral = {s : CardOrd => Str; n : Number} ;
    Digits = {s : CardOrd => Str ; n : Number} ;
    Decimal = {s : CardOrd => Str ; n : Number; hasDot : Bool} ;
+   ACard = {s : Str} ;
+   DAP = {s : RCase => Str ; n : Number} ;
 
 -- Structural
 
@@ -107,7 +106,7 @@ lincat
    N2 = Noun ** {c2 : Complement} ;
    N3 = Noun ** {c2,c3 : Complement} ;
    PN = {s : RCase => Str} ;
-   LN,GN,SN = {s : Str} ;
+   LN,GN,SN = {s : RCase => Str} ;
 
    Temp = {s : Str ; t : ClTense ; a : Anteriority} ;
    Tense = {s : Str ; t : ClTense} ;

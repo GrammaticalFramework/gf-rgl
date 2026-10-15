@@ -6,14 +6,14 @@ lin
  DetCN det cn = {
     s = \\rc => case <det.isPre,det.isDef> of {
                 <True,True> => case rc of {
-				Acc => det.s ++ cn.s ! Sg ! NAcc Definite ;
-				_ => det.s ++ cn.s ! Sg ! toNCase rc Definite } ;
+				Acc => det.s ++ cn.s ! det.n ! NAcc Definite ;
+				_ => det.s ++ cn.s ! det.n ! toNCase rc Definite } ;
 				<True,False> => case rc of {
-				Acc => det.s ++ cn.s ! Sg ! NAcc Indefinite ;
-				_ => det.s ++ cn.s ! Sg ! toNCase rc Indefinite } ;
-	            _ => cn.s ! Sg ! NNom ++ det.sp ! rc 
+				Acc => det.s ++ cn.s ! det.n ! NAcc Indefinite ;
+				_ => det.s ++ cn.s ! det.n ! toNCase rc Indefinite } ;
+	            _ => cn.s ! det.n ! NNom ++ det.sp ! rc
                 } ;
-	n = Sg ;
+	n = det.n ;
 	p = P3 ;
 	isPron = False ;
 	isDef = det.isDef
@@ -51,12 +51,8 @@ lin
 	isDef = np.isDef
     } ;
     
- RelNP np rs = { 
-    s = \\rc => rs.s ! Attributive ++ np.s ! rc ;
-    n = np.n ;
-    p = np.p ;
-    isPron = False ;
-	isDef = np.isDef
+ RelNP np rs = np ** {
+    s = \\rc => np.s ! rc ++ "," ++ rs.s ! ComplSubj
     } ;
 
  AdvNP np adv = {
@@ -66,32 +62,49 @@ lin
     isPron = False ;
 	isDef = np.isDef
     } ;
+
+ ExtAdvNP np adv = np ** {
+    s = \\rc => np.s ! rc ++ "," ++ adv.s
+    } ;
     
  DetQuant quant num = {
-    s = quant.s ! Sg ++ num.s ;
+    s = quant.s ! num.n ++ num.s ;
     sp = \\rc => quant.sp ! num.n ! NNom ++ num.sp ! rc ;
-    isNum = num.isNum ;
-	isPoss = quant.isPoss ;
-	isDef = True ;
+    n = num.n ;
+	isDef = quant.isDef ;
     isPre = True
     } ;
      
  DetQuantOrd quant num ord = {
-    s = quant.s ! Sg ++ num.s ++ ord.s ;
+    s = quant.s ! num.n ++ num.s ++ ord.s ;
     sp = \\_ => quant.sp ! num.n ! NNom ++ num.s ++ ord.s ;
-    isNum = num.isNum ;
-	isPoss = quant.isPoss ;
-	isDef = True ;
+    n = num.n ;
+	isDef = quant.isDef ;
     isPre = True
     } ;
     
  DetNP det = {
     s = \\rc => det.sp ! rc ;
-    n = Sg ;
+	n = det.n ;
     p = P3 ;
 	isPron = False ;
-	isDef = True
+	 isDef = det.isDef
 	} ;
+
+ DetDAP det = {
+    s = det.sp ;
+    n = det.n ;
+    isDef = det.isDef
+    } ;
+
+ AdjDAP dap ap = dap ** {
+    s = \\rc => ap.s ++ dap.s ! rc
+    } ;
+
+ CountNP det np = {
+    s = \\rc => det.s ++ np.s ! Abl ;
+    n = np.n ; p = np.p ; isPron = False ; isDef = det.isDef
+    } ;
 
  UseN,UseN2 = \noun -> {
     s = \\n,nc => noun.s ! SF n nc
@@ -100,15 +113,14 @@ lin
  PossPron p = {
     s = \\_ => p.s ! PronCase Gen ;
     sp = \\_,nc => p.s ! PronPoss (toRCase nc Definite) ; 
-    isPoss = True ;
 	isDef = True 
     } ;
    
- NumSg = {s = [] ; sp = \\_ => [] ; n = Sg ; isNum = False} ;
- NumPl = {s = [] ; sp = \\_ => [] ; n = Pl ; isNum = False} ;
- 
- NumCard n = n ** {isNum = True} ;
- 
+ NumSg = {s = [] ; sp = \\_ => [] ; n = Sg} ;
+ NumPl = {s = [] ; sp = \\_ => [] ; n = Pl} ;
+
+ NumCard n = n ** {n = Sg} ;
+
  NumDigits,NumNumeral,NumDecimal = \numeral -> {
     s = numeral.s ! NCard ;
     sp = \\_ => numeral.s ! NCard ;
@@ -143,20 +155,15 @@ lin
 		   } ;
         Pl => (regN "эдгээр").s ! SF Sg nc 
 		} ;
-    isPoss = False ;
 	isDef = True
     } ;
 -- the numeral neg for ‘one’ in the function as an indefinite article (Givon 1981) 
  IndefArt = {
-    s = \\n => case n of {
-        Sg => "нэг" ;
-        Pl => "нэжгээд"
-        } ; 
+    s = \\_ => [] ;
     sp = \\n,nc => case n of {
 	    Sg => (regN "аль нэг").s ! SF Sg nc ;
 		Pl => (regN "нэжгээд").s ! SF Sg nc
 		} ;
-    isPoss = False ;
 	isDef = False
     } ;
   
@@ -166,6 +173,22 @@ lin
     p = P3 ;
     isPron = False ;
 	isDef = True
+    } ;
+
+ PossNP cn np = {
+    s = \\n,nc => np.s ! Gen ++ cn.s ! n ! nc
+    } ;
+
+ PartNP cn np = {
+    s = \\n,nc => np.s ! Gen ++ cn.s ! n ! nc
+    } ;
+
+ QuantityNP dec mu = {
+    s = \\rc => case mu.isPre of {
+      True => mu.s ++ dec.s ! NCard ;
+      False => dec.s ! NCard ++ mu.s
+      } ;
+    n = dec.n ; p = P3 ; isPron = False ; isDef = False
     } ;
 
  Use2N3 n3 = {

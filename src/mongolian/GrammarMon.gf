@@ -15,5 +15,5 @@ concrete GrammarMon of Grammar =
   StructuralMon,
   IdiomMon, 
   TenseMon,
-  NumeralTransferMon
+  NamesMon
   ** { flags  startcat = Phr ; unlexer = text ; lexer = text ; coding=utf8 ; } ;

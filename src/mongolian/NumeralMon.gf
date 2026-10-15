@@ -8,7 +8,7 @@ lincat
  Digit = {s : Place => DForm => CardOrd => Str} ;
  Sub10 = {s : Place => DForm => CardOrd => Str ; n : Number} ;
  Sub100, Sub1000 = {s : Place => CardOrd => Str ; n : Number} ; 
- Sub1000000 = {s : CardOrd => Str; n : Number} ;
+ Sub1000000, Sub1000000000, Sub1000000000000 = {s : CardOrd => Str; n : Number} ;
 
 oper
  mkCardOrd : Str -> CardOrd => Str = \unit -> 
@@ -116,6 +116,7 @@ lin
     } ;
     
  pot1as2 n = n ;
+ pot21 = {s = \\_,co => mkCardOrd "нэг зуу" ! co ; n = Pl} ;
  pot2 d = {
     s = \\p => d.s ! p ! Hundred  ; n = Pl
     } ;
@@ -135,6 +136,23 @@ lin
  pot3plus n m = {
     s = \\co => n.s ! Attr ! NCard ++ "мянга" ++ m.s ! Indep ! co ; n = Pl
     } ;
+
+ pot31 = {s = mkCardOrd "нэг мянга" ; n = Pl} ;
+ pot3as4 n = n ;
+ pot3decimal d = {s = \\co => d.s ! NCard ++ mkCardOrd "мянга" ! co ; n = Pl} ;
+ pot41 = {s = mkCardOrd "нэг сая" ; n = Pl} ;
+ pot4 n = {s = \\co => n.s ! Attr ! NCard ++ mkCardOrd "сая" ! co ; n = Pl} ;
+ pot4plus n m = {
+    s = \\co => n.s ! Attr ! NCard ++ "сая" ++ m.s ! NCard ; n = Pl
+    } ;
+ pot4as5 n = n ;
+ pot4decimal d = {s = \\co => d.s ! NCard ++ mkCardOrd "сая" ! co ; n = Pl} ;
+ pot51 = {s = mkCardOrd "нэг тэрбум" ; n = Pl} ;
+ pot5 n = {s = \\co => n.s ! Attr ! NCard ++ mkCardOrd "тэрбум" ! co ; n = Pl} ;
+ pot5plus n m = {
+    s = \\co => n.s ! Attr ! NCard ++ "тэрбум" ++ m.s ! NCard ; n = Pl
+    } ;
+ pot5decimal d = {s = \\co => d.s ! NCard ++ mkCardOrd "тэрбум" ! co ; n = Pl} ;
 
 lincat 
  Dig = TDigit ;

@@ -32,7 +32,8 @@ lin
  every_Det = {
     s = "бүр" ;
 	sp = \\rc => (regN "бүр").s ! (SF Sg (toNCase rc Definite)) ; 
-    isNum, isPoss, isPre = False ;
+    n = Sg ;
+    isPre = False ;
 	isDef = True
     } ;  
  everybody_NP = mkNP "хүн бүр" Definite ;
@@ -41,7 +42,8 @@ lin
  few_Det = {
     s = "багагүй" ; 
     sp = \\rc => (regN "багагүй").s ! (SF Sg (toNCase rc Indefinite)) ; 
-    isNum, isPoss, isDef = False ;
+    n = Pl ;
+    isDef = False ;
     isPre = True
     } ;
  for_Prep = noPrep Dat ; 
@@ -61,14 +63,15 @@ lin
  in8front_Prep = mkPrep Gen "урд" ; 
  in_Prep = noPrep Dat ; 
  it_Pron = mkPron "тэр" "түүний" "түүнд" "түүнийг" "түүнээс" "түүнээр" "түүнтэй" "түүн рүү" Sg P3 ;
- less_CAdv = lin CAdv {s = "бага" ; c2 = noPrep Abl} ;
+ less_CAdv = {s = "бага" ; c2 = noPrep Abl} ;
  many_Det = {
     s = "олон" ; 
     sp = \\rc => (regN "олон").s ! (SF Sg (toNCase rc Indefinite)) ; 
-    isNum, isPoss, isDef = False ;
+    n = Pl ;
+    isDef = False ;
     isPre = True
     } ; 
- more_CAdv = lin CAdv {s = "илүү" ; c2 = noPrep Abl};
+ more_CAdv = {s = "илүү" ; c2 = noPrep Abl};
  most_Predet = {
     s = "ихэнх" ; 
     isPre = True ;
@@ -77,7 +80,8 @@ lin
  much_Det = {
     s = "нилээд" ; 
     sp = \\rc => (regN "нилээд").s ! (SF Sg (toNCase rc Indefinite)) ; 
-    isNum, isPoss, isDef = False ; 
+    n = Sg ;
+    isDef = False ; 
     isPre = True
     } ;
  must_VV = verbToAux (regV ("хэрэгтэй байх")) ;
@@ -100,13 +104,15 @@ lin
  someSg_Det = {
     s = "зарим нэг" ; 
     sp = \\rc => (regN "зарим нэг").s ! (SF Sg (toNCase rc Indefinite)) ; 
-    isNum, isPoss, isDef = False ;
+    n = Sg ;
+    isDef = False ;
     isPre = True
     } ;
  somePl_Det = {
     s = "зарим" ; 
     sp = \\rc => (regN "зарим").s ! (SF Sg (toNCase rc Indefinite)) ; 
-    isNum, isPoss, isDef = False ;
+    n = Pl ;
+    isDef = False ;
     isPre = True
     } ;
  something_NP = mkNP "ямар нэгэн юм" Indefinite ;
@@ -124,7 +130,6 @@ lin
 		   } ;
         Pl => (regN "тэдгээр").s ! SF Sg nc 
 		};
-	isPoss = False ;
 	isDef = True
     } ;
  that_Subj = {s = [] ; isPre = True} ;
@@ -146,7 +151,6 @@ lin
 		   } ;
         Pl => (regN "эдгээр").s ! SF Sg nc 
 		} ;
-	isPoss = False ;
 	isDef = True
     } ;
  through_Prep = noPrep Inst ; 
@@ -158,11 +162,9 @@ lin
  we_Pron = mkPron "бид" "бидний" "бидэнд" "биднийг" "биднээс" "биднээр" "бидэнтэй" "бидэн рүү" Pl P1 ;
  whatPl_IP = {
     s = \\rc => (regN "юу").s ! SF Sg (toNCase rc Definite) ; 
-    n = Pl
     } ;
  whatSg_IP = {
     s = \\rc => (regN "юу").s ! SF Sg (toNCase rc Definite) ; 
-    n = Sg
     } ;
  when_IAdv = ss "хэзээ" ;
  when_Subj = {s = "хэрэв" ; isPre = True} ;
@@ -171,12 +173,10 @@ lin
     s = \\rc => (regN "ямар").s ! SF Sg (toNCase rc Definite)
     } ; 
  whoPl_IP = {
-    s = \\rc => (regN "хэн").s ! SF Sg (toNCase rc Definite) ; 
-    n = Pl
+    s = \\rc => (regN "хэн").s ! SF Sg (toNCase rc Definite)
     } ;
  whoSg_IP = {
-    s = \\rc => (regN "хэн").s ! SF Sg (toNCase rc Definite) ; 
-    n = Sg
+    s = \\rc => (regN "хэн").s ! SF Sg (toNCase rc Definite)
     } ;
  why_IAdv = ss "яагаад" ;
  with_Prep = noPrep Com ; 
@@ -188,7 +188,6 @@ lin
  no_Quant = {
     s = \\_ => "ямар ч" ;
     sp = \\_,nc => (regN "ямар ч").s ! SF Sg nc ;
-	isPoss = False ;
 	isDef = False
     } ;
  not_Predet = {
@@ -202,7 +201,7 @@ lin
  nobody_NP = mkNP "хэн ч" Definite ;
  nothing_NP = mkNP "юу ч" Definite ;
  except_Prep = mkPrep Abl "гадна" ;
- as_CAdv = lin CAdv {s = "шиг" ; c2 = noPrep Nom} ;
+ as_CAdv = {s = "шиг" ; c2 = noPrep Nom} ;
  have_V2 = mkV2 (mkV "байх") ;
 
  lin language_title_Utt = ss "Монгол" ;

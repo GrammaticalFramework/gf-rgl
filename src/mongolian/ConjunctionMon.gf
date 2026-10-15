@@ -37,7 +37,6 @@ lin
     n = conjNumber x.n y.n ; 
     p = conjPerson x.p y.p ; 
     isPron = andB x.isPron y.isPron ;
-	isDef = andB x.isDef y.isDef
     } ;
  BaseAP = twoSS ;
  ConsAP = consrSS comma ;
@@ -56,7 +55,7 @@ lincat
  [Adv],[AP],[IAdv] = {s1,s2 : Str} ;
  [S] = {s1,s2 : SType => Str} ;
  [RS] = {s1,s2 : ComplType => Str ; existSubject : Bool} ;
- [NP] = {s1,s2 : RCase => Str ; n : Number ; p : Person ; isPron : Bool ; isDef : Bool} ;
+ [NP] = {s1,s2 : RCase => Str ; n : Number ; p : Person ; isPron : Bool} ;
  [CN] = {s1,s2 : Number => NCase => Str} ;
  
 }

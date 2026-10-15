@@ -35,9 +35,23 @@ oper
     s = \\rc => (loanN pn).s ! (SF Sg (toNCase rc Definite)) 
     } ;
 
- mkLN : Str -> LN = \s -> lin LN {s=s} ;
- mkSN : Str -> SN = \s -> lin SN {s=s} ;
- mkGN : Str -> GN = \s -> lin GN {s=s} ;
+ nameForms : Str -> RCase => Str = \s -> case s of {
+    ["АЯУЮ"] + _ | (_ + ["аяую"] + _) |
+    ["ЁО"] + _ | (_ + ["ёо"] + _) |
+    "Ө" + _ | (_ + "ө" + _) |
+    ["ЭҮЕИ"] + _ | (_ + ["эүеи"] + _) =>
+      \\rc => (loanN s).s ! SF Sg (toNCase rc Definite) ;
+    _ => table {
+      Nom => s ; Gen => s ++ BIND ++ "ийн" ; Dat => s ++ BIND ++ "д" ;
+      Acc => s ++ BIND ++ "ийг" ; Abl => s ++ BIND ++ "ээс" ;
+      Inst => s ++ BIND ++ "ээр" ; Com => s ++ BIND ++ "тэй" ;
+      Dir => s ++ "рүү"
+      }
+    } ;
+
+ mkLN : Str -> LN = \s -> lin LN {s = nameForms s} ;
+ mkSN : Str -> SN = \s -> lin SN {s = nameForms s} ;
+ mkGN : Str -> GN = \s -> lin GN {s = nameForms s} ;
 
  modDecl : (Dcl -> Dcl) -> Str -> Noun = 
             \mod,nomSg -> mkDeclDrop (mod (chooseDcl nomSg)) nomSg ;

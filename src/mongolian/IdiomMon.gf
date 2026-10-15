@@ -35,9 +35,6 @@ lin
     vps = vp.s ! VPImper Pos False
    in {
     s = vps.fin ;
-    compl = vp.compl ;
-    adv = vp.adv ;
-    ext = vp.ext
     } ;
      
  ImpP3 np vp = 
