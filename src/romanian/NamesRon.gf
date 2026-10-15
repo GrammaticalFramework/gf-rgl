@@ -1,6 +1,6 @@
 concrete NamesRon of Names = CatRon ** open ResRon, Prelude in {
 
-lin GivenName, MaleSurname, FemaleSurname = \pn -> -- KA: guessed
+lin GivenName, MaleSurname, FemaleSurname, PlSurname = \pn -> -- KA: guessed
       let
         g = pn.g ;
         n = pn.n ;
@@ -45,5 +45,11 @@ lin UseLN pn = let
         isPronoun = False ; isPol = False;
         indForm = pn.s ! No
         } ;
+
+lin InLN ln = {s = "în" ++ ln.s ! No} ;
+    PlainLN ln = UseLN ln ;
+    AdjLN ap ln = ln ** {
+      s = \\c => ln.s ! c ++ ap.s ! AF ln.g ln.n Indef (convCase c)
+      } ;
 
 }

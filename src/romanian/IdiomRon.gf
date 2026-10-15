@@ -14,7 +14,10 @@ in {
     GenericCl vp = mkClause "cineva" False (agrP3 Masc Sg) vp ; -- an exact correspondent does not exist !
 
     ExistNP np = 
-      mkClause "" False np.a (insertSimpObj (\\ag => (np.s ! No ).comp) (useVerb (v_besch20 "existã"))) ;
+      mkClause "" False np.a (insertSimpObj (\\ag => (np.s ! No ).comp) (useVerb (v_besch20 "exista"))) ;
+    ExistNPAdv np adv =
+      mkClause "" False np.a
+        (insertAdv adv.s (insertSimpObj (\\_ => (np.s ! No).comp) (useVerb (v_besch20 "exista")))) ;
 -- v_besch20 "exista"
    
     ExistIP ip = {
@@ -37,7 +40,7 @@ in {
     ProgrVP vp = vp; -- for the moment, since there is no particular way to express continuous action, except for the imperfect, which wouldn't work for all tenses
 
     ImpPl1 vp = let a = {p = P1 ; n = Pl ; g = Masc} in
-      { s =  "sã"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos };
+      { s =  "să"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos };
 
 }
 

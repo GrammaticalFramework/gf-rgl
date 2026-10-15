@@ -87,25 +87,31 @@ concrete NounRon of Noun =
       ss = (np.s ! No).comp ++adv.s ;
       } ;
 
-    DetQuantOrd quant num ord = let n = num.n                                       
+    ExtAdvNP np adv = heavyNP {
+      s = \\c => (np.s ! c).comp ++ SOFT_BIND ++ "," ++ adv.s ;
+      a = np.a ;
+      hasClit = np.nForm ;
+      ss = (np.s ! No).comp ++ SOFT_BIND ++ "," ++ adv.s
+      } ;
+
+    DetQuantOrd quant num ord = let n = num.n
 in {
-      s = \\g,c => let s1 = if_then_Str quant.isDef (ord.s ! n ! g ! c) (ord.s ! n ! g ! No);
-                       s2 = if_then_Str quant.isPost "" (quant.s ! num.isNum ! n ! g  ! (convCase c) ++ s1) 
-                  
-                    in 
-                    s2 ++ num.s ! g  ;
-      sp = \\g,c => let 
-                        s1 = if_then_Str quant.isDef (ord.s ! n ! g ! c) (ord.s ! n ! g ! No) ;
-                        s3 = if_then_Str quant.isPost (s1 ++ num.sp ! g ++ quant.sp ! n ! g ! ANomAcc) (quant.sp ! n ! g ! (convCase c) ++ s1 ++ num.sp ! g) 
-                        
-                      in   
-                      s3 ; 
-      post = \\g,c => let s1 = ord.s ! n ! g ! No;
-                          s2 = if_then_Str quant.isPost (quant.s ! num.isNum ! n ! g  ! (convCase c) ++ s1) ""     
-                      in  
-                      s2    ;
+      s = \\g,c => let
+                      s1 = if_then_Str quant.isDef
+                             (ord.s ! n ! g ! c) (ord.s ! n ! g ! No) ;
+                      s2 = if_then_Str quant.isPost s1
+                             (quant.s ! num.isNum ! n ! g ! (convCase c) ++ s1)
+                    in s2 ++ num.s ! g ;
+      sp = \\g,c => let
+                       s1 = if_then_Str quant.isDef
+                              (ord.s ! n ! g ! c) (ord.s ! n ! g ! No)
+                     in if_then_Str quant.isPost
+                          (s1 ++ num.sp ! g ++ quant.sp ! n ! g ! (convCase c))
+                          (quant.sp ! n ! g ! (convCase c) ++ s1 ++ num.sp ! g) ;
+      post = \\g,c => if_then_Str quant.isPost
+                        (quant.sp ! n ! g ! (convCase c)) "" ;
       n = num.n ;
-      isDef = quant.hasRef;
+      isDef = False ;
       size = num.size;
       hasRef = quant.hasRef 
 
@@ -143,6 +149,12 @@ in {
         hasClit = HasClit ;
         ss = det.sp ! g ! No   
        } ;
+
+    DetDAP det = det ;
+    AdjDAP dap ap = dap ** {
+      s = \\g,c => dap.s ! g ! c ++ ap.s ! AF g dap.n Indef (convCase c) ;
+      sp = \\g,c => dap.sp ! g ! c ++ ap.s ! AF g dap.n Indef (convCase c)
+      } ;
 
 -- assume that it refers to people
 
@@ -191,6 +203,12 @@ in {
     OrdSuperl adj = {s = \\n,g,c => artDem g n (convCase c) ++ "mai" ++ adj.s ! AF g n Indef (convCase c);
                      isPre = True;
                      };
+
+    OrdNumeralSuperl numeral adj = {
+      s = \\n,g,c => numeral.s ! (convCase c) ! NOrd g ! Formal ++
+                      "cel mai" ++ adj.s ! AF g n Indef (convCase c) ;
+      isPre = True
+      } ;
 
     DefArt = {
       s = \\b,n,g,c => [] ;  
@@ -307,5 +325,31 @@ in {
       needsRefForm = cn.needsRefForm;
       isComp = True
       } ;
+
+    PossNP cn np = {
+      s = \\n,sp,c => cn.s ! n ! sp ! c ++
+                      if_then_Str cn.isComp (artPos (agrGender cn.g n) n c) "" ++
+                      (np.s ! Ge).comp ;
+      g = cn.g ; a = cn.a ; needsRefForm = cn.needsRefForm ; isComp = True
+      } ;
+
+    PartNP cn np = {
+      s = \\n,sp,c => cn.s ! n ! sp ! c ++ "de" ++ (np.s ! No).comp ;
+      g = cn.g ; a = cn.a ; needsRefForm = cn.needsRefForm ; isComp = True
+      } ;
+
+    CountNP det np = heavyNP {
+      s = \\c => det.s ! np.a.g ! c ++ "dintre" ++ (np.s ! c).comp ;
+      a = agrP3 np.a.g det.n ; hasClit = HasRef False ;
+      ss = det.s ! np.a.g ! No ++ "dintre" ++ np.indForm
+      } ;
+
+    QuantityNP decimal mu =
+      let s = case mu.isPre of {
+                True => mu.s ++ decimal.s ! NCard Masc ;
+                False => decimal.s ! NCard Masc ++ mu.s
+              }
+      in heavyNP {s = \\_ => s ; a = agrP3 Masc Sg ;
+                  hasClit = HasRef False ; ss = s} ;
 
 }; 

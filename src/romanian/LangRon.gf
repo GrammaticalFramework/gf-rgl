@@ -4,6 +4,7 @@
 concrete LangRon of Lang = 
   GrammarRon,
   LexiconRon
+  , ConstructionRon --# notpresent
   , DocumentationRon --# notpresent
   ** {
 

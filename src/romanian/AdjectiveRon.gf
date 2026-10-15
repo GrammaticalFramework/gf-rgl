@@ -59,6 +59,11 @@ concrete AdjectiveRon of Adjective =
       isPre = ap.isPre
       } ;
 
+    AdvAP ap adv = {
+      s = \\a => ap.s ! a ++ adv.s ;
+      isPre = False
+      } ;
+
     UseA2 a = {
       s = a.s ;
       isPre = False 

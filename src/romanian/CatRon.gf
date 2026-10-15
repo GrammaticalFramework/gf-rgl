@@ -1,5 +1,5 @@
 --# -path=.:../Romance:../common:../abstract:../common:prelude
---# -coding=latin1
+--# -coding=utf8
 
 concrete CatRon of Cat =
   CommonX - [CAdv,Temp,Tense] 
@@ -65,6 +65,10 @@ concrete CatRon of Cat =
               sp : Gender => NCase => Str ;   
               size : Str ; --because of the numerals
               hasRef : Bool };
+
+   DAP = {s : Gender => NCase => Str ; n : Number ;
+          isDef : Bool ; post : Gender => NCase => Str ;
+          sp : Gender => NCase => Str ; size : Str ; hasRef : Bool} ;
               
    Predet  = {s : AAgr   => ACase => Str ; c : NCase} ;
    
@@ -162,8 +166,8 @@ oper
 
 --Conjuctions 
 
-conjThan  : Str  = "decât" ;
-conjThat  : Str = "cã" ;
+conjThan  : Str  = "decÃ¢t" ;
+conjThat  : Str = "cÄƒ" ;
 
 }
 

@@ -19,6 +19,11 @@ concrete ConjunctionRon of Conjunction =
     ConjAP conj ss = conjunctDistrTable AForm conj ss ** {
       isPre = ss.isPre
       } ;
+
+    ConjCN conj ss = {
+      s = \\n,sp,c => conj.s1 ++ ss.s1 ! n ! sp ! c ++ conj.s2 ++ ss.s2 ! n ! sp ! c ;
+      g = ss.g ; a = ss.a ; needsRefForm = ss.needsRefForm ; isComp = True
+      } ;
   
   ConjRS conj ss = conjunctDistrTable2 Mood Agr conj ss ** {
       c = ss.c
@@ -53,11 +58,23 @@ concrete ConjunctionRon of Conjunction =
     BaseRS x y = twoTable2 Mood Agr x y ** {c = y.c} ;
    ConsRS xs x = consrTable2 Mood Agr comma xs x ** {c = xs.c} ;
 
+    BaseCN x y = {
+      s1 = x.s ; s2 = y.s ; g = x.g ; a = x.a ;
+      needsRefForm = orB x.needsRefForm y.needsRefForm
+      } ;
+    ConsCN x xs = {
+      s1 = \\n,sp,c => x.s ! n ! sp ! c ++ comma ++ xs.s1 ! n ! sp ! c ;
+      s2 = xs.s2 ; g = x.g ; a = x.a ;
+      needsRefForm = orB x.needsRefForm xs.needsRefForm
+      } ;
+
   lincat
      [S] = {s1,s2 : Mood => Str} ;
     [Adv] = {s1,s2 : Str} ;
     [NP] = {s1,s2 : NCase => Str ; a : Agr; nForm : NForm} ;
     [AP] = {s1,s2 : AForm  => Str ; isPre : Bool} ;
     [RS] = {s1,s2 : Mood => Agr => Str ; c : NCase} ;
+    [CN] = {s1,s2 : Number => Species => ACase => Str ;
+            g : NGender ; a : Animacy ; needsRefForm : Bool} ;
  
 };

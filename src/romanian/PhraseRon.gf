@@ -17,7 +17,7 @@
     UttIAdv iadv = iadv ;
     UttNP np = {s = (np.s ! No).comp} ;
     UttVP vp = let a = agrP3 Masc Sg in 
-          {s = "sã"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos} ; 
+          {s = "să"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos} ;
     UttAdv adv = adv ;
     UttCN cn = {s = cn.s ! Sg ! Indef ! ANomAcc} ;
     UttAP ap = {s = ap.s ! AF Masc Sg Indef ANomAcc} ;

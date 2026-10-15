@@ -375,6 +375,10 @@ oper
                Imperative => mma 
                }}; 
 
+ bindAfterHyphen : Str -> Str = \s -> s ++ BIND ;
+
+ bindBeforeHyphen : Str -> Str = \s -> BIND ++ s ;
+
  genCliticsCase : Agr -> NCase -> {s : Clitics => Str} = \agr, c ->
    case c of 
      {Da => cliticsDa agr.g agr.n agr.p ;
@@ -384,29 +388,29 @@ oper
 
  aRefl : Agr -> RAgr =  \a -> 
    case <a.g,a.n,a.p> of
-     {<_,_,P3> => {s = (genClit "se" "s-" "se" "").s } ;
+     {<_,_,P3> => {s = (genClit "se" (bindAfterHyphen "s-") "se" "").s } ;
       _ => {s = (cliticsAc a.g a.n a.p).s }
      };
 
  dRefl : Agr -> RAgr = \a -> 
    case <a.g,a.n,a.p> of
-    {<_,_,P3> => {s = (genClit "îşi" "-şi" "şi" "").s } ;
+    {<_,_,P3> => {s = (genClit "îşi" (bindBeforeHyphen "-şi") "şi" "").s } ;
      _ => {s = (cliticsDa a.g a.n a.p).s }
     };
 
  cliticsAc : Gender -> Number -> Person -> {s: Clitics => Str} = \g,n,p -> 
    case <g,n,p> of
-    {<_,Sg,P1> => genClit "mă" "m-" "mă" "-mă"; <_,Pl,P1> => genClit "ne" "ne-" "ne" "-ne"; 
-     <_,Sg,P2> => genClit "te" "te-" "te" "-te"; <_,Pl,P2> => genClit "vă" "v-" "vă" "-vă";
-     <Masc,Sg,P3> => genClit "îl" "l-" "-l" "-l"; <Masc,Pl,P3> => genClit "îi" "i-" "-i" "-i";
-     <Fem,Sg,P3> => genClit "o" "-o" "-o" "-o"; <Fem,Pl,P3> => genClit "le" "le-" "le" "-le" 
+    {<_,Sg,P1> => genClit "mă" (bindAfterHyphen "m-") "mă" (bindBeforeHyphen "-mă"); <_,Pl,P1> => genClit "ne" (bindAfterHyphen "ne-") "ne" (bindBeforeHyphen "-ne");
+     <_,Sg,P2> => genClit "te" (bindAfterHyphen "te-") "te" (bindBeforeHyphen "-te"); <_,Pl,P2> => genClit "vă" (bindAfterHyphen "v-") "vă" (bindBeforeHyphen "-vă");
+     <Masc,Sg,P3> => genClit "îl" (bindAfterHyphen "l-") (bindBeforeHyphen "-l") (bindBeforeHyphen "-l"); <Masc,Pl,P3> => genClit "îi" (bindAfterHyphen "i-") (bindBeforeHyphen "-i") (bindBeforeHyphen "-i");
+     <Fem,Sg,P3> => genClit "o" (bindBeforeHyphen "-o") (bindBeforeHyphen "-o") (bindBeforeHyphen "-o"); <Fem,Pl,P3> => genClit "le" (bindAfterHyphen "le-") "le" (bindBeforeHyphen "-le")
     };
 
  cliticsDa : Gender -> Number -> Person -> {s : Clitics => Str} = \g,n,p -> 
    case <g,n,p> of
-    {<_,Sg,P1> => genClit "îmi" "mi-" "mi" "-mi"; <_,Pl,P1> => genClit "ne" "ne-" "ni" "-ne"; 
-     <_,Sg,P2> => genClit "îţi" "ţi-" "ţi" "-ţi"; <_,Pl,P2> => genClit "vă" "v-" "vi" "-vă";
-     <_,Sg,P3> => genClit "îi" "i-" "i" "-i"; <_,Pl,P3> => genClit "le" "le-" "li" "-le"
+    {<_,Sg,P1> => genClit "îmi" (bindAfterHyphen "mi-") "mi" (bindBeforeHyphen "-mi"); <_,Pl,P1> => genClit "ne" (bindAfterHyphen "ne-") "ni" (bindBeforeHyphen "-ne");
+     <_,Sg,P2> => genClit "îţi" (bindAfterHyphen "ţi-") "ţi" (bindBeforeHyphen "-ţi"); <_,Pl,P2> => genClit "vă" (bindAfterHyphen "v-") "vi" (bindBeforeHyphen "-vă");
+     <_,Sg,P3> => genClit "îi" (bindAfterHyphen "i-") "i" (bindBeforeHyphen "-i"); <_,Pl,P3> => genClit "le" (bindAfterHyphen "le-") "li" (bindBeforeHyphen "-le")
     };
 
      
