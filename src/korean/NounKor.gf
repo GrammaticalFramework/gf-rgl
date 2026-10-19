@@ -20,6 +20,13 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
        in case isNum det of {
             True  => cn.rs ++ cns ++ detnum ;
             False => cn.rs ++ detnum ++ cns }
+    ; p = case isNum det of {
+        True => cn.c.p ;
+        False => case det.n of {
+          Pl => Consonant ;
+          Sg => cn.p
+          }
+        }
     } ;
 
   -- : PN -> NP ;
@@ -30,13 +37,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s =
-    let sakwa = np.s ! Bare ;
-        man = predet.s ! np.p ;
-        un = table {Vowel => "는"; Consonant => "은"} ! predet.p
-    in table { -- TODO: do particles combine?
-         Topic => glue (glue sakwa man) un ;
-         _     => glue sakwa man
-       }
+    \\nf => predet.s ! np.p ++ np.s ! nf
     } ;
 
 -- A noun phrase can also be postmodified by the past participle of a
@@ -52,8 +53,7 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     s = \\nf => adv.s ++ np.s ! nf
     } ; -- TODO test
 
-   -- : NP -> Adv -> NP ;    -- boys, such as ..
-  -- ExtAdvNP np adv = np ** {} ;
+  ExtAdvNP np adv = np ** {s = \\nf => adv.s ++ np.s ! nf} ;
 
   -- : NP -> RS -> NP ;    -- Paris, which is here
   -- RelNP np rs = np ** {
@@ -65,6 +65,11 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   DetNP det = det ** {
     s = det.sp ;
     c = baseCounter
+    } ;
+
+  QuantityNP dec unit = {
+    s = \\_ => dec.s ! NCard ++ unit.s ;
+    p = Consonant
     } ;
 
   -- MassNP : CN -> NP ;
@@ -83,9 +88,11 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
     } ;
 
   -- : Quant -> Num -> Ord -> Det ;  -- these five best
-  -- DetQuantOrd quant num ord =
-  --   let theseFive = DetQuant quant num in theseFive ** {
-  --     } ;
+  DetQuantOrd quant num ord =
+    let det = DetQuant quant num in det ** {
+      s = \\origin => det.s ! origin ++ ord.s ! VAttr Pos ;
+      sp = \\nf => ord.s ! VAttr Pos ++ det.sp ! nf
+      } ;
 
 -- Whether the resulting determiner is singular or plural depends on the
 -- cardinal.
@@ -116,17 +123,20 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   -- : Numeral -> Card ;
   NumNumeral num = num ;
 
-{-
   -- : AdN -> Card -> Card ;
-  AdNum adn card = card ** { s = adn.s ++ card.s } ;
+  AdNum adn card = card ** {s = \\o,f => adn.s ++ card.s ! o ! f} ;
 
   -- : Digits  -> Ord ;
-  OrdDigits digs = digs ** { s = digs.s ! NOrd } ;
--}
+  OrdDigits digs = do_A ** {
+    s = \\_ => digs.s ! NOrd ;
+    n = digs.n
+    } ;
+
   -- : Numeral -> Ord ;
-  -- OrdNumeral num = num ** {
-  --   s = \\_ => num.ord
-  --   } ;
+  OrdNumeral num = do_A ** {
+    s = \\_ => num.ord ;
+    n = num.n
+    } ;
 
   -- : A       -> Ord ;
   OrdSuperl a = a ** {
@@ -153,7 +163,9 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
   UseN,UseN2 = ResKor.useN ;
 
   -- : N2 -> NP -> CN ;
-  -- ComplN2 n2 np =
+  ComplN2 n2 np = useN n2 ** {
+    rs = (prepNP Bare n2.p2 np).s
+    } ;
 
   -- : N3 -> NP -> N2 ;    -- distance from this city (to Paris)
   -- ComplN3 n3 np =
@@ -202,28 +214,29 @@ concrete NounKor of Noun = CatKor ** open ResKor, Prelude in {
 --2 Possessive and partitive constructs
 
   -- : PossNP  : CN -> NP -> CN ;
-  -- PossNP cn np = cn ** {
-  --   } ;
+  PossNP cn np = cn ** {
+    rs = glue (np.s ! Bare) "의" ++ cn.rs
+    } ;
 
   -- : CN -> NP -> CN ;     -- glass of wine / two kilos of red apples
-  -- PartNP cn np = cn ** {
-  --   } ;
-
-{-
+  PartNP cn np = cn ** {
+    rs = np.s ! Bare ++ cn.rs
+    } ;
 
 -- This is different from the partitive, as shown by many languages.
 
   -- : Det -> NP -> NP ;
   CountNP det np = np **
-    { } ; -- Nonsense for DefArt or IndefArt
+    {s = \\nf => det.s ! NK ++ np.s ! nf} ; -- Nonsense for DefArt or IndefArt
 
 --3 Conjoinable determiners and ones with adjectives
 
   -- : DAP -> AP -> DAP ;    -- the large (one)
-  AdjDAP dap ap = dap ** { } ;
+  AdjDAP dap ap = dap ** {
+    sp = \\nf => ap.compar ++ ap.s ! VAttr Pos ++ dap.sp ! nf
+    } ;
 
   -- : Det -> DAP ;          -- this (or that)
   DetDAP det = det ;
--}
 
 }

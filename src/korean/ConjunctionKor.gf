@@ -106,15 +106,20 @@ oper
        False => glue (ap.s ! VStem Neg) (conjTable ! VStar ! conj ! ap.pNeg)
     } ;
 
-{-
 lincat
-  [CN] = { } ;
+  [CN] = ResKor.CNoun ** {firstCN : ConjType => Str} ;
 
 lin
-  BaseCN = {} ;
-  ConsCN = {} ;
-  ConjCN co cs = conjunctDistrTable Agr co cs ** cs ;
+  BaseCN x y = y ** {firstCN = \\c => glue (x.rs ++ x.s ! Bare)
+    (conjTable ! NStar ! c ! x.p)} ;
+  ConsCN x xs = xs ** {firstCN = \\c => glue (x.rs ++ x.s ! Bare)
+    (conjTable ! NStar ! c ! x.p) ++ xs.firstCN ! c} ;
+  ConjCN co xs = xs ** {
+    s = \\nf => co.s1 ++ xs.firstCN ! co.c ++ xs.rs ++ xs.s ! nf ;
+    rs = []
+    } ;
 
+{-
 lincat
   [DAP] =
 

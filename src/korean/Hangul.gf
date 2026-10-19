@@ -20,6 +20,9 @@ oper
 
       addSuffix : Str -> Str = \stem ->
         case stem of {
+          -- 하다 and all productive 하다 compounds contract 하+여 to 해.
+          start + "하" => start + "해" ;
+
           -- Final ㅏ or ㅓ does not repeat itself.
           _ + #a|#eo
               => stem ;

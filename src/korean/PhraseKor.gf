@@ -25,6 +25,6 @@ concrete PhraseKor of Phrase = CatKor ** open Prelude, ResKor in {
 --    PConjConj conj = {s = conj.s1 ++ conj.s2 ! …} ;
 
     NoVoc = {s = []} ;
---    VocNP np = { s = "," ++ np.s ! … } ; -}
+    VocNP np = {s = SOFT_BIND ++ "," ++ np.s ! Bare} ;
 
 }

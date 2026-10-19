@@ -47,7 +47,14 @@ lin
   -- : Symb -> Ord ;
   SymbOrd sy =
     let comp : Comp = VK.CompAdv (lin Adv sy)
-     in {s = comp.s ; n = Pl ; p,pNeg = Vowel} ;
+     in {
+       s = comp.s ;
+       past = comp.past ;
+       pastAttr = comp.pastAttr ;
+       futureAttr = comp.futureAttr ;
+       n = Pl ;
+       p,pNeg = Vowel
+       } ;
 
 lincat
   Symb, [Symb] = SS ;

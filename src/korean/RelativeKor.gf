@@ -6,12 +6,12 @@ lin
   RelCl = relSlash (ss "") ;
 
   -- : RP -> VP -> RCl ;
-  RelVP rp vp = vp ** { -- TODO no tenses yet in the grammar
+  RelVP rp vp = vp ** {
     s = \\t,a,p,cltyp =>
-           rp.s ++ vp.adv ++ vp.nObj ! DeclObj ++
-           case cltyp of {
-             WithConj => vp.s ! VStem p ;
-             _        => vp.s ! VAttr p } ;
+           rp.s ++ vp.nObj ! DeclObj ++ vp.adv ++
+           tenseVP t a cltyp p (vp ** {
+             nObj = \\_ => [] ; adv = []
+           }) ;
     } ;
 
   -- : RP -> ClSlash -> RCl ; -- whom John loves

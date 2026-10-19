@@ -5,17 +5,20 @@ resource ResKor = ParamKor ** open Prelude, Predef, ParamKor in {
 oper
   Counter : Type = {
     s : Str ;
-    origin : NumOrigin
+    origin : NumOrigin ;
+    p : Phono
     } ;
 
   baseCounter : Counter = {
     s = "개" ;
-    origin = NK
+    origin = NK ;
+    p = Vowel
     } ;
 
   mkCounter : Str -> NumOrigin -> Counter = \s,o -> baseCounter ** {
     s = s ;
     origin = o ;
+    p = if_then_else Phono (vowFinal s) Vowel Consonant ;
     } ;
 
   BaseNoun : Type = {
@@ -26,7 +29,7 @@ oper
   Noun : Type =  BaseNoun ** {
     c : Counter ;
     } ;
-  Noun2 : Type = Noun ; -- TODO eventually more parameters?
+  Noun2 : Type = Noun ** {p2 : Postposition} ;
   Noun3 : Type = Noun ;
 
   CNoun : Type = Noun ** {
@@ -145,6 +148,7 @@ oper
   Adjective : Type = {
     s : VForm => Str ; -- Adjectives are verbs
     p, pNeg : Phono ; -- needed for attaching conjunction
+    past, pastAttr, futureAttr : Polarity => Str ;
     } ;
   Adjective2 : Type = Adjective ** {c2 : NForm ; p2 : Postposition} ;
 
@@ -172,6 +176,7 @@ oper
   BaseVerb : Type = {
     sc : NForm ; -- subject case
     p, pNeg : Phono ; -- needed for attaching conjunction
+    past, pastAttr, futureAttr : Polarity => Str ;
     } ;
   Verb : Type = BaseVerb ** {
     s : VForm => Str ;
@@ -206,7 +211,7 @@ oper
         planeg  = neg ++ negForms ! Plain ;
         polneg  = neg ++ negForms ! Polite ;
         formneg = neg ++ negForms ! Formal ;
-        impneg = neg ++ "마새요" ;
+        impneg = neg ++ "마세요" ;
      in mkVerbFull stem attrpos attrneg plain polite formal planeg polneg formneg impneg ;
 
   mkVerbFull : (x1,_,_,_,_,_,_,_,_,x10 : Str) -> Verb =
@@ -225,6 +230,18 @@ oper
         VImpNeg => impneg
       } ;
       sc   = Subject ;
+      past = table {
+        Pos => pastBase stem ;
+        Neg => pastBase (init planeg)
+        } ;
+      pastAttr = table {
+        Pos => add_N stem ;
+        Neg => add_N (init planeg)
+        } ;
+      futureAttr = table {
+        Pos => futureAttrForm stem ;
+        Neg => futureAttrForm (init planeg)
+        } ;
       p    = if_then_else Phono (vowFinal stem)          Vowel Consonant ;
       pNeg = if_then_else Phono (vowFinal (init planeg)) Vowel Consonant ;
     } ;
@@ -239,14 +256,17 @@ oper
     "아니다"
     "아니에요"
     "아닙니다"
-    "있지마세요" ;
+    "있지 마세요" ;
 
   copulaAfterVowel : Verb = copula ** {
     s = \\vf => case vf of {
                   VAttr Pos     => "는" ; -- TODO just guessing
                   VF Plain Pos  => "다" ;
                   VF Polite Pos => "예요" ;
-                  _ => copula.s ! vf }
+                  _ => copula.s ! vf } ;
+    past = table {Pos => "였" ; Neg => copula.past ! Neg} ;
+    pastAttr = table {Pos => "였던" ; Neg => copula.pastAttr ! Neg} ;
+    futureAttr = table {Pos => "일" ; Neg => copula.futureAttr ! Neg}
   } ;
 
   have_V : Verb = mkVerbFull
@@ -259,7 +279,7 @@ oper
     "없다"
     "없어요"
     "없습니다"
-    "없지 마새요" ;
+    "없지 마세요" ;
 
   -- For building an adjective. Different attr from do_V.
   do_A : Verb = mkVerbReg
@@ -312,10 +332,12 @@ oper
 
   Complement : Type = {
     s : VForm => Str ;
+    past, pastAttr, futureAttr : Polarity => Str ;
     } ;
 
   emptyComp : Complement = {
     s = \\_ => [] ;
+    past, pastAttr, futureAttr = \\_ => [] ;
   } ;
 
   BaseVP : Type = {
@@ -371,15 +393,75 @@ oper
     let npstr : Str = np.s ! vp.sc in predVP' npstr vp ;
 
   predVP' : (np : Str) -> VerbPhrase -> ClSlash = \np,vp -> vp ** {
-    s = \\t,a,p,cltyp =>
-           let vf = case cltyp of {
-                      Subord   => VAttr p ;
-                      WithConj => VStem p ;
-                      Statement st => VF st p } -- TODO: more tenses
-            in np
+    s = \\t,a,p,cltyp => np
             ++ vp.nObj ! DeclObj -- an object, not copula complement
             ++ vp.adv
-            ++ vp.s ! vf
+            ++ tenseVP t a cltyp p vp
+    } ;
+
+  -- Korean marks tense on the final predicate.  Deriving the marked forms
+  -- here also makes tense work for VPs assembled from auxiliaries.
+  tenseVP : Tense -> Anteriority -> ClType -> Polarity -> VerbPhrase -> Str =
+    \t,a,ct,p,vp ->
+      let stem = vp.s ! VStem p in
+      case <ct,t,a> of {
+        <Statement st,Pres,Simul> => vp.s ! VF st p ;
+        <Statement st,Fut,Simul>  => finishFinite st (glue stem "겠") ;
+        <Statement st,Cond,Simul> => conditional st (vp.past ! p) ;
+        <Statement st,_,_>        => finishFinite st (vp.past ! p) ;
+
+        <Subord,Pres,Simul> => vp.s ! VAttr p ;
+        <Subord,Fut,Simul>  => vp.futureAttr ! p ;
+        <Subord,Cond,Simul> => glue (vp.past ! p) "을" ;
+        <Subord,_,_>        => vp.pastAttr ! p ;
+
+        <WithConj,Pres,Simul> => stem ;
+        <WithConj,Fut,Simul>  => glue stem "겠" ;
+        <WithConj,Cond,Simul> => vp.past ! p ;
+        <WithConj,_,_>        => vp.past ! p
+      } ;
+
+  finishFinite : Style -> Str -> Str = \st,base -> case st of {
+    Formal => glue base "습니다" ;
+    Polite => glue base "어요" ;
+    Plain  => glue base "다"
+    } ;
+
+  conditional : Style -> Str -> Str = \st,base -> case st of {
+    Formal => base ++ "을 것입니다" ;
+    Polite => base ++ "을 거예요" ;
+    Plain  => base ++ "을 것이다"
+    } ;
+
+  -- Past -았/었- contracts after the common vowel-final stems.  Consonant
+  -- stems only need the harmony-sensitive suffix and cover most regular
+  -- Korean verbs; 하다 compounds are by far the largest lexical class.
+  pastBase : Str -> Str = \stem -> case stem of {
+    x + "하" => x + "했" ;
+    x + "가" => x + "갔" ; x + "나" => x + "났" ;
+    x + "오" => x + "왔" ; x + "보" => x + "봤" ;
+    x + "주" => x + "줬" ; x + "두" => x + "뒀" ;
+    x + "되" => x + "됐" ; x + "돼" => x + "됐" ;
+    x + "서" => x + "섰" ; x + "자" => x + "잤" ;
+    x + "사" => x + "샀" ; x + "차" => x + "찼" ;
+    x + "켜" => x + "켰" ; x + "펴" => x + "폈" ;
+    x + "여" => x + "였" ; x + "해" => x + "했" ;
+    _ => case vowFinal stem of {
+      -- The uncontracted form (e.g. 버리었습니다, 추었습니다) is
+      -- grammatical and avoids producing duplicated *-어었습니다.
+      True  => stem + "었" ;
+      False => case stem of {
+        _ + #a_o => stem + "았" ;
+        _        => stem + "었"
+      }
+    } } ;
+
+  futureAttrForm : Str -> Str = \stem -> case stem of {
+    x + "가" => x + "갈" ; x + "나" => x + "날" ;
+    x + "오" => x + "올" ; x + "보" => x + "볼" ;
+    x + "주" => x + "줄" ; x + "하" => x + "할" ;
+    x + "되" => x + "될" ; x + "서" => x + "설" ;
+    _ => stem + "을"
     } ;
 
 --------------------------------------------------------------------------------
