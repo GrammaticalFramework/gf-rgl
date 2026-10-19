@@ -146,7 +146,7 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
         Or                => conj.null ++ dap.spOr ! st 
         } ;
       no = dap.no ; 
-      tenPlus = dap.tenPlus
+      numType = dap.numType
       } ;
   
     BaseS x y = {
@@ -426,10 +426,11 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
         <False, False> => False ;
         _ => True
         } ; 
-      tenPlus = case <x.tenPlus, y.tenPlus> of {
-        <False, False> => False ;
-        _ => True
-        } 
+      numType = case <x.numType, y.numType> of {
+        <Small, Small> => Small ;
+        <NoCard,NoCard> => NoCard ;
+        _ => TenPlus
+        }
       } ;
 
     ConsDAP x xs = {
@@ -442,20 +443,17 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
         <Sg, Sg> => Sg ;
         _ => Pl
         } ; 
-      inclCard = case <x.inclCard, xs.inclCard> of {
-        <False, False> => False ;
-        _ => True
-        } ; 
       spAnd = \\st => x.sp ! st ++ "と" ++ xs.spAnd ! st ;
       spOr = \\st => x.sp ! st ++ "か" ++ xs.spOr ! st ;
       no = case <x.no, xs.no> of {
         <False, False> => False ;
         _ => True
         } ; 
-      tenPlus = case <x.tenPlus, xs.tenPlus> of {
-        <False, False> => False ;
-        _ => True
-        } 
+      numType = case <x.numType, xs.numType> of {
+                  <NoCard,NoCard> => NoCard ;
+                  <Small, Small>  => Small ;
+                  _               => TenPlus
+                }
       } ;
 
   lincat
@@ -487,6 +485,6 @@ concrete ConjunctionJpn of Conjunction = CatJpn ** open ResJpn, Prelude in {
             hasAttr : Bool ; counterTsu : Bool} ;
 
     [DAP] = {quantAnd, quantOr : Style => Str ; numAnd, numOr : Str ; 
-             postpositive : Str ; n : Number ; inclCard : Bool ; 
-             spAnd, spOr : Style => Str ; no : Bool ; tenPlus : Bool} ;
+             postpositive : Str ; n : Number ;
+             spAnd, spOr : Style => Str ; no : Bool ; numType : NumType} ;
 }

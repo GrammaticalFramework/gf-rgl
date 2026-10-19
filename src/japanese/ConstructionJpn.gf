@@ -1,5 +1,5 @@
 concrete ConstructionJpn of Construction = CatJpn **
-  open SyntaxJpn, ParadigmsJpn, (R=ResJpn), (L = LexiconJpn), SymbolicJpn in {
+  open SyntaxJpn, ParadigmsJpn, (R=ResJpn), (L = LexiconJpn), SymbolicJpn, Prelude in {
 
 lin
   hungry_VP = mkVP (mkV "お腹が空いている" R.Gr1) ;
@@ -8,6 +8,28 @@ lin
   scared_VP = mkVP (mkA "怖い") ;
   ill_VP = mkVP (mkA "病気の") ;
   ready_VP = mkVP L.ready_A ;
+  has_age_VP card = mkVP (mkNP (mkN (card.s ++ "歳"))) ;
+
+  cup_of_CN np = lin CN (mkN "カップ") ** {
+    object = \\st => np.prepositive ! st ++ np.s ! st ++ "の" ;
+    prepositive = \\st => [] ;
+    hasAttr = False
+    } ;
+
+  n_units_of_NP card unit np = np ** {
+    s = \\st => card.s ++ unit.s ! R.Sg ! st ++ "の" ++ np.s ! st
+    } ;
+
+  n_units_AP card unit adj = {
+    pred = \\st,t,p => card.s ++ unit.s ! R.Sg ! st ++ adj.pred ! st ! t ! p ;
+    attr = \\st => card.s ++ unit.s ! R.Sg ! st ++ adj.attr ;
+    te = \\st,p => card.s ++ unit.s ! R.Sg ! st ++ adj.te ! p ;
+    ba = \\st,p => card.s ++ unit.s ! R.Sg ! st ++ adj.ba ! p ;
+    adv = \\st => card.s ++ unit.s ! R.Sg ! st ++ adj.adv ! R.Pos ;
+    dropNaEnging = \\st => card.s ++ unit.s ! R.Sg ! st ++ adj.dropNaEnging ;
+    prepositive = \\st => [] ;
+    needSubject = True
+    } ;
 
 
 lincat

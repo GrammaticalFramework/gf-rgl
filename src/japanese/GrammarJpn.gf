@@ -12,5 +12,6 @@ concrete GrammarJpn of Grammar =
   TextJpn,
   StructuralJpn,
   IdiomJpn,
-  TenseJpn 
+  TenseJpn,
+  NamesJpn
   ;

@@ -37,7 +37,7 @@ flags coding = utf8 ;
     here7to_Adv = R.mkAdv "ここに" ;
     here7from_Adv = R.mkAdv "ここから" ;
     how_IAdv = {s = \\st => "どのように" ; particle = "" ; wh8re = False} ;
-    how8many_IDet = {s = "いくつ" ; n = R.Pl ; how8many = True ; inclCard = False} ;
+    how8many_IDet = {s = "いくつ" ; n = R.Pl ; how8many = True ; numType = R.NoCard} ;
     how8much_IAdv = {s = \\st => "いくら" ; particle = "" ; wh8re = False} ;
     i_Pron = mkPron "私" "私" True R.Anim ;  -- "watashi"
     if_Subj = R.mkSubj "" R.If ;

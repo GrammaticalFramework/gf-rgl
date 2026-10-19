@@ -18,6 +18,7 @@ param
   SubjType    = That | If | OtherSubj ;
   VocType     = VocPres | Please | VocAbs ;
   UttType     = Imper | ImpPolite | NoImp ;
+  NumType     = NoCard | Small | TenPlus ;
 
 oper
 
@@ -39,9 +40,8 @@ oper
   Adverb      : Type = {s : Style => Str ; prepositive : Bool} ;
   Pronoun     : Type = {s : Style => Str ; Pron1Sg : Bool ; anim : Animateness} ;
   Determiner  : Type = {quant : Style => Str ; postpositive : Str ; num : Str ; n : Number ;
-                        inclCard : Bool ; sp : Style => Str ; no : Bool ; tenPlus : Bool} ;
-  Num         : Type = {s : Str ; postpositive : Str ; n : Number ; inclCard : Bool ;
-                        tenPlus : Bool} ;
+                        sp : Style => Str ; no : Bool ; numType : NumType} ;
+  Num         : Type = {s : Str ; postpositive : Str ; n : Number ; numType : NumType} ;
   Preposition : Type = {s : Str ; null : Str} ;
   Verb        : Type = {s : Style => TTense => Polarity => Str ; a_stem, i_stem : Str ;
                         te, ba : Polarity => Str ; needSubject : Bool} ;
@@ -83,7 +83,26 @@ oper
 
   regAdj : Str -> Adj = \a -> case a of {
     chiisa + "い"     => i_mkAdj a ;
-    _                 => na_mkAdj a --    ooki + ("な"|"の") => na_mkAdj a
+    stem + "された"   => VerbalA (stem + "されている") a ;
+    stem + "した"     => VerbalA (stem + "している") a ;
+    stem + "った"     => VerbalA (stem + "っている") a ;
+    stem + "いた"     => VerbalA (stem + "いている") a ;
+    stem + "いだ"     => VerbalA (stem + "いでいる") a ;
+    stem + "んだ"     => VerbalA (stem + "んでいる") a ;
+    stem + "れた"     => VerbalA (stem + "れている") a ;
+    stem + "けた"     => VerbalA (stem + "けている") a ;
+    stem + "げた"     => VerbalA (stem + "げている") a ;
+    stem + "せた"     => VerbalA (stem + "せている") a ;
+    stem + "ぜた"     => VerbalA (stem + "ぜている") a ;
+    stem + "てた"     => VerbalA (stem + "てている") a ;
+    stem + "でた"     => VerbalA (stem + "でている") a ;
+    stem + "ねた"     => VerbalA (stem + "ねている") a ;
+    stem + "べた"     => VerbalA (stem + "べている") a ;
+    stem + "めた"     => VerbalA (stem + "めている") a ;
+    stem + "た"       => VerbalA (stem + "ている") a ;
+    stem + "できる"   => VerbalA a a ;
+    _ + ("いる"|"ある"|"する"|"来る") => VerbalA a a ;
+    _                 => na_mkAdj a
     } ;
 
   i_mkAdj : Str -> Adj = \chiisai ->
@@ -130,20 +149,23 @@ oper
 
   na_mkAdj : Str -> Adj = \ookina ->
     let
-      ooki = init ookina
+      forms = case ookina of {
+        stem + ("な"|"の") => {root = stem ; attr = ookina} ;
+        _ => {root = ookina ; attr = ookina + "な"}
+        }
     in {
-    pred = \\st,t,p => ooki ++ mkCopula.s ! st ! t ! p ;
-    attr = ookina ;
+    pred = \\st,t,p => forms.root ++ mkCopula.s ! st ! t ! p ;
+    attr = forms.attr ;
     te = table {
-      Pos => ooki + "で" ;
-      Neg => ooki + "ではなくて"
+      Pos => forms.root + "で" ;
+      Neg => forms.root + "ではなくて"
       } ;
-    ba = \\p => ooki ++ mkCopula.ba ! p ;
+    ba = \\p => forms.root ++ mkCopula.ba ! p ;
     adv = table {
-      Pos => ooki + "に" ;
-      Neg => ooki + "ではなく"
+      Pos => forms.root + "に" ;
+      Neg => forms.root + "ではなく"
       } ;
-    dropNaEnging = ooki
+    dropNaEnging = forms.root
     } ;
 
   -- Added by IL 2017-07. Used in NounJpn and SymbolJpn.
@@ -357,8 +379,7 @@ oper
           Suru => Predef.tk 2 yomu + "されなければ" ;
           Kuru => "来られなければ"
           }
-        } ;
-      needSubject = True
+        }
       } ;
 
   mkVerb3 : Str -> Str -> Str -> VerbGroup -> Verb3 =
@@ -581,7 +602,7 @@ oper
     postpositive = [] ;
     n = n ;
     inclCard = False ;
-    tenPlus = False
+    numType = Small
     } ;
 
   regPron : Str -> Bool -> Animateness -> Pronoun = \kare,b,a -> {
@@ -598,7 +619,7 @@ oper
     inclCard = False ;
     sp = \\st => sp ;
     no = False ;
-    tenPlus = False
+    numType = Small
     } ;
 
   stylePron : Str -> Str -> Bool -> Animateness -> Pronoun = \boku,watashi,b,a -> {

@@ -17,7 +17,7 @@ oper
 
   mkN = overload {
     mkN : (man : Str) -> N -- Inanimate noun. Counter is つ and doesn't replace the noun.
-      = \n -> lin N (regNoun n Inanim "つ" False True) ;  ---- AR 15/11/2014
+      = \n -> lin N (regNoun n Inanim "つ" False True) ;
     mkN : (man : Str) -> (anim : Animacy) -> N -- Animacy given as argument. Counter is つ and doesn't replace the noun.
       = \n,a -> lin N (regNoun n a "つ" False True) ;
     mkN : (kane,okane : Str) -> (anim : Animacy) -> N -- Style variation (plain, respectful) and animacy given. Counter is つ and doesn't replace the noun.
@@ -75,57 +75,92 @@ oper
       = \pred,attr,pr -> lin A2 (VerbalA pred attr) ** {prep = pr}
     } ;
 
+  mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
+
+  mkAdA : Str -> AdA = \s -> lin AdA {s = s} ;
+
+  mkAdN : Str -> AdN = \s -> lin AdN {s = s; postposition = False} ;
+
   mkV = overload {
     mkV : (yomu : Str) -> V -- Default: group 1 verb
-      = \yomu -> lin V (mkVerb yomu Gr1) ; ---- AR 15/11/2014
+      = \yomu -> lin V (mkVerb (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
     mkV : (yomu : Str) -> (group : VerbGroup) -> V
-      = \yomu,gr -> lin V (mkVerb yomu gr) ; -- Base form and verb group given
+      = \yomu,gr -> lin V (mkVerb (cleanVerb yomu) gr) ; -- Base form and verb group given
     } ;
 
   mkV2 = overload {
     mkV2 : (yomu : Str) -> V2 -- Group 1 verb, を as object marker
-        = \yomu -> lin V2 (mkVerb2 yomu "を" Gr1) ;   ---- AR 15/11/2014
+        = \yomu -> lin V2 (mkVerb2 (cleanVerb yomu) "を" (guessVerbGroup (cleanVerb yomu))) ;
     mkV2 : (yomu, prep : Str) -> (group : VerbGroup) -> V2 -- Base form, object marker and verb group given
-        = \yomu,p,gr -> lin V2 (mkVerb2 yomu p gr) ;
+        = \yomu,p,gr -> lin V2 (mkVerb2 (cleanVerb yomu) p gr) ;
     } ;
 
   mkV3 = overload {
     mkV3 : (yomu : Str) -> V3 -- Group 1 verb, に and を as object markers
-      = \yomu -> lin V3 (mkVerb3 yomu "に" "を" Gr1) ;
+      = \yomu -> lin V3 (mkVerb3 (cleanVerb yomu) "に" "を" (guessVerbGroup (cleanVerb yomu))) ;
     mkV3 : (uru, p1, p2 : Str) -> (group : VerbGroup) -> V3 -- Base form, object markers and verb group given
-      = \uru,p1,p2,gr -> lin V3 (mkVerb3 uru p1 p2 gr) ;
+      = \uru,p1,p2,gr -> lin V3 (mkVerb3 (cleanVerb uru) p1 p2 gr) ;
     } ;
 
   mkVS : (yomu : Str) -> VS
-    = \yomu -> lin VS (mkVerb2 yomu "ことを" Gr1) ;
+    = \yomu -> lin VS (mkVerb2 (cleanVerb yomu) "ことを" (guessVerbGroup (cleanVerb yomu))) ;
 
   mkVV : (yomu : Str) -> VV
-    = \yomu -> lin VV (mkVerbV yomu Gr1) ;
+    = \yomu -> lin VV (mkVerbV (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
 
   mkV2V : (yomu : Str) -> V2V
-    = \yomu -> lin V2V (mkVerb yomu Gr1) ;
+    = \yomu -> lin V2V (mkVerb (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
 
   mkV2S : (yomu : Str) -> V2S
-    = \yomu -> lin V2S (mkVerb yomu Gr1) ;
+    = \yomu -> lin V2S (mkVerb (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
 
   mkVQ : (yomu : Str) -> VQ
-    = \yomu -> lin VQ (mkVerb2 yomu "を" Gr1) ;
+    = \yomu -> lin VQ (mkVerb2 (cleanVerb yomu) "を" (guessVerbGroup (cleanVerb yomu))) ;
 
   mkVA : (yomu : Str) -> VA
-     = \yomu -> lin VA (mkVerb yomu Gr1) ;
+     = \yomu -> lin VA (mkVerb (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
 
   mkV2A : (yomu : Str) -> V2A
-    = \yomu -> lin V2A (mkVerb yomu Gr1) ;
+    = \yomu -> lin V2A (mkVerb (cleanVerb yomu) (guessVerbGroup (cleanVerb yomu))) ;
 
   mkAdv : Str -> Adv
-    = \s -> lin Adv (ResJpn.mkAdv s) ;   ---- AR 15/11/2014
+    = \s -> lin Adv (ResJpn.mkAdv (cleanLemma s)) ;
 
   mkPrep : Str -> Prep
-    = \s -> lin Prep (ResJpn.mkPrep s) ;   ---- AR 15/11/2014
+    = \s -> lin Prep (ResJpn.mkPrep (cleanLemma s)) ;
 
   mkDet : Str -> Det = \d -> lin Det (ResJpn.mkDet d d ResJpn.Sg) ;
 
   mkConj : Str -> Conj = \c -> lin Conj (ResJpn.mkConj c ResJpn.And) ;
+
+  guessVerbGroup : Str -> VerbGroup = \v -> case v of {
+    stem + "する" => Suru ;
+    stem + "来る" => Kuru ;
+    stem + "える" => Gr2 ; stem + "ける" => Gr2 ; stem + "げる" => Gr2 ;
+    stem + "せる" => Gr2 ; stem + "ぜる" => Gr2 ; stem + "てる" => Gr2 ;
+    stem + "でる" => Gr2 ; stem + "ねる" => Gr2 ; stem + "べる" => Gr2 ;
+    stem + "める" => Gr2 ; stem + "れる" => Gr2 ; stem + "いる" => Gr2 ;
+    stem + "きる" => Gr2 ; stem + "ぎる" => Gr2 ; stem + "じる" => Gr2 ;
+    stem + "ちる" => Gr2 ; stem + "にる" => Gr2 ; stem + "びる" => Gr2 ;
+    stem + "みる" => Gr2 ; stem + "りる" => Gr2 ;
+    stem + ("見る"|"得る"|"着る"|"出る"|"寝る"|"居る"|"似る"|"経る") => Gr2 ;
+    stem + "ずる" => Gr2 ;
+    _ => Gr1
+    } ;
+
+  cleanVerb : Str -> Str = \v -> case v of {
+    stem + "+する" => stem + "する" ;
+    stem + "ずる" => stem + "じる" ;
+    _ => cleanLemma v
+    } ;
+
+  cleanLemma : Str -> Str = \s -> case s of {
+    "..." + rest => rest ;
+    "…" + rest => rest ;
+    "〜" + rest => rest ;
+    "～" + rest => rest ;
+    _ => s
+    } ;
 
   mkInterj : Str -> Interj
     = \s -> lin Interj (ss s) ;
