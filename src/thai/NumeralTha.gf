@@ -44,14 +44,28 @@ lin
     s = \\n => thbind (d.s ! ModTen) (sip ! n) (e.s ! After) (phan ! n)
   } ;
   pot1as2 n = n ;
+  pot21 = {s = \\n => rooy_s} ;
   pot2 d = {s = \\n => thbind (d.s ! Indep) (roy ! n)} ;
   pot2plus d e = {s = \\n => thbind (d.s ! Indep) (roy ! n) (e.s ! n)} ;
   pot2as3 n = {s = n.s ! Unit} ;
+  pot31 = {s = thbind nvg_s phan_s} ;
   pot3 n = {s = n.s ! Thousand} ;
   pot3plus n m = {s = thbind (n.s ! Thousand) (m.s ! Unit)} ;
   pot3as4 n = n ;
 
+  pot3decimal d = {s = thbind d.s phan_s} ;
+
+  pot41 = {s = "ล้าน"} ;
+  pot4 n = {s = thbind (n.s ! Unit) "ล้าน"} ;
+  pot4plus n m = {s = thbind (n.s ! Unit) "ล้าน" m.s} ;
+
   pot4as5 n = n ;
+
+  pot4decimal d = {s = thbind d.s "ล้าน"} ;
+  pot51 = {s = thbind phan_s "ล้าน"} ;
+  pot5 n = {s = thbind (n.s ! Unit) phan_s "ล้าน"} ;
+  pot5plus n m = {s = thbind (n.s ! Unit) phan_s "ล้าน" m.s} ;
+  pot5decimal d = {s = thbind d.s phan_s "ล้าน"} ;
 
 param 
   DForm = Indep | ModTen | After ;
@@ -90,5 +104,7 @@ oper
     D_9 = ss "๙" ;
 
     PosDecimal d = d ** {hasDot=False} ;
+    NegDecimal d = {s = "-" ++ d.s ; hasDot = False} ;
+    IFrac d i = {s = d.s ++ "." ++ i.s ; hasDot = True} ;
 
 }

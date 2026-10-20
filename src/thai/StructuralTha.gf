@@ -7,8 +7,8 @@ concrete StructuralTha of Structural = CatTha **
   above_Prep = ss (thword "ข้าง" "บน") ;
   after_Prep = ss (thword "หลัง" "จาก") ;
   all_Predet = {s1 = thword "ทั้ง" "หมด" ; s2 = []} ;
-  almost_AdA, almost_AdN = ss (thword "เกิ" "อบ") ;
-  although_Subj = ss "ถืง" ;
+  almost_AdA, almost_AdN = ss "เกือบ" ;
+  although_Subj = ss "ถึงแม้ว่า" ;
   always_AdV = ss (thword "เส" "มอ") ; --- pronunciation
   and_Conj = {s1 = [] ; s2 = "และ"} ;
   as_CAdv = {s = thword "เท่า" ; p = "กับ"} ; ----
@@ -25,11 +25,11 @@ concrete StructuralTha of Structural = CatTha **
   can8know_VV = {s = pen_s ; typ = VVPost} ;
   can_VV = {s = "ได้" ; typ = VVPost} ;
   during_Prep = ss (thword "ระ" "หว่าง") ;
-  either7or_DConj = {s1 = [] ; s2 = "หริอ"} ; ---- or: mai - ko
+  either7or_DConj = {s1 = [] ; s2 = "หรือ"} ; ---- or: mai - ko
   everybody_NP = mkNP (thword "ทุก" "คน") ;
   every_Det = quantDet "ทุก" ;
   everything_NP = mkNP (thword "ทุก" "สิ่ง") ;
-  everywhere_Adv = ss (thword "ทุก" "ที") ;
+  everywhere_Adv = ss (thword "ทุก" "ที่") ;
   except_Prep = ss (thword "นอก" "จาก") ;
   few_Det = quantDet (thword "สอง" "สาม") ;
   for_Prep = ss "ให้" ;
@@ -61,7 +61,7 @@ concrete StructuralTha of Structural = CatTha **
   nothing_NP = mkNP "เปล่า" ;
   on_Prep = ss "บน" ;
   only_Predet = {s1 = [] ; s2 = thword "เท่า" "นั้น"} ;
-  or_Conj = {s1 = [] ; s2 = "หริอ"} ;
+  or_Conj = {s1 = [] ; s2 = "หรือ"} ;
   otherwise_PConj = ss (thword "ไม่" "อย่าง" "นั้น") ;
   part_Prep = ss "" ; ----
   please_Voc = ss "ขอ" ;
@@ -84,14 +84,14 @@ concrete StructuralTha of Structural = CatTha **
   this_Quant = demDet nii_s ;
   through_Prep = ss "ผ่าน" ;
   too_AdA = ss (thword "เกิน" "ไป") ;
-  to_Prep = ss "ถืง" ;
+  to_Prep = ss "ถึง" ;
   under_Prep = ss "ใต้" ;
   very_AdA = ss "มาก" ;
   want_VV = {s = yaak_s ; typ = VVMid} ;
   we_Pron = ss raw_s ;
   whatPl_IP, whatSg_IP = ss (thword "อะ" "ไร") ;
   when_IAdv = ss (thword "เมื่อไร") ;
-  when_Subj = ss "ที" ;
+  when_Subj = ss "เมื่อ" ;
   where_IAdv = ss (thword "ที่" "ไหน") ;
   which_IQuant = demDet "ไหน" ; 
   whoPl_IP, whoSg_IP = ss "ใคร" ;
