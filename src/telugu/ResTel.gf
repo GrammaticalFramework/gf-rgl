@@ -93,28 +93,67 @@ resource ResTel = ParamX ** open Prelude, Predef in {
 
     regVerb : Str -> Verb = \verb -> {
       s = conjugation verb ;
-      passive = conjugation (verbRoot verb + "బడు")
+      passive = passiveConjugation verb
       } ;
 
     conjugation : Str -> VForm => Str = \verb ->
       let root = verbRoot verb in table {
-        VInf => root + "డం" ;
-        VStem => root ;
+        VInf => case verb of {
+                   "ఇచ్చు" => "ఇవ్వడం" ;
+                   "తెచ్చు" => "తెచ్చడం" ;
+                   "చూడు" => "చూడడం" ;
+                   "పో" => "పోవడం" ;
+                   "పోవు" => "పోవడం" ;
+                   _ => root + "డం"
+                 } ;
+        VStem => case verb of {
+                   "ఇచ్చు" => "ఇవ్వు" ;
+                   "చూడు" => "చూడు" ;
+                   "పో" => "పో" ;
+                   "పోవు" => "పో" ;
+                   _ => root
+                 } ;
+
         VPresent agr => presentFinite verb agr ;
         VPast agr => pastFinite verb agr ;
         VFuture pol agr => futureFinite verb pol agr ;
-        VNegFinite => root + "లేదు"  ;
+        VNegFinite => case verb of {
+                        "ఇచ్చు" => "ఇవ్వలేదు" ;
+                        "పో" => "పోలేదు" ;
+                        "పోవు" => "పోలేదు" ;
+                        _ => root + "లేదు"
+                      } ;
         VPresentPart => nonPastStem verb + "ున్న" ;
         VRelativePresent => relativePresent verb ;
         VPastPart => pastStem verb + "ిన" ;
-        VHortative => root + "దాం" ;
+        VHortative => case verb of {
+                        "ఇచ్చు" => "ఇద్దాం" ;
+                        "పో" => "పోదాం" ;
+                         "పోవు" => "పోదాం" ;
+                        _ => root + "దాం"
+                      } ;
         VNoun n c => (wallNoun (verbRoot verb + "డం")).s ! n ! c ;
         VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
         VAbs => pastStem verb + "ి" ;
-        VImp Sg Pos => verb ;
-        VImp Sg Neg => root + "వద్దు" ;
-        VImp Pl Pos => root + "ండి" ;
-        VImp Pl Neg => root + "కండి"
+        VImp Sg Pos => case verb of {
+                         "పోవు" => "పో" ;
+                         _ => verb
+                       } ;
+        VImp Sg Neg => case verb of {
+                         "పో" => "పోవద్దు" ;
+                         "పోవు" => "పోవద్దు" ;
+                         _ => root + "వద్దు"
+                       } ;
+        VImp Pl Pos => case verb of {
+                         "పో" => "పోండి" ;
+                         "పోవు" => "పోండి" ;
+                         _ => root + "ండి"
+                       } ;
+        VImp Pl Neg => case verb of {
+                         "పో" => "పోకండి" ;
+                         "పోవు" => "పోకండి" ;
+                         _ => root + "కండి"
+                       }
         } ;
 
     -- The dictionary form is the imperative form.
@@ -122,40 +161,62 @@ resource ResTel = ParamX ** open Prelude, Predef in {
     -- Irregular high-frequency verbs are listed before the regular suffix
     -- rules; compound verbs are handled because matching is suffix based.
     verbRoot : Str -> Str = \verb -> case verb of {
+      "పో" => "పో" ;
       stem + "ు" => stem ;
       _ => error (verb ++ "is not a valid verb")
       } ;
 
     pastStem : Str -> Str = \verb -> case verb of {
+      stem + "ఇచ్చు" => stem + "ఇచ్చ" ;
+      stem + "తెచ్చు" => stem + "తెచ్చ" ;
+      stem + "అవు"   => stem + "అయ్య" ;
       stem + "చేయు" => stem + "చేశ" ;
+      stem + "చూడు" => stem + "చూస" ;
       stem + "తిను" => stem + "తిన్న" ;
       stem + "విను" => stem + "విన్న" ;
       stem + "కొను" => stem + "కొన్న" ;
       stem + "కను" => stem + "కన్న" ;
       stem + "ఉండు" => stem + "ఉన్న" ;
       stem + "వచ్చు" => stem + "వచ్చ" ;
-      stem + "పో" => stem + "పోయ" ;
+      stem + "తన్ను" => stem + "తన్న" ;
+      stem + "పోవు" => stem + "పోయ" ;
       stem + "ను" => stem + "న్న" ;
+      stem + "పిలుచు" => stem + "పిలిచ" ;
+      stem + "అడుగు" => stem + "అడిగ" ;
+      stem + "తీయు" => stem + "తీస" ;
+      stem + "రాయు" => stem + "రాస" ;
       stem + "ు" => stem ;
       _ => verb
       } ;
 
     nonPastStem : Str -> Str = \verb -> case verb of {
-      stem + "చేయు" => stem + "చేస్త" ;
-      stem + "అవు" => stem + "అవుత" ;
+      "ఇచ్చు" => "ఇస్త" ;
+      "తెచ్చు" => "తెస్త" ;
+      "చూడు" => "చూస్త" ;
+      "తన్ను" => "తన్త" ;
+      stem + "చేయు"  => stem + "చేస్త" ;
+      stem + "అవు"   => stem + "అవుత" ;
       stem + "వెళ్ళు" => stem + "వెళ్త" ;
-      stem + "పో" => stem + "పోత" ;
-      stem + "తిను" => stem + "తింట" ;
-      stem + "విను" => stem + "వింట" ;
-      stem + "కొను" => stem + "కొంట" ;
-      stem + "ను" => stem + "ంట" ;
-      stem + "ించు" => stem + "ిస్త" ;
-      stem + "చు" => stem + "స్త" ;
-      stem + "ు" => stem + "ుత" ;
+      stem + "పోవు" => stem + "పోత" ;
+      stem + "తిను"  => stem + "తింట" ;
+      stem + "విను"  => stem + "వింట" ;
+      stem + "కొను"  => stem + "కొంట" ;
+      stem + "ించు"  => stem + "ిస్త" ;
+      stem + "ల్చు"  => stem + "లుస్త" ;
+      stem + "చూడు"  => stem + "చూస్త" ;
+      stem + "పిలుచు" => stem + "పిలుస్త" ;
+      stem + "చు"    => stem + "స్త" ;
+      stem + "ను"    => stem + "ంట" ;
+      stem + "తీయు"  => stem + "తీస్త" ;
+      stem + "వ్రాయు" => stem + "వ్రాస్త" ;
+      stem + "ు"     => stem + "ుత" ;
       _ => verb + "త"
       } ;
 
     relativePresent : Str -> Str = \verb -> case verb of {
+      "పో" => "పోయే" ;
+      "పోవు" => "పోయే" ;
+      "చూడు" => "చూసే" ;
       stem + "చేయు" => stem + "చేసే" ;
       stem + "వెళ్ళు" => stem + "వెళ్ళే" ;
       stem + "వచ్చు" => stem + "వచ్చే" ;
@@ -172,8 +233,16 @@ resource ResTel = ParamX ** open Prelude, Predef in {
       Ag _     Pl _  => "ారు"
       } ;
 
-    presentFinite : Str -> Agr -> Str = \verb,agr ->
-      nonPastStem verb + "ున్న" + finiteEnding agr ;
+    presentFinite : Str -> Agr -> Str = \verb,agr -> case agr of {
+      Ag Masc Sg P3 => nonPastStem verb + "ున్న" + finiteEnding agr ;
+      Ag _ Sg P3 => case verb of {
+        stem + "వ్రాయు" => stem + "వ్రాస్తుంది" ;
+        stem + "తీయు" => stem + "తీస్తుంది" ;
+        stem + "చూడు" => stem + "చూస్తుంది" ;
+        _             => nonPastStem verb + "ున్న" + finiteEnding agr
+      } ;
+      _ => nonPastStem verb + "ున్న" + finiteEnding agr
+      } ;
 
     pastFinite : Str -> Agr -> Str = \verb,agr -> case agr of {
       Ag Masc Sg P3 => pastStem verb + finiteEnding agr ;
@@ -190,8 +259,24 @@ resource ResTel = ParamX ** open Prelude, Predef in {
 
     futureFinite : Str -> Polarity -> Agr -> Str = \verb,pol,agr ->
       case pol of {
-        Pos => nonPastStem verb + futureEnding agr ;
-        Neg => verbRoot verb + negativeEnding agr
+        Pos => case verb of {
+                 "పో" => "పోత" + futureEnding agr ;
+                 "పోవు" => "పోత" + futureEnding agr ;
+                 _ => nonPastStem verb + futureEnding agr
+        } ;
+        Neg => case <verb,agr> of {
+                 <"లేచు", Ag _ Sg P1> => "లేచను" ;
+                 <"లేచు", Ag _ Sg P2> => "లేవను" ;
+                 <"లేచు", Ag Masc Sg P3> => "లేవడు" ;
+                 <"లేచు", Ag _ Pl P1> => "లేవము" ;
+                 <"లేచు", Ag _ Pl P2> => "లేవరు" ;
+                 <"లేచు", Ag _ Pl P3> => "లేవరు" ;
+                 <"లేచు", Ag Fem Sg P3> => "లేవదు" ;
+                 <"లేచు", Ag Neutr Sg P3> => "లేవదు" ;
+                 <"పో", _> => "పో" + negativeEnding agr ;
+                 <"పోవు", _> => "పో" + negativeEnding agr ;
+                 _ => verbRoot verb + negativeEnding agr
+               }
       } ;
 
     futureEnding   : Agr -> Str = \agr -> case agr of {
@@ -217,6 +302,47 @@ resource ResTel = ParamX ** open Prelude, Predef in {
       s = verb.passive ;
       passive = verb.passive
       } ;
+
+          passiveBase : Str -> Str = \verb -> case verb of {
+            "ఇచ్చు" => "ఇవ్వబడ" ;
+            "తెచ్చు" => "తెచ్చబడ" ;
+            "లేచు" => "లేవబడ" ;
+            "చూడు" => "చూడబడ" ;
+            "చేయు" => "చేయబడ" ;
+            "తిను" => "తినబడ" ;
+            "వ్రాయు" => "వ్రాయబడ" ;
+            "రాయు" => "రాయబడ" ;
+            stem + "చేయు" => stem + "చేయబడ" ;
+            stem + "ు" => stem + "బడ" ;
+            _ => verb + "బడ"
+          } ;
+
+
+passiveConjugation : Str -> VForm => Str = \verb ->
+      let
+        base : Str = passiveBase verb
+      in
+      table {
+        VInf => base + "డం" ;
+        VStem => base ;
+        VPresent agr => base + "ుతున్న" + finiteEnding agr ;
+        VPast agr => base + "ిన" + finiteEnding agr ;
+        VFuture Pos agr => base + "త" + futureEnding agr ;
+        VFuture Neg agr => base + negativeEnding agr ;
+        VNegFinite => base + "లేదు" ;
+        VPresentPart => base + "ుతున్న" ;
+        VRelativePresent => base + "ే" ;
+        VPastPart => base + "ిన" ;
+        VHortative => base + "దాం" ;
+        VNoun n c => (wallNoun (base + "డం")).s ! n ! c ;
+        VSubj n p => base + "ుత" + finiteEnding (Ag Masc n p) ;
+        VAbs => base + "ి" ;
+        VImp Sg Pos => base ;
+        VImp Sg Neg => base + "వద్దు" ;
+        VImp Pl Pos => base + "ండి" ;
+        VImp Pl Neg => base + "కండి"
+      }
+  } ;
 
     predCopula : VPH = {
       s = \\pol,form => case form of {
