@@ -1,7 +1,8 @@
 --# -path=.:../abstract
 
 concrete ConstructionHin of Construction = CatHin ** 
-  open SyntaxHin, SymbolicHin, ParadigmsHin, (L = LexiconHin), (E = ExtraHin), (G = GrammarHin), (R = ResHin), (S = StructuralHin), Prelude in {
+  open SyntaxHin, SymbolicHin, ParadigmsHin, CommonHindustani,
+       (L = LexiconHin), (E = ExtraHin), (G = GrammarHin), (R = ResHin), (S = StructuralHin), Prelude in {
 flags coding=utf8 ;
 
 
@@ -31,11 +32,22 @@ oper
 ----  is_right_VP = mkVP (ParadigmsHin.mkA "right") ;
 ----  is_wrong_VP = mkVP (ParadigmsHin.mkA "wrong") ;
 
-----  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+lin
+  n_units_AP card cn a = {
+    s = \\n,g,c,d => card.s ++ cn.s ! Pl ! Dir ++ a.s ! n ! g ! c ! d
+    } ;
+
+  n_units_of_NP card cn np = {
+    s = \\c => np.s ! NPC Obl ++ "के" ++ card.s ++ cn.s ! Pl ! constructionCase c ;
+    a = agrP3 cn.g card.n
+    } ;
 
 
 ----  bottle_of_CN np = mkCN (lin N2 (mkN2 "bottle")) (lin NP np) ;
-----  cup_of_CN    np = mkCN (lin N2 (mkN2 "cup"))    (lin NP np) ;
+  cup_of_CN np = {
+    s = \\n,c => np.s ! NPC Obl ++ "का" ++ (mkN "प्याला").s ! n ! c ;
+    g = Masc
+    } ;
 ----  glass_of_CN  np = mkCN (lin N2 (mkN2 "glass"))  (lin NP np) ;
 
 {-
@@ -65,14 +77,14 @@ lincat
   Year = NP ;
 
 lin
-{- ----
-  weekdayPunctualAdv w = SyntaxHin.mkAdv on_Prep (mkNP w) ;         -- on Sunday
-  weekdayHabitualAdv w = SyntaxHin.mkAdv on_Prep (mkNP aPl_Det w) ; -- on Sundays
-  weekdayNextAdv w = SyntaxHin.mkAdv (mkPrep "next") (mkNP w) ;     -- next Sunday
-  weekdayLastAdv w = SyntaxHin.mkAdv (mkPrep "last") (mkNP w) ;     -- last Sunday
+  weekdayPunctualAdv w = {s = \\_ => w.s ! Sg ! Dir ++ "को"} ;
+  weekdayHabitualAdv w = {s = \\_ => "हर" ++ w.s ! Sg ! Dir ++ "को"} ;
+  weekdayNextAdv w = {s = \\_ => "अगले" ++ w.s ! Sg ! Dir ++ "को"} ;
+  weekdayLastAdv w = {s = \\_ => "पिछले" ++ w.s ! Sg ! Dir ++ "को"} ;
 
-  monthAdv m = SyntaxHin.mkAdv in_Prep (mkNP m) ;
-  yearAdv y = SyntaxHin.mkAdv in_Prep y ;
+  monthAdv m = {s = \\_ => m.s ! Sg ! Dir ++ "में"} ;
+  yearAdv y = {s = \\_ => y.s ! NPC Dir ++ "में"} ;
+{- ----
   dayMonthAdv d m = ParadigmsHin.mkAdv ("on" ++ d.s ! R.NPAcc ++ m.s ! R.Sg ! R.Nom) ; -- on 17 May
   monthYearAdv m y = SyntaxHin.mkAdv in_Prep (mkNP (mkCN m y)) ; -- in May 2012
   dayMonthYearAdv d m y = ParadigmsHin.mkAdv ("on" ++ d.s ! R.NPAcc ++ m.s ! R.Sg ! R.Nom ++ y.s ! R.NPAcc) ; -- on 17 May 2013
@@ -94,6 +106,10 @@ lin
   languagePN l = l ;
 
 oper mkLanguage : Str -> PN = \s -> mkPN s ;
+
+oper constructionCase : NPCase -> Case = \c -> case c of {
+  NPC x => x ; NPObj => Obl ; NPErg => Obl
+  } ;
 
 ----------------------------------------------
 ---- lexicon of special names

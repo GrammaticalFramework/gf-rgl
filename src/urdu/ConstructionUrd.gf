@@ -1,27 +1,28 @@
 --# -path=.:../abstract
 
 concrete ConstructionUrd of Construction = CatUrd ** 
-  open SyntaxUrd, SymbolicUrd, ParadigmsUrd, (L = LexiconUrd), (E = ExtraUrd), (G = GrammarUrd), (R = ResUrd), (S = StructuralUrd), Prelude in {
+  open SyntaxUrd, SymbolicUrd, ParadigmsUrd, CommonHindustani,
+       (L = LexiconUrd), (E = ExtraUrd), (G = GrammarUrd), (R = ResUrd), (S = StructuralUrd), Prelude in {
 flags coding=utf8 ;
 
 
 lin
-{-
-  hungry_VP = mkVP  (mkA "भूखा") ;
-  thirsty_VP = mkVP (mkA "प्यासा") ;
---  tired_VP = mkVP (mkCompoundA "थका" "हुआ") ;
---  scared_VP = mkVP (mkCompoundA "डरा" "हुआ") ;
-  ill_VP = mkVP (mkA "बीमार") ;
-  ready_VP = mkVP (mkA "तैयार") ;
--}
-----  has_age_VP card = mkVP (mkNP <card : Card> (mkCN (mmodN L.year_N))) ;
+  hungry_VP = mkVP (mkA "بھوکا") ;
+  thirsty_VP = mkVP (mkA "پیاسا") ;
+  ill_VP = mkVP (mkA "بیمار") ;
+  ready_VP = mkVP (mkA "تیار") ;
+
+  has_age_VP card = mkVP (mkNP <card : Card> (mkCN (mmodN L.year_N))) ;
 
   have_name_Cl x y = mkCl (mkNP (E.GenNP x) L.name_N) (lin NP y) ;
   married_Cl x y = mkCl (lin NP x) L.married_A2 (lin NP y) ;
 
   what_name_QCl x = mkQCl (mkIComp whatSg_IP) (mkNP (E.GenNP x) L.name_N) ;
-----  how_old_QCl x = mkQCl (lin IAdv {s = "कितनी"}) (mkNP (E.GenNP x) (mkN "उम्र" "उम्र" "उम्र" "उम्र" "उम्र" "उम्र" feminine)) ;
-  how_far_QCl x = mkQCl (E.IAdvAdv (ParadigmsUrd.mkAdv "दूर")) (lin NP x) ;
+  how_old_QCl x = mkQCl (lin IAdv {s = "کتنی"}) (mkNP (E.GenNP x) (mkN "عمر" feminine)) ;
+  how_far_QCl x = mkQCl (E.IAdvAdv (ParadigmsUrd.mkAdv "دور")) (lin NP x) ;
+
+oper
+  mmodN : N -> N = \noun -> lin N {s = \\n,c => noun.s ! n ! c ++ "کا" ; g = noun.g} ;
 
 ---- oper
 ----  mmodN : N -> N = \noun -> lin N {s = \\n,c =>noun.s!n!c++"का" ; g =noun.g} ;
@@ -32,11 +33,22 @@ lin
 ----  is_right_VP = mkVP (ParadigmsUrd.mkA "right") ;
 ----  is_wrong_VP = mkVP (ParadigmsUrd.mkA "wrong") ;
 
-----  n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
+lin
+  n_units_AP card cn a = {
+    s = \\n,g,c,d => card.s ++ cn.s ! Pl ! Dir ++ a.s ! n ! g ! c ! d
+    } ;
+
+  n_units_of_NP card cn np = {
+    s = \\c => np.s ! NPC Obl ++ "کے" ++ card.s ++ cn.s ! Pl ! constructionCase c ;
+    a = agrP3 cn.g card.n
+    } ;
 
 
 ----  bottle_of_CN np = mkCN (lin N2 (mkN2 "bottle")) (lin NP np) ;
-----  cup_of_CN    np = mkCN (lin N2 (mkN2 "cup"))    (lin NP np) ;
+  cup_of_CN np = {
+    s = \\n,c => np.s ! NPC Obl ++ "کا" ++ (mkN "پیالہ").s ! n ! c ;
+    g = Masc
+    } ;
 ----  glass_of_CN  np = mkCN (lin N2 (mkN2 "glass"))  (lin NP np) ;
 
 {-
@@ -66,14 +78,14 @@ lincat
   Year = NP ;
 
 lin
-{- ----
-  weekdayPunctualAdv w = SyntaxUrd.mkAdv on_Prep (mkNP w) ;         -- on Sunday
-  weekdayHabitualAdv w = SyntaxUrd.mkAdv on_Prep (mkNP aPl_Det w) ; -- on Sundays
-  weekdayNextAdv w = SyntaxUrd.mkAdv (mkPrep "next") (mkNP w) ;     -- next Sunday
-  weekdayLastAdv w = SyntaxUrd.mkAdv (mkPrep "last") (mkNP w) ;     -- last Sunday
+  weekdayPunctualAdv w = {s = \\_ => w.s ! Sg ! Dir ++ "کو"} ;
+  weekdayHabitualAdv w = {s = \\_ => "ہر" ++ w.s ! Sg ! Dir ++ "کو"} ;
+  weekdayNextAdv w = {s = \\_ => "اگلے" ++ w.s ! Sg ! Dir ++ "کو"} ;
+  weekdayLastAdv w = {s = \\_ => "پچھلے" ++ w.s ! Sg ! Dir ++ "کو"} ;
 
-  monthAdv m = SyntaxUrd.mkAdv in_Prep (mkNP m) ;
-  yearAdv y = SyntaxUrd.mkAdv in_Prep y ;
+  monthAdv m = {s = \\_ => m.s ! Sg ! Dir ++ "میں"} ;
+  yearAdv y = {s = \\_ => y.s ! NPC Dir ++ "میں"} ;
+{- ----
   dayMonthAdv d m = ParadigmsUrd.mkAdv ("on" ++ d.s ! R.NPAcc ++ m.s ! R.Sg ! R.Nom) ; -- on 17 May
   monthYearAdv m y = SyntaxUrd.mkAdv in_Prep (mkNP (mkCN m y)) ; -- in May 2012
   dayMonthYearAdv d m y = ParadigmsUrd.mkAdv ("on" ++ d.s ! R.NPAcc ++ m.s ! R.Sg ! R.Nom ++ y.s ! R.NPAcc) ; -- on 17 May 2013
@@ -96,29 +108,33 @@ lin
 
 oper mkLanguage : Str -> PN = \s -> mkPN s ;
 
+oper constructionCase : NPCase -> Case = \c -> case c of {
+  NPC x => x ; NPObj => Obl ; NPErg => Obl
+  } ;
+
 ----------------------------------------------
 ---- lexicon of special names
 
-lin monday_Weekday = mkN "सोमवार" ;
-lin tuesday_Weekday = mkN "मंगलवार" ;
-lin wednesday_Weekday = mkN "बुधवार" ;
-lin thursday_Weekday = mkN "गुरुवार" ;
-lin friday_Weekday = mkN "शुक्रवार" ;
-lin saturday_Weekday = mkN "शनिवार" ;
-lin sunday_Weekday = mkN "रविवार" ;
+lin monday_Weekday = mkN "پیر" ;
+lin tuesday_Weekday = mkN "منگل" ;
+lin wednesday_Weekday = mkN "بدھ" ;
+lin thursday_Weekday = mkN "جمعرات" ;
+lin friday_Weekday = mkN "جمعہ" ;
+lin saturday_Weekday = mkN "ہفتہ" ;
+lin sunday_Weekday = mkN "اتوار" ;
 
-lin january_Month = mkN "जनवरी" ;
-lin february_Month = mkN "फ़रवरी" ;
-lin march_Month = mkN "मार्च" ;
-lin april_Month = mkN "अप्रैल" ;
-lin may_Month = mkN "मई" ;
-lin june_Month = mkN "जून" ;
-lin july_Month = mkN "जुलाई" ;
-lin august_Month = mkN "अगस्त" ;
-lin september_Month = mkN "सितम्बर" ; 
-lin october_Month = mkN "अक्टूबर" ;
-lin november_Month = mkN "नवम्बर" ;
-lin december_Month = mkN "दिसम्बर" ;
+lin january_Month = mkN "جنوری" ;
+lin february_Month = mkN "فروری" ;
+lin march_Month = mkN "مارچ" ;
+lin april_Month = mkN "اپریل" ;
+lin may_Month = mkN "مئی" ;
+lin june_Month = mkN "جون" ;
+lin july_Month = mkN "جولائی" ;
+lin august_Month = mkN "اگست" ;
+lin september_Month = mkN "ستمبر" ;
+lin october_Month = mkN "اکتوبر" ;
+lin november_Month = mkN "نومبر" ;
+lin december_Month = mkN "دسمبر" ;
 
 lin afrikaans_Language = mkLanguage "Afrikaans" ;
 lin amharic_Language = mkLanguage "Amharic" ;

@@ -4,6 +4,11 @@ flags coding = utf8;
 oper
   
   addErgative s1 s2 = Prelude.glue s1 s2 ;
+  ergativePron ppf a = case a of {
+    Ag _ Pl Pers3_Distant => "unhwN nE" ;
+    Ag _ _ (Pers3_Near | Pers3_Distant) => addErgative (ppf ! Obl) nE ;
+    _ => addErgative (ppf ! Dir) nE
+    } ;
   conjThat = "ki" ;
   insertSubj : UPerson -> Str -> Str = \p,s -> 
       case p of { Pers1 => s ++ "va:n~" ; _ => Prelude.glue s "E:"}; -- check with prasad for vn~
@@ -12,6 +17,8 @@ oper
   awr = "O+r" ;
   ky = "ki:" ;
   ka = "ka:" ;
+  kE = "ke:" ;
+  rh = "rh" ;
   jn = "jin" ;
   js = "jis" ;
   jw = "jo:" ;

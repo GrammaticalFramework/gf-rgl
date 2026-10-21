@@ -14,7 +14,8 @@
   TextX - [Adv,AdN,SC],
   StructuralHin,
   TenseX - [Adv,AdN,SC],
-  IdiomHin
+  IdiomHin,
+  NamesHin
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

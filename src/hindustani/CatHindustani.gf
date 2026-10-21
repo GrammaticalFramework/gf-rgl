@@ -62,9 +62,11 @@ incomplete concrete CatHindustani of Cat =
     Predet = {s : Str} ;
     Num  = {s : Str ; n : Number} ;
     Card = {s : Str; n : Number} ;
+    ACard = {s : Str} ;
     Ord = {s : Str; n : Number} ;
     Quant = {s:Number => Gender => Case => Str ; a:Agr};
     Art = {s : Str} ;
+    DAP = {s : Number => Gender => Case => Str ; n : Number} ;
 
 ---- Numeral
 

@@ -78,8 +78,8 @@ oper
 	mkA : Str -> Str -> A2 -- e.g sE Xady krna
 	  = \a,c -> let n = regAdjective a in {s = n.s; c2 = c} ** {lock_A2 = <>} ;
     } ;
-  mkA2 : A -> Str -> A2 ;
-  mkA2 a str = a ** {c2=str ; lock_A2 = <>} ;
+  mkA2 : A -> Prep -> A2 ;
+  mkA2 a prep = a ** {c2 = prep.s ! Masc ; lock_A2 = <>} ;
   
 -- compound Adjectives
   mkCompoundA : Str -> Str -> A ; -- e.g dra hwa

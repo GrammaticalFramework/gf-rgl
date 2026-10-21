@@ -5,6 +5,11 @@ flags coding = utf8 ;
 oper
 
 addErgative s1 s2 = s1 ++ s2 ;
+ergativePron ppf a = case a of {
+  Ag _ Pl Pers3_Distant => "انہوں نے" ;
+  Ag _ _ (Pers3_Near | Pers3_Distant) => addErgative (ppf ! Obl) nE ;
+  _ => addErgative (ppf ! Dir) nE
+  } ;
 conjThat = "کہ" ;
   insertSubj : UPerson -> Str -> Str = \p,s -> 
       case p of { Pers1 => s ++ "واں" ; _ => s ++ "ے"}; -- check with prasad for vn~
@@ -13,6 +18,8 @@ conjThat = "کہ" ;
   awr = "اور" ;
   ky = "کی" ;
   ka = "کا" ;
+  kE = "کے" ;
+  rh = "رہ" ;
   jn = "جن" ;
   js = "جس" ;
   jw = "جو" ;

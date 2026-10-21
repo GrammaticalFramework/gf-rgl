@@ -48,7 +48,7 @@ concrete StructuralHin of Structural = CatHin **
   more_CAdv = {s = "ज़्यादा" ; p = "से" } ;
   most_Predet = ss "सब से ज़्यादा" ;
   much_Det = mkDet "बहुत" "बहुत" "बहुत" "बहुत" Sg  ;
---  must_VV = {
+  must_VV = mkVV (mkV "पड़ना") ;
 --    s = table {
 --      VVF VInf => ["हवe तo"] ;
 --      VVF VPres => "मुसत" ;
@@ -104,21 +104,23 @@ concrete StructuralHin of Structural = CatHin **
   whoSg_IP = mkIP "कौन" "किस" "किस" Sg Masc  ;
   whoPl_IP = mkIP "कौन" "किन" "किनहों" Pl Masc ;
   why_IAdv = ss "क्यों" ;
---  without_Prep = mkPrep ;
+  without_Prep = mkPrep "के बिना" "के बिना" ;
   with_Prep = mkPrep ["के साथ"] ["के साथ"] ;
 --  yes_Phr = ss "???" ;
   yes_Utt = ss "हाँ" ;
   youSg_Pron = personalPN "तू" "तुम" "तुम" "तुम्हारा" "तुम्हारी" "तुम्हारे" "तुम्हारी" Sg Masc Pers2_Casual ;
   youPl_Pron = personalPN "तुम" "तुम" "तुम" "तुम्हारा" "तुम्हारी" "तुम्हारे" "तुम्हारी" Pl Masc Pers2_Casual ;
   youPol_Pron = personalPN "आप" "आप" "आप" "आप का" "आप की" "आप के" "आप की" Sg Masc Pers2_Respect  ;
---  no_Quant =  demoPN "कोई नहीं" ; 
+  no_Quant = demoPN "कोई नहीं" "कोई नहीं" "कोई नहीं" "कोई नहीं" ;
   not_Predet = {s="नहीं"} ;
 --  if_then_Conj = sd2  "अगर तो" ** {n = Sg} ; 
   at_least_AdN = mkAdN ["कम से कम"] ;
   at_most_AdN = mkAdN ["ज़्यादा से ज़्यादा"];
---  nothing_NP = MassNP (UseN (ParadigmsHin.mkN "कुछ नहीं" Masc )); 
+  nothing_NP = MassNP (UseN (ParadigmsHin.mkN
+    "कुछ नहीं" "कुछ नहीं" "कुछ नहीं" "कुछ नहीं" "कुछ नहीं" "कुछ नहीं" Masc)) ;
   except_Prep = mkPrep "के सिवाय" "के सिवाय";
---  nobody_NP = MassNP (UseN (ParadigmsHin.mkN "कोई नहीं" Masc ));  
+  nobody_NP = MassNP (UseN (ParadigmsHin.mkN
+    "कोई नहीं" "कोई नहीं" "कोई नहीं" "कोई नहीं" "कोई नहीं" "कोई नहीं" Masc)) ;
 
   as_CAdv = {s = "इतना" ; p = "जितना"} ;
 
@@ -127,4 +129,3 @@ concrete StructuralHin of Structural = CatHin **
  language_title_Utt = ss "हिन्दी" ;
 
 }
-

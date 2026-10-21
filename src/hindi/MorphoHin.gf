@@ -32,28 +32,26 @@ oper
       g = g
       } ;
 
-    
-
     regNoun : Str -> Noun ;
-    regNoun s = case s of {
-		     _ + "या" => mkN05 (s);
-                 _ + ("ा") =>  mkN01 (s);
-                 _ + "ी" => mkN03 (s);
-                 _ + ("ाँ"|"ा") => mkN04 (s);
-		 _ + "ाँव" => mkN12 s;
-                 _ + "w^" => mkN12 (s);
-             _			  => regNoun2 (s)				 
-                 };
-	regNoun2 : Str -> Noun;
-	regNoun2 s = let c = if_then_else Bool (eq (last s) "" ) True (if_then_else Bool (eq (last s) "ह") True (if_then_else Bool (eq (last s) "e") True False))
-     in case c of {
-      False => mkN02 (s);
-	  True => mkN01 (s)
-     };	  
+    regNoun s =
+      case s of {
+                  _ + "या" => mkN05 s;
+                  _ + "ता" => mkN04 s;
+                  _ + ("ा") =>  mkN01 s;
+                  _ + "ी" => mkN03 s;
+                  _ + ("ाँ"|"ा") => mkN04 s;
+                  _ + "ाँव" => mkN12 s;
+        _ + "e" => mkN01 s;
+        _ => mkN02 s
+      };
 	  
     reggNoun : Str -> Gender -> Noun ;
     reggNoun s g = let c = if_then_else Bool (eq (last s) "" ) True (if_then_else Bool (eq (dp 2 s) "ण") True (if_then_else Bool (eq (dp 2 s) "wण") True False))
 	 in case <s,g,c> of {
+		         <_ + "या",Fem,_> => mkN05 (s);
+		         <_ + "ता",Fem,_> => mkN04 (s);
+		         <_ + "ा",Fem,_> => mkN04 (s);
+		         <_ + ("ी"|"ि"),Fem,_> => mkN03 (s);
 		         <_ + "त",Fem,_> => mkN10 (s);
 				 <_ + "त",Masc,_> => mkN02 (s);
 				 <_ + "ू",Masc,_> => mkN11 (s);
@@ -79,7 +77,7 @@ oper
 -- masculine nouns does not end with a, h, e, an
 
      mkN02 : Str -> Noun ;
-     mkN02 mrd = let mrdwN = mrd+"ोँ" ;
+     mkN02 mrd = let mrdwN = mrd+"ों" ;
               mrdw  = tk 1 mrdwN
               in mkNoun mrd mrd   mrd
                       mrd mrdwN mrdw
@@ -88,8 +86,9 @@ oper
 -- feminine Nouns end with y
 
      mkN03 : Str -> Noun ;
-     mkN03 krsy = let krsyaN  = krsy+"ँ" ;
-		 krsywN  = krsy+"योँ" ;
+     mkN03 krsy = let stem = tk 1 krsy ;
+                 krsyaN  = stem+"ियाँ" ;
+		 krsywN  = stem+"ियों" ;
 		 krsyw   = tk 1 krsywN
              in mkNoun krsy   krsy   krsy
                        krsyaN krsywN krsyw
@@ -97,8 +96,8 @@ oper
 
 -- masculine nouns ending at i: e.g Admi:
  mkN13 : Str -> Noun ;
-     mkN13 krsy = let 
-		 krsywN  = krsy+"योँ" ;
+     mkN13 krsy = let stem = tk 1 krsy ;
+		 krsywN  = stem+"ियों" ;
 		 krsyw   = tk 1 krsywN
              in mkNoun krsy   krsy   krsy
                        krsy krsywN krsyw
@@ -107,13 +106,13 @@ oper
 -- feminine nouns end with a, aN, wN
      mkN04 : Str -> Noun ;
      mkN04 n = case last n of {
-     "ा" =>  mkNoun n          n         n
-                  (n+"ाेँ") (n+"ाोँ") (n+"ाो")
+     "ा" => let stem = tk 1 n in mkNoun n n n
+                  (stem+"ाएँ") (stem+"ाओं") (stem+"ाओ")
                   Fem ;
       _   => let maN = n ; -- ends with aN and wN
             ma  = tk 1 maN
         in mkNoun maN         maN        maN
-                  (maN+"ाँेँ") (maN+"ाँोँ") (maN+"ाँो")
+                  (maN+"एँ") (maN+"ओं") (maN+"ओ")
                   Fem 
 
             };
@@ -122,14 +121,14 @@ oper
       mkN05 : Str -> Noun ;
       mkN05 gRya = let gRy = (tk 1 gRya)
              in mkNoun gRya       gRya       gRya
-                       (gRya+"ँ") (gRy+"ोँ") (gRy+"ो")
+                       (gRy+"ाँ") (gRy+"ों") (gRy+"ो")
                        Fem ;
 
 -- feminine nouns end with w
       
       mkN07 : Str -> Noun ;
       mkN07 khshbw =  mkNoun khshbw     khshbw         khshbw
-                            (khshbw + "ेँ") (khshbw + "ोँ") (khshbw + "ो")
+                            (khshbw + "एँ") (khshbw + "ओं") (khshbw + "ओ")
                             Fem ;
 
 -- Loan arabic feminine nouns end with t
@@ -153,7 +152,7 @@ oper
      
       mkN08 : Str -> Noun ;
       mkN08 ktab = mkNoun ktab ktab ktab
-                    (ktab+"ेँ") (ktab+"ोँ") (ktab+"ो")
+                    (ktab+"ें") (ktab+"ों") (ktab+"ो")
                     Fem ;
 
 -- Loan arabic feminine nouns
@@ -167,7 +166,7 @@ oper
 
       mkN11 : Str -> Noun ;
       mkN11 alw = mkNoun alw alw         alw
-                   alw (alw+"ोँ") (alw+"ो")
+                   alw (alw+"ों") (alw+"ो")
                    Masc ;
 
 
@@ -338,7 +337,7 @@ oper
    
    regAdjective : Str -> Adjective; 
   regAdjective x =  case x of {
-	              acch + ("ा"|"न") => mkAdjective x  ("बहुत" ++ x)          ("सब से" ++ x)          (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े") (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े")
+	              acch + "ा" => mkAdjective x  ("बहुत" ++ x)          ("सब से" ++ x)          (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े") (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े")
 		                                      (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी") (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी") (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी")
 						      (acch +"े")  ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े") (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े") (acch + "े") ("बहुत" ++ acch + "े") ("सब से" ++ acch + "े")
 		                                      (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी") (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी") (acch + "ी") ("बहुत" ++ acch + "ी") ("सब से" ++ acch + "ी");
@@ -387,20 +386,14 @@ oper
 	  "ा"|"ो"  => root + "एँ";
 	  "ी" => root + "येँ";
 	  "े" => (tk 1 root)+ "ेँ";
-	  _ => root + "ेँ"
+	  _ => root + "ें"
 	  }
 	 in
        case <t,p,n,g> of {
         <Subj,Pers1,Sg,_> => form1 ;
         <Subj,Pers1,Pl,_> => form2 ;
         <Subj,_,_,_>      => (mkImpert root p n g).s ;
-        <Perf,_,_,_>      => case root of {
-		                      "हो" => (mkPastInd root p n g).s ;
-				      "जा" => (mkPastInd "गय" p n g).s ;
-				      "कर" => (mkPastInd "किय" p n g).s ;
-				     -- "दE" => (mkPastInd "द" p n g).s ;
-				     -- "लE" => (mkPastInd "ल" p n g).s ;
-				      _    => (mkPastInd root p n g).s };
+        <Perf,_,_,_>      => (mkPastInd root p n g).s ;
         <Imperf,Pers2_Familiar,Sg,Masc>         => root + "ते";
         <Imperf,Pers2_Familiar,Sg,Fem>         => root + "ती"; --variants{root+"तय" ; root+"तयण"};	
         <Imperf,Pers2_Familiar,Pl,Masc>         => root + "ते";
@@ -418,7 +411,20 @@ oper
      } ;
    
    mkPastInd : Str -> UPerson -> Number -> Gender -> {s:Str} = \root,p,n,g ->
-    {s = let roo = root ;
+    {s = case <root,n,g> of {
+           <"हो",Sg,Masc> => "हुआ" ; <"हो",Sg,Fem> => "हुई" ;
+           <"हो",Pl,Masc> => "हुए" ; <"हो",Pl,Fem> => "हुईं" ;
+           <"जा",Sg,Masc> => "गया" ; <"जा",Sg,Fem> => "गई" ;
+           <"जा",Pl,Masc> => "गए" ; <"जा",Pl,Fem> => "गईं" ;
+           <"कर",Sg,Masc> => "किया" ; <"कर",Sg,Fem> => "की" ;
+           <"कर",Pl,Masc> => "किए" ; <"कर",Pl,Fem> => "कीं" ;
+           <"दे",Sg,Masc> => "दिया" ; <"दे",Sg,Fem> => "दी" ;
+           <"दे",Pl,Masc> => "दिए" ; <"दे",Pl,Fem> => "दीं" ;
+           <"ले",Sg,Masc> => "लिया" ; <"ले",Sg,Fem> => "ली" ;
+           <"ले",Pl,Masc> => "लिए" ; <"ले",Pl,Fem> => "लीं" ;
+           <"आ",Sg,Masc> => "आया" ; <"आ",Sg,Fem> => "आई" ;
+           <"आ",Pl,Masc> => "आए" ; <"आ",Pl,Fem> => "आईं" ;
+           _ => let roo = root ;
              a = case (last root) of {
                   "ा"|"ो"|"ी" => roo + "या" ;
 		  "े" => (tk 1 roo) + "िया" ; --* here is the problem
@@ -432,18 +438,19 @@ oper
                   _           => roo + "ी"
                  } ;
              e = case (last root) of {
-                  "ा"|"ो"|"ी"|"क" => roo + "ये" ;
+                  "ा"|"ो"|"ी" => roo + "ए" ;
+		  "क" => roo + "े" ;
 		  "े" => (tk 1 roo) + "ी" ;
                   _           => roo + "े"
                  } ;
             yN = case (last root) of {
-                  "ा"|"ो"|"ी" => roo + "यीँ" ;
+                  "ा"|"ो"|"ी" => roo + "यीं" ;
 		  "िय" => (tk 2 roo) + "ी" ;
-		  "े" => (tk 1 roo) + "ीँ" ;
-                  _           => roo + "यँ"
+		  "े" => (tk 1 roo) + "ीं" ;
+                  _           => roo + "ीं"
                  } ;
 
-     in 
+     in
      case <p,n,g> of {
        <Pers1,Sg,Masc> => a ; --*
        <Pers1,Sg,Fem>  => y ;
@@ -467,9 +474,9 @@ oper
        <_,Sg,Masc>              => a; --*
        <_,Sg,Fem>              => y ; 
 	   <_,Pl,Masc>              =>  e; 
-       <_,Pl,Fem>              => yN 
-       
-     } ;
+       <_,Pl,Fem>              => yN
+     }
+   } ;
     } ;
 
    mkImpert : Str -> UPerson -> Number -> Gender -> {s:Str} = \root,p,n,g ->
@@ -481,13 +488,14 @@ oper
                } ;
              yN = case (last root) of {
                   "ा"|"ो" => "एँ" ;
-                  _           => "एँ" 
+		  "े" => "ं" ;
+                  _           => "ें"
                } ;
              e = case (last root) of {
                   "ा"|"ो" => "ए" ;
 		  "े" => "" ;
 		  "ी" => "ये" ;
-                  _           => "ए" 
+                  _           => "े"
                } in
       case <p,n,g> of {
        <Pers1,_,_>          => ""; --nonExist ;

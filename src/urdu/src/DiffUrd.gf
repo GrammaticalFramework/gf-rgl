@@ -5,6 +5,11 @@ flags coding = utf8 ;
 oper
 
 addErgative s1 s2 = s1 ++ s2 ;
+ergativePron ppf a = case a of {
+  Ag _ Pl Pers3_Distant => "anhwN nE" ;
+  Ag _ _ (Pers3_Near | Pers3_Distant) => addErgative (ppf ! Obl) nE ;
+  _ => addErgative (ppf ! Dir) nE
+  } ;
 conjThat = "kh" ;
   insertSubj : UPerson -> Str -> Str = \p,s -> 
       case p of { Pers1 => s ++ "waN" ; _ => s ++ "E"}; -- check with prasad for vn~
@@ -13,6 +18,8 @@ conjThat = "kh" ;
   awr = "awr" ;
   ky = "ky" ;
   ka = "ka" ;
+  kE = "kE" ;
+  rh = "rh" ;
   jn = "jn" ;
   js = "js" ;
   jw = "jw" ;
