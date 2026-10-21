@@ -318,7 +318,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
           } ;
 
 
-passiveConjugation : Str -> VForm => Str = \verb ->
+    passiveConjugation : Str -> VForm => Str = \verb ->
       let
         base : Str = passiveBase verb
       in
@@ -341,8 +341,7 @@ passiveConjugation : Str -> VForm => Str = \verb ->
         VImp Sg Neg => base + "వద్దు" ;
         VImp Pl Pos => base + "ండి" ;
         VImp Pl Neg => base + "కండి"
-      }
-  } ;
+      } ;
 
     predCopula : VPH = {
       s = \\pol,form => case form of {
