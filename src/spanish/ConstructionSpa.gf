@@ -33,7 +33,7 @@ lin
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
   n_units_of_NP card cn np =
     mkNP card (lin CN (cn ** {
-      s = \\n => cn.s ! n ++ (np.s ! R.genitive).ton
+      s = table Number {n => cn.s ! n ++ (np.s ! R.genitive).ton}
       })) ;
 
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "botella" feminine) part_Prep)) np ;

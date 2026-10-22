@@ -149,7 +149,7 @@ oper
 
   na_mkAdj : Str -> Adj = \ookina ->
     let
-      forms = case ookina of {
+      forms : {root : Str ; attr : Str} = case ookina of {
         stem + ("な"|"の") => {root = stem ; attr = ookina} ;
         _ => {root = ookina ; attr = ookina + "な"}
         }

@@ -90,8 +90,8 @@ lin
   monthYearAdv m y = SyntaxUrd.mkAdv in_Prep (mkNP (mkCN m y)) ; -- in May 2012
   dayMonthYearAdv d m y = ParadigmsUrd.mkAdv ("on" ++ d.s ! R.NPAcc ++ m.s ! R.Sg ! R.Nom ++ y.s ! R.NPAcc) ; -- on 17 May 2013
 -}
-  intYear = symb ;
-  intMonthday = symb ;
+  intYear y = symb y ;
+  intMonthday m = symb m ;
 
 lincat Language = PN ;
 
