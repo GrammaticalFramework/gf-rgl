@@ -35,8 +35,8 @@ loadLangs = loadLangsFrom configFile
 -- | Load language information from specified config file
 loadLangsFrom:: FilePath -> IO [LangInfo]
 loadLangsFrom configFile = do
-  lns <- readFile configFile >>= return . lines
-  mapM mkLangInfo (tail lns)
+  _:lns <- readFile configFile >>= return . lines
+  mapM mkLangInfo lns
   where
     maybeBit bits n = if length bits >= (n+1) && length (bits !! n) > 0 then Just (bits !! n) else Nothing
     boolBit bits n def = if length bits >= (n+1) && length (bits !! n) > 0 then (if def then bits !! n /= "n" else bits !! n == "y") else def
