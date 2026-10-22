@@ -3,6 +3,7 @@
 concrete LangNno of Lang =
   GrammarNno,
   LexiconNno
+  ,ConstructionNno
   ,DocumentationNno --# notpresent
   ** {
 
