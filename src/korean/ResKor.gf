@@ -352,7 +352,9 @@ oper
     nObj = \\_ => []
   } ;
 
-  VerbPhrase : Type = BaseVerb ** Complement ** BaseVP ;
+--- AR tried, got "clashing labels futureAttr past pastAttr"
+--- VerbPhrase : Type = BaseVerb ** Complement ** BaseVP ;
+VerbPhrase : Type = BaseVerb ** {s : VForm => Str} ** BaseVP ;
 
   VPSlash : Type = Verb2 ** BaseVP ;
 

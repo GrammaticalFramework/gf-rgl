@@ -428,7 +428,7 @@ resource VerbMorphoPol = open CatPol, ResPol, Prelude, (Predef=Predef),
       };
 
   oper mkGerund : adj11table -> SubstForm => Str = \part ->
-    let lemma = case part ! X1 of {
+    let lemma : Str = case part ! X1 of {
           stem + "iany" => stem + "ianie";
           stem + "iony" => stem + "ienie";
           stem + "any" => stem + "anie";

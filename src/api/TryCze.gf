@@ -1,6 +1,6 @@
 --# -path=.:../czech:../common:../abstract:../prelude
 
-resource TryCze = ExtraCze, SyntaxCze-[mkVoc], LexiconCze, ParadigmsCze -[mkAdv,mkAdN,mkIAdv,mkDet,mkIDet,mkIP,mkQuant,mkCard,mkPConj,mkVoc]**
+resource TryCze = ExtraCze, SyntaxCze-[mkVoc], LexiconCze, ParadigmsCze -[mkAdv,mkAdN,mkIAdv,mkDet,mkIDet,mkIP,mkQuant,mkPConj,mkVoc]**
   open (P = ParadigmsCze),(S = SyntaxCze) in {
 
 oper
@@ -17,8 +17,8 @@ oper
   mkIP = overload SyntaxCze {
     mkIP : Str -> IP = P.mkIPron ;
   } ;
-  mkCard = overload SyntaxCze {
-    mkCard : Str -> Card = P.mkCardinal ;
-  } ;
+---  mkCard = overload SyntaxCze {
+---    mkCard : Str -> Card = P.mkCardinal ;
+---  } ;
 
 }

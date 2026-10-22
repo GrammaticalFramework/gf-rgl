@@ -270,10 +270,10 @@ concrete ExtendLat of Extend = CatLat ** open ResLat, Prelude in {
     ReflA2RNP a rnp = {s = \\ag => a.s ! Posit ! ag ++ a.c.s ++ rnp.s ! ag ! a.c.c} ;
     PossPronRNP pron num cn rnp =
       let base = {
-        s = \\_,c => cn.s ! num.n ! c;
+        s = table PronDropForm {_  => cn.s ! num.n} ;
         n = num.n; g = cn.g; p = P3; adv = rnp.s ! Ag pron.pers.g pron.pers.n Nom ! Gen;
         preap=cn.preap; postap=cn.postap;
-        det={s=\\c=>pron.poss.s ! PronNonRefl ! Ag cn.g num.n c; sp=\\_=>""; n=num.n}
+        det={s = table Case {c => pron.poss.s ! PronNonRefl ! Ag cn.g num.n c} ; sp = table Case {_ => ""}}
         }
       in base ;
 
