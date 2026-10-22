@@ -341,7 +341,7 @@ oper
   -- e.g. some determiners act as adjectives modifying the noun they count
   -- 'the three children, two children'
   -- e.g. possesive pronouns: his book ('kitaabuhu'
-  cnB4det : Det -> Bool = \det ->
+  cnB4det : {isEmpty,isPron,isNum : Bool; n : Size; d : State} -> Bool = \det ->
     case <det.isEmpty,det.isPron,det.isNum,det.n,det.d> of {
       <True,_,_,_,_> => True; -- hack to make liPrep work
       <_,True,_,_,_> => True;
