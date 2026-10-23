@@ -4,4 +4,5 @@ concrete LangPes of Lang =
   GrammarPes
   ,LexiconPes
   ,ConstructionPes
+  ,DocumentationPes
   ** {} ;
