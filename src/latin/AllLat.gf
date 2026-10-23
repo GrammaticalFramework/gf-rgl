@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common:../prelude
+--# -path=.:../abstract:../common:../prelude:../api
 
 concrete AllLat of AllLatAbs = 
   LangLat,
