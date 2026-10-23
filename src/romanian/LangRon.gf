@@ -1,5 +1,5 @@
 --# -no-pmcfg 
---# -path=.:../abstract:../common:../prelude
+--# -path=.:../abstract:../common:../prelude:../api
 
 concrete LangRon of Lang = 
   GrammarRon,
