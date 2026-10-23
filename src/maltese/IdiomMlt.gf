@@ -73,7 +73,7 @@ concrete IdiomMlt of Idiom = CatMlt ** open Prelude, ResMlt, Maybe in {
       s2 = \\agr => case exists Participle vp.v.presPart of {
         True  => (fromJust Participle vp.v.presPart) ! (toGenNum agr) ;
         False => (vp.v.s ! VImpf (toVAgr agr)).s1
-        } ;
+        } ++ vp.s2 ! agr;
       dir = NullAgr ;
       ind = NullAgr ;
       } ;
