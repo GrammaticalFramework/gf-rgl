@@ -24,8 +24,12 @@ concrete IdiomMkd of Idiom = CatMkd ** open Prelude,ResMkd,MorphoMkd in {
   lin GenericCl vp = {s = \\t,a,p,o => vp.present ! Imperfective ! Sg
                                          ! P1} ;
   lin ImpP3 np vp = {s = np.s ! RSubj
-                           ++ vp.present ! Imperfective ! Sg ! np.a.p} ;
-  lin ImpPl1 vp = {s = vp.present ! Imperfective ! Sg ! P1} ;
+                           ++ "нека" ++ medialClitic vp.vtype ++
+                              vp.present ! Perfective ! genNum2num np.a.g ! P3
+                           ++ vp.compl ! np.a} ;
+  lin ImpPl1 vp = {s = "да" ++ medialClitic vp.vtype ++
+                            vp.present ! Perfective ! Pl ! P1
+                            ++ vp.compl ! {g = GPl; p = P1}} ;
   lin ImpersCl vp = {s = \\t,a,p,o => vp.present ! Imperfective ! Sg
                                         ! P1} ;
   lin ProgrVP vp = vp ** {

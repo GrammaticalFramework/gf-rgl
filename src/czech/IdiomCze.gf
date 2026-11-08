@@ -1,32 +1,25 @@
 concrete IdiomCze of Idiom = CatCze ** open Prelude, ResCze in {
 
 lin
+    ImpPl1 vp = {s = vp.verb.imppl1 ++ vp.clit ! Ag (Masc Anim) Pl P1 ++ vp.compl ! Ag (Masc Anim) Pl P1} ;
     ImpP3 np vp = {
-      s = "nechť" ++ np.s ! Nom ++ vp.clit ! np.a ++
-          verbAgr vp.verb np.a True ++ vp.compl ! np.a
+      s = "nechť" ++ vp.clit ! np.a ++
+          (case np.isDrop of {True => np.clit ! Nom ; False => np.s ! Nom}) ++
+          verbAgr vp.verb np.a Pos ++ vp.compl ! np.a
       } ;
 
-    ImpersCl vp = let agr = Ag Neutr Sg P3 in {
-      subj  = [] ;
-      clit  = vp.clit ! agr ;
-      compl = vp.compl ! agr ;
-      verb  = vp.verb ;
-      a     = agr
-      } ;
+    ImpersCl vp = let agr = Ag Neutr Sg P3 in
+      mkClause [] (vp.clit ! agr) (vp.compl ! agr) vp.verb agr True vp.clitPresent ;
 
-    GenericCl vp = let agr = Ag (Masc Anim) Pl P3 in {
-      subj  = [] ;
-      clit  = vp.clit ! agr ;
-      compl = vp.compl ! agr ;
-      verb  = vp.verb ;
-      a     = agr
-      } ;
+    GenericCl vp = let agr = Ag (Masc Anim) Pl P3 in
+      mkClause [] (vp.clit ! agr) (vp.compl ! agr) vp.verb agr True vp.clitPresent ;
 
-    ExistNP np = {
-      subj, clit = [] ;
-      compl = np.s ! Nom ;
-      verb = iii_kupovatVerbForms "existovat" ;
-      a = np.a
-      } ;
+    ExistNP np = mkClause [] [] (np.s ! Nom)
+      (iii_kupovatVerbForms "existovat") np.a True False ;
+
+    ExistNPAdv np adv =
+      let cl = ExistNP np in cl ** {compl = cl.compl ++ adv.s} ;
+
+    ProgrVP vp = vp ;
 
 }

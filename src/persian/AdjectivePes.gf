@@ -7,8 +7,8 @@ concrete AdjectivePes of Adjective = CatPes ** open ResPes, Prelude in {
  	UseComparA a = a ** {s = a.s ! Comparative} ;
 
   ComparA a np = a ** {
-    s = \\m => a.s ! Comparative ! m ++ "تر" ++ "از" ++ np2str np ;
-    adv = a.adv ++ "تر" ++ "از" ++ np2str np ;
+    s = \\m => a.s ! Comparative ! m ++ "از" ++ np2str np ;
+    adv = a.s ! Comparative ! Bare ++ "از" ++ np2str np ;
     } ;
 
 ---- $SuperlA$ belongs to determiner syntax in $Noun$.

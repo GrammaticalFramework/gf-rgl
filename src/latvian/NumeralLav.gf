@@ -59,6 +59,8 @@ lin
 
   pot1as2 n = n ;
 
+  pot21 = {s = \\_,_,_ => "simts" ; num = Pl} ;
+
   -- FIXME: nav īsti labi, kārtas skaitlim ir jābūt 'trīssimtais' utml
   pot2 d = {
     s = \\o,g,c => d.s ! NCard ! Masc ! Nom ++ simts ! o ! g ! d.num ! c ;
@@ -72,6 +74,8 @@ lin
 
   pot2as3 n = n ;
 
+  pot31 = {s = \\_,_,_ => "tūkstotis" ; num = Pl} ;
+
   pot3 d = {
     s = \\o,g,c => d.s ! NCard ! Masc ! Nom ++ tuukstotis ! o ! g ! d.num ! c ;
     num = Pl
@@ -83,7 +87,30 @@ lin
   } ;
 
   pot3as4 n = n ;
+
+  pot3decimal d = {s = \\_,_,_ => d.s ! NCard ++ "tūkstoši" ; num = Pl} ;
+
+  pot41 = {s = \\_,_,_ => "miljons" ; num = Pl} ;
+  pot4 n = {
+    s = \\_,_,_ => n.s ! NCard ! Masc ! Nom ++ "miljoni" ; num = Pl
+  } ;
+  pot4plus n m = {
+    s = \\o,g,c => n.s ! NCard ! Masc ! Nom ++ "miljoni" ++ m.s ! o ! g ! c ;
+    num = m.num
+  } ;
+  pot4decimal d = {s = \\_,_,_ => d.s ! NCard ++ "miljoni" ; num = Pl} ;
+
   pot4as5 n = n ;
+
+  pot51 = {s = \\_,_,_ => "miljards" ; num = Pl} ;
+  pot5 n = {
+    s = \\_,_,_ => n.s ! NCard ! Masc ! Nom ++ "miljardi" ; num = Pl
+  } ;
+  pot5plus n m = {
+    s = \\o,g,c => n.s ! NCard ! Masc ! Nom ++ "miljardi" ++ m.s ! o ! g ! c ;
+    num = m.num
+  } ;
+  pot5decimal d = {s = \\_,_,_ => d.s ! NCard ++ "miljardi" ; num = Pl} ;
 
 -- Numerals as sequences of digits:
 

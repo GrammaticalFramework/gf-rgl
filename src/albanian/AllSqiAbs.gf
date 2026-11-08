@@ -1,3 +1,5 @@
 abstract AllSqiAbs =
-  Lang
+  Lang,
+  Extend,
+  IrregSqiAbs
   ** {}

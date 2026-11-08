@@ -1,0 +1,44 @@
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (UsePron i_Pron)) (ComplSlash (SlashV2AP have_V2 like_AP) (UsePron she_Pron))))	já ji mám rád
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2AP have_V2 like_AP) (UsePron she_Pron))))	mám ji rád
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject she_Pron) (ReflRNP (SlashV2AP have_V2 like_AP) (UseRNP (ReflPoss NumSg (UseN son_N))))))	má ráda svého syna
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject she_Pron) (ReflRNP (SlashV2AP have_V2 like_AP) (PredetRNP only_Predet ReflPron))))	má ráda jen sebe
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet (ReflPoss NumPl (UseN child_N))))))	čekám na všechny své děti
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (UsePron i_Pron) (DetCN (DetQuant DefArt two_Num) (UseN year_N))))	jsou mi dva roky
+UttS (UseCl (TTAnt TPres ASimul) PNeg (DativeCopulaCl (UsePron i_Pron) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	není mi pět let
+UttQS (UseQCl (TTAnt TPres ASimul) PPos (DativeCopulaQCl (UsePron youPol_Pron) (IdetCN how8many_IDet (UseN year_N))))	kolik let vám je
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant DefArt NumSg) (UseN son_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	synovi je pět let
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (UsePron i_Pron)) (UseV wash_V)))	já se myji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseV wash_V)))	myji se
+UttAdv (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseV wash_V))))	jestliže se myji
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a writeAbout_V2) (PredetRNP all_Predet (ReflPoss NumPl (UseN child_N))))))	píši o všech svých dětech
+UttAdv (PrepNP possess_Prep (UsePron he_Pron))	jeho
+UttAdv (PrepNP by8agent_Prep (UsePron he_Pron))	od něho
+UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoSg_IP (ComplSlash (SlashV2a love_V2) (UsePron she_Pron))))	kdo ji miluje
+UttIAdv (PrepIP by8agent_Prep whoSg_IP)	od koho
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	jsem mladší než ona
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (UseComp (CompAP (Compare fast_A (ComparisonPron she_Pron))))))	jsem rychlejší než ona
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	pět dětí je mladších než ona
+UttAdv (PrepNP by8agent_Prep (DetCN (DetQuant DefArt NumSg) (ModifiedN (Compare young_A (ComparisonPron she_Pron)) child_N)))	od dítěte mladšího než ona
+UttAdv (PrepNP with_Prep (PredetNP all_Predet (AdvPron we_Pron home_Adv)))	s námi všemi doma
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt two_Num) (UseN child_N))) (ReflRNP (SlashV2a love_V2) (PredetRNP all_Predet ReflPron))))	dvě děti milují sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a love_V2) (PredetRNP all_Predet ReflPron))))	pět dětí miluje sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant DefArt five_Num) (UseN child_N))) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet ReflPron))))	pět dětí čeká na sebe všechny
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ReflRNP (SlashV2a wait_V2) (PredetRNP all_Predet (ReflPoss five_Num (UseN child_N))))))	čekám na všech svých pět dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyOne_Num) (UseN child_N))	mých dvacet jedna dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))	mých dvacet dva dětí
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyOne_Num) (UseN child_N)))	s mými dvaceti jedna dětmi
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N)))	s mými dvaceti dvěma dětmi
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (FullSubject (DetCN (DetQuant (PossPron i_Pron) twentyTwo_Num) (UseN child_N))) (UseComp (CompAP (Compare young_A (ComparisonPron she_Pron))))))	mých dvacet dva dětí je mladších než ona
+UttNP (DetCN (DetQuant this_Quant twentyTwoHundred_Num) (UseN child_N))	tyto dva tisíce dvě stě dětí
+UttNP (DetCN (DetQuant (PossPron i_Pron) twentyTwoHundred_Num) (UseN child_N))	mé dva tisíce dvě stě dětí
+UttAdv (PrepNP with_Prep (DetCN (DetQuant this_Quant twelveHundred_Num) (UseN child_N)))	s tímto jedním tisícem dvěma sty dětí
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2a love_V2) (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)))))	miluji vaši ženu
+UttS (UseCl (TTAnt TPres ASimul) PPos (PredSubject (DroppedSubject i_Pron) (ComplSlash (SlashV2a love_V2) (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)))))	miluji naši ženu
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	naší ženě je pět let
+UttS (UseCl (TTAnt TPres ASimul) PPos (DativeCopulaCl (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)) (DetCN (DetQuant DefArt five_Num) (UseN year_N))))	vaší ženě je pět let
+UttAdv (PrepNP possess_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN woman_N)))	vaší ženy
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN son_N)))	s naším synem
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumSg) (UseN child_N)))	s vaším dítětem
+UttAdv (PrepNP with_Prep (DetCN (DetQuant (PossPron youPol_Pron) NumPl) (UseN child_N)))	s vašimi dětmi
+UttNP (DetCN (DetQuant DefArt two_Num) (UseN apple_N))	dvě jablka
+UttNP (DetCN (DetQuant DefArt five_Num) (UseN apple_N))	pět jablek

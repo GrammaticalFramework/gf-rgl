@@ -24,8 +24,8 @@
                                     _  => vpr.s ! Imper PlP2  ++ vpr.comp ! agPl ++ vpr.ext ! Pos 
                                     };
                    <Pos, ImpF n True> => case n of 
-                                    {Sg => "sã"  ++ clNegSg ++ conjVP vpr agSg ++ vpr.comp ! agSg ++ vpr.ext ! Pos;
-                                     Pl => "sã"  ++  clNegPl ++ conjVP vpr agPl ++ vpr.comp ! agPl ++ vpr.ext ! Pos
+                                    {Sg => "să"  ++ clNegSg ++ conjVP vpr agSg ++ vpr.comp ! agSg ++ vpr.ext ! Pos;
+                                     Pl => "să"  ++  clNegPl ++ conjVP vpr agPl ++ vpr.comp ! agPl ++ vpr.ext ! Pos
                                      };
                     <Neg, ImpF n b> => case n of 
                                     {Sg => "nu" ++ clNegSg ++ vpr.s ! Inf ++ vpr.comp ! agSg ++ vpr.ext ! Pos;
@@ -72,7 +72,7 @@
 
     EmbedQS qs = {s = qs.s ! QIndir} ;
    EmbedVP vp = let a = agrP3 Masc Sg in 
-      { s= "sã" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos };
+      { s= "să" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos };
 
     UseCl  t p cl = {
       s = \\o => t.s ++ p.s ++ cl.s ! DDir ! t.t ! t.a ! p.p ! o
@@ -98,6 +98,9 @@
     RelS s r = {
       s = \\o => s.s ! o ++ "," ++ r.s ! Indic ! agrP3 Masc Sg
       } ;
+
+    SSubjS s1 subj s2 = {s = \\m => s1.s ! m ++ subj.s ++ s2.s ! m} ;
+    AdvImp adv imp = {s = \\p,f,g => adv.s ++ imp.s ! p ! f ! g} ;
 
  oper putClit : Agr -> ParClit -> VP -> VP = \ag, pc, vp -> let nrC = nextClit vp.nrClit pc 
    in

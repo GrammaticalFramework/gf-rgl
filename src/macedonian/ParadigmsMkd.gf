@@ -1078,8 +1078,8 @@ dualV : V -> V -> V = \impf,perf -> lin V
                                  Perfective   => perf.participle.imperfect ! Perfective
                                } ;
                    perfect = table {
-                               Imperfective => impf.participle.perfect ! Imperfective ;
-                               Perfective   => perf.participle.perfect ! Perfective
+                               Imperfective => impf.participle.adjectival ! Imperfective ++ BIND ++ "о" ;
+                               Perfective   => perf.participle.adjectival ! Perfective ++ BIND ++ "о"
                              } ;
                    adjectival = table {
                                   Imperfective => impf.participle.adjectival ! Imperfective ;

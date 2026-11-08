@@ -20,6 +20,8 @@ concrete AdjectiveTha of Adjective = CatTha ** open ResTha, Prelude in {
 
     AdAP ada ap = thbind ap ada ;
 
+    AdvAP ap adv = thbind ap adv ;
+
     UseA2 a = a ;
 
 }

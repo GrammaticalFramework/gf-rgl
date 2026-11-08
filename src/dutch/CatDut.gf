@@ -53,6 +53,7 @@ concrete CatDut of Cat =
     Predet = {s : Number => Gender => Str} ;
     Num = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
+    ACard = {s : Str} ;
     Ord = {s : AForm => Str} ;
 
 -- Numeral

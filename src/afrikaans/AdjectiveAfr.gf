@@ -49,6 +49,11 @@ concrete AdjectiveAfr of Adjective = CatAfr ** open ResAfr, Prelude in
       isPre = ap.isPre
       } ;
 
+    AdvAP ap adv = {
+      s = \\a => ap.s ! a ++ adv.s ;
+      isPre = False
+      } ;
+
     UseA2 a = {
       s = a.s ! Posit ;
       isPre = True

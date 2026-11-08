@@ -16,6 +16,8 @@ concrete SentenceTha of Sentence = CatTha **
         }
       } ;
 
+    AdvImp adv imp = {s = \\p => thbind adv.s (imp.s ! p)} ;
+
     SlashVP np vp = mkPolClause np vp ** {c2 = vp.c2} ;
 
     SlashVS np vs slash = 

@@ -101,6 +101,7 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 		pot1 d = {s = d.s ! ten ; size = pl} ;
 		pot1plus d e = { s = \\ngc => d.s ! ten ! ngc ++ "og" ++ e.s ! unit ! ngc ; size = pl} ;
 		pot1as2 n = n ;
+		pot21 = {s = hundrað ; size = pl} ;
 		pot2 d = { s = \\ngc => (omitsg (d.s ! unit ! NCard Sg Neutr Nom) d.size) ++ hundrað ! ngc ; size = pl} ;
 		pot2plus d e = {
 			s = table {
@@ -110,6 +111,7 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 			size = pl
 		} ;
 		pot2as3 n = n ;
+		pot31 = {s = þúsund ; size = pl} ;
 		pot3 d = { s = \\ngc => (omitsg (d.s ! NCard Sg Neutr Nom) d.size) ++ þúsund ! ngc ; size = pl} ;
 		pot3plus d e = {
 			s = table {
@@ -119,8 +121,39 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 			size = pl
 		} ;
         pot3as4 n = n ;
+		pot3decimal d = {s = \\_ => d.s ! NCard Pl Neutr Nom ++ "þúsund" ; size = pl} ;
+
+		pot41 = {s = \\co => case co of {
+			NCard _ _ c => pot01.s ! unit ! NCard Sg Fem c ++ milljón ! Sg ! c ;
+			NOrd n g c => (mkRegOrd "milljónast" "milljónust") ! n ! g ! c
+		} ; size = pl} ;
+		pot4 d = {s = \\co => d.s ! NCard Pl Fem (cardOrdCase co) ++ case co of {
+			NCard _ _ c => milljón ! Pl ! c ;
+			NOrd n g c => (mkRegOrd "milljónast" "milljónust") ! n ! g ! c
+		} ; size = pl} ;
+		pot4plus d e = {s = \\co => d.s ! NCard Pl Fem (cardOrdCase co) ++ milljón ! Pl ! (cardOrdCase co) ++
+			case co of {
+				NCard n g c => e.s ! NCard n g c ;
+				NOrd n g c => "og" ++ e.s ! NOrd n g c
+			} ; size = pl} ;
 
         pot4as5 n = n ;
+		pot4decimal d = {s = \\co => d.s ! NCard Pl Neutr Nom ++ milljón ! Pl ! (cardOrdCase co) ; size = pl} ;
+
+		pot51 = {s = \\co => case co of {
+			NCard _ _ c => pot01.s ! unit ! NCard Sg Masc c ++ milljarður ! Sg ! c ;
+			NOrd n g c => (mkRegOrd "milljarðast" "milljörðust") ! n ! g ! c
+		} ; size = pl} ;
+		pot5 d = {s = \\co => d.s ! NCard Pl Masc (cardOrdCase co) ++ case co of {
+			NCard _ _ c => milljarður ! Pl ! c ;
+			NOrd n g c => (mkRegOrd "milljarðast" "milljörðust") ! n ! g ! c
+		} ; size = pl} ;
+		pot5plus d e = {s = \\co => d.s ! NCard Pl Masc (cardOrdCase co) ++ milljarður ! Pl ! (cardOrdCase co) ++
+			case co of {
+				NCard n g c => e.s ! NCard n g c ;
+				NOrd n g c => "og" ++ e.s ! NOrd n g c
+			} ; size = pl} ;
+		pot5decimal d = {s = \\co => d.s ! NCard Pl Neutr Nom ++ milljarður ! Pl ! (cardOrdCase co) ; size = pl} ;
 
 	oper
 
@@ -167,6 +200,21 @@ concrete NumeralIce of Numeral = CatIce [Numeral,Digits,Decimal] ** open Prelude
 		þúsund : CardOrd => Str = table {
 			NCard _ _ _ => "þúsund" ; 
 			NOrd n g c => (mkRegOrd "þúsundast" "þúsundust") ! n ! g ! c
+		} ;
+
+		milljón : Number => Case => Str = table {
+			Sg => caseList "milljón" "milljón" "milljón" "milljónar" ;
+			Pl => caseList "milljónir" "milljónir" "milljónum" "milljóna"
+		} ;
+
+		milljarður : Number => Case => Str = table {
+			Sg => caseList "milljarður" "milljarð" "milljarði" "milljarðs" ;
+			Pl => caseList "milljarðar" "milljarða" "milljörðum" "milljarða"
+		} ;
+
+		cardOrdCase : CardOrd -> Case = \co -> case co of {
+			NCard _ _ c => c ;
+			NOrd _ _ c => c
 		} ;
 		
 		sizeToNumber : Size -> Number = \size -> case size of {

@@ -105,9 +105,9 @@ flags coding = utf8 ;
       } ;
     
     IdetIP idet = {
-      s_subj, s_obj = \\st => case idet.inclCard of {
-        True => idet.s ++ "つ" ;
-        False => idet.s
+      s_subj, s_obj = \\st => case idet.numType of {
+        NoCard => idet.s ;
+        _      => idet.s ++ "つ"
         } ;
       anim = Inanim ; -- can be Anim, depending on the context 
       how8many = False -- "how many" alone behaves as other IPs
@@ -124,7 +124,7 @@ flags coding = utf8 ;
       s = iquant.s ++ num.s ; 
       n = num.n ; 
       how8many = False ;
-      inclCard = num.inclCard
+      numType = num.numType
       } ;
 
     PrepIP prep ip = {s = \\st => ip.s_obj ! st ++ prep.s ; particle = "" ; wh8re = False} ;

@@ -218,7 +218,10 @@ oper
             => (addClitic vp.lightverb np.clitic vp).s ;
           _ => vp.s
         } ;
-    obj = vp.obj ++ vp.agrObj ! np.a ; -- "beg her to buy", buy agrees with her
+    obj = vp.obj ;
+    -- A V2V's dependent VP agrees with its object, but follows the finite
+    -- matrix verb in Persian: به او اجازه دادم برود.
+    vComp = \\a,t => vp.vComp ! a ! t ++ vp.agrObj ! np.a ;
     isNeg = np.isNeg
   } ;
 
@@ -226,17 +229,10 @@ oper
 ---- but don't know yet how False should be affect
   complVV : VV -> VPH -> (Agr => VVTense => Str) = \vv,vp ->
     \\agr,ant => if_then_Str vv.isAux conjThat [] ++
-      case <ant,vv.isDef,vv.compl> of {
-       -- Auxiliaries with defective inflection: complement inflects in tense
-        <VVPast Indic,True,>  => showVPHwithImpPrefix (VPast Pos agr) agr vp ;
-        <VVPast Indic,_,_>    => showVPH (VPast Pos agr) agr vp ;
-        <VVPast Subj>         => showVPH PerfStem agr vp ++ subjAux Pos agr ;
-
-        -- Auxiliaries that take indicative (full or defective inflection)
-        <VVPres,_,Indic> => showVPH (VAor Pos agr) agr vp ;
-
-       -- Default: complement in subjunctive
-        _ => showVPH (VSubj Pos agr) agr vp
+      case <ant,vv.compl> of {
+        <VVPast Subj,_> => showVPH PerfStem agr vp ++ subjAux Pos agr ;
+        <_,Indic>       => showVPH (VAor Pos agr) agr vp ;
+        _               => showVPH (VSubj Pos agr) agr vp
     } ;
 
   insertAdv : Str -> VPH -> VPH = \ad,vp -> vp ** {
@@ -309,12 +305,22 @@ oper
        ++ vps ++ vp.vComp ! agr ! vvt ++ vp.embComp
   };
 
-  predProg : VPH -> VPH = \verb -> verb ** {
-    s = \\vh => case vh of {
-      ImpPrefix _ => [] ;
-      VAor  p a => haveVerb.s ! VAor  Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VAor Pos a ;
-      VPast p a => haveVerb.s ! VPast Pos a ++ verb.s ! ImpPrefix p ++ verb.s ! VPast Pos a ; -- negation in ImpPrefix
-	    _ => verb.s ! vh } ; -- TODO more forms
+  -- The progressive auxiliary precedes the lexical predicate in Persian:
+  -- داشتند گل می‌دادند, not *گل داشتند می‌دادند. Keep VP-level
+  -- adverbs before the auxiliary, but put the lexical verb's arguments,
+  -- light-verb prefix and complements between the two verbs.
+  predProg : VPH -> VPH = \vp -> predV haveVerb ** {
+    ad = vp.ad ;
+    isNeg = vp.isNeg ;
+    vvtype = FullVV ;
+    vComp = \\agr,t =>
+      vp.comp ! agr ! OV ++ vp.obj ++ vp.prefix
+      ++ vp.s ! ImpPrefix Pos
+      ++ vp.s ! case t of {
+           VVPres   => VAor Pos agr ;
+           VVPast _ => VPast Pos agr
+         }
+      ++ vp.vComp ! agr ! t ++ vp.embComp
     } ;
 
   IndefArticle : Str ;

@@ -89,6 +89,17 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
       n  = num.n
       } ;
 
+    DetQuantOrd quant num ord = {
+      s  = \\g,c => quant.s  ! Ag g num.n c ++ num.s ! g ! c ++ ord.s ! g ! num.n ! c ;
+      sp = \\g,c => quant.sp ! Ag g num.n c ;
+      n  = num.n
+      } ;
+
+    DetDAP det = det ;
+    AdjDAP det ap = det ** {
+      sp = \\g,c => ap.s ! Ag g det.n c ++ det.sp ! g ! c
+      } ;
+
 
 
     PossPron p = { s = \\a => p.poss.s ! PronNonRefl ! a ; sp = \\_ => "" } ;
@@ -100,6 +111,9 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     NumPl = {s = \\_,_ => [] ; n = Pl} ;
 
     NumCard n = n ;
+    NumDigits d = {s = \\_,_ => d.s ; n = Pl} ;
+    NumDecimal d = {s = \\_,_ => d.s ; n = Pl} ;
+    QuantityNP d mu = dummyNP (d.s ++ mu.s) ** {n=Pl;g=Neutr} ;
 --
 --    NumDigits n = {s = n.s ! NCard ; n = n.n} ;
     --    OrdDigits n = {s = n.s ! NOrd} ;
@@ -109,6 +123,13 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     NumNumeral numeral = { s = numeral.s ; n = numeral.n } ;
     -- OrdNumeral : Numeral -> Ord ;  -- fifty-first
     OrdNumeral numeral = { s = numeral.ord } ;
+    OrdDigits d = {s = \\_,_,_ => d.s} ;
+    OrdSuperl a = {s = \\g,n,c => a.s ! Superl ! Ag g n c} ;
+    OrdNumeralSuperl numeral a = {
+      s = \\g,n,c => numeral.s ! g ! c ++ a.s ! Superl ! Ag g n c
+      } ;
+
+    AdNum adn num = num ** {s = \\g,c => adn.s ++ num.s ! g ! c} ;
 --
 --    AdNum adn num = {s = adn.s ++ num.s ; n = num.n} ;
 --
@@ -163,6 +184,39 @@ concrete NounLat of Noun = CatLat ** open ResLat, Prelude, ConjunctionLat in {
     -- by default add adjective after the noun, otherwise use AdjCNPre
     AdjCN ap cn =  -- AP -> CN -> CN
       addAdjToCN (lin AP ap) (lin CN cn) Post ;
+
+    AdvCN cn adv = cn ** {adv = cn.adv ++ adv.s ! Posit} ;
+
+    RelCN cn rs = cn ** {
+      adv = cn.adv ++ bindComma ++ rs.s ! cn.g ! Sg
+      } ;
+
+    SentCN cn sc = cn ** {adv = cn.adv ++ sc.s} ;
+
+    PossNP cn np = cn ** {
+      s = \\n,c => cn.s ! n ! c ++
+        combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Gen
+      } ;
+
+    PartNP cn np = cn ** {
+      s = \\n,c => cn.s ! n ! c ++ "ex" ++
+        combineNounPhrase np ! PronNonDrop ! APostN ! DPreN ! Abl
+      } ;
+
+    ComplN2 n2 np = lin CN (n2 ** {
+      s = \\n,c => n2.s ! n ! c ++ appPrep n2.c
+        (combineNounPhrase np ! PronNonDrop ! APostN ! DPreN)
+      ; preap, postap = {s = \\_ => ""} ; adv = ""
+      }) ;
+
+    ComplN3 n3 np = n3 ** {
+      s = \\n,c => n3.s ! n ! c ++ appPrep n3.c
+        (combineNounPhrase np ! PronNonDrop ! APostN ! DPreN) ;
+      c = n3.c2
+      } ;
+
+    Use2N3 n3 = n3 ** {c = n3.c} ;
+    Use3N3 n3 = n3 ** {c = n3.c2} ;
 
 --    RelCN cn rs = {
 --      s = \\n,c => cn.s ! n ! c ++ rs.s ! agrgP3 n cn.g ;

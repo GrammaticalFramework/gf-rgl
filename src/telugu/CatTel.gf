@@ -15,7 +15,7 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
 --
     Cl = ResTel.Clause ;
     ClSlash = {s : VPHTense => Polarity => Str ; c2 : Compl} ;
-    Imp = {s : Str} ;
+    Imp = {s : Polarity => Number => Str} ;
 --
 ---- Question
 --
@@ -47,22 +47,21 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
     Pron = {s : PronCase => Str ; a : Agr} ;
     Det = {s : Gender => Case => Str ; n : Number} ;
     Predet, Ord = {s : Str} ;
-    Num  = {s : Str ; n : Number} ;
-    Card, ACard = {s : Str; n : Number} ;
+    Num, Card = {s : Gender => Str ; n : Number} ;
+    ACard = {s : Str; n : Number} ;
     DAP = {s : Gender => Case => Str ; n : Number} ;
     Quant = {s : Number => Gender => Case => Str} ;
     Art = {s : Str} ;
 --
 ---- Numeral
 --
-    Numeral, Digits, Decimal = {s : Str ; n : Number} ;
+    Numeral = {s : Gender => Str ; n : Number} ;
+    Digits, Decimal = {s : Str ; n : Number} ;
     LN, GN, SN = {s : Str} ;
 --
 ---- Structural
 --
     Conj = {s1,s2 : Str ; n : Number} ;
------b    Conj = {s : Str ; n : Number} ;
------b    DConj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
     Prep = {s : Str} ;
 --

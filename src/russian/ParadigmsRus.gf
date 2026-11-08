@@ -207,7 +207,7 @@ oper
     infrefl = v.infrefl ++ s ;
     prsg1 = v.prsg1 ++ s ;
     prsg2 = v.prsg2 ++ s ;
-    prsg3 = v.prsg2 ++ s ;
+    prsg3 = v.prsg3 ++ s ;
     prpl1 = v.prpl1 ++ s ;
     prpl2 = v.prpl2 ++ s ;
     prpl3 = v.prpl3 ++ s ;
@@ -216,8 +216,35 @@ oper
     isg2 = v.isg2 ++ s ;
     ipl1 = v.ipl1 ++ s ;
     isg2refl = v.isg2refl ++ s ;
-    ppps = v.ppps ++ s ;
-    pppss = v.pppss ++ s ;
+    prap = {msnom = v.prap.msnom ++ s ;
+            fsnom = v.prap.fsnom ++ s ;
+            nsnom = v.prap.nsnom ++ s ;
+            pnom = v.prap.pnom ++ s ;
+            msgen = v.prap.msgen ++ s ;
+            fsgen = v.prap.fsgen ++ s ;
+            pgen = v.prap.pgen ++ s ;
+            msdat = v.prap.msdat ++ s ;
+            fsacc = v.prap.fsacc ++ s ;
+            msins = v.prap.msins ++ s ;
+            fsins = v.prap.fsins ++ s ;
+            pins = v.prap.pins ++ s ;
+            msprep = v.prap.msprep ++ s
+           } ;
+    pppa = {msnom = v.pppa.msnom ++ s ;
+            fsnom = v.pppa.fsnom ++ s ;
+            nsnom = v.pppa.nsnom ++ s ;
+            pnom = v.pppa.pnom ++ s ;
+            msgen = v.pppa.msgen ++ s ;
+            fsgen = v.pppa.fsgen ++ s ;
+            pgen = v.pppa.pgen ++ s ;
+            msdat = v.pppa.msdat ++ s ;
+            fsacc = v.pppa.fsacc ++ s ;
+            msins = v.pppa.msins ++ s ;
+            fsins = v.pppa.fsins ++ s ;
+            pins = v.pppa.pins ++ s ;
+            msprep = v.pppa.msprep ++ s ;
+            short = \\gn => v.pppa.short ! gn ++ s
+           } ;
     prtr = v.prtr ++ s ;
     ptr = v.ptr ++ s
   } ;
@@ -244,7 +271,7 @@ oper
 ------------------------------
 -- Nouns
 
-  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; neggen=False ; hasPrep=False} ;
+  nullPrep : Prep = lin Prep {s=[] ; c=Gen ; hasPrep=False} ;
 
   mkN = overload {
     mkN : Str -> N
@@ -598,12 +625,7 @@ oper
         let refl = case v.refltran of {Refl => "ся" ; _ => ""} in
         case <voice,t> of {
           <Pass,Past|Cond> => lin A ( --# notpresent TODO: check
-            guessAdjectiveForms (v.ppps + "ый") ** {  --# notpresent
-              sm=v.pppss ;  --# notpresent
-              sf=v.pppss + "а"; --# notpresent
-              sn=v.pppss + "о"; --# notpresent
-              sp=v.pppss + "ы" --# notpresent
-              } --# notpresent
+            guessAdjectiveForms v.pppa.msnom ** v.pppa  --# notpresent
             ) ;--# notpresent
           <Pass,Pres> => lin A ( -- overgenerated
             let s : Str = case v.prpl1 of {
@@ -677,26 +699,26 @@ oper
 
   mkV2 = overload {
     mkV2 : V -> V2
-      = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; neggen=True ; hasPrep=False}}) ;
+      = \vf -> lin V2 (vf ** {c={s=[] ; c=Acc ; hasPrep=False}}) ;
     mkV2 : V -> Case -> V2
-      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; neggen=False ; hasPrep=False}}) ;
+      = \vf, c -> lin V2 (vf ** {c={s=[] ; c=c ; hasPrep=False}}) ;
     mkV2 : V -> Prep -> V2
       = \vf, prep -> lin V2 (vf ** {c=prep}) ;
 
     -- For backwards compatibility:
     mkV2 : V -> Str -> Case -> V2
-      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; neggen=False ; hasPrep=True}})
+      = \vf, prep_s, c -> lin V2 (vf ** {c={s=prep_s ; c=c ; hasPrep=True}})
     } ;
 
   mkV3 = overload {
     mkV3 : V -> Case -> Case -> V3   -- "сложить письмо в конверт"
-      = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; neggen=False ; hasPrep=False} ; c2={s=[] ; c=cas2 ; neggen=False ; hasPrep=False}} ) ;
+      = \vf, cas1, cas2 -> lin V3 (vf ** {c={s=[] ; c=cas1 ; hasPrep=False} ; c2={s=[] ; c=cas2 ; hasPrep=False}} ) ;
     mkV3 : V -> Prep -> Prep -> V3   -- "сложить письмо в конверт"
       = \vf, prep1, prep2 -> lin V3 (vf ** {c=prep1 ; c2=prep2} ) ;
 
     -- For backwards compatibility:
     mkV3 : V -> Str -> Str -> Case -> Case -> V3
-      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; neggen=False ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; neggen=False ; hasPrep=True}} ) ;
+      = \vf, prep1, prep2, cas1, cas2 -> lin V3 (vf ** {c={s=prep1 ; c=cas1 ; hasPrep=True} ; c2={s=prep2 ; c=cas2 ; hasPrep=True}} ) ;
   } ;
 
 
@@ -711,25 +733,25 @@ oper
     mkV2V : V -> Prep -> V2V
       = \v, prep -> lin V2V (v ** {c=prep}) ;
     mkV2V : V -> Str -> Case -> V2V
-      = \v, prep, cas -> lin V2V (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+      = \v, prep, cas -> lin V2V (v ** {c={s=prep ; c=cas ; hasPrep=True}}) ;
   } ;
   mkV2S = overload {
      mkV2S : V -> Prep -> V2S
        = \v, prep -> lin V2S (v ** {c=prep}) ;
      mkV2S : V -> Str -> Case -> V2S
-       = \v, prep, cas -> lin V2S (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+       = \v, prep, cas -> lin V2S (v ** {c={s=prep ; c=cas ; hasPrep=True}}) ;
   } ;
   mkV2Q = overload {
      mkV2Q : V -> Prep -> V2Q
        = \v, prep -> lin V2Q (v ** {c=prep}) ;
      mkV2Q : V -> Str -> Case -> V2Q
-       = \v, prep, cas -> lin V2Q (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+       = \v, prep, cas -> lin V2Q (v ** {c={s=prep ; c=cas ; hasPrep=True}}) ;
   } ;
   mkV2A = overload {
      mkV2A : V -> Prep -> V2A
        = \v, prep -> lin V2A (v ** {c=prep}) ;
      mkV2A : V -> Str -> Case -> V2A
-       = \v, prep, cas -> lin V2A (v ** {c={s=prep ; c=cas ; neggen=False ; hasPrep=True}}) ;
+       = \v, prep, cas -> lin V2A (v ** {c={s=prep ; c=cas ; hasPrep=True}}) ;
   } ;
 
 ------------------------
@@ -766,7 +788,7 @@ oper
     = \s -> lin Interj {s = s} ;
 
   mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; neggen = False ; hasPrep = True} ;
+    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
 
 
 oper

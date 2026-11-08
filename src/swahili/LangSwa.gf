@@ -3,7 +3,7 @@
 concrete LangSwa of Lang =
   GrammarSwa,
   LexiconSwa
---  ,ConstructionSwa
+  ,ConstructionSwa
   ,DocumentationSwa --# notpresent
     ** {
 } ;

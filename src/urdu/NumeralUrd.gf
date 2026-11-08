@@ -18,6 +18,8 @@ lincat Sub10 = {s : DForm => Str ; size : DSize ; n : Number} ;
 lincat Sub100 = {s : Str ; size : Size ; n : Number} ;
 lincat Sub1000 = {s : Str ; s2 : Str ; size : Size ; n : Number } ; 
 lincat Sub1000000 = { s : Str ; n : Number } ;
+lincat Sub1000000000 = {s : Str ; n : Number} ;
+lincat Sub1000000000000 = {s : Str ; n : Number} ;
 
 lin num x0 = 
     {s = table {
@@ -82,6 +84,7 @@ lin pot1 d = {s = d.s ! ten ; size = less100 ; n = Pl} ; --changed from d.n
 lin pot1plus d e = {s = rows ! e.size ! d.size ; size = less100 ; n = Pl} ; --changed from d.n
 
 lin pot1as2 n = {s = n.s ; s2 = "دمی" ; size = n.size ; n = n.n} ;
+lin pot21 = {s = "سو" ; s2 = "ایک لاکھ" ; size = more100 ; n = Pl} ;
 lin pot2 d = {s = (mksau (d.s ! unit) d.size) ; 
               s2 = d.s ! unit ++ "لاکھ" ; size = more100 ; n = Pl} ; --changed from d.n
 lin pot2plus d e = 
@@ -90,6 +93,7 @@ lin pot2plus d e =
    size = more100 ; n = Pl} ;
 
 lin pot2as3 n = {s = n.s ; n = n.n} ;
+lin pot31 = {s = "ایک ہزار" ; n = Pl} ;
 lin pot3 n = {s = table { singl => ekhazar ;
                           less100 => n.s ++ "ہزار" ; 
                           more100 => n.s2 } ! n.size ; n = Pl} ; --changed from d.n
@@ -97,6 +101,18 @@ lin pot3plus n m =
   {s = table {singl => ekhazar ;
               less100 => n.s ++ "ہزار" ; 
               more100 => n.s2 } ! n.size ++ m.s ; n = Pl} ; --changed from d.n
+
+lin pot3as4 n = n ;
+lin pot3decimal n = {s = n.s ! NCard ++ "ہزار" ; n = Pl} ;
+lin pot41 = {s = "دس لاکھ" ; n = Pl} ;
+lin pot4 n = {s = n.s ++ "دس لاکھ" ; n = Pl} ;
+lin pot4plus n m = {s = n.s ++ "دس لاکھ" ++ m.s ; n = Pl} ;
+lin pot4as5 n = n ;
+lin pot4decimal n = {s = n.s ! NCard ++ "دس لاکھ" ; n = Pl} ;
+lin pot51 = {s = "ایک ارب" ; n = Pl} ;
+lin pot5 n = {s = n.s ++ "ارب" ; n = Pl} ;
+lin pot5plus n m = {s = n.s ++ "ارب" ++ m.s ; n = Pl} ;
+lin pot5decimal n = {s = n.s ! NCard ++ "ارب" ; n = Pl} ;
 
 lin D_0 = { s = "۰" ; n = Sg};
 lin D_1 = { s = "۱" ; n = Sg};
@@ -109,7 +125,7 @@ lin D_7 = { s = "۷" ; n = Pl};
 lin D_8 = { s = "۸" ; n = Pl};
 lin D_9 = { s = "۹" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
-lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
+lin IIDig d dg = {s = \\df => Prelude.glue d.s (dg.s ! df) ; n = Pl} ;
 lin PosDecimal d = d ** {hasDot=False} ;
 lin NegDecimal d = {
       s = \\df => Prelude.glue "-" (d.s ! df) ;

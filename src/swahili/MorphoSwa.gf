@@ -166,7 +166,29 @@ Detsomeplprefix : Gender ->  Str = \g ->
     g = g
     } ;
 
- regA:Str -> {s : AForm =>  Str} = \seo ->  {s = table {
+regA:Str -> {s : AForm =>  Str} = \seo -> case seo of {
+  -- Machine-translated lexica frequently provide a relational adjective as
+  -- "a/wa/ya ..." or an -enye/relative form instead of an adjective root.
+  -- Inflect the grammatical prefix, not the first letters of the phrase.
+  "a " + rest      => phraseA genitivePrefix rest ;
+  "wa " + rest     => phraseA genitivePrefix rest ;
+  "ya " + rest     => phraseA genitivePrefix rest ;
+  "cha " + rest    => phraseA genitivePrefix rest ;
+  "mwenye " + rest => phraseA enyePrefix rest ;
+  "Mwenye " + rest => phraseA enyePrefix rest ;
+  "wenye " + rest  => phraseA enyePrefix rest ;
+  "yenye " + rest  => phraseA enyePrefix rest ;
+  "Yenye " + rest  => phraseA enyePrefix rest ;
+  "chenye " + rest => phraseA enyePrefix rest ;
+  "Chenye " + rest => phraseA enyePrefix rest ;
+  "enye " + rest   => phraseA enyePrefix rest ;
+  "isiyo" + rest   => phraseA relNegPrefix rest ;
+  "Isiyo" + rest   => phraseA relNegPrefix rest ;
+  "asiye" + rest   => phraseA relNegPrefix rest ;
+  "Asiye" + rest   => phraseA relNegPrefix rest ;
+  "inayo" + rest   => phraseA relPosPrefix rest ;
+  "Inayo" + rest   => phraseA relPosPrefix rest ;
+  _ => {s = table {
      AAdj G1 Sg=>case Predef.take 1 seo of { 
                "a"|"e"|"i"|"o"|"u"  => VowelAdjprefix G1 Sg + seo;
                    _ => ConsonantAdjprefix  G1 Sg + seo };
@@ -241,7 +263,59 @@ Detsomeplprefix : Gender ->  Str = \g ->
                "a"|"e"|"o"|"u"  => VowelAdjprefix G13 Sg + seo;
                   "i"  => VoweliAdjprefix G13 Sg + seo;
                    _ => ConsonantAdjprefix  G13 Sg + seo };
-    AAdj _  Pl =>[] }};
+    AAdj _  Pl =>[] }}
+  } ;
+
+  phraseA : (Gender -> Number -> Str) -> Str -> {s : AForm => Str} =
+    \prefix,rest -> {s = \\f => case f of {
+      AAdj g n => prefix g n ++ rest
+      }} ;
+
+  joinedPhraseA : (Gender -> Number -> Str) -> Str -> {s : AForm => Str} =
+    \prefix,rest -> {s = \\f => case f of {
+      AAdj g n => prefix g n + rest
+      }} ;
+
+  genitivePrefix : Gender -> Number -> Str = \g,n -> possess_Prepof ! n ! g ;
+
+  enyePrefix : Gender -> Number -> Str = \g,n -> case <g,n> of {
+    <G1,Sg> => "mwenye" ; <G1,Pl> => "wenye" ;
+    <G2,Sg> => "mwenye" ; <G2,Pl> => "yenye" ;
+    <G3,Sg> => "lenye"  ; <G3,Pl> => "yenye" ;
+    <G4,Sg> => "chenye" ; <G4,Pl> => "vyenye" ;
+    <G5,Sg> => "yenye"  ; <G5,Pl> => "zenye" ;
+    <G6,Sg> => "wenye"  ; <G6,Pl> => "zenye" ;
+    <G7,_>  => "wenye" ;
+    <G8,Sg> => "wenye"  ; <G8,Pl> => "yenye" ;
+    <G9,_>  => "yenye" ; <G10,_> => "yenye" ;
+    <_,_> => "yenye"
+    } ;
+
+  relPosPrefix : Gender -> Number -> Str = \g,n -> case <g,n> of {
+    <G1,Sg> => "anaye"  ; <G1,Pl> => "wanao" ;
+    <G2,Sg> => "unao"   ; <G2,Pl> => "inayo" ;
+    <G3,Sg> => "linalo" ; <G3,Pl> => "yanayo" ;
+    <G4,Sg> => "kinacho"; <G4,Pl> => "vinavyo" ;
+    <G5,Sg> => "inayo"  ; <G5,Pl> => "zinazo" ;
+    <G6,Sg> => "unao"   ; <G6,Pl> => "zinazo" ;
+    <G7,_>  => "unao" ;
+    <G8,Sg> => "unao"   ; <G8,Pl> => "yanayo" ;
+    <G9,_>  => "yanayo" ; <G10,_> => "inayo" ;
+    <_,_> => "inayo"
+    } ;
+
+  relNegPrefix : Gender -> Number -> Str = \g,n -> case <g,n> of {
+    <G1,Sg> => "asiye"  ; <G1,Pl> => "wasio" ;
+    <G2,Sg> => "usio"   ; <G2,Pl> => "isiyo" ;
+    <G3,Sg> => "lisilo" ; <G3,Pl> => "yasiyo" ;
+    <G4,Sg> => "kisicho"; <G4,Pl> => "visivyo" ;
+    <G5,Sg> => "isiyo"  ; <G5,Pl> => "zisizo" ;
+    <G6,Sg> => "usio"   ; <G6,Pl> => "zisizo" ;
+    <G7,_>  => "usio" ;
+    <G8,Sg> => "usio"   ; <G8,Pl> => "yasiyo" ;
+    <G9,_>  => "yasiyo" ; <G10,_> => "isiyo" ;
+    <_,_> => "isiyo"
+    } ;
 
        
 
@@ -258,94 +332,107 @@ iregA : Str-> Str -> {s : AForm =>  Str} = \seo,seoo -> {
              AAdj g Sg => ProunSgprefix g + "a" ++"rangi" ++"ya"  ++ seo; 
              AAdj g Pl=> ProunPlprefix g + "a" ++"rangi" ++"ya"  ++ seo} } ;   
 
-regV : Str -> Verb = 
-     \vika -> {
-     s = table{  True => table{
-       VInf        => vika;
-       VPres g n p => Verbprefix g n p + vika; 
-       VPast g n p => Verbprefix g n p + init vika + "ie" ;
-       VFut  g n p => Verbfutureprefix g n p + vika 
-            } ;
-        False =>table {
-        VInf       =>  "ndi" + vika;
-       VPres g n p => neg (Ag g n p) False Pres + "na" + vika ; 
-       VPast g n p => neg (Ag g n p) False Past + "ne" + vika ;
-       VFut  g n p => neg (Ag g n p) False Fut + "ka" + vika    
-       } 
-     };     
+regV : Str -> Verb =
+     \input -> let vika = verbStem input in {
+     s = verbForms vika ;
+     passive = verbForms (passiveStem vika)
      };
 
-  neg : Agr -> Bool ->Tense -> Str = \a,b,t -> let 
-        g = getGender a;
-        n=getNumber a;
-        p=getPerson a
-      in case b of {True => [] ; False => negprefix g n t p} ;
+  verbForms : Str -> Polarity => VForm => Str = \vika ->
+     table{  Pos => table{
+       VInf        => "ku" + vika;
+       VImp Sg     => vika;
+       VImp Pl     => pluralImperative vika;
+       VPres g n p => Verbprefix g n p + "na" + vika;
+       VPast g n p => Verbprefix g n p + "li" + vika;
+       VFut  g n p => Verbprefix g n p + "ta" + vika
+            } ;
+             Neg =>table {
+       VInf        => "kutoku" + vika;
+       VImp Sg     => "usi" + vika;
+       VImp Pl     => "msi" + vika;
+       VPres g n p => negprefix g n Pres p + presentNegStem vika;
+       VPast g n p => negprefix g n Past p + "ku" + vika;
+       VFut  g n p => negprefix g n Fut p + "ta" + vika
+       } 
+     } ;
+
+  passiveStem : Str -> Str = \v -> case v of {
+    _ + "oa" => init (init v) + "olewa" ;
+    _ + "ua" => init (init v) + "uliwa" ;
+    _ + "ia" => init v + "wa" ;
+    _ + "ea" => init v + "wa" ;
+    _ + "a" => init v + "wa" ;
+    _ + "u" => init v + "iwa" ;
+    _ => v + "wa"
+    } ;
+
+  -- Lexical sources sometimes store an infinitive rather than a stem.  Strip
+  -- ku- before vowel-initial polysyllabic stems, while retaining the genuine
+  -- monosyllabic stems used by kuwa/kula/kufa/kuja and the verb kua.
+  verbStem : Str -> Str = \v -> case v of {
+    "kua" => v ;
+    "ku" + "a" + rest => "a" + rest ;
+    "ku" + "e" + rest => "e" + rest ;
+    "ku" + "i" + rest => "i" + rest ;
+    "ku" + "o" + rest => "o" + rest ;
+    "ku" + "u" + rest => "u" + rest ;
+    _ => v
+    } ;
+
+  pluralImperative : Str -> Str = \v -> case v of {
+    _ + "a" => init v + "eni" ;
+    _ => v + "ni"
+    } ;
+
+  presentNegStem : Str -> Str = \v -> case v of {
+    _ + "a" => init v + "i" ;
+    _ => v
+    } ;
 
   negprefix : Gender -> Number -> Tense -> Person -> Str =\g,n,t,p-> case <g,n,t,p> of {
-            <G1,Sg,_,P1> => "ndi";
-            <G1,Sg,_,P2> => "ndu";
-            <G1,Sg,_,P3> => "ndu";
-            <G1,Pl,_,P1> => "twi";
-            <G1,Pl,_,P2> => "mwi";
-            <G1,Pl,_,P3> => "mai";
-            <G2,Sg,_,_> => "ndu";
-            <G2,Pl,_,_> => "i";
-            <G3,Sg,_,_> => "i";
-            <G3,Pl,_,_> => "mai";
-            <G4,Sg,_,_> => "ki";
-            <G4,Pl,_,_> => "i";
-            <G5,Sg,_,_> => "kai";
-            <G5,Pl,_,_> => "tui";
-            <G6,Sg,_,_> => "vai";
-            <G6,Pl,_,_> => "kui";
-            <G7,Sg,_,_> => "i";
-            <_,_,_,_> => "syi"
+            <G1,Sg,_,P1> => "si";
+            <G1,Sg,_,P2> => "hu";
+            <G1,Sg,_,P3> => "ha";
+            <G1,Pl,_,P1> => "hatu";
+            <G1,Pl,_,P2> => "ham";
+            <G1,Pl,_,P3> => "hawa";
+            <G2,Sg,_,_> => "hau";
+            <G2,Pl,_,_> => "hai";
+            <G3,Sg,_,_> => "hali";
+            <G3,Pl,_,_> => "haya";
+            <G4,Sg,_,_> => "haki";
+            <G4,Pl,_,_> => "havi";
+            <G5,Sg,_,_> => "hai";
+            <G5,Pl,_,_> => "hazi";
+            <G6,Sg,_,_> => "hau";
+            <G6,Pl,_,_> => "hazi";
+            <G9,_,_,_> => "haya";
+            <G11,_,_,_> => "hapa";
+            <G12,_,_,_> => "haku";
+            <G13,_,_,_> => "hamu";
+            <_,_,_,_> => "ha"
            
 };
 
 
  Verbprefix : Gender -> Number -> Person -> Str = \g, n, p ->
    case <g,n,p> of {    
-    <G1,Sg,P1>   => "na" ;
-    <G1,Sg,P2>   => "wa" ;
-    <G1,Sg,P3>   => "wa" ;
-    <G1,Pl,P1>   => "twa" ;
-    <G1,Pl,P2>   => "mwa" ;
-    <G1,Pl,P3>   => "ma" ;
-    <G2,Sg,_>   => "wa" ;
-    <G2,Pl, _>   => "ya"  ;
-    <G4,Sg,_>   => "kya" ;
-    <G4,Pl,_>   => "sya" ;
-    <G3,Sg,_>  => "ya" ;
-    <G3,Pl,_>  => "ma" ;
-     <G5,Sg,_>  => "ka" ;
-    <G5,Pl,_>  => "twa" ;
-     <G6,Sg,_>  => "va" ;
-    <G6,Pl,_>  => "kwa" ;
-    <G7,Sg,_>  => "ya" ;
-    <_,_,_>  => "sya" 
+    <G1,Sg,P1> => "ni" ; <G1,Sg,P2> => "u" ; <G1,Sg,P3> => "a" ;
+    <G1,Pl,P1> => "tu" ; <G1,Pl,P2> => "m" ; <G1,Pl,P3> => "wa" ;
+    <G2,Sg,_> => "u" ; <G2,Pl,_> => "i" ;
+    <G3,Sg,_> => "li" ; <G3,Pl,_> => "ya" ;
+    <G4,Sg,_> => "ki" ; <G4,Pl,_> => "vi" ;
+    <G5,Sg,_> => "i" ; <G5,Pl,_> => "zi" ;
+    <G6,Sg,_> => "u" ; <G6,Pl,_> => "zi" ;
+    <G7,_,_> => "u" ; <G8,Sg,_> => "u" ; <G8,Pl,_> => "ya" ;
+    <G9,_,_> => "ya" ; <G10,_,_> => "i" ;
+    <G11,_,_> => "pa" ; <G12,_,_> => "ku" ; <G13,_,_> => "mu"
           } ;
  
  Verbfutureprefix : Gender -> Number -> Person -> Str = \g, n, p ->
    case <g,n,p> of {    
-    <G1,Sg,P1>   => "nga" ;
-    <G1,Sg,P2>   => "uka" ;
-    <G1,Sg,P3>   => "uka" ;
-    <G1,Pl,P1>   => "tuka" ;
-    <G1,Pl,P2>   => "muka" ;
-    <G1,Pl,P3>   => "maka" ;
-    <G2,Sg,_>   => "uka" ;
-    <G2,Pl, _>   => "ika"  ;
-    <G4,Sg,_>   => "kika" ;
-    <G4,Pl,_>   => "ika" ;
-    <G3,Sg,_>  => "ika" ;
-    <G3,Pl,_>  => "maka" ;
-     <G5,Sg,_>  => "kaka" ;
-    <G5,Pl,_>  => "tuka" ;
-     <G6,Sg,_>  => "vaka" ;
-    <G6,Pl,_>  => "kuka" ;
-    <G7,Sg,_>  => "ika" ;
-    <_,_,_>  => "ika" 
+    <g,n,p> => Verbprefix g n p + "ta"
           } ;
 }
 

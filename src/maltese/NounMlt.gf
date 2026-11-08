@@ -225,8 +225,8 @@ concrete NounMlt of Noun = CatMlt ** open ResMlt, Prelude, Maybe in {
     -- warmest
     OrdSuperl a = {
       s = \\c => case a.hasComp of {
-        True => a.s ! ASuperl ;
-        False => "l-iktar" ++ a.s ! APosit (GSg Masc) --- should agree
+        True => a.s ! ACompar ;
+        False => "iktar" ++ a.s ! APosit (GSg Masc) --- should agree
         }
       } ;
 

@@ -15,13 +15,24 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
                                         Pl => GPl
                                       }
            };
-       vocative = \\n => ap.s ! Indef
-                              ! case n of {
-                                  Sg => GSg cn.g;
-                                  Pl => GPl
-                                } ++
-                         cn.vocative ! n;
-       count_form = ap.s ! Indef ! GPl ++ cn.count_form; g = cn.g} ;
+       vocative = \\n => case ap.isPre of {
+                           True => ap.s ! Indef
+                                        ! case n of {
+                                            Sg => GSg cn.g;
+                                            Pl => GPl
+                                          } ++ cn.vocative ! n ;
+                           False => cn.vocative ! n ++
+                                    ap.s ! Indef
+                                         ! case n of {
+                                             Sg => GSg cn.g;
+                                             Pl => GPl
+                                           }
+                         } ;
+       count_form = case ap.isPre of {
+                      True => ap.s ! Indef ! GPl ++ cn.count_form ;
+                      False => cn.count_form ++ ap.s ! Indef ! GPl
+                    } ;
+       g = cn.g} ;
   lin AdjDAP d ap = {
         s = \\g => d.s ! g ++ ap.s ! Indef ! genNum g (nnum2num d.n) ;
         n = d.n ;
@@ -64,7 +75,7 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
       } ;
   lin DetDAP d = d ;
   lin DetNP d = {s = \\r => d.s ! Masc; vocative = d.s ! Masc;
-                 a = {g = GSg Masc; p = P1}} ;
+                 a = {g = genNum Masc (nnum2num d.n); p = P3}} ;
   lin DetQuant q num = {s = \\g => q.s ! genNum g (nnum2num num.n) ++ num.s;
                         n = num.n;
                         sp = q.sp} ;
@@ -105,8 +116,8 @@ concrete NounMkd of Noun = CatMkd ** open Prelude,ResMkd in {
   lin OrdNumeralSuperl n a = {s = \\s,gn => n.s ++ "нај" ++ BIND ++ a.s ! s ! gn} ;
   lin OrdSuperl a = {s = \\s,gn => "нај" ++ BIND ++ a.s ! s ! gn} ;
   lin PPartNP np v2 = {s = \\r => np.s ! r
-                                    ++ v2.present ! Imperfective ! Sg ! np.a.p;
-                       vocative = np.vocative ++ v2.present ! Imperfective ! Sg ! np.a.p;
+                                    ++ v2.present ! Imperfective ! genNum2num np.a.g ! np.a.p;
+                       vocative = np.vocative ++ v2.present ! Imperfective ! genNum2num np.a.g ! np.a.p;
                        a = {g = np.a.g; p = np.a.p}} ;
   lin PartNP cn np = {s = \\s,n => cn.s ! s ! n ++ np.s ! RSubj;
                       count_form = cn.count_form ++ np.s ! RSubj;

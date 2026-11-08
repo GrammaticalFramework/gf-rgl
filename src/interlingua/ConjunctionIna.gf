@@ -20,6 +20,8 @@ concrete ConjunctionIna of Conjunction =
 
     ConjRS = conjunctDistrTable Agr ;
 
+    ConjCN = conjunctDistrTable Number ;
+
 -- These fun's are generated from the list cat's.
 
     BaseS = twoSS ;
@@ -32,6 +34,8 @@ concrete ConjunctionIna of Conjunction =
     ConsAP xs x = consrTable Agr comma xs x ** {isPre = andB xs.isPre x.isPre} ;
     BaseRS x y = twoTable Agr x y ;
     ConsRS xs x = consrTable Agr comma xs x ;
+    BaseCN x y = twoTable Number x y ;
+    ConsCN xs x = consrTable Number comma xs x ;
 
   lincat
     [S] = {s1,s2 : Str} ;
@@ -39,5 +43,6 @@ concrete ConjunctionIna of Conjunction =
     [NP] = {s1,s2 : Case => Str ; a : Agr} ;
     [AP] = {s1,s2 : Agr => Str ; isPre : Bool} ;
     [RS] = {s1,s2 : Agr => Str} ;
+    [CN] = {s1,s2 : Number => Str} ;
 
 }

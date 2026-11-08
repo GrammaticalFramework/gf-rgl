@@ -341,7 +341,7 @@ oper
   -- e.g. some determiners act as adjectives modifying the noun they count
   -- 'the three children, two children'
   -- e.g. possesive pronouns: his book ('kitaabuhu'
-  cnB4det : Det -> Bool = \det ->
+  cnB4det : {isEmpty,isPron,isNum : Bool; n : Size; d : State} -> Bool = \det ->
     case <det.isEmpty,det.isPron,det.isNum,det.n,det.d> of {
       <True,_,_,_,_> => True; -- hack to make liPrep work
       <_,True,_,_,_> => True;
@@ -465,8 +465,11 @@ oper
 
 param
   VPForm = VPPerf
+         | VPPassPerf
          | VPImpf Mood
+         | VPPassImpf Mood
          | VPImp
+         | VPPPart
          | VPGer ;
 
   VType = -- indicates if there is a predicate (xabar):
@@ -500,8 +503,11 @@ oper
         let gn = pgn2gn pgn in
         case vf of {
           VPPerf => v.s ! VPerf Act pgn ;
+          VPPassPerf => v.s ! VPerf Pas pgn ;
           VPImpf m => v.s ! VImpf m Act pgn ;
+          VPPassImpf m => v.s ! VImpf m Pas pgn ;
           VPImp => v.s ! VImp gn.g gn.n ;
+          VPPPart => v.s ! VPPart ;
           VPGer => v.s ! Masdar
         };
       sc = noPrep ;
@@ -515,8 +521,8 @@ oper
     let actVP = predV v in actVP ** {
       s = \\pgn,vf =>
         case vf of {
-          VPPerf   => v.s ! VPerf   Pas pgn ;
-          VPImpf m => v.s ! VImpf m Pas pgn ;
+          VPPerf        => actVP.s ! pgn ! VPPassPerf ;
+          VPImpf m      => actVP.s ! pgn ! VPPassImpf m ;
           _        => actVP.s ! pgn ! vf
       }
     };

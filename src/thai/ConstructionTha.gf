@@ -23,6 +23,22 @@ lin
   how_far_QCl x = mkQCl (lin IComp (ss ("ไกล" + "เท่า" + "ไร"))) (lin NP x) ;
 
 -- some more things
+  n_units_AP card unit a = lin AP {
+    s = R.thbind a.s card.s unit.s
+    } ;
+
+  n_units_of_NP card unit np = lin NP {
+    s = R.thbind card.s unit.s "ของ" np.s
+    } ;
+
+  n_unit_CN card unit cn = lin CN {
+    s = R.thbind cn.s card.s unit.s ; c = cn.c
+    } ;
+
+  bottle_of_CN np = lin CN {s = R.thbind "ขวด" "ของ" np.s ; c = "ขวด"} ;
+  cup_of_CN np = lin CN {s = R.thbind "ถ้วย" "ของ" np.s ; c = "ถ้วย"} ;
+  glass_of_CN np = lin CN {s = R.thbind "แก้ว" "ของ" np.s ; c = "แก้ว"} ;
+
 ----  weather_adjCl ap = mkCl (mkVP (lin AP ap)) ;
    
 ----  is_right_VP = mkVP (ParadigmsTha.mkA "对") ; 
@@ -38,6 +54,19 @@ lincat
 lin
   weekdayPunctualAdv w = SyntaxTha.mkAdv (mkPrep []) (mkNP w) ;
   weekdayHabitualAdv w = SyntaxTha.mkAdv (mkPrep []) (mkNP a_Quant plNum (mkCN w)) ;
+  -- Weekday names already include วัน; the temporal modifier follows them.
+  weekdayNextAdv w = lin Adv {s = R.thbind w.s "ถัดไป"} ;
+  weekdayLastAdv w = lin Adv {s = R.thbind w.s "ที่แล้ว"} ;
+  monthAdv m = lin Adv {s = R.thbind "เดือน" m.s} ;
+  yearAdv y = lin Adv {s = R.thbind "ปี" y.s} ;
+  dayMonthAdv d m = lin Adv {s = R.thbind "วันที่" d.s "เดือน" m.s} ;
+  monthYearAdv m y = lin Adv {s = R.thbind "เดือน" m.s "ปี" y.s} ;
+  dayMonthYearAdv d m y = lin Adv {
+    s = R.thbind "วันที่" d.s "เดือน" m.s "ปี" y.s
+    } ;
+
+  intYear i = lin NP {s = i.s} ;
+  intMonthday i = lin NP {s = i.s} ;
 ----  weekdayNextAdv w = lin Adv {s = "下" ++ w.s ; advType = timeAdvType} ;
 ----  weekdayLastAdv w = lin Adv {s = "上" ++ w.s ; advType = timeAdvType} ;
 {-
@@ -76,20 +105,18 @@ lin
     sunday_Weekday = mkN (R.thword "วัน" "อา" "ทิตย์") ;
 
 
-{-
-lin january_Month = mkN "一月" ; 
-lin february_Month = mkN "二月" ; 
-lin march_Month = mkN "三月" ; 
-lin april_Month = mkN "四月" ;
-lin may_Month = mkN "五月" ;
-lin june_Month = mkN "六月" ;
-lin july_Month = mkN "七月" ;
-lin august_Month = mkN "八月t" ;
-lin september_Month = mkN "九月" ;
-lin october_Month = mkN "十月" ;
-lin november_Month = mkN "十一月" ;
-lin december_Month = mkN "十二月" ;
--}
+lin january_Month = mkN "มกราคม" ;
+    february_Month = mkN "กุมภาพันธ์" ;
+    march_Month = mkN "มีนาคม" ;
+    april_Month = mkN "เมษายน" ;
+    may_Month = mkN "พฤษภาคม" ;
+    june_Month = mkN "มิถุนายน" ;
+    july_Month = mkN "กรกฎาคม" ;
+    august_Month = mkN "สิงหาคม" ;
+    september_Month = mkN "กันยายน" ;
+    october_Month = mkN "ตุลาคม" ;
+    november_Month = mkN "พฤศจิกายน" ;
+    december_Month = mkN "ธันวาคม" ;
 
 
 ----lin afrikaans_Language = mkLanguage "南非語" ;

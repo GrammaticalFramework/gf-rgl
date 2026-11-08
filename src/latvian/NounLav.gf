@@ -71,6 +71,11 @@ lin
     isPron = False
   } ;
 
+  ExtAdvNP np adv = {
+    s = \\c => np.s ! c ++ "," ++ adv.s ;
+    agr = np.agr ; pol = np.pol ; isRel = np.isRel ; isPron = False
+  } ;
+
   -- NP -> RS -> NP
   -- e.g. 'Paris, which is here'
   RelNP np rs = {
@@ -254,15 +259,48 @@ lin
       isRel = np.isRel
     } ;
 
-  -- TODO: Possessive and partitive constructs
+  -- Latvian possessors normally precede the head and are in the genitive.
+  PossNP cn np = {
+    s = \\defin,num,c => np.s ! Gen ++ closeRelCl np.isRel ++
+                          cn.s ! defin ! num ! c ;
+    gend = cn.gend ;
+    isRel = False
+  } ;
 
-  -- PossNP : CN -> NP -> CN
-  -- e.g. 'house of Paris', 'house of mine'
+  -- Partitives retain the lexical head first: "glāze vīna".
+  PartNP cn np = {
+    s = \\defin,num,c => cn.s ! defin ! num ! c ++ np.s ! Gen ++
+                          closeRelCl np.isRel ;
+    gend = cn.gend ;
+    isRel = False
+  } ;
 
-  -- PartNP : CN -> NP -> CN
-  -- e.g. 'glass of wine'
+  CountNP det np = {
+    s = \\c => det.s ! (fromAgr np.agr).gend ! c ++ "no" ++ np.s ! Gen ;
+    agr = AgrP3 det.num (fromAgr np.agr).gend ;
+    pol = det.pol ;
+    isRel = False ;
+    isPron = False
+  } ;
 
-  -- CountNP : Det -> NP -> NP
-  -- e.g. 'three of them', 'some of the boys'
+  DetDAP det = {
+    s = det.s ;
+    num = det.num ;
+    pol = det.pol
+  } ;
+
+  AdjDAP dap ap = {
+    s = \\g,c => dap.s ! g ! c ++ ap.s ! Def ! g ! dap.num ! c ;
+    num = dap.num ;
+    pol = dap.pol
+  } ;
+
+  QuantityNP decimal mu = {
+    s = \\_ => decimal.s ! NCard ++ mu.s ;
+    agr = AgrP3 decimal.num Masc ;
+    pol = Pos ;
+    isRel = False ;
+    isPron = False
+  } ;
 
 }

@@ -1,0 +1,24 @@
+i -retain tests/czech/CzeMarkup.gf
+cc -one (mkUtt markedWashing)
+cc -one (mkUtt todayMarked)
+cc -one (G.SubjS if_Subj markedWashing)
+-- Repeated fronting splits the marked constituent; both pieces retain nested markup.
+cc -one (mkUtt (G.AdvS (ParadigmsCze.mkAdv "doma") (G.AdvS L.today_Adv (M.MarkupS M.i_Mark markedWashing))))
+cc -one (G.SubjS if_Subj todayMarked)
+-- Coordination keeps the second clause's clitics in their own domain.
+cc -one (mkUtt (mkS and_Conj markedWashing washing))
+cc -one (G.SubjS if_Subj (mkS and_Conj markedWashing washing))
+cc -one (G.SubjS if_Subj (M.MarkupS M.b_Mark (mkS and_Conj washing washing)))
+cc -one (mkUtt (G.ExtAdvS L.today_Adv markedWashing))
+cc -one (G.SubjS if_Subj (G.ExtAdvS L.today_Adv markedWashing))
+cc -one (G.SubjS if_Subj (G.SSubjS markedWashing if_Subj washing))
+-- Empty movable components must not gain tags, even across coordination.
+cc -one (mkUtt (G.AdvS (ParadigmsCze.mkAdv "doma") (G.AdvS L.today_Adv (M.MarkupS M.b_Mark swimming))))
+cc -one (mkUtt (G.AdvS (ParadigmsCze.mkAdv "doma") (G.AdvS L.today_Adv (M.MarkupS M.b_Mark loving))))
+cc -one (mkUtt (G.AdvS (ParadigmsCze.mkAdv "doma") (G.AdvS L.today_Adv (M.MarkupS M.b_Mark (mkS and_Conj swimming washing)))))
+-- Predetermination respects the scope of an already marked NP.
+cc -one (mkUtt (mkNP all_Predet (M.MarkupNP M.b_Mark (mkNP (mkNP we_Pron) (ParadigmsCze.mkAdv "doma")))))
+cc -one (mkUtt (mkNP only_Predet (M.MarkupNP M.b_Mark (mkNP (mkNP we_Pron) (ParadigmsCze.mkAdv "doma")))))
+-- An empty following piece may retain a wrapper after insertion.
+cc -one (mkUtt (mkNP all_Predet (M.MarkupNP M.b_Mark (mkNP we_Pron))))
+q

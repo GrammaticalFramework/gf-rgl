@@ -4,6 +4,11 @@ flags coding = utf8;
 oper
   
   addErgative s1 s2 = Prelude.glue s1 s2 ;
+  ergativePron ppf a = case a of {
+    Ag _ Pl Pers3_Distant => "उन्होंने" ;
+    Ag _ _ (Pers3_Near | Pers3_Distant) => addErgative (ppf ! Obl) nE ;
+    _ => addErgative (ppf ! Dir) nE
+    } ;
   conjThat = "कि" ;
   insertSubj : UPerson -> Str -> Str = \p,s -> 
       case p of { Pers1 => s ++ "वाँ" ; _ => Prelude.glue s "ए"}; -- check with prasad for vn~
@@ -12,6 +17,8 @@ oper
   awr = "और" ;
   ky = "की" ;
   ka = "का" ;
+  kE = "के" ;
+  rh = "रह" ;
   jn = "जिन" ;
   js = "जिस" ;
   jw = "जो" ;

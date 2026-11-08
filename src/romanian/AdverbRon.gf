@@ -2,6 +2,8 @@ concrete AdverbRon of Adverb =
   CatRon ** open ResRon, Prelude in {
 
   lin
+    PositAdAAdj a = {s = a.s ! AA} ;
+
     PositAdvAdj a = {
       s = a.s ! AA
       } ;

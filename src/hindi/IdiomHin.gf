@@ -18,7 +18,7 @@ concrete IdiomHin of Idiom = CatHin ** open Prelude,Predef, ResHin,ParamX,Common
       mkSClause "" (agrP3 (fromAgr np.a).g (fromAgr np.a).n)  --removed waha:n
         (insertObj (\\_ => np.s ! NPC Dir) (predAux auxBe)) ;
 
-   ExistIP ip = 
+   ExistIP ip =
      let cl = mkSClause ("वहाँ" ++ ip.s ! Dir) (agrP3 ip.g ip.n) (predAux auxBe); 
 	   in {
        s = \\t,p,qf => case qf of { 
@@ -26,6 +26,20 @@ concrete IdiomHin of Idiom = CatHin ** open Prelude,Predef, ResHin,ParamX,Common
           QIndir => cl.s ! t! p ! ODir
 		  }
 		};
+
+   ExistNPAdv np adv =
+     mkSClause "" np.a
+       (insertAdV (adv.s ! giveGender np.a)
+       (insertObj (\\_ => np.s ! NPC Dir) (predAux auxBe))) ;
+
+   ExistIPAdv ip adv =
+     let cl = mkSClause (ip.s ! Dir) (agrP3 ip.g ip.n)
+                (insertAdV (adv.s ! ip.g) (predAux auxBe))
+     in {s = \\t,p,_ => cl.s ! t ! p ! ODir} ;
+
+   SelfAdvVP vp = insertAdV "स्वयं" vp ;
+   SelfAdVVP vp = insertAdV "स्वयं" vp ;
+   SelfNP np = {s = \\c => np.s ! c ++ "स्वयं" ; a = np.a} ;
 
 --    ProgrVP vp = insertObj (\\a => vp.obj.s ++ vp.ad ++ vp.comp ! a ++ (vp.s ! VPStem).inf ++ raha (fromAgr a).g (fromAgr a).n ) (predAux auxBe) ;
       ProgrVP vp =  (predProg vp) ;

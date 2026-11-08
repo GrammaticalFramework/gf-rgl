@@ -142,7 +142,21 @@ lin pot3plus n m =
   Pl} ;
 
 lin pot3as4 n = n ;
+lin pot41 = {s = \\co => cardOrd co "un million" "millionième" ; n = Sg} ;
+lin pot4 n = {s = \\co => n.s ! NCard Masc ! indep ++ cardOrd co "millions" "millionième" ; n = Pl} ;
+lin pot4plus n m = {
+  s = \\co => n.s ! NCard Masc ! indep ++ "millions" ++ m.s ! co ;
+  n = Pl
+  } ;
+lin pot4decimal d = {s = \\co => d.s ! NCard Masc ++ "millions" ; n = Pl} ;
 lin pot4as5 n = n ;
+lin pot51 = {s = \\co => cardOrd co "un milliard" "milliardième" ; n = Sg} ;
+lin pot5 n = {s = \\co => n.s ! NCard Masc ! indep ++ cardOrd co "milliards" "milliardième" ; n = Pl} ;
+lin pot5plus n m = {
+  s = \\co => n.s ! NCard Masc ! indep ++ "milliards" ++ m.s ! co ;
+  n = Pl
+  } ;
+lin pot5decimal d = {s = \\co => d.s ! NCard Masc ++ "milliards" ; n = Pl} ;
 
 oper hyphen = BIND ++ "-" ++ BIND ;
 

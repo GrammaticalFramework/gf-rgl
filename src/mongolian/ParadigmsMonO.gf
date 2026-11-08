@@ -339,7 +339,7 @@ oper
  
 -- Implementation of Adjectives
   
- mkA : (positive : Str) -> Adjective = \a -> lin A (ss a) ;
+ mkA : (positive : Str) -> A = \a -> lin A (ss a) ;
                 
  mkA2 : Adjective -> Prep -> A2 = \a,p -> lin A2 a ** {c2 = p} ;
 
@@ -374,7 +374,7 @@ oper
 
 -- Other verbs 
 
- mkV0 : Verb -> V0 = \v -> lin V0 v ;
+ mkV0 : Verb -> V0 = \v -> v ;
  mkVA : Verb -> VA = \v -> lin VA v ; 
  mkVS : Verb -> VS = \v -> lin VS v ;
  mkVV : Aux -> VV = \v -> lin VV v ;

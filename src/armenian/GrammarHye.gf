@@ -1,10 +1,16 @@
 concrete GrammarHye of Grammar = 
-  TenseX,
-  PhraseHye,
   NounHye,
   VerbHye,
   AdjectiveHye,
   AdverbHye,
+  NumeralHye,
   SentenceHye,
-  StructuralHye ** {
+  QuestionHye,
+  RelativeHye,
+  ConjunctionHye,
+  PhraseHye,
+  StructuralHye,
+  IdiomHye,
+  TenseX,
+  NamesHye ** {
 }

@@ -68,6 +68,14 @@ oper
   mkPN : Str -> Animacy -> PN -- Proper noun with given animacy
     = \str,ani -> lin PN {s = str ; animacy = ani} ;
 
+-- Given names and surnames
+  mkGN : Str -> GN = \s -> lin GN {s = s} ;
+  mkSN : Str -> SN = \s -> lin SN {s = s} ;
+
+-- Location names
+  mkLN : Str -> LN -- Location name from a string
+    = \str -> lin LN {s = str} ;
+
 -- Determiner
 
   mkDet = overload {
@@ -81,11 +89,9 @@ oper
       = \s,n,nu,ne,m -> lin Det (makeDet s n nu ne ** {mod=m})
   };
 
- {-
-
--- AdN
-  mkAdN : Str -> AdN = \s -> ss s ;
--}
+-- Adverb modifying a numeral
+  mkAdN : Str -> AdN
+    = \s -> lin AdN {s = s} ;
 --2 Adjectives
 
   mkA : overload {
@@ -127,8 +133,8 @@ oper
   } ;
 
   mkV3 = overload {
-    mkV3 : Str -> V3 -- Predictable V3, را for direct object, no prepositions.
-     = \s -> lin V3 (regV s ** {c2 = prepOrRa "را" ; c3 = noPrep}) ;
+    mkV3 : Str -> V3 -- Predictable ditransitive: recipient with به, theme with را.
+     = \s -> lin V3 (regV s ** {c2 = prepOrRa "به" ; c3 = prepOrRa "را"}) ;
     mkV3 : V -> (dir,indir : Str) -> V3 -- Takes a verb and two prepositions or را as strings (can be empty).
      = \v,p,q -> lin V3 (v ** {c2 = prepOrRa p ; c3 = prepOrRa q}) ;
     mkV3 : V -> (dir,indir : Prep) -> V3 -- Takes a verb and two prepositions
@@ -151,6 +157,15 @@ oper
       = \v,p -> lin VA (v ** {c2 = p}) ;
     } ;
 
+  mkV2A = overload {
+    mkV2A : Str -> V2A -- predictable verb with a direct object and adjective complement
+      = \s -> lin V2A (regV s ** {c2 = prepOrRa "را"}) ;
+    mkV2A : V -> V2A -- V2A out of V; را for the direct object
+      = \v -> lin V2A (v ** {c2 = prepOrRa "را"}) ;
+    mkV2A : V -> Prep -> V2A -- V2A out of V with the given object marker or preposition
+      = \v,p -> lin V2A (v ** {c2 = p})
+  } ;
+
   mkVS = overload {
    mkVS : Str -> VS -- predictable verb with sentence complement in subjunctive.
     = \s -> lin VS (regV s ** {compl=subjunctive}) ;
@@ -161,12 +176,12 @@ oper
   } ;
 
   mkVV = overload {
-    mkVV : Str -> VV -- Predictable VV, subjunctive complement, is auxiliary.
-     = \s -> lin VV (regV s ** {isAux = True ; compl = subjunctive ; isDef = False}) ;
-    mkVV : V -> VV -- takes its VP complement in subjunctive. Is auxiliary.
-     = \v -> lin VV (v ** {isAux = True ; compl = subjunctive ; isDef = False}) ;
+    mkVV : Str -> VV -- Predictable VV with a subjunctive complement.
+     = \s -> lin VV (regV s ** {isAux = False ; compl = subjunctive ; isDef = False}) ;
+    mkVV : V -> VV -- takes its VP complement in subjunctive.
+     = \v -> lin VV (v ** {isAux = False ; compl = subjunctive ; isDef = False}) ;
     mkVV : VVForm -> V -> VV -- takes its VP complement in the given VVForm
-     = \vvf,v -> lin VV (v ** {isAux = True ; compl = vvf ; isDef = False}) ;
+     = \vvf,v -> lin VV (v ** {isAux = False ; compl = vvf ; isDef = False}) ;
     mkVV : (isAux : Bool) -> VVForm -> V -> VV -- takes its VP complement in the given VVForm. Whether it's auxiliary (T/F) given as the first argument.
      = \isAux,vvf,v -> lin VV (v ** {isAux = isAux ; compl = vvf ; isDef = False})
   } ;
@@ -200,6 +215,12 @@ oper
 ----2 Adverbs
   mkAdv : Str -> Adv -- Takes a string, returns an adverb.
     = \str -> lin Adv {s = str} ;
+
+  mkAdV : Str -> AdV -- Takes a string, returns a verb-modifying adverb.
+    = \str -> lin AdV {s = str} ;
+
+  mkAdA : Str -> AdA -- Takes a string, returns an adjective-modifying adverb.
+    = \str -> lin AdA {s = str} ;
 
 ----2 Prepositions
 
@@ -240,6 +261,9 @@ oper
 
   mkInterj : Str -> Interj
     = \s -> lin Interj {s=s} ;
+
+  mkVoc : Str -> Voc
+    = \s -> lin Voc {s=s} ;
 
 --.
 --2 Definitions of paradigms
@@ -364,7 +388,7 @@ oper
     compoundV : Str -> V -> V
       = \s,v -> v ** {
           prefix = s ;
-          lightverb = case v.lightverb of {Kardan => Kardan ; _ => Light}
+          lightverb = case v.lightverb of {BareKardan | Kardan => Kardan ; _ => Light}
         } ;
     compoundV : Str -> V2 -> V -- hidden from public API
       = \s,v -> lin V (v ** {prefix = s}) ;

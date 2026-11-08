@@ -82,6 +82,7 @@ lincat
   Numeral = NumeralForms ;
   Num = NumDet ;
   Card = NumDet ;
+  ACard = {s : Str} ;
   Digits = {s : Str ; size: NumSize; tail: DTail} ;
   Decimal = {s : Str ; size: NumSize; hasDot : Bool} ;
 
@@ -124,8 +125,8 @@ linref
   Pron = \s -> s.nom ;
   N2 = \s -> s.snom ++ s.c2.s ;
   N3 = \s -> s.snom ++ s.c2.s ++ s.c3.s ;
-  A = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ;
-  A2 = \s -> case s.preferShort of {PrefShort => s.sm ; _ => s.msnom} ++ s.c.s ;  -- ?
+  A = \s -> case s.preferShort of {PrefShort => s.short ! (GSg Masc) ; _ => s.msnom} ;
+  A2 = \s -> case s.preferShort of {PrefShort => s.short ! (GSg Masc) ; _ => s.msnom} ++ s.c.s ;  -- ?
   V = \s -> verbInf s ;
   V2 = \s -> (verbInf s) ++ s.c.s ;
   V2V = \s -> (verbInf s) ++ s.c.s ;
@@ -161,9 +162,18 @@ lindef
       prpl1,prpl2,prpl3,
       psgm,psgs,
       isg2,isg2refl,ipl1,
-      ppps,pppss,prtr,ptr=s;
+      prtr,ptr=s;
       asp=Imperfective ;
       fut=NullFuture ;
+      prap={
+        msnom,fsnom,nsnom,pnom,msgen,fsgen,pgen,msdat,fsacc,
+        msins,fsins,pins,msprep=s;
+        };
+      pppa={
+        msnom,fsnom,nsnom,pnom,msgen,fsgen,pgen,msdat,fsacc,
+        msins,fsins,pins,msprep=s;
+        short=\\_=>s;
+        };
       refltran = Trans
     } ;
     dep = "" ;

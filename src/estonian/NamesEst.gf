@@ -41,4 +41,8 @@ lin InLN pn = {
                              })
       } ;
 
+lin AdjLN ap ln = ln ** {
+      s = \\c => ap.s ! True ! NCase ln.n c ++ ln.s ! c
+      } ;
+
 }

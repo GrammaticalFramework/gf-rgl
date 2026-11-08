@@ -20,6 +20,10 @@ concrete IdiomAfr of Idiom = CatAfr **
         (insertObj (\\_ => np.s ! NPNom) 
           (predV zijn_V)) ;
 
+    ExistNPAdv np adv =
+      mkClause "daar" (agrP3 np.a.n)
+        (insertAdv adv.s (insertObj (\\_ => np.s ! NPNom) (predV zijn_V))) ;
+
     ExistIP ip = {
       s = \\t,a,p => 
             let 
@@ -30,6 +34,24 @@ concrete IdiomAfr of Idiom = CatAfr **
               QDir   => who ++ cls ! Inv ;
               QIndir => who ++ cls ! Sub
               }
+      } ;
+
+    ExistIPAdv ip adv = {
+      s = \\t,a,p =>
+        let cls = (mkClause "daar" (agrP3 ip.n)
+                    (insertAdv adv.s (predV zijn_V))).s ! t ! a ! p ;
+            who = ip.s ! NPNom
+        in table {
+          QDir => who ++ cls ! Inv ;
+          QIndir => who ++ cls ! Sub
+          }
+      } ;
+
+    SelfAdvVP vp = insertAdv (reflPron ! agrP3 Sg) vp ;
+    SelfAdVVP vp = insertAdV (reflPron ! agrP3 Sg) vp ;
+    SelfNP np = heavyNP {
+      s = \\c => np.s ! c ++ reflPron ! np.a ;
+      a = np.a
       } ;
 
     ProgrVP vp = insertAdv ("aan" ++ "die" ++ useInfVP True vp) (predV zijn_V) ;	--afr

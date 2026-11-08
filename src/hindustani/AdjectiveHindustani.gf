@@ -21,7 +21,7 @@ incomplete concrete AdjectiveHindustani of Adjective = CatHindustani ** open Com
 
     SentAP ap sc = { 
       s = \\n,g,c,d => case sc.fromVP of {
-                           True => sc.s ++ kw ++ ap.s ! n ! g ! c ! d  ; 
+                           True => sc.s ++ mein ++ ap.s ! n ! g ! c ! d  ;
 			   False => ap.s ! n ! g ! c ! d ++ sc.s } ;
       } ;
 

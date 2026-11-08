@@ -1,5 +1,5 @@
 Code,Name,Directory,Functor,Unlexer,Present,All,Try,Symbolic,Compatibility,Synopsis,MorphoDict
-Afr,Afrikaans,afrikaans,,,,,,n,,y,n
+Afr,Afrikaans,afrikaans,,,,,,y,,y,n
 Amh,Amharic,amharic,,,,,n,n,,n,n
 Ara,Arabic,arabic,,,,,,y,,y,y
 Bel,Belarusian,belarusian,,,,y,n,n,n,y,n

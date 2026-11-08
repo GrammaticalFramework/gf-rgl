@@ -23,7 +23,7 @@ oper
 		_ + "չալ" => mkV002 form;
 		_ + "նալ" => mkV004 form;
 		_ + "ել" => mkV001 form;
-		_ => error "Cannot find an inflection rule"
+		_ => lin V (invarVerb form)
   } ;
 
   reg2V : Str -> Str -> V   -- s  Imperative_Jussive;Pl
@@ -212,7 +212,7 @@ oper
 		_ + "ի" => mkN003 form;
 		_ + "ե" => mkN006 form;
 		_ + "է" => mkN006 form;
-		_ => error "Cannot find an inflection rule"
+      _ => mkN007 form
   } ;
 
   reg2N : Str -> Str -> N   -- s;Nom;Sg  s;Dat;Sg
@@ -313,7 +313,7 @@ oper
 		_ + "ղմ" => mkA005 form;
 		_ + "տք" => mkA005 form;
 		_ + "իղ" => mkA006 form;
-		_ + "նչ" => mkA008 form;
+		_ + "ունչ"=>mkA008 form;
 		_ + "ոխ" => mkA005 form;
 		_ + "ղխ" => mkA005 form;
 		_ + "ղթ" => mkA005 form;
@@ -368,7 +368,7 @@ oper
 		_ + "ի" => mkA002 form;
 		_ + "ա" => mkA004 form;
 		_ + "ո" => mkA004 form;
-		_ => error "Cannot find an inflection rule"
+      _ => mkA001 form
   } ;
 
   reg2A : Str -> Str -> A   -- s;Nom;Sg  s;Nom;Pl
@@ -440,6 +440,14 @@ oper
     mkN : Str -> Str -> N = reg2N   -- s;Nom;Sg  s;Dat;Sg
   } ;
 
+  compoundN : A -> N -> N = \a,n -> lin N {
+    s = \\c,num => a.s ! Nom ! Sg ++ n.s ! c ! num ;
+    def_dat = \\num => a.s ! Dat ! num ++ n.def_dat ! num ;
+    def_nom = \\num => a.s ! Nom ! Sg ++ n.def_nom ! num ;
+    poss1 = \\c,num => a.s ! Nom ! Sg ++ n.poss1 ! c ! num ;
+    poss2 = \\c,num => a.s ! Nom ! Sg ++ n.poss2 ! c ! num
+  } ;
+
   mkN2 = overload {
      mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = noPrep}) ;
      mkN2 : N -> Prep -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
@@ -478,7 +486,7 @@ oper
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
   mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=s; sp=Indef} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_=>s; sp=Indef; isArt=False} ;
   mkDet : Str -> Number -> Det = \s,n -> lin Det {s=s; n=n; sp=Indef} ;
   mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
   mkCard : Str -> Card = \s -> lin Card {s=s} ;
@@ -493,7 +501,7 @@ oper
 
   mkPron : Str -> Number -> Person -> Pron = \s,n,p -> 
     lin Pron {
-      s = s ;
+      s = \\_ => s ;
       empty = [] ;
       a = {n = n; p = p}
     } ;

@@ -30,6 +30,11 @@ lin
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ;
 
+  n_units_of_NP card cn np =
+    G.AdvNP
+      (mkNP <lin Card card : Card> (lin CN cn))
+      (SyntaxSwe.mkAdv noPrep (lin NP np)) ;
+
   bottle_of_CN np = mkCN (lin N2 (mkN2 (mkN "flaska") noPrep))      (lin NP np) ;
   cup_of_CN np    = mkCN (lin N2 (mkN2 (mkN "kopp") noPrep))        (lin NP np) ;
   glass_of_CN np  = mkCN (lin N2 (mkN2 (mkN "glas" "glas") noPrep)) (lin NP np) ;

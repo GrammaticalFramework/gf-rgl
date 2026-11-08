@@ -56,8 +56,8 @@ lin
   in8front_Prep = mkPrep "перед" Ins ;
   in_Prep = mkPrep v_prep_mod Loc ;
   on_Prep = mkPrep "на" Loc ;
-  part_Prep = {s="" ; c=Ptv ; neggen=False ; hasPrep=False } ;
-  possess_Prep = {s="у" ; c=Gen ; neggen=False ; hasPrep=False} ;
+  part_Prep = {s="" ; c=Ptv ; hasPrep=False } ;
+  possess_Prep = {s="у" ; c=Gen ; hasPrep=False} ;
   through_Prep = mkPrep "через" Acc ;
   to_Prep = mkPrep k_prep_dat_mod Dat ;
   under_Prep = mkPrep pod_prep_mod Ins ;
@@ -99,14 +99,13 @@ lin
 
   can8know_VV = {v=can; modal=\\a=>[]} ;
   can_VV = {v=can; modal=\\a=>[]} ;
-  must_VV = {v=nullVerb; modal=adjFormsToShort (makeAdjectiveForms "должный" "" "1*a" PreferFull)} ;
+  must_VV = {v=nullVerb; modal=table {Ag gn _ => (makeAdjectiveForms "должный" "" "1*a" PreferFull).short ! gn}} ;
   want_VV = {v=want; modal=\\a=>[]} ;
 
   -- : Det ;
   every_Det = {
     s = \\g => (adjFormsAdjective (makeAdjectiveForms "каждый" "" "1*a" PreferFull)).s ! GSg g;
     type=NormalDet ;
-    g = Masc ;
     c = Nom ;
     size = Num1 ;
     } ;
@@ -114,7 +113,6 @@ lin
   someSg_Det   = {
     s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PreferFull)).s ! GSg g;
     type=NormalDet ;
-    g = Masc ;
     c = Nom ;
     size = Num1 ;
     } ;
@@ -122,7 +120,6 @@ lin
   somePl_Det = {
     s = \\g => (adjFormsAdjective (makeAdjectiveForms "некоторый" "" "1*a" PreferFull)).s ! GPl;
     type=NormalDet ;
-    g = Masc ;
     c = Nom ;
     size = NumAll ;
     } ;
@@ -130,7 +127,6 @@ lin
   few_Det = {
     s = \\g => (adjFormsAdjective (makeAdjectiveForms "немногий"  "" "3a" PreferFull)).s ! GPl;
     type=NormalDet ;
-    g = Masc ;
     c = Nom ;
     size = NumAll ;
     } ;
@@ -138,7 +134,6 @@ lin
   many_Det, much_Det = {
     s = \\g => (adjFormsAdjective (makeAdjectiveForms "многий"  "" "3a" PreferFull)).s ! GPl;
     type=NormalDet ;
-    g = Neut ;
     c = Gen ;
     size = NumAll
     } ;
@@ -169,12 +164,12 @@ lin
   too_AdA = ss "слишком" ;
   very_AdA = ss "очень" ;
 
-  everybody_NP = lin NP everybody ;
-  everything_NP = lin NP everything ;
-  something_NP = lin NP something ;
-  somebody_NP = lin NP somebody ;
-  nothing_NP = lin NP nothing ;
-  nobody_NP = lin NP nobody ;
+  everybody_NP = everybody ;
+  everything_NP = everything ;
+  something_NP = something ;
+  somebody_NP = somebody ;
+  nothing_NP = nothing ;
+  nobody_NP = nobody ;
 
   but_PConj = ss "но" ;
   otherwise_PConj = ss "иначе" ;

@@ -6,8 +6,8 @@ concrete PhraseSlv of Phrase = CatSlv ** open Prelude, ResSlv, (P=ParamX) in {
     UttS s = s ;
     UttQS qs = qs ;
     UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc ! Sg} ;
-    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc ! Sg} ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc ! Sg} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc ! Pl} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Masc ! Pl} ;
 
     UttNP np = {s = np.s ! Nom} ;
     UttVP vp = {s = vp.s ! P.Pos ! VInf ++ vp.s2 ! {g=Masc; n=Sg; p=P3}} ;
@@ -24,5 +24,6 @@ concrete PhraseSlv of Phrase = CatSlv ** open Prelude, ResSlv, (P=ParamX) in {
     NoPConj = {s = []} ;
 
     NoVoc = {s = []} ;
+    VocNP np = {s = "," ++ np.s ! Nom} ;
 
 }

@@ -28,6 +28,10 @@ lin
       ImpF _ True => "та" ++ neg ++ (vp.s ! VPImper pol True).fin
       }
     } ;
+
+ AdvImp adv imp = {
+    s = \\pol,f => adv.s ++ imp.s ! pol ! f
+    } ;
      
 -- Clauses missing object noun phrases
     
@@ -62,7 +66,7 @@ lin
     } ;
     
  UseCl t p cl = {
-    s = \\_ => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Part Subject
+    s = \\_ => t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Main
     } ;
     
  UseQCl t p cl = {

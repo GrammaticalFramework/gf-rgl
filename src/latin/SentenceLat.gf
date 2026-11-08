@@ -6,6 +6,21 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 
     PredVP np vp = -- NP -> VP -> Cl
       mkClause np vp ;
+
+    PredSCVP sc vp = mkClause (dummyNP sc.s) vp ;
+
+    ImpVP vp = {
+      s = \\pol,form => case pol of {
+        Neg => case form of {VImp1 Pl => "nolite"; VImp2 Pl _ => "nolite"; _ => "noli"};
+        Pos => ""
+        } ++
+        vp.adv ++ vp.obj ++ vp.compl ! Ag Masc Sg Acc ++
+        case pol of {Neg => vp.inf ! VInfActPres ; Pos => vp.imp ! form}
+      } ;
+
+    AdvImp adv imp = imp ** {
+      s = \\p,f => adv.s ! Posit ++ imp.s ! p ! f
+      } ;
 --
 --    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 --
@@ -25,7 +40,7 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
    
 --  SlashVP  : NP -> VPSlash -> ClSlash ;      -- (whom) he sees
     SlashVP np vp = 
-      mkClause np ( vp ** {c2 = vp.c2} ) ;
+      mkClause np vp ** {c2 = vp.c} ;
 --
 --    AdvSlash slash adv = {
 --      s  = \\t,a,b,o => slash.s ! t ! a ! b ! o ++ adv.s ;
@@ -33,7 +48,23 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --    } ;
 
 --  SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 
-    SlashPrep cl prep = cl ** {c2 = prep.s} ;
+    SlashPrep cl prep = cl ** {c2 = prep} ;
+
+    AdvSlash cl adv = cl ** {adv = adv.s ! Posit ++ cl.adv} ;
+
+    EmbedS s = {s = "quod" ++ defaultSentence s ! SOV} ;
+    EmbedQS qs = {s = qs.s ! QIndir} ;
+    EmbedVP vp = {s = vp.adv ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ++ vp.inf ! VInfActPres} ;
+
+    ExtAdvS adv s = s ** {sadv = adv.s ! Posit ++ s.sadv} ;
+
+    SSubjS s1 subj s2 = s1 ** {
+      sadv = subj.s ++ defaultSentence s2 ! SOV ++ s1.sadv
+      } ;
+
+    RelS s rs = s ** {sadv = s.sadv ++ rs.s ! Neutr ! Sg} ;
+
+    UseSlash t p cl = combineClause (t.s ++ p.s) cl t.t t.a p.p VQFalse ** {c2 = cl.c2} ;
 --
 --    SlashVS np vs slash = 
 --      mkClause (combineNounPhrase np ! PronNonDrop ! Nom) np.a 
@@ -82,4 +113,3 @@ concrete SentenceLat of Sentence = CatLat ** open Prelude, ResLat in {
 --    ctr = contrNeg True ;  -- contracted negations
 --
 }
-

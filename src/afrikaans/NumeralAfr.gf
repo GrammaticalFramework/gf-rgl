@@ -40,18 +40,49 @@ lin
   pot1plus d e = addAttr {s = \\g => 
     e.s ! DUnit ! invNum ++ BIND ++ e.en ++ BIND ++ d.s ! DTen ! g ; n = Pl} ;
   pot1as2 n = n ;
+  pot21 = addAttr {s = cardOrd "honderd" "honderdste" ; n = Pl} ;
   pot2 d = 
     addAttr {s = \\g => d.attr ++ cardOrd "honderd" "honderdste" ! g ; n = Pl} ;
   pot2plus d e = 
     addAttr {s = \\g => d.attr ++ "honderd" ++ BIND ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
+  pot31 = addAttr {s = cardOrd "duisend" "duisendste" ; n = Pl} ;
   pot3 n = 
     addAttr {s = \\g => n.attr ++ cardOrd "duisend" "duisendste" ! g ; n = Pl} ; 
   pot3plus n m = 
     addAttr {s = \\g => n.attr ++ "duisend" ++ m.s ! g ; n = Pl} ;
 
   pot3as4 n = n ;
+  pot3decimal d = addAttr {s = d.s ; n = d.n} ;
+
+  pot41 = addAttr {s = cardOrd "een miljoen" "miljoenste" ; n = Pl} ;
+  pot4 n = addAttr {
+    s = \\g => n.s ! invNum ++ cardOrd "miljoen" "miljoenste" ! g ;
+    n = Pl
+    } ;
+  pot4plus n m = addAttr {
+    s = \\g => n.s ! invNum ++ "miljoen" ++ m.s ! g ;
+    n = Pl
+    } ;
   pot4as5 n = n ;
+  pot4decimal d = addAttr {
+    s = \\g => d.s ! invNum ++ cardOrd "miljoen" "miljoenste" ! g ;
+    n = Pl
+    } ;
+
+  pot51 = addAttr {s = cardOrd "een miljard" "miljardste" ; n = Pl} ;
+  pot5 n = addAttr {
+    s = \\g => n.s ! invNum ++ cardOrd "miljard" "miljardste" ! g ;
+    n = Pl
+    } ;
+  pot5plus n m = addAttr {
+    s = \\g => n.s ! invNum ++ "miljard" ++ m.s ! g ;
+    n = Pl
+    } ;
+  pot5decimal d = addAttr {
+    s = \\g => d.s ! invNum ++ cardOrd "miljard" "miljardste" ! g ;
+    n = Pl
+    } ;
 
   lincat 
     Dig = TDigit ;

@@ -21,7 +21,12 @@ lin
 
  PositAdAAdj a = a ;
    
- SubjS subj s = {s = subj.s ++ s.s ! Sub Condl} ;
+ SubjS subj s = {
+    s = case subj.isPre of {
+      True => subj.s ++ s.s ! Sub Condl ;
+      False => s.s ! Sub Condl ++ subj.s
+      }
+    } ;
 
  AdnCAdv cadv = {
     s = cadv.s ++ cadv.c2.s

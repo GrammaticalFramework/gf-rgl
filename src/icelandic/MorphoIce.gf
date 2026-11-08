@@ -499,6 +499,14 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 					smá smá (smá + "um") (smá + "rra") ;
 			in nForms2AForms mas fem neut ;
 
+		-- Indeclinable adjectives are frequent among loanwords, adverbial
+		-- modifiers used adjectivally, and the first parts of compounds.  The
+		-- old smart paradigm sent these through dSmár/dI, which produced forms
+		-- such as "fyrirframr" and "a posteriorii".
+		dInvar : Str -> AForms = \s ->
+			let forms = nForms8 s s s s s s s s
+			in nForms2AForms forms forms forms ;
+
 		dFarinn : Str -> AForms = \farinn ->
 			let
 				farin = init farinn ;
@@ -770,7 +778,7 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				köll = a2ö kall ;
 				kölluð = köll + "uð";
 				presInd = tForms6 kalla (kalla + "r") (kalla + "r") (köll + "um") (kall + "ið") kalla ;
-				pastInd = tForms6 kallaði (kallaði + "r") kallaði (kölluð + "um") (kölluð + "u") (kölluð + "u") ;
+				pastInd = tForms6 kallaði (kallaði + "r") kallaði (kölluð + "um") (kölluð + "uð") (kölluð + "u") ;
 				presSub = tForms6 (kall + "i") (kall + "ir") (kall + "i") (köll + "um") (kall + "ið") (kall + "i") ;
 				pastSub = tForms6 kallaði (kallaði + "r") kallaði (kölluð + "um") (kölluð + "uð") (kölluð + "u")
 			in tForms2MForms presInd pastInd presSub pastSub ;
@@ -932,6 +940,8 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 				PStrong Pl Neutr c	=> caseList (pastPartS ! Neutr ! 4) (pastPartS ! Neutr ! 5) (pastPartS ! Neutr ! 6) (pastPartS ! Neutr ! 7) ! c ;
 				PPres			=> presPart
 			} ;
+			refl = NonReflexive ;
+			part = [] ;
 		} ;
 
 -- AR 2019-08-02: deponent verbs use the Middle voice everywhere, instead of Active
@@ -1083,11 +1093,12 @@ resource MorphoIce = ResIce ** open Prelude, (Predef=Predef), ResIce in {
 		ðiditi : Str -> Str = \stem -> case stem of {
 			-- ði
 			_ + #vowel				=> stem + "ði" ;
-			front + ("f" | "j") 			=> front + "ði" ; 
+			_ + "f" 				=> stem + "ði" ;
+			front + "j" 				=> front + "ði" ;
 			_ + #vowel + ("r" | "rf" | "rg")	=> stem + "ði" ; 
 			_ + "rr"				=> stem + "ði" ; -- somethimes - otherwise + "ti", e.g., sperra-sperrti
 			-- ti
-			front@(_ + #consonant) + "t"		=> front + "i" ;
+			_ + "t"				=> stem + "i" ;
 			_ + ("p" | "t" | "k")			=> stem + "ti" ;
 			front@(_ + "r") + "ð"			=> front + "ti" ;
 			front@(_ + ("l" | "n")) + "d"		=> front + "ti" ; -- usually otherwise + "di", e.g., ýlda-ýldi, senda-sendi

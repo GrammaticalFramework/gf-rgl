@@ -1,4 +1,6 @@
 concrete AllSqi of AllSqiAbs =
-  LangSqi
+  LangSqi,
+  ExtendSqi,
+  IrregSqi
   **
     {} ;

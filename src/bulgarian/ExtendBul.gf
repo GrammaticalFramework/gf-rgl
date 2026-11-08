@@ -141,24 +141,21 @@ lin
       insertObj (\\a => vpi.s ! a) Pos (predV vv) ;
 
 lincat
-  VPS   = {s : Agr => Str} ;
-  [VPS] = {s : Agr => Ints 4 => Str} ;
+  VPS   = {s : Agr => Order => Str} ;
+  [VPS] = {s : Agr => Order => Ints 4 => Str} ;
 
 lin
-  BaseVPS x y  = {s  = \\a=>table {4 => y.s!a;    _ => x.s!a}} ;
-  ConsVPS x xs = {s  = \\a=>table {4 => xs.s!a!4; t => x.s!a++linCoord bindComma!t++xs.s!a!t}};
+  BaseVPS x y  = {s  = \\a,o=>table {4 => y.s!a!Main; _ => x.s!a!o}} ;
+  ConsVPS x xs = {s  = \\a,o=>table {4 => xs.s!a!Main!4; t => x.s!a!o++linCoord bindComma!t++xs.s!a!Main!t}};
 
-  PredVPS np vps = {s = np.s ! RSubj ++ vps.s ! personAgr np.gn np.p} ;
+  PredVPS np vps = {s = np.s ! RSubj ++ vps.s ! personAgr np.gn np.p ! Main} ;
 
   MkVPS t p vp = {
-    s = \\a => 
-          let verb  = vpTenses vp ! t.t ! t.a ! p.p ! a ! Main ! Perf ;
-              compl = vp.compl ! a
-          in t.s ++ p.s ++ verb ++ compl
+    s = \\a,o => t.s ++ p.s ++ vpTenses vp ! t.t ! t.a ! p.p ! a ! o ! Perf ++ vp.compl ! a
     } ;
       
   ConjVPS conj vps = {
-    s = \\a => linCoord []!conj.sep ++ vps.s!a!conj.sep ++ conj.s ++ vps.s!a!4
+    s = \\a,o => linCoord []!conj.sep ++ vps.s!a!o!conj.sep ++ conj.s ++ vps.s!a!o!4
     } ;
 
 lincat [Comp] = {s : Agr => Ints 4 => Str} ;

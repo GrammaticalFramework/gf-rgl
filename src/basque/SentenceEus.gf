@@ -21,7 +21,8 @@ lin
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
   AdvSlash cls adv = cls ** insertAdv adv cls ; 
 
---    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks 
+  SlashPrep cl prep = mkClSlash cl.subj
+    (cl.vp ** {post = prep ; missing = MissingAdv}) ;
 
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
 --  SlashVS np vs ss = {} ;
@@ -36,6 +37,8 @@ lin
 --2 Imperatives
   -- : VP -> Imp ; 
  ImpVP vp = { s = linVPPrc vp ! Hau } ; --TODO: check negation
+
+ AdvImp adv imp = {s = adv.s ++ imp.s} ;
 
 --2 Embedded sentences
 

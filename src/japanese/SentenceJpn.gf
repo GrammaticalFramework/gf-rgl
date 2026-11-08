@@ -177,6 +177,10 @@ flags coding = utf8 ;
           }
         }
       } ;
+
+    AdvImp adv imp = {
+      s = \\st,p => adv.s ! st ++ imp.s ! st ! p
+      } ;
     
     EmbedS sent = {s = \\part,st => sent.subj ! part ! st ++ sent.pred ! Plain ; isVP = False} ;
     

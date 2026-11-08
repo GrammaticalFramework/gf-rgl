@@ -105,6 +105,46 @@ lincat
 --  s = \\c => n.s ! NCard ++ "تهُْسَند" ++ m.s ! c ; n = Pl} ;
 
 lin pot3as4 n = n ;
+
+-- Arabic treats the scale nouns as ordinary masculine count nouns: the
+-- numeral therefore has feminine polarity with 3--10 (ثلاثة ملايين), while
+-- one million is conventionally written without an overt "one".
+lin pot41 = {
+      s = \\co,_,d,c => case co of {
+        NCard => defArt d c "مِلْيُون" ;
+        NOrd  => defArt d c "مِلْيُونِيّ"
+        } ;
+      n = One
+      } ;
+
+lin pot4 m = {
+      s = \\co,_,d,c => case m.n of {
+        One => defArt d c "مِلْيُون" ;
+        Two => m.s ! co ! Fem ! d ! c ++ "مِلْيُون" ;
+        ThreeTen => m.s ! co ! Fem ! d ! c ++ "مَلَايِين" ;
+        _ => m.s ! co ! Fem ! d ! c ++ "مِلْيُون"
+        } ;
+      n = m.n
+      } ;
+
+lin pot51 = {
+      s = \\co,_,d,c => case co of {
+        NCard => defArt d c "مِلْيَار" ;
+        NOrd  => defArt d c "مِلْيَارِيّ"
+        } ;
+      n = One
+      } ;
+
+lin pot5 m = {
+      s = \\co,_,d,c => case m.n of {
+        One => defArt d c "مِلْيَار" ;
+        Two => m.s ! co ! Fem ! d ! c ++ "مِلْيَار" ;
+        ThreeTen => m.s ! co ! Fem ! d ! c ++ "مِلْيَارَات" ;
+        _ => m.s ! co ! Fem ! d ! c ++ "مِلْيَار"
+        } ;
+      n = m.n
+      } ;
+
 lin pot4as5 n = n ;
 
 -- numerals as sequences of digits

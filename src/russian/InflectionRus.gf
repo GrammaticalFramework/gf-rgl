@@ -550,11 +550,15 @@ oper
 
   onlyParticipleForms : AdjForms -> AdjForms
     -- To prevent shadowing homonymic forms while parsing or empty, here asterisk has been to incorect forms
-    = \af -> af ** {sm=af.sm+"*"; sf=af.sf+"*"; sn=af.sn+"*"; sp=af.sp+"*"; comp=af.comp+"*"} ;
+    = \af -> af ** { short=\\gn => af.short ! gn + "*";
+                     comp=af.comp+"*"
+                   } ;
 
   immutableAdjectiveCases : Str -> AdjForms
     = \s -> {
-      msnom=s;fsnom=s;nsnom=s;pnom=s;msgen=s;fsgen=s;pgen=s;msdat=s;fsacc=s;msins=s;fsins=s;pins=s;msprep=s;sm=s;sf=s;sn=s;sp=s;comp=[];
+      msnom=s;fsnom=s;nsnom=s;pnom=s;msgen=s;fsgen=s;pgen=s;msdat=s;fsacc=s;msins=s;fsins=s;pins=s;msprep=s;
+      short=\\_=>s;
+      comp=[];
       preferShort=PreferFull ;
       p=False
     } ;
@@ -652,10 +656,12 @@ oper
         fsins = s + aef.fsins  ;
         pins  = s + aef.pins   ;
         msprep= s + aef.msprep ;
-        sm    = sms + aef.sm   ;
-        sf    = sstem + aef.sf ;
-        sn    = sstem + aef.sn ;
-        sp    = sstem + aef.sp ;
+        short = table {
+                  GSg Masc => sms + aef.short ! GSg Masc ;
+                  GSg Fem  => sstem + aef.short ! GSg Fem ;
+                  GSg Neut => sstem + aef.short ! GSg Neut ;
+                  GPl      => sstem + aef.short ! GPl
+                } ;
         comp  = comps + aef.comp ;
         preferShort = aef.preferShort ;
         p = aef.p
@@ -680,10 +686,12 @@ oper
         fsins = s + aef.fsins  ;
         pins  = s + aef.pins   ;
         msprep= s + aef.msprep ;
-        sm    = sms + aef.sm   ;
-        sf    = sstem + aef.sf ;
-        sn    = sstem + aef.sn ;
-        sp    = sstem + aef.sp ;
+        short = table {
+                  GSg Masc => sms + aef.short ! GSg Masc ;
+                  GSg Fem  => sstem + aef.short ! GSg Fem ;
+                  GSg Neut => sstem + aef.short ! GSg Neut ;
+                  GPl      => sstem + aef.short ! GPl
+                } ;
         comp  = comps + aef.comp ;
         preferShort = aef.preferShort ;
         p = False
@@ -711,10 +719,12 @@ oper
         fsins  = stressSelectionAdj aef1.fsins  ss "fsins" ;
         pins   = stressSelectionAdj aef1.pins   ss "pins" ;
         msprep = stressSelectionAdj aef1.msprep ss "msprep" ;
-        sm     = stressSelectionAdj aef1.sm     ss "sm" ;
-        sf     = stressSelectionAdj aef1.sf     ss "sf" ;
-        sn     = stressSelectionAdj aef1.sn     ss "sn" ;
-        sp     = stressSelectionAdj aef1.sp     ss "sp" ;
+        short = table {
+                  GSg Masc => stressSelectionAdj aef1.sm ss "sm" ;
+                  GSg Fem  => stressSelectionAdj aef1.sf ss "sf" ;
+                  GSg Neut => stressSelectionAdj aef1.sn ss "sn" ;
+                  GPl      => stressSelectionAdj aef1.sp ss "sp"
+                } ;
         comp   = stressSelectionAdj aef1.comp   ss "comp" ;
         preferShort = sfp ;
         p = False
@@ -998,8 +1008,8 @@ oper
         isg2=imp.isg2 ;
         isg2refl=imp.isg2refl ;
         ipl1=imp.ipl1 ;
-        ppps=ppp.ppps ;
-        pppss=ppp.pppss ;
+        prap=mkPresPartForms ((Predef.tk 1 presfut.prpl3) + "щ") ;
+        pppa=mkPastPassPartForms ppp.ppps ppp.pppss ;
         prtr=tr.prtr ;
         ptr=tr.ptr
       } ;
@@ -1110,8 +1120,8 @@ oper
         isg2=com + "ти";
         isg2refl=com + "тись";
         ipl1=[];
-        ppps=com + "тим";  -- incorrect, but prevents empty
-        pppss=com + "тим";  -- incorrect, but prevents empty
+        prap=mkPresPartForms (com + "тящ");
+        pppa=mkPastPassPartForms (com + "тим") (com + "тим");
         prtr=com + "тя";
         ptr=com + "тев";
         asp=asp;
@@ -1139,8 +1149,8 @@ oper
         isg2=com + "ги";
         isg2refl=com + "гись";
         ipl1=[];
-        ppps=com + "ган"; -- incorrect, but prevents parsing problems
-        pppss=com + "ган"; -- incorrect, but prevents parsing problems
+        prap=mkPresPartForms (com + "гущ");
+        pppa=mkPastPassPartForms (com + "ган") (com + "ган");
         prtr=com + "жа"; -- *
         ptr=com + "жав";
         asp=asp;
@@ -1168,8 +1178,8 @@ oper
         isg2=com + "шь";
         isg2refl=com + "шься";
         ipl1=[];
-        ppps=com + "денн";  -- *
-        pppss=com + "ден";  -- *
+        prap=mkPresPartForms (com + "дящ");
+        pppa=mkPastPassPartForms (com + "денн") (com + "ден");
         prtr=com + "дя";
         ptr=com + "в";
         asp=asp;
@@ -1196,8 +1206,8 @@ oper
         isg2=com + "й";
         isg2refl=com + "йся";
         ipl1=[];
-        ppps=com + "нн"; -- *
-        pppss=com + "н"; -- *
+        prap=mkPresPartForms (com + "ющ");
+        pppa=mkPastPassPartForms (com + "нн") (com + "н");
         prtr=com + "вая";
         ptr=com + "в";
         asp=asp;
@@ -1225,8 +1235,8 @@ oper
         isg2=com + "удь";
         isg2refl=com + "удься";
         ipl1=[];
-        ppps=com + "ыт";  -- *
-        pppss=com + "ыт";  -- *
+        prap=mkPresPartForms (com + "ывающ");
+        pppa=mkPastPassPartForms (com + "ыт") (com + "ыт");
         prtr=com + "ывая";
         ptr=com + "ыв";
         asp=asp;
@@ -1255,8 +1265,8 @@ oper
         isg2=com + "ди";
         isg2refl=com + "дись";
         ipl1=[];
-        ppps=com + "денн"; -- *
-        pppss="com + ден"; -- *
+        prap=mkPresPartForms (com + "дущ");
+        pppa=mkPastPassPartForms (com + "денн") (com + "ден");
         prtr=com + "дя";
         ptr=[];
         asp=asp;

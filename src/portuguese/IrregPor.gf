@@ -13,7 +13,7 @@ flags optimize=noexpand ;
 -- if you can find out what is its paradigm and then add it!
 
 lin acontecer_V = mkV (acontecer_Besch "acontecer") ;
-lin conhecer_V = mkV (acontecer_Besch "conhecer") ;
+lin conhecer_V = mkV (aquecer_Besch "conhecer") ;
 lin coalescer_V = mkV (acontecer_Besch "coalescer") ;
 lin comparecer_V = mkV (acontecer_Besch "comparecer") ;
 lin compadecer_V = mkV (acontecer_Besch "compadecer") ;
@@ -310,7 +310,7 @@ lin garantir_V = mkV (garantir_Besch "garantir") ;
 lin partir_V = mkV (garantir_Besch "partir") ;
 lin haver_V = mkV (haver_Besch "haver") ;
 lin abolir_V = mkV (imergir_Besch "abolir") ;
-lin banir_V = mkV (imergir_Besch "banir") ;
+lin banir_V = mkV "banir" ;
 lin brandir_V = mkV (imergir_Besch "brandir") ;
 lin brunir_V = mkV (imergir_Besch "brunir") ;
 lin emergir_V = mkV (imergir_Besch "emergir") ;

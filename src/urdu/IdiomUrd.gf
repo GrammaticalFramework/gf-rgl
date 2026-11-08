@@ -27,6 +27,20 @@ concrete IdiomUrd of Idiom = CatUrd ** open Prelude,Predef, ResUrd,ParamX,Common
 		  }
 		};
 
+    ExistNPAdv np adv =
+      mkSClause "" np.a
+        (insertAdV (adv.s ! giveGender np.a)
+        (insertObj (\\_ => np.s ! NPC Dir) (predAux auxBe))) ;
+
+    ExistIPAdv ip adv =
+      let cl = mkSClause (ip.s ! Dir) (agrP3 ip.g ip.n)
+                 (insertAdV (adv.s ! ip.g) (predAux auxBe))
+      in {s = \\t,p,_ => cl.s ! t ! p ! ODir} ;
+
+    SelfAdvVP vp = insertAdV "خود" vp ;
+    SelfAdVVP vp = insertAdV "خود" vp ;
+    SelfNP np = {s = \\c => np.s ! c ++ "خود" ; a = np.a} ;
+
 --    ProgrVP vp = insertObj (\\a => vp.obj.s ++ vp.ad ++ vp.comp ! a ++ (vp.s ! VPStem).inf ++ raha (fromAgr a).g (fromAgr a).n ) (predAux auxBe) ;
     ProgrVP vp =  (predProg vp) ;
 

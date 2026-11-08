@@ -669,8 +669,51 @@ oper
             Loc => loc ;
             Instr => instr
           } ;
+      poss = \\c,g,n => (possessiveA nom).s ! c ! genNum g n ;
       a = {g=g; n = n; p = p}
     } ;
+
+  -- Personal pronouns have adjectival possessives in Belarusian.  Keeping
+  -- them in the pronoun record lets PossPron agree with the possessed noun
+  -- instead of incorrectly using the personal genitive (мяне, цябе, ...).
+  possessiveA : Str -> A = \pron -> case pron of {
+    "я"   => mkPossAdj "м" ;
+    "ты"  => mkPossAdj "тв" ;
+    "мы"  => mkHardPossAdj "наш" ;
+    "вы"  => mkHardPossAdj "ваш" ;
+    "ён"  => lin A (adjFromStr "яго") ;
+    "яно" => lin A (adjFromStr "яго") ;
+    "яна" => lin A (adjFromStr "яе") ;
+    "яны" => lin A (adjFromStr "іх") ;
+    _      => lin A (adjFromStr pron)
+  } ;
+
+  mkPossAdj : Str -> A = \stem -> lin A {adv = stem+"аё"; post = False; s = table {
+    Nom => table {GSg Masc => stem+"ой"; GSg Fem => stem+"ая"; GSg Neuter => stem+"аё"; GPl => stem+"ае"} ;
+    Acc => table {GSg Masc => stem+"айго"; GSg Fem => stem+"аю"; GSg Neuter => stem+"аё"; GPl => stem+"аіх"} ;
+    Dat => table {GSg Masc => stem+"айму"; GSg Fem => stem+"аёй"; GSg Neuter => stem+"айму"; GPl => stem+"аім"} ;
+    Gen => table {GSg Masc => stem+"айго"; GSg Fem => stem+"аёй"; GSg Neuter => stem+"айго"; GPl => stem+"аіх"} ;
+    Loc => table {GSg Masc => stem+"аім"; GSg Fem => stem+"аёй"; GSg Neuter => stem+"аім"; GPl => stem+"аіх"} ;
+    Instr => table {GSg Masc => stem+"аім"; GSg Fem => stem+"аёй"; GSg Neuter => stem+"аім"; GPl => stem+"аімі"}
+  }} ;
+
+  mkHardPossAdj : Str -> A = \stem -> lin A {adv = stem+"а"; post = False; s = table {
+    Nom => table {GSg Masc => stem; GSg Fem => stem+"а"; GSg Neuter => stem+"а"; GPl => stem+"ы"} ;
+    Acc => table {GSg Masc => stem+"ага"; GSg Fem => stem+"у"; GSg Neuter => stem+"а"; GPl => stem+"ых"} ;
+    Dat => table {GSg Masc => stem+"аму"; GSg Fem => stem+"ай"; GSg Neuter => stem+"аму"; GPl => stem+"ым"} ;
+    Gen => table {GSg Masc => stem+"ага"; GSg Fem => stem+"ай"; GSg Neuter => stem+"ага"; GPl => stem+"ых"} ;
+    Loc => table {GSg Masc => stem+"ым"; GSg Fem => stem+"ай"; GSg Neuter => stem+"ым"; GPl => stem+"ых"} ;
+    Instr => table {GSg Masc => stem+"ым"; GSg Fem => stem+"ай"; GSg Neuter => stem+"ым"; GPl => stem+"ымі"}
+  }} ;
+
+  mkDemonstrativeA : Str -> A = \stem -> lin A {adv = stem+"ое"; post = False; s = table {
+    Nom => table {GSg Masc => stem+"ой"; GSg Fem => stem+"ая"; GSg Neuter => stem+"ое"; GPl => stem+"ыя"} ;
+    Acc => table {GSg Masc => stem+"аго"; GSg Fem => stem+"ую"; GSg Neuter => stem+"ое"; GPl => stem+"ых"} ;
+    Dat => table {GSg Masc => stem+"аму"; GSg Fem => stem+"ой"; GSg Neuter => stem+"аму"; GPl => stem+"ым"} ;
+    Gen => table {GSg Masc => stem+"аго"; GSg Fem => stem+"ой"; GSg Neuter => stem+"аго"; GPl => stem+"ых"} ;
+    Loc => table {GSg Masc => stem+"ым"; GSg Fem => stem+"ой"; GSg Neuter => stem+"ым"; GPl => stem+"ых"} ;
+    Instr => table {GSg Masc => stem+"ым"; GSg Fem => stem+"ой"; GSg Neuter => stem+"ым"; GPl => stem+"ымі"}
+  }} ;
 
   regV : Str -> V   -- infinitive
     = \form -> case form of {
@@ -797,6 +840,14 @@ oper
     mkN : Str -> Str -> N = reg2N   -- s;Nom;Sg  s;Acc;Pl
   } ;
 
+  -- Use the plural paradigm of a plural-only Belarusian noun even when the
+  -- language-neutral tree carries NumSg (e.g. English "door" vs. дзверы).
+  pluralOnlyN : N -> N = \noun -> lin N {
+    s = \\c,_ => noun.s ! c ! Pl ;
+    voc = noun.voc ;
+    g = noun.g
+  } ;
+
   mkN2 = overload {
      mkN2 : N -> N2 = \n -> lin N2 (n ** {c2 = noPrep}) ;
      mkN2 : N -> Prep -> N2 = \n,p -> lin N2 (n ** {c2 = p}) ;
@@ -817,34 +868,69 @@ oper
   mkVQ : V -> VQ = \v -> lin VQ v ;
   mkVA : V -> VA = \v -> lin VA v ;
 
+  -- Productive fallback for passive constructions.  Individual lexical
+  -- entries can override it with mkV2Pass/mkV3Pass when the participle is
+  -- irregular; importantly, the fallback is still an agreeing adjective,
+  -- never the infinitive used by the old implementation.
+  defaultPassiveA : Str -> A = \inf -> case inf of {
+    stem + "аваць" => regA (stem + "аваны") ;
+    stem + "яваць" => regA (stem + "яваны") ;
+    stem + "ваць"  => regA (stem + "ваны") ;
+    stem + "нуць"  => regA (stem + "нуты") ;
+    stem + "аць"   => regA (stem + "аны") ;
+    stem + "яць"   => regA (stem + "яны") ;
+    stem + "іць"   => regA (stem + "ены") ;
+    stem + "ыць"   => regA (stem + "аны") ;
+    stem + "ці"    => regA (stem + "ты") ;
+    stem + "ць"    => regA (stem + "ты") ;
+    _                => lin A (adjFromStr inf)
+  } ;
+
   mkV2 = overload {
-     mkV2 : V -> V2 = \v -> lin V2 (v ** {c2 = noPrep}) ;
-     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p}) ;
+     mkV2 : V -> V2 = \v -> lin V2 (v ** {c2 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV2 : V -> Prep -> V2 = \v,p -> lin V2 (v ** {c2 = p; pa = defaultPassiveA v.infinitive}) ;
+  } ;
+
+  mkV2Pass = overload {
+     mkV2Pass : V -> A -> V2 = \v,a -> lin V2 (v ** {c2 = noPrep; pa = a}) ;
+     mkV2Pass : V -> Prep -> A -> V2 = \v,p,a -> lin V2 (v ** {c2 = p; pa = a})
   } ;
 
   mkV3 = overload {
-     mkV3 : V -> V3 = \v -> lin V3 (v ** {c2 = noPrep; c3 = noPrep}) ;
-     mkV3 : V -> Prep -> Prep -> V3 = \v,p1,p2 -> lin V3 (v ** {c2 = p1; c3 = p2}) ;
+     mkV3 : V -> V3 = \v -> lin V3 (v ** {c2 = noPrep; c3 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV3 : V -> Prep -> Prep -> V3 = \v,p1,p2 -> lin V3 (v ** {c2 = p1; c3 = p2; pa = defaultPassiveA v.infinitive}) ;
   } ;
 
+  mkV3Pass : V -> Prep -> Prep -> A -> V3 = \v,p1,p2,a ->
+    lin V3 (v ** {c2 = p1; c3 = p2; pa = a}) ;
+
   mkV2A = overload {
-     mkV2A : V -> V2A = \v -> lin V2A (v ** {c2 = noPrep; c3 = noPrep}) ;
-     mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> lin V2A (v ** {c2 = p1; c3 = p2}) ;
+     mkV2A : V -> V2A = \v -> lin V2A (v ** {c2 = noPrep; c3 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV2A : V -> Prep -> Prep -> V2A = \v,p1,p2 -> lin V2A (v ** {c2 = p1; c3 = p2; pa = defaultPassiveA v.infinitive}) ;
   } ;
 
   mkV2S = overload {
-     mkV2S : V -> V2S = \v -> lin V2S (v ** {c2 = noPrep; c3 = noPrep}) ;
-     mkV2S : V -> Prep -> Prep -> V2S = \v,p1,p2 -> lin V2S (v ** {c2 = p1; c3 = p2}) ;
+     mkV2S : V -> V2S = \v -> lin V2S (v ** {c2 = noPrep; c3 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV2S : V -> Prep -> Prep -> V2S = \v,p1,p2 -> lin V2S (v ** {c2 = p1; c3 = p2; pa = defaultPassiveA v.infinitive}) ;
   } ;
 
   mkV2Q = overload {
-     mkV2Q : V -> V2Q = \v -> lin V2Q (v ** {c2 = noPrep; c3 = noPrep}) ;
-     mkV2Q : V -> Prep -> Prep -> V2Q = \v,p1,p2 -> lin V2Q (v ** {c2 = p1; c3 = p2}) ;
+     mkV2Q : V -> V2Q = \v -> lin V2Q (v ** {c2 = noPrep; c3 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV2Q : V -> Prep -> Prep -> V2Q = \v,p1,p2 -> lin V2Q (v ** {c2 = p1; c3 = p2; pa = defaultPassiveA v.infinitive}) ;
   } ;
 
   mkV2V = overload {
-     mkV2V : V -> V2V = \v -> lin V2V (v ** {c2 = noPrep; c3 = noPrep}) ;
-     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (v ** {c2 = p1; c3 = p2}) ;
+     mkV2V : V -> V2V = \v -> lin V2V (v ** {c2 = noPrep; c3 = noPrep; pa = defaultPassiveA v.infinitive}) ;
+     mkV2V : V -> Prep -> Prep -> V2V = \v,p1,p2 -> lin V2V (v ** {c2 = p1; c3 = p2; pa = defaultPassiveA v.infinitive}) ;
+  } ;
+
+  mkV2VPass : V -> Prep -> Prep -> A -> V2V = \v,p1,p2,a ->
+    lin V2V (v ** {c2 = p1; c3 = p2; pa = a}) ;
+
+  postA : A -> Str -> A = \a,s -> lin A {
+    s = \\c,gn => a.s ! c ! gn ++ s;
+    adv = a.adv ++ s;
+    post = a.post
   } ;
 
   mkA = overload {
@@ -883,11 +969,29 @@ oper
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_,_,_ => s} ;
   mkIDet : Str -> IDet = \s -> lin IDet {s=\\_,_ => s; n=Sg} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_ => s} ;
+  mkQuant = overload {
+    mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_ => s} ;
+    mkQuant : A -> Quant = \a -> lin Quant {s=\\c,g,n => a.s ! c ! genNum g n}
+  } ;
   adjQuant : A -> Quant = \a -> lin Quant {s=\\c,g,n => a.s ! c ! genNum g n} ;
-  mkPredet : Str -> Predet = \s -> lin Predet {s=\\_,_,_ => s} ;
-  mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg} ;
+  mkPredet = overload {
+    mkPredet : Str -> Predet = \s -> lin Predet {s=\\_,_,_ => s} ;
+    mkPredet : A -> Predet = \a -> lin Predet {s=\\c,g,n => a.s ! c ! genNum g n}
+  } ;
+  allPredet : Predet = lin Predet {s = table {
+    Nom => table {Masc => table {Sg => "увесь"; Pl => "усе"}; Fem => table {Sg => "уся"; Pl => "усе"}; Neuter => table {Sg => "усё"; Pl => "усе"}} ;
+    Acc => table {Masc => table {Sg => "усяго"; Pl => "усіх"}; Fem => table {Sg => "усю"; Pl => "усіх"}; Neuter => table {Sg => "усё"; Pl => "усіх"}} ;
+    Dat => table {Fem => table {Sg => "усёй"; Pl => "усім"}; _ => table {Sg => "усяму"; Pl => "усім"}} ;
+    Gen => table {Fem => table {Sg => "усёй"; Pl => "усіх"}; _ => table {Sg => "усяго"; Pl => "усіх"}} ;
+    Loc => table {Fem => table {Sg => "усёй"; Pl => "усіх"}; _ => table {Sg => "усім"; Pl => "усіх"}} ;
+    Instr => table {Fem => table {Sg => "усёй"; Pl => "усімі"}; _ => table {Sg => "усім"; Pl => "усімі"}}
+  }} ;
+  mkDet = overload {
+    mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg} ;
+    mkDet : A -> Number -> Det = \a,n -> lin Det {s=\\c,g => a.s ! c ! genNum g n; n=n}
+  } ;
   mkCard : Str -> Card = \s -> lin Card {s=s; n=Pl} ;
+  mkCardSg : Str -> Card = \s -> lin Card {s=s; n=Sg} ;
   mkACard : Str -> ACard = \s -> lin ACard {s=s; n=Pl} ;
   mkConj : Str -> Conj = \s -> lin Conj {s=s; n=Pl} ;
   mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;

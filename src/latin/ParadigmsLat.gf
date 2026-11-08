@@ -48,6 +48,11 @@ oper
   pluralN : N -> N = \n -> lin N (ResLat.pluralNoun n) ;
   singularN : N -> N = \n -> lin N (ResLat.singularNoun n) ;
   constN : Str -> Gender-> N = \s,g -> lin N (ResLat.constNoun s g);
+
+  compoundN : N -> A -> N = \n,a -> lin N {
+    s = \\num,cas => n.s ! num ! cas ++ a.s ! Posit ! Ag n.g num cas ;
+    g = n.g
+    } ;
   
   mkA = overload {
     mkA : (verbum : Str) -> A -- Nominative masculine

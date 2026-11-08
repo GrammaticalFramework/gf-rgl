@@ -63,6 +63,14 @@ lin
 
   AdvS a s = { s = a.s ++ s.s } ;
 
+  ExtAdvS a s = {s = a.s ++ "," ++ s.s} ;
+
+  SSubjS s1 subj s2 = {s = s1.s ++ "," ++ subj.s ++ s2.s} ;
+
+  AdvImp adv imp = {
+    s = \\pol,num => adv.s ++ imp.s ! pol ! num
+  } ;
+
 oper
   -- TODO: PassV2 verbs jāsaskaņo ar objektu, nevis subjektu (by8means_Prep: AgP3 Sg Masc)
   mkClause : NP -> CatLav.VP -> Cl = \np,vp ->  

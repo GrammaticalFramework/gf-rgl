@@ -372,11 +372,22 @@ oper
   mkA2 a p = a ** {c2 = mkComplement  p.s ; lock_A2 = <>} ;
 
   mkADeg a b c d e = mkAdject a b c d e ** {isComp = False ; lock_A = <>} ;
-  regADeg a = case Predef.dp 2 a of {
-    "ig" => aBillig a ;
-    "sk" => aRask a ;
-    _ => aRod a
-    }  ** {isComp = False ; lock_A = <>} ;
+  regADeg a = case a of {
+    -- These endings already contain the positive-form inflection.  Applying
+    -- the productive -t/-e suffixes generated forms such as *levendee.
+    _ + "ende" => mkAdject a a a a a **
+      {isComp = True ; lock_A = <>} ;
+    _ + "e" => mkAdject a a a (a + "re") (a + "st") **
+      {isComp = False ; lock_A = <>} ;
+    _ => case Predef.dp 2 a of {
+      "ig" => aBillig a ** {isComp = False ; lock_A = <>} ;
+      "sk" => aRask a ** {isComp = False ; lock_A = <>} ;
+      _ => case last a of {
+        "t" => aAbstrakt a ** {isComp = False ; lock_A = <>} ;
+        _ => aRod a ** {isComp = False ; lock_A = <>}
+        }
+      }
+    } ;
   irregADeg a b c = mkAdject a (a + "t") (a + "e") b c ** 
     {isComp = False ; lock_A = <>} ;
   mk3ADeg a b c = mkAdject a b c (a + "ere") (a + "est") ** 

@@ -17,6 +17,8 @@ concrete NounTha of Noun = CatTha ** open StringsTha, ResTha, Prelude in {
 
     AdvNP np adv = thbind np adv ;
 
+    ExtAdvNP np adv = thbind np adv ;
+
     DetQuant quant num = {
       s1 = num.s ++bIND++ quant.s1 ; --- can there be quant.s1 ??
       s2 = quant.s2 ;
@@ -34,6 +36,19 @@ concrete NounTha of Noun = CatTha ** open StringsTha, ResTha, Prelude in {
       hasC = False
       } ;
 
+    PossNP cn np = {s = thbind cn.s khoog_s np.s ; c = cn.c} ;
+    PartNP cn np = {s = thbind cn.s khoog_s np.s ; c = cn.c} ;
+
+    CountNP det np = mkNP (thbind det.s1 np.s det.s2) ;
+
+    DetDAP det = det ** {adj = []} ;
+    AdjDAP dap ap = dap ** {adj = thbind dap.adj ap.s} ;
+
+    QuantityNP decimal mu = mkNP (case mu.isPre of {
+      True => thbind mu.s decimal.s ;
+      False => thbind decimal.s mu.s
+      }) ;
+
     NumSg, NumPl = {s = [] ; hasC = False} ;
 
     NumCard n = n ** {hasC = True} ;
@@ -46,7 +61,7 @@ concrete NounTha of Noun = CatTha ** open StringsTha, ResTha, Prelude in {
 
     AdNum adn num = thbind adn num ; ---- always?
 
-    OrdSuperl a = {s = thbind a.s thii_s sut_s} ;
+    OrdSuperl a = {s = thbind a.s (thword thii_s sut_s)} ;
 
     DefArt = {s1,s2 = [] ; hasC = False} ;
     IndefArt = {s1,s2 = [] ; hasC = False} ;
@@ -63,10 +78,10 @@ concrete NounTha of Noun = CatTha ** open StringsTha, ResTha, Prelude in {
 
     AdjCN ap cn = {s = cn.s ++bIND++ ap.s ; c = cn.c} ;
 
-    RelCN cn rs = {s = thbind cn.s rs.s ; c = cn.s} ;
-    AdvCN cn ad = {s = thbind cn.s ad.s ; c = cn.s} ;
-    SentCN cn cs = {s = thbind cn.s cs.s ; c = cn.s} ;
-    ApposCN cn np = {s = thbind cn.s np.s ; c = cn.s} ;
+    RelCN cn rs = {s = thbind cn.s rs.s ; c = cn.c} ;
+    AdvCN cn ad = {s = thbind cn.s ad.s ; c = cn.c} ;
+    SentCN cn cs = {s = thbind cn.s cs.s ; c = cn.c} ;
+    ApposCN cn np = {s = thbind cn.s np.s ; c = cn.c} ;
 
     RelNP np rs = thbind np rs ;
 

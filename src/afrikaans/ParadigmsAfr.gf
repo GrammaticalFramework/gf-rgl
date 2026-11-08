@@ -275,6 +275,18 @@ oper
 
 
 
+oper
+  mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
+  mkAdA : Str -> AdA = \s -> lin AdA {s=s} ;
+  mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
+  mkCard : Str -> Number -> Card = \s,n -> lin Card {s=\\_,_=>s; n=n} ;
+  mkConj : Str -> Number -> Conj = \s,n -> lin Conj {s1=[]; s2=s; n=n} ;
+  mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
+  mkIDet : Str -> Number -> IDet = \s,n -> lin IDet {s=\\_=>s; n=n} ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_,_=>s} ;
+  mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=[]} ;
+  mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
 
 
 ----2 Definitions of paradigms

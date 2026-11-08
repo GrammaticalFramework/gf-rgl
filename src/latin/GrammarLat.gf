@@ -13,7 +13,8 @@ concrete GrammarLat of Grammar =
   PhraseLat,
   TextX-[Adv],
   TenseX-[Adv],
-  StructuralLat
---  IdiomLat
+  StructuralLat,
+  NamesLat,
+  IdiomLat
   ** {
 } ;

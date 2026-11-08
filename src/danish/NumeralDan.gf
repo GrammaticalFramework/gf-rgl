@@ -38,15 +38,35 @@ lin n9 = mkTal "ni"   "nitten"  "halvfems"   "niende" "halvfemsindstyvende" ;
   pot1plus d e = {
     s = \\g => e.s ! ental ! invNum ++ "og" ++ d.s ! tiotal ! g ; n = Pl} ;
   pot1as2 n = n ;
+  pot21 = numPl (cardOrd "hundrede" "hundredende") ;
   pot2 d = numPl (\\_ => d.s ! ental ! invNum ++ "hundrede") ;
   pot2plus d e = 
     {s = \\g => d.s ! ental ! invNum ++ "hundrede" ++ "og" ++ e.s ! g ; n = Pl} ;
   pot2as3 n = n ;
+  pot31 = numPl (cardOrd "tusind" "tusinde") ;
   pot3 n = numPl (\\g => n.s ! invNum ++ cardOrd "tusind" "tusinde" ! g) ;
   pot3plus n m = {s = \\g => n.s ! invNum ++ "tusind" ++ "og" ++ m.s ! g ; n =Pl} ;
 
   pot3as4 n = n ;
+
+  pot41 = numPl (cardOrd "en million" "millionte") ;
+  pot4 n = numPl (\\g => n.s ! NCard Utr ++
+    cardOrd (case n.n of {Sg => "million" ; Pl => "millioner"}) "millionte" ! g) ;
+  pot4plus n m = {
+    s = \\g => n.s ! NCard Utr ++ case n.n of {Sg => "million" ; Pl => "millioner"} ++ m.s ! g ;
+    n = Pl
+    } ;
+  pot4decimal d = numPl (\\g => d.s ! NCard Utr ++ cardOrd "millioner" "millionte" ! g) ;
   pot4as5 n = n ;
+
+  pot51 = numPl (cardOrd "en milliard" "milliardte") ;
+  pot5 n = numPl (\\g => n.s ! NCard Utr ++
+    cardOrd (case n.n of {Sg => "milliard" ; Pl => "milliarder"}) "milliardte" ! g) ;
+  pot5plus n m = {
+    s = \\g => n.s ! NCard Utr ++ case n.n of {Sg => "milliard" ; Pl => "milliarder"} ++ m.s ! g ;
+    n = Pl
+    } ;
+  pot5decimal d = numPl (\\g => d.s ! NCard Utr ++ cardOrd "milliarder" "milliardte" ! g) ;
 
   lincat 
     Dig = TDigit ;

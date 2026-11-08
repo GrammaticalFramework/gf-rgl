@@ -7,13 +7,13 @@ concrete AdjectiveTel of Adjective = CatTel ** open ResTel, Prelude in {
     UseComparA a = a ;
 
     ComparA a np = {
-      s = \\g,n,c => a.s ! g ! n ! c ++ "కంటే" ++ np.s ! NPC Obl
+      s = \\g,n,c => np.s ! NPC Obl ++ "కంటే" ++ a.s ! g ! n ! c
       } ;
 
 -- $SuperlA$ belongs to determiner syntax in $Noun$.
 
     ComplA2 a np = {
-      s = \\g,n,c => a.s ! g ! n ! c ++ a.c2 ++ np.s ! NPC Obl
+      s = \\g,n,c => np.s ! NPC Obl ++ a.c2 ++ a.s ! g ! n ! c
       } ;
 
     ReflA2 a = {
@@ -21,7 +21,7 @@ concrete AdjectiveTel of Adjective = CatTel ** open ResTel, Prelude in {
       } ;
 
     SentAP ap sc = {
-      s = \\g,n,c => ap.s ! g ! n ! c ++ sc.s
+      s = \\g,n,c => sc.s ++ ap.s ! g ! n ! c
       } ;
 
     AdAP ada ap = {
@@ -29,7 +29,7 @@ concrete AdjectiveTel of Adjective = CatTel ** open ResTel, Prelude in {
       } ;
 
     AdvAP ap adv = {
-      s = \\g,n,c => ap.s ! g ! n ! c ++ adv.s
+      s = \\g,n,c => adv.s ++ ap.s ! g ! n ! c
       } ;
 
     UseA2 a = a ;

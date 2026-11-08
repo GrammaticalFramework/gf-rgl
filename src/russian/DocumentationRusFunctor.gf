@@ -196,7 +196,7 @@ oper
     let pres : Agr=>Str = \\a => verbPresAgree v a in
     let past : Agr=>Str = \\a => verbPastAgree v a "" in
     let imp : Agr=>Str = \\a => ((verbImperativeAgree v a).p1 ++ (verbImperativeAgree v a).p2) in
-    let ppp : GenNum=>Str = \\gn => shortPastPassPart v gn in
+    let ppp : GenNum=>Str = (pastPassPart v).short in
     case v.asp of {Imperfective => "несовершенного вида" ; Perfective => "совершенного вида"} ++ "," ++
     case v.refltran of {
       Refl => "возвратный" ;

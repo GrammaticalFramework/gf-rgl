@@ -2,6 +2,7 @@
 
 abstract AllCzeAbs =
   Lang,
-  Extend
+  Extend,
+  ExtraCzeAbs
   ;
 

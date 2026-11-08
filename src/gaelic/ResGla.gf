@@ -107,6 +107,15 @@ oper
     t@#lenitable + unnag   => t + "h" + unnag ;
     _                      => tunnag } ;
 
+  -- The progressive particle is _ag_ before a vowel and _a'_ elsewhere.
+  -- Keeping it as a pre-token operation also makes it work when the verbal
+  -- noun has acquired complements in the VP.
+  AG : Str = pre {
+    #vowel => "ag" ;
+    _      => "a'"
+    } ;
+
+
 
 ---------------------------------------------
 -- Proper noun
@@ -315,7 +324,7 @@ oper
   h, n, LENITION_DEBUG : Str ;
   h = pre {#vowel  => "h"  ++ BIND ; _ => []} ;
   n = pre {#vowel  => "n-" ++ BIND ; _ => []} ;
-  LENITION_DEBUG = "^L" ; -- Only for debugging purposes—replace with empty string for production
+  LENITION_DEBUG = [] ;
 
 
   invarPrepForms : Str -> PrepForms = \str ->
@@ -329,8 +338,8 @@ oper
       \replaces,casIndef,casDef,objForms,possForms -> {
         s = table {
               PrepBase => aig ;
-              PrepDefiniteArticle Sg => aig + "✨" ++ BIND ++ AN ;  -- TODO: merge with article!!!!!!
-              PrepDefiniteArticle Pl => aig + "✨" ++ BIND ++ NA ;  -- TODO: merge with article!!!!!!
+              PrepDefiniteArticle Sg => aig ++ AN ;
+              PrepDefiniteArticle Pl => aig ++ NA ;
               PrepObjectPron Sg1 => agam ;
               PrepObjectPron Sg2 => agad ;
               PrepObjectPron (Sg3 Masc) => aige ;
@@ -372,6 +381,12 @@ oper
     c2 = \\_ => Dat Lenited ;
     replacesObjPron = False
   } ;
+
+  simplePrep : Str -> Case -> LinPrep = \s,c -> {
+    s = \\_ => s ;
+    c2 = \\_ => c ;
+    replacesObjPron = False
+    } ;
 
   aigPrep : LinPrep =
     mkPrep
@@ -467,7 +482,18 @@ param
   VForm = Indep | Dep ;
   
 oper
-  LinV = {s: Str; conditional: Number => Str; imperative: Person => Number => Str; future, past : VForm => Str; noun, participle: Str} ;
+  LinV = {
+    s: Str;
+    conditional: Number => Str;
+    imperative: Person => Number => Str;
+    future, past : VForm => Str;
+    noun, participle: Str;
+    -- Copular and auxiliary uses of _bi_ do not form the present with
+    -- "a'" plus a verbal noun.  Keep that distinction in the VP instead of
+    -- trying to recover it from the surface string in SentenceGla.
+    copular: Bool;
+    complement: Str
+    } ;
 
   LinV2 : Type = LinV ** {
     c2 : LinPrep ;
@@ -503,7 +529,9 @@ oper
                        Dep   => f13
                      } ;
             noun = f14 ;
-            participle = f15
+            participle = f15 ;
+            copular = False ;
+            complement = []
           } ;
 
 ------------------
@@ -513,9 +541,65 @@ oper
 
   LinVP : Type = LinV ;
 
+  -- Keep complements in every finite and non-finite form.  The first
+  -- version of the grammar made VP identical to the bare verb and the
+  -- unfinished syntax modules consequently had nowhere to put objects or
+  -- adverbials.  These two small combinators let the syntax remain simple
+  -- without throwing away the rich verb paradigm.
+  appendVP : LinVP -> Str -> LinVP = \vp,compl -> vp ** {
+    s = vp.s ++ compl ;
+    conditional = \\n => vp.conditional ! n ++ compl ;
+    imperative = \\p,n => vp.imperative ! p ! n ++ compl ;
+    future = \\f => vp.future ! f ++ compl ;
+    past = \\f => vp.past ! f ++ compl ;
+    noun = vp.noun ++ compl ;
+    participle = vp.participle ++ compl ;
+    complement = vp.complement ++ compl
+    } ;
+
+  prependVP : Str -> LinVP -> LinVP = \adv,vp -> vp ** {
+    s = adv ++ vp.s ;
+    conditional = \\n => adv ++ vp.conditional ! n ;
+    imperative = \\p,n => adv ++ vp.imperative ! p ! n ;
+    future = \\f => adv ++ vp.future ! f ;
+    past = \\f => adv ++ vp.past ! f ;
+    noun = adv ++ vp.noun ;
+    participle = adv ++ vp.participle ;
+    complement = adv ++ vp.complement
+    } ;
+
   LinVPSlash : Type = LinVP ** {
     c2 : LinPrep ;
     } ;
+
+  appendSlash : LinVPSlash -> Str -> LinVPSlash = \vp,compl -> vp ** {
+    s = vp.s ++ compl ;
+    conditional = \\n => vp.conditional ! n ++ compl ;
+    imperative = \\p,n => vp.imperative ! p ! n ++ compl ;
+    future = \\f => vp.future ! f ++ compl ;
+    past = \\f => vp.past ! f ++ compl ;
+    noun = vp.noun ++ compl ;
+    participle = vp.participle ++ compl ;
+    complement = vp.complement ++ compl
+    } ;
+
+  prependSlash : Str -> LinVPSlash -> LinVPSlash = \adv,vp -> vp ** {
+    s = adv ++ vp.s ;
+    conditional = \\n => adv ++ vp.conditional ! n ;
+    imperative = \\p,n => adv ++ vp.imperative ! p ! n ;
+    future = \\f => adv ++ vp.future ! f ;
+    past = \\f => adv ++ vp.past ! f ;
+    noun = adv ++ vp.noun ;
+    participle = adv ++ vp.participle ;
+    complement = adv ++ vp.complement
+    } ;
+
+  prepNP : LinPrep -> LinNP -> Str = \prep,np ->
+    let c = prep.c2 ! getDefi np.a
+    in case <prep.replacesObjPron,np.a> of {
+      <True,IsPron _> => prep.s ! agr2pagr np.a ;
+      _ => prep.s ! agr2pagr np.a ++ np.art ! c ++ np.s ! c
+      } ;
 
 --------------------------------------------------------------------------------
 -- Cl, S
@@ -523,10 +607,20 @@ oper
   -- Operations for clauses, sentences
   LinCl : Type = {
     subj : Str ;
-    pred : Str ; -- TODO: depend on Temp and Pol
+    n : Number ;
+    pred : LinVP ;
   } ;
 
-  linCl : LinCl -> Str = \cl -> cl.subj ++ cl.pred ;
+  LinClSlash : Type = LinCl ** {c2 : LinPrep} ;
+
+  linCl : LinCl -> Str = \cl -> cl.pred.s ++ cl.subj ;
+
+  agrNumber : Agr -> Number = \agr -> case agr of {
+    IsPron (Pl1|Pl2|Pl3) => Pl ;
+    NotPron (DDef n _) => n ;
+    NotPron (DPoss n _) => n ;
+    _ => Sg
+    } ;
 
 
 oper mkNoun : (_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender -> LinN =

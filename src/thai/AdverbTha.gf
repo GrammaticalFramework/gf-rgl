@@ -4,6 +4,8 @@ concrete AdverbTha of Adverb = CatTha **
   lin
     PositAdvAdj a = a ;
 
+    PositAdAAdj a = a ;
+
     PrepNP prep np = thbind prep np ;
 
     ComparAdvAdj cadv a np = ss (thbind a.s cadv.s cadv.p np.s) ;

@@ -468,6 +468,13 @@ n9 = { unit = table {
     };
 
 --   pot2 : Sub10 -> Sub1000 ;                     -- m * 100
+    pot21 = {
+      s = \\_ => "sto";
+      o = mkAtable (guess_model "setny");
+      a = StoA;
+      n = Pl
+    };
+
     pot2 s = {
         s = s.hundred;
         o = s.ohundred;
@@ -493,6 +500,13 @@ n9 = { unit = table {
     };
 
 --   pot3 : Sub1000 -> Sub1000000 ;                -- m * 1000
+    pot31 = {
+      s = \\x => tysiac ! <x.p1,Sg>;
+      o = mkAtable (guess_model "tysięczny");
+      a = TysiacA;
+      n = Pl
+    };
+
     pot3 s = {
         s = \\x => case s.n of { Sg => ""; Pl => s.s!<x.p1,Masc Inanimate> } 
             ++ tysiac!<(accom_case! <s.a,x.p1, Masc Inanimate>),s.n>;
@@ -515,7 +529,58 @@ n9 = { unit = table {
     };
 
     pot3as4 n = n ;
+
+    pot41 = {
+      s = \\x => milion ! <x.p1,Sg>;
+      o = mkAtable (guess_model "milionowy");
+      a = TysiacA;
+      n = Pl
+    };
+
+    pot4 n = {
+      s = \\x => n.s ! <x.p1,Masc Inanimate> ++
+        milion ! <(accom_case ! <n.a,x.p1,Masc Inanimate>),n.n>;
+      o = \\af => n.s ! <Nom,Masc Inanimate> ++
+        (mkAtable (guess_model "milionowy")) ! af;
+      a = TysiacA;
+      n = Pl
+    };
+
+    pot4plus n rest = {
+      s = \\x => n.s ! <x.p1,Masc Inanimate> ++
+        milion ! <(accom_case ! <n.a,x.p1,Masc Inanimate>),n.n> ++
+        rest.s ! x;
+      o = \\af => n.s ! <Nom,Masc Inanimate> ++ "milion" ++ rest.o ! af;
+      a = rest.a;
+      n = Pl
+    };
+
     pot4as5 n = n ;
+
+    pot51 = {
+      s = \\x => miliard ! <x.p1,Sg>;
+      o = mkAtable (guess_model "miliardowy");
+      a = TysiacA;
+      n = Pl
+    };
+
+    pot5 n = {
+      s = \\x => n.s ! <x.p1,Masc Inanimate> ++
+        miliard ! <(accom_case ! <n.a,x.p1,Masc Inanimate>),n.n>;
+      o = \\af => n.s ! <Nom,Masc Inanimate> ++
+        (mkAtable (guess_model "miliardowy")) ! af;
+      a = TysiacA;
+      n = Pl
+    };
+
+    pot5plus n rest = {
+      s = \\x => n.s ! <x.p1,Masc Inanimate> ++
+        miliard ! <(accom_case ! <n.a,x.p1,Masc Inanimate>),n.n> ++
+        rest.s ! x;
+      o = \\af => n.s ! <Nom,Masc Inanimate> ++ "miliard" ++ rest.o ! af;
+      a = rest.a;
+      n = Pl
+    };
 
 oper tysiac = table {
     <(Nom|Acc), Sg> => "tysiąc";
@@ -528,6 +593,32 @@ oper tysiac = table {
     <Dat,       Pl> => "tysiącom";
     <Instr,     Pl> => "tysiącami";
     <Loc,       Pl> => "tysiącach"
+  };
+
+  milion = table {
+    <(Nom|Acc), Sg> => "milion";
+    <Gen,       Sg> => "miliona";
+    <Dat,       Sg> => "milionowi";
+    <Instr,     Sg> => "milionem";
+    <(Loc|VocP),Sg> => "milionie";
+    <(Nom|Acc|VocP), Pl> => "miliony";
+    <Gen,       Pl> => "milionów";
+    <Dat,       Pl> => "milionom";
+    <Instr,     Pl> => "milionami";
+    <Loc,       Pl> => "milionach"
+  };
+
+  miliard = table {
+    <(Nom|Acc), Sg> => "miliard";
+    <Gen,       Sg> => "miliarda";
+    <Dat,       Sg> => "miliardowi";
+    <Instr,     Sg> => "miliardem";
+    <(Loc|VocP),Sg> => "miliardzie";
+    <(Nom|Acc|VocP), Pl> => "miliardy";
+    <Gen,       Pl> => "miliardów";
+    <Dat,       Pl> => "miliardom";
+    <Instr,     Pl> => "miliardami";
+    <Loc,       Pl> => "miliardach"
   };
 
 

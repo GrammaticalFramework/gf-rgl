@@ -16,6 +16,10 @@ concrete SentenceChi of Sentence = CatChi **
         }
       } ;
 
+    AdvImp adv imp = {
+      s = \\p => adv.s ++ imp.s ! p
+      } ;
+
     SlashVP np vp =
       mkClauseCompl (linNP np) vp []
       ** {c2 = vp.c2} ;

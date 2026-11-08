@@ -33,6 +33,7 @@ lin pot1plus d e = { s = table {
                   n = Pl} ;
 lin pot1as2 n = n ;
 lin pot2 d = {s = d.s ! hund} ** {n = Pl} ;	
+lin pot21 = regCardOrd "mia moja" ** {n = Pl} ;
 lin pot2plus d e = {s = table {
       NCard => \\g => d.s ! hund ! NCard ! g ++  "na" ++ e.s !NCard ! g ;
       NOrd => \\g =>Ordprefix g++ d.s ! hund ! NCard ! g ++  "na" ++ e.s ! NCard ! g } ;
@@ -42,13 +43,23 @@ lin pot3 n = { s = table {
       NCard => \\g => mkCard NCard "elfu" ! g ++ n.s ! NCard ! g ;
       NOrd => \\g =>Ordprefix g++ mkCard NCard "elfu" ! g ++ n.s ! NCard ! g } ;
               n = Pl} ;
+lin pot31 = regCardOrd "elfu moja" ** {n = Pl} ;
 lin pot3plus n m = { s = table {
       NCard => \\g => "elfu" ++ n.s ! NCard !g ++  m.s ! NCard ! g ;
       NOrd => \\g =>Ordprefix g++ "elfu" ++ n.s ! NCard !g ++  m.s ! NCard ! g} ;
                  n = Pl} ;
 
 lin pot3as4 n = n ;
+lin pot3decimal d = {s = \\o,g => d.s ! o ! g ++ "elfu" ; n = Pl} ;
+lin pot41 = regCardOrd "milioni moja" ** {n = Pl} ;
+lin pot4 n = {s = \\o,g => "milioni" ++ n.s ! o ! g ; n = Pl} ;
+lin pot4plus n m = {s = \\o,g => "milioni" ++ n.s ! o ! g ++ m.s ! o ! g ; n = Pl} ;
 lin pot4as5 n = n ;
+lin pot4decimal d = {s = \\o,g => d.s ! o ! g ++ "milioni" ; n = Pl} ;
+lin pot51 = regCardOrd "bilioni moja" ** {n = Pl} ;
+lin pot5 n = {s = \\o,g => "bilioni" ++ n.s ! o ! g ; n = Pl} ;
+lin pot5plus n m = {s = \\o,g => "bilioni" ++ n.s ! o ! g ++ m.s ! o ! g ; n = Pl} ;
+lin pot5decimal d = {s = \\o,g => d.s ! o ! g ++ "bilioni" ; n = Pl} ;
 
 -- numerals as sequences of digits0'
 

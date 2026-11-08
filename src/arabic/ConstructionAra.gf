@@ -17,6 +17,16 @@ lincat
 
 lin
 
+  ready_VP = mkVP (mascA "مُسْتَعِدّ") ;
+
+  has_age_VP card = mkVP (mkNP card (mkN "سَنَة" "سَنَوَات" fem nohum)) ;
+
+  cup_of_CN np = mkCN (mkN "كُوب" "أَكْوَاب" masc nohum)
+                       (SyntaxAra.mkAdv possess_Prep np) ;
+
+  n_units_of_NP card cn np =
+    mkNP card (mkCN cn (SyntaxAra.mkAdv possess_Prep np)) ;
+
   timeunitAdv n time =
   let n_card : Card   = n ;
       n_hours_NP : NP = mkNP n_card time ;

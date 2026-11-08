@@ -44,9 +44,17 @@ concrete IdiomAra of Idiom = CatAra ** open
 
    -- ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
 
-    -- ProgrVP   : VP -> VP ;        -- be sleeping
+    -- Arabic normally expresses the unmarked progressive with the
+    -- imperfect, so no extra auxiliary is required here.
+    ProgrVP vp = vp ;
 
-    -- ImpPl1    : VP -> Utt ;       -- let's go
+    -- The first-person plural jussive prefixed by لِ is the usual
+    -- hortative construction: لِنَذْهَبْ "let us go".
+    ImpPl1 vp = {s = \\_ => "لِ" ++ BIND
+                       ++ vp.s ! Per1 Plur ! VPImpf Jus
+                       ++ vp.obj.s
+                       ++ vp.pred.s ! {g = Masc ; n = Pl} ! Acc
+                       ++ vp.s2} ;
 
     -- ImpP3     : NP -> VP -> Utt ; -- let John walk
 

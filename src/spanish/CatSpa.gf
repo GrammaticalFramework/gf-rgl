@@ -2,4 +2,8 @@
 
 concrete CatSpa of Cat = CommonX - 
   [SC,Temp,TTAnt,Tense,TPres,TPast,TFut,TCond,Pol,MU] ** CatRomance with
-  (ResRomance = ResSpa) ;
+  (ResRomance = ResSpa) ** {
+
+  lincat ACard = {s : Str} ;
+
+} ;

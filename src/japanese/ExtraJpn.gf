@@ -72,6 +72,7 @@ flags coding = utf8 ;
       a_stem = \\a,st => "では" ;
       i_stem = \\a,st => "になり" ;  -- "become" - for wishes
       obj = \\st => cn.s ! Sg ! st ;
+      comparison = \\st => cn.s ! Sg ! st ;
       prepositive = cn.prepositive ;
       needSubject = True
       } ;

@@ -62,14 +62,43 @@ lin pot1plus d e =
   {s = \\g => d.s ! tiotal ! g ++ y_CardOrd g ++ e.s ! ental indip ! g ; n = Pl} ;
 lin pot1as2 n = n ;
 lin pot2 d = spl (d.s ! hundra False) ;
+lin pot21 = spl (table {
+  NCard _ => "cien" ;
+  NOrd g n => regCard "centésimo" g n
+  }) ;
 lin pot2plus d e = 
   {s = \\g => d.s ! hundra True ! g ++ e.s ! g ; n = Pl} ;
 lin pot2as3 n = n ;
 lin pot3 n = spl (\\g => n.s ! NCard Masc ++ mil g) ;
+lin pot31 = spl (table {
+  NCard _ => "mil" ;
+  NOrd g n => regCard "milésimo" g n
+  }) ;
 lin pot3plus n m = {s = \\g => n.s ! NCard Masc ++ mil g ++ m.s ! g ; n = Pl} ;
+lin pot3decimal d = {s = \\_ => d.s ! NCard Masc ++ "mil" ; n = Pl} ;
 
 lin pot3as4 n = n ;
+lin pot41 = {s = \\co => case co of {
+  NCard _ => "un millón de" ;
+  NOrd g n => regCard "millonésimo" g n
+  } ; n = Pl} ;
+lin pot4 n = {s = \\co => case co of {
+  NCard _ => n.s ! NCard Masc ++ "millones de" ;
+  NOrd g k => n.s ! NCard Masc ++ regCard "millonésimo" g k
+  } ; n = Pl} ;
+lin pot4plus n m = {s = \\co => n.s ! NCard Masc ++ "millones" ++ m.s ! co ++ "de" ; n = Pl} ;
+lin pot4decimal d = {s = \\_ => d.s ! NCard Masc ++ "millones de" ; n = Pl} ;
 lin pot4as5 n = n ;
+lin pot51 = {s = \\co => case co of {
+  NCard _ => "mil millones de" ;
+  NOrd g n => regCard "milmillonésimo" g n
+  } ; n = Pl} ;
+lin pot5 n = {s = \\co => case co of {
+  NCard _ => n.s ! NCard Masc ++ "mil millones de" ;
+  NOrd g k => n.s ! NCard Masc ++ regCard "milmillonésimo" g k
+  } ; n = Pl} ;
+lin pot5plus n m = {s = \\co => n.s ! NCard Masc ++ "mil millones" ++ m.s ! co ++ "de" ; n = Pl} ;
+lin pot5decimal d = {s = \\_ => d.s ! NCard Masc ++ "mil millones de" ; n = Pl} ;
 
 oper
   mkTal : (x1,_,_,_,_,_,_,x8 : Str) -> {s : DForm => CardOrd => Str} =

@@ -50,6 +50,10 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       s = \\ez => np.s ! Ezafe ++ adv.s
       } ;
 
+    ExtAdvNP np adv = np ** {
+      s = \\m => np.s ! m ++ SOFT_BIND ++ "،" ++ adv.s
+      } ;
+
     DetQuantOrd quant num ord =
       let cs : CmpdStatus => Str = case <num.isNum,num.n,quant.isDef> of {
             <True,Sg,False> => \\_ => num.s ++ ord.s ; -- to prevent "a 1"
@@ -84,6 +88,9 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
       relpron = Ance -- TODO check if this works for all Dets
       } ;
 
+    DetDAP det = {s = det.sp ; n = det.n} ;
+    AdjDAP dap ap = {s = dap.s ++ ap.s ! Bare ; n = dap.n} ;
+
     PossPron p = DefArt ** {
        s = \\_ => table {
               NotCmpd => BIND ++ p.ps ;
@@ -105,7 +112,7 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
 -- to here
     AdNum adn num = num ** {s = adn.s ++ num.s} ;
 
-    OrdSuperl a = {s = a.s ! Comparative ! Bare ++ BIND ++ "ین" ; n = Sg ; isNum=False ; isPre = True} ;
+    OrdSuperl a = {s = a.s ! Positive ! Bare ++ BIND ++ ZWNJ ++ BIND ++ "ترین" ; n = Sg ; isNum=False ; isPre = True} ;
 
     DefArt = makeQuant [] [] Bare False ;
     IndefArt = makeQuant IndefArticle [] Bare False ** {isDef = False} ;
@@ -167,4 +174,19 @@ concrete NounPes of Noun = CatPes ** open ResPes, Prelude in {
     PossNP cn np = cn ** {
       s = \\n => replaceBare Ezafe (cn.s ! n) ; -- alternative: place np2str np here for "<house of mine> <on the hill>"
       compl = \\n => cn.compl ! n ++ np2str np } ; -- "<house> <on the hill of mine>"
+
+    PartNP cn np = cn ** {
+      s = \\n,m => cn.s ! n ! Ezafe ;
+      compl = \\n => cn.compl ! n ++ np2str np
+      } ;
+
+    CountNP det np = np ** {
+      s = \\m => det.s ++ "از" ++ np.s ! m ;
+      a = agrP3 det.n
+      } ;
+
+    QuantityNP decimal unit = emptyNP ** {
+      s = \\_ => decimal.s ! NCard ++ unit.s ;
+      a = agrP3 decimal.n
+      } ;
 }

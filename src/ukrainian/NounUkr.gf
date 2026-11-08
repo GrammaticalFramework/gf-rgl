@@ -3,7 +3,7 @@ lin
   UseN n = n ;
 
   DetCN det cn = {
-    s = \\c => det.s ! c ! cn.g ++ cn.s ! Nom ! Sg ;
+    s = \\c => det.s ! c ! cn.g ++ cn.s ! c ! det.n ;
     g = cn.g ;
     n = det.n ;
     p = P3
@@ -46,13 +46,13 @@ lin
   IndefArt = {s = \\_,_,_ => []} ;
   DefArt = {s = \\_,_,_ => []} ;
   MassNP cn = {
-    s = \\_ => cn.s ! Nom ! Sg ;
+    s = \\c => cn.s ! c ! Sg ;
     g = cn.g ;
     n = Sg ;
     p = P3
   } ;
   PossPron p = {
-    s = \\_,g,n => possPron p.p p.g p.n g n
+    s = p.poss
   } ;
 
   ComplN2 n2 np = n2 ** {
@@ -79,7 +79,7 @@ lin
     s = \\c,n => cn.s ! c ! n ++ sc.s
   } ;
   ApposCN cn np = cn ** {
-    s = \\c,n => cn.s ! c ! n ++ np.s ! Nom
+    s = \\c,n => cn.s ! c ! n ++ np.s ! c
   } ;
   PossNP cn np = cn ** {
     s = \\c,n => cn.s ! c ! n ++ np.s ! Gen

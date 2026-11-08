@@ -75,19 +75,25 @@ lin
   pot2 = potTimes "백" "백" ;
 
   -- : Sub10 -> Sub100 -> Sub1000 ;         -- m * 100 + n
-  pot2plus m n = TODO ;
+  pot2plus m n = combineNum "백" m n ;
 
   -- : Sub1000 -> Sub1000000 ;              -- coercion of 1..999
   pot2as3 x = x ;
 
   -- : Sub1000 -> Sub1000000 ;              -- m * 1000
-  pot3 m = TODO ;
+  pot3 m = scaleNum "천" m ;
 
   -- : Sub1000 -> Sub1000 -> Sub1000000 ;   -- m * 1000 + n
-  pot3plus m n = TODO ;
+  pot3plus m n = combineNum "천" m n ;
 
   pot3as4 x = x ;
+  pot41 = fixedNum "백만" ;
+  pot4 m = scaleNum "백만" m ;
+  pot4plus m n = combineNum "백만" m n ;
   pot4as5 x = x ;
+  pot51 = fixedNum "십억" ;
+  pot5 m = scaleNum "십억" m ;
+  pot5plus m n = combineNum "십억" m n ;
 
 oper
   LinDigit : Type = ResKor.Numeral ** {isTwo : Bool ; ten : Str} ;
@@ -127,6 +133,23 @@ oper
     } ;
 
   TODO : ResKor.Numeral = mkNum2 "TODO" "TODO" ;
+
+  fixedNum : Str -> ResKor.Numeral = \s -> {
+    s = \\_,_ => s ; n = numNumber ; numtype = IsNum ; ord = s ++ "번째"
+    } ;
+
+  scaleNum : Str -> ResKor.Numeral -> ResKor.Numeral = \unit,m -> m ** {
+    s = \\_,_ => m.s ! SK ! Indep ++ unit ;
+    n = numNumber ;
+    ord = m.s ! SK ! Indep ++ unit ++ "번째"
+    } ;
+
+  combineNum : Str -> ResKor.Numeral -> ResKor.Numeral -> ResKor.Numeral =
+    \unit,m,n -> n ** {
+      s = \\_,_ => m.s ! SK ! Indep ++ unit ++ n.s ! SK ! Indep ;
+      n = numNumber ;
+      ord = m.s ! SK ! Indep ++ unit ++ n.s ! SK ! Indep ++ "번째"
+      } ;
 
 
 -- numerals as sequences of digits

@@ -36,8 +36,6 @@ instance DiffNno of DiffScand = open CommonScand, Prelude in {
 
     subjIf = "viss" ;
 
---    artDef : GenNum -> Str = \gn -> gennumForms "den" "det" "dei" ! gn ;
-
     artIndef : NGender => Str = table {
       NUtr Masc => "ein" ;
       NUtr Fem  => "ei" ;

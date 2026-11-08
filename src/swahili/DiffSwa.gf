@@ -8,8 +8,19 @@ oper
   conjThan = "kuliko" ;
   conjThat = "kuvita" ;
 
-   conjGender : Gender -> Gender -> Gender = \m,n -> 
-    case m of { G1 => n ; _ => G2 } ;
+   conjGender : Gender -> Gender -> Gender = \m,n ->
+    case <m,n> of {
+      -- Coordinated people retain a-/wa- agreement.  Equal noun classes
+      -- retain their own concord; heterogeneous non-human conjuncts use the
+      -- conventional ki-/vi- default instead of the old, unrelated m-/mi-
+      -- agreement.
+      <G1,G1> => G1 ;
+      <G2,G2> => G2 ; <G3,G3> => G3 ; <G4,G4> => G4 ;
+      <G5,G5> => G5 ; <G6,G6> => G6 ; <G7,G7> => G7 ;
+      <G8,G8> => G8 ; <G9,G9> => G9 ; <G10,G10> => G10 ;
+      <G11,G11> => G11 ; <G12,G12> => G12 ; <G13,G13> => G13 ;
+      <_,_> => G4
+      } ;
   reflPron :Agr => Str = \\ag=> case <ag >  of  {
          < Ag G1 Sg P1  >     => "mimi" ;
          < Ag G1 Sg P2  >     => "wewe" ;
@@ -223,7 +234,7 @@ Cardtwoprefix  : Gender ->  Str = \g ->
 
  param
 
-  VForm = VInf 
+  VForm = VInf | VImp Number
      | VPres Gender Number Person
     | VPast Gender Number Person
     | VFut  Gender Number Person

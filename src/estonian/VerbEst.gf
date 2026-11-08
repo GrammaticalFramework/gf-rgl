@@ -75,7 +75,11 @@ concrete VerbEst of Verb = CatEst ** open Prelude, ResEst in {
 
     AdvVP vp adv = insertAdv adv.s vp ;
 
+    ExtAdvVP vp adv = insertAdv (SOFT_BIND ++ "," ++ adv.s) vp ;
+
     AdvVPSlash vp adv = insertAdv adv.s vp ** vp ;
+
+    AdVVPSlash adv vp = insertAdv adv.s vp ** vp ;
 
     VPSlashPrep vp prep = vp ** {c2 = prep} ;
 

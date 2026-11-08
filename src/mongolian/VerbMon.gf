@@ -9,6 +9,8 @@ lin
 
  ComplVV v vp = insertObj (\\_ => infVP vp Nom) (predV (auxToVerb v)) ;
 
+ ExtAdvVP vp adv = insertAdv ("," ++ adv.s) vp ;
+
  ComplVS v s = insertEmbedCompl (s.s ! Main ++ "гэж") (predV v) ;
  
  ComplVQ v qs = insertEmbedCompl (qs.s ! QIndir) (predV v) ;

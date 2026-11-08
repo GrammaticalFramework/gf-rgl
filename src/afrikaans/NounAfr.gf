@@ -39,6 +39,11 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
       a = np.a
       } ;
 
+    ExtAdvNP np adv = heavyNP {
+      s = \\c => np.s ! c ++ "," ++ adv.s ++ "," ;
+      a = np.a
+      } ;
+
     DetQuantOrd quant num ord = 
       let 
         n = num.n ;
@@ -171,6 +176,30 @@ concrete NounAfr of Noun = CatAfr ** open ResAfr, Prelude in {
     AdvCN cn s = {
       s = \\a,nc => cn.s ! a ! nc ++ s.s ;
       g = cn.g
+      } ;
+
+    PossNP cn np = {
+      s = \\a,nc => cn.s ! a ! nc ++ "van" ++ np.s ! NPNom ;
+      g = cn.g
+      } ;
+
+    PartNP cn np = {
+      s = \\a,nc => cn.s ! a ! nc ++ "van" ++ np.s ! NPAcc ;
+      g = cn.g
+      } ;
+
+    CountNP det np = heavyNP {
+      s = \\c => det.s ! Neutr ++ "van" ++ np.s ! c ;
+      a = agrP3 det.n
+      } ;
+
+    DetDAP det = det ;
+
+    AdjDAP dap ap = {
+      s = \\g => dap.s ! g ++ ap.s ! AAttr ;
+      sp = \\g => dap.sp ! g ++ ap.s ! AAttr ;
+      n = dap.n ;
+      a = dap.a
       } ;
 
     ApposCN  cn np = let g = cn.g in {

@@ -5,22 +5,23 @@ flags coding = utf8 ;
   lin
 
     DetCN det cn = {
-      s = \\st => case det.inclCard of {
-        True => case cn.counterReplace of {
-          True => case cn.hasAttr of {
-            True => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
-                    ++ "の" ++ cn.s ! det.n ! st ;
-            False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
-            } ;
-          False => case <det.tenPlus, cn.counterTsu> of {
-            <True, True> => cn.object ! st ++ det.quant ! st ++ det.num ++ "個" ++ det.postpositive
-                            ++ "の" ++ cn.s ! det.n ! st ;
-             _ => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
-                  ++ "の" ++ cn.s ! det.n ! st
-            }
-          } ;
-        False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.s ! det.n ! st
-        } ;
+      s = \\st => 
+              case det.numType of {
+                NoCard => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.s ! det.n ! st ;
+                _ => case cn.counterReplace of {
+                       True => case cn.hasAttr of {
+                                 True => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
+                                                  ++ "の" ++ cn.s ! det.n ! st ;
+                                 False => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
+                               } ;
+                       False => case <det.numType, cn.counterTsu> of {
+                                  <TenPlus, True> => cn.object ! st ++ det.quant ! st ++ det.num ++ "個" ++ det.postpositive
+                                                                ++ "の" ++ cn.s ! det.n ! st ;
+                                  _               => cn.object ! st ++ det.quant ! st ++ det.num ++ cn.counter ++ det.postpositive
+                                                                ++ "の" ++ cn.s ! det.n ! st
+                                }
+                     }
+              } ;
       prepositive = cn.prepositive ;
       needPart = True ;
       changePolar = case det.no of {
@@ -98,16 +99,14 @@ flags coding = utf8 ;
       postpositive = num.postpositive ;
       num = num.s ;
       n = num.n ;
-      inclCard = num.inclCard ;
-      sp = \\st => case num.inclCard of {
-        True => case num.tenPlus of {
-          False => quant.s ! st ++ num.s ++ "つ" ++ num.postpositive ;
-          True => quant.s ! st ++ num.s ++ num.postpositive
-          } ;
-        False => quant.sp ! st ++ num.s
-        } ;
+      sp = \\st => 
+               case num.numType of {
+                 NoCard  => quant.s ! st ++ num.s ;
+                 Small   => quant.s ! st ++ num.s ++ "つ" ++ num.postpositive ;
+                 TenPlus => quant.s ! st ++ num.s ++ num.postpositive
+               } ;
       no = quant.no ;
-      tenPlus = num.tenPlus
+      numType = num.numType
       } ;
 
     DetQuantOrd quant num ord = {
@@ -115,41 +114,67 @@ flags coding = utf8 ;
       postpositive = num.postpositive ;
       num = num.s ;
       n = num.n ;
-      inclCard = num.inclCard ;
-      sp = \\st => case num.inclCard of {
-        True => case num.tenPlus of {
-          False => quant.s ! st ++ ord.attr ++ num.s ++ "つ" ++ num.postpositive ;
-          True => quant.s ! st ++ ord.attr ++ num.s ++ num.postpositive
-          } ;
-        False => quant.s ! st ++ ord.attr ++ num.s
-        } ;
+      sp = \\st =>
+               case num.numType of {
+                 NoCard  => quant.s ! st ++ ord.attr ++ num.s ;
+                 Small   => quant.s ! st ++ ord.attr ++ num.s ++ "つ" ++ num.postpositive ;
+                 TenPlus => quant.s ! st ++ ord.attr ++ num.s ++ num.postpositive
+               } ;
       no = quant.no ;
-      tenPlus = num.tenPlus
+      numType = num.numType
       } ;
 
     NumSg = mkNum "" Sg ;
 
     NumPl = mkNum "" Pl ;
 
-    NumCard card = card ** {inclCard = True} ;
+    NumCard card = card ;
 
-    NumDigits num = num ** {postpositive = []} ;
-    NumDecimal num = num ** {postpositive = []} ;
+    NumDigits num = num ** {
+      postpositive = [] ;
+      numType=case num.tenPlus of {
+                False => Small ;
+                True => TenPlus
+              }
+    } ;
 
-    NumNumeral num = num ** {postpositive = []} ;
+    NumDecimal num = num ** {
+      postpositive = [] ;
+      numType=case num.tenPlus of {
+                False => Small ;
+                True => TenPlus
+              }
+    } ;
+
+    QuantityNP decimal unit = {
+      s = \\st => decimal.s ++ unit.s ;
+      prepositive = \\st => [] ;
+      needPart = True ;
+      changePolar = False ;
+      meaning = SomeoneElse ;
+      anim = Inanim
+      } ;
+
+    NumNumeral num = num ** {
+      postpositive = [];
+      numType=case num.tenPlus of {
+                False => Small ;
+                True => TenPlus
+              }
+    } ;
 
     AdNum adn card = case adn.postposition of {
       True => {
         s = card.s ;
         postpositive = adn.s ;
         n = card.n ;
-        tenPlus = card.tenPlus
+        numType = card.numType
         } ;
       False => {
         s = adn.s ++ card.s ;
         postpositive = [] ;
         n = card.n ;
-        tenPlus = card.tenPlus
+        numType = card.numType
         }
       } ;
 
@@ -203,7 +228,6 @@ flags coding = utf8 ;
 
     ComplN3 n3 np = n3 ** {
       object = \\st => np.s ! st ++ n3.prep1 ;
-      prepositive = np.prepositive ;
       prep = n3.prep2 ;
       } ;
 
@@ -273,10 +297,9 @@ flags coding = utf8 ;
       num = dap.num ;
       postpositive = dap.postpositive ;
       n = dap.n ;
-      inclCard = dap.inclCard ;
       sp = \\st => dap.sp ! st ++ ap.prepositive ! st ++ ap.attr ! st ;
       no = dap.no ;
-      tenPlus = dap.tenPlus
+      numType = dap.numType
       } ;
 
     DetDAP det = det ;

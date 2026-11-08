@@ -2,6 +2,7 @@
 
 concrete AllCze of AllCzeAbs =
   LangCze,
-  ExtendCze
+  ExtendCze,
+  ExtraCze
   ;
 

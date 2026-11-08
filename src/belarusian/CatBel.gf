@@ -27,7 +27,7 @@ lincat
   N3 = Noun ** {c2,c3 : Compl} ;
   CN = CommonNoun ;
   NP = NPhrase ;
-  Pron = {s: Case => Str; a: Agr} ;
+  Pron = {s: Case => Str; poss : Case => Gender => Number => Str; a: Agr} ;
   Det = {s : Case => Gender => Str; n : Number} ;
   Predet = {s : Case => Gender => Number => Str} ;
   Quant = {s : Case => Gender => Number => Str} ;
@@ -47,8 +47,8 @@ lincat
 
   V = Verb ;
   VV,VS,VQ,VA = Verb ;
-  V2 = Verb ** {c2 : Compl} ;
-  V3,V2A,V2S,V2Q,V2V = Verb ** {c2,c3 : Compl} ;
+  V2 = Verb ** {c2 : Compl; pa : Adj} ;
+  V3,V2A,V2S,V2Q,V2V = Verb ** {c2,c3 : Compl; pa : Adj} ;
   A = Adj ;
   A2 = Adj ** {c2 : Compl} ;
   AP = AdjPhrase ;

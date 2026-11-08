@@ -1,4 +1,4 @@
-resource MorphoGla = open CatGla, ResGla, Predef in {
+resource MorphoGla = open CatGla, ResGla, Prelude, Predef in {
 
 oper
 
@@ -4204,7 +4204,7 @@ mkV001 base =
                  Dep => "tui"+base_1+"t"
                } ;
         noun = base_1+"àdh" ;
-        participle = base_1+"àite"
+        participle = base_1+"àite" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV001"
   } ;
@@ -4241,7 +4241,7 @@ mkV002 base =
                  Dep => "dh'"+base_1+"i"+base_2
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV002"
   } ;
@@ -4278,7 +4278,7 @@ mkV003 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV003"
   } ;
@@ -4315,7 +4315,7 @@ mkV004 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV004"
   } ;
@@ -4352,7 +4352,7 @@ mkV005 base =
                  Dep => nonExist
                } ;
         noun = base_1+"t" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV005"
   } ;
@@ -4389,7 +4389,7 @@ mkV006 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ea"+base_2+"adh" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV006"
   } ;
@@ -4426,7 +4426,7 @@ mkV007 base =
                  Dep => nonExist
                } ;
         noun = base_1+"mhainn" ;
-        participle = base_1+"ta"
+        participle = base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV007"
   } ;
@@ -4463,7 +4463,7 @@ mkV008 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV008"
   } ;
@@ -4500,7 +4500,7 @@ mkV009 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV009"
   } ;
@@ -4537,7 +4537,7 @@ mkV010 base =
                  Dep => "dh'"+base_1+"i"+base_2
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV010"
   } ;
@@ -4574,7 +4574,7 @@ mkV011 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"hte"
+        participle = base_1+"hte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV011"
   } ;
@@ -4611,7 +4611,7 @@ mkV012 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"nn" ;
-        participle = base_1+base_2+"nnte"
+        participle = base_1+base_2+"nnte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV012"
   } ;
@@ -4648,7 +4648,7 @@ mkV013 base =
                  Dep => nonExist
                } ;
         noun = base_1+"n"+base_2+"dh" ;
-        participle = base_1+base_2+"innte"
+        participle = base_1+base_2+"innte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV013"
   } ;
@@ -4685,7 +4685,7 @@ mkV014 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ea"+base_2+"d" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV014"
   } ;
@@ -4722,7 +4722,7 @@ mkV015 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"ta"
+        participle = base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV015"
   } ;
@@ -4759,7 +4759,7 @@ mkV016 base =
                  Dep => nonExist
                } ;
         noun = base_1+"dhèa"+base_2+"amh" ;
-        participle = base_1+"dhèa"+base_2+"ta"
+        participle = base_1+"dhèa"+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV016"
   } ;
@@ -4796,7 +4796,7 @@ mkV017 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+"a"+base_2+"i"+base_3+"te"
+        participle = base_1+"a"+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV017"
   } ;
@@ -4833,7 +4833,7 @@ mkV018 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ail" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV018"
   } ;
@@ -4870,7 +4870,7 @@ mkV019 base =
                  Dep => nonExist
                } ;
         noun = base_1+"tinn" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV019"
   } ;
@@ -4907,7 +4907,7 @@ mkV020 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"e" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV020"
   } ;
@@ -4944,7 +4944,7 @@ mkV021 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV021"
   } ;
@@ -4981,7 +4981,7 @@ mkV022 base =
                  Dep => nonExist
                } ;
         noun = base_1+"tainn" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV022"
   } ;
@@ -5018,7 +5018,7 @@ mkV023 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"rt" ;
-        participle = base_1+base_2+"rte"
+        participle = base_1+base_2+"rte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV023"
   } ;
@@ -5055,7 +5055,7 @@ mkV024 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ad"+base_2 ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV024"
   } ;
@@ -5092,7 +5092,7 @@ mkV025 base =
                  Dep => nonExist
                } ;
         noun = base_1+"eam" ;
-        participle = base_1+"e"
+        participle = base_1+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV025"
   } ;
@@ -5129,7 +5129,7 @@ mkV026 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV026"
   } ;
@@ -5166,7 +5166,7 @@ mkV027 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"t" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV027"
   } ;
@@ -5203,7 +5203,7 @@ mkV028 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eadh" ;
-        participle = base_1+base_2+"e"
+        participle = base_1+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV028"
   } ;
@@ -5240,7 +5240,7 @@ mkV029 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"d" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV029"
   } ;
@@ -5277,7 +5277,7 @@ mkV030 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"d"+base_3 ;
-        participle = base_1+base_2+"ic"+base_3+"te"
+        participle = base_1+base_2+"ic"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV030"
   } ;
@@ -5314,7 +5314,7 @@ mkV031 base =
                  Dep => base_1+"ug"
                } ;
         noun = "b"+base_1+"eith" ;
-        participle = "bei"+base_1+"te"
+        participle = "bei"+base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV031"
   } ;
@@ -5351,7 +5351,7 @@ mkV032 base =
                  Dep => base_1+"h"+base_2+"i"+base_3
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV032"
   } ;
@@ -5388,7 +5388,7 @@ mkV033 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"a"+base_3+"adh" ;
-        participle = base_1+base_2+"à"+base_3+"te"
+        participle = base_1+base_2+"à"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV033"
   } ;
@@ -5425,7 +5425,7 @@ mkV034 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"eadh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV034"
   } ;
@@ -5462,7 +5462,7 @@ mkV035 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3 ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV035"
   } ;
@@ -5499,7 +5499,7 @@ mkV036 base =
                  Dep => nonExist
                } ;
         noun = base_1+"d"+base_2 ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV036"
   } ;
@@ -5536,7 +5536,7 @@ mkV037 base =
                  Dep => "dh'"+base_1 --guessed
                } ;
         noun = base_1 ;
-        participle = base_1+"te" --guessed
+        participle = base_1+"te" ; copular = False ; complement = [] --guessed
       };
     _ => error "Can't apply paradigm mkV037"
   } ;
@@ -5573,7 +5573,7 @@ mkV038 base =
                  Dep => base_1+"h"+base_2+"i"+base_3
                } ;
         noun = base_1+base_2+"ea"+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV038"
   } ;
@@ -5610,7 +5610,7 @@ mkV039 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ad" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV039"
   } ;
@@ -5647,7 +5647,7 @@ mkV040 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"i"+base_3+"n" ;
-        participle = base_1+base_2+base_3+"te"
+        participle = base_1+base_2+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV040"
   } ;
@@ -5684,7 +5684,7 @@ mkV041 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV041"
   } ;
@@ -5721,7 +5721,7 @@ mkV042 base =
                  Dep => base_1+"h"+base_2 --guessed
                } ;
         noun = base_1+base_2+"eadh" ;
-        participle = base_1+base_2+"e" --guessed
+        participle = base_1+base_2+"e" ; copular = False ; complement = [] --guessed
       };
     _ => error "Can't apply paradigm mkV042"
   } ;
@@ -5758,7 +5758,7 @@ mkV043 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV043"
   } ;
@@ -5795,7 +5795,7 @@ mkV044 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"n"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"innte"
+        participle = base_1+base_2+base_3+"innte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV044"
   } ;
@@ -5832,7 +5832,7 @@ mkV045 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"a"+base_4 ;
-        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te"
+        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV045"
   } ;
@@ -5869,7 +5869,7 @@ mkV046 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eamh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV046"
   } ;
@@ -5906,7 +5906,7 @@ mkV047 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"tainn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV047"
   } ;
@@ -5943,7 +5943,7 @@ mkV048 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"l"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"ilte"
+        participle = base_1+base_2+base_3+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV048"
   } ;
@@ -5980,7 +5980,7 @@ mkV049 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+base_4+"adh" ;
-        participle = base_1+base_2+base_3+"ai"+base_4+"nte"
+        participle = base_1+base_2+base_3+"ai"+base_4+"nte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV049"
   } ;
@@ -6017,7 +6017,7 @@ mkV050 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"l" ;
-        participle = base_1+base_2+base_3+"ilte"
+        participle = base_1+base_2+base_3+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV050"
   } ;
@@ -6054,7 +6054,7 @@ mkV051 base =
                  Dep => base_1+"hua"+base_2+"a"
                } ;
         noun = base_1+base_2+"uinntinn" ;
-        participle = base_1+base_2+"uinnte"
+        participle = base_1+base_2+"uinnte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV051"
   } ;
@@ -6091,7 +6091,7 @@ mkV052 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3+"d" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV052"
   } ;
@@ -6128,7 +6128,7 @@ mkV053 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+base_4+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"i"+base_4+"nte"
+        participle = base_1+base_2+"i"+base_3+"i"+base_4+"nte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV053"
   } ;
@@ -6165,7 +6165,7 @@ mkV054 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV054"
   } ;
@@ -6202,7 +6202,7 @@ mkV055 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"ta"
+        participle = base_1+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV055"
   } ;
@@ -6239,7 +6239,7 @@ mkV056 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"sinn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV056"
   } ;
@@ -6276,7 +6276,7 @@ mkV057 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV057"
   } ;
@@ -6313,7 +6313,7 @@ mkV058 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+base_4 ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV058"
   } ;
@@ -6350,7 +6350,7 @@ mkV059 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ail" ;
-        participle = base_1+base_2+"ta"
+        participle = base_1+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV059"
   } ;
@@ -6387,7 +6387,7 @@ mkV060 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"e"
+        participle = base_1+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV060"
   } ;
@@ -6424,7 +6424,7 @@ mkV061 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"ad"+base_4 ;
-        participle = base_1+base_2+"i"+base_3+"ic"+base_4+"te"
+        participle = base_1+base_2+"i"+base_3+"ic"+base_4+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV061"
   } ;
@@ -6461,7 +6461,7 @@ mkV062 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"d"+base_3 ;
-        participle = base_1+base_2+"c"+base_3+"te"
+        participle = base_1+base_2+"c"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV062"
   } ;
@@ -6498,7 +6498,7 @@ mkV063 base =
                  Dep => nonExist
                } ;
         noun = base_1+"u"+base_2+"ail" ;
-        participle = base_1+"u"+base_2+"ta"
+        participle = base_1+"u"+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV063"
   } ;
@@ -6535,7 +6535,7 @@ mkV064 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"d"+base_4 ;
-        participle = base_1+base_2+"a"+base_3+"ic"+base_4+"te"
+        participle = base_1+base_2+"a"+base_3+"ic"+base_4+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV064"
   } ;
@@ -6572,7 +6572,7 @@ mkV065 base =
                  Dep => base_1+"h"+base_2+"i"+base_3
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV065"
   } ;
@@ -6609,7 +6609,7 @@ mkV066 base =
                  Dep => "ri"+base_1+"n"
                } ;
         noun = "dèa"+base_1+"amh" ;
-        participle = "dèa"+base_1+"ta"
+        participle = "dèa"+base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV066"
   } ;
@@ -6646,7 +6646,7 @@ mkV067 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"r"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"irte"
+        participle = base_1+base_2+base_3+"irte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV067"
   } ;
@@ -6683,7 +6683,7 @@ mkV068 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"l"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"ilte"
+        participle = base_1+base_2+base_3+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV068"
   } ;
@@ -6720,7 +6720,7 @@ mkV069 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ead"+base_3 ;
-        participle = base_1+base_2+"ic"+base_3+"te"
+        participle = base_1+base_2+"ic"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV069"
   } ;
@@ -6757,7 +6757,7 @@ mkV070 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"e"
+        participle = base_1+base_2+"i"+base_3+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV070"
   } ;
@@ -6794,7 +6794,7 @@ mkV071 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"l" ;
-        participle = base_1+base_2+"ilte"
+        participle = base_1+base_2+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV071"
   } ;
@@ -6831,7 +6831,7 @@ mkV072 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ì"+base_2+"eadh" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV072"
   } ;
@@ -6868,7 +6868,7 @@ mkV073 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1+"eadh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV073"
   } ;
@@ -6905,7 +6905,7 @@ mkV074 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV074"
   } ;
@@ -6942,7 +6942,7 @@ mkV075 base =
                  Dep => nonExist
                } ;
         noun = base_1+"sadh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV075"
   } ;
@@ -6979,7 +6979,7 @@ mkV076 base =
                  Dep => "fha"+base_1+"a"
                } ;
         noun = "fai"+base_1+"inn" ;
-        participle = "fai"+base_1+"te"
+        participle = "fai"+base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV076"
   } ;
@@ -7016,7 +7016,7 @@ mkV077 base =
                  Dep => "f"+base_1+"uair"
                } ;
         noun = "faig"+base_1+"inn" ;
-        participle = "faig"+base_1+"te"
+        participle = "faig"+base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV077"
   } ;
@@ -7053,7 +7053,7 @@ mkV078 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3+"d" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV078"
   } ;
@@ -7090,7 +7090,7 @@ mkV079 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"eadh" ;
-        participle = base_1+base_2+"l"+base_3+"te"
+        participle = base_1+base_2+"l"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV079"
   } ;
@@ -7127,7 +7127,7 @@ mkV080 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3+"dainn" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV080"
   } ;
@@ -7164,7 +7164,7 @@ mkV081 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV081"
   } ;
@@ -7201,7 +7201,7 @@ mkV082 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"tail" ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV082"
   } ;
@@ -7238,7 +7238,7 @@ mkV083 base =
                  Dep => nonExist
                } ;
         noun = "fannachadh" ;
-        participle = "te"
+        participle = "te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV083"
   } ;
@@ -7275,7 +7275,7 @@ mkV084 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV084"
   } ;
@@ -7312,7 +7312,7 @@ mkV085 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV085"
   } ;
@@ -7349,7 +7349,7 @@ mkV086 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV086"
   } ;
@@ -7386,7 +7386,7 @@ mkV087 base =
                  Dep => "dh'"+base_1+"h"+base_2+"i"+base_3
                } ;
         noun = base_1+base_2+base_3 ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV087"
   } ;
@@ -7423,7 +7423,7 @@ mkV088 base =
                  Dep => "dh'"+base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"ail" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV088"
   } ;
@@ -7460,7 +7460,7 @@ mkV089 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"n"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"innte"
+        participle = base_1+base_2+base_3+"innte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV089"
   } ;
@@ -7497,7 +7497,7 @@ mkV090 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eamh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV090"
   } ;
@@ -7534,7 +7534,7 @@ mkV091 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ainn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV091"
   } ;
@@ -7571,7 +7571,7 @@ mkV092 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"e" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV092"
   } ;
@@ -7608,7 +7608,7 @@ mkV093 base =
                  Dep => "dh'"+base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"eadh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV093"
   } ;
@@ -7645,7 +7645,7 @@ mkV094 base =
                  Dep => base_1
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV094"
   } ;
@@ -7682,7 +7682,7 @@ mkV095 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ò"+base_2+"n"+base_3+"dh" ;
-        participle = base_1+"o"+base_2+base_3+"inte"
+        participle = base_1+"o"+base_2+base_3+"inte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV095"
   } ;
@@ -7719,7 +7719,7 @@ mkV096 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"i"+base_3+"ea"+base_4+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te"
+        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV096"
   } ;
@@ -7756,7 +7756,7 @@ mkV097 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"l"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"ilte"
+        participle = base_1+base_2+base_3+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV097"
   } ;
@@ -7793,7 +7793,7 @@ mkV098 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"a"+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV098"
   } ;
@@ -7830,7 +7830,7 @@ mkV099 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3 ;
-        participle = base_1+base_2+"ei"+base_3+"te"
+        participle = base_1+base_2+"ei"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV099"
   } ;
@@ -7867,7 +7867,7 @@ mkV100 base =
                  Dep => "dh'"+base_1+"h"+base_2+"i"+base_3
                } ;
         noun = base_1+base_2+"ea"+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV100"
   } ;
@@ -7904,7 +7904,7 @@ mkV101 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"l"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"ilte"
+        participle = base_1+base_2+base_3+"ilte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV101"
   } ;
@@ -7941,7 +7941,7 @@ mkV102 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"a"+base_4 ;
-        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te"
+        participle = base_1+base_2+"i"+base_3+"i"+base_4+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV102"
   } ;
@@ -7978,7 +7978,7 @@ mkV103 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3 ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV103"
   } ;
@@ -8015,7 +8015,7 @@ mkV104 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ea"+base_3+"adh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV104"
   } ;
@@ -8052,7 +8052,7 @@ mkV105 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"ta"
+        participle = base_1+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV105"
   } ;
@@ -8089,7 +8089,7 @@ mkV106 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"r"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"irte"
+        participle = base_1+base_2+base_3+"irte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV106"
   } ;
@@ -8126,7 +8126,7 @@ mkV107 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ail" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV107"
   } ;
@@ -8163,7 +8163,7 @@ mkV108 base =
                  Dep => base_1+"h"+base_2+"à"+base_3
                } ;
         noun = base_1+base_2+"a"+base_3+"adh" ;
-        participle = base_1+base_2+"à"+base_3+"te"
+        participle = base_1+base_2+"à"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV108"
   } ;
@@ -8200,7 +8200,7 @@ mkV109 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"tinn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV109"
   } ;
@@ -8237,7 +8237,7 @@ mkV110 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"ad" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV110"
   } ;
@@ -8274,7 +8274,7 @@ mkV111 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"e" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV111"
   } ;
@@ -8311,7 +8311,7 @@ mkV112 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eachdainn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV112"
   } ;
@@ -8348,7 +8348,7 @@ mkV113 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1+"aidh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV113"
   } ;
@@ -8385,7 +8385,7 @@ mkV114 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"hadh" ;
-        participle = base_1+"dh"+base_2+"e"
+        participle = base_1+"dh"+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV114"
   } ;
@@ -8422,7 +8422,7 @@ mkV115 base =
                  Dep => nonExist
                } ;
         noun = base_1+"r"+base_2+"dh" ;
-        participle = base_1+base_2+"irte"
+        participle = base_1+base_2+"irte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV115"
   } ;
@@ -8459,7 +8459,7 @@ mkV116 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1+"e" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV116"
   } ;
@@ -8496,7 +8496,7 @@ mkV117 base =
                  Dep => base_1+base_2+"ir"
                } ;
         noun = base_1+base_2+"irt" ;
-        participle = base_1+base_2+"irte"
+        participle = base_1+base_2+"irte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV117"
   } ;
@@ -8533,7 +8533,7 @@ mkV118 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV118"
   } ;
@@ -8570,7 +8570,7 @@ mkV119 base =
                  Dep => nonExist
                } ;
         noun = base_1+"e" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV119"
   } ;
@@ -8607,7 +8607,7 @@ mkV120 base =
                  Dep => nonExist
                } ;
         noun = base_1+"tainn" ;
-        participle = base_1+"ta"
+        participle = base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV120"
   } ;
@@ -8644,7 +8644,7 @@ mkV121 base =
                  Dep => nonExist
                } ;
         noun = base_1+"eil" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV121"
   } ;
@@ -8681,7 +8681,7 @@ mkV122 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV122"
   } ;
@@ -8718,7 +8718,7 @@ mkV123 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"ta"
+        participle = base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV123"
   } ;
@@ -8755,7 +8755,7 @@ mkV124 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ì" ;
-        participle = base_1+"ighte"
+        participle = base_1+"ighte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV124"
   } ;
@@ -8792,7 +8792,7 @@ mkV125 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ea"+base_2+"adh" ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV125"
   } ;
@@ -8829,7 +8829,7 @@ mkV126 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV126"
   } ;
@@ -8866,7 +8866,7 @@ mkV127 base =
                  Dep => base_1
                } ;
         noun = base_1+"eadh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV127"
   } ;
@@ -8903,7 +8903,7 @@ mkV128 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"eadh" ;
-        participle = base_1+base_2+"i"+base_3+"te"
+        participle = base_1+base_2+"i"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV128"
   } ;
@@ -8940,7 +8940,7 @@ mkV129 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"e"
+        participle = base_1+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV129"
   } ;
@@ -8977,7 +8977,7 @@ mkV130 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2 ;
-        participle = base_1+base_2+"e"
+        participle = base_1+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV130"
   } ;
@@ -9014,7 +9014,7 @@ mkV131 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"dadh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV131"
   } ;
@@ -9051,7 +9051,7 @@ mkV132 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ì"+base_2+"adh" ;
-        participle = base_1+"ì"+base_2+"e"
+        participle = base_1+"ì"+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV132"
   } ;
@@ -9088,7 +9088,7 @@ mkV133 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ì"+base_2+"ò"+base_3+"adh" ;
-        participle = base_1+"ì"+base_2+"o"+base_3+"te"
+        participle = base_1+"ì"+base_2+"o"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV133"
   } ;
@@ -9125,7 +9125,7 @@ mkV134 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"eadh" ;
-        participle = base_1+base_2+"i"+base_3+"nte"
+        participle = base_1+base_2+"i"+base_3+"nte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV134"
   } ;
@@ -9162,7 +9162,7 @@ mkV135 base =
                  Dep => nonExist
                } ;
         noun = base_1+"dhèa"+base_2+"amh" ;
-        participle = base_1+"dhèa"+base_2+"ta"
+        participle = base_1+"dhèa"+base_2+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV135"
   } ;
@@ -9199,7 +9199,7 @@ mkV136 base =
                  Dep => nonExist
                } ;
         noun = "n"+base_1+"ulachadh" ;
-        participle = "t"+base_1
+        participle = "t"+base_1 ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV136"
   } ;
@@ -9236,7 +9236,7 @@ mkV137 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV137"
   } ;
@@ -9273,7 +9273,7 @@ mkV138 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"tadh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV138"
   } ;
@@ -9310,7 +9310,7 @@ mkV139 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eadh" ;
-        participle = base_1+base_2+"igte"
+        participle = base_1+base_2+"igte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV139"
   } ;
@@ -9347,7 +9347,7 @@ mkV140 base =
                  Dep => "deach"
                } ;
         noun = "dol" ;
-        participle = "rachte"
+        participle = "rachte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV140"
   } ;
@@ -9384,7 +9384,7 @@ mkV141 base =
                  Dep => nonExist
                } ;
         noun = base_1+"hadh" ;
-        participle = base_1+"a"
+        participle = base_1+"a" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV141"
   } ;
@@ -9421,7 +9421,7 @@ mkV142 base =
                  Dep => nonExist
                } ;
         noun = base_1+"t" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV142"
   } ;
@@ -9458,7 +9458,7 @@ mkV143 base =
                  Dep => nonExist
                } ;
         noun = base_1+"u"+base_2+"sinn" ;
-        participle = base_1+"u"+base_2+"te"
+        participle = base_1+"u"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV143"
   } ;
@@ -9495,7 +9495,7 @@ mkV144 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ail" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV144"
   } ;
@@ -9532,7 +9532,7 @@ mkV145 base =
                  Dep => nonExist
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"a"
+        participle = base_1+"a" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV145"
   } ;
@@ -9569,7 +9569,7 @@ mkV146 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"n"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"inte"
+        participle = base_1+base_2+base_3+"inte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV146"
   } ;
@@ -9606,7 +9606,7 @@ mkV147 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"n"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"innte"
+        participle = base_1+base_2+base_3+"innte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV147"
   } ;
@@ -9643,7 +9643,7 @@ mkV148 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"amh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV148"
   } ;
@@ -9680,7 +9680,7 @@ mkV149 base =
                  Dep => "dh'"+base_1 --guessed
                } ;
         noun = base_1+"adh" ; --guessed
-        participle = base_1+"te" --guessed
+        participle = base_1+"te" ; copular = False ; complement = [] --guessed
       };
     _ => error "Can't apply paradigm mkV149"
   } ;
@@ -9717,7 +9717,7 @@ mkV150 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ga"+base_2+"l" ;
-        participle = base_1+base_2+"gte"
+        participle = base_1+base_2+"gte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV150"
   } ;
@@ -9754,7 +9754,7 @@ mkV151 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"ad"+base_3 ;
-        participle = base_1+"i"+base_2+"ic"+base_3+"te"
+        participle = base_1+"i"+base_2+"ic"+base_3+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV151"
   } ;
@@ -9791,7 +9791,7 @@ mkV152 base =
                  Dep => nonExist
                } ;
         noun = base_1+"a"+base_2+"adh" ;
-        participle = base_1+"a"+base_2+"te"
+        participle = base_1+"a"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV152"
   } ;
@@ -9828,7 +9828,7 @@ mkV153 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"art" ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV153"
   } ;
@@ -9865,7 +9865,7 @@ mkV154 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"adh" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV154"
   } ;
@@ -9902,7 +9902,7 @@ mkV155 base =
                  Dep => base_1
                } ;
         noun = base_1+"adh" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV155"
   } ;
@@ -9939,7 +9939,7 @@ mkV156 base =
                  Dep => nonExist
                } ;
         noun = base_1 ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV156"
   } ;
@@ -9976,7 +9976,7 @@ mkV157 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"r"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"irte"
+        participle = base_1+base_2+base_3+"irte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV157"
   } ;
@@ -10013,7 +10013,7 @@ mkV158 base =
                  Dep => nonExist
                } ;
         noun = "toirt" ;
-        participle = "tugta"
+        participle = "tugta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV158"
   } ;
@@ -10050,7 +10050,7 @@ mkV159 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+base_3+"rt" ;
-        participle = base_1+base_2+base_3+"rte"
+        participle = base_1+base_2+base_3+"rte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV159"
   } ;
@@ -10087,7 +10087,7 @@ mkV160 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"se" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV160"
   } ;
@@ -10124,7 +10124,7 @@ mkV161 base =
                  Dep => nonExist
                } ;
         noun = base_1+"a"+base_2+"ra"+base_3+"ng" ;
-        participle = base_1+"a"+base_2+"ra"+base_3+"ngte"
+        participle = base_1+"a"+base_2+"ra"+base_3+"ngte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV161"
   } ;
@@ -10161,7 +10161,7 @@ mkV162 base =
                  Dep => base_1+"h"+base_2
                } ;
         noun = base_1+base_2+"e" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV162"
   } ;
@@ -10198,7 +10198,7 @@ mkV163 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"hinn" ;
-        participle = base_1+base_2+"te"
+        participle = base_1+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV163"
   } ;
@@ -10235,7 +10235,7 @@ mkV164 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"t"+base_3 ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV164"
   } ;
@@ -10272,7 +10272,7 @@ mkV165 base =
                  Dep => "tug"
                } ;
         noun = "toirt" ;
-        participle = "tugta"
+        participle = "tugta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV165"
   } ;
@@ -10309,7 +10309,7 @@ mkV166 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eil" ;
-        participle = base_1+base_2+"the"
+        participle = base_1+base_2+"the" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV166"
   } ;
@@ -10346,7 +10346,7 @@ mkV167 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"eam" ;
-        participle = base_1+base_2+"e"
+        participle = base_1+base_2+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV167"
   } ;
@@ -10383,7 +10383,7 @@ mkV168 base =
                  Dep => nonExist
                } ;
         noun = base_1+base_2+"n"+base_3+"dh" ;
-        participle = base_1+base_2+base_3+"inte"
+        participle = base_1+base_2+base_3+"inte" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV168"
   } ;
@@ -10420,7 +10420,7 @@ mkV169 base =
                  Dep => nonExist
                } ;
         noun = base_1+"a"+base_2 ;
-        participle = nonExist
+        participle = nonExist ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV169"
   } ;
@@ -10457,7 +10457,7 @@ mkV170 base =
                  Dep => "dh'"+base_1 --guessed
                } ;
         noun = base_1 ;
-        participle = base_1+"te" --guessed
+        participle = base_1+"te" ; copular = False ; complement = [] --guessed
       };
     _ => error "Can't apply paradigm mkV170"
   } ;
@@ -10494,7 +10494,7 @@ mkV171 base =
                  Dep => nonExist
                } ;
         noun = base_1+"ea"+base_2 ;
-        participle = base_1+"i"+base_2+"te"
+        participle = base_1+"i"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV171"
   } ;
@@ -10531,7 +10531,7 @@ mkV172 base =
                  Dep => nonExist
                } ;
         noun = base_1+"eachd" ;
-        participle = base_1+"te"
+        participle = base_1+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV172"
   } ;
@@ -10568,7 +10568,7 @@ mkV173 base =
                  Dep => nonExist
                } ;
         noun = base_1+"g"+base_2 ;
-        participle = base_1+"c"+base_2+"te"
+        participle = base_1+"c"+base_2+"te" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV173"
   } ;
@@ -10605,7 +10605,7 @@ mkV174 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1+"eachd" ;
-        participle = base_1+"e"
+        participle = base_1+"e" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV174"
   } ;
@@ -10642,7 +10642,7 @@ mkV175 base =
                  Dep => "dh'"+base_1
                } ;
         noun = base_1 ;
-        participle = base_1+"ta"
+        participle = base_1+"ta" ; copular = False ; complement = []
       };
     _ => error "Can't apply paradigm mkV175"
   } ;

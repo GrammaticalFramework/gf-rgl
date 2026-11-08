@@ -75,6 +75,24 @@ lin
       };
 -}
 
+  PartNP cn np = cn ** {
+    np = \\c => cn.np ! c ++ "مِنْ" ++ np.s ! Gen ;
+    isHeavy = True
+    } ;
+
+  CountNP det np = emptyNP ** {
+    s = \\c => det.s ! NoHum ! Masc ! c ++ "مِنْ" ++ np.s ! Gen ;
+    a = {pgn = agrP3 NoHum Masc (sizeToNumber det.n) ; isPron = False} ;
+    isHeavy = True
+    } ;
+
+  AdjDAP dap ap = dap ** {
+    s = \\h,g,c => dap.s ! h ! g ! c
+                ++ ap.s ! h ! g ! (sizeToNumber dap.n) ! dap.d ! c
+    } ;
+
+  ExtAdvNP np adv = AdvNP np adv ;
+
   AdvNP np adv = np ** {
     s = \\c => np.s ! c ++ adv.s ;
     isHeavy = True ;

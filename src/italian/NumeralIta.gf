@@ -64,6 +64,10 @@ lin pot1as2 n = n ;
 
 lin pot2 d = spl (\\co => d.s ! ental indip ! NCard Masc ++ nBIND d.n ++
   (mkTall "cento" [] [] [] "cent").s ! ental indip ! co) ;
+lin pot21 = spl (table {
+  NCard _ => "cento" ;
+  NOrd g n => regOrdpred "cent" g n
+  }) ;
 lin pot2plus d e = 
   {s = table {NCard g => d.s ! ental indip ! NCard Masc ++ nBIND d.n ++"cento" ++ BIND ++e.s ! NCard Masc ;
               NOrd g n => d.s ! ental indip ! NCard Masc ++ nBIND d.n ++"cento" ++ BIND ++ e.s ! NOrd g n};
@@ -71,11 +75,36 @@ lin pot2plus d e =
 lin pot2as3 n = n ;
 lin pot3 n = spl (\\co => n.s ! NCard Masc ++ nBIND n.n ++
   (mkTall (mille ! n.n) [] [] [] "mill").s ! ental indip ! co ) ;
+lin pot31 = spl (table {
+  NCard _ => "mille" ;
+  NOrd g n => regOrdpred "mill" g n
+  }) ;
 
 lin pot3plus n m = {s = \\g => n.s ! NCard Masc ++ nBIND n.n ++ mille ! n.n ++ "e" ++ m.s ! g ; n = Pl} ;
+lin pot3decimal d = {s = \\_ => d.s ! NCard Masc ++ "mila" ; n = Pl} ;
 
 lin pot3as4 n = n ;
+lin pot41 = {s = \\co => case co of {
+  NCard _ => "un milione" ;
+  NOrd g n => regOrdpred "milion" g n
+  } ; n = Sg} ;
+lin pot4 n = {s = \\co => n.s ! NCard Masc ++ case co of {
+  NCard _ => "milioni" ;
+  NOrd g k => regOrdpred "milion" g k
+  } ; n = Pl} ;
+lin pot4plus n m = {s = \\co => n.s ! NCard Masc ++ "milioni" ++ m.s ! co ; n = Pl} ;
+lin pot4decimal d = {s = \\_ => d.s ! NCard Masc ++ "milioni" ; n = Pl} ;
 lin pot4as5 n = n ;
+lin pot51 = {s = \\co => case co of {
+  NCard _ => "un miliardo" ;
+  NOrd g n => regOrdpred "miliard" g n
+  } ; n = Sg} ;
+lin pot5 n = {s = \\co => n.s ! NCard Masc ++ case co of {
+  NCard _ => "miliardi" ;
+  NOrd g k => regOrdpred "miliard" g k
+  } ; n = Pl} ;
+lin pot5plus n m = {s = \\co => n.s ! NCard Masc ++ "miliardi" ++ m.s ! co ; n = Pl} ;
+lin pot5decimal d = {s = \\_ => d.s ! NCard Masc ++ "miliardi" ; n = Pl} ;
 
 oper
   nBIND : Number -> Str = \n -> case n of {Sg => [] ; _ => BIND} ; -- no BIND after silent 1

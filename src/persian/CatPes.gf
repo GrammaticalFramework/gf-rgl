@@ -55,6 +55,7 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     NP = ResPes.NP ;
     Pron = ResPes.Pron ;
     Det = ResPes.Determiner ;
+    DAP = {s : Str ; n : Number} ;
     Predet = {s : Str} ;
     Num  = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Str; n : Number} ;
@@ -95,5 +96,9 @@ concrete CatPes of Cat = CommonX ** open ResPes, Prelude in {
     N2 = ResPes.Noun ** {c2 : Compl ; compl : Str}; -- when N3 is made to N2, need to retain compl
     N3 = ResPes.Noun ** {c2 : Compl ; c3 : Compl} ;
     PN = {s : Str ; animacy : Animacy} ;
+
+  linref
+    V, VA, VV, VS, VQ, V2, V2A, V2S, V2Q, V2V, V3 =
+      \verb -> verb.prefix ++ verb.s ! ResPes.Inf ;
 
 }

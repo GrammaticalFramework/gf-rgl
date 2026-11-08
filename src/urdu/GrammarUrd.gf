@@ -15,7 +15,8 @@
 --  TextX - [Adv,AdN],
   StructuralUrd,
   TenseX - [Adv,AdN,SC],
-  IdiomUrd
+  IdiomUrd,
+  NamesUrd
   ** {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

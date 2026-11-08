@@ -11,7 +11,7 @@ lin
   UttIAdv iadv = iadv ;
   UttNP np = {s = np.s ! Nom} ;
   UttAdv adv = adv ;
-  UttVP vp = {s = vp.inf} ;
+  UttVP vp = {s = vp.inf ! defaultAgr} ;
   UttCN cn = {s = cn.s ! Nom ! Sg} ;
   UttCard card = {s = card.s} ;
   UttAP ap = {s = ap.s ! Nom ! GSg Masc} ;

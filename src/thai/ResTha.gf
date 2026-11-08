@@ -14,7 +14,7 @@ resource ResTha = ParamX, StringsTha ** open Prelude in {
 -- binding words together
 -- will be activated when the parser supports consecutive BINDs AR 16/3/2015
 
-  bIND = [] ; ---- Predef.BIND ; 
+  bIND = [] ; ---- Predef.BIND ;
 
   thbind = overload {
     thbind : Str -> Str = \s -> s ;
@@ -158,6 +158,6 @@ oper
 
   conjThat = waa_s ;
 
-  reflPron = thbind tua_s eeng_s ;
+  reflPron = thword tua_s eeng_s ;
 
 }

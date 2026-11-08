@@ -62,6 +62,16 @@ concrete SentenceAfr of Sentence = CatAfr ** open ResAfr, Prelude in {
 
     AdvS a s = {s = \\o => a.s ++ s.s ! Inv} ;
 
+    ExtAdvS a s = {s = \\o => a.s ++ "," ++ s.s ! Inv} ;
+
+    SSubjS s1 subj s2 = {
+      s = \\o => s1.s ! o ++ "," ++ subj.s ++ s2.s ! Sub
+      } ;
+
+    AdvImp adv imp = {
+      s = \\p,i => adv.s ++ imp.s ! p ! i
+      } ;
+
     RelS s r = {s = \\o => s.s ! o ++ "," ++ r.s ! Neutr ! Sg} ;
 
 }

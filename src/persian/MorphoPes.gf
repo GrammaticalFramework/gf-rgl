@@ -211,6 +211,7 @@ param
 
   -- Affects clitic placement and passive
   LightVerb = NotLight | Light  -- ateš zadan -> ateš zade šodan
+            | BareKardan        -- simple kardan, with no non-verbal host
             | Kardan ;          -- gom kardan -> gom   ∅   šodan
 oper
   impRoot : Str -> Str = \root -> case root of {
@@ -229,14 +230,24 @@ oper
       vf => v.s ! vf }
     } ;
 
-  addClitic : LightVerb -> Str -> Verb -> Verb = \light,cl,v -> v ** {s =
-    let f : Str -> Str = case light of {
-          NotLight => \s -> glue s cl ;
-          _ => \s -> BIND ++ cl ++ s } -- hack: put clitic before the verb, so it attaches to the prefix
-    in table {
+  addClitic : LightVerb -> Str -> Verb -> Verb = \light,cl,v ->
+    case light of {
+      NotLight | BareKardan => v ** {
+        s = table {
           Inf => glue (v.s ! Inf) cl ;
-          vf => (modifyFiniteForms f v).s ! vf }
-       } ;
+          vf  => (modifyFiniteForms (\s -> glue s cl) v).s ! vf
+          }
+        } ;
+      -- With a compound verb the clitic attaches to its non-verbal element:
+      -- نشانش می‌دهد, not *نشان می‌ش‌دهد.
+      _ => v ** {
+        prefix = glue v.prefix cl ;
+        s = table {
+          Inf => glue (v.s ! Inf) cl ;
+          vf  => v.s ! vf
+          }
+        }
+      } ;
 
   mkVerb : (inf,pres : Str) -> Verb = \kardan,kon -> {
     s = table {
@@ -391,7 +402,7 @@ oper
     VImp Neg Sg => "نکن" ;
     VImp Neg Pl => "نکنید" ;
     vf          => doRegV.s ! vf } ;
-    lightverb = Kardan
+    lightverb = BareKardan
   } where { doRegV = mkVerb "کردن" "کن" } ;
 
   becomeVerb : Verb = mkVerb "شدن" "شو" ;

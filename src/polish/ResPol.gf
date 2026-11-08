@@ -85,7 +85,9 @@
 	 refl : Str;
 	 asp : Aspect;
 	 ppartp : adj11table; --AForm=>Str;
-	 pparti : adj11table  --AForm=>Str
+	 pparti : adj11table; --AForm=>Str
+	 apart : adj11table;
+	 ger : SubstForm => Str
   };
     	 
   oper VerbPhrase : Type = {

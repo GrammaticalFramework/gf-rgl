@@ -178,11 +178,15 @@ oper neg : R.Polarity -> Str = \p -> case p of {
   R.Neg => "не"
   } ;
 
-oper auxBe : R.Tense -> Number -> Person -> Str =
-  \t,n,p -> case t of {
+oper auxBe : R.Tense -> Gender -> Number -> Person -> Str =
+  \t,g,n,p -> case t of {
     R.Pres => [] ;
     R.Past => case n of {
-      Sg => "був" ;
+      Sg => case g of {
+        Masc => "був" ;
+        Fem => "була" ;
+        Neuter => "було"
+        } ;
       Pl => "були"
       } ;
     R.Fut => case <p,n> of {
@@ -202,13 +206,13 @@ oper auxBe : R.Tense -> Number -> Person -> Str =
 oper finiteVerb : V -> R.Tense -> R.Polarity -> Gender -> Number -> Person -> Str =
   \v,t,pol,g,n,p -> neg pol ++ case t of {
     R.Pres => (v.active ! Imperf).pres ! p ! n ;
-    R.Past => (v.active ! Imperf).pres ! p ! n ;
-    R.Fut  => auxBe R.Fut n p ++ v.infinitive ;
-    R.Cond => (v.active ! Imperf).pres ! p ! n ++ "би"
+    R.Past => v.participle ! g ! n ;
+    R.Fut  => auxBe R.Fut g n p ++ v.infinitive ;
+    R.Cond => v.participle ! g ! n ++ "би"
     } ;
 
 oper copula : R.Tense -> R.Polarity -> Gender -> Number -> Person -> Str =
-  \t,pol,g,n,p -> neg pol ++ auxBe t n p ;
+  \t,pol,g,n,p -> neg pol ++ auxBe t g n p ;
 
 oper prepNP : Compl -> {s : Case => Str} -> Str =
   \prep,np -> prep.s ++ np.s ! prep.c ;
@@ -220,28 +224,52 @@ oper constN : Str -> Gender -> N =
     g = g
   } ;
 
-oper possPron : Person -> Gender -> Number -> Gender -> Number -> Str =
-  \p,pg,pn,g,n -> case <p,pg,pn,g,n> of {
-    <P1,_,Sg,Masc,Sg> => "мій" ;
-    <P1,_,Sg,Fem,Sg> => "моя" ;
-    <P1,_,Sg,Neuter,Sg> => "моє" ;
-    <P1,_,Sg,_,Pl> => "мої" ;
-    <P1,_,Pl,Masc,Sg> => "наш" ;
-    <P1,_,Pl,Fem,Sg> => "наша" ;
-    <P1,_,Pl,Neuter,Sg> => "наше" ;
-    <P1,_,Pl,_,Pl> => "наші" ;
-    <P2,_,Sg,Masc,Sg> => "твій" ;
-    <P2,_,Sg,Fem,Sg> => "твоя" ;
-    <P2,_,Sg,Neuter,Sg> => "твоє" ;
-    <P2,_,Sg,_,Pl> => "твої" ;
-    <P2,_,Pl,Masc,Sg> => "ваш" ;
-    <P2,_,Pl,Fem,Sg> => "ваша" ;
-    <P2,_,Pl,Neuter,Sg> => "ваше" ;
-    <P2,_,Pl,_,Pl> => "ваші" ;
-    <P3,Masc,Sg,_,_> => "його" ;
-    <P3,Fem,Sg,_,_> => "її" ;
-    <P3,_,Pl,_,_> => "їхній" ;
-    _ => "свій"
+oper possIy : Str -> Case -> Gender -> Number -> Str =
+  \b,c,g,n -> case <c,g,n> of {
+    <Nom,Masc,Sg> => b+"ій" ; <Nom,Fem,Sg> => b+"оя" ;
+    <Nom,Neuter,Sg> => b+"оє" ; <Nom,_,Pl> => b+"ої" ;
+    <Acc,Masc,Sg> => b+"ій" ; <Acc,Fem,Sg> => b+"ою" ;
+    <Acc,Neuter,Sg> => b+"оє" ; <Acc,_,Pl> => b+"ої" ;
+    <Dat,Masc,Sg> => b+"оєму" ; <Dat,Fem,Sg> => b+"оїй" ;
+    <Dat,Neuter,Sg> => b+"оєму" ; <Dat,_,Pl> => b+"оїм" ;
+    <Gen,Masc,Sg> => b+"ого" ; <Gen,Fem,Sg> => b+"оєї" ;
+    <Gen,Neuter,Sg> => b+"ого" ; <Gen,_,Pl> => b+"оїх" ;
+    <Loc,Masc,Sg> => b+"оєму" ; <Loc,Fem,Sg> => b+"оїй" ;
+    <Loc,Neuter,Sg> => b+"оєму" ; <Loc,_,Pl> => b+"оїх" ;
+    <Instr,Masc,Sg> => b+"оїм" ; <Instr,Fem,Sg> => b+"оєю" ;
+    <Instr,Neuter,Sg> => b+"оїм" ; <Instr,_,Pl> => b+"оїми"
+  } ;
+
+oper possAsh : Str -> Case -> Gender -> Number -> Str =
+  \b,c,g,n -> case <c,g,n> of {
+    <Nom,Masc,Sg> => b+"аш" ; <Nom,Fem,Sg> => b+"аша" ;
+    <Nom,Neuter,Sg> => b+"аше" ; <Nom,_,Pl> => b+"аші" ;
+    <Acc,Masc,Sg> => b+"аш" ; <Acc,Fem,Sg> => b+"ашу" ;
+    <Acc,Neuter,Sg> => b+"аше" ; <Acc,_,Pl> => b+"аші" ;
+    <Dat,Masc,Sg> => b+"ашому" ; <Dat,Fem,Sg> => b+"ашій" ;
+    <Dat,Neuter,Sg> => b+"ашому" ; <Dat,_,Pl> => b+"ашим" ;
+    <Gen,Masc,Sg> => b+"ашого" ; <Gen,Fem,Sg> => b+"ашої" ;
+    <Gen,Neuter,Sg> => b+"ашого" ; <Gen,_,Pl> => b+"аших" ;
+    <Loc,Masc,Sg> => b+"ашому" ; <Loc,Fem,Sg> => b+"ашій" ;
+    <Loc,Neuter,Sg> => b+"ашому" ; <Loc,_,Pl> => b+"аших" ;
+    <Instr,Masc,Sg> => b+"ашим" ; <Instr,Fem,Sg> => b+"ашою" ;
+    <Instr,Neuter,Sg> => b+"ашим" ; <Instr,_,Pl> => b+"ашими"
+  } ;
+
+oper possTheir : Case -> Gender -> Number -> Str =
+  \c,g,n -> case <c,g,n> of {
+    <Nom,Masc,Sg> => "їхній" ; <Nom,Fem,Sg> => "їхня" ;
+    <Nom,Neuter,Sg> => "їхнє" ; <Nom,_,Pl> => "їхні" ;
+    <Acc,Masc,Sg> => "їхній" ; <Acc,Fem,Sg> => "їхню" ;
+    <Acc,Neuter,Sg> => "їхнє" ; <Acc,_,Pl> => "їхні" ;
+    <Dat,Masc,Sg> => "їхньому" ; <Dat,Fem,Sg> => "їхній" ;
+    <Dat,Neuter,Sg> => "їхньому" ; <Dat,_,Pl> => "їхнім" ;
+    <Gen,Masc,Sg> => "їхнього" ; <Gen,Fem,Sg> => "їхньої" ;
+    <Gen,Neuter,Sg> => "їхнього" ; <Gen,_,Pl> => "їхніх" ;
+    <Loc,Masc,Sg> => "їхньому" ; <Loc,Fem,Sg> => "їхній" ;
+    <Loc,Neuter,Sg> => "їхньому" ; <Loc,_,Pl> => "їхніх" ;
+    <Instr,Masc,Sg> => "їхнім" ; <Instr,Fem,Sg> => "їхньою" ;
+    <Instr,Neuter,Sg> => "їхнім" ; <Instr,_,Pl> => "їхніми"
   } ;
 
 }

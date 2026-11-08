@@ -2,6 +2,6 @@
 concrete LangIce of Lang = 
 	GrammarIce
 	,LexiconIce
+	,ConstructionIce
 	,DocumentationIce --# notpresent
-	--,ConstructionIce
 	** {} ;

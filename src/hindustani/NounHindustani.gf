@@ -34,6 +34,11 @@ incomplete concrete NounHindustani of Noun =
       a = np.a 
       } ;
 
+    ExtAdvNP np adv = {
+      s = \\c => np.s ! c ++ comma ++ adv.s ! (giveGender np.a) ;
+      a = np.a
+      } ;
+
     DetQuantOrd quant num ord = {
 --      s = \\ c => detquant2det quant.s num.s c  ++ ord.s ; 
         s = \\n,g,c => quant.s!n!g!c ++ num.s ++ ord.s ;
@@ -49,6 +54,13 @@ incomplete concrete NounHindustani of Noun =
     DetNP det = {
       s = \\c => det2NP det c ; ---- case
       a = agrP3 Masc Sg
+      } ;
+
+    DetDAP det = {s = det.s ; n = det.n} ;
+
+    AdjDAP dap ap = {
+      s = \\n,g,c => dap.s ! n ! g ! c ++ ap.s ! n ! g ! c ! Posit ;
+      n = dap.n
       } ;
 
 --    PossPron p = {s = \\n,g,_ => p.ps ! n ! g ; a = p.a} ;
@@ -90,6 +102,14 @@ incomplete concrete NounHindustani of Noun =
     IndefArt = {s = \\n,_,_ => case n of {Sg => indfArt ; Pl => []} ; a =defaultAgr } ;
 
     MassNP cn = {s = \\c => toNP (cn.s ! Sg) c ; a = agrP3 cn.g Sg} ;
+
+    QuantityNP decimal unit = {
+      s = \\_ => case unit.isPre of {
+        True => unit.s ++ decimal.s ! NCard ;
+        False => decimal.s ! NCard ++ unit.s
+        } ;
+      a = agrP3 Masc decimal.n
+      } ;
 
     UseN n = n ;
     UseN2 n = { s = n.s  ; g = n.g };
@@ -144,11 +164,11 @@ incomplete concrete NounHindustani of Noun =
     
     PossNP cn np = {s = \\n,c => case cn.g of {Masc => cn.s ! n ! c ++ ka ++ np.s ! NPC Dir ;
                                                Fem =>  cn.s ! n ! c ++ ky ++ np.s ! NPC Dir } ;                    
-		     g = cn.g} ;
+                    g = cn.g} ;
 
     PartNP cn np = {s = \\n,c => case cn.g of {Masc => cn.s ! n ! c ++ ka ++ np.s ! NPC Dir ;
                                                Fem =>  cn.s ! n ! c ++ ky ++ np.s ! NPC Dir } ;                    
-		     g = cn.g} ;
+                    g = cn.g} ;
 
    CountNP det np = {
       s = \\c => np.s ! NPC Obl ++ mein ++ sE ++ det.s ! (giveNumber np.a) ! (giveGender np.a) ! Dir  ;

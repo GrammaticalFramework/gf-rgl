@@ -5,7 +5,7 @@ concrete VerbIce of Verb = CatIce ** open ResIce, Prelude in {
 	lin
 		UseV v = predV v;
 
-		ComplVV vv vp = insertDir (predV vv) (\\_ => vv.c2.s ++ infVP vp) ;
+		ComplVV vv vp = insertDir (predV vv) (\\a => vv.c2.s ++ infVPPlus vp VPInf Pos a) ;
 
 		ComplVS vs s = insertDir (predV vs) (\\_ =>  s.s) ;
 
@@ -29,17 +29,17 @@ concrete VerbIce of Verb = CatIce ** open ResIce, Prelude in {
 
 		ComplSlash vps np = insertDir vps (\\a => vps.c2.s ++ np.s ! NCase vps.c2.c ++ vps.dirObj ! np.a );
 
-		SlashVV vv vps = (insertDir (predV vv) (\\_ => vv.c2.s ++ infVP vps)) ** {c2 = vps.c2} ;
+		SlashVV vv vps = (insertDir (predV vv) (\\a => vv.c2.s ++ infVPPlus vps VPInf Pos a)) ** {c2 = vps.c2} ;
 
 		SlashV2VNP v2v np vps = (insertDir 
 						(predV v2v) 
-						(\\_ => v2v.c2.s ++ np.s ! NCase v2v.c2.c ++ v2v.c3.s ++ infVP vps)
+						(\\_ => v2v.c2.s ++ np.s ! NCase v2v.c2.c ++ v2v.c3.s ++ infVPPlus vps VPInf Pos np.a)
 					) ** {c2 = vps.c2} ;
 
-		ReflVP vps = (insertInd 
-					vps 
-					(\\a => vps.indObj ! a ++ reflPron a.p a.n a.g vps.c2.c ++ vps.c2.s)
-				) ** {indShift = True} ;
+		ReflVP vps = (insertDir
+					vps
+					(\\a => vps.c2.s ++ reflPron a.p a.n a.g vps.c2.c ++ vps.dirObj ! a)
+				) ** {dirShift = True} ;
 
 		UseComp comp = insertDir (predV verbBe) (\\a => comp.s ! a) ;
 
@@ -88,7 +88,7 @@ concrete VerbIce of Verb = CatIce ** open ResIce, Prelude in {
 		} ;
 
 		insertInd : ResIce.VP -> (Agr => Str) -> ResIce.VP =\vp,obj -> vp ** {
-			indObj = obj
+			indObj = \\a => vp.indObj ! a ++ obj ! a
 		} ;
 			
 		insertAdV  : Str -> ResIce.VP -> ResIce.VP = \adv,vp -> vp ** {

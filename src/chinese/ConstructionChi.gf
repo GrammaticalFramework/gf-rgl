@@ -30,6 +30,17 @@ lin
 
   n_units_AP card cn a = mkAP (lin AdA (mkUtt (mkNP <lin Card card : Card> (lin CN cn)))) (lin A a) ; ----
 
+  n_units_of_NP card unit np = lin NP (R.mkNP
+    (card.s ++ unit.s ++ R.linNP np)) ;
+
+  n_unit_CN card unit cn = lin CN {
+    s = card.s ++ unit.s ++ cn.s ; c = cn.c
+    } ;
+
+  bottle_of_CN np = lin CN {s = R.linNP np ; c = "瓶"} ;
+  cup_of_CN np = lin CN {s = R.linNP np ; c = "杯"} ;
+  glass_of_CN np = lin CN {s = R.linNP np ; c = "杯"} ;
+
 lincat
   Weekday = N ;
   Monthday = NP ;

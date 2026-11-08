@@ -22,4 +22,18 @@ lin UsePN pn = {
       a = {n = pn.n; p = P3}
     } ;
 
+lin UseLN ln = {
+      s = ln.s;
+      h = ln.h;
+      a = {n = ln.n; p = P3}
+    } ;
+
+lin PlainLN = UseLN ;
+
+lin InLN ln = {s = ln.s ! Loc} ;
+
+lin AdjLN ap ln = ln ** {
+      s = \\c => ap.s ! Sg ! Nom ++ ln.s ! c
+    } ;
+
 }

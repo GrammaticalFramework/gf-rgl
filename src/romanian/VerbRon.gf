@@ -7,7 +7,7 @@ concrete VerbRon of Verb =
   lin
     UseV = useVerb ;
 
-    ComplVV v vp =insertSimpObj (\\a => "sã"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos) (useVerb v) ;
+    ComplVV v vp =insertSimpObj (\\a => "să"  ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++vp.comp ! a ++ vp.ext ! Pos) (useVerb v) ;
 
 
     ComplVS v s  = insertExtrapos (\\b => conjThat ++ s.s ! (v.m ! b)) (predV v) ;
@@ -69,7 +69,7 @@ concrete VerbRon of Verb =
 -- needs fixing - agreement for the added verb must be made accordingly to what we add in ComplSlash !!! 
 -- fixed with extra parameter !
 
-    SlashV2V v vp =  (insertSimpObj (\\a =>  "sã" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++ vp.comp ! a ++ vp.ext ! Pos) (useVerb v)) ** {needAgr = True ; needClit = True ;c2 = v.c2} ; 
+    SlashV2V v vp =  (insertSimpObj (\\a =>  "să" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++ vp.comp ! a ++ vp.ext ! Pos) (useVerb v)) ** {needAgr = True ; needClit = True ;c2 = v.c2} ;
 
 
     SlashV2S v s = (insertExtrapos (\\b => conjThat ++ s.s ! Indic) (useVerb v)) ** {needAgr = False; needClit = True ;c2 = v.c2}; 
@@ -141,7 +141,7 @@ concrete VerbRon of Verb =
       
 
     SlashVV v vp = 
-              insertObjc (\\a => "sã" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++ vp.comp ! a ++ vp.ext ! Pos) ((useVerb v) **{c2=vp.c2; needAgr= vp.needAgr ; needClit = False; lock_VPSlash = <>}) ;
+              insertObjc (\\a => "să" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp a ++ vp.comp ! a ++ vp.ext ! Pos) ((useVerb v) **{c2=vp.c2; needAgr= vp.needAgr ; needClit = False; lock_VPSlash = <>}) ;
 
     SlashV2VNP v np vp = let  s1 = v.c2.s ++(np.s ! (v.c2.c)).comp ;
                               ss = case np.nForm of
@@ -178,6 +178,14 @@ concrete VerbRon of Verb =
     AdvVP vp adv = insertAdv adv.s vp ;
     AdVVP adv vp = insertAdv adv.s vp ;
 
+    ExtAdvVP vp adv = insertAdv (SOFT_BIND ++ "," ++ adv.s) vp ;
+    AdvVPSlash vp adv = (insertAdv adv.s vp) ** {
+      c2 = vp.c2 ; needAgr = vp.needAgr ; needClit = vp.needClit ; lock_VPSlash = <>
+      } ;
+    AdVVPSlash adv vp = (insertAdv adv.s vp) ** {
+      c2 = vp.c2 ; needAgr = vp.needAgr ; needClit = vp.needClit ; lock_VPSlash = <>
+      } ;
+
     PassV2 v = insertSimpObj (\\a => v.s ! PPasse a.g a.n Indef ANomAcc) auxPassive ** {lock_VP = <>};
 
     VPSlashPrep vp prep = vp ** {c2 = prep ; needAgr = False; needClit = True} ; ---- AR
@@ -193,6 +201,6 @@ insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
 
 
 getConjComp : VP -> Agr -> {s: Agr => Str} = \vp,ag ->
- {s  = \\a => "sã" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp ag ++ vp.comp ! a ++ vp.ext ! Pos};
+ {s  = \\a => "să" ++ (flattenSimpleClitics vp.nrClit vp.clAcc vp.clDat (vp.isRefl ! a)) ++ conjVP vp ag ++ vp.comp ! a ++ vp.ext ! Pos};
 
 };

@@ -13,7 +13,7 @@ lin
   UttVP vp = {s = vp.Nonfinite} ;
   UttCN cn = {s = cn.s ! Indef ! Sg ! Nom} ;
   UttCard card = {s = card.s ! Neuter ! Nom} ;
-  UttAP ap = {s = ap.s ! Masc ! Sg ! Nom} ;
+  UttAP ap = {s = ap.s ! Strong ! Masc ! Sg ! Nom} ;
   UttAdv adv = adv ;
   UttInterj i = i ;
 

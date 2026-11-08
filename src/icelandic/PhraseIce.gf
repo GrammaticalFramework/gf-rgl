@@ -20,8 +20,7 @@ concrete PhraseIce of Phrase = CatIce ** open Prelude, ResIce in {
 
 		UttAdv adv = adv ;
 
-		UttVP vp = let verb = vp.s ! VPInf ! Pos ! {g = Masc ; n = Sg ; p = P3} 
-			in {s = verb.fin ++ verb.a1.p1 ++ verb.inf ++ verb.a1.p2} ;
+		UttVP vp = {s = infVP vp} ;
 
 		UttCN cn = {s = cn.s ! Sg ! Free ! Strong ! Nom ++ cn.comp ! Sg ! Nom} ;
 

@@ -25,14 +25,14 @@ lin
     } ;   -- Does NP need animacy?
 
   -- : Pron -> NP ;
-  UsePron pron = lin NP (pronFormsPronoun pron) ;
+  UsePron pron = pronFormsPronoun pron ;
 
   -- : Predet -> NP -> NP ; -- only the man
   PredetNP predet np = np ** {s=\\cas => predet.s ! (agrGenNum np.a) ! Inanimate ! cas ++ np.s ! numSizeCase cas predet.size} ;
 
   -- : NP -> V2 -> NP ;    -- the man seen
   PPartNP np v2 = np ** {
-    s = \\cas => np.s ! cas ++ (shortPastPassPart v2 (agrGenNum np.a))
+    s = \\cas => np.s ! cas ++ (pastPassPart v2).short ! (agrGenNum np.a)
     } ;
 
   -- : NP -> Adv -> NP ;    -- Paris today
@@ -97,7 +97,6 @@ lin
   DetQuant quant num = {
     s=\\g,anim,cas => quant.s ! (gennum g (numSizeNumber num.size)) ! anim ! cas ++ num.s ! g ! anim ! cas ;
     type=quant.type ;
-    g=quant.g ;
     c=quant.c ;
     size=num.size
     } ;
@@ -108,7 +107,6 @@ lin
       ++ quant.s ! (gennum g (numSizeNumber num.size)) ! a ! cas
       ++ (adjFormsAdjective ord).s ! gennum g (animNumSizeNum Inanimate cas num.size) ! Inanimate ! numSizeCase cas num.size ;
     type=quant.type ;
-    g=quant.g ;
     c=quant.c ;
     size=num.size
     } ;
@@ -123,10 +121,12 @@ lin
 
   -- : Numeral -> Ord ;  -- fifty-first
   OrdNumeral numeral = numeral.o ** {
-    sm=numeral.s ! Masc ! Inanimate ! Nom; -- these are not correct, but needed to prevent parsing problems
-    sf=numeral.s ! Fem ! Inanimate ! Nom;
-    sn=numeral.s ! Neut ! Inanimate ! Nom;
-    sp=numeral.s ! Neut ! Inanimate ! Gen ;
+    short = table { -- these are not correct, but needed to prevent parsing problems
+              GSg Masc => numeral.s ! Masc ! Inanimate ! Nom;
+              GSg Fem  => numeral.s ! Fem  ! Inanimate ! Nom;
+              GSg Neut => numeral.s ! Neut ! Inanimate ! Nom;
+              GPl      => numeral.s ! Neut ! Inanimate ! Gen
+            } ;
     comp=numeral.s ! Neut ! Inanimate ! Gen ;
     p=False ;
     preferShort=PreferFull
@@ -167,10 +167,10 @@ lin
   UseN2 n = nounFormsNoun n ;
 
   -- : N3 -> N2 ; -- distance (from this city)
-  Use2N3 n3 = lin N2 n3 ** { compl1 = n3.compl2 } ;
+  Use2N3 n3 = n3 ;
 
   -- : N3 -> N2 ; -- distance (to Paris)
-  Use3N3 n3 = lin N2 n3 ;
+  Use3N3 n3 = n3 ;
 
 
   -- : CN -> RS -> CN ;   -- house that John bought
@@ -230,7 +230,6 @@ lin
     type=EmptyDef ;
     short=\\a=>[] ;
     c=Nom ;
-    size=Num1 ;
     preferShort=PreferFull
     } ;
   -- : Quant ;       -- a (house), (houses)
@@ -239,7 +238,6 @@ lin
     type=EmptyIndef ;
     short=\\a=>[] ;
     c=Nom ;
-    size=Num1 ;
     preferShort=PreferFull
     } ;
 

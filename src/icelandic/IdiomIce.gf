@@ -27,17 +27,14 @@ concrete IdiomIce of Idiom = CatIce ** open Prelude, ResIce in {
 				cl = mkClause (ip.s ! Masc ! Nom) vp {g = Masc ; n = ip.n ; p = P3}
 			in {s = \\ten,ant,pol,_ => cl.s ! ten ! ant ! pol ! ODir ++ adv.s} ;
 
-		ProgrVP vp = let vvp = predV verbBe in
-			vvp ** {dirObj = \\a => vp.p ! PPres ++ vp.dirObj ! a} ;
+		ProgrVP vp = let vvp = predV verbBe in vvp ** {
+			dirObj = \\a => "að" ++ infVPPlus vp VPInf Pos a
+		} ;
 
-		ImpPl1 vp = { s = let
-				agr = gennumperToAgr Masc Pl P1 ;
-				verb = vp.s ! VPMood Pres Simul ! Pos ! agr
-			in verb.fin ++ verb.inf ++ vp.dirObj ! agr } ;
+		ImpPl1 vp = {s = infVPPlus vp (VPMood Pres Simul) Pos (gennumperToAgr Masc Pl P1)} ;
 
-		ImpP3 np vp = {s = let
-				verb = vp.s ! VPMood Pres Simul ! Pos ! np.a
-			in verbLet.s ! VPres Active Indicative np.a.n np.a.p ++ np.s ! NCase Acc ++ verb.inf} ;
+		ImpP3 np vp = {s = verbLet.s ! VPres Active Indicative np.a.n np.a.p ++
+			np.s ! NCase Acc ++ infVPPlus vp VPInf Pos np.a} ;
 
 		SelfAdvVP vp = vp ** {dirObj = \\a => vp.dirObj ! a ++ reflPron a.p a.n a.g Nom} ;
 

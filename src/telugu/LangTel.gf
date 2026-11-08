@@ -1,4 +1,4 @@
---# -path=.:../abstract:../common
+--# -path=.:../abstract:../common:../api:../prelude
 
 concrete LangTel of Lang =
   GrammarTel,

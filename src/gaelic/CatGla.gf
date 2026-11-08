@@ -1,4 +1,4 @@
-concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
+concrete CatGla of Cat = CommonGla ** open ResGla, Coordination, Prelude in {
 
   flags optimize=all_subs ;
 
@@ -13,14 +13,16 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     -- but agreement may depend on the CN/NP it modifies.
 
     Cl = ResGla.LinCl ;
-    ClSlash = SS ;
+    ClSlash = ResGla.LinClSlash ;
     SSlash  = SS ; -- sentence missing NP; e.g. "she has looked at"
     Imp     = SS ; -- imperative             e.g. "look at this"
 
 --2 Questions and interrogatives
 
 -- Constructed in QuestionGla.
-    QCl = SS ;
+    -- A question is not fixed to present positive when it is built: UseQCl
+    -- supplies tense, anteriority and polarity afterwards.
+    QCl = {s : GlaTense => GlaAnteriority => GlaPolarity => Str} ;
     IComp = SS ;   -- interrogative complement of copula  e.g. "where"
     IDet = SS ;    -- interrogative determiner            e.g. "how many"
     IQuant = SS ;  -- interrogative quantifier            e.g. "which"
@@ -28,14 +30,14 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
 
 --2 Subord clauses and pronouns
 
-    RCl = SS ;
+    RCl = {s : GlaTense => GlaAnteriority => GlaPolarity => Str} ;
     RP = SS ;
 
 --2 Verb phrases
 
 -- Constructed in VerbGla.
     VP = ResGla.LinVP ;
-    VPSlash = SS ;
+    VPSlash = ResGla.LinVPSlash ;
     Comp = SS ;
 
 --2 Adjectival phrases
@@ -59,7 +61,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     Card = ResGla.LinNum ;
     ACard = SS ;
     Ord = SS ;
-    DAP = SS ;
+    DAP = ResGla.LinDet ;
 
 
 --2 Numerals
@@ -68,6 +70,7 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
 
     Numeral = ResGla.LinNumeral ;
     Digits = ResGla.LinNumeral ;
+    Decimal = SS ;
 
 --2 Structural words
 
@@ -106,8 +109,8 @@ concrete CatGla of Cat = CommonX ** open ResGla, Coordination, Prelude in {
     A2 = LinA ** {c2 : LinPrep} ;
 
     N = ResGla.LinN ;
-    N2 = ResGla.LinN ;
-    N3 = ResGla.LinN ;
+    N2 = ResGla.LinN ** {c2 : ResGla.LinPrep} ;
+    N3 = ResGla.LinN ** {c2,c3 : ResGla.LinPrep} ;
     PN = SS ;
 
     -- From the Names module, not in the official API as of 2023-08

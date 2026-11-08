@@ -1,4 +1,5 @@
 concrete AllHye of AllHyeAbs =
-  LangHye
+  LangHye,
+  ExtendHye
   **
     {} ;

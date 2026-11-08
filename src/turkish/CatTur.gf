@@ -6,10 +6,14 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
 
     -- Tensed/Untensed
     S  = {s : Str} ;
+    QS = {s : Str} ;
     RS = {s : Agr => Str} ;
 
     -- Sentence
     Cl = {s : Tense => Anteriority => Polarity => Str} ;
+    QCl = {s : Tense => Anteriority => Polarity => Str} ;
+    ClSlash = {s : Tense => Anteriority => Polarity => Str; c : Prep} ;
+    SSlash = {s : Str; c : Prep} ;
     Imp = {s : Polarity => Number => Str} ;
 
     -- Noun
@@ -33,6 +37,9 @@ concrete CatTur of Cat = CommonX - [CAdv,AdN] ** open ResTur, HarmonyTur, Prelud
     Quant = {s : Str; useGen : UseGen} ;
     PrepNP = {s : Str} ;
     DAP = {s : Number => Case => Str} ;
+    IP = {s : Str} ;
+    IComp = {s : Str} ;
+    IQuant = {s : Str} ;
     CAdv = {s : Str; p : Str; c : Case} ;
     AdN = {s : Str; c : Case} ;
 

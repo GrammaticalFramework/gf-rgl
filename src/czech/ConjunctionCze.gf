@@ -3,37 +3,49 @@ concrete ConjunctionCze of Conjunction = CatCze **
 
   lincat
     [Adv] = {s1,s2 : Str} ;
-    [AP]  = {s1,s2 : Gender => Number => Case => Str ; isPost : Bool} ;
+    [CN] = {s1,s2 : Number => Case => Str ; g,gPl : Gender} ;
+    [AP]  = {s1,s2 : Gender => Number => Case => Str ; pred1,pred2 : Agr => Str ; isPost : Bool} ;
     [NP]  = {s1,s2,prep1,prep2 : Case => Str ; a : Agr} ;
-    [S] = {s1,s2 : Str} ;
+    [S] = {s1 : Sentence ; s2 : Str} ;
     [RS] = {s1,s2 : Agr => Str} ;
 
   lin
     BaseAdv = twoSS ;
     ConsAdv = consrSS comma ;
 
-    BaseAP x y = twoTable3 Gender Number Case x y
-                  ** {isPost = orB x.isPost y.isPost} ; ---- should be so in Pol too
-    ConsAP x xs = consrTable3 Gender Number Case comma x xs
-                  ** {isPost = orB x.isPost xs.isPost} ;
+    BaseCN x y = {s1 = x.s ; s2 = y.s ; g = x.g ; gPl = x.gPl} ;
+    ConsCN x xs = {
+      s1 = \\n,c => x.s ! n ! c ++ comma ++ xs.s1 ! n ! c ;
+      s2 = xs.s2 ; g = x.g ; gPl = x.gPl
+      } ;
+    ConjCN conj xs = {
+      s = \\n,c => conj.s1 ++ xs.s1 ! n ! c ++ conj.s2 ++ xs.s2 ! n ! c ;
+      g = xs.g ; gPl = xs.gPl
+      } ;
 
+    BaseAP x y = twoTable3 Gender Number Case x y
+                  ** {pred1 = x.pred ; pred2 = y.pred ; isPost = orB x.isPost y.isPost} ;
+    ConsAP x xs = consrTable3 Gender Number Case comma x xs
+                  ** {pred1 = \\a => x.pred ! a ++ comma ++ xs.pred1 ! a ; pred2 = xs.pred2 ; isPost = orB x.isPost xs.isPost} ;
+
+    -- A shared preposed modifier agrees with the first conjunct.
     BaseNP x y = {
       s1 = x.s ;
       s2 = y.s ;
       prep1 = x.prep ;
       prep2 = y.prep ;
-      a = y.a
+      a = x.a
       } ; -- clitics disappear ---- Agr TODO
     ConsNP x xs = {
       s1 = \\c => x.s ! c ++ comma ++ xs.s1 ! c ;
       s2 = xs.s2 ; 
       prep1 = \\c => x.prep ! c ++ comma ++ xs.prep1 ! c ;
       prep2 = xs.prep2 ;
-      a = xs.a ----
+      a = x.a ;
       } ; 
 
-    BaseS = twoSS ;
-    ConsS = consrSS comma ;
+    BaseS x y = {s1 = x ; s2 = y.s} ;
+    ConsS x xs = {s1 = appendSentence x (comma ++ xs.s1.s) ; s2 = xs.s2} ;
 
     BaseRS = twoTable Agr ;
     ConsRS = consrTable Agr comma ;
@@ -41,16 +53,19 @@ concrete ConjunctionCze of Conjunction = CatCze **
     ConjAdv = conjunctDistrSS ;
     
     ConjAP conj xs = conjunctDistrTable3 Gender Number Case conj xs
-                       ** {isPost = xs.isPost} ;
+                       ** {pred = \\a => conj.s1 ++ xs.pred1 ! a ++ conj.s2 ++ xs.pred2 ! a ; isPost = xs.isPost} ;
     
-    ConjNP conj xs = {
-      s,clit = \\c => conj.s1 ++ xs.s1 ! c ++ conj.s2 ++ xs.s2 ! c ;
-      prep   = \\c => conj.s1 ++ xs.prep1 ! c ++ conj.s2 ++ xs.prep2 ! c ;
+    ConjNP conj xs =
+      let s : Case => Str = \\c => conj.s1 ++ xs.s1 ! c ++ conj.s2 ++ xs.s2 ! c ;
+          prep : Case => Str = \\c => conj.s1 ++ xs.prep1 ! c ++ conj.s2 ++ xs.prep2 ! c
+      in npForms s prep ** {
+      clit = s ;
       a = xs.a ; ---- dep. on conj as well
-      hasClit = False ;
+      m = xs.m ;
+      hasClit = False ; isDrop = False ; isPron = False ;
       } ;
 
-    ConjS = conjunctDistrSS ;
+    ConjS conj xs = prefixSentence conj.s1 (appendSentence xs.s1 (conj.s2 ++ xs.s2)) ;
     ConjRS = conjunctDistrTable Agr ;
 
 }

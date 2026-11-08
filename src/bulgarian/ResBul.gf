@@ -92,7 +92,7 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
 
 -- The order of sentence is needed already in $VP$.
 
-    Order = Main | Inv | Quest ;
+    Order = Main | Inv | Quest | Wh ;
 
 --2 For $Adjective$
 
@@ -161,6 +161,15 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
       case p of {
         NounP3 pol => pol;
         _          => Pos
+      } ;
+
+    conjPronPerson : PronPerson -> PronPerson -> PronPerson = \p1,p2 ->
+      case <p1,p2> of {
+        <PronP1,_> | <_,PronP1> => PronP1 ;
+        <PronP2,_> | <_,PronP2> => PronP2 ;
+        <PronP3,_> | <_,PronP3> => PronP3 ;
+        <NounP3 Neg,_> | <_,NounP3 Neg> => NounP3 Neg ;
+        _ => NounP3 Pos
       } ;
       
     personAgr : GenNum -> PronPerson -> Agr = \gn,p ->
@@ -541,8 +550,9 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
                 = \\o => vpTenses vp ! t ! a ! p ! agr ! o ! Perf ;
           compl = vp.compl ! agr
         in case o of {
-             Inv   => verb ! Inv ++ compl ++ subj ;
-             o     => subj ++ verb ! o ++ compl
+             Inv => verb ! Inv ++ compl ++ subj ;
+             Wh  => verb ! Wh  ++ compl ++ subj ;
+             o   => subj ++ verb ! o ++ compl
            }
     } ;
 
@@ -893,7 +903,7 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
       s = \\t,a,p,qform => 
             let cls = cl.s ! t ! a ! p ;
             in wh.s ! qform ++ cls ! case qform of {
-                                       QDir   => Inv ;
+                                       QDir   => Wh ;
                                        QIndir => Main
                                      }
       } ;

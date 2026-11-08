@@ -57,6 +57,22 @@ concrete VerbIna of Verb = CatIna ** open ResIna, Prelude in {
     ReflVP vp = insertReflObj vp.p2 vp.c2 
       {isPronoun = True; s = \\agr,c => reflPron!agr} vp ;
 
+    AdvVPSlash vp adv = vp ** {
+      rest = \\a => vp.rest ! a ++ adv.s
+      } ;
+
+    AdVVPSlash adv vp = vp ** {
+      rest = \\a => adv.s ++ vp.rest ! a
+      } ;
+
+    ExtAdvVP vp adv = vp ** {
+      rest = \\a => vp.rest ! a ++ "," ++ adv.s
+      } ;
+
+    VPSlashPrep vp prep = vp ** {p2 = prep.s ; c2 = prep.c} ;
+
+    UseCopula = predV_ esserV ;
+
     PassV2 v = insertInvarObj (v.s ! VPPart) (predV_ esserV);
 
     CompAP ap = ap ;

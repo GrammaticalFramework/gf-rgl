@@ -4,6 +4,7 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
   lin
  --   PositAdvAdj a = {s = a.s ! Bare  } ;
      PositAdvAdj a = {s = a.adv  } ;
+    PositAdAAdj a = {s = a.adv} ;
     ComparAdvAdj cadv a np = {
       s = a.adv ++ cadv.p ++ cadv.s ++ np.s !  Bare  ;
       } ;
@@ -18,7 +19,7 @@ concrete AdverbPes of Adverb = CatPes ** open ResPes, Prelude in {
 --    SubjS = cc2 ;
     SubjS sub snt = {
        s = case sub.relpron of {
-            Ke   => sub.s ++ conjThat ++ snt.s ! sub.compl ;
+            Ke   => sub.s ++ snt.s ! sub.compl ;
             Ance => "آنچه" ++ snt.s ! sub.compl }
     } ;
 

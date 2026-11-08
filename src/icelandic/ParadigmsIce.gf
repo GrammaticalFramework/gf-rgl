@@ -56,6 +56,56 @@ resource ParadigmsIce = open
 		dative     : Case ;
 		genitive   : Case ;
 
+		--2 Invariant closed categories
+
+		mkPredet : Str -> Predet = \word -> lin Predet {
+			s = \\_,_,_ => word
+		} ;
+
+		mkCard : Str -> Number -> Card = \word, number -> lin Card {
+			s = \\_,_ => word ;
+			n = number
+		} ;
+
+		mkACard : Str -> ACard = \word -> lin ACard {
+			s = word
+		} ;
+
+		mkIDet : Str -> Number -> IDet = \word, number -> lin IDet {
+			s = \\_,_ => word ;
+			n = number
+		} ;
+
+		mkDet : Str -> Number -> Det = \word, number -> lin Det {
+			s = \\_,_ => word ;
+			pron = \\_,_ => [] ;
+			n = number ;
+			b = Free ;
+			d = Strong
+		} ;
+
+		mkQuant : Str -> Quant = \word -> lin Quant {
+			s = \\_,_,_ => word ;
+			b = Free ;
+			d = Strong ;
+			isPron = False
+		} ;
+
+		detFromA : A -> Number -> Det = \adj, number -> lin Det {
+			s = \\gender, c => adj.s ! APosit Strong number gender c ;
+			pron = \\_,_ => [] ;
+			n = number ;
+			b = Free ;
+			d = Strong
+		} ;
+
+		quantFromA : A -> Quant = \adj -> lin Quant {
+			s = \\number, gender, c => adj.s ! APosit Strong number gender c ;
+			b = Free ;
+			d = Strong ;
+			isPron = False
+		} ;
+
 		--2 Nouns
 
 		-- Nouns are constructed by the function $mkN$, which takes a varying
@@ -293,8 +343,17 @@ resource ParadigmsIce = open
 			mkA : (_,_,_ : Str) -> A = mk3A ;
 		} ;
 
-		mk1A : Str -> A = \s -> lin A (aForms2Adjective 
-			(weakPosit s s) (strongPosit1 s) (compar1 s) (weakSuperl s s) (strongSuperl1 s) (regAAdv1 s)) ; --- AR 2019-08-08: second arguments of weak declensions were [], producing only endings
+		mk1A : Str -> A = \s -> case s of {
+			-- These are not Icelandic masculine citation forms and must not be
+			-- supplied with Icelandic agreement suffixes.
+			_ + "ar" => invarA s ;
+			_ + "i" => invarA s ;
+			_ => lin A (aForms2Adjective
+				(weakPosit s s) (strongPosit1 s) (compar1 s) (weakSuperl s s) (strongSuperl1 s) (regAAdv1 s))
+			} ; --- AR 2019-08-08: second arguments of weak declensions were [], producing only endings
+
+		invarA : Str -> A = \s -> lin A (aForms2Adjective
+			(dInvar s) (dInvar s) (dInvar s) (dInvar s) (dInvar s) s) ;
 
 		mk2A : (_,_ : Str) -> A = \mas,fem -> case mas of {
 		   _ + ("ll"|"nn") => mk1A mas ; ---- AR 2019-08-08 ; the case below does not work
@@ -314,8 +373,8 @@ resource ParadigmsIce = open
 			_ + "ill"				=> dLítill s ;
 			#consonant* + #vowel + ("ll" | "nn")	=> dSeinn s ;
 			stem + "ur"				=> dFalur s (a2ö stem) ;
-			_ + "i" => dI s ; ---- AR 2019-08-02 guess to prevent failure
-			_ => dSmár s ---- AR 2019-08-02 guess to prevent failure
+			_ + ("r" | "s" | (#consonant + "n"))	=> dDýr s ;
+			_ => dInvar s
 		} ;
 
 		strongPosit2 : (_,_ : Str) -> AForms = \mas,fem -> case <mas,fem> of {
@@ -459,8 +518,15 @@ resource ParadigmsIce = open
 				plFemNom plFemAcc plFemDat plFemGen plNeutNom plNeutAcc plNeutDat plNeutGen 
 				weakSgMascNom weakSgMascAccDatGen weakSgFemNom weakSgFemAccDatGen weakSgNeut weakPl flogið) ;
 
-            mkV : V -> Str -> V = \v,part -> v ;
+            mkV : V -> Str -> V = \v,part -> v ** {part = v.part ++ part} ;
 		};
+
+		prefixV : Str -> V -> V = \prefix, v -> lin V {
+			s = \\form => prefix + v.s ! form ;
+			p = \\form => prefix + v.p ! form ;
+			refl = v.refl ;
+			part = v.part
+		} ;
 
 		depV : V -> V = \verb -> lin V (deponentVerb verb) ;
 
@@ -488,7 +554,10 @@ resource ParadigmsIce = open
         oper mkV2S : V -> V2S = \v -> lin V2S (v ** {c2 = mkPrep "" accusative}) ;
         oper mkV2A : V -> V2A = \v -> lin V2A (v ** {c2 = mkPrep "" accusative}) ;
 
-        oper reflV : V -> V = \v -> v;
+		oper reflV = overload {
+			reflV : V -> V = \v -> lin V (v ** {refl = Reflexive Acc}) ;
+			reflV : V -> Case -> V = \v,c -> lin V (v ** {refl = Reflexive c})
+		} ;
 
 
 		indsub1 : Str -> MForms = \inf -> case inf of {
@@ -497,7 +566,13 @@ resource ParadigmsIce = open
 			stem@(front + "ý" + c) + "ja"	=> cTelja inf stem (ðiditi (front + "ú" + c)) ;
 			stem@(front + "æ" + c) + "ja"	=> cTelja inf stem (ðiditi (front + "á" + c)) ; 
 			stem + "ja"			=> cTelja inf stem (ðiditi stem) ;
-			stem + "a"			=> cDæma inf (stem + "i") (ðiditi stem)
+			-- With only the infinitive available, the productive -aði class is
+			-- a substantially better default (borðaði, dansaði, kallaði) than
+			-- the old -di/-ti guess (borðdi, dansdi).  Irregular and i-present
+			-- verbs can still use the multi-principal-part overloads.
+			stem@(_ + ("r" | "m" | "f" | "gn" | "nd" | "tt")) + "a"
+				=> cDæma inf (stem + "i") (ðiditi stem) ;
+			_ + "a"			=> cKalla inf (ðiditi inf)
 		} ;
 
 		indsub2 : (_,_ : Str) -> MForms = \telja,tel -> case <telja,tel> of {

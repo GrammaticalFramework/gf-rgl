@@ -186,7 +186,7 @@ oper
   superVery ="vyu";
 
 param
-  VForm = VInf 
+  VForm = VInf | VImp Number
     | VPres Gender Number Person
     | VPast Gender Number Person
     | VFut  Gender Number Person

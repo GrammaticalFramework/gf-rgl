@@ -18,6 +18,8 @@ lincat Sub10 = {s : DForm => Str ; size : DSize ; n : Number} ;
 lincat Sub100 = {s : Str ; size : Size ; n : Number} ;
 lincat Sub1000 = {s : Str ; s2 : Str ; size : Size ; n : Number } ; 
 lincat Sub1000000 = { s : Str ; n : Number } ;
+lincat Sub1000000000 = {s : Str ; n : Number} ;
+lincat Sub1000000000000 = {s : Str ; n : Number} ;
 
 lin num x0 = 
     {s = table {
@@ -82,6 +84,7 @@ lin pot1 d = {s = d.s ! ten ; size = less100 ; n = Pl} ;
 lin pot1plus d e = {s = rows ! e.size ! d.size ; size = less100 ; n = Pl} ;
 
 lin pot1as2 n = {s = n.s ; s2 = "दमी" ; size = n.size ; n = n.n} ;
+lin pot21 = {s = "सौ" ; s2 = "एक लाख" ; size = more100 ; n = Pl} ;
 lin pot2 d = {s = (mksau (d.s ! unit) d.size) ; 
               s2 = d.s ! unit ++ "लाख" ; size = more100 ; n = Pl} ;
 lin pot2plus d e = 
@@ -90,6 +93,7 @@ lin pot2plus d e =
    size = more100 ; n = Pl} ;
 
 lin pot2as3 n = {s = n.s ; n = n.n} ;
+lin pot31 = {s = "एक हज़ार" ; n = Pl} ;
 lin pot3 n = {s = table { singl => ekhazar ;
                           less100 => n.s ++ "हज़ार" ; 
                           more100 => n.s2 } ! n.size ; n = Pl} ;
@@ -97,6 +101,20 @@ lin pot3plus n m =
   {s = table {singl => ekhazar ;
               less100 => n.s ++ "हज़ार" ; 
               more100 => n.s2 } ! n.size ++ m.s ; n = Pl} ;
+
+lin pot3as4 n = n ;
+lin pot3decimal n = {s = n.s ! NCard ++ "हज़ार" ; n = Pl} ;
+
+lin pot41 = {s = "दस लाख" ; n = Pl} ;
+lin pot4 n = {s = n.s ++ "दस लाख" ; n = Pl} ;
+lin pot4plus n m = {s = n.s ++ "दस लाख" ++ m.s ; n = Pl} ;
+lin pot4as5 n = n ;
+lin pot4decimal n = {s = n.s ! NCard ++ "दस लाख" ; n = Pl} ;
+
+lin pot51 = {s = "एक अरब" ; n = Pl} ;
+lin pot5 n = {s = n.s ++ "अरब" ; n = Pl} ;
+lin pot5plus n m = {s = n.s ++ "अरब" ++ m.s ; n = Pl} ;
+lin pot5decimal n = {s = n.s ! NCard ++ "अरब" ; n = Pl} ;
 
 lin D_0 = { s = "०" ; n = Sg};
 lin D_1 = { s = "१" ; n = Sg};
@@ -111,6 +129,11 @@ lin D_9 = { s = "९" ; n = Pl};
 lin IDig d = { s = \\_ => d.s ; n = d.n} ;
 lin IIDig d dg = { s = \\df => Prelude.glue (dg.s ! df) d.s ; n = Pl }; 
 lin PosDecimal d = d ** {hasDot=False} ;
+lin NegDecimal d = {s = \\f => "-" ++ d.s ! f ; n = d.n ; hasDot = False} ;
+lin IFrac d x = {
+  s = \\f => d.s ! f ++ case d.hasDot of {True => [] ; False => "."} ++ x.s ;
+  n = Pl ; hasDot = True
+  } ;
 
 oper ekhazar : Str = variants {"हज़ार" ; "एक" ++ "हज़ार"} ; 
 oper mkhazar : Str -> Size -> Str = \s -> \sz -> table {singl => ekhazar ; _ => s ++ "हज़ार"} ! sz ;

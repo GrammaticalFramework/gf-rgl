@@ -1218,7 +1218,11 @@ oper
       	} ,
       	table {
       	  PronNonRefl =>
-      	    \\_ => nonExist ;
+	      \\_ => case <g,n> of {
+	        <_,Sg> => "eius" ;
+	        <Fem,Pl> => "earum" ;
+	        <_,Pl> => "eorum"
+	        } ;
       	  PronRefl =>
       	    table {
       	      Ag Masc  Sg c => ( pronForms "suus" "suum" "sui" "suo" "suo" ) ! c ;

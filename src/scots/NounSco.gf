@@ -2,7 +2,7 @@ concrete NounSco of Noun = NounEng - [IndefArt, OrdSuperl, OrdNumeralSuperl] ** 
 
 lin IndefArt = {
       s = \\hasCard,n => case <n,hasCard> of {
-        <Sg,False> => "a" ;
+        <Sg,False> => artIndef ;
         _          => []
         } ;
       sp = \\g,hasCard,n => case <n,hasCard> of {

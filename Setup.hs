@@ -3,7 +3,7 @@
 -- | Main build script for RGL
 
 import Data.List (find,isPrefixOf,isSuffixOf,(\\))
-import Data.Maybe (catMaybes)
+import Data.Maybe (catMaybes,listToMaybe)
 import System.IO (hPutStrLn,stderr)
 import System.IO.Error (catchIOError)
 import System.Exit (ExitCode(..),exitFailure)
@@ -119,7 +119,7 @@ mkInfo = do
   let gf = maybe default_gf id (getFlag gf_flag args)
   -- Look for install location in a few different places
   let mflag = getFlag destination_flag args
-  menvar <- lookupEnv "GF_LIB_PATH" >>= return . fmap (head . splitSearchPath)
+  menvar <- lookupEnv "GF_LIB_PATH" >>= return . ((=<<) (listToMaybe . splitSearchPath))
   mbuilt <- catchIOError (readProcess gf ["--version"] "" >>= return . getPath) (\e -> return Nothing)
   let
     inst_dir =
@@ -293,7 +293,7 @@ checkArgs args = do
 getCommands :: [String] -> [RGLCommand]
 getCommands args =
   let
-    cmdModules = head $ filter (\cmd -> cmdName cmd == "modules") rglCommands
+    cmdModules:_ = filter (\cmd -> cmdName cmd == "modules") rglCommands
     cmds0 =
       [ cmd
       | arg <- args

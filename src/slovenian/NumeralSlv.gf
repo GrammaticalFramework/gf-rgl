@@ -146,7 +146,13 @@ lin pot110 = {s=\\g => table {
     } ;
 
     pot3as4 x = x ;
+    pot41 = {s=\\_,_=>"milijon";n=UseGen} ;
+    pot4 x = {s=\\g,c=>x.s!g!c++"milijonov";n=UseGen} ;
+    pot4plus x y = {s=\\g,c=>x.s!g!c++"milijonov"++y.s!g!c;n=UseGen} ;
     pot4as5 x = x ;
+    pot51 = {s=\\_,_=>"milijarda";n=UseGen} ;
+    pot5 x = {s=\\g,c=>x.s!g!c++"milijard";n=UseGen} ;
+    pot5plus x y = {s=\\g,c=>x.s!g!c++"milijard"++y.s!g!c;n=UseGen} ;
 
 oper mkDigit : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Gender => Case => Str;
      mkDigit nomMasc nomFem nomNeut accMasc accFem accNeut 

@@ -12,6 +12,8 @@ lincat Sub10 =      LinDigit ;
 lincat Sub100 =     LinSub100 ;
 lincat Sub1000 =    LinSub100 ;
 lincat Sub1000000 = { s : Str } ;
+lincat Sub1000000000 = {s : Str} ;
+lincat Sub1000000000000 = {s : Str} ;
 
 oper mkNum : Str -> LinDigit = \tri -> 
   { s = table {unit => tri ; teen => tri + "mbë" + "dhjetë" ; ten => tri + "dhjetë" }};
@@ -39,10 +41,23 @@ lin pot1 d = mkR (d.s ! ten) ;
 lin pot1plus d e = mkR ((d.s ! ten) ++ "e" ++ (e.s ! unit)) ;
 lin pot1as2 n = n ;
 lin pot2 d = mkR (bind (d.s ! unit) "qind") ;
+lin pot21 = mkR "njëqind" ;
 lin pot2plus d e = mkR ((bind (d.s ! unit) "qind") ++ "e" ++ e.s) ;
 lin pot2as3 n = {s = n.s };
 lin pot3 n = {s = n.s ++ "mijë" } ;
 lin pot3plus n m = {s = n.s ++ "mijë" ++ m.s} ;
+lin pot31 = {s="një mijë"} ;
+lin pot3as4 n=n ;
+lin pot3decimal n={s=n.s++"mijë"} ;
+lin pot41={s="një milion"} ;
+lin pot4 n={s=n.s++"milionë"} ;
+lin pot4plus n m={s=n.s++"milionë"++m.s} ;
+lin pot4decimal n={s=n.s++"milionë"} ;
+lin pot4as5 n=n ;
+lin pot51={s="një miliard"} ;
+lin pot5 n={s=n.s++"miliardë"} ;
+lin pot5plus n m={s=n.s++"miliardë"++m.s} ;
+lin pot5decimal n={s=n.s++"miliardë"} ;
 
 
 lincat Dig = {s : Str; n : Number} ;

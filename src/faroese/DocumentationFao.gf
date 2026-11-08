@@ -36,15 +36,15 @@ lin
       s2=frameTable (
            tr (intagAttr "th" "colspan=\"2\"" "" ++ th "Masc" ++ th "Fem" ++ th "Neuter") ++
            tr (intagAttr "th" "rowspan=\"4\"" "Sg" ++
-               th "Nom" ++ td (x.s ! Masc ! Sg ! Nom) ++ td (x.s ! Fem ! Sg ! Nom) ++ td (x.s ! Neuter ! Sg ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Sg ! Acc) ++ td (x.s ! Fem ! Sg ! Acc) ++ td (x.s ! Neuter ! Sg ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Sg ! Dat) ++ td (x.s ! Fem ! Sg ! Dat) ++ td (x.s ! Neuter ! Sg ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Sg ! Gen) ++ td (x.s ! Fem ! Sg ! Gen) ++ td (x.s ! Neuter ! Sg ! Gen)) ++
+               th "Nom" ++ td (x.s ! Strong ! Masc ! Sg ! Nom) ++ td (x.s ! Strong ! Fem ! Sg ! Nom) ++ td (x.s ! Strong ! Neuter ! Sg ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Strong ! Masc ! Sg ! Acc) ++ td (x.s ! Strong ! Fem ! Sg ! Acc) ++ td (x.s ! Strong ! Neuter ! Sg ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Strong ! Masc ! Sg ! Dat) ++ td (x.s ! Strong ! Fem ! Sg ! Dat) ++ td (x.s ! Strong ! Neuter ! Sg ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Strong ! Masc ! Sg ! Gen) ++ td (x.s ! Strong ! Fem ! Sg ! Gen) ++ td (x.s ! Strong ! Neuter ! Sg ! Gen)) ++
            tr (intagAttr "th" "rowspan=\"4\"" "Pl" ++
-               th "Nom" ++ td (x.s ! Masc ! Pl ! Nom) ++ td (x.s ! Fem ! Pl ! Nom) ++ td (x.s ! Neuter ! Pl ! Nom)) ++
-           tr (th "Acc" ++ td (x.s ! Masc ! Pl ! Acc) ++ td (x.s ! Fem ! Pl ! Acc) ++ td (x.s ! Neuter ! Pl ! Acc)) ++
-           tr (th "Dat" ++ td (x.s ! Masc ! Pl ! Dat) ++ td (x.s ! Fem ! Pl ! Dat) ++ td (x.s ! Neuter ! Pl ! Dat)) ++
-           tr (th "Gen" ++ td (x.s ! Masc ! Pl ! Gen) ++ td (x.s ! Fem ! Pl ! Gen) ++ td (x.s ! Neuter ! Pl ! Gen))) ;
+               th "Nom" ++ td (x.s ! Strong ! Masc ! Pl ! Nom) ++ td (x.s ! Strong ! Fem ! Pl ! Nom) ++ td (x.s ! Strong ! Neuter ! Pl ! Nom)) ++
+           tr (th "Acc" ++ td (x.s ! Strong ! Masc ! Pl ! Acc) ++ td (x.s ! Strong ! Fem ! Pl ! Acc) ++ td (x.s ! Strong ! Neuter ! Pl ! Acc)) ++
+           tr (th "Dat" ++ td (x.s ! Strong ! Masc ! Pl ! Dat) ++ td (x.s ! Strong ! Fem ! Pl ! Dat) ++ td (x.s ! Strong ! Neuter ! Pl ! Dat)) ++
+           tr (th "Gen" ++ td (x.s ! Strong ! Masc ! Pl ! Gen) ++ td (x.s ! Strong ! Fem ! Pl ! Gen) ++ td (x.s ! Strong ! Neuter ! Pl ! Gen))) ;
       s3=[]
     } ;
 lin

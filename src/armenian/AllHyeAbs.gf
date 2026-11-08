@@ -1,3 +1,4 @@
 abstract AllHyeAbs =
-  Lang
+  Lang,
+  Extend
   ** {}

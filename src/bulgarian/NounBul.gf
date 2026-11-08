@@ -210,7 +210,7 @@ concrete NounBul of Noun = CatBul ** open ResBul, Prelude in {
                               GSg Fem  => AFem ;
                               GPl      => ANeut
                             }
-                    in det.s ! False ! g ! role ++ np.s ! (RObj Acc) ;
+                    in det.s ! False ! g ! role ++ "от" ++ np.s ! (RObj CPrep) ;
       gn = gennum ANeut (numnnum det.nn);
       p = NounP3 Pos
       } ;

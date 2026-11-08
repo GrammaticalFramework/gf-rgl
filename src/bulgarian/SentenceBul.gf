@@ -25,9 +25,10 @@ concrete SentenceBul of Sentence = CatBul ** open Prelude, ResBul in {
                        VPhrasal Dat => personalClitics agr ! Dat++vp.clitics;
                        VPhrasal c   => vp.clitics++personalClitics agr ! c
                      }
-        in case orPol p vp.p of {
-             Pos => vp.ad.s ++ verb Perf ++ clitic ;
-             Neg => "не" ++ vp.ad.s ++ clitic ++ verb Imperf
+        in case <p,vp.p> of {
+             <Pos,Pos> => vp.ad.s ++ verb Perf ++ clitic ;
+             <Pos,Neg> => vp.ad.s ++ "не" ++ clitic ++ verb Imperf ;
+             _         => "не" ++ vp.ad.s ++ clitic ++ verb Imperf
            } ++ compl ;
     } ;
 

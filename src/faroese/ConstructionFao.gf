@@ -14,34 +14,64 @@ lin
   have_name_Cl np name = {
     Converb = np.s ! Nom ++ "eitur" ++ name.s ! Nom ;
     Indicative = \\t,pol => np.s ! Nom ++ "eitur" ++ negStr pol ++ name.s ! Nom ;
+    Interrogative = \\t,pol => "eitur" ++ np.s ! Nom ++ negStr pol ++ name.s ! Nom ;
+    Future = \\pol => np.s ! Nom ++ futureAux ! persNum np.n np.p ++ negStr pol ++ "eita" ++ name.s ! Nom ;
+    FutureInterrogative = \\pol => futureAux ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "eita" ++ name.s ! Nom ;
+    Conditional = \\pol => np.s ! Nom ++ conditionalAux ! persNum np.n np.p ++ negStr pol ++ "eita" ++ name.s ! Nom ;
+    ConditionalInterrogative = \\pol => conditionalAux ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "eita" ++ name.s ! Nom ;
+    Anterior = \\t,pol => np.s ! Nom ++ perfectAux ! t ! persNum np.n np.p ++ negStr pol ++ "itið" ++ name.s ! Nom ;
+    AnteriorInterrogative = \\t,pol => perfectAux ! t ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "itið" ++ name.s ! Nom ;
     Nonfinite = np.s ! Nom ++ "eita" ++ name.s ! Nom ;
     Participle = \\_ => np.s ! Nom ++ "itið" ++ name.s ! Nom
   } ;
   married_Cl np spouse = {
     Converb = np.s ! Nom ++ "er giftur við" ++ spouse.s ! Dat ;
     Indicative = \\t,pol => np.s ! Nom ++ copula ! t ! persNum np.n np.p ++ negStr pol ++ "giftur við" ++ spouse.s ! Dat ;
+    Interrogative = \\t,pol => copula ! t ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "giftur við" ++ spouse.s ! Dat ;
+    Future = \\pol => np.s ! Nom ++ futureAux ! persNum np.n np.p ++ negStr pol ++ "vera giftur við" ++ spouse.s ! Dat ;
+    FutureInterrogative = \\pol => futureAux ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "vera giftur við" ++ spouse.s ! Dat ;
+    Conditional = \\pol => np.s ! Nom ++ conditionalAux ! persNum np.n np.p ++ negStr pol ++ "vera giftur við" ++ spouse.s ! Dat ;
+    ConditionalInterrogative = \\pol => conditionalAux ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "vera giftur við" ++ spouse.s ! Dat ;
+    Anterior = \\t,pol => np.s ! Nom ++ perfectAux ! t ! persNum np.n np.p ++ negStr pol ++ "verið giftur við" ++ spouse.s ! Dat ;
+    AnteriorInterrogative = \\t,pol => perfectAux ! t ! persNum np.n np.p ++ np.s ! Nom ++ negStr pol ++ "verið giftur við" ++ spouse.s ! Dat ;
     Nonfinite = np.s ! Nom ++ "vera giftur við" ++ spouse.s ! Dat ;
     Participle = \\_ => np.s ! Nom ++ "verið giftur við" ++ spouse.s ! Dat
   } ;
   what_name_QCl np = {
-    s = \\t,pol => "hvat" ++ "eitur" ++ np.s ! Nom
+    s = \\t,pol => "hvat" ++ "eitur" ++ np.s ! Nom ;
+    anterior = \\t,pol => "hvat" ++ perfectAux ! t ! persNum np.n np.p ++ negStr pol ++ "itið" ++ np.s ! Nom ;
+    future = \\pol => "hvat" ++ futureAux ! persNum np.n np.p ++ negStr pol ++ "eita" ++ np.s ! Nom ;
+    conditional = \\pol => "hvat" ++ conditionalAux ! persNum np.n np.p ++ negStr pol ++ "eita" ++ np.s ! Nom
   } ;
   how_old_QCl np = {
-    s = \\t,pol => "hvussu gamal" ++ copula ! t ! persNum np.n np.p ++ negStr pol ++ np.s ! Nom
+    s = \\t,pol => "hvussu gamal" ++ copula ! t ! persNum np.n np.p ++ negStr pol ++ np.s ! Nom ;
+    anterior = \\t,pol => "hvussu gamal" ++ perfectAux ! t ! persNum np.n np.p ++ negStr pol ++ "verið" ++ np.s ! Nom ;
+    future = \\pol => "hvussu gamal" ++ futureAux ! persNum np.n np.p ++ negStr pol ++ "vera" ++ np.s ! Nom ;
+    conditional = \\pol => "hvussu gamal" ++ conditionalAux ! persNum np.n np.p ++ negStr pol ++ "vera" ++ np.s ! Nom
   } ;
   how_far_QCl np = {
-    s = \\t,pol => "hvussu langt burtur" ++ copula ! t ! persNum np.n np.p ++ negStr pol ++ np.s ! Nom
+    s = \\t,pol => "hvussu langt burtur" ++ copula ! t ! persNum np.n np.p ++ negStr pol ++ np.s ! Nom ;
+    anterior = \\t,pol => "hvussu langt burtur" ++ perfectAux ! t ! persNum np.n np.p ++ negStr pol ++ "verið" ++ np.s ! Nom ;
+    future = \\pol => "hvussu langt burtur" ++ futureAux ! persNum np.n np.p ++ negStr pol ++ "vera" ++ np.s ! Nom ;
+    conditional = \\pol => "hvussu langt burtur" ++ conditionalAux ! persNum np.n np.p ++ negStr pol ++ "vera" ++ np.s ! Nom
   } ;
   weather_adjCl ap = {
-    Converb = "tað er" ++ ap.s ! Neuter ! Sg ! Nom ;
-    Indicative = \\t,pol => "tað" ++ copula ! t ! PSg P3 ++ negStr pol ++ ap.s ! Neuter ! Sg ! Nom ;
-    Nonfinite = "vera" ++ ap.s ! Neuter ! Sg ! Nom ;
-    Participle = \\_ => "verið" ++ ap.s ! Neuter ! Sg ! Nom
+    Converb = "tað er" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Indicative = \\t,pol => "tað" ++ copula ! t ! PSg P3 ++ negStr pol ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Interrogative = \\t,pol => copula ! t ! PSg P3 ++ "tað" ++ negStr pol ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Future = \\pol => "tað" ++ futureAux ! PSg P3 ++ negStr pol ++ "vera" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    FutureInterrogative = \\pol => futureAux ! PSg P3 ++ "tað" ++ negStr pol ++ "vera" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Conditional = \\pol => "tað" ++ conditionalAux ! PSg P3 ++ negStr pol ++ "vera" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    ConditionalInterrogative = \\pol => conditionalAux ! PSg P3 ++ "tað" ++ negStr pol ++ "vera" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Anterior = \\t,pol => "tað" ++ perfectAux ! t ! PSg P3 ++ negStr pol ++ "verið" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    AnteriorInterrogative = \\t,pol => perfectAux ! t ! PSg P3 ++ "tað" ++ negStr pol ++ "verið" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Nonfinite = "vera" ++ ap.s ! Strong ! Neuter ! Sg ! Nom ;
+    Participle = \\_ => "verið" ++ ap.s ! Strong ! Neuter ! Sg ! Nom
   } ;
   is_right_VP = beVP "rættur" ;
   is_wrong_VP = beVP "skeivur" ;
   n_units_AP card cn a = {
-    s = \\g,n,c => card.s ! cn.g ! Nom ++ cn.s ! Indef ! Pl ! Nom ++ a.s ! g ! n ! c
+    s = \\af,g,n,c => card.s ! cn.g ! Nom ++ cn.s ! Indef ! Pl ! Nom ++ a.s ! af ! g ! n ! c
   } ;
   n_units_of_NP card cn np = mkNP (card.s ! cn.g ! Nom ++ cn.s ! Indef ! Pl ! Nom ++ "av" ++ np.s ! Dat) np.g np.n np.p ;
   n_unit_CN card unit cn = mkCN (card.s ! unit.g ! Nom ++ unit.s ! Indef ! Sg ! Nom ++ cn.s ! Indef ! Sg ! Nom) cn.g ;
@@ -162,8 +192,11 @@ lin
 
 oper
   beVP : Str -> VerbPhrase = \ap -> {
-    Converb = copula ! Pres ! PPl ++ ap ;
+    Converb = "verið" ++ ap ;
+    Imperative = \\n => case n of {Sg => "ver" ; Pl => "verið"} ++ ap ;
     Indicative = \\t,pol,_,p => copula ! t ! p ++ negStr pol ++ ap ;
+    Finite = copula ;
+    Remainder = \\pol,_,_ => negStr pol ++ ap ;
     Nonfinite = "vera" ++ ap ;
     Participle = \\_ => "verið" ++ ap
   } ;

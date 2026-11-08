@@ -18,9 +18,17 @@ lincat SSlash = {s : Str ; c2 : Compl} ;
 lincat Imp = {s : Polarity => Number => Str} ;
 lincat Prep = Compl ;
 lincat CN = CommonNoun ;
-lincat NP, Pron = {s : Case => Str ; g : Gender ; n : Number ; p : Person} ;
+lincat NP = {s : Case => Str ; g : Gender ; n : Number ; p : Person} ;
+lincat Pron = {
+  s : Case => Str ;
+  poss : Gender => Number => Case => Str ;
+  g : Gender ; n : Number ; p : Person
+} ;
 lincat QS = {s : Str} ;
-lincat QCl = {s : Tense => Polarity => Str} ;
+lincat QCl = {
+  s,anterior : Tense => Polarity => Str ;
+  future,conditional : Polarity => Str
+} ;
 lincat IP = {s : Str ; n : Number} ;
 lincat IComp = {s : Str} ;
 lincat IDet = {s : Str ; n : Number} ;
@@ -29,14 +37,14 @@ lincat RCl = {s : Tense => Polarity => Gender => PersNum => Str} ;
 lincat RS = {s : Gender => PersNum => Str} ;
 lincat RP = {s : Str} ;
 lincat AP = AdjPhrase ;
-lincat Det = {s : Gender => Case => Str ; n : Number ; sp : Species} ;
+lincat Det = {s : Gender => Case => Str ; n : Number ; sp : Species ; d : Declension} ;
 lincat Predet = {s : Str} ;
-lincat Quant = {s : Bool => Gender => Number => Case => Str; sp : Species} ;
+lincat Quant = {s : Bool => Gender => Number => Case => Str; sp : Species ; d : Declension} ;
 lincat Num = {s : Gender => Case => Str ; n : Number ; hasCard : Bool} ;
 lincat Card = {s : Gender => Case => Str ; n : Number} ;
 lincat ACard = {s : Str} ;
-lincat Ord = {s : Gender => Number => Case => Str} ;
-lincat DAP = {s : Gender => Case => Str ; n : Number ; sp : Species} ;
+lincat Ord = {s : Declension => Gender => Number => Case => Str} ;
+lincat DAP = {s : Gender => Case => Str ; n : Number ; sp : Species ; d : Declension} ;
 lincat S = {s : Str} ;
 lincat Numeral = {
   s : CardOrd => Gender => Case => Str ;

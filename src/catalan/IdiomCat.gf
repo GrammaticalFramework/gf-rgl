@@ -6,6 +6,8 @@ concrete IdiomCat of Idiom = CatCat **
   lin
     ExistNP np = mkClause [] True False (agrP3 Masc Sg) 
         (insertClit3 "hi" (insertComplement (\\_ => (np.s ! Acc).ton) (predV haver_V))) ;
+    ExistNPAdv np adv = mkClause [] True False (agrP3 Masc Sg)
+        (insertClit3 "hi" (insertComplement (\\_ => (np.s ! Acc).ton ++ adv.s) (predV haver_V))) ;
     GenericCl vp = mkClause "hom" True False (agrP3 Masc Sg) vp ;
     ImpersCl vp = mkClause [] True False (agrP3 Masc Sg) vp ;
 
@@ -34,6 +36,14 @@ concrete IdiomCat of Idiom = CatCat **
         (mkClause [] True False
           (agrP3 Masc Sg) 
           (insertClit3 "hi" (predV haver_V)))
+          .s ! DDir ! t ! a ! p ! Indic
+      } ;
+    ExistIPAdv ip adv = {
+      s = \\t,a,p,_ =>
+        ip.s ! Nom ++
+        (mkClause [] True False
+          (agrP3 Masc Sg)
+          (insertClit3 "hi" (insertComplement (\\_ => adv.s) (predV haver_V))))
           .s ! DDir ! t ! a ! p ! Indic
       } ;
 

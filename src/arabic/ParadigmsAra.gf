@@ -38,24 +38,24 @@ resource ParadigmsAra = open
 
   oper
 
-  Case : Type ; -- Argument to mkPrep
+  Case : PType ; -- Argument to mkPrep
   nom : Case ; -- Nominative
   acc : Case ; -- Accusative
   gen : Case ; -- Genitive
 
-  Gender : Type ; -- Argument to mkN and mkPN
+  Gender : PType ; -- Argument to mkN and mkPN
   masc : Gender ; -- Masculine
   fem : Gender ; -- Feminine
 
-  Number : Type ; -- Argument to mkConj ("NP and NP" plural; "NP or NP" singular), and special cases of mkN, where nominal attribute is included in the N.
+  Number : PType ; -- Argument to mkConj ("NP and NP" plural; "NP or NP" singular), and special cases of mkN, where nominal attribute is included in the N.
   sg : Number ; -- Singular
   pl : Number ; -- Plural
 
-  Species : Type ; -- Argument to mkN.
+  Species : PType ; -- Argument to mkN.
   hum : Species ;  -- Human nouns (teacher, woman, brother, …)
   nohum : Species ; -- Any other nouns (house, dog, …)
 
-  Vowel : Type ; -- Argument to mkV, when constructing verbs of Form I.
+  Vowel : PType ; -- Argument to mkV, when constructing verbs of Form I.
   va : Vowel ; -- a (fatha) as the perfect or imperfect vowel, e.g. فعَل
   vi : Vowel ; -- i (kasra) as the perfect or imperfect vowel, e.g  فعِل
   vu : Vowel ; -- u (damma) as the perfect or imperfect vowel, e.g. فعُل
@@ -907,10 +907,6 @@ param VerbForm =
   FormI | FormII | FormIII | FormIV | FormV | FormVI | FormVII | FormVIII | FormX | FormXI ;
 
 
-
--- paradigms for Wiktionary extraction
----- TODO: better usage of information in Wiktionary
-
 oper
   wmkN = overload {
     wmkN : {sg, pl : Str ; g : Gender} -> N
@@ -999,6 +995,13 @@ oper
       = \r -> mkV r.root r.cls ;
     wmkV : {imperfect : Str} -> V
       = \r -> variants {} ; ---- mkV r.imperfect ; -- expects cls I
+    } ;
+
+  invarCard : Str -> Size -> NumOrdCard = \s,n -> {
+    s = \\_,_,_ => s ; n = n ; isNum = False
+    } ;
+  invarQuant : Str -> State -> Quant = \s,d -> lin Quant baseQuant ** {
+    s = \\_,_,_,_ => s ; d = d
     } ;
 
 } ;

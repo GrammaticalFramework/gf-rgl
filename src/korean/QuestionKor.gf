@@ -74,5 +74,27 @@ concrete QuestionKor of Question = CatKor ** open
     QuestQVP      : IP -> QVP -> QCl ;       -- who buys what where
 -}
 
+  lin
+    QuestCl cl = cl ;
+    QuestVP ip vp = predVP ip vp ;
+    QuestSlash ip cl = cl ** {
+      s = \\t,a,p,c => ip.s ! Object ++ cl.s ! t ! a ! p ! c
+      } ;
+    QuestIAdv adv cl = cl ** {
+      s = \\t,a,p,c => adv.s ++ cl.s ! t ! a ! p ! c
+      } ;
+    QuestIComp comp np = predVP np (VS.UseComp (emptyComp ** {
+      s = \\_ => comp.s
+      })) ;
+
+    IdetCN = NS.DetCN ;
+    IdetIP = NS.DetNP ;
+    AdvIP = NS.AdvNP ;
+    IdetQuant = NS.DetQuant ;
+    PrepIP prep ip = prepNP Bare prep ip ;
+    AdvIAdv a b = {s = a.s ++ b.s} ;
+    CompIAdv adv = adv ;
+    CompIP ip = {s = ip.s ! Bare} ;
+
 
 }

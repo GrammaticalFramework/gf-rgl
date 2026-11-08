@@ -1,12 +1,15 @@
 interface DiffHindustani = open Prelude in {
  oper
   addErgative : Str -> Str -> Str ;
+  ergativePron : (Case => Str) -> Agr -> Str ;
   conjThat : Str ; -- = "kh" ;
   insertSubj : UPerson -> Str -> Str ;
 
   kwd : Str ;
   ky : Str ;
   ka : Str ;
+  kE : Str ;
+  rh : Str ;
   agr : Str ; 
   awr : Str ; 
   jn : Str ; 

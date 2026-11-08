@@ -1,4 +1,5 @@
-concrete ConstructionEus of Construction = CatEus ** open ParadigmsEus in {
+concrete ConstructionEus of Construction = CatEus **
+  open Prelude, ResEus, ParadigmsEus, (G=GrammarEus) in {
 	
 lincat
   Timeunit = N ;
@@ -6,6 +7,63 @@ lincat
   Monthday = NP ;
   Month = N ;
   Year = NP ;
+
+lin
+  weekdayN w = w ;
+  monthN m = m ;
+
+  monday_Weekday = mkN "astelehen" ;
+  tuesday_Weekday = mkN "astearte" ;
+  wednesday_Weekday = mkN "asteazken" ;
+  thursday_Weekday = mkN "ostegun" ;
+  friday_Weekday = mkN "ostiral" ;
+  saturday_Weekday = mkN "larunbat" ;
+  sunday_Weekday = mkN "igande" ;
+
+  january_Month = mkN "urtarril" ;
+  february_Month = mkN "otsail" ;
+  march_Month = mkN "martxo" ;
+  april_Month = mkN "apiril" ;
+  may_Month = mkN "maiatz" ;
+  june_Month = mkN "ekain" ;
+  july_Month = mkN "uztail" ;
+  august_Month = mkN "abuztu" ;
+  september_Month = mkN "irail" ;
+  october_Month = mkN "urri" ;
+  november_Month = mkN "azaro" ;
+  december_Month = mkN "abendu" ;
+
+  weekdayPunctualAdv w = {s = w.s ++ artDef ! Sg ! Ine ! w.ph} ;
+  weekdayHabitualAdv w = {s = w.s ++ artDef ! Pl ! Ine ! w.ph} ;
+  weekdayNextAdv w = {s = "hurrengo" ++ w.s ++ artDef ! Sg ! Abs ! w.ph} ;
+  weekdayLastAdv w = {s = "joan den" ++ w.s ++ artDef ! Sg ! Abs ! w.ph} ;
+  monthAdv m = {s = m.s ++ artDef ! Sg ! Ine ! m.ph} ;
+  yearAdv y = {s = glue y.stem "an"} ;
+  intYear i = lin Year (invariantNP i.s) ;
+  intMonthday i = lin Monthday (invariantNP i.s) ;
+
+  ready_VP = G.UseComp (G.CompAP (G.PositA (mkA "prest"))) ;
+  has_age_VP card =
+    (useV {prc = \\_ => [] ; nstem = "izate" ; val = Du Ukan}) ** {
+      dobj = {s = \\_ => card.s ++ "urte" ; agr = Hauek ; isDef = True}
+      } ;
+
+  cup_of_CN np = G.PartNP (useN (mkNoun "kikara")) np ;
+
+  n_units_AP card unit a = {
+    s = \\_ => card.s ++ linCNIndef unit ++ a.s ! AF Posit ;
+    ph = a.ph ; typ = Bare
+    } ;
+
+  n_units_of_NP card unit np = lin NP (np ** {
+    s = \\c => card.s ++ linCNIndef unit ++ np.s ! c ;
+    stem = card.s ++ linCNIndef unit ++ np.stem ; agr = Hauek
+    }) ;
+
+oper
+  invariantNP : Str -> NP = \s -> lin NP {
+    s = \\_ => s ; stem = s ; agr = Hau ; anim = Inan ; isDef = True
+    } ;
 {-
 lin
 

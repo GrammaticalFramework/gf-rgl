@@ -126,7 +126,7 @@ param
   
 oper  
  Noun : Type = {s : SubstForm => Str} ;
- NounPhrase : Type = {s : RCase => Str; n : Number ; p : Person ; isPron : Bool ; isDef : Bool} ; 
+ NounPhrase : Type = {s : RCase => Str; n : Number ; p : Person ; isPron : Bool} ; 
 
 param 
  PronForm = PronCase RCase | PronPoss RCase ;

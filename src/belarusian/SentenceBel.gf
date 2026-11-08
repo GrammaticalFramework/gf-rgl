@@ -30,12 +30,12 @@ lin
 
   EmbedS s = {s = "што" ++ s.s} ;
   EmbedQS qs = {s = qs.s} ;
-  EmbedVP vp = {s = vp.inf} ;
+  EmbedVP vp = {s = vp.inf ! defaultAgr} ;
 
-  UseCl temp pol cl = {s = temp.s ++ pol.s ++ cl.s ! temp.t ! pol.p} ;
-  UseQCl temp pol cl = {s = temp.s ++ pol.s ++ cl.s ! temp.t ! pol.p} ;
-  UseRCl temp pol cl = {s = cl.s ! temp.t ! pol.p} ;
-  UseSlash temp pol cl = {s = cl.s ! temp.t ! pol.p; c = cl.c} ;
+  UseCl temp pol cl = {s = temp.s ++ pol.s ++ cl.s ! anteriorTense temp.t temp.a ! pol.p} ;
+  UseQCl temp pol cl = {s = temp.s ++ pol.s ++ cl.s ! anteriorTense temp.t temp.a ! pol.p} ;
+  UseRCl temp pol cl = {s = cl.s ! anteriorTense temp.t temp.a ! pol.p} ;
+  UseSlash temp pol cl = {s = cl.s ! anteriorTense temp.t temp.a ! pol.p; c = cl.c} ;
 
   AdvS adv s = {s = adv.s ++ s.s} ;
   ExtAdvS adv s = {s = adv.s ++ s.s} ;

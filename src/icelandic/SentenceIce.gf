@@ -46,6 +46,8 @@ concrete SentenceIce of Sentence = CatIce ** open Prelude, ResIce in {
 			} ;
 		} ;
 
+		AdvImp adv imp = {s = \\pol,num => adv.s ++ imp.s ! pol ! num} ;
+
 		--2 Embedded sentences
 
 		EmbedS ss = {s = "að" ++ ss.s} ;

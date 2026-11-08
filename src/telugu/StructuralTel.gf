@@ -1,159 +1,93 @@
 concrete StructuralTel of Structural = CatTel **
-  open MorphoTel, (P = ParadigmsTel), Prelude in {
+  open (P = ParadigmsTel), Prelude, ResTel in {
 
   flags optimize=all ;
 
   lin
+  above_Prep = P.mkPrep "పైన" ;
+  after_Prep = P.mkPrep "తర్వాత" ;
+  almost_AdA = P.mkAdA "దాదాపు" ;
+  almost_AdN = P.mkAdN "దాదాపు" ;
+  always_AdV = P.mkAdV "ఎల్లప్పుడూ" ;
+  as_CAdv = {s = "అంత" ; p = "గా"} ;
+  at_least_AdN = P.mkAdN "కనీసం" ;
+  at_most_AdN = P.mkAdN "గరిష్ఠంగా" ;
+  before_Prep = P.mkPrep "ముందు" ;
+  behind_Prep = P.mkPrep "వెనుక" ;
+  between_Prep = P.mkPrep "మధ్య" ;
   all_Predet = {s = "అన్ని"} ;
   although_Subj = {s = "అయినప్పటికీ"} ;
   and_Conj = {s1 = [] ; s2 = "మరియు" ; n = Pl} ;
   because_Subj = {s = "ఎందుకంటే"} ;
+  by8agent_Prep = P.mkPrep "చేత" ;
+  by8means_Prep = P.mkPrep "ద్వారా" ;
   either7or_DConj = {s1 = "గాని" ; s2 = "లేదా" ; n = Sg} ;
   both7and_DConj = {s1 = "రెండూ" ; s2 = "మరియు" ; n = Pl} ;
   every_Det = {s = \\_,_ => "ప్రతి" ; n = Sg} ;
+  during_Prep = P.mkPrep "సమయంలో" ;
+  everybody_NP = {s = \\_ => "అందరూ" ; a = Ag Masc Pl P3} ;
+  everything_NP = {s = \\_ => "అన్నీ" ; a = Ag Neutr Pl P3} ;
+  everywhere_Adv = P.mkAdv "ప్రతిచోటా" ;
+  except_Prep = P.mkPrep "తప్ప" ;
+  few_Det = {s = \\_,_ => "కొద్దిమంది" ; n = Pl} ;
+  for_Prep = P.mkPrep "కోసం" ;
+  from_Prep = P.mkPrep "నుండి" ;
   if_Subj = {s = "అయితే"} ;
+  how8many_IDet = {s = "ఎన్ని" ; n = Pl} ;
+  how8much_IAdv = {s = "ఎంత"} ;
+  how_IAdv = {s = "ఎలా"} ;
   it_Pron = {
-    s = table {PC Dir => "అది" ; PC Obl => "దాని" ; PObj => "దానిని" ; PPoss => "దాని"} ;
+    s = table {PC Dir => "అది" ; PC Obl => "దాని" ; PC Acc => "దానిని" ; PObj => "దానిని" ; PPoss => "దాని"} ;
     a = Ag Neutr Sg P3
     } ;
   or_Conj = {s1 = [] ; s2 = "లేదా" ; n = Sg} ;
+  more_CAdv = {s = "మరింత" ; p = "కంటే"} ;
+  most_Predet = {s = "చాలా వరకు"} ;
+  no_Quant = {s = \\_,_,_ => "ఏ"} ;
+  on_Prep = P.mkPrep "మీద" ;
+  only_Predet = {s = "మాత్రమే"} ;
+  please_Voc = {s = "దయచేసి"} ;
   she_Pron = {
-    s = table {PC Dir => "ఆమె" ; PC Obl => "ఆమె" ; PObj => "ఆమెను" ; PPoss => "ఆమె"} ;
+    s = table {PC Dir => "ఆమె" ; PC Obl => "ఆమె" ; PC Acc => "ఆమెను" ; PObj => "ఆమెను" ; PPoss => "ఆమె"} ;
     a = Ag Fem Sg P3
     } ;
-  that_Quant = {s = \\_,_,_ => "ఆ"} ;
+  that_Quant = {s = table {
+                      Sg => \\_,_ => "ఆ" ;
+                      Pl => \\_,_ => "ఆ"
+                    }
+               } ;
   that_Subj = {s = "అని"} ;
   they_Pron = personalPronoun P3 Pl ** {a = Ag Masc Pl P3} ;
-  this_Quant = {s = \\_,_,_ => "ఈ"} ;
+  this_Quant = {s = table {
+                      Sg => \\_,_ => "ఈ" ;
+                      Pl => \\_,_ => "ఈ"
+                    }
+               } ;
   very_AdA = {s = "చాలా"} ;
+  somebody_NP = {s = \\_ => "ఎవరో ఒకరు" ; a = Ag Masc Sg P3} ;
+  something_NP = {s = \\_ => "ఏదో ఒకటి" ; a = Ag Neutr Sg P3} ;
+  somewhere_Adv = P.mkAdv "ఎక్కడో" ;
+  through_Prep = P.mkPrep "ద్వారా" ;
+  to_Prep = P.mkPrep "కు" ;
+  too_AdA = P.mkAdA "మరీ" ;
+  under_Prep = P.mkPrep "కింద" ;
+  want_VV = P.mkVV (P.mkV "కోరు") ;
+  whatPl_IP = {s = \\_ => "ఏవి" ; n = Pl} ;
+  whatSg_IP = {s = \\_ => "ఏది" ; n = Sg} ;
+  when_IAdv = {s = "ఎప్పుడు"} ;
+  where_IAdv = {s = "ఎక్కడ"} ;
+  which_IQuant = {s = \\_ => "ఏ"} ;
+  whoPl_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"} ; n = Pl} ;
+  whoSg_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"} ; n = Sg} ;
+  why_IAdv = {s = "ఎందుకు"} ;
+  without_Prep = P.mkPrep "లేకుండా" ;
   when_Subj = {s = "అప్పుడు"} ;
   with_Prep = {s = "తో"} ;
   youSg_Pron = personalPronoun P2 Sg ** {a = Ag Masc Sg P2} ;
   youPl_Pron = personalPronoun P2 Pl ** {a = Ag Masc Pl P2} ;
   youPol_Pron = personalPronoun P2 Pl ** {a = Ag Masc Pl P2} ;
---  above_Prep = ss "above" ;
---  after_Prep = ss "after" ;
---  all_Predet = ss "all" ;
---  almost_AdA, almost_AdN = ss "almost" ;
---  although_Subj = ss "although" ;
---  always_AdV = ss "always" ;
---  and_Conj = sd2 [] "and" ** {n = Pl} ;
------b  and_Conj = ss "and" ** {n = Pl} ;
---  because_Subj = ss "because" ;
---  before_Prep = ss "before" ;
---  behind_Prep = ss "behind" ;
---  between_Prep = ss "between" ;
---  both7and_DConj = sd2 "both" "and" ** {n = Pl} ;
---  but_PConj = ss "but" ;
---  by8agent_Prep = ss "by" ;
---  by8means_Prep = ss "by" ;
---  can8know_VV, can_VV = {
---    s = table {
---      VVF VInf => ["be able to"] ;
---      VVF VPres => "can" ;
---      VVF VPPart => ["been able to"] ;
---      VVF VPresPart => ["being able to"] ;
---      VVF VPast => "could" ;      --# notpresent
---      VVPastNeg => "couldn't" ;   --# notpresent
---      VVPresNeg => "can't"
---      } ;
---    isAux = True
---    } ;
---  during_Prep = ss "during" ;
---  either7or_DConj = sd2 "either" "or" ** {n = Sg} ;
---  everybody_NP = regNP "everybody" Sg ;
---  every_Det = mkDeterminer Sg "every" ;
---  everything_NP = regNP "everything" Sg ;
---  everywhere_Adv = ss "everywhere" ;
---  few_Det = mkDeterminer Pl "few" ;
------  first_Ord = ss "first" ; DEPRECATED
---  for_Prep = ss "for" ;
---  from_Prep = ss "from" ;
   he_Pron = personalPronoun P3 Sg ** {a = Ag Masc Sg P3} ;
---  here_Adv = ss "here" ;
---  here7to_Adv = ss ["to here"] ;
---  here7from_Adv = ss ["from here"] ;
---  how_IAdv = ss "how" ;
---  how8many_IDet = mkDeterminer Pl ["how many"] ;
---  if_Subj = ss "if" ;
---  in8front_Prep = ss ["in front of"] ;
   i_Pron = personalPronoun P1 Sg ** {a = Ag Masc Sg P1} ;
   in_Prep = ss "లో" ;
---  it_Pron  = mkNP "it" "it" "its" Sg P3 Neutr ;
---  less_CAdv = ss "less" ;
---  many_Det = mkDeterminer Pl "many" ;
---  more_CAdv = ss "more" ;
---  most_Predet = ss "most" ;
---  much_Det = mkDeterminer Sg "much" ;
---  must_VV = {
---    s = table {
---      VVF VInf => ["have to"] ;
---      VVF VPres => "must" ;
---      VVF VPPart => ["had to"] ;
---      VVF VPresPart => ["having to"] ;
---      VVF VPast => ["had to"] ;      --# notpresent
---      VVPastNeg => ["hadn't to"] ;      --# notpresent
---      VVPresNeg => "mustn't"
---      } ;
---    isAux = True
---    } ;
------b  no_Phr = ss "no" ;
---  no_Utt = ss "no" ;
---  on_Prep = ss "on" ;
-------  one_Quant = mkDeterminer Sg "one" ; -- DEPRECATED
---  only_Predet = ss "only" ;
---  or_Conj = sd2 [] "or" ** {n = Sg} ;
---  otherwise_PConj = ss "otherwise" ;
---  part_Prep = ss "of" ;
---  please_Voc = ss "please" ;
---  possess_Prep = ss "of" ;
---  quite_Adv = ss "quite" ;
---  she_Pron = mkNP "she" "her" "her" Sg P3 Fem ;
---  so_AdA = ss "so" ;
---  somebody_NP = regNP "somebody" Sg ;
---  someSg_Det = mkDeterminer Sg "some" ;
---  somePl_Det = mkDeterminer Pl "some" ;
---  something_NP = regNP "something" Sg ;
---  somewhere_Adv = ss "somewhere" ;
---  that_Quant = mkQuant "that" "those" ;
---  there_Adv = ss "there" ;
---  there7to_Adv = ss "there" ;
---  there7from_Adv = ss ["from there"] ;
---  therefore_PConj = ss "therefore" ;
---  they_Pron = mkNP "they" "them" "their" Pl P3 Masc ; ----
---  this_Quant = mkQuant "this" "these" ;
---  through_Prep = ss "through" ;
---  too_AdA = ss "too" ;
---  to_Prep = ss "to" ;
---  under_Prep = ss "under" ;
---  very_AdA = ss "very" ;
---  want_VV = P.mkVV (P.regV "want") ;
   we_Pron = personalPronoun P1 Pl ** {a = Ag Masc Pl P1} ;
-
---  whatPl_IP = mkIP "what" "what" "what's" Sg ;
---  whatSg_IP = mkIP "what" "what" "what's" Sg ;
---  when_IAdv = ss "when" ;
---  when_Subj = ss "when" ;
---  where_IAdv = ss "where" ;
---  which_IQuant = {s = \\_ => "which"} ;
------b  whichPl_IDet = mkDeterminer Pl ["which"] ;
------b  whichSg_IDet = mkDeterminer Sg ["which"] ;
---  whoSg_IP = mkIP "who" "whom" "whose" Sg ;
---  whoPl_IP = mkIP "who" "whom" "whose" Pl ;
---  why_IAdv = ss "why" ;
---  without_Prep = ss "without" ;
---  with_Prep = ss "with" ;
------b  yes_Phr = ss "yes" ;
---  yes_Utt = ss "yes" ;
---  youSg_Pron = mkNP "you" "you" "your" Sg P2 Masc ;
---  youPl_Pron = mkNP "you" "you" "your" Pl P2 Masc ;
---  youPol_Pron = mkNP "you" "you" "your" Sg P2 Masc ;
---
---
---oper
---  mkQuant : Str -> Str -> {s : Number => Str} = \x,y -> {
---    s = table Number [x ; y]
---    } ;
---
 }
---

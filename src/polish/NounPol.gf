@@ -67,6 +67,37 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
       p = np.p
     };
 
+    ExtAdvNP np a = {
+      nom = np.nom ++ "," ++ a.s;
+      voc = np.voc ++ "," ++ a.s;
+      dep = \\c => np.dep ! c ++ "," ++ a.s;
+      gn = np.gn;
+      p = np.p
+    };
+
+--     PossNP : CN -> NP -> CN ;    -- house of Paris
+-- Polish nominal possessors follow the head noun and are genitive.
+    PossNP cn np = {
+      s = \\n,c => cn.s ! n ! c ++ np.dep ! GenNoPrep;
+      g = cn.g
+    };
+
+-- Partitives have a genitive complement: "szklanka wody", "kromka chleba".
+    PartNP cn np = {
+      s = \\n,c => cn.s ! n ! c ++ np.dep ! GenNoPrep;
+      g = cn.g
+    };
+
+-- Determiner-headed partitives: "kilku z nich", "niektórzy z uczniów".
+    CountNP det np = {
+      nom = det.s ! Nom ! (genGenNum np.gn) ++ "z" ++ np.dep ! GenPrep;
+      voc = det.s ! VocP ! (genGenNum np.gn) ++ "z" ++ np.dep ! GenPrep;
+      dep = \\cc => let c = extract_case ! cc in
+        det.s ! c ! (genGenNum np.gn) ++ "z" ++ np.dep ! GenPrep;
+      gn = accom_gennum ! <det.a, genGenNum np.gn, det.n>;
+      p = P3
+    };
+
 -- surface structures of NP formed with MassNP, DefArt and IndefArt are identical
     DefArt =   {s = \\_=>[] ; sp = (demPronTen "ten").sp }; 
     IndefArt = {s = \\_=>[] ; sp = jaki                  };
@@ -209,6 +240,15 @@ concrete NounPol of Noun = CatPol ** open ResPol, Prelude, PronounMorphoPol, Mor
     };
 
     DetDAP d = d ;
+
+-- In the pronominal use of a determiner the adjective supplies the lexical
+-- material: "ten obecny", "trzej mniejsi".
+    AdjDAP dap ap = dap ** {
+      s = \\c,g => dap.s ! c ! g ++
+        ap.s ! AF (cast_gennum ! <g,dap.n>) (accom_case ! <dap.a,c,g>);
+      sp = \\c,g => dap.sp ! c ! g ++
+        ap.s ! AF (cast_gennum ! <g,dap.n>) (accom_case ! <dap.a,c,g>)
+    };
 
     QuantityNP n m = {
       nom,voc = preOrPost m.isPre m.s n.s;

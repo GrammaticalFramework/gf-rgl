@@ -3,6 +3,7 @@
 concrete LangIna of Lang = 
   GrammarIna,
   LexiconIna,
+  ConstructionIna,
   DocumentationIna
   ** {
 

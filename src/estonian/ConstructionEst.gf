@@ -34,6 +34,13 @@ lin
         x_inches_AdA : AdA = lin AdA (mkUtt x_inches_NP) ;
      in mkAP x_inches_AdA <lin A a : A> ;
 
+  n_units_of_NP card cn np =
+    mkNP (mkNP <lin Card card : Card> <lin CN cn : CN>)
+         (SyntaxEst.mkAdv part_Prep <lin NP np : NP>) ;
+
+  cup_of_CN np =
+    mkCN (lin N2 (mkN2 (mkN "tass") (casePrep partitive))) <lin NP np : NP> ;
+
 {-
   glass_of_CN  np =  mkCN (lin N2 (mkN2 (mkN "klaas") (casePrep partitive))) (lin NP np) | mkCN (lin N2 (mkN2 (mkN "klaasitäis") (casePrep partitive))) (lin NP np) ;
 

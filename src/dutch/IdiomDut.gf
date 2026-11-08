@@ -32,6 +32,11 @@ concrete IdiomDut of Idiom = CatDut **
               }
       } ;
 
+    ExistNPAdv np adv =
+      mkClause "er" (agrP3 np.a.n)
+        (insertAdv adv.s
+          (insertObj (\\_ => np.s ! NPNom) (predV zijn_V))) ;
+
     ProgrVP vp = let vpi = infVP True vp in
       insertAdv ("aan het" ++ vpi.inf ++ vpi.ext)
         (insertObj vpi.obj (compV zijn_V)) ;

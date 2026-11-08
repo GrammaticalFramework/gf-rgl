@@ -1,8 +1,9 @@
---# -path=.:../scandinavian:../abstract:../common:../prelude
+--# -path=.:../scandinavian:../abstract:../common:../prelude:../api
 
 concrete LangNno of Lang =
   GrammarNno,
   LexiconNno
+  ,ConstructionNno
   ,DocumentationNno --# notpresent
   ** {
 

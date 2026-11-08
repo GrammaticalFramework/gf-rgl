@@ -34,6 +34,24 @@ lin
     -- an Adv, and *"π zbiór pusty przecina" is marked at best.
     AdvVP vp adv = setSufix vp (\\p,gn => vp.sufix ! p ! gn ++ adv.s);
 
+-- Variants of adverb attachment used by the extended grammar.  Keep the
+-- missing object slot of VPSlash intact while changing only word order.
+    ExtAdvVP vp adv = setSufix vp
+      (\\p,gn => vp.sufix ! p ! gn ++ "," ++ adv.s);
+
+    AdvVPSlash vps adv = vps ** {
+      sufix = \\p,gn => vps.sufix ! p ! gn ++ adv.s
+      };
+
+    AdVVPSlash adv vps = vps ** {
+      prefix = adv.s ++ vps.prefix
+      };
+
+    VPSlashPrep vp prep = vp ** {
+      c = prep;
+      postfix = \\_,_ => ""
+      };
+
 --     AdVVP    : AdV -> VP -> VP ;        -- always sleep
     AdVVP adV vp = setPrefix vp (vp.prefix ++ adV.s);
 
@@ -56,7 +74,9 @@ lin
     
 --     UseComp  : Comp -> VP ;            -- be warm
     UseComp c = setImienne (setSufix (defVP {si = \\_=>[]; sp = \\_=>[]; 
-        asp = Imperfective; refl = ""; ppartp,pparti= record2table empty11forms
+        asp = Imperfective; refl = "";
+        ppartp,pparti,apart = record2table empty11forms;
+        ger = \\_ => ""
         })
         (\\_,gn => c.s!gn))
         True;
@@ -110,13 +130,13 @@ lin
     
     
 oper 
-    castv2 : (Verb ** { c:Complement }) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti};
+    castv2 : (Verb ** { c:Complement }) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti; apart=v2.apart; ger=v2.ger};
     
-    castv3 : (Verb ** { c,c2:Complement }) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti};
+    castv3 : (Verb ** { c,c2:Complement }) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti; apart=v2.apart; ger=v2.ger};
   
-    castva : (Verb ** { c:{c:Case; s:Str}}) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti};
+    castva : (Verb ** { c:{c:Case; s:Str}}) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti; apart=v2.apart; ger=v2.ger};
   
-    castv2a : (Verb ** { c:{c:Case; s:Str}; c2:Complement}) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti};
+    castv2a : (Verb ** { c:{c:Case; s:Str}; c2:Complement}) -> Verb = \v2 -> {si=v2.si;sp=v2.sp;asp=v2.asp;refl=v2.refl; ppartp=v2.ppartp; pparti=v2.pparti; apart=v2.apart; ger=v2.ger};
     
   defVP : Verb -> VerbPhrase = \v -> { 
         prefix  = "";
@@ -187,4 +207,3 @@ oper
     };
     
 } ;
-

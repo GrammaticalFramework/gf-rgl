@@ -1,9 +1,13 @@
-concrete ConjunctionBel of Conjunction = CatBel ** open ResBel in {
+concrete ConjunctionBel of Conjunction = CatBel ** open ResBel, Prelude in {
 
 lin
   ConjS conj xs = {s = xs.s1 ++ conj.s ++ xs.s2} ;
   ConjRS conj xs = {s = xs.s1 ++ conj.s ++ xs.s2} ;
-  ConjAP conj xs = {s = \\c,gn => xs.s1 ! c ! gn ++ conj.s ++ xs.s2 ! c ! gn} ;
+  ConjAP conj xs = {
+    s = \\c,gn => xs.s1 ! c ! gn ++ conj.s ++ xs.s2 ! c ! gn;
+    adv = xs.adv1 ++ conj.s ++ xs.adv2;
+    post = False
+  } ;
   ConjNP conj xs = {
     s = \\c => xs.s1 ! c ++ conj.s ++ xs.s2 ! c ;
     a = {g=Masc; n=conj.n; p=P3}
@@ -39,8 +43,13 @@ lin
     s1 = \\c => x.s ! c ++ "," ++ xs.s1 ! c ;
     s2 = xs.s2
   } ;
-  BaseAP x y = {s1 = x.s; s2 = y.s} ;
-  ConsAP x xs = {s1 = \\c,gn => x.s ! c ! gn ++ "," ++ xs.s1 ! c ! gn; s2 = xs.s2} ;
+  BaseAP x y = {s1 = x.s; s2 = y.s; adv1 = x.adv; adv2 = y.adv} ;
+  ConsAP x xs = {
+    s1 = \\c,gn => x.s ! c ! gn ++ "," ++ xs.s1 ! c ! gn;
+    s2 = xs.s2;
+    adv1 = x.adv ++ "," ++ xs.adv1;
+    adv2 = xs.adv2
+  } ;
   BaseCN x y = {s1 = x.s; s2 = y.s; voc = x.voc ++ "," ++ y.voc; g = x.g} ;
   ConsCN x xs = {s1 = \\c,n => x.s ! c ! n ++ "," ++ xs.s1 ! c ! n; s2 = xs.s2; voc = x.voc ++ "," ++ xs.voc; g = xs.g} ;
   BaseDAP x y = {s1 = x.s; s2 = y.s} ;
@@ -53,7 +62,7 @@ lincat
   [AdV] = {s1,s2 : Str} ;
   [IAdv] = {s1,s2 : Str} ;
   [NP] = {s1,s2 : Case => Str} ;
-  [AP] = {s1,s2 : Case => GenNum => Str} ;
+  [AP] = {s1,s2 : Case => GenNum => Str; adv1,adv2 : Str} ;
   [CN] = {s1,s2 : Case => Number => Str; voc : Str; g : Gender} ;
   [DAP] = {s1,s2 : Case => Gender => Str} ;
 

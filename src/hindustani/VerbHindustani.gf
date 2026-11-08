@@ -32,6 +32,8 @@ incomplete concrete VerbHindustani of Verb = CatHindustani ** open CommonHindust
     AdvVP vp adv = insertAdV (adv.s ! Masc) vp ;
 
     AdVVP adv vp = insertAdV adv.s vp ;
+
+    ExtAdvVP vp adv = insertAdV (comma ++ adv.s ! Masc) vp ;
     
     AdvVPSlash vp adv = insertObj (\\a => adv.s ! giveGender a) vp ** {c2 = vp.c2} ; --need to confirm
 

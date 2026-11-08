@@ -27,6 +27,12 @@ oper
     mkN : (noun,counter : Str) -> NumOrigin -> N ; -- Noun, classifier and origin of numerals. E.g. `mkN "사람" "명" nativeKorean`
   } ;
 
+  mkN2 : overload {
+    mkN2 : Str -> N2 ;
+    mkN2 : N -> N2 ;
+    mkN2 : N -> Prep -> N2 ;
+  } ;
+
 --2 Adjectives
 
   mkA : overload {
@@ -58,27 +64,30 @@ oper
   mkV2 : overload {
     mkV2 : (plain : Str) -> V2 ; -- Regular verb. Takes plain, uninflected -다 form, subject particle is 가/이  and object particle is 를/을.
     mkV2 : V -> V2 ; -- Takes preconstructed V, subject particle is 가/이  and object particle is 를/을.
+    mkV2 : V -> CaseParticle -> V2 ; -- Takes preconstructed V and a case particle for its complement.
+    mkV2 : V -> Prep -> V2 ; -- Takes preconstructed V and a postposition for its complement.
     mkV2 : V -> (subj,obj : CaseParticle) -> V2 ; -- Takes preconstructed V, and subject and object particles. E.g. `mkV2 좋다_V topic subject` for "as for <SUBJ>는, <OBJ>가 is good".
     } ;
 
   -- mkV3 : overload {
   --   } ;
 
-  -- mkVV : overload {
-  --  } ;
+  mkVA  : V -> VA ;
+  mkVV : overload {
+    mkVV : V -> VV ;
+    mkVV : V -> CaseParticle -> VV ;
+    mkVV : V -> Prep -> VV ;
+  } ;
+  mkVS  : V -> VS ;
+  mkVQ  : V -> VQ ;
+  mkV2A : V -> V2A ;
+  mkV2V : overload {
+    mkV2V : V -> V2V ;
+    mkV2V : V -> CaseParticle -> V2V ;
+    mkV2V : V -> Prep -> V2V ;
+  } ;
+  mkV2S : V -> V2S ;
 
-  --
-  -- mkVA : Str -> VA
-  --   = \s -> lin VA (regV s) ;
-  -- mkVQ : Str -> VQ
-  --   = \s -> lin VQ (regV s) ;
-  -- mkVS : Str -> VS
-  --   = \s -> lin VS (regV s) ;
-  --
-  -- mkV2A : Str -> V2A
-  --   = \s -> lin V2A (regV s ** {c2 = noPrep}) ;
-  -- mkV2V : Str -> V2V
-  --   = \s -> lin V2V (regV s ** {c2 = noPrep}) ;
   -- mkV2Q : Str -> V2Q
   --   = \s -> lin V2Q (regV s ** {c2 = noPrep}) ;
 
@@ -106,6 +115,8 @@ oper
 
   mkAdA : Str -> AdA
     = \s -> lin AdA {s = s} ;
+
+  mkAdN : Str -> AdN ;
 
 
 --.
@@ -135,8 +146,9 @@ oper
      in lin N (noun ** {c = counter}) ;
 
   mkN2 = overload {
-    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s) ;
-    mkN2 : N   -> N2 = \n -> lin N2 n ;
+    mkN2 : Str -> N2 = \s -> lin N2 (mkNoun s ** {p2 = emptyPP}) ;
+    mkN2 : N -> N2 = \n -> lin N2 (n ** {p2 = emptyPP}) ;
+    mkN2 : N -> Prep -> N2 = \n,p -> lin N2 (n ** {p2 = p}) ;
    } ;
 
   -- mkPN = overload {
@@ -145,11 +157,21 @@ oper
   mkA = overload {
     mkA : (adj : Str) -> A = \s -> lin A (mkAdj s) ;
     mkA : (kiga : Str) -> (jakda : A) -> A = \kiga,jakda ->
-      jakda ** {s = \\af => kiga ++ jakda.s ! af} ;
+      jakda ** {
+        s = \\af => kiga ++ jakda.s ! af ;
+        past = \\p => kiga ++ jakda.past ! p ;
+        pastAttr = \\p => kiga ++ jakda.pastAttr ! p ;
+        futureAttr = \\p => kiga ++ jakda.futureAttr ! p
+        } ;
     mkA : (plain,polite,formal,attr : Str) -> A
       = \x1,x2,x3,x4 -> lin A (mkAdjReg x1 x2 x3 x4) ;
     mkA : (jaemi : Str) -> (itda : V) -> A
-      = \jaemi,itda -> lin A (itda ** {s = \\vf => jaemi ++ itda.s ! vf}) ;
+      = \jaemi,itda -> lin A (itda ** {
+        s = \\vf => jaemi ++ itda.s ! vf ;
+        past = \\p => jaemi ++ itda.past ! p ;
+        pastAttr = \\p => jaemi ++ itda.pastAttr ! p ;
+        futureAttr = \\p => jaemi ++ itda.futureAttr ! p
+        }) ;
     } ;
 
   mkA2 = overload {
@@ -164,7 +186,11 @@ oper
   mkV = overload {
     mkV : (plain : Str) -> V = \v -> lin V (mkVerb v) ;
     mkV : (nore : Str) -> (hada : V) -> V = \nore,hada -> hada ** {
-      s = \\vf => nore + hada.s ! vf} ;
+      s = \\vf => nore + hada.s ! vf ;
+      past = \\p => nore + hada.past ! p ;
+      pastAttr = \\p => nore + hada.pastAttr ! p ;
+      futureAttr = \\p => nore + hada.futureAttr ! p
+      } ;
     mkV : (plain,polite,formal,attr : Str) -> V
      = \x1,x2,x3,x4 -> lin V (mkVerbReg x1 x2 x3 x4) ;
   } ;
@@ -177,16 +203,39 @@ oper
   mkV2 = overload {
     mkV2 : (plain : Str) -> V2 = \v2 -> lin V2 (mkVerb2 v2) ;
     mkV2 : V -> V2 = \v -> lin V2 (vtov2 v) ;
+    mkV2 : V -> CaseParticle -> V2 = \v,c2 ->
+      lin V2 (vtov2 v ** {c2 = c2}) ;
     mkV2 : V -> (subj,obj : CaseParticle) -> V2 = \v,sc,c2 ->
       lin V2 (vtov2 v ** {sc = sc ; c2 = c2}) ;
+    mkV2 : V -> Prep -> V2 = \v,p2 ->
+      lin V2 (vtov2 v ** {c2 = Bare ; p2 = p2}) ;
     } ;
 
   mkV3 = overload {
     mkV3 : (plain : Str) -> V3 = \v3 -> lin V3 (mkVerb3 v3) ;
     } ;
-  --
-  -- mkVV = overload {
-  --  } ;
+
+  mkVA  = \v -> lin VA v ;
+  mkVV = overload {
+    mkVV : V -> VV = \v -> lin VV (vtov2 v) ;
+    mkVV : V -> CaseParticle -> VV = \v,c2 ->
+      lin VV (vtov2 v ** {c2 = c2}) ;
+    mkVV : V -> Prep -> VV = \v,p2 ->
+      lin VV (vtov2 v ** {c2 = Bare ; p2 = p2}) ;
+  } ;
+  mkVS  = \v -> lin VS v ;
+  mkVQ  = \v -> lin VQ v ;
+  mkV2A = \v -> lin V2A (v ** {c2=Object; p2={s=\\_=>""; attaches=False}}) ;
+  mkV2V = overload {
+    mkV2V : V -> V2V = \v -> lin V2V (vtov2 v) ;
+    mkV2V : V -> CaseParticle -> V2V = \v,c2 ->
+      lin V2V (vtov2 v ** {c2 = c2}) ;
+    mkV2V : V -> Prep -> V2V = \v,p2 ->
+      lin V2V (vtov2 v ** {c2 = Bare ; p2 = p2}) ;
+  } ;
+  mkV2S = \v -> lin V2S (v ** {c2=Object; p2={s=\\_=>""; attaches=False}}) ;
+
+  mkAdN = \s -> lin AdN {s=s} ;
 
   mkPrep = overload {
     mkPrep : (e : Str) -> Prep  -- Particle like 에, attaches to the NP.

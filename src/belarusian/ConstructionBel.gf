@@ -6,7 +6,7 @@ lincat
 oper
   adjVP : Adj -> VPhrase = \a -> {
     s = \\t,p,agr => copula t p agr ++ a.s ! Nom ! genNum agr.g agr.n ;
-    inf = "быць" ++ a.s ! Nom ! GSg Masc ;
+    inf = \\agr => "быць" ++ a.s ! Nom ! genNum agr.g agr.n ;
     imp = \\p,_ => neg p ++ "будзь" ++ a.s ! Nom ! GSg Masc
   } ;
 
@@ -19,7 +19,7 @@ lin
   ready_VP = adjVP (mkA "гатовы") ;
   has_age_VP card = {
     s = \\t,p,a => copula t p a ++ card.s ++ "гадоў" ;
-    inf = card.s ++ "гадоў" ;
+    inf = \\_ => card.s ++ "гадоў" ;
     imp = \\p,_ => neg p ++ card.s ++ "гадоў"
   } ;
 
@@ -33,7 +33,7 @@ lin
   is_right_VP = adjVP (mkA "правы") ;
   is_wrong_VP = adjVP (mkA "няправы") ;
 
-  n_units_AP card cn a = {s = \\c,gn => card.s ++ cn.s ! Gen ! Pl ++ a.s ! c ! gn} ;
+  n_units_AP card cn a = {s = \\c,gn => card.s ++ cn.s ! Gen ! Pl ++ a.s ! c ! gn; adv = card.s ++ cn.s ! Gen ! Pl ++ a.adv; post = a.post} ;
   n_units_of_NP card cn np = mkSimpleNP (card.s ++ cn.s ! Gen ! Pl ++ np.s ! Gen) Neuter Sg P3 ;
   n_unit_CN card unit cn = nounFromStr (card.s ++ unit.s ! Nom ! Pl ++ cn.s ! Nom ! Sg) cn.g ;
 

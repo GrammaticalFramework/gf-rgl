@@ -1,10 +1,10 @@
---# -path=.:../abstract:../common:../prelude
+--# -path=.:../abstract:../common:../prelude:../api
 
 concrete LangLat of Lang = 
   GrammarLat,
   ParadigmsLat,
   LexiconLat
---  ConstructionLat
+  ,ConstructionLat --# notpresent
   ,DocumentationLat --# notpresent
   ** {
 

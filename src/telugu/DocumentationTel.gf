@@ -103,17 +103,19 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Infinitive" ++ td (verb.s ! VInf)) ++
         tr (th "Stem" ++ td (verb.s ! VStem)) ++
         tr (th "Absolutive" ++ td (verb.s ! VAbs)) ++
-        tr (th "Request" ++ td (verb.s ! VReq)) ++
-        tr (th "Imperative" ++ td (verb.s ! VImp)) ++
-        tr (th "Future request" ++ td (verb.s ! VReqFut))
+        tr (th "Imperative" ++ td (verb.s ! VImp Sg Pos)) ++
+        tr (th "Request" ++ td (verb.s ! VImp Pl Pos))
         ) ++
-      heading2 "Imperfect" ++ genderNumberTable verb VImpf ++
-      heading2 "Perfect" ++ genderNumberTable verb VPerf ++
-      heading2 "Subjunctive" ++ personTable verb VSubj ++
+      heading2 "Past" ++
+        heading3 "Masculine" ++ personTable verb (\n,p -> VPast (Ag Masc n p)) ++
+        heading3 "Feminine" ++ personTable verb (\n,p -> VPast (Ag Fem n p)) ++
+        heading3 "Neuter" ++ personTable verb (\n,p -> VPast (Ag Neutr n p)) ++
+      heading2 "Subjunctive" ++
+        personTable verb VSubj ++
       heading2 "Future" ++
-        heading3 "Masculine" ++ futureTable verb Masc ++
-        heading3 "Feminine" ++ futureTable verb Fem ++
-        heading3 "Neuter" ++ futureTable verb Neutr ;
+        heading3 "Masculine" ++ personTable verb (\n,p -> VFuture Pos (Ag Masc n p)) ++
+        heading3 "Feminine" ++ personTable verb (\n,p -> VFuture Pos (Ag Fem n p)) ++
+        heading3 "Neuter" ++ personTable verb (\n,p -> VFuture Pos (Ag Neutr n p)) ;
 
     genderNumberTable : Verb -> (Gender -> Number -> VForm) -> Str = \verb,form ->
       frameTable (
@@ -130,10 +132,4 @@ concrete DocumentationTel of Documentation = CatTel ** open
         tr (th "Pl" ++ td (verb.s ! form Pl P1) ++ td (verb.s ! form Pl P2) ++ td (verb.s ! form Pl P3))
         ) ;
 
-    futureTable : Verb -> Gender -> Str = \verb,gender ->
-      frameTable (
-        tr (th "" ++ th "P1" ++ th "P2" ++ th "P3") ++
-        tr (th "Sg" ++ td (verb.s ! VFut Sg P1 gender) ++ td (verb.s ! VFut Sg P2 gender) ++ td (verb.s ! VFut Sg P3 gender)) ++
-        tr (th "Pl" ++ td (verb.s ! VFut Pl P1 gender) ++ td (verb.s ! VFut Pl P2 gender) ++ td (verb.s ! VFut Pl P3 gender))
-        ) ;
 }

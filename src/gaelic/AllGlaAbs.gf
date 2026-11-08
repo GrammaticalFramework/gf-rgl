@@ -1,3 +1,4 @@
 abstract AllGlaAbs =
-  Lang
+  Lang,
+  Extend
   ** {}

@@ -48,9 +48,9 @@ concrete AdjectiveKor of Adjective = CatKor **
 -- phrases, although the semantics is only clear for some adjectives.
 
   -- : AP -> SC -> AP ;  -- good that she is here
-  -- SentAP ap sc = ap ** {
-    -- s = \\af => ap.s ! af ++ sc.s
-    -- } ;
+  SentAP ap sc = ap ** {
+    compar = sc.s ++ ap.compar
+    } ;
 
 -- An adjectival phrase can be modified by an *adadjective*, such as "very".
 
@@ -61,6 +61,6 @@ concrete AdjectiveKor of Adjective = CatKor **
 -- It can also be postmodified by an adverb, typically a prepositional phrase.
 
   -- : AP -> Adv -> AP ; -- warm by nature
-  -- AdvAP  ap adv = ap ** {} ;
+  AdvAP ap adv = ap ** {compar = adv.s ++ ap.compar} ;
 
 }

@@ -15,7 +15,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, Prelude in {
 ---- Sentence
 --
     Cl = Clause ;
-    ClSlash = Clause ;
+    ClSlash = Clause ** {c2 : Preposition} ;
     Imp = {s : Polarity => VImpForm => Str} ;
 --
 ---- Question
@@ -57,7 +57,10 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, Prelude in {
     Ord = { s : Gender => Number => Case => Str } ;
     Num  = {s : Gender => Case => Str ; n : Number} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
+    ACard = {s : Str} ;
     Quant = Quantifier ;
+    DAP = Determiner ;
+    SSlash = Sentence ** {c2 : Preposition} ;
 --
 ---- Numeral
 --
@@ -91,6 +94,7 @@ concrete CatLat of Cat = CommonX-[Adv] ** open ResLat, Prelude in {
     A2 = Adjective ** { c : Prep} ;
 
   linref
+    Cl = \cl -> defaultSentence (combineClause "" cl Pres Simul Pos VQFalse) ! SOV ;
     NP = \np -> combineNounPhrase np ! PronNonDrop ! APreN ! DPostN ! Nom ; 
     VP = \vp -> vp.adv ++ vp.inf !  VInfActPres ++ vp.obj ++ vp.compl ! Ag Masc Sg Nom ;
     S = \s -> defaultSentence s ! SOV ;

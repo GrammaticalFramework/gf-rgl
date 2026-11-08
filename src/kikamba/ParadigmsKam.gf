@@ -9,7 +9,7 @@ resource ParadigmsKam = open
   in {
 
 oper
-  Gender : Type ; 
+  Gender : PType ;
   mu_a   : Gender ;
   mu_mi  : Gender ;
   i_ma   : Gender ;
@@ -21,7 +21,7 @@ oper
   u_n    : Gender ;
   ku_ma  : Gender ;
 
-  Number : Type ; 
+  Number : PType ;
   singular : Number ; 
   plural   : Number ;
 
@@ -383,7 +383,10 @@ mkN2 = overload {
   };
 
  
-  prefixV : Str -> V -> V = \p,v -> lin V { s = \\b,vform => p + v.s! b ! vform } ;
+  prefixV : Str -> V -> V = \p,v -> lin V {
+    s = \\b,vform => p + v.s ! b ! vform ;
+    passive = \\b,vform => p + v.passive ! b ! vform
+    } ;
   mkV2 = overload {
     mkV2  : V -> V2 = dirV2 ;
     mkV2  : Str -> V2 = \s -> dirV2 (regV s) ;

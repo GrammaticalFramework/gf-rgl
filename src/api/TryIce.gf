@@ -1,6 +1,6 @@
 --# -path=.:../icelandic:../common:../abstract:../prelude
 
-resource TryIce = SyntaxIce-[mkVoc], LexiconIce, ParadigmsIce - [mkAdv,mkAdN,mkOrd,mkVoc] **
+resource TryIce = SyntaxIce-[mkVoc], LexiconIce, ParadigmsIce - [mkAdv,mkAdN,mkOrd,mkCard,mkQuant,mkDet,mkIDet,mkVoc] **
   open (P = ParadigmsIce) in {
 
 oper

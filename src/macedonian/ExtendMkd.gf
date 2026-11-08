@@ -11,6 +11,15 @@ lincat
   RNP = {s : Agr => Role => Str; a : Agr; isPron : Bool} ;
   RNPList = {s : Agr => Ints 4 => Role => Str; a : Agr} ;
 
+oper
+  partAdj : Str -> GenNum -> Str = \base,gn ->
+    case gn of {
+      GSg Masc   => base ;
+      GSg Fem    => base ++ BIND ++ "а" ;
+      GSg Neuter => base ++ BIND ++ "о" ;
+      GPl        => base ++ BIND ++ "и"
+    } ;
+
 lin
   GenModNP num np cn = DetCN (DetQuant DefArt num) (PossNP cn np) ;
 
@@ -51,13 +60,13 @@ lin
   } ;
 
   PastPartAP vps = {
-    s = \\_,gn => vps.participle.adjectival ! Perfective ++
+    s = \\_,gn => partAdj (vps.participle.adjectival ! Perfective) gn ++
                   vps.compl ! {g = gn; p = P3} ;
     isPre = False
   } ;
 
   PastPartAgentAP vps np = {
-    s = \\_,gn => vps.participle.adjectival ! Perfective ++
+    s = \\_,gn => partAdj (vps.participle.adjectival ! Perfective) gn ++
                   vps.compl ! {g = gn; p = P3} ++
                   "од" ++ np.s ! RPrep ;
     isPre = False
@@ -73,8 +82,9 @@ lin
                     perfect = \\_ => nonExist ;
                     adjectival = \\_ => nonExist ;
                     adverbial = nonExist} ;
-      noun_from_verb = nonExist ;
-      compl = \\agr => vps.participle.adjectival ! Perfective ++ vps.compl ! agr ;
+      noun_from_verb = "бидување" ;
+      compl = \\agr => partAdj (vps.participle.adjectival ! Perfective) agr.g ++
+                        vps.compl ! agr ;
       vtype = VNormal
     } ;
 
@@ -88,8 +98,9 @@ lin
                     perfect = \\_ => nonExist ;
                     adjectival = \\_ => nonExist ;
                     adverbial = nonExist} ;
-      noun_from_verb = nonExist ;
-      compl = \\agr => vps.participle.adjectival ! Perfective ++ vps.compl ! agr ++
+      noun_from_verb = "бидување" ;
+      compl = \\agr => partAdj (vps.participle.adjectival ! Perfective) agr.g ++
+                        vps.compl ! agr ++
                        "од" ++ np.s ! RPrep ;
       vtype = VNormal
     } ;
@@ -140,14 +151,16 @@ lin
                  vp.compl ! {g = GSg Neuter; p = P3}} ;
   WithoutVP vp = {s = "без" ++ vp.noun_from_verb ++ BIND ++ "то" ++
                       vp.compl ! {g = GSg Neuter; p = P3}} ;
-  InOrderToVP vp = {s = "за да" ++ vp.present ! Perfective ! Sg ! P3 ++
+  InOrderToVP vp = {s = "за да" ++ medialClitic vp.vtype ++
+                         vp.present ! Perfective ! Sg ! P3 ++
                          vp.compl ! {g = GSg Masc; p = P3}} ;
 
   ComplBareVS vs s = vs ** {compl = \\_ => s.s} ;
   ComplSlashPartLast = ComplSlash ;
 
   UttVPShort vp = {
-    s = vp.imperative ! Perfective ! Sg ++ vp.compl ! {g = GSg Masc; p = P2}
+    s = vp.imperative ! Perfective ! Sg ++ medialClitic vp.vtype ++
+        vp.compl ! {g = GSg Masc; p = P2}
   } ;
 
   BaseVPS x y = {s = \\a => table {4 => y.s ! a; _ => x.s ! a}} ;
@@ -174,7 +187,8 @@ lin
     }
   } ;
   MkVPI vp = {
-    s = \\agr => "да" ++ vp.present ! Perfective ! genNum2num agr.g ! agr.p ++ vp.compl ! agr
+    s = \\agr => "да" ++ medialClitic vp.vtype ++
+                        vp.present ! Perfective ! genNum2num agr.g ! agr.p ++ vp.compl ! agr
   } ;
   ConjVPI conj vpi = {
     s = \\agr => linCoord [] ! conj.sep ++

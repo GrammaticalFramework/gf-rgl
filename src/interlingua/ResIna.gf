@@ -216,6 +216,7 @@ resource ResIna = ParamX ** open Prelude in {
       rest : Agr => Str;          -- comes after the infinite part
       clitics : Agr => Str;       -- can be placed just before the finite or right after the infinite
       prp : Str ;          -- present participle (unused at the moment ???)
+      part : Str ;         -- past participle, needed by passive constructions
       inf : Str ;          -- the infinitive form ; VerbForms would be the logical place
       } ;
     NP : Type = {
@@ -238,6 +239,7 @@ resource ResIna = ParamX ** open Prelude in {
 	 Anter => \\t,use_irreg => {fin = (haberV!use_irreg).s ! (tenseToVFrom!t); inf = (verb!use_irreg).s!VPPart} --# notpresent
 	};
       prp = (verb!False).s ! VPresPart;
+      part = (verb!False).s ! VPPart;
       inf = (verb!False).s ! VInf;
       };
 
@@ -263,12 +265,14 @@ resource ResIna = ParamX ** open Prelude in {
 	True => {
 	  inf = vp.inf;
 	  prp = vp.prp;
+	  part = vp.part;
 	  s = vp.s;
 	  clitics = \\agr => obj.s!agr!c ++ vp.clitics!agr; -- clitics are inserted in reverse order.
 	  rest = vp.rest};
 	False => {
 	  inf = vp.inf;
 	  prp = vp.prp;
+	  part = vp.part;
 	  s = vp.s;
 	  clitics = vp.clitics;
 	  rest = \\agr => vp.rest!agr ++ prep ++ obj.s!agr!c;

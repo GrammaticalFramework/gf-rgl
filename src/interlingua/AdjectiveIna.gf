@@ -49,6 +49,11 @@ concrete AdjectiveIna of Adjective = CatIna ** open ResIna, Prelude in {
       isPre = ap.isPre
       } ;
 
+    AdvAP ap adv = {
+      s = \\a => ap.s ! a ++ adv.s ;
+      isPre = False
+      } ;
+
     UseA2 a = {
       s = \\_ => a.s ! AAdj Posit ;
 --      isPre = a.isPre -- TODO: support adjectives that can be optionally placed before.

@@ -53,7 +53,15 @@ concrete VerbTha of Verb = CatTha ** open ResTha, StringsTha, Prelude in {
 
     AdvVP vp adv = insertObj adv vp ;
 
+    ExtAdvVP vp adv = insertObj adv vp ;
+
     AdVVP adv vp = insertObj adv vp ; 
+
+    VPSlashPrep vp prep = vp ** {c2 = prep.s} ;
+
+    AdvVPSlash vp adv = insertObj adv vp ** {c2 = vp.c2} ;
+
+    AdVVPSlash adv vp = insertObj adv vp ** {c2 = vp.c2} ;
     
     ReflVP vp = insertObj (mkNP (thbind vp.c2 reflPron)) vp ;
 

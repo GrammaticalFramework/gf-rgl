@@ -52,7 +52,43 @@ lin pot3plus n m = {s = \\t,num,c => case n.n of {
 			       } ++ "bin" ++ m.s ! t ! num ! c; n = Pl} ;
 
 lin pot3as4 n = n ;
+lin pot41 = {
+  s = \\t,num,c => "bir" ++ (mkNum "milyon" "milyon").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
+lin pot4 n = {
+  s = \\t,num,c => n.s ! NCard ! Sg ! Nom ++
+                    (mkNum "milyon" "milyon").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
+lin pot4plus n m = {
+  s = \\t,num,c => n.s ! NCard ! Sg ! Nom ++ "milyon" ++ m.s ! t ! num ! c;
+  n = Pl
+} ;
 lin pot4as5 n = n ;
+lin pot4decimal d = {
+  s = \\t,num,c => d.s ! NCard ! Sg ! Nom ++
+                    (mkNum "milyon" "milyon").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
+lin pot51 = {
+  s = \\t,num,c => "bir" ++ (mkNum "milyar" "milyar").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
+lin pot5 n = {
+  s = \\t,num,c => n.s ! NCard ! Sg ! Nom ++
+                    (mkNum "milyar" "milyar").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
+lin pot5plus n m = {
+  s = \\t,num,c => n.s ! NCard ! Sg ! Nom ++ "milyar" ++ m.s ! t ! num ! c;
+  n = Pl
+} ;
+lin pot5decimal d = {
+  s = \\t,num,c => d.s ! NCard ! Sg ! Nom ++
+                    (mkNum "milyar" "milyar").s ! unit ! t ! num ! c;
+  n = Pl
+} ;
 
 
 lincat

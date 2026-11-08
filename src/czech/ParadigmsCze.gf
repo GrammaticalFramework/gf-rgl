@@ -40,8 +40,19 @@ oper
   mkN = overload {
     mkN : (nom : Str) -> N
       = \nom -> lin N (guessNounForms nom) ;
+    -- Select a default paradigm; mixed endings and stem alternations may
+    -- still need lexical overrides on the result.
     mkN : (nom,gen : Str) -> Gender -> N
       = \nom,gen,g -> lin N (declensionNounForms nom gen g) ;
+    } ;
+
+  mkN2 : N -> Prep -> N2 = \n,c -> lin N2 (n ** {c2 = c}) ;
+
+  mkPN = overload {
+    -- Indeclinable name: every case uses the supplied string.
+    mkPN : Str -> Gender -> PN = \s,g -> lin PN {s = \\_ => s ; g = g} ;
+    -- Inflected name: use the noun paradigm's singular cases and gender.
+    mkPN : N -> PN = \n -> lin PN {s = (nounFormsNoun n).s ! Sg ; g = n.g} ;
     } ;
 
 -- The following standard declensions can be used with good accuracy.
@@ -81,66 +92,200 @@ oper
 -- The full definition of the noun record is
 -- {
 --  snom,sgen,sdat,sacc,svoc,sloc,sins, pnom,pgen,pdat,pacc,ploc,pins : Str ;
---  g : Gender
+--  g,gPl : Gender
 -- }
 
 
 ---------------------
 -- Adjectives
 
--- Only positive forms so far ----
+-- Guess regular comparison; supply a principal part for exceptions, or
+-- nonExist as the comparative for a positive-only adjective.
 
   mkA = overload {
     mkA : Str -> A
-      = \s -> lin A (guessAdjForms s) ;
+      = \s -> lin A (degreeAdjForms s (guessComparative s)) ;
+    mkA : (positive,comparative : Str) -> A
+      = \p,c -> lin A (degreeAdjForms p c) ;
     } ;
 
+  -- Declension constructors supply positive forms only.
   mladyA : Str -> A
-    = \s -> lin A (mladyAdjForms s) ;
+    = \s -> lin A (positiveAdj (mladyAdjForms s)) ;
   jarniA : Str -> A
-    = \s -> lin A (jarniAdjForms s) ;
+    = \s -> lin A (positiveAdj (jarniAdjForms s)) ;
   otcuvA : Str -> A
-    = \s -> lin A (otcuvAdjForms s) ;
+    = \s -> lin A (positiveAdj (otcuvAdjForms s)) ;
   matcinA : Str -> A
-    = \s -> lin A (matcinAdjForms s) ;
+    = \s -> lin A (positiveAdj (matcinAdjForms s)) ;
 
   invarA : Str -> A
-    = \s -> lin A (invarAdjForms s) ;
+    = \s -> lin A (positiveAdj (invarAdjForms s)) ;
+
+  -- Short adjectives supply predicates, not attributive AP forms.
+  shortAP : (m,f,n,mp,fp,np : Str) -> AP = \m,f,n,mp,fp,np ->
+    let ap : Adjective = {
+    s = \\g,num,c => case <num,c,g> of {
+      <Sg,Nom|ResCze.Voc,Masc _> => m ; <Sg,Nom|ResCze.Voc,Fem> => f ; <Sg,Nom|ResCze.Voc,Neutr> => n ;
+      <Pl,Nom|ResCze.Voc,Masc Anim> => mp ; <Pl,Nom|ResCze.Voc,Neutr> => np ;
+      <Pl,Nom|ResCze.Voc,_> => fp ; _ => nonExist
+      }
+    } in lin AP {
+      s = \\_,_,_ => nonExist ; pred = shortPredicate ap ; isPost = True
+      } ;
 
   mkA2 : A -> Prep -> A2
-    = \a,p -> lin A2 (a ** {c = p}) ;
+      = \a,p -> lin A2 (a ** {c = p}) ;
 
 -------------------------
 -- Verbs
 
+  -- Class constructors, not guesses from an arbitrary infinitive.
+  -- kupovat: -ovat, -uji, -oval, -uj; kryt: -ýt/-ít, -yji/-iji, -yl/-il.
+  kupovatV : Str -> V = \s -> lin V (iii_kupovatVerbForms s) ;
+  krytV : Str -> V = \s -> lin V (iii_krýtVerbForms s) ;
+
+  -- Full present and imperative forms, with masculine singular/plural past
+  -- participles. Keep this twelve-field input compatible as VerbForms grows.
+  -- Storing past participles does not yet implement past-tense clauses.
+  VerbPrincipalParts : Type = PositiveVerbForms ;
+
+  mkV = overload {
+    mkV : VerbPrincipalParts -> V = \v -> lin V (withNeg v) ;
+    mkV : (inf,p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,pastsg,pastpl,imp2sg,imp1pl,imp2pl : Str) -> V =
+      \inf,p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,pastsg,pastpl,imp2sg,imp1pl,imp2pl -> lin V (withNeg {
+        inf = inf ; pressg1 = p1sg ; pressg2 = p2sg ; pressg3 = p3sg ;
+        prespl1 = p1pl ; prespl2 = p2pl ; prespl3 = p3pl ;
+        pastpartsg = pastsg ; pastpartpl = pastpl ;
+        impsg2 = imp2sg ; imppl1 = imp1pl ; imppl2 = imp2pl
+        }) ;
+    mkV : Str -> V = \s -> lin V (mkVerb s) ;
+    } ;
+
+  -- Lexical reflexive clitics. The case-based interface accepts only Acc/Dat.
+  seV : V -> V = \v -> reflV v Acc ;
+  siV : V -> V = \v -> reflV v Dat ;
+  reflV : V -> Case -> V = \v,c ->
+    let base : V = case v.inf of {
+          -- Stát and stát se are distinct irregular lexemes.  Selecting the
+          -- latter here lets generated lexica keep the compositional seV API.
+          "stát" => lin V statSeVerbForms ;
+          _ => v
+          }
+    in base ** {
+      isRefl = True ; refl = case c of {Dat => "si" ; _ => "se"}
+      } ;
+
+  mkVS : V -> VS = \v -> lin VS v ;
+  mkVQ : V -> VQ = \v -> lin VQ v ;
+  -- Ordinary VV: the infinitive retains its own clitic domain.
+  mkVV : V -> VV = \v -> lin VV (v ** {isAux = False}) ;
+  -- Modals allow their infinitive's clitics in the finite clause. A lexical
+  -- reflexive on the matrix verb blocks this climbing.
+  mkModalVV : V -> VV = \v -> lin VV (v ** {isAux = notB v.isRefl}) ;
+  -- Third-person singular gender selects personal and possessive forms.
+  -- A no-op keeps lexical overrides; conversion uses the standard target forms.
+  genderPron : Gender -> Pron -> Pron = \g,p -> case p.a of {
+    Ag old Sg P3 => case <g,old> of {
+      <Fem,Fem> | <Neutr,Neutr> |
+      <Masc Anim,Masc Anim> | <Masc Inanim,Masc Inanim> => p ;
+      _ => lin Pron ((mkPron (Ag g Sg P3)) ** {isDrop = p.isDrop})
+      } ;
+    _ => p ** {
+      a = case p.a of {Ag _ n person => Ag g n person ; AgPol _ => AgPol g ; AgQuant _ => AgQuant g} ;
+      nom = case p.a of {
+        Ag _ Pl P3 => (personalPron (Ag g Pl P3)).nom ; _ => p.nom
+        }
+      }
+    } ;
+
   mkV2 = overload {
-    mkV2 : VerbForms -> VerbForms ** {c : ComplementCase}
-      = \vf -> vf ** {c = {s = [] ; c = Acc ; hasPrep = False}} ;
-    mkV2 : VerbForms -> Case -> VerbForms ** {c : ComplementCase}
-      = \vf,c -> vf ** {c = {s = [] ; c = c ; hasPrep = False}} ;
-    mkV2 : VerbForms -> ComplementCase -> VerbForms ** {c : ComplementCase}
-      = \vf,c -> vf ** {c = c} ;
+    mkV2 : V -> V2
+      = \v -> lin V2 (v ** {c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+    mkV2 : V -> Case -> V2
+      = \v,c -> lin V2 (v ** {c = {s = [] ; c = c ; hasPrep = False}}) ;
+    mkV2 : V -> Prep -> V2
+      = \v,p -> lin V2 (v ** {c = p}) ;
+    mkV2 : Str -> V2
+      = \s -> lin V2 ((mkVerb s) ** {
+          c = {s = [] ; c = Acc ; hasPrep = False}
+          }) ;
     } ;
 
   mkV3 = overload {
-    mkV3 : VerbForms -> VerbForms ** {c,c2 : ComplementCase}
-      = \vf -> vf ** {c = {s = [] ; c = Acc ; hasPrep = False} ;
-                      c2 = {s = [] ; c = Dat ; hasPrep = False}} ;
-    mkV3 : VerbForms -> ComplementCase -> ComplementCase -> VerbForms ** {c,c2 : ComplementCase}
-      = \vf,c,c2 -> vf ** {c = c ; c2 = c2} ;
+    mkV3 : V -> V3
+      = \v -> lin V3 (v ** {c = {s = [] ; c = Acc ; hasPrep = False} ;
+                           c2 = {s = [] ; c = Dat ; hasPrep = False}}) ;
+    mkV3 : V -> Prep -> Prep -> V3
+      = \v,p,p2 -> lin V3 (v ** {c = p ; c2 = p2}) ;
+    mkV3 : Str -> V3
+      = \s -> lin V3 ((mkVerb s) ** {
+          c = {s = [] ; c = Acc ; hasPrep = False} ;
+          c2 = {s = [] ; c = Dat ; hasPrep = False}
+          }) ;
     } ;
 
 ------------------------
 -- Adverbs, prepositions, conjunctions, ...
+ 
+  mkAdA : Str -> AdA
+    = \s -> lin AdA {s = s} ;
 
   mkAdv : Str -> Adv
     = \s -> lin Adv {s = s} ;
 
-  mkPrep : Str -> Case -> Prep
-    = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ; ---- True if s /= ""
+  mkPrep = overload {
+    -- Bare case government: use this instead of mkPrep "" c.
+    mkPrep : Case -> Prep
+      = \c -> lin Prep {s = [] ; c = c ; hasPrep = False} ;
+    -- Overt preposition, possibly with token-dependent allomorphs.
+    mkPrep : Str -> Case -> Prep
+      = \s,c -> lin Prep {s = s ; c = c ; hasPrep = True} ;
+    } ;
+
+  -- The same vocalization applies to locative and accusative v.
+  v_Prep : Case -> Prep = \c -> mkPrep vPreposition c ;
 
   mkConj : Str -> Conj
     = \s -> lin Conj {s1 = [] ; s2 = s} ;
+
+------------------------
+-- Generic lexical constructors
+
+  mkVerb : Str -> VerbForms = guessVerbForms ;
+
+  mkCardinal : Str -> Card = \s -> lin Card (invarDeterminer s Num5) ;
+  mkDeterminer : Str -> Det = \s -> lin Det (invarDeterminer s Num5) ;
+  mkQuant : Str -> Quant = \s ->
+    lin Quant (adjFormsAdjective (guessAdjForms s)) ;
+
+  mkACard : Str -> ACard = \s -> lin ACard {s = s} ;
+  mkAdN : Str -> AdN = \s -> lin AdN {s = s} ;
+  mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
+  mkCAdv : Str -> CAdv = \s -> lin CAdv {s = s; p = []} ;
+  mkDConj : Str -> Conj = \s -> lin Conj {s1 = [] ; s2 = s} ;
+  mkGN : Str -> GN = \s -> lin GN {s = s} ;
+  mkIAdv : Str -> IAdv = \s -> lin IAdv {s = s} ;
+  mkIDet : Str -> IDet = \s -> lin IDet {s = \\_,_=>s; size=Num1; head=CountedHead} ;
+  mkIPron : Str -> IP = \s -> lin IP {s = \\_=>s; a = Ag (Masc Anim) Sg P3} ;
+  mkIQuant : Str -> IQuant = \s -> lin IQuant {s = \\_,_,_=>s} ;
+  mkInterj : Str -> Interj = \s -> lin Interj {s = s} ;
+  mkLN : Str -> LN = \s -> lin LN {s = s} ;
+  mkMU : Str -> MU = \s -> lin MU {s = s; isPre=False} ;
+  mkPConj : Str -> PConj = \s -> lin PConj {s = s} ;
+  mkPredet : Str -> Predet = \s -> lin Predet {s = \\_,_,_=>s; postPron = False} ;
+  mkSN : Str -> SN = \s -> lin SN {s = s} ;
+  mkSubj : Str -> Subj = \s -> lin Subj {s = s} ;
+  mkVA : Str -> VA = \s -> lin VA (mkVerb s) ;
+  mkV2A : Str -> V2A = \s -> lin V2A ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2Q : Str -> V2Q = \s -> lin V2Q ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2S : Str -> V2S = \s -> lin V2S ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkV2V : Str -> V2V = \s -> lin V2V ((mkVerb s) ** {
+    c = {s = [] ; c = Acc ; hasPrep = False}}) ;
+  mkVoc : Str -> CatCze.Voc = \s -> lin Voc {s = s} ;
 
 
 }

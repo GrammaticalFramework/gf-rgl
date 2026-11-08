@@ -54,24 +54,24 @@ mkN002 base =
                                  Gen => base_1+"s"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"ð" ;
-                                 Acc => base_1+"ð" ;
-                                 Dat => base_1+"num" ;
-                                 Gen => base_1+"sins"
+                                 Nom => base_1 ;
+                                 Acc => base_1 ;
+                                 Dat => base_1+"um" ;
+                                 Gen => base_1+"a"
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"ð" ;
+                               Acc => base_1+"ð" ;
+                               Dat => base_1+"num" ;
+                               Gen => base_1+"sins"
                              } ;
                        Pl => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"ni" ;
+                               Acc => base_1+"ni" ;
+                               Dat => base_1+"unum" ;
+                               Gen => base_1+"anna"
                              }
                      }
             } ;
@@ -249,24 +249,24 @@ mkN007 base =
                                  Gen => base_1+"ar"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"in" ;
-                                 Acc => base_1+"ina" ;
-                                 Dat => base_1+"ini" ;
-                                 Gen => base_1+"arinnar"
+                                 Nom => base_1+"ir" ;
+                                 Acc => base_1+"ir" ;
+                                 Dat => base_1+"um" ;
+                                 Gen => base_1+"a"
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"in" ;
+                               Acc => base_1+"ina" ;
+                               Dat => base_1+"ini" ;
+                               Gen => base_1+"arinnar"
                              } ;
                        Pl => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"irnar" ;
+                               Acc => base_1+"irnar" ;
+                               Dat => base_1+"unum" ;
+                               Gen => base_1+"anna"
                              }
                      }
             } ;
@@ -288,24 +288,24 @@ mkN008 base =
                                  Gen => base_1+"s"
                                } ;
                          Pl => table {
-                                 Nom => base_1+"ið" ;
-                                 Acc => base_1+"ið" ;
-                                 Dat => base_1+"inum" ;
-                                 Gen => base_1+"sins"
+                                 Nom => base_1 ;
+                                 Acc => base_1 ;
+                                 Dat => base_1+"um" ;
+                                 Gen => base_1+"a"
                                }
                        } ;
               Def => table {
                        Sg => table {
-                               Nom => base_1+"in" ;
-                               Acc => base_1+"in" ;
+                               Nom => base_1+"ið" ;
+                               Acc => base_1+"ið" ;
                                Dat => base_1+"inum" ;
                                Gen => base_1+"sins"
                              } ;
                        Pl => table {
-                               Nom => nonExist ;
-                               Acc => nonExist ;
-                               Dat => nonExist ;
-                               Gen => nonExist
+                               Nom => base_1+"ini" ;
+                               Acc => base_1+"ini" ;
+                               Dat => base_1+"unum" ;
+                               Gen => base_1+"anna"
                              }
                      }
             } ;
@@ -6637,6 +6637,7 @@ mkA001 base =
   case base of {
     base_1+"dur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"dur" ;
@@ -6679,7 +6680,9 @@ mkA001 base =
                                  Gen => base_1+"da"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA001"
   } ;
@@ -6689,6 +6692,7 @@ mkA002 base =
   case base of {
     base_1+"a"+base_2@(?+?)+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"ur" ;
@@ -6731,7 +6735,9 @@ mkA002 base =
                                  Gen => base_1+"a"+base_2+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA002"
   } ;
@@ -6741,6 +6747,7 @@ mkA003 base =
   case base of {
     base_1+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ur" ;
@@ -6783,7 +6790,9 @@ mkA003 base =
                                  Gen => base_1+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA003"
   } ;
@@ -6793,6 +6802,7 @@ mkA004 base =
   case base of {
     base_1+"a"+base_2@?+"u"+base_3@? => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"u"+base_3 ;
@@ -6835,7 +6845,9 @@ mkA004 base =
                                  Gen => base_1+"a"+base_2+base_3+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA004"
   } ;
@@ -6845,6 +6857,7 @@ mkA005 base =
   case base of {
     "a"+base_1+"lur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => "a"+base_1+"lur" ;
@@ -6887,7 +6900,9 @@ mkA005 base =
                                  Gen => "a"+base_1+"la"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA005"
   } ;
@@ -6897,6 +6912,7 @@ mkA006 base =
   case base of {
     base_1+"nur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"nur" ;
@@ -6939,7 +6955,9 @@ mkA006 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA006"
   } ;
@@ -6949,6 +6967,7 @@ mkA007 base =
   case base of {
     base_1+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ur" ;
@@ -6991,7 +7010,9 @@ mkA007 base =
                                  Gen => base_1+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA007"
   } ;
@@ -7001,6 +7022,7 @@ mkA008 base =
   case base of {
     base_1+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ur" ;
@@ -7043,7 +7065,9 @@ mkA008 base =
                                  Gen => base_1+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA008"
   } ;
@@ -7053,6 +7077,7 @@ mkA009 base =
   case base of {
     base_1+"in" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"in" ;
@@ -7095,7 +7120,9 @@ mkA009 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA009"
   } ;
@@ -7105,6 +7132,7 @@ mkA010 base =
   case base of {
     base_1+"ður" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ður" ;
@@ -7147,7 +7175,9 @@ mkA010 base =
                                  Gen => base_1+"ða"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA010"
   } ;
@@ -7157,6 +7187,7 @@ mkA011 base =
   case base of {
     base_1+"tur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"tur" ;
@@ -7199,7 +7230,9 @@ mkA011 base =
                                  Gen => base_1+"ta"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA011"
   } ;
@@ -7209,6 +7242,7 @@ mkA012 base =
   case base of {
     base_1+"gvin" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"gvin" ;
@@ -7251,7 +7285,9 @@ mkA012 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA012"
   } ;
@@ -7261,6 +7297,7 @@ mkA013 base =
   case base of {
     base_1+"gur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"gur" ;
@@ -7303,7 +7340,9 @@ mkA013 base =
                                  Gen => base_1+"ga"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA013"
   } ;
@@ -7313,6 +7352,7 @@ mkA014 base =
   case base of {
     base_1+"ddur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ddur" ;
@@ -7355,7 +7395,9 @@ mkA014 base =
                                  Gen => base_1+"dda"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA014"
   } ;
@@ -7365,6 +7407,7 @@ mkA015 base =
   case base of {
     base_1+"a"+base_2@("ng"|"m"|(?+?+?))+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"ur" ;
@@ -7407,7 +7450,9 @@ mkA015 base =
                                  Gen => base_1+"a"+base_2+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA015"
   } ;
@@ -7417,6 +7462,7 @@ mkA016 base =
   case base of {
     base_1+"mur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"mur" ;
@@ -7459,7 +7505,9 @@ mkA016 base =
                                  Gen => base_1+"madimra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA016"
   } ;
@@ -7469,6 +7517,7 @@ mkA017 base =
   case base of {
     base_1+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ur" ;
@@ -7511,7 +7560,9 @@ mkA017 base =
                                  Gen => base_1+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA017"
   } ;
@@ -7521,6 +7572,7 @@ mkA018 base =
   case base of {
     base_1+"kur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"kur" ;
@@ -7563,7 +7615,9 @@ mkA018 base =
                                  Gen => base_1+"kadøkra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA018"
   } ;
@@ -7573,6 +7627,7 @@ mkA019 base =
   case base of {
     base_1+"tin" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"tin" ;
@@ -7615,7 +7670,9 @@ mkA019 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA019"
   } ;
@@ -7625,6 +7682,7 @@ mkA020 base =
   case base of {
     base_1+"a"+base_2@?+"dur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"dur" ;
@@ -7667,7 +7725,9 @@ mkA020 base =
                                  Gen => base_1+"a"+base_2+"da"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA020"
   } ;
@@ -7677,6 +7737,7 @@ mkA021 base =
   case base of {
     base_1+"a"+base_2@?+"lur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"lur" ;
@@ -7719,7 +7780,9 @@ mkA021 base =
                                  Gen => base_1+"a"+base_2+"la"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA021"
   } ;
@@ -7729,6 +7792,7 @@ mkA022 base =
   case base of {
     base_1+"a"+base_2@?+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"ur" ;
@@ -7771,7 +7835,9 @@ mkA022 base =
                                  Gen => base_1+"a"+base_2+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA022"
   } ;
@@ -7781,6 +7847,7 @@ mkA023 base =
   case base of {
     base_1+"rin" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"rin" ;
@@ -7823,7 +7890,9 @@ mkA023 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA023"
   } ;
@@ -7833,6 +7902,7 @@ mkA024 base =
   case base of {
     base_1+"lur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"lur" ;
@@ -7875,7 +7945,9 @@ mkA024 base =
                                  Gen => base_1+"lafulra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA024"
   } ;
@@ -7885,6 +7957,7 @@ mkA025 base =
   case base of {
     base_1+"a"+base_2@?+"a"+base_3@? => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"a"+base_3 ;
@@ -7927,7 +8000,9 @@ mkA025 base =
                                  Gen => base_1+"a"+base_2+base_3+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA025"
   } ;
@@ -7937,6 +8012,7 @@ mkA026 base =
   case base of {
     base_1+"óður" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"óður" ;
@@ -7979,7 +8055,9 @@ mkA026 base =
                                  Gen => base_1+"óða"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA026"
   } ;
@@ -7989,6 +8067,7 @@ mkA027 base =
   case base of {
     base_1+"ei"+base_2@?+"a"+base_3@?+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ei"+base_2+"a"+base_3+"ur" ;
@@ -8031,7 +8110,9 @@ mkA027 base =
                                  Gen => base_1+"ei"+base_2+"a"+base_3+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA027"
   } ;
@@ -8041,6 +8122,7 @@ mkA028 base =
   case base of {
     base_1+"pin" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"pin" ;
@@ -8083,7 +8165,9 @@ mkA028 base =
                                  Gen => base_1+"na"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA028"
   } ;
@@ -8093,6 +8177,7 @@ mkA029 base =
   case base of {
     base_1+"a"+base_2@?+"sur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"sur" ;
@@ -8135,7 +8220,9 @@ mkA029 base =
                                  Gen => base_1+"a"+base_2+"sa"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA029"
   } ;
@@ -8145,6 +8232,7 @@ mkA030 base =
   case base of {
     base_1+"ddur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ddur" ;
@@ -8187,7 +8275,9 @@ mkA030 base =
                                  Gen => base_1+"dda"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA030"
   } ;
@@ -8197,6 +8287,7 @@ mkA031 base =
   case base of {
     base_1+"a"+base_2@?+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"ur" ;
@@ -8239,7 +8330,9 @@ mkA031 base =
                                  Gen => base_1+"a"+base_2+"alatra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA031"
   } ;
@@ -8249,6 +8342,7 @@ mkA032 base =
   case base of {
     base_1+"ðin" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ðin" ;
@@ -8291,7 +8385,9 @@ mkA032 base =
                                  Gen => base_1+"dna"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA032"
   } ;
@@ -8301,6 +8397,7 @@ mkA033 base =
   case base of {
     base_1+"ggjur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"ggjur" ;
@@ -8343,7 +8440,9 @@ mkA033 base =
                                  Gen => base_1+"ggja"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA033"
   } ;
@@ -8353,6 +8452,7 @@ mkA034 base =
   case base of {
     base_1+"a"+base_2@?+"ur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"a"+base_2+"ur" ;
@@ -8395,7 +8495,9 @@ mkA034 base =
                                  Gen => base_1+"a"+base_2+"amakra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA034"
   } ;
@@ -8405,6 +8507,7 @@ mkA035 base =
   case base of {
     base_1+"il" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"il" ;
@@ -8447,7 +8550,9 @@ mkA035 base =
                                  Gen => base_1+"la"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA035"
   } ;
@@ -8457,6 +8562,7 @@ mkA036 base =
   case base of {
     base_1+"lur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"lur" ;
@@ -8499,7 +8605,9 @@ mkA036 base =
                                  Gen => base_1+"la"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA036"
   } ;
@@ -8509,6 +8617,7 @@ mkA037 base =
   case base of {
     base_1+"gvur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"gvur" ;
@@ -8551,7 +8660,9 @@ mkA037 base =
                                  Gen => base_1+"gva"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA037"
   } ;
@@ -8561,6 +8672,7 @@ mkA038 base =
   case base of {
     base_1+"u"+base_2@? => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"u"+base_2 ;
@@ -8603,7 +8715,9 @@ mkA038 base =
                                  Gen => base_1+base_2+"a"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA038"
   } ;
@@ -8613,6 +8727,7 @@ mkA039 base =
   case base of {
     base_1+"rur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"rur" ;
@@ -8655,7 +8770,9 @@ mkA039 base =
                                  Gen => base_1+"ra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA039"
   } ;
@@ -8665,6 +8782,7 @@ mkA040 base =
   case base of {
     base_1+"lur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"lur" ;
@@ -8707,7 +8825,9 @@ mkA040 base =
                                  Gen => base_1+"lavilra"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA040"
   } ;
@@ -8717,6 +8837,7 @@ mkA041 base =
   case base of {
     base_1+"sur" => lin A
       { s = table {
+          Strong => table {
               Masc => table {
                         Sg => table {
                                 Nom => base_1+"sur" ;
@@ -8759,7 +8880,9 @@ mkA041 base =
                                  Gen => base_1+"sa"
                                }
                        }
-            }
+            } ;
+          Weak => weakAdjForms base
+        }
       };
     _ => error "Can't apply paradigm mkA041"
   } ;
@@ -8902,8 +9025,8 @@ mkV005 base =
     base_1+"a"+base_2@(?+?) => lin V
       { Converb = base_1+"a"+base_2 ;
         imperative = table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1+base_2 ;
+                               Pl => base_1+"i"+base_2
                              } ;
         Indicative = table {
                        Pres => table {
@@ -10882,8 +11005,8 @@ mkV065 base =
     base_1+"u"+base_2@?+"na" => lin V
       { Converb = base_1+"u"+base_2+"nað" ;
         imperative = table {
-                               Sg => nonExist ;
-                               Pl => nonExist
+                               Sg => base_1+"u"+base_2+"n" ;
+                               Pl => base_1+"u"+base_2+"nið"
                              } ;
         Indicative = table {
                        Pres => table {

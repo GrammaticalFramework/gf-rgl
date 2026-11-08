@@ -47,7 +47,7 @@ concrete CatAfr of Cat =
     NP = {s : NPCase => Str ; a : Agr ; isPron : Bool} ;
     Pron = Pronoun ;
 
-    Det = {s,sp : Gender => Str ; n : Number ; a : Adjf} ;
+    Det,DAP = {s,sp : Gender => Str ; n : Number ; a : Adjf} ;
     Quant = {
       s  : Bool => Number => Gender => Str ; 
       sp : Number => Gender => Str ; 
@@ -56,6 +56,7 @@ concrete CatAfr of Cat =
     Predet = {s : Number => Gender => Str} ;
     Num = {s : Str ; n : Number ; isNum : Bool} ;
     Card = {s : Gender => Case => Str ; n : Number} ;
+    ACard = {s : Str} ;
     Ord = {s : AForm => Str} ;
 
 -- Numeral

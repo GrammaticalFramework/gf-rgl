@@ -4,6 +4,11 @@ oper
   singular : Number = Sg ;
   plural   : Number = Pl ;
 
+  nominative : Case = Nom ;
+  accusative : Case = Acc ;
+  dative     : Case = Dat ;
+  ablative   : Case = Ablat ;
+
 oper
   regN : Str -> N   -- s;Indef;Nom;Sg
     = \form -> case form of {
@@ -1199,6 +1204,39 @@ oper
 		_ => regV form1
   } ;
 
+irregV : (p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,impSg,impPl,part : Str) -> V =
+    \p1sg,p2sg,p3sg,p1pl,p2pl,p3pl,impSg,impPl,part -> lin V {
+      indicative = table {
+        Pres => table {
+          Sg => table {P1 => p1sg ; P2 => p2sg ; P3 => p3sg} ;
+          Pl => table {P1 => p1pl ; P2 => p2pl ; P3 => p3pl}
+        } ;
+        _ => table {
+          Sg => table {P1 => p1sg ; P2 => p2sg ; P3 => p3sg} ;
+          Pl => table {P1 => p1pl ; P2 => p2pl ; P3 => p3pl}
+        }
+      } ;
+      imperative = table {Sg => impSg ; Pl => impPl} ;
+      participle = part ;
+      pres_optative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      perf_optative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      pres_admirative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      imperf_admirative = \\n,p => case <n,p> of {
+        <Sg,P1>=>p1sg; <Sg,P2>=>p2sg; <Sg,P3>=>p3sg;
+        <Pl,P1>=>p1pl; <Pl,P2>=>p2pl; <Pl,P3>=>p3pl
+      } ;
+      vtype = VNormal
+    } ;
+
 mkN = overload {
   mkN : Str -> N = regN;   -- s;Indef;Nom;Sg
   mkN : Str -> Str -> N = reg2N   -- s;Indef;Nom;Sg  s;Indef;Nom;Pl
@@ -1230,6 +1268,19 @@ mkV = overload {
   mkV : Str -> V = regV;   -- Indicative;Pres;Sg;P1
   mkV : Str -> Str -> V = reg2V   -- Indicative;Pres;Sg;P1  participle
 } ;
+
+compoundV : V -> Str -> V = \v,adv -> lin V {
+  indicative = \\t,n,p => v.indicative ! t ! n ! p ++ adv ;
+  imperative = \\n => v.imperative ! n ++ adv ;
+  participle = v.participle ++ adv ;
+  pres_optative = \\n,p => v.pres_optative ! n ! p ++ adv ;
+  perf_optative = \\n,p => v.perf_optative ! n ! p ++ adv ;
+  pres_admirative = \\n,p => v.pres_admirative ! n ! p ++ adv ;
+  imperf_admirative = \\n,p => v.imperf_admirative ! n ! p ++ adv ;
+  vtype = v.vtype
+} ;
+
+reflV : V -> V = \v -> v ** {vtype=VRefl} ;
 
 mkV2 = overload {
   mkV2 : V -> V2 = \v -> lin V2 v ** {c2=noPrep} ;
@@ -1273,9 +1324,9 @@ mkAdN : Str -> AdN = \s -> lin AdN {s=s} ;
 mkCAdv : Str -> CAdv = \s -> lin CAdv {s=s; p=""} ;
 
 mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
-mkIP : Str -> IP = \s -> lin IP {s=s} ;
-mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
-mkIDet : Str -> IDet = \s -> lin IDet {s=s} ;
+mkIP : Str -> IP = \s -> lin IP {s=s; a={gn=GSg Masc; p=P3}} ;
+mkIQuant : Str -> IQuant = \s -> lin IQuant {s=\\_=>s} ;
+mkIDet : Str -> IDet = \s -> lin IDet {s=\\_=>s; n=Sg} ;
 
 mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
 
@@ -1283,7 +1334,13 @@ mkVoc : Str -> Voc = \s -> lin Voc {s=s} ;
 mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
 
-oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
+mkQuant = overload {
+  mkQuant : Str -> Quant = \s -> lin Quant {
+    s  = \\_,_,_ => s ;
+    sp = Indef ;
+    isPoss = False
+  } ;
+  mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16 ->  lin Quant
           { s = table {
                   Nom => table {
@@ -1327,10 +1384,19 @@ oper mkQuant : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Quant =
                                     }
                            }
                 } ;
-            sp = Indef
-          } ;
+            sp = Indef ;
+            isPoss = False
+          }
+} ;
 
-oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
+mkDet = overload {
+  mkDet : Str -> Number -> Det = \s,n -> lin Det {
+    s  = \\_,_ => s ;
+    post = \\_,_,_ => [] ;
+    sp = Indef ;
+    n  = n
+  } ;
+  mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
        \f1,f2,f3,f4,f5,f6,f7,f8,n -> lin Det
           { s = table {
                   Nom => table {
@@ -1350,18 +1416,23 @@ oper mkDet : (_,_,_,_,_,_,_,_ : Str) -> Number -> Det =
                              Fem => f8
                            }
                 } ;
+            post = \\_,_,_ => [] ;
             sp = Indef ;
             n = n
-          } ;
+          }
+} ;
 
 mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
 mkPConj : Str -> PConj = \s -> lin PConj {s=s} ;
 
-mkPron : (nom,acc,dat,ablat,acc_clit,dat_clit : Str) -> GenNum -> Person -> Pron =
-  \nom,acc,dat,ablat,acc_clit,dat_clit,gn,p -> lin Pron 
+mkPron : (nom,acc,dat,ablat,acc_clit,dat_clit : Str) ->
+         (Case => Gender => Number => Str) ->
+         GenNum -> Person -> Pron =
+  \nom,acc,dat,ablat,acc_clit,dat_clit,poss,gn,p -> lin Pron
      {s = table Case [nom; acc; dat; ablat];
       acc_clit = acc_clit;
       dat_clit = dat_clit;
+      poss = poss;
       a = {gn=gn; p=p}
      } ;
 
@@ -1369,7 +1440,10 @@ mkCard : Str -> Card = \s -> lin Card {s=s} ;
 mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
 mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
 
-mkPrep : Str -> Prep = \s -> lin Prep {s=s} ;
-noPrep : Prep = lin Prep {s=""} ;
+mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {
+  s=s;
+  c=c
+  } ;
+noPrep : Prep = lin Prep {s=""; c=Acc} ;
 
 }

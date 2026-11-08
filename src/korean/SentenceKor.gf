@@ -15,12 +15,13 @@ lin
 
 --2 Clauses missing object noun phrases
   -- : NP -> VPSlash -> ClSlash ;
-  -- SlashVP = predVP ;
-{-
+  SlashVP = predVP ;
   -- : ClSlash -> Adv -> ClSlash ;     -- (whom) he sees today
-  AdvSlash cls adv = cls ** insertAdv adv cls ;
+  AdvSlash cls adv = cls ** {
+    s = \\t,a,p,c => adv.s ++ cls.s ! t ! a ! p ! c
+    } ;
 
---    SlashPrep : Cl -> Prep -> ClSlash ;         -- (with whom) he walks
+  SlashPrep cl prep = cl ;
 
   -- : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
 --  SlashVS np vs ss = {} ;
@@ -28,11 +29,13 @@ lin
 
   --  : Temp -> Pol -> ClSlash -> SSlash ; -- (that) she had not seen
   UseSlash t p cls = {
+    s = \\c => t.s ++ p.s ++ cls.s ! t.t ! t.a ! p.p ! c ;
+    p = case p.p of {Pos => cls.p ; Neg => cls.pNeg}
     } ;
--}
 --2 Imperatives
   -- : VP -> Imp ;
   ImpVP vp = {s = \\pol => linImp pol vp} ;
+  AdvImp adv imp = {s = \\pol => adv.s ++ imp.s ! pol} ;
 
 --2 Embedded sentences
 
@@ -40,7 +43,7 @@ lin
   EmbedS s = {s = s.s ! Subord ++ "것이"} ; -- TODO check subject case
 
   -- : QS -> SC ;
-  -- EmbedQS qs = { } ;
+  EmbedQS qs = {s = qs.s ! Plain ++ "것이"} ;
 
   -- : VP -> SC ;
   EmbedVP vp = {s = linVP (VAttr Pos) vp ++ "것이"} ;
@@ -74,7 +77,7 @@ lin
   ExtAdvS = advS (SOFT_BIND ++ ",");
 
   -- : S -> Subj -> S -> S ;
-  -- SSubjS s1 subj s2 = AdvS (AK.SubjS subj s2) s1 ;
+  SSubjS s1 subj s2 = AdvS (AK.SubjS subj s2) s1 ;
 
   --  : S -> RS -> S ;              -- she sleeps, which is good
   -- RelS sent rs = advS {s = rs.s ! Sg3 Masc ++ SOFT_BIND ++ ","} sent ;

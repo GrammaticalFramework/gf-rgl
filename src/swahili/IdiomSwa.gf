@@ -1,48 +1,33 @@
 concrete IdiomSwa of Idiom = CatSwa ** open Prelude, ResSwa in {
 
-  flags optimize=all_subs ;
-{-
+  flags optimize=all_subs ; coding=utf8 ;
   lin
-    ImpersCl vp = mkClause "it" (agrP3 Sg) vp ;
-    GenericCl vp = mkClause "one" (agrP3 Sg) vp ;
+    ImpersCl vp = mkClause [] (agre G4 Sg P3) vp ;
+    GenericCl vp = mkClause "mtu" (agre G1 Sg P3) vp ;
 
-    CleftNP np rs = mkClause "it" (agrP3 Sg) 
-      (insertObj (\\_ => rs.s ! np.a)
-        (insertObj (\\_ => np.s ! rs.c) (predAux auxBe))) ;
+    CleftNP np rs = {s = \\_,_,b => "ni" ++ np.s ! npNom ++ rs.s ! np.a} ;
 
-    CleftAdv ad s = mkClause "it" (agrP3 Sg) 
-      (insertObj (\\_ => conjThat ++ s.s)
-        (insertObj (\\_ => ad.s) (predAux auxBe))) ;
+    CleftAdv ad s = {s = \\_,_,b => "ni" ++ ad.s ++ "ambapo" ++ s.s} ;
 
-    ExistNP np = 
-      mkClause "there" (agrP3 (fromAgr np.a).n) 
-        (insertObj (\\_ => np.s ! NPAcc) (predAux auxBe)) ;
+    ExistNP np = {s = \\_,_,b => case b of {Pos => "kuna" ; Neg => "hakuna"} ++ np.s ! npNom} ;
 
-    ExistIP ip = 
-      mkQuestion (ss (ip.s ! npNom)) 
-        (mkClause "there" (agrP3 ip.n) (predAux auxBe)) ;
+    ExistIP ip = {s = \\_,_,b,_ => ip.s ! npNom ++ case b of {Pos => "kuna" ; Neg => "hakuna"}} ;
 
-    ExistNPAdv np adv = 
-      mkClause "there" (agrP3 (fromAgr np.a).n) 
-        (insertObj (\\_ => np.s ! NPAcc ++ adv.s) (predAux auxBe)) ;
+    ExistNPAdv np adv = {s = \\_,_,b => case b of {Pos => "kuna" ; Neg => "hakuna"} ++ np.s ! npNom ++ adv.s} ;
 
-    ExistIPAdv ip adv = 
-      mkQuestion (ss (ip.s ! npNom)) 
-        (mkClause "there" (agrP3 ip.n) (insertObj (\\_ => adv.s) (predAux auxBe))) ;
+    ExistIPAdv ip adv = {s = \\_,_,b,_ => ip.s ! npNom ++ case b of {Pos => "kuna" ; Neg => "hakuna"} ++ adv.s} ;
 
-    ProgrVP vp = insertObj (\\a => vp.ad ! a ++ vp.prp ++ vp.p ++ vp.s2 ! a) (predAux auxBe) ;
+    ProgrVP vp = vp ;
 
-    ImpPl1 vp = {s = "let's" ++ infVP VVAux vp Simul CPos (AgP1 Pl)} ;
+    ImpPl1 vp = {s = "hebu" ++ vp.imp ! Pos ! Pl ++ vp.obj ! agre G1 Pl P1} ;
 
-    ImpP3 np vp = {s = "let" ++ np.s ! NPAcc ++ infVP VVAux vp Simul CPos np.a} ;
+    ImpP3 np vp = {s = "acha" ++ np.s ! NPAcc ++ infVP Pos (agrFeatures np.a) vp} ;
 
-    SelfAdvVP vp = insertObj reflPron vp ;
-    SelfAdVVP vp = insertAdVAgr reflPron vp ;
+    SelfAdvVP vp = insertObj (\\a => reflPron ! Ag a.g a.n a.p) vp ;
+    SelfAdVVP vp = insertAdV "mwenyewe" vp ;
     SelfNP np = {
-      s = \\c => np.s ! c ++ reflPron ! np.a ; 
+      s = \\c => np.s ! c ++ reflPron ! np.a ;
       a = np.a
       } ;
-} -}
-
 }
 

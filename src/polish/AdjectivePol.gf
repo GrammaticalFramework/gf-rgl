@@ -44,7 +44,10 @@ flags  coding=utf8 ;
     UseA2 a = { s = mkAtable a.pos; adv=a.advpos ; isPost = False};
 
 --     SentAP  : AP -> SC -> AP ;  -- good that she is here -- I have bad feelling about this function
-    SentAP a s = {s=\\_=>a.adv ++ s.s; adv=a.adv ++ s.s ; isPost = True};
+    SentAP a sc = {
+      s = \\af => a.s ! af ++ sc.s;
+      adv = a.adv ++ sc.s;
+      isPost = False
+      };
 
 };
-

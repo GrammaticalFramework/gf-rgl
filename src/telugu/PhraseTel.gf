@@ -1,5 +1,4 @@
 concrete PhraseTel of Phrase = CatTel ** open Prelude, ResTel in {
---
   lin
     PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
 
@@ -8,16 +7,16 @@ concrete PhraseTel of Phrase = CatTel ** open Prelude, ResTel in {
     UttNP np = {s = np.s ! NPC Dir} ;
     UttCN cn = {s = cn.s ! Sg ! Dir} ;
     UttAP ap = {s = ap.s ! Masc ! Sg ! Dir} ;
-    UttVP vp = {s = let f = vp.s ! Pos ! VPInf in f.inf ++ f.fin} ;
+    UttVP vp = {s = let f = vp.s ! Pos ! VPInf in f.fin} ;
     UttAdv adv = adv ;
-    UttImpSg pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPl pol imp = {s = pol.s ++ imp.s} ;
-    UttImpPol pol imp = {s = pol.s ++ imp.s} ;
+    UttIP ip = {s = ip.s ! Dir} ;
+    UttCard card = {s = card.s ! Neutr} ;
+    UttImpSg pol imp = {s = pol.s ++ imp.s ! pol.p ! Sg} ;
+    UttImpPl pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
+    UttImpPol pol imp = {s = pol.s ++ imp.s ! pol.p ! Pl} ;
 
     NoPConj = {s = []} ;
---    PConjConj conj = {s = conj.s2} ; ---
---
+
     NoVoc = {s = []} ;
---    VocNP np = {s = "," ++ np.s ! Nom} ;
---
+    VocNP np = {s = "," ++ np.s ! NPC Dir} ;
 }

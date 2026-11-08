@@ -2,5 +2,5 @@
 
 abstract AllEusAbs = 
   Lang,
-  ExtraEusAbs
+  Extend
   ** {} ;

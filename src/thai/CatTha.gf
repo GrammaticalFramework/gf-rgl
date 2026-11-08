@@ -47,6 +47,8 @@ concrete CatTha of Cat = CommonX ** open ResTha, Prelude in {
     Predet = {s1,s2 : Str} ;
     Ord = {s : Str} ;
     Num = {s : Str ; hasC : Bool} ;
+    ACard = {s : Str} ;
+    DAP = Determiner ** {adj : Str} ;
 
 -- Numeral
 

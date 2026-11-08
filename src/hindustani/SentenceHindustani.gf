@@ -12,10 +12,14 @@ incomplete concrete SentenceHindustani of Sentence =
     PredSCVP sc vp = mkSClause sc.s (defaultAgr) vp ;
 
     ImpVP vp = {
-      s = \\pol,n => 
-        let 
-          agr   = Ag Masc (numImp n) Pers2_Casual ;
-          verb  = infVP True vp agr ;
+      s = \\pol,n =>
+        let
+          agr = case n of {
+            ImpF _ True   => Ag Masc Pl Pers2_Respect ;
+            ImpF num False => Ag Masc num Pers2_Casual
+            } ;
+          verb = vp.obj.s ++ vp.ad ++ vp.comp ! agr ++ vp.cvp ++
+                 (vp.s ! VPTense VPFutr agr).inf ;
           dont  = case pol of {
             CNeg True => mt ;
             CNeg False => nh ;
@@ -32,6 +36,10 @@ incomplete concrete SentenceHindustani of Sentence =
 	  s  = \\t,p,o =>  adv.s ! Masc ++ slash.s ! t ! p ! o  ;
       c2 = slash.c2
     } ;
+
+    AdvImp adv imp = {
+      s = \\p,n => adv.s ! Masc ++ imp.s ! p ! n
+      } ;
 
     SlashPrep cl prep = cl **  {c2 = { s = prep.s ! Masc ; c = VIntrans}} ;
 

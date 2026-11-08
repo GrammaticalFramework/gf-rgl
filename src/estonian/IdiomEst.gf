@@ -11,6 +11,14 @@ concrete IdiomEst of Idiom = CatEst **
           vp = insertObj (\\_,b,_ => "olemas" ++ linNP (cas b) np) (predV olla)
        in existClause noSubj (agrP3 Sg) vp ;
 
+    ExistNPAdv np adv =
+      let cas : Polarity -> NPForm = \p -> case p of {
+            Pos => NPCase Nom ;
+            Neg => NPCase Part } ;
+          vp = insertObj (\\_,b,_ => linNP (cas b) np)
+                         (insertAdv adv.s (predV olla))
+       in existClause noSubj (agrP3 Sg) vp ;
+
     ExistIP ip =
       let cas : NPForm = NPCase Nom ; ---- also partitive in Extra
           vp : MorphoEst.VP = insertObj (\\_,b,_ => "olemas") (predV olla) ;
@@ -55,4 +63,3 @@ concrete IdiomEst of Idiom = CatEst **
 
     noSubj : Polarity -> Str = \_ -> [] ;
 }
-

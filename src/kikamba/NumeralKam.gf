@@ -1,4 +1,4 @@
-concrete NumeralKam of Numeral = CatKam [Numeral,Digits] ** open Prelude,CommonBantu,DiffKam, MorphoKam in {
+concrete NumeralKam of Numeral = CatKam [Numeral,Digits,Decimal] ** open Prelude,CommonBantu,DiffKam, MorphoKam in {
 
 lincat 
   Digit = {s : DForm => CardOrd => Gender => Str} ;

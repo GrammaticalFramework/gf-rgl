@@ -1,56 +1,31 @@
+concrete IdiomGla of Idiom = CatGla ** open Prelude, ResGla in {
+lin
+  ImpersCl vp = {subj = "e" ; n = Sg ; pred = vp} ;
+  ExistNP np = {subj = linNP np ; n = agrNumber np.a ; pred = idiomBiV} ;
+  ExistIP ip = {s = \\_,_,_ => "dè tha ann" ++ ip.s} ;
+  GenericCl vp = {subj = "neach" ; n = Sg ; pred = vp} ;
+  CleftNP np rs = {subj = linNP np ; n = agrNumber np.a ; pred = appendVP idiomBiV rs.s} ;
+  CleftAdv adv s = {subj = adv.s ; n = Sg ; pred = appendVP idiomBiV s.s} ;
+  ExistNPAdv np adv = {subj = linNP np ; n = agrNumber np.a ; pred = appendVP idiomBiV adv.s} ;
+  ExistIPAdv ip adv = {s = \\_,_,_ => "dè tha ann" ++ ip.s ++ adv.s} ;
+  ProgrVP vp = vp ;
+  ImpPl1 vp = {s = "rachamaid" ++ vp.s} ;
+  ImpP3 np vp = {s = "leig le" ++ linNP np ++ vp.s} ;
+  SelfAdvVP vp = appendVP vp "fhèin" ;
+  SelfAdVVP vp = prependVP "fhèin" vp ;
+  SelfNP np = np ** {s = \\c => np.s ! c ++ "fhèin"} ;
 
---1 Idiom: Idiomatic Expressions
-
-concrete IdiomGla of Idiom = CatGla ** open Prelude, ResGla, VerbGla, QuestionGla, NounGla, StructuralGla in {
-
--- This module defines constructions that are formed in fixed ways,
--- often different even in closely related languages.
-
-{-
-   lin
-
-
-     -- ImpersCl : VP -> Cl ;        -- it is hot
-     ImpersCl vp = {
-       } ;
-
-      -- : NP -> Cl ;        -- there is a house
-      ExistNP np =
-
-      -- ExistIP   : IP -> QCl ;       -- which houses are there
-      ExistIP ip =
-
-    -- GenericCl : VP -> Cl ;        -- one sleeps
-    GenericCl vp =
-
-    CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
-    CleftAdv  : Adv -> S  -> Cl ; -- it is here she slept
-
-  -- : NP -> Cl ;        -- there is a house
-  ExistNP np =
-
-  ExistIP   : IP -> QCl ;       -- which houses are there
-
--- 7/12/2012 generalizations of these
-
-    ExistNPAdv : NP -> Adv -> Cl ;    -- there is a house in Paris
-    ExistIPAdv : IP -> Adv -> QCl ;   -- which houses are there in Paris
-
-  -- : VP -> VP ;
-  ProgrVP vp = vp ** {
+oper
+  idiomBiV : LinV = {
+    s = "bi" ; conditional = table {Sg => "bhiodh" ; Pl => "bhiodh"} ;
+    imperative = table {
+      P1 => table {Sg => "bitheam" ; Pl => "bitheamaid"} ;
+      P2 => table {Sg => "bi" ; Pl => "bithibh"} ;
+      P3 => table {Sg => "bitheadh" ; Pl => "bitheadh"}
+      } ;
+    future = table {Indep => "bidh" ; Dep => "bi"} ;
+    past = table {Indep => "bha" ; Dep => "robh"} ;
+    noun = "bhith" ; participle = "air a bhith" ;
+    copular = True ; complement = []
     } ;
-
-
-  -- : VP -> Utt ;       -- let's go
-  ImpPl1 vp = { } ;
-
-  ImpP3     : NP -> VP -> Utt ; -- let John walk
-
--- 3/12/2013 non-reflexive uses of "self"
-
-    SelfAdvVP : VP -> VP ;        -- is at home himself
-    SelfAdVVP : VP -> VP ;        -- is himself at home
-    SelfNP    : NP -> NP ;        -- the president himself (is at home)
--}
-
 }

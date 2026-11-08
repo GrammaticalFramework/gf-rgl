@@ -63,6 +63,11 @@ oper
   mkPrep : Str -> Prep ;  -- e.g. "til"
   noPrep : Prep ;         -- empty string
 
+-- Subjunctions and phrase conjunctions are not inflected.
+
+  mkSubj  : Str -> Subj ;
+  mkPConj : Str -> PConj ;
+
 --2 Nouns
 
   mkN : overload {
@@ -555,6 +560,18 @@ oper
 
   mkInterj : Str -> Interj
   = \s -> lin Interj {s = s} ;
+
+  mkSubj  : Str -> Subj  = \s -> lin Subj  {s = s} ;
+  mkPConj : Str -> PConj = \s -> lin PConj {s = s} ;
+  mkIAdv : Str -> IAdv = \s -> lin IAdv {s = s} ;
+  mkCAdv : Str -> Str -> CAdv = \s,p -> lin CAdv {s=s; p=p} ;
+
+  mkCard : Str -> Card = \x -> lin Card {s=\\g => x; n=Pl} ;
+  mkACard : Str -> ACard = \s -> lin ACard {s=s; n=Pl} ;
+  mkDet : Str -> Det = \x -> lin Det {s,sp=\\b,g => x; n=Pl; det=DIndef} ;
+  mkIDet : Str -> IDet = \x -> lin IDet {s=\\g => x; n=Pl; det=DIndef} ;
+  mkQuant : Str -> Quant = \x -> lin Quant {s,sp=\\n,b,d,g => x; det=DIndef} ;
+  mkPredet : Str -> Predet = \x -> lin Predet {s=\\g,n => x; p=[]; a=PNoAg} ;
 
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 

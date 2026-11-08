@@ -5,7 +5,7 @@ flags coding = utf8 ;
 oper
   mkN = overload {
     mkN : Str -> N 
-      = \s -> lin N {s = s ; c = "กำ ลัง"} ;     ---- for small objects, see LP PB p. 20
+      = \s -> lin N {s = s ; c = "อัน"} ;     ---- general classifier
     mkN : Str -> Str -> N 
       = \s,c -> lin N {s = s ; c = c} ;
     } ;
@@ -66,6 +66,15 @@ oper
 
   mkVV : Str -> VV =
     \s -> lin VV {s=s; typ=VVPre} ;
+
+  mkVVPre : Str -> VV =
+    \s -> lin VV {s=s; typ=VVPre} ;
+
+  mkVVMid : Str -> VV =
+    \s -> lin VV {s=s; typ=VVMid} ;
+
+  mkVVPost : Str -> VV =
+    \s -> lin VV {s=s; typ=VVPost} ;
 
   mkVQ : V -> VQ =
     \v -> lin VQ v ;

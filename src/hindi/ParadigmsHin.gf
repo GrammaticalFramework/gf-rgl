@@ -53,6 +53,10 @@ oper
      = \n -> {s = n.s ! Sg ; g = n.g ; lock_PN = <>} ;
     } ;
 
+  mkLN : Str -> LN = \s -> lin LN {s=s} ;
+  mkSN : Str -> SN = \s -> lin SN {s=s} ;
+  mkGN : Str -> GN = \s -> lin GN {s=s} ;
+
   personalPN : Str -> Str -> Str -> Str -> Str -> Str -> Str -> Number -> Gender -> UPerson -> Pron =
     \s1,s2,s3,smp,sfp,pmp,pfp,nn,g,p -> let n = mkPron s1 s2 s3 in
       {s = n.s ;
@@ -106,6 +110,10 @@ oper
   dirV2 : V -> V2 = \v -> v ** {c2 = {s = [] ; c = VTrans} ; lock_V2 = <>} ;
   dirdirV3 : V -> V3 ;
   dirdirV3 v = v ** { c2 = [] ; c3 = [] ; lock_V3 = <>} ;
+
+  mkVA  : V -> VA = \v -> lin VA v ;
+  mkV2S  : V -> V2S = \v -> lin V2S v ** {c2={s = [] ; c = VTrans}} ;
+  mkAuxVV : V -> VV = \v -> lin VV (v ** {isAux = True}) ;
   
 -- compund verbs
    compoundV = overload {
@@ -116,6 +124,7 @@ oper
 
 ----2 Adverbs
   mkAdv : Str -> Adv = \str -> {s = \\_ => str ; lock_Adv = <>};
+  mkAdV : Str -> AdV = \s -> lin AdV {s=s} ;
 
 ----2 Prepositions
 

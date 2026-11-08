@@ -35,6 +35,9 @@ oper
     } ;
 
   compoundN = overload {
+    compoundN : A -> N -> N = \adj,noun -> noun ** {
+      s = \\c,n => adj.s ! APosit (agender2gender noun.g) n c ++ noun.s ! c ! n
+    } ;
     compoundN : N -> Str -> N = \noun,adv -> noun ** {s = \\c,n => noun.s ! c ! n ++ adv} ;
   } ;
 
@@ -295,6 +298,13 @@ oper
   mkReflV : V -> Case -> V = \v,c -> v ** {refl = reflexive ! c} ;
 
   particleV : V -> Str -> V = \v,p -> v ** {p = p} ;
+
+  compoundV = overload {
+    compoundV : V -> Str -> V = \v,compl -> v ** {p = compl} ;
+    compoundV : Str -> V -> V = \compl,v -> v ** {
+      s = \\vf => compl ++ v.s ! vf
+    } ;
+  } ;
 
 -- Regular verbs are formed from two forms. Infinitive and 3rd person singular presens. 
 

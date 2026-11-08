@@ -3,7 +3,7 @@ concrete AdverbKor of Adverb = CatKor ** open ResKor, ParamKor, ParadigmsKor, Pr
 lin
 
   -- : A -> Adv ;
-  --PositAdvAdj adj = { } ;
+  PositAdvAdj adj = {s = glue (adj.s ! VStem Pos) "게"} ;
 
   -- : CAdv -> A -> NP -> Adv ; -- more warmly than John
   -- ComparAdvAdj cadv a np = { } ;
@@ -16,15 +16,15 @@ lin
 -- Adverbs can be modified by 'adadjectives', just like adjectives.
 
     --AdAdv  : AdA -> Adv -> Adv ;             -- very quickly
-  -- AdAdv ada adv = adv **
+  AdAdv ada adv = {s = ada.s ++ adv.s} ;
 -- Like adverbs, adadjectives can be produced by adjectives.
 
   -- : A -> AdA ;                 -- extremely
---  PositAdAAdj a = { } ;
+  PositAdAAdj a = {s = glue (a.s ! VStem Pos) "게"} ;
 -- Subordinate clauses can function as adverbs.
 
   -- : Subj -> S -> Adv ;
-  -- SubjS subj s =
+  SubjS subj s = {s = s.s ! Subord ++ subj.s} ;
 
 -- Comparison adverbs also work as numeral adverbs.
 

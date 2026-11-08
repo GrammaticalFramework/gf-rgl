@@ -18,7 +18,7 @@ concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
 --  UttIAdv : IAdv -> Utt
     UttIAdv iadv = iadv ;
 --  UttNP : NP -> Utt
-    UttNP np = {s = np.adv ++ (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom} ;
+    UttNP np = {s = (combineNounPhrase np) ! PronNonDrop ! APostN ! DPreN ! Nom} ;
 --  UttVP : VP -> Utt
     UttVP vp = ss (vp.inf ! VInfActPres) ;
 
@@ -29,7 +29,8 @@ concrete PhraseLat of Phrase = CatLat ** open Prelude, ResLat in {
 --  UttCard : Card -> Utt
     UttCard card = ss (card.s ! Masc ! Nom);
 --  UttCN : CN -> Utt
-    UttCN cn = ss (cn.s ! Sg ! Nom) ;
+    UttCN cn = ss (cn.preap.s ! Ag cn.g Sg Nom ++ cn.s ! Sg ! Nom ++
+      cn.postap.s ! Ag cn.g Sg Nom ++ cn.adv) ;
 --  UttInterj : Interj -> Utt
     UttInterj interj = interj ;
     NoPConj = {s = []} ;

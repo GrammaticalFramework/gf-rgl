@@ -65,7 +65,7 @@ param
   detcn2NP : (Determiner) -> Noun -> NPCase -> Number -> Str = \dt,cn,npc,nn -> case npc of {
 --       NPC c => dt.s ! Sg ! Masc ++ cn.s ! nn ! c ; --changed while phrasebook e.g tyry beti where gender of determiner 'tyry' should be dependent on gender of common noum e.g 'beti' 
        NPC c => dt.s ! nn ! cn.g ! c ++ cn.s ! nn ! c ;
-       NPObj => dt.s ! nn ! cn.g ! Obl ++ cn.s ! nn ! Dir ; 
+       NPObj => dt.s ! nn ! cn.g ! Obl ++ cn.s ! nn ! Dir ;
        NPErg => dt.s ! nn ! cn.g ! Obl ++ cn.s ! nn ! Obl ++ nE
       } ;  
   det2NP : (Determiner) -> NPCase -> Str = \dt,npc -> case npc of {
@@ -142,7 +142,7 @@ param
 	 VPTense VPPres (Ag g n p) => {fin = copula CPresent n p g ; inf = part } ;
          VPTense VPPast (Ag g n p) => {fin = copula CPast n p g ; inf = part } ;
          VPTense VPFutr (Ag g n p) => {fin = copula CFuture n p g ; inf = part ++ hw p n  } ;
-         VPStem => {fin = []  ; inf = "rh" };
+         VPStem => {fin = []  ; inf = rh };
 		 _ => {fin = part ; inf = [] }
 		 };
 	  obj = {s = [] ; a = defaultAgr} ;
@@ -289,10 +289,7 @@ param
  np2pronCase ppf npc a = case npc of {
        NPC c => ppf ! c;
        NPObj => ppf ! Obl ;
-       NPErg =>case (fromAgr a).p of {
-           (Pers3_Near|Pers3_Distant) => addErgative (ppf ! Obl) nE; -- in hindi in case of pronouns nE is tagged to pron rather than a separate word
-	   _			     => addErgative (ppf ! Dir) nE
-	   }
+       NPErg => ergativePron ppf a
       } ; 	
    
     insertObj : (Agr => Str) -> VPH -> VPH = \obj1,vp -> {

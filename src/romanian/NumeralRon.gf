@@ -171,6 +171,14 @@ lin pot1plus d e =
      
 lin pot1as2 n = n ;
 
+lin pot21 = {
+  s = table {
+    NCard g => \\_,_ => "o sută" ;
+    NOrd g => \\_,_ => mkOrdinalForm "sută" g
+    } ;
+  size = pl
+  } ;
+
 lin pot2 d = 
   {s = table {
               NCard g => \\_,_ => d.s ! (NCard Fem) ! unit ! indep ++ (mksute d.size) ; 
@@ -183,6 +191,14 @@ lin pot2plus d e =
    size = e.size} ;
 
 lin pot2as3 n = n ;
+
+lin pot31 = {
+  s = table {
+    NCard g => \\_,_ => "o mie" ;
+    NOrd g => \\_,_ => mkOrdinalForm "mie" g
+    } ;
+  size = pl
+  } ;
  
 lin pot3 n = 
   {s =  table {  
@@ -198,8 +214,66 @@ lin pot3plus n m =
   size = m.size                              
    };
 
+lin pot3decimal d = {
+  s = \\c,_,_ => d.s ! NCard Masc ++ "mii" ;
+  size = pl
+  } ;
+
 lin pot3as4 n = n ;
+
+lin pot41 = {
+  s = table {
+    NCard g => \\_,_ => "un milion" ;
+    NOrd g => \\_,_ => mkOrdinalForm "milion" g
+    } ;
+  size = pl
+  } ;
+
+lin pot4 n = {
+  s = table {
+    NCard g => \\f,_ => n.s ! NCard Masc ! f ! indep ++ "milioane" ;
+    NOrd g => \\f,_ => n.s ! NCard Masc ! f ! indep ++ mkOrdinalForm "milion" g
+    } ;
+  size = pl
+  } ;
+
+lin pot4plus n m = {
+  s = \\c,f,_ => (pot4 n).s ! c ! f ! indep ++ m.s ! c ! f ! attr ;
+  size = m.size
+  } ;
+
+lin pot4decimal d = {
+  s = \\_,_,_ => d.s ! NCard Masc ++ "milioane" ;
+  size = pl
+  } ;
+
 lin pot4as5 n = n ;
+
+lin pot51 = {
+  s = table {
+    NCard g => \\_,_ => "un miliard" ;
+    NOrd g => \\_,_ => mkOrdinalForm "miliard" g
+    } ;
+  size = pl
+  } ;
+
+lin pot5 n = {
+  s = table {
+    NCard g => \\f,_ => n.s ! NCard Masc ! f ! indep ++ "miliarde" ;
+    NOrd g => \\f,_ => n.s ! NCard Masc ! f ! indep ++ mkOrdinalForm "miliard" g
+    } ;
+  size = pl
+  } ;
+
+lin pot5plus n m = {
+  s = \\c,f,_ => (pot5 n).s ! c ! f ! indep ++ m.s ! c ! f ! attr ;
+  size = m.size
+  } ;
+
+lin pot5decimal d = {
+  s = \\_,_,_ => d.s ! NCard Masc ++ "miliarde" ;
+  size = pl
+  } ;
 
 oper mksute : Size -> Str = \sz -> table {sg => "sută" ; _ => "sute" } ! sz ; 
 oper mkSute : Size -> Gender -> Str = \sz, g -> 

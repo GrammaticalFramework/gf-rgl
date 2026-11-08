@@ -26,6 +26,29 @@
 
     mkA2 : A -> Str -> ComplCase -> A2 ;
 
+    mkVS : V -> VS ;
+    mkVA : V -> VA ;
+    mkVV : V -> VV ;
+    mkVQ : V -> VQ ;
+    mkV2V : V -> Complement -> V2V ;
+    mkV2S : V -> Complement -> V2S ;
+    mkV2A : V -> Complement -> V2A ;
+
+    mkAdA : Str -> AdA ;
+    mkAdN : Str -> AdN ;
+    mkAdV : Str -> AdV ;
+    mkIAdv : Str -> IAdv ;
+    mkPConj : Str -> PConj ;
+    mkSubj : Str -> Subj ;
+    mkCard : Str -> Card ;
+    mkACard : Str -> ACard ;
+    mkDet : Str -> Det ;
+    mkIDet : Str -> IDet ;
+    mkQuant : Str -> Quant ;
+    mkIQuant : Str -> IQuant ;
+    mkPredet : Str -> Predet ;
+    mkCAdv : Str -> CAdv ;
+
     mkAdv : Str -> Adv ; -- an adverb from a string
 
 
@@ -56,6 +79,29 @@
     } ;
 
     mkA2 adj s c = lin A2 (adj ** { c={s=s; c=c} });
+
+    mkVS v = lin VS v ;
+    mkVA v = lin VA (v ** {c={s=""; adv=False; c=Nom}}) ;
+    mkVV v = lin VV v ;
+    mkVQ v = lin VQ v ;
+    mkV2V v p = lin V2V (v ** {c=p}) ;
+    mkV2S v p = lin V2S (v ** {c=p}) ;
+    mkV2A v p = lin V2A (v ** {c={s=""; adv=False; c=Nom}; c2=p}) ;
+
+    mkAdA s = lin AdA {s=s} ;
+    mkAdN s = lin AdN {s=s} ;
+    mkAdV s = lin AdV {s=s} ;
+    mkIAdv s = lin IAdv {s=s} ;
+    mkPConj s = lin PConj {s=s} ;
+    mkSubj s = lin Subj {s=s} ;
+    mkCard s = lin Card {s=\\_,_ => s; a=NoA; n=Pl} ;
+    mkACard s = lin ACard {s=s} ;
+    mkDet s = lin Det {s,sp=\\_,_ => s; n=Sg; a=NoA} ;
+    mkIDet s = lin IDet {s=\\_,_ => s; n=Pl; a=NoA} ;
+    mkQuant s = lin Quant {s,sp=\\_ => s} ;
+    mkIQuant s = lin IQuant {s=\\_ => s} ;
+    mkPredet s = lin Predet {s=\\_ => s; np=wszystko; adj=True} ;
+    mkCAdv s = lin CAdv {s,sn=s; p,pn="niż"} ;
 
     mkN = overload {
       mkN : Str -> N = mkNGuessGender ;

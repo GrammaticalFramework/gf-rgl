@@ -4,13 +4,13 @@ concrete ExtraRus of ExtraRusAbs = CatRus **
   open ResRus, MorphoRus, (P=ParadigmsRus), (X = ConstructX), Prelude, Coordination, NounRus in {
   flags optimize=all ; coding=utf8 ;
 lin
-  nom_Prep = lin Prep {s="" ; c=Nom ; neggen=True ; hasPrep=False} ;
-  obj_neg_Prep = lin Prep {s="" ; c=Gen ; neggen=False ; hasPrep=False} ;
-  obj_no_Prep = lin Prep {s="" ; c=Acc ; neggen=True ; hasPrep=False} ;
-  to_dat_Prep = lin Prep {s="" ; c=Dat ; neggen=False ; hasPrep=False} ;
-  ins_Prep = lin Prep {s="" ; c=Ins ; neggen=False ; hasPrep=False} ;
+  nom_Prep = {s="" ; c=Nom ; hasPrep=False} ;
+  obj_neg_Prep = {s="" ; c=Gen ; hasPrep=False} ;
+  obj_no_Prep = {s="" ; c=Acc ; hasPrep=False} ;
+  to_dat_Prep = {s="" ; c=Dat ; hasPrep=False} ;
+  ins_Prep = {s="" ; c=Ins ; hasPrep=False} ;
   to2_Prep = P.mkPrep v_prep_mod Acc ;
-  u_Prep = lin Prep {s="у" ; c=Gen ; neggen=False ; hasPrep=True} ;
+  u_Prep = {s="у" ; c=Gen ; hasPrep=True} ;
   on_to_Prep = P.mkPrep "до" Gen ;
   on2_Prep = P.on2_Prep ;
   along_Prep = P.mkPrep "по" Loc ;
@@ -68,8 +68,8 @@ lin
   there_is_nowhere_Adv = P.mkAdv "негде" ;
 
   -- indefinite
-  nechto_NP = lin NP nechto ;  -- "something unknown". Use Nom, Acc only
-  anybody_NP = lin NP anybody ;  -- "somenoby unknown". Use Nom only
+  nechto_NP = nechto ;  -- "something unknown". Use Nom, Acc only
+  anybody_NP = anybody ;  -- "somenoby unknown". Use Nom only
 
   somehow_Adv = P.mkAdv "как-нибудь";
   somehow2_Adv = P.mkAdv "как-то";
@@ -194,8 +194,8 @@ oper
     isg2="";
     isg2refl="" ;
     ipl1="";
-    ppps="явленн";  --*
-    pppss="явлен";  --*
+    prap=mkPresPartForms "существующ";
+    pppa=mkPastPassPartForms "явленн" "явлен";
     prtr="существуя";  --*
     ptr="существовав";  --*
     asp=Imperfective;
@@ -216,8 +216,8 @@ oper
     isg2="";
     isg2refl="" ;
     ipl1="";
-    ppps=["не явленн"];  --*
-    pppss=["не явлен"];  --*
+    prap=mkPresPartForms "несуществующ";
+    pppa=mkPastPassPartForms "неявленн" "неявлен";
     prtr=["не существуя"];  --*
     ptr=["не существовав"];  --*
     asp=Imperfective;

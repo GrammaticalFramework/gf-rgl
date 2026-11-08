@@ -19,10 +19,17 @@ concrete IdiomTha of Idiom = CatTha ** open Prelude, ResTha in {
       }) (case q of {ClQuest => m'ay_s ; _ => []})
     } ;
 
+    ExistNPAdv np adv = {
+      s = \\q,p => thbind (case p of {
+        Pos => thbind mii_s np.s adv.s ;
+        Neg => thbind may_s mii_s np.s adv.s
+      }) (case q of {ClQuest => m'ay_s ; _ => []})
+    } ;
+
     ExistIP ip = mkPolClause ip (predV (regV [])) ; ----
 
     ProgrVP vp = {
-      s = \\p => thbind kam_s lag2_s (vp.s ! p) ;
+      s = \\p => thbind (thword kam_s lag2_s) (vp.s ! p) ;
       e = vp.e
       } ;
 

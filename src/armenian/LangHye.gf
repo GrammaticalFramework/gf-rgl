@@ -2,6 +2,7 @@
 concrete LangHye of Lang =
   GrammarHye,
   LexiconHye
+  ,ConstructionHye
   ,DocumentationHye --# notpresent
   ** {
 

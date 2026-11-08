@@ -327,9 +327,30 @@ oper
             Dat => dat ;
             Gen => gen
           } ;
+      poss = case <n,p> of {
+        <Sg,P1> => possessiveForms "mín" "mítt" ;
+        <Sg,P2> => possessiveForms "tín" "títt" ;
+        _ => \\_,_,_ => gen
+      } ;
       g = g ;
       n = n ;
       p = p
+    } ;
+
+  possessiveForms : Str -> Str -> Gender => Number => Case => Str = \common,neuter ->
+    table {
+      Masc => table {
+        Sg => table {Nom => common ; Acc => common ; Dat => common + "um" ; Gen => common + "s"} ;
+        Pl => table {Nom => common + "ir" ; Acc => common + "ar" ; Dat => common + "um" ; Gen => common + "a"}
+      } ;
+      Fem => table {
+        Sg => table {Nom => common ; Acc => common + "a" ; Dat => common + "i" ; Gen => common + "ar"} ;
+        Pl => table {Nom => common + "ar" ; Acc => common + "ar" ; Dat => common + "um" ; Gen => common + "a"}
+      } ;
+      Neuter => table {
+        Sg => table {Nom => neuter ; Acc => neuter ; Dat => common + "um" ; Gen => common + "s"} ;
+        Pl => table {Nom => common + "i" ; Acc => common + "i" ; Dat => common + "um" ; Gen => common + "a"}
+      }
     } ;
 
   regA : Str -> A   -- s;Masc;Sg;Nom
@@ -513,7 +534,7 @@ oper
   } ;
 
   invarA : Str -> A = \s -> lin A {
-    s = \\_,_,_ => s
+    s = \\_,_,_,_ => s
   } ;
 
   mkA2 = overload {
@@ -580,16 +601,19 @@ oper
   mkInterj : Str -> Interj = \s -> lin Interj {s=s} ;
   mkMU : Str -> MU = \s -> lin MU {s=s; isPre=False} ;
 
-  mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+  mkPrep = overload {
+    mkPrep : Str -> Prep = \s -> lin Prep {s=s; c=Acc} ;
+    mkPrep : Str -> Case -> Prep = \s,c -> lin Prep {s=s; c=c}
+    } ;
 
   mkIAdv : Str -> IAdv = \s -> lin IAdv {s=s} ;
   mkIP : Str -> IP = \s -> lin IP {s=s; n=Sg} ;
   mkIQuant : Str -> IQuant = \s -> lin IQuant {s=s} ;
   mkIDet : Str -> IDet = \s -> lin IDet {s=s; n=Sg} ;
   mkSubj : Str -> Subj = \s -> lin Subj {s=s} ;
-  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_,_ => s; sp=Indef} ;
+  mkQuant : Str -> Quant = \s -> lin Quant {s=\\_,_,_,_ => s; sp=Indef; d=Strong} ;
   mkPredet : Str -> Predet = \s -> lin Predet {s=s} ;
-  mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg; sp=Indef} ;
+  mkDet : Str -> Det = \s -> lin Det {s=\\_,_ => s; n=Sg; sp=Indef; d=Strong} ;
   mkCard : Str -> Card = \s -> lin Card {s=\\_,_ => s; n=Pl} ;
   mkACard : Str -> ACard = \s -> lin ACard {s=s} ;
   mkConj : Str -> Conj = \s -> lin Conj {s=s} ;
