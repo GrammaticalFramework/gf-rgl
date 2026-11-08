@@ -1,5 +1,5 @@
 concrete ExtraGer of ExtraGerAbs = CatGer ** 
-  open ResGer, Coordination, Prelude, IrregGer, (P = ParadigmsGer), (N = NounGer) in {
+  open ResGer, Coordination, Prelude, IrregGer, (P = ParadigmsGer), (N = NounGer), (V = VerbGer), (S = SentenceGer) in {
   flags coding=utf8 ;
 
   lincat
@@ -102,7 +102,7 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 
     PredVPS np vpi = 
       let
-        subj = np.s ! False ! Nom ++ bigNP np ;
+        subj = appCase np Nom ;
         agr  = np.a ;
       in {
         s = \\o => 
@@ -388,4 +388,18 @@ concrete ExtraGer of ExtraGerAbs = CatGer **
 		
 		-- this function is not entirely satisfactory as largely 
 		-- though not entirely duplicating mkClause in ResGer
+
+  -- HL 10/2026: Right extraction: Lift ext+rc from nominal object or subject to vp.ext
+  -- p -cat=S "sie hatte den Mann gekannt , den ich liebte ,"
+  -- But: this adds ambiguities, even with non-emptyness flags, e.g. np.rc : Str * Bool
+  lin
+    ComplSlashRc vps np = let np0 = np ** {rc = []} in
+      V.ComplSlash vps np0 ** {ext = vps.ext ++ np.rc} ;   -- ambiguous if np.rc = []
+
+    ComplSlashExt vps np = let np0 = np ** {ext = []} in
+      V.ComplSlash vps np0 ** {ext = vps.ext ++ np.ext} ;  -- ambiguous if np.ext = []
+
+    PredVPRc np vp = let np0 = np ** {rc = []} in          -- ambiguous if np.rc = []
+      S.PredVP np0 (vp ** {ext = vp.ext ++ np.rc}) ;
+
 } 

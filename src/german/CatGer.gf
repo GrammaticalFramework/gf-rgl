@@ -124,7 +124,7 @@ concrete CatGer of Cat =
     Tense = {s : Str ; t : ResGer.Tense ; m : Mood} ;
 
   linref
-    NP = \np -> np.s ! False ! Nom ++ np.ext ++ np.rc ; -- HL 7/2022 Bool added
+    NP = \np -> appCase np Nom ;
     CN = \cn -> cn.s ! Strong ! Sg ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Sg ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! CPl ;

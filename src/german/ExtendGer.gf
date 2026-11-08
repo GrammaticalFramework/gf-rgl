@@ -3,7 +3,7 @@
 concrete ExtendGer of Extend =
   CatGer ** ExtendFunctor
   - [ -- remove the default implementations of:
-      GenNP, GenRP, EmptyRelSlash, GenIP, GenModIP,
+      GenNP, GenModNP, GenRP, EmptyRelSlash, GenIP, GenModIP,
       VPS, ListVPS, MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS,
       VPI, ListVPI, MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
       ListComp, BaseComp, ConsComp, ConjComp,
@@ -29,18 +29,20 @@ concrete ExtendGer of Extend =
 
   lin
     GenNP np =
-      let tab : GenNum => Case => Str =
-            \\gn,c => np.s ! False ! (Obj Gen) ++ np.ext ++ np.rc
+      let tab : GenNum => Case => Str = \\gn,c => appCase np (Obj Gen) 
       in {s = \\_ => tab ;
           sp = tab ;
           a = Strong ;
           isDefArt = False ;
           delCardOne = False
       } ;
+    GenModNP num np cn =
+      DetCN (DetQuant (GenNP np) num) cn ;
 
-    GenRP nu cn = {
-      s = \\gn,c => relPron ! gn ! (Obj Gen) ++ cn.s ! Strong ! nu.n ! c ;
-      a = RAg nu.n P3
+    GenRP num cn = {
+      s = \\gn,c => relPron ! gn ! (Obj Gen) ++ num.s ! APred ++
+                       cn.s ! Strong ! num.n ! c ++ cn.adv ++ cn.ext ++ cn.rc ! num.n ;
+      a = RAg num.n P3
       } ;
 
     GenIP ip = {s = \\gn,c => ip.s ! (Obj Gen) ; a = Strong} ;
@@ -164,7 +166,7 @@ concrete ExtendGer of Extend =
 
     PredVPS np vps =
       let
-        subj = np.s ! False ! Nom ++ bigNP np ;
+        subj = appCase np Nom ;
         agr  = np.a ;
       in {
         s = \\o =>
@@ -305,7 +307,7 @@ concrete ExtendGer of Extend =
 
 -- generalisation of existential, with adverb as an argument
 
-    AdvIsNP adv np = let comp : Agr => Str = \\agr => np.s ! False ! Nom ++ np.rc ++ np.ext in
+    AdvIsNP adv np = let comp : Agr => Str = \\agr => appCase np Nom in
       mkClause adv.s np.a (insertObj comp (predV sein_V)) ; -- HL 12/2023, prelim, wrong order
 
 -- infinitive for purpose AR 21/8/2013
@@ -498,7 +500,7 @@ concrete ExtendGer of Extend =
       } ;
 
     ApposNP np app = np ** {
-      s = \\b,c => np.s ! b ! c ++ embedInCommas (app.s ! False ! c ++ bigNP app) ;
+      s = \\b,c => np.s ! b ! c ++ embedInCommas (appCase app c) ;
       w = WHeavy
       } ;
 

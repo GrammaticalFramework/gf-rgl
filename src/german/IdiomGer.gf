@@ -10,7 +10,7 @@ concrete IdiomGer of Idiom = CatGer **
 
     CleftNP np rs = mkClause "es" (agrP3 Sg) 
       (insertExtrapos (rs.s ! RGenNum (gennum (genderAgr np.a) (numberAgr np.a))) ----
-        (insertObj (\\_ => np.s ! False ! rs.c ++ bigNP np) (predV MorphoGer.sein_V))) ;
+        (insertObj (\\_ => appCase np rs.c) (predV MorphoGer.sein_V))) ;
 
     CleftAdv ad s = mkClause "es" (agrP3 Sg) 
       (insertExtrapos (conjThat ++ s.s ! Sub)
@@ -65,9 +65,9 @@ concrete IdiomGer of Idiom = CatGer **
   SelfAdvVP vp = insertAdv "selbst" vp ;
   SelfAdVVP vp = insertAdv "selbst" vp ;
   SelfNP np = np ** {
-      s = \\b,c => np.s ! b ! c ++ "selbst" ++ bigNP np ;
-      isPron = False ;
-      } ;
+      s = \\b,c => np.s ! b ! c ++ "selbst" ;
+      isPron = False
+    } ;
 
   oper
     geben = dirV2 (mk6V "geben" "gibt" "gib" "gab" "gäbe" "gegeben") ;
