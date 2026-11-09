@@ -32,7 +32,7 @@ concrete CatBul of Cat = CommonX - [Temp,Tense,TTAnt,IAdv,AdV] ** open ResBul, P
 -- Relative
 
     RCl = {s : ResBul.Tense => Anteriority => Polarity => Agr => Str} ;
-    RP = {s : GenNum => Str} ;
+    RP = {s : GenNum => Str; a : RAgr} ;
 
 -- Verb
 
