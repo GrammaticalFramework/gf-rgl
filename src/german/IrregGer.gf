@@ -14,7 +14,7 @@ in {
   lin backen_V =  irregV "backen" "bäckt" "backt" "backt" "gebacken" ;
   lin backen_u_V =  irregV "backen" "bäckt" "buk" "buke" "gebacken" ;
   lin befehlen_V =  irregV "befehlen" "befiehlt" "befahl" "beföhle" "befähle" ;
-  lin beginnen_V =  irregV "beginnen" "beginnt" "begann" "begönne" "begänne" ;
+  lin beginnen_V =  irregV "beginnen" "beginnt" "begann" "begönne" "begonnen" ;
   lin beißen_V =  irregV "beißen" "beißt" "biss" "bisse" "gebissen" ;
   lin bergen_V =  irregV "bergen" "birgt" "barg" "bärge" "geborgen" ;
   lin bersten_V =  irregV "bersten" "birst" "barst" "bärste" "geborsten" ;
@@ -192,7 +192,7 @@ in {
   lin tragen_V =  irregV "tragen" "trägt" "trug" "trüge" "getragen" ;
   lin treffen_V =  irregV "treffen" "trifft" "traf" "träfe" "getroffen" ;
   lin treiben_V =  irregV "treiben" "treibt" "trieb" "triebe" "getrieben" ;
-  lin treten_V =  irregV "treten" "tritt" "trat" "träte" "getreten" ;
+  lin treten_V = ParadigmsGer.mkV "treten" "tritt" "tritt" "trat" "träte" "getreten" ;
   lin trinken_V =  irregV "trinken" "trinkt" "trank" "tränke" "getrunken" ;
   lin trügen_V =  irregV "trügen" "trügt" "trog" "tröge" "getrogen" ;
 --  lin tun_V =  irregV "tun" "tut" "tat" "täte" "getan" ;

@@ -483,6 +483,8 @@ mkV2 : overload {
 ---                  mk6N hund hund (dativE False hund) (genitS False hund) hunde hunden g} ;
       <_ + ("el"|"er"|"en"),_ + ("el"|"er"|"en"), Masc | Neutr> =>  -- II
         mk6N hund hund hund (genitS (True | False) hund) hunde hunden g ;
+      <_ + "el",_ + "eln", Masc | Neutr> =>                         -- II: Muskel-Muskeln
+        mk6N hund hund hund (genitS (True | False) hund) hunde hunde g ;
       <_,_ + "s", Masc | Neutr> =>                                  -- V 
         mk6N hund hund hund (hund + "s") hunde hunde g ;
       <_,_ + "en", Masc> =>                                         -- VI 
@@ -493,7 +495,10 @@ mkV2 : overload {
         mk6N hund hund hund hund hunde hunde g ;
       <_,_ + ("n" | "s"), Neutr> =>                                 --- not mentioned; Konto-Kontos
         mk6N hund hund hund hund hunde hunde g ;
-      _ => regN hund ** {g = g}
+      <_,_,Fem> =>
+        mk6N hund hund hund hund hunde hunden g ;
+      _ =>
+        mk6N hund hund hund (genitS (True | False) hund) hunde hunden g
     } ;
    
   changeCompoundN : Str -> N -> N = \co,n -> n ** {
@@ -691,7 +696,13 @@ mkV2 : overload {
       gibst = verbST (init gibt) ;
       gebt  = verbT geb ;
       gabst = verbST gab ;
-      gaben = pluralN gab ;
+      -- Verb past plurals always take -en (or only -n after an existing e).
+      -- The noun plural helper is wrong for stems in -el/-er: fiel -> *fieln,
+      -- war -> *warn.
+      gaben = case gab of {
+        _ + "e" => gab + "n" ;
+        _       => gab + "en"
+        } ;
       gabt  = verbT gab
     in case geben of {
       _ + "n" => MorphoGer.mkV 
@@ -705,7 +716,18 @@ mkV2 : overload {
       fragt   = verbT frag ;
       fragte  = fragt + "e" ;
       gefragt : Str = case frag of {
-        _ + "ier" => fragt ;
+        -- Inseparable prefixes do not take ge- in the past participle.
+        -- Keep this in the default regular paradigm so callers do not have
+        -- to wrap every regular prefixed verb in no_geV.
+        "be"   + _ => fragt ;
+        "emp"  + _ => fragt ;
+        "ent"  + _ => fragt ;
+        "er"   + _ => fragt ;
+        "ge"   + _ => fragt ;
+        "miss" + _ => fragt ;
+        "ver"  + _ => fragt ;
+        "zer"  + _ => fragt ;
+        _ + "ier"  => fragt ;
         _ => "ge" + fragt
         } ;
     in
