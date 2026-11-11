@@ -706,7 +706,7 @@ mkV2 : overload {
       -- Verb past plurals always take -en (or only -n after an existing e).
       -- The noun plural helper is wrong for stems in -el/-er: fiel -> *fieln,
       -- war -> *warn.
-      gaben = case gab of {
+      gaben : Str = case gab of {
         _ + "e" => gab + "n" ;
         _       => gab + "en"
         } ;
