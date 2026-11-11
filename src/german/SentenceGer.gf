@@ -12,8 +12,8 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 	   forces 3rd person sg agreement for any non-nom subjects -->
 			"uns graut" "*uns grauen"
 	   allows pre/post-positions in subjects -->
-	 		"nach mir wurde gedürstet" "*mir wurde gedürstet" 
-			can't think of case of postpositions in subject -}
+	 		"nach mir wurde gesucht" "*mir wurde gesucht" 
+			"des Geldes wegen wird gearbeitet" -}
 
     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
 
@@ -42,10 +42,6 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
     AdvImp adv imp = {
       s = \\pol,impform => adv.s ++ imp.s ! pol ! impform
     } ;
-
--- to save compile time: HL 7/22, comment SlashVP out:
--- + SlashV2VNP 199065600 (46080,240)
--- + SlashVP 414720 (28224,204)
 
     SlashVP np vp =
       let subj = mkSubject np vp.c1 ;                  -- HL 3/2022: need a mkClSlash to prevent

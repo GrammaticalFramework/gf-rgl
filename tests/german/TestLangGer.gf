@@ -32,34 +32,28 @@ concrete TestLangGer of TestLang =
 
     PassV2Q v q =
       let c = case <v.c2.c, v.c2.t> of {
-            <Acc, isCase> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
+            <Acc, isCase> => Nom ; _ => Obj v.c2.c} ; -- acc;pcase object -> nom;pcase subject
           vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} }
+            ** { c1 = subjPrep v.c2 } ;
       in insertExtrapos (bindComma ++ q.s ! QIndir) vp ;
 
     PassV2S v s =
-      let c = case <v.c2.c, v.c2.t> of {
-            <Acc, isCase> => Nom ; _ => v.c2.c} ; -- acc;pcase object -> nom;pcase subject
-          vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
-            ** { c1 = v.c2 ** {c = c} }
+      let vp = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+            ** { c1 = subjPrep v.c2 }
       in insertExtrapos (bindComma ++ conjThat ++ s.s ! Sub) vp ;
 
     PassV2V v vp = 
-      let
-          inf = mkInf v.isAux Simul Pos vp ;             -- ok for v.isAux=False, v.c2.c=Acc
-          c = case <v.c2.c, v.c2.t> of {           --        v.objCtrl=True   HL 3/22
-            <Acc, isCase> => Nom ; _ => v.c2.c} ;  -- acc;pcase object -> nom;pcase subject
-          vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
+      let                         -- ok for v.isAux=False, v.c2.c=Acc, v.objCtrl=True HL 3/22
+        inf = mkInf v.isAux Simul Pos vp ;
+        vp2 = insertObj (\\_ => v.s ! VPastPart APred) (predV werdenPass)
             ** { c1 = subjPrep v.c2 } ;
         in insertInf inf vp2 ;                           -- v=lassen needs in-place inf instead
 
     PassVPSlash vp = 
-      let c = case <vp.c2.c, vp.c2.t> of {
-            <Acc, isCase> => Nom ; _ => vp.c2.c} ;
-          ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
-      in -- insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass ** {c1 = vp.c2 ** {c = c}})
+      let ctrl = case vp.objCtrl of { True => False ; _ => True }  -- always False?
+      in -- insertObj (\\_ => (PastPartAP vp).s ! APred) (predV werdenPass ** {c1 = subjPrep vp.c2})
           insertObj (\\_ => vp.s.s ! (VPastPart APred))
-                      (predV werdenPass ** {nn = vp.nn ; c1 = vp.c2 ** {c = c}})
+                      (predV werdenPass ** {nn = vp.nn ; c1 = subjPrep vp.c2})
            ** {ext = vp.ext ; inf = vp.inf ; c2 =vp.c2 ; objCtrl = ctrl } ;  -- c2 ?
        -- Scharolta: passivised object: acc object -> nom subject; all others: same case/prep
        -- HL: does not work for vp = (Slash2V3 v np): uns wird *den Beweis erklärt
@@ -97,7 +91,7 @@ concrete TestLangGer of TestLang =
 -}
 
     SlashV2Vneg v vp = -- HL 3/22
-      let 
+      let
         vps = (predVGen v.isAux v) ;
         inf = mkInf v.isAux Simul Neg vp
        in
@@ -174,21 +168,19 @@ gr -tr (PredVP (UsePron ?) (ComplSlash (SlashV2V lassen_V2V (ReflVP (SlashV2a wa
       in mkClSlash subj.s subj.a vp ** { c2 = vp.c2 } ;
 -}
     RelSlash rp cls = lin RCl {
-      s = \\m,t,a,p,gn =>
-          appPrep cls.c2 (rp.s ! gn) ++
-          cls.s ! m ! t ! a ! p ! Sub ! gn ;
-      c = cls.c2.c
+      s = \\m,t,a,p,gn => appPrep1 cls.c2 (rp.s ! gn) ++ cls.s ! m ! t ! a ! p ! Sub ! gn ;
+      c = Obj cls.c2.c
       } ;
 
-    QuestSlash ip slash = let gn : GenNum = case ip.n of {Sg => GSg Masc ; _ => GPl} in {
+    QuestSlash ip slash = {
       s = \\m,t,a,p => 
-            let 
-              cls = slash.s ! m ! t ! a ! p ;
-              who = appPrep slash.c2 ip.s ;
-            in table {
-              QDir   => who ++ cls ! Inv ! (RGenNum gn);
-              QIndir => who ++ cls ! Sub ! (RGenNum gn)
-              }
+        let
+          cls = slash.s ! m ! t ! a ! p ;
+          who = appPrep1 slash.c2 ip.s ;
+        in table {
+          QDir   => who ++ cls ! Inv ! (RGenNum ip.a) ;
+          QIndir => who ++ cls ! Sub ! (RGenNum ip.a)
+        }
       } ;
 
     AdvSlash slash adv = {
