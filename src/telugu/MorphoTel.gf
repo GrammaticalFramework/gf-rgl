@@ -3279,7 +3279,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
     g = Neutr
   } ;
 
-  oper pN_INVARIANT = \w -> \\_,_ => w ;
+  oper pN_INVARIANT : NParadigm = \w -> {s = \\_,_ => w; g = Masc} ;
 
   oper pV_x : VParadigm = \w -> table {
       FullVForm_tam_iwi_person_1_e => nonExist ;
@@ -35236,7 +35236,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullVForm_tam_wU_uMdu_person_any => variants {Predef.tk 5 w + "ీస్తూవుండు" ; Predef.tk 5 w + "ీస్తుండు" ; Predef.tk 5 w + "ీస్తూండు"}
   } ;
 
-  oper pV_INVARIANT = \w -> \\_ => w ;
+  oper pV_INVARIANT : VParadigm = \w -> \\_ => w ;
 
   oper pA_BArI : AParadigm = \w -> table {
       FullAForm_parsarg_adj_0 => w ;
@@ -35732,7 +35732,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_pAti => nonExist
   } ;
 
-  oper pA_INVARIANT = \w -> \\_ => w ;
+  oper pA_INVARIANT : AParadigm = \w -> \\_ => w ;
 
   oper pAdv_akkada : Str -> FullAdvForm -> Str = \w,f -> case f of {
       FullAdvForm_parsarg_adv_0 => w ;
@@ -36119,7 +36119,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAdvForm_parsarg_adv_lA_V => variants {w + "లానూ" ; w + "లాగానా"}
   } ;
 
-  oper pAdv_INVARIANT = \w -> \\_ => w ;
+  oper pAdv_INVARIANT : Str -> FullAdvForm -> Str = \w,_ -> w ;
 
   oper mkNoun : NParadigm -> Str -> Noun = \p,w ->
     let an = p w in {
