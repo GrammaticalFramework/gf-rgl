@@ -251,19 +251,20 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     ApposCN  cn np = cn ** {
       s = \\a,n,c => cn.s ! a ! n ! c ++ appCase np c } ;
 
-    PossNP cn np = let prep = case np.w of {WDefArt => genPrep ; _ => vonDat}
-      in cn ** {
-        s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 prep (np.s ! False) ++ bigNP np } ;
+    PossNP cn np = cn ** {
+      s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 vonDat (np.s ! False) ++ bigNP np } ;
 
-    PartNP cn np = let prep = case np.w of {WPron => vonDat ; _ => genPrep} in
-      cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 prep (np.s ! False) ++ bigNP np} ;
+    PartNP cn np = case np.w of {
+      WPron => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 vonDat (np.s ! False) ++ np.rc} ;
+      _     => cn ** {s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 genPrep (np.s ! False) ++ np.ext ++ np.rc}
+        };         -- glass of wine
 
     CountNP det np = -- drei der Kinder | drei von den Kindern -- HL 7/22, ad-hoc TODO
                      -- det or numeral? np or rather (DefArt +) cn?  drei (einiger Kinder) ?
       let g : Gender = genderAgr np.a ;
           np0 = np ** {ext,rc = []}
       in {
-        s = \\b,c => det.sp ! b ! g ! c ++ appPrep vonDat np0 ;
+        s = \\b,c => det.s ! b ! g ! c ++ appPrep vonDat np ;
         a = agrgP3 g det.n ;
         w = case det.isDef of { True => WLight ; _ => WHeavy } ;
         rc = np.rc ;

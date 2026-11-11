@@ -48,6 +48,8 @@ resource ResBul = ParamX - [Tense,Pres,Past,Fut,Cond] ** open Prelude, Predef in
   param
     Gender = Masc | Fem | Neut ;
 
+    RAgr = RNoAg | RAg Agr ;
+
     Species = Indef | Def ;
  
 -- The plural never makes a gender distinction.

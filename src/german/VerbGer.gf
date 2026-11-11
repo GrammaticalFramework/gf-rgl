@@ -90,12 +90,15 @@ concrete VerbGer of Verb = CatGer ** open Prelude, ResGer, Coordination in {
    -- does not work for nested uses: the nn-levels are confused  HL 3/22
    -- HL 10/26: with|without contraction: + SlashV2VNP 9.289.728 (29952,288)|(5760,144)
    SlashV2VNP v np vp =   -- bitte ihn, zu kaufen | lasse ihn kaufen   HL 3/22
-     -- insertObjNP v.c2 np (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-    let prep = v.c2 ;
-        obj : Str = appPrepNP False prep np ; -- False = don't contract prep+defArtSg
-        b : Bool = case prep.t of {isPrep => True ; _ => False} ;
-        vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
-    in insertObj' b obj np.w prep.c vps ;
+   --     insertObjNP np v.c2 (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl}) ;
+     let prep = v.c2 ;
+         obj = appPrep1 prep (np.s!False) ; -- simplify: no glueing of prep+DefArt, HL 8/22
+         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
+         c = prep.c ;
+         w = np.w ;
+         vps = (ComplVV v vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl})
+     in
+     insertObj' obj b w c vps ;
 
     UseComp comp =
        insertExtrapos (comp.ext ! Sg) (insertObj comp.s (predV sein_V)) ; -- agr not used

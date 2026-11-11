@@ -10,7 +10,7 @@ concrete ExtendDut of Extend =
       AdvRNP,AdvRVP,AdvRAP,ReflA2RNP,PossPronRNP,
       ConjRNP,Base_rr_RNP,Base_nr_RNP,Base_rn_RNP,Cons_rr_RNP,Cons_nr_RNP,
       CompoundN,CompoundAP,GerundCN,GerundNP,GerundAdv,ByVP,InOrderToVP,
-      ApposNP,PositAdVAdj,
+      ApposNP,PositAdVAdj,GenRP,
       BaseComp,ConsComp,ConjComp,BaseImp,ConsImp,ConjImp
      ]
   with
@@ -32,6 +32,15 @@ lin --# notpresent
    } ; --# notpresent
 
 lin
+  GenRP num cn = {
+    s = \\_,n =>
+      case n of {
+        Sg => "wiens" ;
+        Pl => "wier"
+      } ++ cn.s ! Strong ! NF num.n Nom ;
+    a = RAg num.n P3
+    } ;
+
   PresPartAP vp = {
     s = \\agr,af =>
       (infClause [] agr vp (case vp.isHeavy of {True => APred ; False => af})).s !

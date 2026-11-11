@@ -506,89 +506,54 @@ resource ResGer = ParamX ** open Prelude in {
 
     appPrep = overload {
       appPrep : Preposition -> (ObjCase => Str) -> Str = appPrep0 ;
-      appPrep : Preposition -> NP -> Str = -- False = don't contract
-       \p,np -> appPrepNP True p np ;      -- True = may contract, e.g. in dem CN => im CN
+      appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
+      appPrep : Preposition -> NP -> Str =
+        \p,np -> appSPrepNP (toSPrep p) np ;                       -- e.g. in dem CN => im CN
+      appPrep : Preposition -> RP -> (RelGenNum => Str) =          -- e.g. in was    => worin
+        \prep,rp -> appSPrepRP (toSPrep prep) rp ;
+      } ;
+
+    appPrep0 : Preposition -> (ObjCase => Str) -> Str = \prep,arg ->
+      prep.s ! CPl ++ arg ! prep.c ++ prep.s2 ;
+    appPrep1 : Preposition -> (Case => Str) -> Str = \p,c ->
+      appSPrep (toSPrep p) c ;
 
       appPrep : SubjectPrep -> (Case => Str) -> Str = appSPrep ;
       appPrep : SubjectPrep -> NP -> Str = -- True = may contract, e.g. in dem CN => im CN
         \p,np -> appSPrepNP False p np ;   -- False = don't contract
 
-      appPrep : Preposition -> RP -> (RelGenNum => Str) =  -- e.g. in was    => worin
-        \prep,rp -> appSPrepRP (toSPrep prep) rp ;
-      } ;
-
-    appPrepNP : Bool -> Preposition -> NP -> Str = \contract,prep,np ->
-      let uncontracted : Str =
-            prep.s ! CPl ++ np.s ! False ! (Obj prep.c) ++ np.ext ++ prep.s2 ++ np.rc ;
+    appSPrepNP : SubjectPrep -> NP -> Str = \prep,np ->
+    let
+      g : Gender = genderAgr np.a ;
+      n : Number = numberAgr np.a ;
+      b = case <prep.t,n,np.w> of {
+        <isPrep,Sg,WDefArt> => True ;  -- e.g. "zum Hof|zur Tür|zum Fenster herein"
+        _ => False} ;                  -- e.g. "auf dem Hof|auf der Tür|auf dem Fenster"
+      f = case b of {True => CSg g ; _ => CPl} ;
       in
-      case contract of {
-        False => uncontracted ;
-        True => -- = allow contraction of prep + defArtSg, e.g. "in + dem" => "im"
-          let
-            g : Gender = genderAgr np.a ;
-            n : Number = numberAgr np.a ;
-          in
-          case orB (case prep.t of {isCase => True ; _ => False})
-          (case n of {Pl => True ; Sg => False}) of {
-            True => uncontracted ;
-            False =>
-              let b = case np.w of {
-                    WDefArt => True ;  -- use shortened table np.s ! True without defArtSg
-                    _ => False} ;      -- use normal table np.s ! False
-                  f = case b of {True => CSg g ; _ => CPl} ;
-              in
-              prep.s ! f ++ np.s ! b ! (Obj prep.c) ++ np.ext ++ prep.s2 ++ np.rc
-          }
-      } ;
-    appSPrepNP : Bool -> SubjectPrep -> NP -> Str = \contract,prep,np ->
-      let
-        c : Case = case prep.ct of {SCase d => d ; SPrep d => Obj d} ;
-        uncontracted =
-          prep.s ! CPl ++ np.s ! False ! c ++ np.ext ++ prep.s2 ++ np.rc ;
-      in case contract of {
-        False => uncontracted ;
-        True => let
-          g : Gender = genderAgr np.a ;
-          n : Number = numberAgr np.a ;
-          in
-          case orB (case prep.ct of {SCase _ => True ; SPrep _ => False})
-          (case n of {Pl => True ; Sg => False}) of {
-            True => uncontracted ;
-            False => let b = case np.w of {
-                           WDefArt => True ;  -- use shortened table np.s ! True without defArtSg
-                           _ => False} ;      -- use normal table np.s ! False
-                         f = case b of {True => CSg g ; False => CPl} ;
-              in
-              prep.s ! f ++ np.s ! b ! c ++ np.ext ++ prep.s2 ++ np.rc
-          }
-      } ;
-{-
+      prep.s ! f ++ np.s ! b ! prep.c ++ np.ext ++ prep.s2 ++ np.rc ;
+
     appSPrepIP : SubjectPrep -> IP -> Str = \prep,np ->
     let
       g : Gender = genGenNum np.a ;
       n : Number = numGenNum np.a ;
       b = case <np.isPron,n,g> of {<True,Sg,Neutr> => True ; _ => False} ;
       f = case b of {True => CIPron ; _ => CPl} -- e.g. "zu was" => "wozu"
-    in prep.s ! f ++ np.s ! b ! prep.c ++ prep.s2 ++ np.ext ++ np.rc ;
--}
-    appSPrepRP : SubjectPrep -> RP -> (RelGenNum => Str) = \prep,rp ->
+    in prep.s ! f ++ np.s ! b ! prep.c ++ prep.s2 ;
+
+    appSPrepRP : SubjectPrep -> RP -> (RelGenNum => Str) = \prep,np ->
       let
-      c : Case = case prep.ct of {SCase d => d ; SPrep d => Obj d} ;
-      t : PrepType = case prep.ct of {SCase _ => isCase ; SPrep _ => isPrep} ;
-      uncontracted : RelGenNum => Str =
-          \\gn => prep.s ! CPl ++ rp.s ! gn ! c ++ prep.s2
+        uncontracted : RelGenNum => Str =
+          \\gn => prep.s ! CPl ++ np.s ! gn ! prep.c ++ prep.s2
       in
-      case <t, rp.a> of {
+      case <prep.t, np.a> of {
         <isPrep, RNoAg> =>  table{RSentence => prep.s ! CIPron ;
                                   -- RGenNum (GSg Neutr) => prep.s ! CIPron ;
                                   gn => uncontracted ! gn} ;
         _ => uncontracted
       } ;
 
-    appCase : NP -> Case -> Str = \np,c ->
-      np.s ! False ! c ++ np.ext ++ np.rc ;
-    
-    bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
+  bigNP : NP -> Str = \np -> np.ext ++ np.rc ;
 
 -- To build a preposition from just a case.  -- HL 9/19: moved to mkPrep in ParadigmsGer
 
@@ -597,12 +562,19 @@ resource ResGer = ParamX ** open Prelude in {
                                    CAdvPron => "davon" ; CIPron => "wovon"};
                            s2=[]; c=Dat; t=isPrep} ;
 
+  toSPrep : Preposition -> SubjectPrep = \prep ->
+    {s = prep.s ; s2 = prep.s2 ; c = Obj prep.c ; t = prep.t} ;
+  fromSPrep : SubjectPrep -> Preposition = \prep ->  -- default Acc for Nom
+    {s = prep.s ; s2 = prep.s2 ; c = case prep.c of {Obj d => d ; Nom => Acc} ; t = prep.t} ;
+
 -- To build passive: accusative object -> nom subject; others -> same case or prep
 
   subjPrep : Preposition -> SubjectPrep = \prep ->
-    case <prep.c,prep.t> of {
-      <Acc,isCase> => {s = prep.s ; s2 = prep.s2 ; ct = SCase Nom} ;
-      _            => toSPrep prep} ;
+    let
+      d = case <prep.c,prep.t> of {
+        <Acc,isCase> => Nom ;
+        <e,  _>      => Obj e}
+    in {s = prep.s ; s2 = prep.s2 ; c = d ; t = prep.t} ;
 
 -- Pronouns and articles
 -- Here we define personal and relative pronouns.
@@ -863,18 +835,16 @@ resource ResGer = ParamX ** open Prelude in {
   insertObjc : (Agr => Str) -> VPSlash -> VPSlash = \obj,vp ->
     insertObj obj vp ** {c2 = vp.c2 ; objCtrl = vp.objCtrl } ;
 
-  insertObjNP : Preposition -> NP -> VPSlash -> VPSlash = \prep,np,vp ->
+  insertObjNP : NP -> Preposition -> VPSlash -> VPSlash = \np,prep,vp ->
     let obj : Str = appPrep prep np ;
-        -- obj : Str = appPrep1 prep (np.s ! False) ++ np.ext ++ np.rc ; -- don't contract
         b : Bool = case prep.t of {isPrep => True ; _ => False} ;
-    in insertObj' b obj np.w prep.c vp ;
+        w = np.w ;
+        c = prep.c
+    in insertObj' obj b w c vp ;
 
-  -- this argument order gives smaller code due to 'case isPrep of' HL 25/10/26
-  insertObj' : Bool -> Str -> Weight -> ObjCase -> VPSlash -> VPSlash = \isPrep,obj,w,c,vp ->
-    case isPrep of {
-      True => vp ** {nn = \\a => -- <prons, light, heavy++pp, comp>
-        let vpnn = vp.nn ! a in <vpnn.p1, vpnn.p2, vpnn.p3 ++ obj, vpnn.p4>} ;
-      False => vp ** {nn = \\a =>
+  insertObj' : Str -> Bool -> Weight -> ObjCase -> VPSlash -> VPSlash = \obj,isPrep,w,c,vp ->
+    vp ** {
+      nn = \\a =>
         let vpnn = vp.nn ! a in
         -- HL 11/6/19: rough object NP order (expensive):
         -- vfin < accPron < refl < (gen|dat)Pron < lightNP < neg < heavyNP|PP < vinf|comp

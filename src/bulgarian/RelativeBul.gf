@@ -13,12 +13,16 @@ concrete RelativeBul of Relative = CatBul ** open ResBul in {
     RelVP rp vp = {
       s = \\t,a,p,agr => 
         let
-          pp = case agr.p of {
+          ragr = case rp.a of {
+                   RNoAg  => agr ;
+                   RAg ra => ra
+                 } ;
+          pp = case ragr.p of {
                  P1 => PronP1 ;
                  P2 => PronP2 ;
                  P3 => PronP3
                } ;
-          cl = mkClause (rp.s ! agr.gn) agr.gn pp vp
+          cl = mkClause (rp.s ! agr.gn) ragr.gn pp vp
         in
         cl.s ! t ! a ! p ! Main
       } ;
@@ -29,9 +33,11 @@ concrete RelativeBul of Relative = CatBul ** open ResBul in {
 
     FunRP p np rp = {
       s = \\gn => np.s ! RObj CPrep ++ linPrep p ++ rp.s ! gn ;
+      a = RAg (personAgr np.gn np.p)
       } ;
 
     IdRP = {
       s = whichRP ;
+      a = RNoAg
       } ;
 }

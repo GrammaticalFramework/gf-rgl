@@ -4,6 +4,27 @@ flags
   coding=utf8;
 
 lin
+  GenRP num cn = {
+    s = \\_ =>
+      let nf = case num.nn of {
+                 NNum Sg    => NF Sg Indef ;
+                 NNum Pl    => NF Pl Indef ;
+                 NCountable => case cn.g of {
+                                 AMasc Human => NF Pl Indef ;
+                                 _           => NFPlCount
+                               }
+               }
+      in case gn of {
+           GSg Masc => "чийто" ;
+           GSg Fem  => "чиято" ;
+           GSg Neut => "чието" ;
+           GPl      => "чиито"
+         } ++ num.s ! dgenderSpecies cn.g Indef RSubj ++ cn.s ! nf ;
+    a = RAg (agrP3 gn)
+    } where {
+        gn = gennum cn.g (numnnum num.nn) ;
+    } ;
+
   GenModNP num np cn = DetCN (DetQuant DefArt num) (AdvCN cn (PrepNP (mkPrep "на") np)) ;
 
   AdAdV a adv = {s = a.s ++ adv.s; p = adv.p} ;

@@ -34,8 +34,7 @@ concrete RelativeGer of Relative = CatGer ** open ResGer, Prelude in {
       } ;
 
     FunRP p np rp = {
---      s = \\gn,c => np.s ! False ! c ++ appPrep1 p (rp.s ! gn) ;
-      s = \\gn,c => appPrep1 p (rp.s ! gn) ++ appCase np c ; -- HL 10/26
+      s = \\gn,c => np.s ! False ! c ++ appPrep1 p (rp.s ! gn) ;
       a = RAg (numberAgr np.a) (personAgr np.a)
       } ;
 

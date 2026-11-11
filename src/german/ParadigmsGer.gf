@@ -44,6 +44,7 @@ oper
 
 -- To abstract over case names, we define the following.
 
+
   Case       : Type ;     -- the four cases of nouns, noun phrases etc.
   ObjCase    : Type ;     -- the three cases for objects(!) of verbs and prepositions
 
@@ -240,13 +241,14 @@ mkN : overload {
   -- HL 2025: treat contracting and non-contracting prepositions alike (no difference in PrepType).
 
   mkPrep : overload {
+    mkPrep : Case -> SubjectPrep ;        -- convert case to preposition (including nominative)
+    mkPrep : ObjCase -> Prep ;            -- convert object case to preposition
     mkPrep : Str -> ObjCase -> Prep ;     -- non-contracting preposition, e.g. "durch" + accusative
     mkPrep : ObjCase -> Str -> Prep ;     -- postposition, e.g. genitive + "wegen"
     mkPrep : Str -> ObjCase -> Str -> Prep ; -- circumposition, e.g. "um" + accusative + "herum"
     mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep ; -- prep contracting with defArtSg forms
                                           -- e.g. "auf" "auf den" "auf die" "aufs" + accusative
-                                          -- optionally contracting: ... ("aufs" | "auf das") ...
-    } ;
+    } ;                                   -- optionally contracting: ... "aufs | auf das" + accusative
 
   -- Prepositions with CAdvPron/CIPron forms generated from prep, e.g. auf -> da/wo+r+auf
 
@@ -495,6 +497,8 @@ mkV2 : overload {
 ---                  mk6N hund hund (dativE False hund) (genitS False hund) hunde hunden g} ;
       <_ + ("el"|"er"|"en"),_ + ("el"|"er"|"en"), Masc | Neutr> =>  -- II
         mk6N hund hund hund (genitS (True | False) hund) hunde hunden g ;
+      <_ + "el",_ + "eln", Masc | Neutr> =>                         -- II: Muskel-Muskeln
+        mk6N hund hund hund (genitS (True | False) hund) hunde hunde g ;
       <_,_ + "s", Masc | Neutr> =>                                  -- V 
         mk6N hund hund hund (hund + "s") hunde hunde g ;
       <_,_ + "en", Masc> =>                                         -- VI 
@@ -505,7 +509,10 @@ mkV2 : overload {
         mk6N hund hund hund hund hunde hunde g ;
       <_,_ + ("n" | "s"), Neutr> =>                                 --- not mentioned; Konto-Kontos
         mk6N hund hund hund hund hunde hunde g ;
-      _ => regN hund ** {g = g}
+      <_,_,Fem> =>
+        mk6N hund hund hund hund hunde hunden g ;
+      _ =>
+        mk6N hund hund hund (genitS (True | False) hund) hunde hunden g
     } ;
 
   mk3N : (x1,x2,x3 : Str) -> Gender -> N = \staat,staats,staaten,g ->
@@ -607,69 +614,78 @@ mkV2 : overload {
 
   mkIAdv s = {s = s ; lock_IAdv = <>} ;
 
-  -- Object cases as prepositions
-
-  toPrep : ObjCase -> Prep = \c ->
-      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
-
-  accPrep = toPrep accusative ;
-  datPrep = toPrep dative ;
-  genPrep = toPrep genitive ;
-
-  -- Prepositions with provided CAdvPron and IAdvPron forms, not contracting withe defArtSg:
-
-  mkPrep5 : Str -> ObjCase -> Str -> Str -> Str -> Prep = \p,c,q,daher,woher ->
-    {s = case c of {
-       Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das") daher woher ;
-       Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem") daher woher ;
-       Gen => prepForms p (p ++ "des") (p ++ "der") (p ++ "des") daher woher} ;
-     s2 = q ; c = c ; t = isPrep ; lock_Prep = <>
-    } ;
-
-  prepForms : (x1,_,_,_,_,x6 : Str) -> PrepForm => Str = \p,m,f,n,da,wo ->
-    table {CPl => p ;
-           CSg Masc => m ; CSg Fem => f ; CSg Neutr => n ;
-           CAdvPron => da ; CIPron => wo} ;
-
-  -- Prepositions without CAdvPron and CIPron forms, e.g. *da|wo+außer
+  -- Not all (contracting) prepositions have CAdvPron and CIPron forms, e.g. da+mit, *da+außer
+  -- TODO: Maybe a parameter is needed to block some selections p.s ! CAdvPron and p.s ! CIPron.
 
   mkPrep = overload {
-    mkPrep : Str -> ObjCase -> Prep = \p,c ->             -- non-contracting preposition
-      mkPrep5 p c [] nonExist nonExist ;
-    mkPrep : ObjCase -> Str -> Prep = \c,q ->             -- non-contracting postposition
-      mkPrep5 [] c q nonExist nonExist ;
-    mkPrep : Str -> ObjCase -> Str -> Prep = \p,c,q ->    -- non-contracting circumposition
-      mkPrep5 p c q nonExist nonExist ;
-    mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \p,masc,fem,neutr,c ->
-      {s = prepForms p masc fem neutr nonExist nonExist ; -- preposition contracting with defArtSg
+    mkPrep : Case -> SubjectPrep = \c ->
+      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
+    mkPrep : ObjCase -> Prep = \c ->
+      {s = \\_ => [] ; s2 = [] ; c = c ; t = isCase ; lock_Prep = <>} ;
+    mkPrep : Str -> ObjCase -> Prep = \p,c -> -- non-contracting preposition
+      {s = case c of {
+         Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das") (p ++ "das") (p ++ "was") ;
+         Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem") (p ++ "dem") (p ++ "wem") ;
+         Gen => prepForms p (p ++ "des") (p ++ "der") (p ++ "des") (p ++ "dessen") (p ++ "wessen")
+         } ;
        s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
-    } ;
+    mkPrep : ObjCase -> Str -> Prep = \c,q ->
+      {s = case c of {                        -- (non-contracting) postposition
+         Acc => prepForms [] "den" "die" "das" ("das" ++ q) ("was" ++ q) ;
+         Dat => prepForms [] "dem" "der" "dem" ("dem" ++ q) ("wem" ++ q) ;
+         Gen => prepForms [] "des" "der" "des" ("dessen" ++ q) ("wessen" ++ q)} ;
+       s2 = q ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkPrep : Str -> ObjCase -> Str -> Prep = \p,c,q ->  -- (non-contracting) circumposition
+      {s = table{CAdvPron => p ++ artDef ! GSg Neutr ! Obj c ;
+                 CIPron => p ++ (objcaselist "was" "wem" "wessen") ! c ;
+                 _ => p} ;
+       s2 = q ; c = c ; t = isPrep ; lock_Prep = <>} ;
 
-  -- Prepositions having CAdvPron and CIPron forms, e.g. da|wo+r+aus, da|wo-für, des|wes+wegen
+    mkPrep : Str -> Case -> Prep = \p,c ->  -- where is this needed?
+      {s = case c of {
+        Nom => prepForms p (p ++ "der") (p ++ "die") (p ++ "das") (p ++ "das") (p ++ "was") ;
+        Obj Acc => prepForms p (p ++ "den") (p ++ "die") (p ++ "das") (p ++ "das") (p ++ "was") ;
+        Obj Dat => prepForms p (p ++ "dem") (p ++ "der") (p ++ "dem") (p ++ "dem") (p ++ "wem") ;
+        Obj Gen => prepForms p (p ++ "des") (p ++ "der") (p ++ "des") (p ++ "dessen") (p ++ "wessen")} ;
+       s2 = [] ; c = objCase c ; t = isPrep ; lock_Prep = <>
+      } ;
 
-  mkCPrep = overload {
-    mkCPrep : Str -> ObjCase -> Prep = \p,c ->            -- non-contracting with defArtSg
-      let dawo = pronAdvs p ; -- with CAdvPron/CIPron from preposition, e.g. auf => da/wo+r+auf
-          darauf = dawo.p1 ;
-          worauf = dawo.p2
-      in mkPrep5 p c [] darauf worauf ;
-    mkCPrep : ObjCase -> Str -> Prep = \c,q ->            -- non-contracting postposition
-      let dawo = pronAdvs q ;                             -- e.g. wegen => des/wes+wegen
-          daher = dawo.p1 ;
-          woher = dawo.p2
-      in mkPrep5 [] c q daher woher ;
-    mkCPrep : Str -> ObjCase -> Str -> Prep = \p,c,q ->   -- non-contracting circumposition
-      let dawo = pronAdvs q ; -- with CAdvPron/CIPron from postposition, e.g. von .. her => da/wo+her
-          daher = dawo.p1 ;
-          woher = dawo.p2
-      in mkPrep5 p c q daher woher ;
+    mkPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \p,masc,fem,neutr,c ->
+      mkCPrep p masc fem neutr c ;             -- preposition contracting with defArtSg and
+    } ;                                        -- pronominal adverb/interrogative da/wo+prep
+
+  accPrep = mkPrep accusative ;
+  datPrep = mkPrep dative ;
+  genPrep = mkPrep genitive ;
+
+  von_Prep   = mkPrep "von" "vom" "von der" "vom" dative ;
+  zu_Prep    = mkPrep "zu" "zum" "zur" "zum" dative ;
+  bei_Prep   = mkPrep "bei" "beim" "bei der" "beim" dative ;
+  inDat_Prep = mkPrep "in" "im" "in der" "im" dative ;
+  inAcc_Prep = mkPrep "in" "in den" "in die" "ins" accusative ;
+  anDat_Prep = mkPrep "an" "am" "an der" "am" dative ;
+  anAcc_Prep = mkPrep "an" "an den" "an die" "ans" accusative ;
+  aufAcc_Prep = mkPrep "auf" "auf den" "auf die" "aufs" accusative ;
+
+  mkCPrep = overload { -- with CAdvPron/CIPron forms generated from prep, e.g. auf -> da/wo+r+auf
+    mkCPrep : Str -> ObjCase -> Prep = \p,c -> -- not contracting with DefArtSg
+      {s = case c of {Acc => pflist p (p ++ "den") (p ++ "die") (p ++ "das") ;
+                      Dat => pflist p (p ++ "dem") (p ++ "der") (p ++ "dem") ;
+                      Gen => pflist p (p ++ "des") (p ++ "der") (p ++ "des")} ;
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>
+      } ;
     mkCPrep : Str -> Str -> Str -> Str -> ObjCase -> Prep = \p,masc,fem,neutr,c ->
-      let dawo = pronAdvs p ;  -- with maybe contracted forms, e.g. auf, auf den, auf die, aufs
-          darauf = dawo.p1 ;
-          worauf = dawo.p2
-      in {
-        s = prepForms p masc fem neutr darauf worauf ;
-        s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>
+      {s = pflist p masc fem neutr ;  -- with maybe contracted forms, e.g. auf den, auf die, aufs
+       s2 = [] ; c = c ; t = isPrep ; lock_Prep = <>} ;
+    mkCPrep : Str -> ObjCase -> Str -> Prep = \p,c,q ->
+      {s = let dawo = pronAdvs q ; -- with CAdvPron/CIPron from postposition, e.g. von .. her => da/wo+her
+               daher = dawo.p1 ;
+               woher = dawo.p2
+         in case c of {
+           Acc => prepForms p (p++"den") (p++"die") (p++"das") daher woher ;
+           Dat => prepForms p (p++"dem") (p++"der") (p++"dem") daher woher ;
+           Gen => prepForms p (p++"des") (p++"der") (p++"des") daher woher} ;
+       s2 = q ; c = c ; t = isPrep ; lock_Prep = <>
       } ;
     } ;
 
@@ -681,23 +697,18 @@ mkV2 : overload {
     in
     <darauf, worauf> ;
 
-  von_Prep   = mkCPrep "von" "vom" "von der" "vom" dative ;
-  zu_Prep    = mkCPrep "zu" "zum" "zur" "zum" dative ;
-  bei_Prep   = mkCPrep "bei" "beim" "bei der" "beim" dative ;
-  inDat_Prep = mkCPrep "in" "im" "in der" "im" dative ;
-  inAcc_Prep = mkCPrep "in" "in den" "in die" "ins" accusative ;
-  anDat_Prep = mkCPrep "an" "am" "an der" "am" dative ;
-  anAcc_Prep = mkCPrep "an" "an den" "an die" "ans" accusative ;
-  aufAcc_Prep = mkCPrep "auf" "auf den" "auf die" "aufs" accusative ;
+  pflist : (x1,_,_,x4 : Str) -> PrepForm => Str = \auf,m,f,n ->
+    let dawo = pronAdvs auf ;
+        darauf = dawo.p1 ;
+        worauf = dawo.p2
+    in prepForms auf m f n darauf worauf ;
 
-  -- HL 6/11/26 Problem: For efficiency, prepositions now take object cases.
-  -- But DictVerbsGer has ten verbs with preposition (mkPrep "als" nominative),
-  -- e.g. amtieren_als_V2. (Actually, "als", "wie" take any case.)
-  -- We could add mkPrep : Str -> Case -> SubjectPrep (with added SPrep Nom),
-  -- but would still need new categories
-  --   V2' = Verb ** {c2:SubjectPrep} ; VPSlash' = VP ** {c2:SubjectPrep}
-  -- and new complementation rules
-  --  SlashV2a' : V2' -> VPSlash' ; ComplSlash' : VPSlash' -> NP -> VP ;
+  prepForms : (x1,_,_,_,_,x6 : Str) -> PrepForm => Str = \p,m,f,n,da,wo ->
+    table {CPl => p ;
+           CSg Masc => m ; CSg Fem => f ; CSg Neutr => n ;
+           CAdvPron => da ; CIPron => wo} ;
+
+  -- Verbs
 
   mk6V geben gibt gib gab gaebe gegeben = 
     let
@@ -706,7 +717,13 @@ mkV2 : overload {
       gibst = verbST (init gibt) ;
       gebt  = verbT geb ;
       gabst = verbST gab ;
-      gaben = pluralN gab ;
+      -- Verb past plurals always take -en (or only -n after an existing e).
+      -- The noun plural helper is wrong for stems in -el/-er: fiel -> *fieln,
+      -- war -> *warn.
+      gaben : Str = case gab of {
+        _ + "e" => gab + "n" ;
+        _       => gab + "en"
+        } ;
       gabt  = verbT gab
     in case geben of {
       _ + "n" => MorphoGer.mkV 
@@ -720,7 +737,18 @@ mkV2 : overload {
       fragt   = verbT frag ;
       fragte  = fragt + "e" ;
       gefragt : Str = case frag of {
-        _ + "ier" => fragt ;
+        -- Inseparable prefixes do not take ge- in the past participle.
+        -- Keep this in the default regular paradigm so callers do not have
+        -- to wrap every regular prefixed verb in no_geV.
+        "be"   + _ => fragt ;
+        "emp"  + _ => fragt ;
+        "ent"  + _ => fragt ;
+        "er"   + _ => fragt ;
+        "ge"   + _ => fragt ;
+        "miss" + _ => fragt ;
+        "ver"  + _ => fragt ;
+        "zer"  + _ => fragt ;
+        _ + "ier"  => fragt ;
         _ => "ge" + fragt
         } ;
     in
