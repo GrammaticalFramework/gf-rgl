@@ -1,7 +1,7 @@
 --# -path=.:prelude
 
 concrete LexiconTel of Lexicon = CatTel **
-  open ParadigmsTel, Prelude in {
+  open ParadigmsTel, (M=MorphoTel), Prelude in {
 
 lin
   airplane_N = mkN "విమానం" ;
@@ -132,7 +132,7 @@ lin
   planet_N = mkN "గ్రహం" ;
   plastic_N = mkN "ప్లాస్టిక్" ;
   play_V2 = dirV2 (mkV "ఆడు") ;
-  policeman_N = mkN masculine (mkN "పోలీసు" "పోలీసు") ;
+  policeman_N = mkN M.pN_meku "పోలీసు" ;
   priest_N = mkN masculine (mkN "పూజారి") ;
   probable_AS = mkAS (mkA "సంభావ్యమైన") ;
   queen_N = mkN feminine (mkN "రాణి") ;

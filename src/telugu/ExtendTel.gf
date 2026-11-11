@@ -37,14 +37,14 @@ concrete ExtendTel of Extend =
       } ;
 
     AdvRNP np prep rnp = {
-      s = \\c => rnp.s ! NPC Obl ++ prep.s ++ np.s ! c ;
+      s = \\c => rnp.s ! NPC prep.c ++ prep.s ++ np.s ! c ;
       a = np.a ;
       lock_NP = <>
       } ;
 
-    AdvRVP vp prep rnp = insertAdv (rnp.s ! NPC Obl ++ prep.s) vp ;
+    AdvRVP vp prep rnp = insertAdv (rnp.s ! NPC prep.c ++ prep.s) vp ;
     AdvRAP ap prep rnp = {
-      s = \\g,n,c => rnp.s ! NPC Obl ++ prep.s ++ ap.s ! g ! n ! c
+      s = \\g,n,c => rnp.s ! NPC prep.c ++ prep.s ++ ap.s ! g ! n ! c
       } ;
 
     PositAdVAdj a = {s = a.s ! Masc ! Sg ! Dir} ;

@@ -37,7 +37,7 @@ concrete StructuralTel of Structural = CatTel **
   how8much_IAdv = {s = "ఎంత"} ;
   how_IAdv = {s = "ఎలా"} ;
   it_Pron = {
-    s = table {PC Dir => "అది" ; PC Obl => "దాని" ; PC Acc => "దానిని" ; PObj => "దానిని" ; PPoss => "దాని"} ;
+    s = table {PC Dir => "అది" ; PC Obl => "దాని" ; PC Acc => "దానిని" ; PC Loc => "దానిని" ; PObj => "దానిని" ; PPoss => "దాని"} ;
     a = Ag Neutr Sg P3
     } ;
   or_Conj = {s1 = [] ; s2 = "లేదా" ; n = Sg} ;
@@ -48,7 +48,7 @@ concrete StructuralTel of Structural = CatTel **
   only_Predet = {s = "మాత్రమే"} ;
   please_Voc = {s = "దయచేసి"} ;
   she_Pron = {
-    s = table {PC Dir => "ఆమె" ; PC Obl => "ఆమె" ; PC Acc => "ఆమెను" ; PObj => "ఆమెను" ; PPoss => "ఆమె"} ;
+    s = table {PC Dir => "ఆమె" ; PC Obl => "ఆమె" ; PC Acc => "ఆమెను" ; PC Loc => "ఆమెను" ; PObj => "ఆమెను" ; PPoss => "ఆమె"} ;
     a = Ag Fem Sg P3
     } ;
   that_Quant = {s = table {
@@ -68,7 +68,7 @@ concrete StructuralTel of Structural = CatTel **
   something_NP = {s = \\_ => "ఏదో ఒకటి" ; a = Ag Neutr Sg P3} ;
   somewhere_Adv = P.mkAdv "ఎక్కడో" ;
   through_Prep = P.mkPrep "ద్వారా" ;
-  to_Prep = P.mkPrep "కు" ;
+  to_Prep = P.mkPrep "కి" ;
   too_AdA = P.mkAdA "మరీ" ;
   under_Prep = P.mkPrep "కింద" ;
   want_VV = P.mkVV (P.mkV "కోరు") ;
@@ -77,17 +77,17 @@ concrete StructuralTel of Structural = CatTel **
   when_IAdv = {s = "ఎప్పుడు"} ;
   where_IAdv = {s = "ఎక్కడ"} ;
   which_IQuant = {s = \\_ => "ఏ"} ;
-  whoPl_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"} ; n = Pl} ;
-  whoSg_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"} ; n = Sg} ;
+  whoPl_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"; Loc => "ఎవరిని"} ; n = Pl} ;
+  whoSg_IP = {s = \\c => case c of {Dir => "ఎవరు" ; Obl => "ఎవరి" ; Acc => "ఎవరిని"; Loc => "ఎవరిని"} ; n = Sg} ;
   why_IAdv = {s = "ఎందుకు"} ;
   without_Prep = P.mkPrep "లేకుండా" ;
   when_Subj = {s = "అప్పుడు"} ;
-  with_Prep = {s = "తో"} ;
+  with_Prep = P.mkPrep "తో" ;
   youSg_Pron = personalPronoun P2 Sg ** {a = Ag Masc Sg P2} ;
   youPl_Pron = personalPronoun P2 Pl ** {a = Ag Masc Pl P2} ;
   youPol_Pron = personalPronoun P2 Pl ** {a = Ag Masc Pl P2} ;
   he_Pron = personalPronoun P3 Sg ** {a = Ag Masc Sg P3} ;
   i_Pron = personalPronoun P1 Sg ** {a = Ag Masc Sg P1} ;
-  in_Prep = ss "లో" ;
+  in_Prep = P.mkPrep "లో" ;
   we_Pron = personalPronoun P1 Pl ** {a = Ag Masc Pl P1} ;
 }

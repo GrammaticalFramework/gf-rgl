@@ -10,19 +10,18 @@ resource ResTel = ParamX ** open Prelude, Predef in {
   flags optimize=all ;
 
   param
-    Case = Dir | Obl | Acc ;
+    Case = Dir | Obl | Acc | Loc ;
     Gender = Masc | Fem | Neutr ;
 
   oper
     Noun = {s : Number => Case => Str ; g : Gender} ;
 
-    mkNoun : (x1,_,_,x4 : Str) -> Gender -> Noun =
-      \sd,so,pd,po,g -> {
-      s = table Number [
-        table Case [sd;so;accusative sd] ;
-        table Case [pd;po;accusative pd]
-        ] ;
-      g = g
+    -- Case suffixes are orthographically bound to the nominal form.  Other
+    -- postpositions (for example "కోసం") remain separate words.
+    applyPostposition : Bool -> Str -> Str -> Str = \bound,noun,post ->
+      case bound of {
+        True => noun ++ SOFT_BIND ++ post ;
+        False => noun ++ post
       } ;
 
     accusative : Str -> Str = \word -> case word of {
@@ -35,40 +34,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
       _ => word + "ను"
       } ;
 
-    wallNoun : Str -> Noun = \word ->
-      case word of {
-        stem + ("ట్టి"|"ట్టు") => mkNoun word word (stem + "ట్లు") (stem + "ట్ల") Neutr;
-        stem + ("టి"|"టు") => mkNoun word word (stem + "ట్లు") (stem + "ట్ల") Neutr ;
-        stem + ("డ్డు"|"డ్డి") => mkNoun word word (stem + "డ్లు") (stem + "డ్ల") Neutr;
-        stem + ("డు "|"డి") => mkNoun word word (stem + "ళ్ళు") (stem + "ట్ల") Neutr ;
-        stem + "ం"  => mkNoun word word (stem + "లు") (stem + "ాల") Neutr ;
-        stem + "ము" => mkNoun word word (stem + "ములు") (stem + "ముల") Neutr ;
-        stem + ("ల్లు"|"న్ను") => mkNoun word word (stem + "ళ్ళు") (stem + "డ్లు") Neutr;
-        stem + "లు" => mkNoun word word (stem + "ళ్ళు")(stem + "ల") Neutr ;
-        stem + "ాయి" => mkNoun word word (word + "లు") (word + "ల") Neutr;
-        stem + ("యి"|"య్యి") => mkNoun word word (stem + "తులు") (stem + "తుల") Neutr;
-        stem + "ుడు" => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
-        stem + "ి"  => mkNoun word word (stem + "ులు") (stem + "ుల") Neutr ;
-        _          => mkNoun word word (word + "లు") (word + "ల") Neutr
-    } ;
-
-    reggNoun : Str -> Gender -> Noun = \s,g ->
-      wallNoun s ** {g = g} ;
-
-    regNoun : Str -> Noun = wallNoun ;
-
-
     Adjective = {s : Gender => Number => Case => Str} ;
-
-    mkAdjective : (x1,x2,x3 : Str) -> Adjective = \smd,sm,f -> {
-      s = \\g,n,c => case <g,n,c> of {
-        <Masc,Sg,Dir> => smd ;
-        <Masc>        => sm ;
-        _             => f
-        }
-      } ;
-
-    regAdjective : Str -> Adjective = \s -> mkAdjective s s s ;
 
   param
     VForm =
@@ -82,7 +48,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
      | VRelativePresent
      | VPastPart
      | VHortative
-     | VNoun Number Case
+     | VNoun
      | VSubj Number Person
      | VAbs
      | VImp Number Polarity
@@ -91,7 +57,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
   oper
     Verb = {s, passive : VForm => Str} ;
 
-    regVerb : Str -> Verb = \verb -> {
+    regVerbOld : Str -> Verb = \verb -> {
       s = conjugation verb ;
       passive = passiveConjugation verb
       } ;
@@ -132,7 +98,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
                          "పోవు" => "పోదాం" ;
                         _ => root + "దాం"
                       } ;
-        VNoun n c => (wallNoun (verbRoot verb + "డం")).s ! n ! c ;
+        VNoun => verbRoot verb + "డం" ;
         VSubj n p => nonPastStem verb + finiteEnding (Ag Masc n p) ;
         VAbs => pastStem verb + "ి" ;
         VImp Sg Pos => case verb of {
@@ -334,7 +300,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
         VRelativePresent => base + "ే" ;
         VPastPart => base + "ిన" ;
         VHortative => base + "దాం" ;
-        VNoun n c => (wallNoun (base + "డం")).s ! n ! c ;
+        VNoun => base + "డం" ;
         VSubj n p => base + "ుత" + finiteEnding (Ag Masc n p) ;
         VAbs => base + "ి" ;
         VImp Sg Pos => base ;
@@ -371,7 +337,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
         VPImp Sg => {fin = "అవు" ;   neg = []} ;
         VPImp Pl => {fin = "అవండి" ;  neg = []}
         } ;
-      passive = verbForms (regVerb "అవు") ;
+      passive = verbForms (regVerbOld "అవు") ;
       obj = {s = [] ; a = defaultAgr} ;
       subj = VIntrans ;
       comp = \\_ => []
@@ -405,12 +371,12 @@ resource ResTel = ParamX ** open Prelude, Predef in {
   oper
     personalPronoun : Person -> Number -> {s : PronCase => Str} = \p,n ->
       case <p,n> of {
-        <P1,Sg> => {s = table {PC Dir => "నేను" ; PC Obl => "నా" ; PC Acc => "నన్ను" ; PObj => "నన్ను" ; PPoss => "నా"}} ;
-        <P1,Pl> => {s = table {PC Dir => "మేము" ; PC Obl => "మా" ; PC Acc => "మమ్మల్ని" ; PObj => "మమ్మల్ని" ; PPoss => "మా"}} ;
-        <P2,Sg> => {s = table {PC Dir => "నువ్వు" ; PC Obl => "నీ" ; PC Acc => "నిన్ను" ; PObj => "నిన్ను" ; PPoss => "నీ"}} ;
-        <P2,Pl> => {s = table {PC Dir => "మీరు" ; PC Obl => "మీ" ; PC Acc => "మిమ్మల్ని" ; PObj => "మిమ్మల్ని" ; PPoss => "మీ"}} ;
-        <P3,Sg> => {s = table {PC Dir => "అతను" ; PC Obl => "అతని" ; PC Acc => "అతన్ని" ; PObj => "అతన్ని" ; PPoss => "అతని"}} ;
-        <P3,Pl> => {s = table {PC Dir => "వారు" ; PC Obl => "వారి" ; PC Acc => "వారిని" ; PObj => "వారిని" ; PPoss => "వారి"}}
+        <P1,Sg> => {s = table {PC Dir => "నేను" ; PC Obl => "నా" ; PC Acc => "నన్ను" ; PC Loc => "నన్ను" ; PObj => "నన్ను" ; PPoss => "నా"}} ;
+        <P1,Pl> => {s = table {PC Dir => "మేము" ; PC Obl => "మా" ; PC Acc => "మమ్మల్ని" ; PC Loc => "మమ్మల్ని" ; PObj => "మమ్మల్ని" ; PPoss => "మా"}} ;
+        <P2,Sg> => {s = table {PC Dir => "నువ్వు" ; PC Obl => "నీ" ; PC Acc => "నిన్ను" ; PC Loc => "నిన్ను" ; PObj => "నిన్ను" ; PPoss => "నీ"}} ;
+        <P2,Pl> => {s = table {PC Dir => "మీరు" ; PC Obl => "మీ" ; PC Acc => "మిమ్మల్ని" ; PC Loc => "మిమ్మల్ని" ; PObj => "మిమ్మల్ని" ; PPoss => "మీ"}} ;
+        <P3,Sg> => {s = table {PC Dir => "అతను" ; PC Obl => "అతని" ; PC Acc => "అతన్ని" ; PC Loc => "అతన్ని" ; PObj => "అతన్ని" ; PPoss => "అతని"}} ;
+        <P3,Pl> => {s = table {PC Dir => "వారు" ; PC Obl => "వారి" ; PC Acc => "వారిని" ; PC Loc => "వారిని" ; PObj => "వారిని" ; PPoss => "వారి"}}
         } ;
       ---- the third is the vocative - is it really this way?
 
@@ -573,5 +539,12 @@ resource ResTel = ParamX ** open Prelude, Predef in {
         np.s ! subj ++ vp.obj.s ++ vp.comp ! np.a ++ vps.neg ++ vps.fin
       } ;
 
+    mkCasePrep : Str -> Case -> {s : Str ; c : Case} = \s,c -> {
+      s = case s of {
+            "-"+s => BIND++s ;
+            _     => s
+          } ;
+      c = c
+    } ;
 
 }

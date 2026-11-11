@@ -12,5 +12,7 @@ concrete RelativeTel of Relative = CatTel ** open ResTel in {
       s = \\t,p => slash.s ! t ! p ++ rp.s ++ slash.c2.s
       } ;
     IdRP = {s = "ఏ"} ;
-    FunRP prep np rp = {s = np.s ! NPC Obl ++ prep.s ++ rp.s} ;
+    FunRP prep np rp = {
+      s = np.s ! NPC prep.c ++ prep.s ++ rp.s
+      } ;
 }
