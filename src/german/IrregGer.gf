@@ -192,7 +192,7 @@ in {
   lin tragen_V =  irregV "tragen" "trägt" "trug" "trüge" "getragen" ;
   lin treffen_V =  irregV "treffen" "trifft" "traf" "träfe" "getroffen" ;
   lin treiben_V =  irregV "treiben" "treibt" "trieb" "triebe" "getrieben" ;
-  lin treten_V = ParadigmsGer.mkV "treten" "tritt" "tritt" "trat" "träte" "getreten" ;
+  lin treten_V = ParadigmsGer.mkV "treten" "tritt" "tritt" "trat" "träte" "getreten" ; ---- trittst
   lin trinken_V =  irregV "trinken" "trinkt" "trank" "tränke" "getrunken" ;
   lin trügen_V =  irregV "trügen" "trügt" "trog" "tröge" "getrogen" ;
 --  lin tun_V =  irregV "tun" "tut" "tat" "täte" "getan" ;
