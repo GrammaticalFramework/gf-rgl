@@ -12,14 +12,14 @@ concrete AdjectiveGer of Adjective = CatGer ** open ResGer, Prelude in {
       } ;
     ComparA a np = {
       s = \\af => a.s ! Compar ! af ;
-      s2 = \\c => conjThan ++ np.s ! False ! c ++ np.ext ++ np.rc ;
+      s2 = \\c => conjThan ++ appCase np c ;
       isPre = True ;
       c = <[],[]> ;
       ext = []
       } ;
     CAdvAP adv ap np = ap ** {
       s = \\af => adv.s ++ ap.s ! af ;
-      s2 = \\c => adv.p ++ np.s ! False ! c ++ np.ext ++ np.rc ;
+      s2 = \\c => adv.p ++ appCase np c ;
       isPre = True -- HL 1/2023
       } ;
     UseComparA a = {

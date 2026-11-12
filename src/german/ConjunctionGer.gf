@@ -31,6 +31,15 @@ concrete ConjunctionGer of Conjunction =
       rc = \\_ => [] ; ext = [] ; adv = [] ; g = ss.g
       } ;
 
+    ConjIAdv conj ss = conjunctDistrSS conj ss ;
+
+    ConjAdV conj ss = conjunctDistrSS conj ss ;
+
+    ConjDet conj daps = {
+      s =  \\_,g,c => conj.s1 ++ daps.s1 ! g ! c ++ conj.s2 ++ daps.s2 ! g ! c ;
+      sp = \\_,g,c => conj.s1 ++ daps.sp1 ! g ! c ++ conj.s2 ++ daps.sp2 ! g ! c ;
+      n = daps.n ; a = daps.a ;
+      isDef = True ; hasDefArt = False} ;
 
 -- These fun's are generated from the list cat's.
 
@@ -77,7 +86,22 @@ concrete ConjunctionGer of Conjunction =
       s2 = xs.s2 ;
       g  = x.g ; --- gender of first CN, used e.g. in articles
       } ; 
-      
+
+    BaseDAP x y = {
+      s1 = x.s ; sp1 = x.sp ;
+      s2 = y.s ; sp2 = y.sp ;
+      n = y.n ;
+      a = y.a } ;
+    ConsDAP x xs = {
+      s1 = \\g,c => x.s ! g ! c ++ comma ++ xs.s1 ! g ! c ;
+      sp1 = \\g,c => x.sp ! g ! c ++ comma ++ xs.sp1 ! g ! c ;
+      s2 = xs.s2 ; sp2 = xs.sp2 ;
+      n = xs.n ; a = xs.a} ;
+
+    BaseAdV = twoSS ;
+    ConsAdV = consrSS comma ;
+    BaseIAdv = twoSS ;
+    ConsIAdv = consrSS comma ;
 
   lincat
     [S] = {s1,s2 : Order => Str} ;
@@ -86,6 +110,9 @@ concrete ConjunctionGer of Conjunction =
     [AP] = {s1,s2 : AForm => Str ; isPre : Bool; c : Str * Str ; ext : Str} ;
     [RS] = {s1,s2 : RelGenNum => Str ; c : Case} ;
     [CN] = {s1,s2 : Adjf => Number => Case => Str ; g : Gender} ;
+    [DAP] = {s1,s2,sp1,sp2 : Gender => Case => Str ; n : Number ; a : Adjf} ;
+    [AdV] = {s1,s2 : Str} ;
+    [IAdv] = {s1,s2 : Str} ;
 
   oper
     bigAP : AP -> AForm => Str = \ap ->                                         -- HL 1/23: not always ok:
