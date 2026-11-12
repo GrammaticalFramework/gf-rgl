@@ -63,7 +63,7 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
 --
     Conj = {s1,s2 : Str ; n : Number} ;
     Subj = {s : Str} ;
-    Prep = {s : Str} ;
+    Prep = {s : Str ; c : Case} ;
 --
 ---- Open lexical classes, e.g. Lexicon
 --

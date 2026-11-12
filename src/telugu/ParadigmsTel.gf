@@ -6,6 +6,7 @@ resource ParadigmsTel = open
   (Predef=Predef),
   Prelude,
   ResTel,
+  MorphoTel,
   CatTel
   in {
 
@@ -20,16 +21,27 @@ oper
 
   mkN = overload {
     mkN : Str -> N
-      = \s -> wallNoun s ** {lock_N = <>} ;
+      = \s -> regNoun s ** {lock_N = <>} ;
+    mkN : NParadigm -> Str -> N
+      = \p,s -> mkNoun p s ** {lock_N = <>} ;
     mkN : Str -> Gender -> N
-      = \s,g -> reggNoun s g ** {lock_N = <>} ;
-    mkN : Str -> Str -> N
-      = \s,p -> mkNoun s s p p Neutr ** {lock_N = <>} ;
+      = \s,g -> regNoun s ** {g = g ; lock_N = <>} ;
     mkN : Gender -> N -> N
       = \g,n -> n ** {g = g} ;
-    mkN : (x1,_,_,x4 : Str) -> Gender -> N
-      = \sd,so,pd,po,g -> mkNoun sd so pd po g ** {lock_N = <>} ;
     } ;
+
+  -- Use the plural table as the surface form when the source grammar asks
+  -- for a semantic singular of an inherently plural noun (e.g. mass milk
+  -- or collective people).
+  mkPluralN : NParadigm -> Str -> N = \p,s ->
+    let n = mkNoun p s in {
+      s = table {
+        Sg => n.s ! Pl ;
+        Pl => n.s ! Pl
+        } ;
+      g = n.g ;
+      lock_N = <>
+      } ;
 
 
 ----3 Proper names and noun phrases
@@ -52,9 +64,9 @@ oper
   mkA = overload {
     ---- For regular adjectives
     mkA : Str -> A
-      = \s -> regAdjective s ** {lock_A = <>} ;
-    mkA : (x1,_,x3 : Str) -> A
-      = \msd,m,f -> mkAdjective msd m f ** {lock_A = <>} ;
+      = \s -> mkAdjective pA_INVARIANT s ** {lock_A = <>} ;
+    mkA : AParadigm -> Str -> A
+      = \p,s -> mkAdjective p s ** {lock_A = <>} ;
     } ;
 
 ----2 Verbs
@@ -66,7 +78,9 @@ oper
 
   mkV = overload {
     mkV : Str -> V
-      = \s -> regVerb s ** {lock_V = <>}
+      = \s -> regVerb s ** {lock_V = <>} ;
+    mkV : VParadigm -> Str -> V
+      = \p,s -> mkVerb p s ** {lock_V = <>}
     } ;
 
 ----3 Two-place verbs
@@ -125,8 +139,14 @@ oper
 ---- build $PP$s in the resource API, just requires a string.
 --
 
-  noPrep : Prep = {s = [] ; lock_Prep = <>} ;
-  mkPrep : Str -> Prep = \s -> {s = s ; lock_Prep = <>} ;
+  noPrep : Prep = lin Prep {
+    s = [] ; c = Dir
+    } ;
+
+  mkPrep = overload {
+    mkPrep : Str -> Prep = \s -> lin Prep (mkCasePrep s Obl) ;
+    mkPrep : Str -> Case -> Prep = \s,c -> lin Prep (mkCasePrep s c)
+  } ;
 
   dirV2 : V -> V2 = mkV2 ;
   prepV2 : V -> Prep -> V2 = \v,p -> mkV2 v p.s ;
@@ -160,7 +180,12 @@ oper
 ---- after the verb. Some can be preverbal (e.g. "always").
 --
 
-  mkAdv : Str -> Adv = \s -> {s = s ; lock_Adv = <>} ;
+  mkAdv = overload {
+    mkAdv : Str -> Adv = \s -> {s = s ; lock_Adv = <>} ;
+    mkAdv : AdvParadigm -> Str -> Adv = \_,s ->
+      {s = s ; lock_Adv = <>}
+    } ;
+
   mkAdV : Str -> AdV = \s -> lin AdV {s = s} ;
 
 ---- Adverbs modifying adjectives and sentences can also be formed.
