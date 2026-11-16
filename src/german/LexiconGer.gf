@@ -263,7 +263,7 @@ lin
   ear_N = mkN "Ohr" "Ohren" neuter ;
   earth_N = mkN "Erde" ;
   egg_N = mkN "Ei" "Eier" neuter ;
-  eye_N = mkN "Auge" "Augen" neuter;
+  eye_N = mkN "Auge" "Auges" "Augen" neuter ;
   fat_N = mkN "Fett" "Fette" neuter ;
   feather_N = mkN "Feder" "Federn" feminine ;
   fingernail_N = reg2N "Fingernagel" "Fingernägel" masculine ;

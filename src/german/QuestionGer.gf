@@ -120,7 +120,7 @@ concrete QuestionGer of Question = CatGer ** open ResGer, Prelude in {
                        rc,ext = []} ;
           vp = case vps.objCtrl of { True => objAgr np vps ; _  => vps }
                ** { c2 = vps.c2 ; objCtrl = vps.objCtrl } ;
-      in insertObjNP np vps.c2 vp ;
+      in insertObjNP vps.c2 np vp ;
 
     AdvQVP vp iadv = insertAdv iadv.s vp ;
     AddAdvQVP qvp iadv = insertAdv iadv.s qvp ;

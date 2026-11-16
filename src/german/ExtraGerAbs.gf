@@ -41,4 +41,14 @@ abstract ExtraGerAbs = Extra [
 
     PossPronRNP : Pron -> Num -> CN -> RNP -> NP ; -- his abandonment of his wife and children
 
+    -- Interrogative noun phrase with relative clause
+    RelIP : IP -> RS -> IP ;  -- wer, der gesund ist , (schläft tagsüber?)
+
+    -- Bekommen-passiv: the indirect object of v3 is the subject of (Pass3V2 v3)
+    Pass3V3 : V3 -> VPSlash ; -- wir bekommen den Beweis erklärt
+
+    -- Extraction of relative and object clause of nominal complement behind infinite verb
+    ComplSlashRc  : VPSlash -> NP -> VP ;  -- vfin ++ (np - rc) ++ vinf ++ np.rc
+    ComplSlashExt : VPSlash -> NP -> VP ;  -- vfin ++ (np - rc,ext) ++ vinf ++ np.ext+np.rc
+    PredVPRc : NP -> VP -> Cl ;            -- (np - rc) ++ vfin ++ ... ++ vinf ++ np.rc
 }
