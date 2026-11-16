@@ -639,6 +639,11 @@ mkV2 : overload {
   -- Prepositions without CAdvPron and CIPron forms, e.g. *da|wo+außer
 
   mkPrep = overload {
+    mkPrep : Str -> Case -> Prep = \p,c ->             -- non-contracting preposition
+      case c of {
+        Obj o => mkPrep5 p o [] nonExist nonExist ;
+	Nom => Predef.error "no preposition with case Nom"
+	} ;
     mkPrep : Str -> ObjCase -> Prep = \p,c ->             -- non-contracting preposition
       mkPrep5 p c [] nonExist nonExist ;
     mkPrep : ObjCase -> Str -> Prep = \c,q ->             -- non-contracting postposition
