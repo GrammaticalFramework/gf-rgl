@@ -23,7 +23,7 @@ lin
     }) ++ a.s ! c ! n;
     isPre = False
   } ;
-  AdvAP ap adv = {s = \\sp,c,n => ap.s ! sp ! c ! n ++ adv.s; isPre = ap.isPre} ;
+  AdvAP ap adv = {s = \\sp,c,n => adv.s ++ ap.s ! sp ! c ! n; isPre = ap.isPre} ;
   SentAP ap sc = {s = \\sp,c,n => ap.s ! sp ! c ! n ++ sc.s; isPre = ap.isPre} ;
   ComparA a np = {
     s = \\sp,c,n => a.s ! c ! n ++ "քան" ++ np.s ! Nom; isPre = False

@@ -10,7 +10,7 @@ concrete NounHye of Noun = CatHye ** open Prelude, ResHye in {
         s = \\sp,c,num => adv.s ++ cn.s ! sp ! c ! num
       } ;
   lin AdvNP np adv = {s = \\c => np.s ! c ++ adv.s; a = np.a} ;
-  lin ExtAdvNP np adv = {s = \\c => np.s ! c ++ "," ++ adv.s; a = np.a} ;
+  lin ExtAdvNP np adv = {s = \\c => np.s ! c ++ SOFT_BIND ++ "," ++ adv.s; a = np.a} ;
   lin PredetNP pred np = {s = \\c => pred.s ++ np.s ! c; a = np.a} ;
   lin UsePN pn = {s = \\_ => pn.s; a = {n = Sg; p = P3}} ;
   lin DefArt = {s = \\_ => []; sp = Def; isArt = True} ;

@@ -5,7 +5,8 @@ concrete SentenceHye of Sentence = CatHye ** open Prelude,ResHye in {
                         Pres => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.imperfective;
                         Past => np.s ! Nom ++ "չ" ++ BIND ++ vp.past ! np.a.p ! np.a.n;
                         Fut => np.s ! Nom ++ negativePresentAux np.a.p np.a.n ++ vp.converb.futCon1;
-                        Cond => np.s ! Nom ++ "չ" ++ BIND ++ vp.conditional ! Non_Past ! np.a.p ! np.a.n
+                        Cond => np.s ! Nom ++ negativePastAux np.a.p np.a.n ++
+                          vp.subjunctive ! Non_Past ! np.a.p ! np.a.n
                       };
                       anterior = table {
                         Pres => table {
@@ -41,7 +42,8 @@ concrete SentenceHye of Sentence = CatHye ** open Prelude,ResHye in {
       Pres => sc.s ++ negativePresentAux P3 Sg ++ vp.converb.imperfective;
       Past => sc.s ++ "չ" ++ BIND ++ vp.past ! P3 ! Sg;
       Fut => sc.s ++ negativePresentAux P3 Sg ++ vp.converb.futCon1;
-      Cond => sc.s ++ "չ" ++ BIND ++ vp.conditional ! Non_Past ! P3 ! Sg
+      Cond => sc.s ++ negativePastAux P3 Sg ++
+        vp.subjunctive ! Non_Past ! P3 ! Sg
     };
     anterior=table {
       Pres=>table {Pos=>sc.s++vp.converb.perfective++presentAux P3 Sg;
@@ -73,10 +75,10 @@ concrete SentenceHye of Sentence = CatHye ** open Prelude,ResHye in {
     }
   }} ;
   lin UseQCl temp pol qcl = {s = qcl.s ! temp.t ! temp.a ! pol.p} ;
-  lin UseRCl temp pol rcl = {s = case pol.p of {Pos => rcl.s; Neg => "չ" ++ rcl.s}} ;
+  lin UseRCl temp pol rcl = {s = rcl.s ! temp.t ! temp.a ! pol.p} ;
   lin UseSlash temp pol slash = {s = case pol.p of {Pos => slash.s; Neg => "չ" ++ slash.s}} ;
   lin AdvS adv s = {s = adv.s ++ s.s} ;
-  lin ExtAdvS adv s = {s = adv.s ++ "," ++ s.s} ;
+  lin ExtAdvS adv s = {s = adv.s ++ SOFT_BIND ++ "," ++ s.s} ;
   lin SSubjS s1 subj s2 = {s = s1.s ++ subj.s ++ s2.s} ;
   lin RelS s rs = {s = s.s ++ "," ++ rs.s} ;
   lin ImpVP vp = {s = vp.imperative} ;

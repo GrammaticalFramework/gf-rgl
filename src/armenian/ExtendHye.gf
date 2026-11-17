@@ -5,7 +5,7 @@ concrete ExtendHye of Extend =
     VPS, ListVPS, VPI, ListVPI,
     ListComp, ListImp,
     RNP, RNPList,
-    GenModNP, EmptyRelSlash,
+    GenModNP, GenRP, EmptyRelSlash,
     MkVPS, BaseVPS, ConsVPS, ConjVPS, PredVPS, SQuestVPS, QuestVPS, RelVPS,
     ExistS, ExistNPQS, ExistIPQS,
     MkVPI, BaseVPI, ConsVPI, ConjVPI, ComplVPIVV,
@@ -54,7 +54,8 @@ oper
 
 lin
   GenModNP num np cn = {s=\\c=>np.s!Dat ++ cn.s!Indef!c!num.n;a={n=num.n;p=P3}} ;
-  EmptyRelSlash slash = {s="որը" ++ slash.s} ;
+  GenRP num cn = {s="որի" ++ cn.s!Def!Nom!num.n} ;
+  EmptyRelSlash slash = {s=\\_,_,_=>"որը" ++ slash.s} ;
 
   MkVPS temp pol vp = {s=\\agr=>case temp.a of {
     Anter => case <temp.t,pol.p> of {
@@ -119,11 +120,23 @@ lin
   ComplBareVS vs s = extAddVP (extToVP vs) s.s ;
 
   ReflPron = refl ;
-  ReflPoss num cn = {s=\\c=>"իր"++cn.s!Indef!c!num.n} ;
+  ReflPoss num cn = {s=\\c=>"սեփական" ++ case c of {
+    Nom => cn.s!Def!Nom!num.n;
+    _ => cn.s!Indef!c!num.n
+  }} ;
   PredetRNP pred r = {s=\\c=>pred.s++r.s!c} ;
-  AdvRNP np prep r = {s=\\c=>np.s!c++prep.s++r.s!prep.c} ;
-  AdvRVP vp prep r = extAddVP vp (prep.s++r.s!prep.c) ;
-  AdvRAP ap prep r = {s=\\sp,c,n=>ap.s!sp!c!n++prep.s++r.s!prep.c;isPre=ap.isPre} ;
+  AdvRNP np prep r = {s=\\c=>np.s!c ++ case prep.isPre of {
+    True => prep.s++r.s!prep.c;
+    False => r.s!prep.c++prep.s
+  }} ;
+  AdvRVP vp prep r = extPrependVP (case prep.isPre of {
+    True => prep.s++r.s!prep.c;
+    False => r.s!prep.c++prep.s
+  }) vp ;
+  AdvRAP ap prep r = {s=\\sp,c,n=>(case prep.isPre of {
+    True => prep.s++r.s!prep.c;
+    False => r.s!prep.c++prep.s
+  })++ap.s!sp!c!n;isPre=ap.isPre} ;
   PossPronRNP pron num cn r = {s=\\c=>pron.empty++cn.s!Indef!c!num.n++r.s!Dat;a={n=num.n;p=P3}} ;
   Base_rr_RNP x y = {s=\\c=>x.s!c++y.s!c} ;
   Base_nr_RNP x y = {s=\\c=>x.s!c++y.s!c} ;
@@ -139,7 +152,7 @@ lin
   GerundNP vp = {s=\\_=>vp.s;a={n=Sg;p=P3}} ;
   GerundAdv vp = {s=vp.s} ;
   ByVP vp = {s=vp.s} ;
-  ApposNP np app = {s=\\c=>np.s!c++","++app.s!Nom;a=np.a} ;
+  ApposNP np app = {s=\\c=>np.s!c++SOFT_BIND++","++app.s!Nom;a=np.a} ;
   PositAdVAdj a = {s=a.s!Instr!Sg} ;
   UttVPShort vp = {s=vp.s} ;
   ComplSlashPartLast slash np = extAddVP (extToVP slash) (slash.c2.s++np.s!slash.c2.c) ;
@@ -152,7 +165,7 @@ lin
   SubjRelNP = variants {} ;
 
   BaseComp x y = {s1=x.s;s2=y.s} ;
-  ConsComp x xs = {s1=x.s;s2=xs.s1++","++xs.s2} ;
+  ConsComp x xs = {s1=x.s;s2=xs.s1++SOFT_BIND++","++xs.s2} ;
   ConjComp c xs = {s=xs.s1++c.s++xs.s2} ;
   BaseImp x y = {s1=x.s;s2=y.s} ;
   ConsImp x xs = {s1=x.s;s2=\\n=>xs.s1!n++","++xs.s2!n} ;

@@ -9,10 +9,10 @@ concrete ConjunctionHye of Conjunction = CatHye ** open Prelude, ResHye in {
     BaseAdv x y = {s1=x.s;s2=y.s}; ConsAdv x xs = {s1=x.s;s2=xs.s1 ++ "," ++ xs.s2}; ConjAdv c xs = {s=xs.s1 ++ c.s ++ xs.s2};
     BaseAdV x y = {s1=x.s;s2=y.s}; ConsAdV x xs = {s1=x.s;s2=xs.s1 ++ "," ++ xs.s2}; ConjAdV c xs = {s=xs.s1 ++ c.s ++ xs.s2};
     BaseIAdv x y = {s1=x.s;s2=y.s}; ConsIAdv x xs = {s1=x.s;s2=xs.s1 ++ "," ++ xs.s2}; ConjIAdv c xs = {s=xs.s1 ++ c.s ++ xs.s2};
-    BaseNP x y = {s1=x.s ! Nom;s2=y.s ! Nom}; ConsNP x xs = {s1=x.s ! Nom;s2=xs.s1 ++ "," ++ xs.s2};
+    BaseNP x y = {s1=x.s ! Nom;s2=y.s ! Nom}; ConsNP x xs = {s1=x.s ! Nom;s2=xs.s1 ++ SOFT_BIND ++ "," ++ xs.s2};
     ConjNP c xs = {s=\\_ => xs.s1 ++ c.s ++ xs.s2; a={n=Pl;p=P3}};
     BaseAP x y = {s1=x.s ! Indef ! Nom ! Sg;s2=y.s ! Indef ! Nom ! Sg};
-    ConsAP x xs = {s1=x.s ! Indef ! Nom ! Sg;s2=xs.s1 ++ "," ++ xs.s2};
+    ConsAP x xs = {s1=x.s ! Indef ! Nom ! Sg;s2=xs.s1 ++ SOFT_BIND ++ "," ++ xs.s2};
     ConjAP c xs = {s=\\_,_,_ => xs.s1 ++ c.s ++ xs.s2;isPre=True};
     BaseCN x y = {s1=x.s ! Indef ! Nom ! Sg;s2=y.s ! Indef ! Nom ! Sg};
     ConsCN x xs = {s1=x.s ! Indef ! Nom ! Sg;s2=xs.s1 ++ "," ++ xs.s2};

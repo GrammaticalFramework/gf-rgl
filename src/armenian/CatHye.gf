@@ -43,7 +43,7 @@ concrete CatHye of Cat = CommonX ** open Prelude,ResHye in {
   lincat QCl = {s : Tense => Anteriority => Polarity => Str} ;
   lincat QS = {s : Str} ;
   lincat Quant = {s : Number => Str; sp : Species; isArt : Bool} ;
-  lincat RCl = {s : Str} ;
+  lincat RCl = {s : Tense => Anteriority => Polarity => Str} ;
   lincat RP = {s : Str} ;
   lincat RS = {s : Str} ;
   lincat S = {s : Str} ;

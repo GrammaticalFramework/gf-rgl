@@ -92,25 +92,25 @@ concrete VerbHye of Verb = CatHye ** open Prelude, ResHye, ParadigmsHye in {
   lin ComplVS v s = appendVP (toVP v) s.s ;
   lin ComplVQ v qs = appendVP (toVP v) qs.s ;
   lin ComplVA v ap = appendVP (toVP v) (ap.s ! Indef ! Nom ! Sg) ;
-  lin Slash2V3 v np = lin VPSlash ((prependVerb (compl v.c2 np) v) ** {
+  lin Slash2V3 v np = (prependVerb (compl v.c2 np) v) ** {
     c2 = v.c3
-  }) ;
-  lin Slash3V3 v np = lin VPSlash ((prependVerb (compl v.c3 np) v) ** {
+  } ;
+  lin Slash3V3 v np = (prependVerb (compl v.c3 np) v) ** {
     c2 = v.c2
-  }) ;
-  lin SlashV2S v s = lin VPSlash ((appendVerb v s.s) ** {c2=v.c2}) ;
-  lin SlashV2Q v qs = lin VPSlash ((appendVerb v qs.s) ** {c2=v.c2}) ;
-  lin SlashV2A v ap = lin VPSlash ((appendVerb v (ap.s ! Indef ! Nom ! Sg)) ** {
+  } ;
+  lin SlashV2S v s = (appendVerb v s.s) ** {c2=v.c2} ;
+  lin SlashV2Q v qs = (appendVerb v qs.s) ** {c2=v.c2} ;
+  lin SlashV2A v ap = (appendVerb v (ap.s ! Indef ! Nom ! Sg)) ** {
     c2=v.c2
-  }) ;
+  } ;
   lin UseComp comp = prependVP comp.s (toVP copulaVerb) ;
   lin UseCopula = toVP copulaVerb ;
-  lin ExtAdvVP vp adv = appendVP vp ("," ++ adv.s) ;
+  lin ExtAdvVP vp adv = appendVP vp (SOFT_BIND ++ "," ++ adv.s) ;
   lin AdVVP adv vp = prependVP adv.s vp ;
-  lin AdvVPSlash vp adv = lin VPSlash ((appendVerb vp adv.s) ** {c2=vp.c2}) ;
-  lin AdVVPSlash adv vp = lin VPSlash ((prependVerb adv.s vp) ** {c2=vp.c2}) ;
-  lin VPSlashPrep vp prep = lin VPSlash
-    (vp ** {causative=vp.s;passivePart=vp.participle!Resultative;c2=prep}) ;
+  lin AdvVPSlash vp adv = (appendVerb vp adv.s) ** {c2=vp.c2} ;
+  lin AdVVPSlash adv vp = (prependVerb adv.s vp) ** {c2=vp.c2} ;
+  lin VPSlashPrep vp prep =
+    vp ** {causative=vp.s;passivePart=vp.participle!Resultative;c2=prep} ;
   lin CompAP ap = {s = ap.s ! Indef ! Nom ! Sg} ;
   lin CompNP np = {s = np.s ! Nom} ;
   lin CompAdv adv = adv ;

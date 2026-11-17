@@ -7,6 +7,6 @@ lin
   FullName n s = {s=\\_=>n.s++s.s;a={n=Sg;p=P3}} ;
   UseLN n = {s=\\_=>n.s;a={n=Sg;p=P3}} ;
   PlainLN n = {s=\\_=>n.s;a={n=Sg;p=P3}} ;
-  InLN n = {s=n.s++BIND++"-ում"} ;
+  InLN n = {s=n.s++BIND++"ում"} ;
   AdjLN a n = {s=a.s!Indef!Nom!Sg++n.s} ;
 }
