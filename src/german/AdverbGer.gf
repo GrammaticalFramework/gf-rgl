@@ -4,13 +4,13 @@ concrete AdverbGer of Adverb = CatGer ** open ResGer, Prelude in {
     PositAdvAdj a = {s = a.s ! Posit ! APred} ;
 
     ComparAdvAdj cadv a np = {
-      s = cadv.s ++ a.s ! Posit ! APred ++ cadv.p ++ np.s ! False ! Nom ++ bigNP np
+      s = cadv.s ++ a.s ! Posit ! APred ++ cadv.p ++ appCase np Nom
       } ;
     ComparAdvAdjS cadv a s = {
       s = cadv.s ++ a.s ! Posit ! APred ++ cadv.p ++ s.s ! Sub
       } ;
 
-    PrepNP prep np = {s = appPrep prep np} ;
+    PrepNP prep np = {s = appPrepNP True prep np} ; -- use prep+defArtSg -contraction
 
     AdAdv = cc2 ;
 

@@ -15,7 +15,8 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
 	 		"nach mir wurde gesucht" "*mir wurde gesucht" 
 			"des Geldes wegen wird gearbeitet" -}
 
-    PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
+    PredSCVP sc vp = -- sentential and interrogative subject in commata; but (how?):
+      mkClause (sc.s ++ bindComma) (agrP3 Sg) vp ; -- infinitival subject without commata
 
     ImpVP vp =  let vps = useVP vp in {
       s = \\pol,n => 
@@ -33,7 +34,7 @@ concrete SentenceGer of Sentence = CatGer ** open ResGer, Prelude in {
                   _ => AgSgP1 -- default, does not occur
                   } ;
           neg  = negation ! pol ;
-          inf  = vp.inf.inpl.p2 ++ verb.inf ;  -- HL .s/.inpl.p2
+          inf  = vp.inf.inpl.p2 ++ verb.inf ++ vp.inf.extr ! agr ;  -- HL .s/.inpl.p2
           obj  = (vp.nn ! agr).p2 ++ (vp.nn ! agr).p3 ++ (vp.nn ! agr).p4 ++ vp.adj
         in
         verb.fin ++ ps.p2 ++ (vp.nn ! agr).p1 ++ vp.a1 ++ neg ++ obj ++ vp.a2 ++ inf ++ vp.ext

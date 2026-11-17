@@ -66,7 +66,7 @@ concrete CatGer of Cat =
     Pron = {s : NPForm => Str ; a : Agr ; sp : PossForm => Str} ;
     Det = {s,sp : Bool => Gender => Case => Str ; -- True if DefArt is dropped, HL 8/22
            n : Number ; a : Adjf ; isDef, hasDefArt : Bool} ;
-    DAP = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf ; isDef,hasDefArt : Bool} ;
+    DAP = {s,sp : Gender => Case => Str ; n : Number ; a : Adjf} ;
 
     Quant = {
       s : Bool => GenNum => Case => Str ; -- True if leading DefArtSg is dropped
@@ -124,7 +124,7 @@ concrete CatGer of Cat =
     Tense = {s : Str ; t : ResGer.Tense ; m : Mood} ;
 
   linref
-    NP = \np -> np.s ! False ! Nom ++ np.ext ++ np.rc ; -- HL 7/2022 Bool added
+    NP = \np -> appCase np Nom ;
     CN = \cn -> cn.s ! Strong ! Sg ! Nom ++ cn.adv ++ cn.ext ++ cn.rc ! Sg ;
 
     SSlash = \ss -> ss.s ! Main ++ ss.c2.s ! CPl ;
