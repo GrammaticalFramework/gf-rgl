@@ -4,10 +4,10 @@ oper
   mkClause : Str -> Agr -> VP -> ParamX.Tense -> Anteriority -> Polarity -> Str =
     \subj,a,vp,t,ant,pol -> case <ant,t> of {
       <Simul,ParamX.Past> => subj ++ negation pol ++
-               haveAux ! ParamX.Pres ! agrNumber a ! a.p ++ vp.participle ! a ! Nom ;
+               perfectAux vp.vtype ParamX.Pres (agrNumber a) a.p ++ vp.participle ! a ! Nom ;
       <Simul,_> => subj ++ negation pol ++ futureParticle t ++
                vp.indicative ! sqiTense t ! agrNumber a ! a.p ! agrGender a ! Nom ;
-      <Anter,_> => subj ++ negation pol ++ haveAux ! t ! agrNumber a ! a.p ++
+      <Anter,_> => subj ++ negation pol ++ perfectAux vp.vtype t (agrNumber a) a.p ++
                vp.participle ! a ! Nom
     } ;
 

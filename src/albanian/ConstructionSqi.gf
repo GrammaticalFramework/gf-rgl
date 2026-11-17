@@ -24,6 +24,7 @@ lin
   hungry_VP=adjVP (mkA "uritur"); thirsty_VP=adjVP (mkA "etur");
   tired_VP=adjVP (mkA "lodhur"); scared_VP=adjVP (mkA "frikësuar");
   ill_VP=adjVP (mkA "sëmurë"); ready_VP=adjVP (mkA "gatshëm");
+  is_wrong_VP=adjVP (mkA "gabuar");
   has_age_VP c=appendVP (UseV (irregV "kam" "ke" "ka" "kemi" "keni" "kanë" "ki" "kini" "pasur")) (c.s++"vjeç");
   n_units_AP c unit a={s=\\sp,k,g,n=>c.s++unit.s!Indef!Nom!Pl++(PositA a).s!sp!k!g!n};
   n_units_of_NP c unit np={s=\\_=>c.s++unit.s!Indef!Nom!Pl++"nga"++np.s!Ablat;a={gn=GPl;p=P3}};

@@ -1,4 +1,4 @@
-concrete IrregSqi of IrregSqiAbs = CatSqi ** open ParadigmsSqi in {
+concrete IrregSqi of IrregSqiAbs = CatSqi ** open ParadigmsSqi, ResSqi in {
 
 lin
   bej_V  = irregV "bëj"  "bën"  "bën"   "bëjmë"  "bëni"  "bëjnë"  "bëj"  "bëni"  "bërë" ;
@@ -9,7 +9,7 @@ lin
   ha_V   = irregV "ha"   "ha"   "ha"    "hamë"   "hani"  "hanë"   "ha"   "hani"  "ngrënë" ;
   hyj_V  = irregV "hyj"  "hyn"  "hyn"   "hyjmë"  "hyni"  "hyjnë"  "hyr"  "hyni"  "hyrë" ;
   iki_V  = irregV "iki"  "ikën" "ikën"  "ikim"  "ikni"  "ikin"   "ik"   "ikni"  "ikur" ;
-  jam_V  = irregV "jam"  "je"   "është" "jemi"  "jeni"  "janë"   "ji"   "jini"  "qenë" ;
+  jam_V  = (irregV "jam"  "je"   "është" "jemi"  "jeni"  "janë"   "ji"   "jini"  "qenë") ** {vtype=VJam} ;
   jap_V  = irregV "jap"  "jep"  "jep"   "japim"  "jepni" "japin"  "jep"  "jepni" "dhënë" ;
   kam_V  = irregV "kam"  "ke"   "ka"    "kemi"  "keni"  "kanë"   "ki"   "kini"  "pasur" ;
   ngre_V = irregV "ngre" "ngre" "ngre"  "ngremë" "ngrini" "ngrenë" "ngre" "ngrini" "ngritur" ;

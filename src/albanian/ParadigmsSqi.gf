@@ -1076,8 +1076,26 @@ oper
 		_ => regA form1
   } ;
 
+  reflOhemV : Str -> V = \form -> case form of {
+    stem + "ohem" =>
+      (irregV form (stem+"ohesh") (stem+"ohet")
+        (stem+"ohemi") (stem+"oheni") (stem+"ohen")
+        (stem+"ohu") (stem+"ohuni") (stem+"uar")) ** {vtype=VRefl};
+    _ => error "reflOhemV expects a verb ending in -ohem"
+  };
+
+  reflEmV : Str -> V = \form -> case form of {
+    stem + "em" =>
+      (irregV form (stem+"esh") (stem+"et")
+        (stem+"emi") (stem+"eni") (stem+"en")
+        (stem+"u") (stem+"uni") (stem+"ur")) ** {vtype=VRefl};
+    _ => error "reflEmV expects a verb ending in -em"
+  };
+
   regV : Str -> V   -- Indicative;Pres;Sg;P1
     = \form -> case form of {
+		_ + "ohem" => reflOhemV form;
+		_ + "em" => reflEmV form;
 		_ + "rap" => mkV013 form;
 		_ + "jep" => mkV036 form;
 		_ + "ket" => mkV078 form;
@@ -1153,7 +1171,6 @@ oper
 		_ + "c" => mkV001 form;
 		_ + "j" => mkV028 form;
 		_ + "q" => mkV001 form;
-		_ + "em" => mkV041 form;
 		_ + "b" => mkV001 form;
 		_ + "f" => mkV001 form;
 		_ + "z" => mkV001 form;

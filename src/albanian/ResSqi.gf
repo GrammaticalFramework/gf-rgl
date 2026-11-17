@@ -114,7 +114,7 @@ oper mkAdj : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Bool -> Adj =
 
 
 param Tense = Pres | Past | Imperfect | Aorist ;
-param VType = VNormal | VRefl | VJ ;
+param VType = VNormal | VRefl | VJ | VJam ;
 oper Verb = {indicative: Tense => Number => Person => Str; imperative: Number => Str; participle: Str; pres_optative: Number => Person => Str; perf_optative: Number => Person => Str; pres_admirative: Number => Person => Str; imperf_admirative: Number => Person => Str; vtype : VType} ; -- 758
 oper mkVerb : (_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_ : Str) -> Verb =
        \f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,f50,f51 ->
@@ -290,6 +290,14 @@ oper futureParticle : ParamX.Tense -> Str = \t -> case t of {
 
 oper subjunctiveForm : VType -> Str -> Str -> Number -> Person -> Str =
   \vt,citation,fallback,n,p -> case vt of {
+    VJam => case <n,p> of {
+      <Sg,P1> => "jem";
+      <Sg,P2> => "jesh";
+      <Sg,P3> => "jetë";
+      <Pl,P1> => "jemi";
+      <Pl,P2> => "jeni";
+      <Pl,P3> => "jenë"
+      };
     VJ => case <n,p> of {
       <Sg,P1> => citation ;
       <Sg,P3> => citation ++ BIND ++ "ë" ;
@@ -316,5 +324,30 @@ oper haveAux : ParamX.Tense => Number => Person => Str = table {
          Pl => table {P1 => "do të kishim"; P2 => "do të kishit"; P3 => "do të kishin"}
        }
      } ;
+
+oper beAux : ParamX.Tense => Number => Person => Str = table {
+       ParamX.Pres => table {
+         Sg => table {P1 => "jam"; P2 => "je"; P3 => "është"};
+         Pl => table {P1 => "jemi"; P2 => "jeni"; P3 => "janë"}
+       } ;
+       ParamX.Past => table {
+         Sg => table {P1 => "isha"; P2 => "ishe"; P3 => "ishte"};
+         Pl => table {P1 => "ishim"; P2 => "ishit"; P3 => "ishin"}
+       } ;
+       ParamX.Fut => table {
+         Sg => table {P1 => "do të jem"; P2 => "do të jesh"; P3 => "do të jetë"};
+         Pl => table {P1 => "do të jemi"; P2 => "do të jeni"; P3 => "do të jenë"}
+       } ;
+       ParamX.Cond => table {
+         Sg => table {P1 => "do të isha"; P2 => "do të ishe"; P3 => "do të ishte"};
+         Pl => table {P1 => "do të ishim"; P2 => "do të ishit"; P3 => "do të ishin"}
+       }
+     } ;
+
+oper perfectAux : VType -> ParamX.Tense -> Number -> Person -> Str =
+  \vt,t,n,p -> case vt of {
+    VRefl => beAux ! t ! n ! p;
+    _ => haveAux ! t ! n ! p
+  };
 
 }
