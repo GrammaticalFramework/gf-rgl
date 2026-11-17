@@ -251,7 +251,7 @@ concrete NounGer of Noun = CatGer ** open ResGer, MorphoGer, Prelude in {
     ApposCN  cn np = cn ** {
       s = \\a,n,c => cn.s ! a ! n ! c ++ appCase np c } ;
 
-    PossNP cn np = let prep = case np.w of {WDefArt => genPrep ; _ => vonDat}
+    PossNP cn np = let prep = case np.w of {WDefArt => genPrep ; _ => lin Prep vonDat}
       in cn ** {
         s = \\a,n,c => cn.s ! a ! n ! c ++ appPrep1 prep (np.s ! False) ++ bigNP np } ;
 
