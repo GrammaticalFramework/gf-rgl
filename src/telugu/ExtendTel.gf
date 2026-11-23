@@ -44,10 +44,11 @@ concrete ExtendTel of Extend =
 
     AdvRVP vp prep rnp = insertAdv (rnp.s ! NPC prep.c ++ prep.s) vp ;
     AdvRAP ap prep rnp = {
-      s = \\g,n,c => rnp.s ! NPC prep.c ++ prep.s ++ ap.s ! g ! n ! c
+      s = rnp.s ! NPC prep.c ++ prep.s ++ ap.s ;
+      pred = \\g,n,c => rnp.s ! NPC prep.c ++ prep.s ++ ap.pred ! g ! n ! c
       } ;
 
-    PositAdVAdj a = {s = a.s ! Masc ! Sg ! Dir} ;
+    PositAdVAdj a = {s = a.s} ;
 
     MkVPS temp pol vp = {
       s = \\agr => let f = vp.s ! pol.p !
@@ -96,7 +97,8 @@ concrete ExtendTel of Extend =
       } ;
 
     CompoundAP noun adjective = {
-      s = \\g,n,c => noun.s ! Sg ! Dir ++ adjective.s ! g ! n ! c
+      pred = \\g,n,c => noun.s ! Sg ! Dir ++ adjective.pred ! g ! n ! c ;
+      s = noun.s ! Sg ! Dir ++ adjective.s
       } ;
 
     GenModNP num np cn = {
@@ -105,19 +107,26 @@ concrete ExtendTel of Extend =
       } ;
 
     PresPartAP vp = {
-      s = \\g,n,_ => let f = vp.s ! Pos ! VPPresPart in
-        vp.obj.s ++ vp.comp ! Ag g n P3 ++ f.neg ++ f.fin
+      s = let f = vp.s ! Pos ! VPPresPart
+          in vp.obj.s ++ vp.comp ! Ag Neutr Sg P3 ++ f.neg ++ f.fin ;
+      pred = \\g,n,_ => let f = vp.s ! Pos ! VPPresPart in
+        vp.obj.s ++ vp.comp ! Ag g n P3 ++ f.neg ++ f.fin ;
       } ;
 
     PastPartAP vps = {
-      s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
+      s = let f = vps.passive ! Pos ! VPPastPart in
+        vps.obj.s ++ vps.comp ! Ag Neutr Sg P3 ++ f.neg ++ f.fin ;
+      pred = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
         vps.obj.s ++ vps.comp ! Ag g n P3 ++ f.neg ++ f.fin
       } ;
 
     PastPartAgentAP vps np = {
-      s = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
+      s = (\\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
         np.s ! NPC Obl ++ "చేత" ++ vps.obj.s ++ vps.comp ! Ag g n P3 ++
-        f.neg ++ f.fin
+        f.neg ++ f.fin) ! Neutr ! Sg ! Dir ;
+      pred = \\g,n,_ => let f = vps.passive ! Pos ! VPPastPart in
+        np.s ! NPC Obl ++ "చేత" ++ vps.obj.s ++ vps.comp ! Ag g n P3 ++
+        f.neg ++ f.fin ;
       } ;
 
     GerundCN vp = {

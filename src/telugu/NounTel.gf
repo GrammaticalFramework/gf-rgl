@@ -44,7 +44,7 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
     NumSg = {s = \\_ => [] ; n = Sg} ;
     NumPl = {s = \\_ => [] ; n = Pl} ;
 
-    OrdSuperl a = {s = "అత్యంత" ++ a.s ! Masc ! Sg ! Dir} ;
+    OrdSuperl a = {s = "అత్యంత" ++ a.pred ! Masc ! Sg ! Dir} ;
 
     NumCard n = n ;
     NumDecimal n = {s = \\_ => n.s ; n = n.n} ;
@@ -55,7 +55,7 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
 
     DetDAP det = {s = det.s ; n = det.n} ;
     AdjDAP dap ap = {
-      s = \\g,c => ap.s ! g ! dap.n ! c ++ dap.s ! g ! c ;
+      s = \\g,c => ap.pred ! g ! dap.n ! c ++ dap.s ! g ! c ;
       n = dap.n
       } ;
 
@@ -73,7 +73,7 @@ concrete NounTel of Noun = CatTel ** open ResTel, Prelude in {
       } ;
 
     AdjCN ap cn = {
-      s = \\n,c => ap.s ! cn.g ! n ! c ++ cn.s ! n ! c ;
+      s = \\n,c => ap.s ++ cn.s ! n ! c ;
       g = cn.g
       } ;
 

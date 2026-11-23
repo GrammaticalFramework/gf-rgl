@@ -38,7 +38,8 @@ concrete DocumentationTel of Documentation = CatTel ** open
     InflectionA, InflectionA2 = \adj -> {
       t = "a" ;
       s1 = heading1 "Adjective" ;
-      s2 = adjectiveTable adj
+      s2 = paragraph adj.s ++
+           adjectiveTable adj
       } ;
 
     InflectionV, InflectionV2, InflectionVV, InflectionVS,
@@ -92,10 +93,10 @@ concrete DocumentationTel of Documentation = CatTel ** open
 
     adjectiveRow : Str -> Adjective -> Gender -> Str = \label,adj,gender ->
       tr (th label ++
-          td (adj.s ! gender ! Sg ! Dir) ++
-          td (adj.s ! gender ! Sg ! Obl) ++
-          td (adj.s ! gender ! Pl ! Dir) ++
-          td (adj.s ! gender ! Pl ! Obl)) ;
+          td (adj.pred ! gender ! Sg ! Dir) ++
+          td (adj.pred ! gender ! Sg ! Obl) ++
+          td (adj.pred ! gender ! Pl ! Dir) ++
+          td (adj.pred ! gender ! Pl ! Obl)) ;
 
     verbTable : Verb -> Str = \verb ->
       heading2 "Basic forms" ++

@@ -64,7 +64,7 @@ oper
   mkA = overload {
     ---- For regular adjectives
     mkA : Str -> A
-      = \s -> mkAdjective pA_INVARIANT s ** {lock_A = <>} ;
+      = \s -> lin A (regAdjective s) ;
     mkA : AParadigm -> Str -> A
       = \p,s -> mkAdjective p s ** {lock_A = <>} ;
     } ;

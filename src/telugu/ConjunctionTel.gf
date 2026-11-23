@@ -16,9 +16,17 @@ concrete ConjunctionTel of Conjunction =
       a = case xs.a of {Ag g _ p => Ag g Pl p}
       } ;
 
-    BaseAP x y = {s1 = x.s ; s2 = y.s} ;
-    ConsAP x xs = {s1 = \\g,n,c => x.s ! g ! n ! c ++ "," ++ xs.s1 ! g ! n ! c ; s2 = xs.s2} ;
-    ConjAP conj xs = {s = \\g,n,c => xs.s1 ! g ! n ! c ++ conj.s2 ++ xs.s2 ! g ! n ! c} ;
+    BaseAP x y = {s1 = x.s; s2 = y.s; pred1 = x.pred ; pred2 = y.pred} ;
+    ConsAP x xs = {
+      s1 = x.s ++ "," ++ xs.s1 ;
+      s2 = xs.s2 ;
+      pred1 = \\g,n,c => x.pred ! g ! n ! c ++ "," ++ xs.pred1 ! g ! n ! c ;
+      pred2 = xs.pred2
+    } ;
+    ConjAP conj xs = {
+      s = xs.s1 ++ conj.s2 ++ xs.s2 ;
+      pred = \\g,n,c => xs.pred1 ! g ! n ! c ++ conj.s2 ++ xs.pred2 ! g ! n ! c
+    } ;
 
     BaseCN x y = {s1 = x.s ; s2 = y.s ; g = y.g} ;
     ConsCN x xs = {s1 = \\n,c => x.s ! n ! c ++ "," ++ xs.s1 ! n ! c ; s2 = xs.s2 ; g = xs.g} ;
@@ -28,6 +36,6 @@ concrete ConjunctionTel of Conjunction =
     [S] = {s1,s2 : Str} ;
     [Adv] = {s1,s2 : Str} ;
     [NP] = {s1,s2 : NPCase => Str ; a : Agr} ;
-    [AP] = {s1,s2 : Gender => Number => Case => Str} ;
+    [AP] = {s1,s2 : Str; pred1,pred2 : Gender => Number => Case => Str} ;
     [CN] = {s1,s2 : Number => Case => Str ; g : Gender} ;
 }

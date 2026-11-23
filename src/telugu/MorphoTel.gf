@@ -35253,7 +35253,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_xEnaxi_swrI => w + "దైనది" ;
       FullAForm_parsarg_adj_vAdEnavAdu => w + "వాడైనవాడు" ;
       FullAForm_parsarg_adj_vArEnavAru => w + "వారైనవారు" ;
-      FullAForm_parsarg_adj_ti => nonExist ;
+      FullAForm_parsarg_adj_ti => w ;
       FullAForm_parsarg_adj_nixi_na => nonExist ;
       FullAForm_parsarg_adj_nixi_swrI => nonExist ;
       FullAForm_parsarg_adj_nivAdu => nonExist ;
@@ -35405,7 +35405,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_xEnaxi_swrI => w + "దైనది" ;
       FullAForm_parsarg_adj_vAdEnavAdu => w + "వాడైనవాడు" ;
       FullAForm_parsarg_adj_vArEnavAru => w + "వారైనవారు" ;
-      FullAForm_parsarg_adj_ti => nonExist ;
+      FullAForm_parsarg_adj_ti => w ;
       FullAForm_parsarg_adj_nixi_na => nonExist ;
       FullAForm_parsarg_adj_nixi_swrI => nonExist ;
       FullAForm_parsarg_adj_nivAdu => nonExist ;
@@ -35443,7 +35443,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_xEnaxi_swrI => w + "దైనది" ;
       FullAForm_parsarg_adj_vAdEnavAdu => w + "వాడైనవాడు" ;
       FullAForm_parsarg_adj_vArEnavAru => w + "వారైనవారు" ;
-      FullAForm_parsarg_adj_ti => nonExist ;
+      FullAForm_parsarg_adj_ti => w ;
       FullAForm_parsarg_adj_nixi_na => nonExist ;
       FullAForm_parsarg_adj_nixi_swrI => nonExist ;
       FullAForm_parsarg_adj_nivAdu => nonExist ;
@@ -35481,7 +35481,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_xEnaxi_swrI => w + "దైనది" ;
       FullAForm_parsarg_adj_vAdEnavAdu => w + "వాడైనవాడు" ;
       FullAForm_parsarg_adj_vArEnavAru => w + "వారైనవారు" ;
-      FullAForm_parsarg_adj_ti => nonExist ;
+      FullAForm_parsarg_adj_ti => w ;
       FullAForm_parsarg_adj_nixi_na => nonExist ;
       FullAForm_parsarg_adj_nixi_swrI => nonExist ;
       FullAForm_parsarg_adj_nivAdu => nonExist ;
@@ -35519,7 +35519,7 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
       FullAForm_parsarg_adj_xEnaxi_swrI => w + "దైనది" ;
       FullAForm_parsarg_adj_vAdEnavAdu => w + "వాడైనవాడు" ;
       FullAForm_parsarg_adj_vArEnavAru => w + "వారైనవారు" ;
-      FullAForm_parsarg_adj_ti => nonExist ;
+      FullAForm_parsarg_adj_ti => w ;
       FullAForm_parsarg_adj_nixi_na => nonExist ;
       FullAForm_parsarg_adj_nixi_swrI => nonExist ;
       FullAForm_parsarg_adj_nivAdu => nonExist ;
@@ -36334,11 +36334,31 @@ resource MorphoTel = ParamX ** open Prelude, Predef, ResTel in {
 
   oper mkAdjective : AParadigm -> Str -> Adjective = \p,w ->
     let an = p w in {
-      s = \\g,n,c => case <g,n,c> of {
-        <Masc,Sg,Dir> => w ;
-        <Masc>        => w ;
-        _             => w
+      s = an ! FullAForm_parsarg_adj_ti ;
+      pred = \\g,n,c => case <g,n> of {
+        <Masc,Sg> => an ! FullAForm_parsarg_adj_vAdu ;
+        <Masc,Pl> => an ! FullAForm_parsarg_adj_vAru ;
+        <Fem,Sg>  => an ! FullAForm_parsarg_adj_xi_na ;
+        <Fem,Pl>  => an ! FullAForm_parsarg_adj_vAru ;
+        <Neutr,Sg>=> an ! FullAForm_parsarg_adj_xi_na ;
+        <Neutr,Pl>=> an ! FullAForm_parsarg_adj_0 ++ BIND ++ "వి"
         }
       } ;
+
+  oper guessAParadigm : Str -> AParadigm = \s -> case s of {
+          _ + "పచ్చ" => pA_pacca ;
+          "ఎర్ర" | "నల్ల" | "నున్న" | "పుల్ల" | "తెల్ల" => pA_weVlla ;
+          "గుండ్ర" | "మంద" | "సన్న" => pA_sanna ;
+          "తీయ" | "తియ్య" => pA_wiyya ;
+          "గట్టి" | "కొద్ది" | "దళసరి" => pA_koVxxi ;
+          _ + "ి" => pA_maMci ;
+          _ + "ీ" => pA_BArI ;
+          _ + "న" => pA_lewa ;
+          _ + "ు" => pA_katuvu ;
+     _ => pA_INVARIANT
+  } ;
+
+  oper regAdjective : Str -> Adjective = \w ->
+    mkAdjective (guessAParadigm w) w ;
 
 }

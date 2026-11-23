@@ -34,7 +34,7 @@ resource ResTel = ParamX ** open Prelude, Predef in {
       _ => word + "ను"
       } ;
 
-    Adjective = {s : Gender => Number => Case => Str} ;
+    Adjective = {pred : Gender => Number => Case => Str; s : Str} ;
 
   param
     VForm =

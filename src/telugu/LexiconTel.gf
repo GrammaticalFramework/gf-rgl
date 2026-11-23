@@ -20,7 +20,7 @@ lin
   big_A = mkA "పెద్ద" ;
   bike_N = mkN "సైకిల్" ;
   bird_N = mkN "పక్షి" ;
-  black_A = mkA "నలుపు" ;
+  black_A = mkA M.pA_weVlla "నల్ల"  ;
   blue_A = mkA "నీలం" ;
   boat_N = mkN "పడవ" ;
   book_N = mkN "పుస్తకం" ;

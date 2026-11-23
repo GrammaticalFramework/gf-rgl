@@ -73,7 +73,7 @@ concrete CatTel of Cat = CommonX ** open ResTel, Prelude in {
     VV = Verb ** {isAux : Bool} ;
     V2V = Verb ** {c2 : Compl} ;
 --
-    A = ResTel.Adjective ; --- {s : Gender => Number => Case => Str} ;
+    A = ResTel.Adjective ;
     A2 = ResTel.Adjective ** {c2 : Str} ;
 --
     N = ResTel.Noun ; --{s : Number => Case => Str ; g : Gender} ;

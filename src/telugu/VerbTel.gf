@@ -9,7 +9,7 @@ concrete VerbTel of Verb = CatTel ** open ResTel, Prelude in {
 
     SlashV2A v ap = predV v ** {
       c2 = v.c2 ;
-      comp = \\agr => case agr of {Ag g n _ => ap.s ! g ! n ! Dir}
+      comp = \\agr => case agr of {Ag g n _ => ap.pred ! g ! n ! Dir}
       } ;
 
     SlashV2S v sent = predV v ** {
@@ -42,7 +42,7 @@ concrete VerbTel of Verb = CatTel ** open ResTel, Prelude in {
     ComplVS v s = predV v ** {comp = \\_ => s.s ++ "అని"} ;
     ComplVQ v q = predV v ** {comp = \\_ => q.s ++ "అని"} ;
     ComplVA v ap = predV v ** {comp = \\agr => case agr of {
-      Ag g n _ => ap.s ! g ! n ! Dir
+      Ag g n _ => ap.pred ! g ! n ! Dir
       }} ;
 
     VPSlashPrep vp prep = vp ** {
@@ -54,7 +54,7 @@ concrete VerbTel of Verb = CatTel ** open ResTel, Prelude in {
     UseComp comp = predCopula ** {comp = comp.s} ;
 
     CompAP ap = {s = \\agr => case agr of {
-      Ag g n _ => ap.s ! g ! n ! Dir
+      Ag g n _ => ap.pred ! g ! n ! Dir
       }} ;
     CompNP np = {s = \\_ => np.s ! NPC Obl} ;
     CompAdv adv = {s = \\_ => adv.s} ;
